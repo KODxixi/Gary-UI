@@ -7,3 +7,7 @@ __pycache__/
 
 _site/
 public-build/
+
+# Distributed adapter entrypoints must remain available in a fresh clone.
+!adapters/react-shadcn/dist/
+!adapters/react-shadcn/dist/**

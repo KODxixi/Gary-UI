@@ -17,7 +17,7 @@
     },
     {
       "path": ".gitignore",
-      "sha256": "59b7a18923b1449874540a2fedbff1a5a9de71a93a290f8045669a17a45068ae"
+      "sha256": "8283d52119820ec73782aa29373a29690a004ed53895a8765f18586509ebc730"
     },
     {
       "path": ".nojekyll",
@@ -3461,7 +3461,7 @@
     },
     {
       "path": "scripts/check_public.py",
-      "sha256": "65ef131b3ea51af820748723bb8762254166f3fc18306dcb6be2d3aa969bd722"
+      "sha256": "b1eca8dd001de64f4db356c29875903c91825fa7441f829883964162e4c38e90"
     },
     {
       "path": "scripts/collect_third_party_licenses.py",
