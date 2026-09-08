@@ -1,0 +1,75 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { chromium } from '../adapters/visual/node_modules/playwright-core/index.mjs';
+
+const out = path.resolve(import.meta.dirname, '../examples/demos/evidence/gradient-waves');
+fs.mkdirSync(out, { recursive: true });
+const browser = await chromium.launch({executablePath:'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', headless:true});
+const results=[];
+for (const width of [1440,768,390]) for (const theme of ['dark','light']) {
+  const context=await browser.newContext({viewport:{width,height:1000}}), page=await context.newPage();
+  const errors=[],external=[];
+  await context.route(/^https?:\/\//,route=>{
+    if(new URL(route.request().url()).hostname==='127.0.0.1') return route.continue();
+    external.push(route.request().url());return route.abort();
+  });
+  page.on('pageerror',e=>errors.push(e.message));
+  const row={width,theme};
+  try {
+    await page.goto('http://127.0.0.1:4173/examples/demos/index.html?theme='+theme);
+    await page.waitForFunction(()=>window.__garyDemoReady);
+    const baseline=await page.locator('.gallery-hero h1').boundingBox();
+    assert.equal(await page.locator('.gary-gradient-waves-canvas').count(),0,'default must remain grid');
+    await page.locator('[data-background-open]').click({timeout:2000});
+    await page.locator('[name="background"]').selectOption('gradient-waves');
+    await page.waitForFunction(()=>window.GaryBackgroundLab?.engine?.state.status==='playing');
+    assert.deepEqual(await page.locator('.gallery-hero h1').boundingBox(),baseline,'approved-baseline-drift');
+    await page.locator('[data-waves-pause]').click();
+    const state=()=>page.evaluate(()=>window.GaryBackgroundLab.engine.state);
+    const paused=await state(); await page.waitForTimeout(180);
+    assert.equal((await state()).time,paused.time,'pause must freeze time');
+    const before=await page.evaluate(()=>GaryBackgroundLab.engine.snapshot());
+    await page.getByRole('slider',{name:'波幅',exact:true}).focus();
+    await page.keyboard.press('End');
+    const after=await page.evaluate(()=>GaryBackgroundLab.engine.snapshot());
+    assert.notDeepEqual(before,after,'slider must change rendered pixels');
+    assert.equal((await state()).options.amplitude,10);
+    assert.equal(await page.locator('[name="opacity"]').inputValue(),String((await state()).options.opacity),'slider thumb and shader value agree');
+    await page.locator('[data-waves-replay]').click();
+    await page.waitForTimeout(180);
+    assert.ok((await state()).time>0,'replay must advance');
+    await page.locator('[data-waves-pause]').click();
+    await page.locator('[data-waves-reset]').click();
+    await page.locator('[data-background-close]').click();
+    await page.screenshot({path:path.join(out,`${width}-${theme}.png`)});
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'no horizontal overflow');
+    await page.locator('[data-background-open]').click();
+    await page.screenshot({path:path.join(out,`${width}-${theme}-controls.png`)});
+    await page.emulateMedia({reducedMotion:'reduce'});
+    await page.waitForTimeout(150); const reduced=await state();
+    await page.mouse.move(60,150); await page.waitForTimeout(150);
+    assert.equal(reduced.time,(await state()).time,'reduced motion freezes time and parallax');
+    assert.equal((await state()).status,'reduced-motion');
+    await page.addStyleTag({content:'html{font-size:200%!important}'});
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'text 200% reflow');
+    assert.equal(await page.locator('[name="speed"]').evaluate(el=>el.getBoundingClientRect().width>180),true,'controls reflow with larger text');
+    await page.screenshot({path:path.join(out,`${width}-${theme}-text200.png`)});
+    const download=page.waitForEvent('download'); await page.locator('[data-waves-export]').click();
+    const file=await download; await file.saveAs(path.join(out,`${width}-${theme}-config.json`));
+    assert.equal(JSON.parse(fs.readFileSync(path.join(out,`${width}-${theme}-config.json`))).engine,'gradient-waves');
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('[data-background-open]').evaluate(el=>document.activeElement===el),true,'Escape restores focus');
+    row.gate=await page.evaluate(()=>({schemaVersion:1,source:'real-browser',targetStack:'html',url:location.href,styleEntry:'tokens/base.css',styleEntryLoaded:[...document.styleSheets].some(s=>s.href?.endsWith('/shared/demo.css')&&[...s.cssRules].some(r=>r.href?.endsWith('/tokens/base.css'))),computedStyle:{property:'--gary-control-height',value:getComputedStyle(document.documentElement).getPropertyValue('--gary-control-height').trim()},sceneCount:document.querySelectorAll('.gary-scene').length,nestedGlassCount:document.querySelectorAll('[data-gary-material="glass"] [data-gary-material="glass"]').length,consoleErrors:0}));
+    assert.equal(row.gate.computedStyle.value,'44px');assert.equal(row.gate.sceneCount,1);assert.equal(row.gate.styleEntryLoaded,true);
+    assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
+    row.pass=true;
+    if(width===1440&&theme==='dark')fs.writeFileSync(path.join(out,'target-browser-report.json'),JSON.stringify(row.gate,null,2));
+  } catch(e){row.pass=false;row.error=e.stack;}
+  row.errors=errors;row.externalRequests=external;results.push(row);await context.close();
+  if(!row.pass)break;
+}
+await browser.close();
+fs.writeFileSync(path.join(out,'qa-report.json'),JSON.stringify({generatedAt:new Date().toISOString(),results},null,2));
+const pass=results.length===6&&results.every(r=>r.pass);
+console.log(JSON.stringify({pass,results}));if(!pass)process.exitCode=1;

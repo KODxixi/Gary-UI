@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-theme="dark" data-gary-theme-source="theme-map.json" data-gary-scene-source="spec/scene-recipes.json"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><title>Gary-UI 固定操作图标</title><script>if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.dataset.embed='true';</script><style>
+    :root{color-scheme:dark;--content-gap:16px;--section-gap:32px;--surface-alpha:0.96;}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background-color:#000000;background-image:radial-gradient(circle,#292d34 1px,transparent 1.2px);background-size:28px 28px;color:#f2f4f7;font-family:"Helvetica Neue",Helvetica,Arial,"Microsoft YaHei UI","Microsoft YaHei",微软雅黑,sans-serif;font-size:16px;line-height:1.68}
+    body{padding:clamp(16px,3vw,40px)}
+    body[data-scene="showcase"]{background-color:#000000}
+    .visual-shell{width:min(1440px,100%);margin:0 auto;display:grid;gap:var(--content-gap)}
+    .visual-header{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:20px 24px;border:1px solid #32363d;border-radius:30px;background:#111214;box-shadow:0 2px 8px #0002}
+    .visual-header h1{margin:0;font-size:clamp(24px,4vw,42px);line-height:1.12;text-wrap:balance}
+    .visual-meta{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .visual-meta span,.motion-controls button{min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border:1px solid #32363d;border-radius:999px;background:transparent;color:inherit;font:inherit}
+    .motion-controls{display:flex;gap:8px;flex-wrap:wrap}
+    .motion-controls button{cursor:pointer}
+    .motion-controls button:focus-visible,summary:focus-visible{outline:3px solid #74a7ff;outline-offset:3px}
+    .gary-visual-stage{min-height:620px;overflow:auto;border:1px solid #32363d;border-radius:30px;background:color-mix(in srgb,#111214 var(--surface-alpha),transparent);padding:clamp(16px,3vw,32px)}
+    .gary-visual-stage>svg,.gary-visual-stage #chart{display:block;width:100%;min-height:560px}
+    .visual-footer{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.45fr);gap:var(--content-gap);align-items:start}
+    .visual-note,.visual-source{border-top:1px solid #32363d;padding-top:16px;color:#b7bdc8}
+    .visual-note strong{color:#f2f4f7}
+    .visual-source summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:#f2f4f7}
+    .visual-source pre{overflow:auto;max-height:360px;padding:16px;border-radius:18px;background:#111214;color:#f2f4f7;font:13px/1.6 Consolas,monospace;white-space:pre-wrap}
+    table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+    th,td{padding:10px 12px;border-bottom:1px solid #32363d;text-align:left}
+    td:not(:first-child),th:not(:first-child){text-align:right}
+    .icon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+    .icon-item{display:grid;place-items:center;gap:12px;min-height:180px;border:1px solid #32363d;border-radius:24px;background:#111214}
+    .icon-item svg{width:48px;height:48px;stroke:#74a7ff;stroke-width:1.75}
+    .icon-item code{font-size:13px;color:#b7bdc8}
+    #infographic-target{width:100%;height:620px;min-height:560px}
+    .antv-infographic{display:block;width:100%;height:auto!important;min-height:260px!important;max-height:620px}
+    .infographic-copy{display:grid;margin:18px 0 0;padding:0;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;list-style:none;counter-reset:step}
+    .infographic-copy li{padding:16px;border:1px solid #32363d;border-radius:18px;background:#111214;counter-increment:step}
+    .infographic-copy strong{display:block;margin-bottom:4px;color:#f2f4f7;font-size:15px}
+    .infographic-copy strong::before{content:counter(step,decimal-leading-zero) " · ";color:#f3bd62}
+    .infographic-copy span{color:#b7bdc8;font-size:13px;line-height:1.68}
+    @media(max-width:767px){body{padding:12px}.visual-header{display:grid;padding:18px;border-radius:24px}.visual-meta{justify-content:flex-start}.gary-visual-stage{padding:12px;border-radius:24px;min-height:520px}.gary-visual-stage>svg,.gary-visual-stage #chart,#infographic-target{min-height:480px}.visual-footer{grid-template-columns:1fr}}
+    html[data-embed="true"] body{padding:0;overflow:hidden}
+    html[data-embed="true"] .visual-shell{width:100%;min-height:100vh}
+    html[data-embed="true"] .visual-header,html[data-embed="true"] .visual-footer{display:none}
+    html[data-embed="true"] .gary-visual-stage{min-height:100vh;padding:12px;border:0;border-radius:0;box-shadow:none}
+    html[data-embed="true"] .gary-visual-stage>svg,html[data-embed="true"] .gary-visual-stage #chart{min-height:calc(100vh - 24px)}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.motion-controls{display:none!important}}
+    body[data-motion="paused"] *,body[data-motion="paused"] *::before,body[data-motion="paused"] *::after{animation-play-state:paused!important}
+    @media print{body{padding:0;background:#000000}.motion-controls,.visual-source{display:none}.visual-header,.gary-visual-stage{border-radius:0;box-shadow:none}.gary-visual-stage{overflow:visible}}
+  </style></head>
+<body data-scene="analysis"><main class="visual-shell"><header class="visual-header"><div><h1>Gary-UI 固定操作图标</h1></div><div class="visual-meta"><span>analysis</span><span>lucide</span><span>dark</span></div></header><section class="gary-visual-stage" aria-label="Gary-UI 固定操作图标"><div class="icon-grid"><article class="icon-item"><svg class="lucide lucide-file-text" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="FileText" role="img"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg><code>FileText</code></article><article class="icon-item"><svg class="lucide lucide-chart-no-axes-combined" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="ChartNoAxesCombined" role="img"><path d="M12 16v5"></path><path d="M16 14.639V21"></path><path d="M20 10.656V21"></path><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"></path><path d="M4 18.463V21"></path><path d="M8 14.656V21"></path></svg><code>ChartNoAxesCombined</code></article><article class="icon-item"><svg class="lucide lucide-workflow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="Workflow" role="img"><rect width="8" height="8" x="3" y="3" rx="2"></rect><path d="M7 11v4a2 2 0 0 0 2 2h4"></path><rect width="8" height="8" x="13" y="13" rx="2"></rect></svg><code>Workflow</code></article><article class="icon-item"><svg class="lucide lucide-network" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="Network" role="img"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></svg><code>Network</code></article><article class="icon-item"><svg class="lucide lucide-panel-top-open" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="PanelTopOpen" role="img"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="m15 14-3 3-3-3"></path></svg><code>PanelTopOpen</code></article><article class="icon-item"><svg class="lucide lucide-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="Play" role="img"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg><code>Play</code></article><article class="icon-item"><svg class="lucide lucide-pause" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="Pause" role="img"><rect x="14" y="3" width="5" height="18" rx="1"></rect><rect x="5" y="3" width="5" height="18" rx="1"></rect></svg><code>Pause</code></article><article class="icon-item"><svg class="lucide lucide-rotate-ccw" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="RotateCcw" role="img"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg><code>RotateCcw</code></article><article class="icon-item"><svg class="lucide lucide-download" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="Download" role="img"><path d="M12 15V3"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path></svg><code>Download</code></article><article class="icon-item"><svg class="lucide lucide-accessibility" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="Accessibility" role="img"><circle cx="16" cy="4" r="1"></circle><path d="m18 19 1-7-6 1"></path><path d="m5 8 3-3 5.5 3-2.36 3.5"></path><path d="M4.24 14.5a5 5 0 0 0 6.88 6"></path><path d="M13.76 17.5a5 5 0 0 0-6.88-6"></path></svg><code>Accessibility</code></article></div></section><footer class="visual-footer"><p class="visual-note">来源：<a href="https://lucide.dev/" rel="noreferrer">Lucide 图标集</a> · ISC 许可，名称来自锁定版本</p><details class="visual-source"><summary>查看原生源文件</summary><pre>{
+  &quot;title&quot;: &quot;Gary-UI 固定操作图标&quot;,
+  &quot;icons&quot;: [
+    &quot;FileText&quot;,
+    &quot;ChartNoAxesCombined&quot;,
+    &quot;Workflow&quot;,
+    &quot;Network&quot;,
+    &quot;PanelTopOpen&quot;,
+    &quot;Play&quot;,
+    &quot;Pause&quot;,
+    &quot;RotateCcw&quot;,
+    &quot;Download&quot;,
+    &quot;Accessibility&quot;
+  ]
+}</pre></details></footer></main>
+<script>window.__garyVisualReady=true;</script></body></html>

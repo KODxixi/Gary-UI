@@ -1,0 +1,50 @@
+{
+  "slug": "evidence-bar",
+  "name": "证据条",
+  "category": "evidence",
+  "material": {
+    "default": "SolidPlate",
+    "rules": [
+      "关键结论旁直接显示来源与时间",
+      "适合嵌入玻璃卡，禁止再用玻璃材质"
+    ]
+  },
+  "variants": [
+    {
+      "name": "source-and-time",
+      "selector": ".gary-evidence-bar"
+    },
+    {
+      "name": "with-link",
+      "selector": ".gary-evidence-bar a"
+    }
+  ],
+  "states": [
+    {
+      "name": "verified",
+      "selector": "[data-state=\"verified\"]"
+    },
+    {
+      "name": "stale",
+      "selector": "[data-state=\"stale\"]"
+    },
+    {
+      "name": "missing",
+      "selector": "[data-state=\"missing\"]"
+    }
+  ],
+  "accessibility": {
+    "role": "note",
+    "requirements": [
+      "来源链接文字必须描述目标",
+      "时间使用 time 元素与 datetime",
+      "过期或缺失状态必须有可读文字"
+    ]
+  },
+  "cssClasses": [
+    ".gary-evidence-bar",
+    ".gary-evidence-bar__label",
+    ".gary-evidence-bar__source",
+    ".gary-evidence-bar__meta"
+  ]
+}

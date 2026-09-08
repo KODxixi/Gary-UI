@@ -1,0 +1,77 @@
+{
+  "slug": "scene",
+  "name": "场景背景",
+  "category": "foundations",
+  "customMedia": {
+    "implementation": "patterns/shared/background-lab.js and background-lab.css",
+    "usage": "Explicit local file selection only; no upload or persistence; reload requires reselect",
+    "formats": "PNG/JPEG/WebP/AVIF up to 40 MiB; MP4/WebM/Ogg up to 300 MiB with browser-supported codec; SVG and animated image formats excluded",
+    "lifecycle": "Decode candidate before promotion; failure retains previous valid background; object URLs released on replacement/clear; muted looping video with pause control; reduced motion, offscreen, hidden and print pause playback",
+    "controls": "Fit cover/contain, opacity, choose/replace/clear; shared refraction slider; global default remains dot-grid"
+  },
+  "gradientWaves": {
+    "implementation": "patterns/shared/ambient-waves.js",
+    "source": "Gary-UI original ambient waves (MIT): three Canvas 2D wave sheets with additive harmonic geometry, quadratic curve interpolation, gradient shading and optional deterministic grain",
+    "usage": "Explicit user opt-in for showcase only; never change the default dot grid",
+    "defaultWavePalette": "Background Lab silver preset: amplitude 2, waveScale 1.35, waveRatio 0.6, swell 0, turbulence 50, tilt 1.12, zoom 1, height 10, fogDepth 20, speed 0.1, brightness 1.1, dark opacity 0.47, medium detail, grain enabled at 0.01, mouse interaction disabled with stored parallaxStrength 0.85. Light uses its silver colors and opacity 0.32. Global scene remains dot-grid; direct engine defaults are exposed through GaryGradientWaves.defaults.",
+    "garyRecipe": "Background Lab Gary preset: amplitude 2.6, waveRatio 1, swell 0, turbulence 50, tilt 1.23, zoom 1.4, height 11, dark opacity 0.6, grainIntensity 0.02, no mouse interaction or parallax, medium detail; light opacity 0.32 with the Gary palette",
+    "controls": "horizonColor, waveColor, crestColor; speed, amplitude, waveScale, waveRatio, swell, turbulence, tilt, zoom, height, fogDepth, brightness, opacity, parallaxStrength, grainIntensity; mouseInteraction and grain toggles; low/medium/high detail; pause/play/replay/reset, JSON configuration export and PNG snapshot including configured opacity",
+    "api": "window.GaryGradientWaves exposes mount(host, options), defaults, ranges as [min,max,step] arrays and normalize(patch, base); mount returns state getter, update(patch), pause(), play(), replay(), snapshot() and destroy(); state contains status, time, frames, options, width and height; the host emits gary-waves-status and gary-waves-state",
+    "lifecycle": "No renderer starts until mount. Playback is continuous with a 30 fps cap and no duration limit; render scale is the minimum of devicePixelRatio and the detail cap (low 0.75, medium 1.25, high 2). Hidden, offscreen, disconnected and print states suspend rendering; reduced motion and zero speed render a static complete frame, with no pointer parallax under reduced motion. Resize and return to visibility restore the appropriate frame; destroy removes owned canvas, listeners and observers.",
+    "fallback": "Unavailable Canvas 2D or a rendering failure reports fallback; the shared background controller retains the dot grid and offers explicit retry",
+    "baselineGuard": "No typography, navigation, card geometry or global-default changes"
+  },
+  "flowGrid": {"implementation":"patterns/shared/dot-grid.js", "interaction":"pointer-local dot displacement and brightness, event-driven redraw only", "theme":"one dot field on pure black/white; no line mesh or contour field", "fallback":"CSS dots only when Canvas is unavailable; never render both", "reducedMotion":"static complete dot field"},
+  "material": {
+    "default": "One local interactive dot grid over a pure theme background",
+    "rules": [
+      "每页最多一个 gary-scene",
+      "section 不再叠加全宽遮罩"
+    ]
+  },
+  "variants": [
+    {
+      "name": "gradient-waves",
+      "selector": "[data-gary-background=\"gradient-waves\"]",
+      "usage": "explicit opt-in only"
+    },
+    {
+      "name": "dot-grid",
+      "selector": "[data-gary-scene-engine=\"dot-grid\"]"
+    },
+    {
+      "name": "image",
+      "selector": "--gary-scene-image: url(...) (explicit user customization only)"
+    },
+    {
+      "name": "dot-fallback",
+      "selector": "CSS radial dot pattern when Canvas is unavailable"
+    }
+  ],
+  "states": [
+    {
+      "name": "dark",
+      "selector": "[data-gary-theme=\"dark\"]"
+    },
+    {
+      "name": "light",
+      "selector": "[data-gary-theme=\"light\"]"
+    },
+    {
+      "name": "reduced-motion",
+      "selector": "@media (prefers-reduced-motion: reduce)"
+    }
+  ],
+  "accessibility": {
+    "role": "decorative foundation",
+    "requirements": [
+      "背景图不能承载唯一信息",
+      "内容图像应改用 media-card",
+      "动态背景必须尊重 reduced-motion",
+      "默认深色为纯黑、浅色为纯白，不自动加入照片或图片"
+    ]
+  },
+  "cssClasses": [
+    ".gary-scene"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "slug": "web-bar",
+  "name": "网页顶栏",
+  "category": "navigation",
+  "behavior": {"top":"transparent embedded appearance","scrollThreshold":80,"floating":"neutral pill","topOffset":8,"height":46,"mobileHeight":54,"mobileTouchTarget":44,"width":{"mobile":"100% - 48px","desktop":"min(100% - 144px, 1140px)","wide":"min(100% - 160px, 1280px)","floatingDesktopMax":980,"floatingWideMax":1180},"runtime":"patterns/shared/web-bar.js","styles":"components/components.css"},
+  "material": {
+    "default": "UltraThin",
+    "rules": [
+      "顶栏浮于唯一场景背景上",
+      "不为顶栏新增页面级遮罩"
+    ]
+  },
+  "variants": [
+    {
+      "name": "brand-nav-actions",
+      "selector": ".gary-web-bar"
+    },
+    {
+      "name": "compact",
+      "selector": "@media (max-width: 900px)"
+    }
+  ],
+  "states": [
+    {
+      "name": "current",
+      "selector": "[aria-current=\"page\"]"
+    },
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    }
+  ],
+  "accessibility": {
+    "role": "navigation landmark",
+    "requirements": [
+      "使用 nav 并提供 aria-label",
+      "当前页链接设置 aria-current=\"page\"",
+      "窄屏折叠到具名菜单，所有主要页面入口仍可达，Escape 关闭并恢复焦点"
+    ]
+  },
+  "cssClasses": [
+    ".gary-web-bar",
+    ".gary-web-bar__brand",
+    ".gary-web-bar__nav",
+    ".gary-web-bar__actions"
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "gary-board-demo",
+  "proposalId": "board-data-round-one",
+  "revision": 1,
+  "baseRevision": 0,
+  "mode": "compare",
+  "understanding": "这不是一张展示型仪表盘，而是一个需要在短时间内促成判断的共同决策面板。首屏必须同时回答现在怎样、证据是什么、接下来做什么。",
+  "assumptions": [
+    "决策者更关心趋势和例外，而不是完整数据库。",
+    "默认在桌面共同评审，但移动端仍需完成筛选与批注。",
+    "背景承担空间气质，所有正文与指标必须由中性玻璃或 SolidPlate 保证可读性。"
+  ],
+  "recommendation": {
+    "optionId": "a-decision-field",
+    "reason": "推荐方向用一条强结论、四个关键指标和行动带形成最短决策路径；它在信息密度、玻璃辨识度与首屏可扫读性之间最均衡。"
+  },
+  "options": [
+    {
+      "optionId": "a-decision-field",
+      "label": "决策场",
+      "kind": "recommended",
+      "rationale": "以结论先行的非对称网格建立视觉锚点，指标和行动围绕同一判断组织。",
+      "risks": [
+        "需要保持每张指标卡只承载一个判断，不能继续堆字段。"
+      ],
+      "expectedBenefit": "决策者可在十秒内理解项目状态，并直接进入下一步动作。",
+      "visualRoute": {
+        "schemaVersion": 1,
+        "skill": "gary-liquidglass-ui",
+        "application": "board",
+        "page": "data-page",
+        "theme": "dark",
+        "material": "regular",
+        "density": "compact"
+      },
+      "artifactPath": "C:/AI/UI/gary-ui/examples/co-design/board-data/rev1/a-decision-field/index.html"
+    },
+    {
+      "optionId": "b-evidence-ledger",
+      "label": "证据台账",
+      "kind": "alternative",
+      "rationale": "采用更稳妥的等宽网格和 Thick 材质，把数据出处与状态解释置于更高优先级。",
+      "risks": [
+        "视觉节奏相对保守，品牌记忆点较弱。"
+      ],
+      "expectedBenefit": "适合需要可追溯证据与正式评审记录的场景。",
+      "visualRoute": {
+        "schemaVersion": 1,
+        "skill": "gary-liquidglass-ui",
+        "application": "board",
+        "page": "data-page",
+        "theme": "dark",
+        "material": "thick",
+        "density": "compact"
+      },
+      "artifactPath": "C:/AI/UI/gary-ui/examples/co-design/board-data/rev1/b-evidence-ledger/index.html"
+    },
+    {
+      "optionId": "c-spatial-signal",
+      "label": "空间信号",
+      "kind": "stretch",
+      "rationale": "用 UltraThin 大面积场与漂浮信号节点突破常规看板，但仍让核心数字遵守同一组件契约。",
+      "risks": [
+        "表现力更强，需要通过真实长文本验证小字号可读性。",
+        "不适合继续增加同屏指标数量。"
+      ],
+      "expectedBenefit": "形成更鲜明的 Gary-UI 空间识别度，并让重点指标更像可探索的决策对象。",
+      "visualRoute": {
+        "schemaVersion": 1,
+        "skill": "gary-liquidglass-ui",
+        "application": "board",
+        "page": "data-page",
+        "theme": "dark",
+        "material": "ultrathin",
+        "density": "spacious"
+      },
+      "artifactPath": "C:/AI/UI/gary-ui/examples/co-design/board-data/rev1/c-spatial-signal/index.html"
+    }
+  ],
+  "lockedDecisions": [],
+  "openDecisions": [
+    {
+      "id": "first-screen-focus",
+      "question": "首屏最需要强化哪一种决策信号？",
+      "options": [
+        "总体健康度",
+        "风险例外",
+        "下一步动作"
+      ]
+    },
+    {
+      "id": "evidence-detail",
+      "question": "证据出处应默认呈现到什么程度？",
+      "options": [
+        "只显示可信度",
+        "显示来源摘要",
+        "完整展开来源"
+      ]
+    }
+  ],
+  "changeSet": [
+    "把永久侧边栏替换为顶部居中的任务导航。",
+    "建立全部、风险、机会三态真实筛选。",
+    "为结论、指标、证据与行动设置稳定 data-gary-node-id。",
+    "提供 Regular、Thick 与 UltraThin 三个可比较材质方向。"
+  ]
+}

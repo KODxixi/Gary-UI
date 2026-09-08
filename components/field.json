@@ -1,0 +1,53 @@
+{
+  "slug": "field",
+  "name": "输入字段",
+  "category": "forms",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "输入槽保持中性玻璃",
+      "密集表单的外层使用 SolidPlate"
+    ]
+  },
+  "variants": [
+    {
+      "name": "wrapper",
+      "selector": ".gary-field > input|textarea|select"
+    },
+    {
+      "name": "direct-control",
+      "selector": "input.gary-field, textarea.gary-field, select.gary-field"
+    },
+    {
+      "name": "multiline",
+      "selector": ".gary-field > textarea"
+    }
+  ],
+  "states": [
+    {
+      "name": "focus",
+      "selector": ":focus-within"
+    },
+    {
+      "name": "error",
+      "selector": "[aria-invalid=\"true\"]"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled=\"true\"]"
+    }
+  ],
+  "accessibility": {
+    "role": "native form control",
+    "requirements": [
+      "每个控件关联可见 label",
+      "帮助或错误文本通过 aria-describedby 关联",
+      "错误态同步 aria-invalid，不能只靠颜色"
+    ]
+  },
+  "cssClasses": [
+    ".gary-field",
+    ".gary-field__label",
+    ".gary-field__message"
+  ]
+}

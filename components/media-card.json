@@ -1,0 +1,45 @@
+{
+  "slug": "media-card",
+  "name": "媒体卡",
+  "category": "media",
+  "material": {
+    "default": "Thick shell with SolidPlate caption",
+    "rules": [
+      "图像面积大于文字",
+      "字幕是独立板，不使用图片底部渐变遮罩"
+    ]
+  },
+  "variants": [
+    {
+      "name": "image",
+      "selector": "figure.gary-media-card"
+    },
+    {
+      "name": "video",
+      "selector": ".gary-media-card video"
+    }
+  ],
+  "states": [
+    {
+      "name": "loading",
+      "selector": "[aria-busy=\"true\"]"
+    },
+    {
+      "name": "error",
+      "selector": "[data-state=\"error\"]"
+    }
+  ],
+  "accessibility": {
+    "role": "figure",
+    "requirements": [
+      "信息图像提供准确 alt，装饰图像使用空 alt",
+      "字幕使用 figcaption",
+      "视频提供字幕轨与键盘可用控件"
+    ]
+  },
+  "cssClasses": [
+    ".gary-media-card",
+    ".gary-media-card__media",
+    ".gary-media-card__caption"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "slug": "button",
+  "name": "按钮",
+  "category": "actions",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "工具操作默认圆形 Lucide 图标按钮，复用完整 Demo 的 44px 点击区和 1.6px 描边；不叠加旧版厚玻璃斜面",
+      "导航、分段筛选和内容选择保留文字；必要的业务主操作可以保留清晰短标签",
+      "每个决策区只保留一个主操作"
+    ]
+  },
+  "variants": [
+    {
+      "name": "icon",
+      "selector": "[data-gary-icon]"
+    },
+    {
+      "name": "primary",
+      "selector": "[data-variant=\"primary\"]"
+    },
+    {
+      "name": "quiet",
+      "selector": "[data-variant=\"quiet\"]"
+    },
+    {
+      "name": "danger",
+      "selector": "[data-variant=\"danger\"]"
+    },
+    {
+      "name": "small|large",
+      "selector": "[data-size]"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "pressed",
+      "selector": ":active"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled|busy",
+      "selector": ":disabled, [aria-disabled=\"true\"], [aria-busy=\"true\"]"
+    }
+  ],
+  "accessibility": {
+    "role": "native button or link",
+    "requirements": [
+      "操作使用 button，导航使用 a",
+      "仅图标按钮必须有 aria-label",
+      "文字、图标及文字与图标组合在点击区域内水平和垂直居中",
+      "异步操作同步 aria-busy 与禁用态"
+    ]
+  },
+  "cssClasses": [
+    ".gary-button",
+    ".gary-icon-button"
+  ]
+}

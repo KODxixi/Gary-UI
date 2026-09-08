@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 2,
+  "systemVersion": "2.0.0",
+  "name": "gary-ui",
+  "skill": "gary-liquidglass-ui",
+  "canonicalPath": "C:\\AI\\UI\\gary-ui",
+  "sessionRoot": "C:\\AI\\prototypes\\gary-ui-sessions",
+  "authorities": {
+    "task": "contracts/task.schema.json",
+    "visualRoute": "contracts/invocation.schema.json",
+    "session": "contracts/session.schema.json",
+    "proposal": "contracts/proposal.schema.json",
+    "feedback": "contracts/feedback.schema.json",
+    "approval": "contracts/approval.schema.json",
+    "evidence": "contracts/evidence.schema.json",
+    "finalUiReport": "contracts/final-ui-report.schema.json",
+    "buildReport": "contracts/build-report.schema.json",
+    "commandResult": "contracts/command-result.schema.json",
+    "visualManifest": "contracts/visual-manifest.schema.json",
+    "sceneRecipes": "spec/scene-recipes.json",
+    "visualCapabilities": "adapters/visual/capabilities.json",
+    "tokens": "tokens/tokens.json",
+    "components": "components/index.json",
+    "design": "DESIGN.md",
+    "collaboration": "docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md",
+    "runtimeProjection": "runtime/manifest.json"
+  },
+  "visualAxes": {
+    "applicationModes": [
+      "board",
+      "scroll-report",
+      "web-ui"
+    ],
+    "pageModes": [
+      "report-cover",
+      "image-page",
+      "data-page",
+      "manual-toc"
+    ],
+    "themes": [
+      "dark",
+      "light"
+    ],
+    "materials": [
+      "ultrathin",
+      "regular",
+      "thick",
+      "solid-plate"
+    ],
+    "densities": [
+      "spacious",
+      "balanced",
+      "compact"
+    ],
+    "defaults": {
+      "theme": "dark",
+      "material": "ultrathin",
+      "density": "balanced",
+      "scene": "dot-grid",
+      "background": null
+    }
+  },
+  "collaboration": {
+    "defaultInteraction": "direct-chat",
+    "defaultRuntime": "none",
+    "directChatDefaultFor": [
+      "create",
+      "integrate",
+      "audit",
+      "govern"
+    ],
+    "requiredFor": [],
+    "sessionActivationTriggers": [
+      "user-explicit-request",
+      "multiple-credible-visual-routes",
+      "element-annotation-or-region-combination",
+      "direct-chat-or-first-preview-not-converged",
+      "high-impact-multi-page-visual-governance"
+    ],
+    "sessionStartRequiresUserConsent": true,
+    "skipRequiresReason": false,
+    "directChat": {
+      "implementWhenDecisionComplete": true,
+      "askOnlyForMaterialAmbiguity": true,
+      "maxHighImpactQuestionsPerRound": 3,
+      "chatInstructionMayAuthorizeImplementation": true
+    },
+    "levels": {
+      "quick": {
+        "optionCount": 1,
+        "kinds": [
+          "recommended"
+        ]
+      },
+      "compare": {
+        "optionCount": 3,
+        "kinds": [
+          "recommended",
+          "alternative",
+          "stretch"
+        ]
+      },
+      "deep-review": {
+        "optionCount": 3,
+        "kinds": [
+          "recommended",
+          "alternative",
+          "stretch"
+        ]
+      }
+    },
+    "watchMaxSeconds": 45,
+    "sessionRequiresAtLeastOneHumanReviewRound": true,
+    "requiresApprovalIdBeforeFinalize": true,
+    "requiresVerificationPassBeforeClose": true,
+    "sameUrlAcrossRevisions": true,
+    "autoWakeAgentAfterTask": false,
+    "serverCallsModel": false,
+    "sessionPreferencesAreGlobal": false,
+    "taskVisualCrossChecks": [
+      "proposal.mode equals session.mode",
+      "visualRoute.application equals task.applicationMode",
+      "visualRoute.page belongs to task.units.pageMode",
+      "annotation.optionId belongs to active proposal",
+      "combination.fromOptionId belongs to active proposal"
+    ]
+  },
+  "integrationBaselineGuard": {
+    "requiredWhenApprovedBaselineExists": true,
+    "requireExactlyOneBaselineSource": true,
+    "baselineSources": {
+      "session": {
+        "requiredReferences": [
+          "sessionId",
+          "approvalId",
+          "verificationId"
+        ]
+      },
+      "direct-chat": {
+        "requiredReferences": [
+          "targetArtifact",
+          "browserReport",
+          "chatAuthorization"
+        ]
+      }
+    },
+    "forbidUnapprovedVisualReset": true,
+    "requiredEvidenceCheck": "approved-baseline-drift"
+  },
+  "finalDeliveryGate": {
+    "operations": [
+      "create",
+      "integrate",
+      "govern"
+    ],
+    "requiredChecks": [
+      "gary-css-loaded",
+      "gary-browser-computed-style"
+    ],
+    "browserReport": {
+      "label": "target-browser-report",
+      "kind": "browser-report",
+      "contract": "contracts/final-ui-report.schema.json"
+    },
+    "reactBuild": {
+      "requiredCheck": "target-production-build",
+      "label": "target-production-build-report",
+      "kind": "build-report",
+      "contract": "contracts/build-report.schema.json"
+    }
+  },
+  "security": {
+    "writerCredentialSensitive": true,
+    "writeCommandsRequireWriterLease": true,
+    "writerCredentialMayAppearInPageOrLog": false,
+    "takeoverRotatesSessionTokenAndWriterCredential": true,
+    "artifactAndEvidenceUrlsContainToken": false,
+    "artifactAndEvidenceUsePathScopedHttpOnlyCookie": true
+  },
+  "surfaces": {
+    "session": {
+      "purpose": "task-level-co-design",
+      "serveArgument": "--surface session"
+    },
+    "portal": {
+      "purpose": "global-design-system-governance",
+      "serveArgument": "--surface portal"
+    },
+    "combinedMode": false
+  },
+  "governance": {
+    "sessionMayWriteCanonical": false,
+    "sessionMayWriteTargetProject": false,
+    "globalPreferencePromotionRequiresSeparateGovernance": true
+  },
+  "runtime": {
+    "canonicalOnlyWritable": true,
+    "consumerRuntimeReadOnly": true,
+    "runtimeMayAuthorSource": false,
+    "syncReceiptPersistence": "none"
+  },
+  "visualToolchain": {
+    "commands": ["doctor", "validate", "render", "export"],
+    "runtimeNetworkPolicy": "offline-no-cdn-no-auto-install-no-auto-update",
+    "preserveNativeSource": true,
+    "lastGoodProtection": true,
+    "fullDragEditor": false,
+    "routing": {
+      "architecture": "archify",
+      "workflow": "archify",
+      "sequence": "archify",
+      "data-flow": "archify",
+      "lifecycle": "archify",
+      "quantitative": "echarts",
+      "outline": "markmap",
+      "infographic": "antv-infographic",
+      "simple-flow": "mermaid",
+      "icons": "lucide"
+    }
+  }
+}

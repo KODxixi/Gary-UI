@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 3,
+  "library": "gary-ui",
+  "canonical": true,
+  "readOrder": [
+    "SKILL.md",
+    "docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md",
+    "contracts/task.schema.json",
+    "spec/scene-recipes.json",
+    "contracts/visual-manifest.schema.json",
+    "adapters/visual/capabilities.json",
+    "contracts/session.schema.json",
+    "contracts/proposal.schema.json",
+    "contracts/feedback.schema.json",
+    "contracts/approval.schema.json",
+    "contracts/evidence.schema.json",
+    "contracts/command-result.schema.json",
+    "DESIGN.md",
+    "contracts/invocation.schema.json",
+    "spec/system.json",
+    "tokens/tokens.json",
+    "components/index.json",
+    "components/<slug>.json"
+  ],
+  "entrypoints": {
+    "css": "tokens/base.css",
+    "invocation": "contracts/invocation.schema.json",
+    "task": "contracts/task.schema.json",
+    "evidence": "contracts/evidence.schema.json",
+    "sessionCommand": "gary-ui.cmd",
+    "sessionUI": "session/index.html",
+    "collaborationWhitepaper": "docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md",
+    "portal": "portal/index.html",
+    "patterns": "patterns/starting-points/index.html",
+    "decisionReportRecipe": "patterns/recipes/decision-report/index.html",
+    "decisionReportRecipeProfile": "patterns/recipes/decision-report/profile.json",
+    "reactShadcn": "adapters/react-shadcn/README.md",
+    "visualManifest": "contracts/visual-manifest.schema.json",
+    "visualAdapter": "adapters/visual/README.md",
+    "visualExamples": "examples/visuals/visuals.json"
+  },
+  "session": {
+    "root": "C:\\AI\\prototypes\\gary-ui-sessions",
+    "activation": "optional-escalation",
+    "defaultFor": [],
+    "availableFor": [
+      "create",
+      "integrate",
+      "audit",
+      "govern"
+    ],
+    "activationTriggers": [
+      "user-explicit-request",
+      "multiple-credible-visual-routes",
+      "element-annotation-or-region-combination",
+      "direct-chat-or-first-preview-not-converged",
+      "high-impact-multi-page-visual-governance"
+    ],
+    "requiresUserConsent": true,
+    "watchMaxSeconds": 45,
+    "requiresApprovalId": true,
+    "requiresVerificationPassBeforeClose": true,
+    "autoWakeAfterAgentTask": false,
+    "writerCapability": {
+      "source": "start-or-resume-output",
+      "writeArgument": "--writer-lease",
+      "environmentVariable": "GARY_UI_WRITER_LEASE",
+      "mayAppearInPageOrLog": false,
+      "takeoverRotatesCapabilities": true
+    }
+  },
+  "surfaces": {
+    "session": "--surface session",
+    "portal": "--surface portal",
+    "combined": false
+  },
+  "protectedResources": {
+    "artifactUrlContainsToken": false,
+    "evidenceUrlContainsToken": false,
+    "authentication": "path-scoped HttpOnly SameSite=Strict cookie"
+  },
+  "runtimeProjection": "runtime/manifest.json",
+  "runtimePolicy": {
+    "canonicalOnlyWritable": true,
+    "consumerRuntimeReadOnly": true,
+    "syncReceiptPersistence": "none"
+  },
+  "generatedOrDerived": [
+    "tokens/base.css",
+    "components/components.css",
+    "session/",
+    "portal/",
+    "patterns/",
+    "adapters/"
+  ],
+  "notRuntimeAuthority": [
+    "portal/",
+    "decisions/",
+    "provenance/",
+    "scripts/tests/"
+  ],
+  "neverAuthoritative": [
+    "Claude Design cloud project",
+    "Trae .design_library copies",
+    "legacy Apple-UI skill",
+    "screenshots",
+    "runtime copies"
+  ]
+}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-theme="dark" data-gary-application-mode="web-ui">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gary-UI Web UI 模式应用骨架">
+  <title>Gary-UI · Web UI 模式</title>
+  <link rel="stylesheet" href="./modes.css">
+  <script src="../shared/icons.js" defer></script>
+</head>
+<body class="gary-ui application-mode webui-mode">
+  <div class="mode-scene" data-gary-scene-engine="dot-grid" aria-hidden="true"></div>
+
+  <header class="mode-webbar gary-web-bar gary-ultrathin" aria-label="产品导航">
+    <a class="mode-brand" href="../../portal/index.html#patterns">
+      <strong>项目资料库</strong>
+      <span>Gary-UI · Web UI 模式</span>
+    </a>
+    <nav class="mode-nav" aria-label="产品区域">
+      <a class="is-active" href="#workspace" aria-current="true">工作区</a>
+      <a href="#results">项目</a>
+      <a href="#inspector">任务</a>
+    </nav>
+    <div class="mode-actions">
+      <span class="mode-status">3 项待处理</span>
+      <a class="mode-quiet-action gary-button gary-regular" href="../../portal/index.html#patterns" data-gary-icon="arrow-left" aria-label="返回母本">返回母本</a>
+    </div>
+  </header>
+
+  <main class="mode-page" id="workspace">
+    <section class="webui-header">
+      <div>
+        <p class="mode-kicker">Workspace · Task first</p>
+        <h1 class="gary-role-title">围绕对象完成任务</h1>
+        <p>Web UI 模式回答“用户要做什么”。搜索、筛选、编辑和反馈优先，背景与玻璃退到应用框架。</p>
+      </div>
+      <span class="mode-chip">本地数据 · 已同步</span>
+    </section>
+
+    <form class="mode-card webui-filter gary-glass gary-regular" role="search" aria-label="筛选项目" data-filter-form>
+      <input class="webui-input" type="search" aria-label="搜索项目" placeholder="搜索项目、地块或负责人">
+      <select class="webui-select" aria-label="项目阶段"><option>全部阶段</option><option>概念</option><option>深化</option></select>
+      <select class="webui-select" aria-label="项目状态"><option>全部状态</option><option>正常</option><option>需关注</option></select>
+      <button class="gary-button gary-regular" type="submit" data-gary-icon="filter" aria-label="应用筛选">应用筛选</button>
+    </form>
+
+    <section class="webui-layout" aria-label="项目工作区">
+      <div class="webui-results" id="results">
+        <article class="mode-card webui-result gary-glass gary-regular">
+          <div>
+            <p class="mode-kicker">Active · 01</p>
+            <h2>城市环综合体</h2>
+            <p>概念深化 · 两项成本假设等待确认。</p>
+            <div class="webui-result-meta"><span>更新于 14:30</span><span>8 份证据</span><span>负责人：林岚</span></div>
+          </div>
+          <div class="webui-result-actions"><span class="mode-chip">需关注</span><button class="gary-button gary-regular" type="button" data-open-item data-gary-icon="arrow-up-right" aria-label="打开">打开</button></div>
+        </article>
+
+        <article class="mode-card webui-result gary-glass gary-regular">
+          <div>
+            <p class="mode-kicker">Active · 02</p>
+            <h2>滨水文化中心</h2>
+            <p>方案比较 · 证据链已经完成复核。</p>
+            <div class="webui-result-meta"><span>更新于 11:05</span><span>12 份证据</span><span>负责人：周屿</span></div>
+          </div>
+          <div class="webui-result-actions"><span class="mode-chip">正常</span><button class="gary-button gary-regular" type="button" data-open-item data-gary-icon="arrow-up-right" aria-label="打开">打开</button></div>
+        </article>
+
+        <article class="mode-card webui-result gary-glass gary-regular">
+          <div>
+            <p class="mode-kicker">Archive · 03</p>
+            <h2>山地社区更新</h2>
+            <p>交付归档 · 等待负责人完成版本说明。</p>
+            <div class="webui-result-meta"><span>昨天</span><span>5 份证据</span><span>负责人：顾真</span></div>
+          </div>
+          <div class="webui-result-actions"><span class="mode-chip">待归档</span><button class="gary-button gary-regular" type="button" data-open-item data-gary-icon="arrow-up-right" aria-label="打开">打开</button></div>
+        </article>
+      </div>
+
+      <aside class="mode-card webui-inspector gary-glass gary-thick" id="inspector" data-tunable-surface>
+        <p class="mode-kicker">Task inspector</p>
+        <h2 data-inspector-title>城市环综合体</h2>
+        <p>记录下一步动作。操作完成后提供明确反馈，不把产品页做成只有展示的海报。</p>
+        <form class="webui-form" data-webui-form>
+          <label>任务类型<select class="webui-select"><option>确认设计边界</option><option>补充证据</option><option>发起复核</option></select></label>
+          <label>负责人<input class="webui-input" value="林岚"></label>
+          <label>行动说明<textarea class="webui-input">两周内完成关键节点样板，并同步成本复核结果。</textarea></label>
+          <div class="webui-form-actions">
+            <button class="gary-button gary-regular" type="reset" data-gary-icon="rotate-ccw" aria-label="重置">重置</button>
+            <button class="gary-button gary-thick" type="submit" data-gary-icon="save" aria-label="保存任务">保存任务</button>
+          </div>
+        </form>
+      </aside>
+    </section>
+  </main>
+
+  <div class="webui-toast gary-solid-plate" data-webui-toast role="status" aria-live="polite">
+    <span aria-hidden="true">✓</span><span>任务已保存到本地工作区</span>
+  </div>
+
+  <script src="../../patterns/shared/dot-grid.js"></script>
+  <script src="./modes.js" defer></script>
+  <script src="../../patterns/shared/material.js"></script>
+  <script src="../../patterns/shared/optical-glass.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{
+  "slug": "segmented-control",
+  "name": "分段控件",
+  "category": "selection",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "共享一个玻璃轨道",
+      "选中项使用 SolidPlate，不嵌套第二层玻璃"
+    ]
+  },
+  "variants": [
+    {
+      "name": "two-or-more",
+      "selector": ".gary-segmented > button"
+    },
+    {
+      "name": "selected",
+      "selector": "[aria-pressed=\"true\"], [aria-selected=\"true\"]"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "pressed",
+      "selector": ":active"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled"
+    }
+  ],
+  "accessibility": {
+    "role": "group, radiogroup, or tablist",
+    "requirements": [
+      "互斥切换优先使用 radiogroup 或 tablist",
+      "按钮式实现同步 aria-pressed",
+      "提供可见标签且支持方向键或标准 Tab 顺序"
+    ]
+  },
+  "cssClasses": [
+    ".gary-segmented"
+  ]
+}

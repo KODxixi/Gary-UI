@@ -1,0 +1,72 @@
+{
+  "slug": "glass-card",
+  "name": "玻璃卡片",
+  "category": "surfaces",
+  "refractionRecipe": {
+    "reference": "Gary-UI original optical glass (MIT)",
+    "implementation": "patterns/shared/optical-glass.js; components/components.css",
+    "selector": "[data-gary-refraction]",
+    "usage": "Shared card recipe used by Demo scenario entries, Portal content cards, component specimens and application/page/starting-point templates; material.js applies semantic card routing and optical-glass.js mounts optics. Dense SolidPlate content and material comparison specimens retain their own roles.",
+    "optics": "A rounded-rectangle signed distance field generates one Canvas RG normal map for one SVG feDisplacementMap on the backdrop; static Gaussian frost; radius follows computed card geometry; neutral low-opacity plate; default public strength 180, adjustable 0-300; foreground content remains unfiltered",
+    "api": "window.GaryGlassSurface exposes mount(element), setStrength(value), strength getter and destroy(element); mounted cards use data-gary-refraction-state=svg with --gary-refraction-filter and an owned hidden .gary-refraction-filter SVG",
+    "fallback": "Non-Chromium or unsupported rendering, glass=fallback and glass=frosted use data-gary-refraction-state=fallback and preserve the existing CSS frosted material",
+    "motion": "Static optics follows the real backdrop without independent animation; reduced motion retains the complete static treatment; refractive surfaces suppress card contour fields and edge orbit",
+    "lifecycle": "Automatically mount existing and dynamically inserted matching cards, regenerate the normal map on resize, and release owned filters and state when cards are removed or destroyed; no network dependencies",
+    "baseline": "Preserve approved geometry, typography, source links, keyboard behavior and all other card styles"
+  },
+  "interactionRecipe": {
+    "reference": "https://www.deepseek.com/",
+    "compositionReference": "COSMOS local mirror: calm center, generous separation, light display type, content-led media stages; no copied assets",
+    "implementation": "components/components.css; patterns/shared/web-bar.js",
+    "base": "neutral translucent plate, 12px backdrop blur, Gary 30px radius; dark and light share one recipe",
+    "action": "Only real links/buttons use data-gary-card=action: pointer glow, isolated 2px edge orbit, keyboard focus, pressed feedback",
+    "motion": "one 6s edge orbit per entry; no idle loop; reduced motion removes movement and retains visible focus",
+    "flow": "Do not add card contour fields; preserve the calm card surface and the single default dot-grid scene",
+    "reading": "Dense body, charts and evidence keep stable opaque plates; noninteractive cards never imply whole-card clickability"
+  },
+  "material": {
+    "default": "Thick",
+    "rules": [
+      "只承载高优先级结论与阅读内容",
+      "卡内密集信息切换为 SolidPlate"
+    ]
+  },
+  "variants": [
+    {
+      "name": "static",
+      "selector": ".gary-glass-card"
+    },
+    {
+      "name": "interactive",
+      "selector": "[data-interactive=\"true\"]"
+    },
+    {
+      "name": "custom",
+      "selector": "[data-card-style=\"custom\"]"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": "[data-interactive=\"true\"]:hover"
+    },
+    {
+      "name": "disabled",
+      "selector": "[aria-disabled=\"true\"]"
+    }
+  ],
+  "accessibility": {
+    "role": "group, article, or region as content requires",
+    "requirements": [
+      "可交互整卡必须使用单一明确的链接或按钮",
+      "region 需要可访问名称",
+      "不可只靠悬停呈现关键信息"
+    ]
+  },
+  "cssClasses": [
+    ".gary-glass-card",
+    ".gary-glass-card__eyebrow",
+    ".gary-glass-card__title",
+    ".gary-glass-card__body"
+  ]
+}

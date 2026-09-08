@@ -1,0 +1,15 @@
+{
+  "title": "Gary-UI 固定操作图标",
+  "icons": [
+    "FileText",
+    "ChartNoAxesCombined",
+    "Workflow",
+    "Network",
+    "PanelTopOpen",
+    "Play",
+    "Pause",
+    "RotateCcw",
+    "Download",
+    "Accessibility"
+  ]
+}

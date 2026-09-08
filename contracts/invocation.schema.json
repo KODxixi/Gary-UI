@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gary-ui:contracts:invocation:v1",
+  "title": "Gary-UI Agent Invocation",
+  "description": "一次 Gary-UI 页面生成调用的完整、可验证参数。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "skill",
+    "application",
+    "page",
+    "theme",
+    "material",
+    "density"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "skill": {
+      "type": "string",
+      "const": "gary-liquidglass-ui"
+    },
+    "application": {
+      "type": "string",
+      "enum": [
+        "board",
+        "scroll-report",
+        "web-ui"
+      ]
+    },
+    "page": {
+      "type": "string",
+      "enum": [
+        "report-cover",
+        "image-page",
+        "data-page",
+        "manual-toc"
+      ]
+    },
+    "theme": {
+      "type": "string",
+      "enum": [
+        "dark",
+        "light"
+      ],
+      "default": "dark"
+    },
+    "material": {
+      "type": "string",
+      "enum": [
+        "ultrathin",
+        "regular",
+        "thick",
+        "solid-plate"
+      ],
+      "default": "ultrathin"
+    },
+    "density": {
+      "type": "string",
+      "enum": [
+        "spacious",
+        "balanced",
+        "compact"
+      ],
+      "default": "balanced"
+    }
+  },
+  "examples": [
+    {
+      "schemaVersion": 1,
+      "skill": "gary-liquidglass-ui",
+      "application": "board",
+      "page": "data-page",
+      "theme": "dark",
+      "material": "regular",
+      "density": "compact"
+    },
+    {
+      "schemaVersion": 1,
+      "skill": "gary-liquidglass-ui",
+      "application": "scroll-report",
+      "page": "image-page",
+      "theme": "dark",
+      "material": "thick",
+      "density": "spacious"
+    },
+    {
+      "schemaVersion": 1,
+      "skill": "gary-liquidglass-ui",
+      "application": "web-ui",
+      "page": "manual-toc",
+      "theme": "light",
+      "material": "regular",
+      "density": "balanced"
+    }
+  ],
+  "x-gary-routing": {
+    "startingPoint": "patterns/starting-points/index.html",
+    "previewTemplate": "patterns/starting-points/preview.html?application={application}&page={page}&theme={theme}&material={material}&density={density}",
+    "application": {
+      "board": "patterns/application-modes/board.html",
+      "scroll-report": "patterns/application-modes/scroll-report.html",
+      "web-ui": "patterns/application-modes/web-ui.html"
+    },
+    "page": {
+      "report-cover": "patterns/report-cover.html",
+      "image-page": "patterns/image-page.html",
+      "data-page": "patterns/data-page.html",
+      "manual-toc": "patterns/manual-toc.html"
+    }
+  },
+  "x-gary-projection": {
+    "rootAttributes": {
+      "application": "data-gary-application-mode",
+      "page": "data-gary-page-mode",
+      "theme": "data-gary-theme",
+      "material": "data-gary-material",
+      "density": "data-gary-density"
+    },
+    "materialClasses": {
+      "ultrathin": [
+        "gary-glass",
+        "gary-ultrathin"
+      ],
+      "regular": [
+        "gary-glass",
+        "gary-regular"
+      ],
+      "thick": [
+        "gary-glass",
+        "gary-thick"
+      ],
+      "solid-plate": [
+        "gary-solid-plate"
+      ]
+    }
+  }
+}

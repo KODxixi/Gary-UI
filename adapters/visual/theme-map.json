@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "fontFamily": "Helvetica Neue, Helvetica, Arial, Microsoft YaHei UI, Microsoft YaHei, 微软雅黑, sans-serif",
+  "scenes": {
+    "reading": {"surface": "solid", "surfaceAlpha": 0.98, "archifyPreset": "classic", "motion": "none"},
+    "analysis": {"surface": "solid-with-glass-navigation", "surfaceAlpha": 0.96, "archifyPreset": "signal-flow", "motion": "feedback"},
+    "showcase": {"surface": "controlled-glass", "surfaceAlpha": 0.86, "archifyPreset": "blueprint", "motion": "finite"}
+  },
+  "themes": {
+    "dark": {"background": "#000000", "surface": "#111214", "text": "#f2f4f7", "muted": "#b7bdc8", "accent": "#74a7ff", "border": "#32363d", "grid": "#292d34"},
+    "light": {"background": "#ffffff", "surface": "#f6f2eb", "text": "#221e1b", "muted": "#675f58", "accent": "#245fbd", "border": "#c9c1b8", "grid": "#d8d0c7"}
+  }
+}

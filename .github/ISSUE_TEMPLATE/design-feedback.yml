@@ -1,0 +1,17 @@
+name: 页面与设计反馈
+description: 用具体场景、操作和证据一起深化 Gary-UI
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: 页面、任务与操作
+      description: 页面链接、正在完成的任务、如何复现；新想法也请给具体使用情境。
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 预期与实际
+      description: 说明希望改善什么，附上主题、浏览器、视口宽度与截图（请去除个人或客户数据）。
+    validations:
+      required: true

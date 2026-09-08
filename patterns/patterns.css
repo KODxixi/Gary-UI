@@ -1,0 +1,99 @@
+@import url("../tokens/base.css");
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+html { background: var(--gary-surface-page); }
+body {
+  min-width: 0;
+  color: var(--gary-text-primary);
+  background: transparent;
+  font-family: var(--gary-font-sans);
+}
+.pattern-scene {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-color: var(--gary-surface-page);
+  background-image: radial-gradient(circle, var(--gary-scene-dot-color) 1px, transparent 1.2px);
+  background-size: var(--gary-scene-grid-size) var(--gary-scene-grid-size);
+}
+.pattern-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+.pattern-page {
+  width: min(1240px, calc(100% - 32px));
+  min-height: 100vh;
+  margin: auto;
+  padding: 24px 0 48px;
+}
+.pattern-bar {
+  position: sticky;
+  top: 16px;
+  z-index: 5;
+  min-height: 52px;
+  padding: 8px 10px 8px 18px;
+  border-radius: var(--gary-radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.pattern-bar p { margin: 0; color: var(--gary-text-secondary); font-size: 13px; }
+.pattern-bar strong { display: block; font-size: 15px; }
+.pattern-hero {
+  min-height: 72vh;
+  padding: clamp(32px, 7vw, 88px);
+  display: grid;
+  align-content: end;
+  border-radius: var(--gary-radius-panel);
+  margin-top: 22px;
+}
+.eyebrow { margin: 0 0 10px; color: var(--gary-text-secondary); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+h1 { max-width: 920px; margin: 0; font-size: clamp(42px, 8vw, 104px); line-height: .98; letter-spacing: -.055em; }
+h2 { margin: 0; font-size: clamp(26px, 4vw, 54px); line-height: 1.06; letter-spacing: -.035em; }
+p { line-height: var(--gary-line-height-body); }
+.lede { max-width: 740px; margin: 22px 0 0; color: var(--gary-text-secondary); font-size: clamp(17px, 2vw, 23px); }
+.pattern-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; margin-top: 18px; }
+.pattern-card { padding: 24px; border-radius: var(--gary-radius-card); }
+.span-4 { grid-column: span 4; }
+.span-5 { grid-column: span 5; }
+.span-7 { grid-column: span 7; }
+.span-8 { grid-column: span 8; }
+.span-12 { grid-column: 1 / -1; }
+.metric { margin: 8px 0 0; font-size: clamp(34px, 5vw, 64px); font-weight: 760; line-height: 1; letter-spacing: -.04em; }
+.muted { color: var(--gary-text-secondary); }
+.image-stage {
+  min-height: 62vh;
+  overflow: hidden;
+  display: grid;
+  align-items: end;
+  background:
+    linear-gradient(to top, rgba(0,0,0,.72), transparent 55%),
+    radial-gradient(circle at 68% 30%, rgba(255,255,255,.48), transparent 15%),
+    linear-gradient(145deg, #a6a8a9, #3a3d43 52%, #101115);
+}
+.image-stage .caption { max-width: 680px; padding: clamp(26px, 5vw, 64px); }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 16px 10px; border-bottom: 1px solid var(--gary-border-shadow); text-align: left; }
+.table th { color: var(--gary-text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+.toc { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 18px; margin-top: 18px; }
+.toc-nav, .toc-content { padding: 24px; border-radius: var(--gary-radius-card); }
+.toc-nav a { display: block; padding: 12px 0; color: var(--gary-text-secondary); text-decoration: none; border-bottom: 1px solid var(--gary-border-shadow); }
+.toc-nav a:first-of-type { color: var(--gary-text-primary); }
+.chapter { display: grid; grid-template-columns: 68px 1fr auto; gap: 18px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--gary-border-shadow); }
+.chapter span { color: var(--gary-text-tertiary); font-family: var(--gary-font-mono); }
+.chapter p { margin: 4px 0 0; color: var(--gary-text-secondary); }
+@media (max-width: 760px) {
+  .pattern-page { width: min(100% - 20px, 1240px); padding-top: 10px; }
+  .pattern-bar { top: 8px; }
+  .pattern-hero { min-height: 68vh; padding: 30px 22px; }
+  .span-4, .span-5, .span-7, .span-8 { grid-column: 1 / -1; }
+  .toc { grid-template-columns: 1fr; }
+  .toc-nav { display: flex; gap: 16px; overflow-x: auto; }
+  .toc-nav a { min-width: max-content; }
+  .chapter { grid-template-columns: 44px 1fr; }
+  .chapter .gary-chip { grid-column: 2; width: fit-content; }
+}

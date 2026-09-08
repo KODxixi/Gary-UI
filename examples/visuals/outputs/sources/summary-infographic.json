@@ -1,0 +1,4 @@
+{
+  "title": "从意图到可验证产物",
+  "syntax": "infographic list-row-simple-horizontal-arrow\ndata\n  lists\n    - label 判断内容目的\n      desc 先区分阅读、分析与展示场景\n    - label 选择默认引擎\n      desc 关系图、定量图、提纲与信息图各走确定路线\n    - label 本地生成\n      desc 保留原生源、HTML 与生成清单\n    - label 导出验证\n      desc 检查 SVG、PNG、PDF、断网和减弱动态"
+}

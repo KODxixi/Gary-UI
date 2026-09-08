@@ -1,0 +1,71 @@
+name: Check and publish Gary-UI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gary-ui-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: adapters/visual/package-lock.json
+      - name: Check public source and preview
+        run: |
+          python scripts/check_public.py
+          python -B -m unittest discover -s scripts/tests -p test_preview.py -v
+          python -B -m unittest discover -s scripts/tests -p test_public_export.py -v
+      - name: Install browser test dependencies
+        run: |
+          npm --prefix adapters/visual ci
+          node adapters/visual/node_modules/playwright-core/cli.js install --with-deps chromium
+      - name: Build static site
+        run: python scripts/build_site.py
+      - name: Check actual Pages subpath and complete demos
+        run: |
+          mkdir -p /tmp/gary-ui-site/Gary-UI
+          cp -a _site/. /tmp/gary-ui-site/Gary-UI/
+          python -m http.server 4173 --bind 127.0.0.1 --directory /tmp/gary-ui-site > /tmp/gary-ui-preview.log 2>&1 &
+          GARY_UI_BASE_URL=http://127.0.0.1:4173/Gary-UI/ node scripts/public_smoke.mjs
+      - name: Configure Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - name: Upload site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

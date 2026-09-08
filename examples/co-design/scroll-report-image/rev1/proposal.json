@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "gary-scroll-demo",
+  "proposalId": "scroll-image-round-one",
+  "revision": 1,
+  "baseRevision": 0,
+  "mode": "deep-review",
+  "understanding": "这是一段以图像为第一证据的建筑汇报，不是把报告卡片叠在背景上。页面需要通过滚动逐步改变观看距离，让人物、环形天井与光线共同构成论证。",
+  "assumptions": [
+    "默认建筑图既是背景也是主要证据，不再重复引入第二张场景图。",
+    "正式汇报需要桌面大屏节奏，移动端则按相同章节顺序线性阅读。",
+    "长文本区域使用 Thick 或 SolidPlate，UltraThin 只承载短标签与导航。"
+  ],
+  "recommendation": {
+    "optionId": "a-cinematic-sequence",
+    "reason": "电影式序列以人物尺度开场、以环形空间展开、以光线结论收束，最能利用现有建筑图的构图，也最符合滚动汇报的叙事目标。"
+  },
+  "options": [
+    {
+      "optionId": "a-cinematic-sequence",
+      "label": "电影式序列",
+      "kind": "recommended",
+      "rationale": "用全幅图像、分章节留白和 Thick 说明板建立由远及近的观看节奏。",
+      "risks": [
+        "需要控制每一章节的文字长度，避免遮挡关键画面。"
+      ],
+      "expectedBenefit": "在演示与自主滚动两种场景中都能形成清晰、连续的建筑叙事。",
+      "visualRoute": {
+        "schemaVersion": 1,
+        "skill": "gary-liquidglass-ui",
+        "application": "scroll-report",
+        "page": "image-page",
+        "theme": "dark",
+        "material": "thick",
+        "density": "spacious"
+      },
+      "artifactPath": "C:/AI/UI/gary-ui/examples/co-design/scroll-report-image/rev1/a-cinematic-sequence/index.html"
+    },
+    {
+      "optionId": "b-editorial-evidence",
+      "label": "编辑式证据",
+      "kind": "alternative",
+      "rationale": "以更稳妥的编辑排版和 SolidPlate 正文保障正式汇报的可读性与证据密度。",
+      "risks": [
+        "图像沉浸感弱于电影式方案。"
+      ],
+      "expectedBenefit": "适合需要边讲边记录、文字结论更长的正式评审。",
+      "visualRoute": {
+        "schemaVersion": 1,
+        "skill": "gary-liquidglass-ui",
+        "application": "scroll-report",
+        "page": "image-page",
+        "theme": "dark",
+        "material": "solid-plate",
+        "density": "balanced"
+      },
+      "artifactPath": "C:/AI/UI/gary-ui/examples/co-design/scroll-report-image/rev1/b-editorial-evidence/index.html"
+    },
+    {
+      "optionId": "c-orbital-chapters",
+      "label": "轨道章节",
+      "kind": "stretch",
+      "rationale": "从建筑环形构图提取轨道语言，让章节标记在画面周围形成空间化导航。",
+      "risks": [
+        "空间化标记必须在 390px 回退为线性结构。",
+        "不适合加入更多章节。"
+      ],
+      "expectedBenefit": "把建筑构图转化为界面语法，形成超出常规汇报页的专属体验。",
+      "visualRoute": {
+        "schemaVersion": 1,
+        "skill": "gary-liquidglass-ui",
+        "application": "scroll-report",
+        "page": "image-page",
+        "theme": "dark",
+        "material": "ultrathin",
+        "density": "spacious"
+      },
+      "artifactPath": "C:/AI/UI/gary-ui/examples/co-design/scroll-report-image/rev1/c-orbital-chapters/index.html"
+    }
+  ],
+  "lockedDecisions": [],
+  "openDecisions": [
+    {
+      "id": "narrative-distance",
+      "question": "汇报节奏更接近哪种观看距离？",
+      "options": [
+        "沉浸看图",
+        "图文均衡",
+        "结论优先"
+      ]
+    },
+    {
+      "id": "chapter-count",
+      "question": "首轮应保留多少个主要章节？",
+      "options": [
+        "三个关键章节",
+        "四个完整章节",
+        "五个细分章节"
+      ]
+    },
+    {
+      "id": "caption-depth",
+      "question": "图像说明默认展开到什么程度？",
+      "options": [
+        "一句判断",
+        "判断加证据",
+        "完整论述"
+      ]
+    }
+  ],
+  "changeSet": [
+    "以默认建筑背景建立唯一全局场景。",
+    "增加可键盘操作的顶部章节导航。",
+    "让每段图像说明都具有稳定 data-gary-node-id。",
+    "提供电影式、编辑式和轨道式三种叙事方向。"
+  ]
+}

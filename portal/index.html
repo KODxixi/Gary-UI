@@ -1,0 +1,1026 @@
+<!doctype html>
+<html data-gary-static lang="zh-CN" data-gary-theme="dark" data-theme="dark" data-material="ultrathin" data-viewport="desktop">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Gary Liquid Glass Design System 本地交互式控制台">
+  <link rel="icon" href="data:,">
+  <title>Gary Design System · 控制台</title>
+  <link rel="stylesheet" href="../tokens/base.css">
+  <link rel="stylesheet" href="./app.css">
+  <link rel="stylesheet" href="../patterns/shared/background-lab.css">
+  <script src="../patterns/shared/web-bar.js" defer></script>
+  <script src="../patterns/shared/material.js" defer></script>
+  <script src="../patterns/shared/icons.js" defer></script>
+</head>
+<body>
+  <div class="gary-scene portal-scene" data-gary-background-host data-gary-scene-engine="dot-grid" aria-hidden="true"></div>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+  <div class="portal-shell">
+    <div class="portal-workspace">
+      <header class="portal-topbar harness-topbar" data-scroll-threshold="80">
+        <div class="topbar-leading">
+          <span class="topbar-mark" aria-hidden="true"><i></i><i></i></span>
+          <div>
+            <p class="eyebrow" id="view-kicker">设计系统 / 概览</p>
+            <h1 id="view-title">系统总览</h1>
+          </div>
+        </div>
+
+        <nav class="top-navigation" id="top-navigation" aria-label="设计系统主导航">
+          <button class="top-nav-item is-active" type="button" data-view-target="overview" aria-current="page">总览</button>
+          <details class="top-nav-details" data-view-group="colors typography materials geometry">
+            <summary class="top-nav-item">基础</summary>
+            <div class="top-nav-popover gary-solid-plate" aria-label="基础设计导航">
+              <button type="button" data-view-target="colors">颜色</button>
+              <button type="button" data-view-target="typography">排版</button>
+              <button type="button" data-view-target="materials">材质</button>
+              <button type="button" data-view-target="geometry">动效</button>
+            </div>
+          </details>
+          <button class="top-nav-item" type="button" data-view-target="components">组件</button>
+          <button class="top-nav-item" type="button" data-view-target="patterns">应用模式</button>
+          <button class="top-nav-item" type="button" data-view-target="demos">完整 Demo</button>
+          <button class="top-nav-item" type="button" data-view-target="visuals">制图</button>
+          <button class="top-nav-item" type="button" data-view-target="starting-points">页面模板</button>
+          <button class="top-nav-item top-nav-item--lab" type="button" data-view-target="product-design">设计实验室</button>
+          <button class="top-nav-item top-nav-item--review" type="button" data-view-target="review">
+            定稿 <span class="review-nav-state" aria-hidden="true">6</span>
+          </button>
+        </nav>
+
+        <div class="topbar-actions">
+          <button type="button" class="gary-role-annotation gary-background-nav" data-background-open>Background</button>
+          <button class="theme-toggle gary-button" id="theme-toggle" type="button" aria-pressed="false" data-gary-icon="sun" aria-label="切换为浅色模式">
+                  <span class="theme-icon" aria-hidden="true">☾</span>
+                  <span class="theme-label">深色</span>
+                </button>
+          <button class="topbar-menu-toggle" id="topbar-menu-toggle" type="button" aria-controls="top-navigation" aria-expanded="false" data-gary-icon="menu" aria-label="菜单">菜单</button>
+        </div>
+      </header>
+
+      <main class="portal-main" id="main-content" tabindex="-1">
+        <section class="app-view is-active" data-view="overview" aria-labelledby="overview-title">
+          <div class="overview-hero portal-surface gary-glass gary-regular">
+            <div class="hero-copy">
+              <p class="eyebrow">3 APPLICATION MODES × 4 PAGE MODES</p>
+              <h2 id="overview-title">先选工作方式，<br>再组织页面。</h2>
+              <p class="hero-summary">应用模式决定目标、导航和阅读节奏；页面模式决定单页信息主角。两级组合后，再调用同一套 15 个组件与 Token。</p>
+              <div class="application-mode-tabs gary-solid-plate" role="tablist" aria-label="总览应用模式">
+                <button class="is-active" id="overview-mode-board" type="button" role="tab" aria-selected="true" aria-controls="overview-application-panel" tabindex="0" data-application-mode="board" aria-label="看板模式">看板</button>
+                <button id="overview-mode-scroll-report" type="button" role="tab" aria-selected="false" aria-controls="overview-application-panel" tabindex="-1" data-application-mode="scroll-report" aria-label="滚动 / 演示汇报模式">汇报演示</button>
+                <button id="overview-mode-web-ui" type="button" role="tab" aria-selected="false" aria-controls="overview-application-panel" tabindex="-1" data-application-mode="web-ui" aria-label="Web UI 模式">Web UI</button>
+              </div>
+            </div>
+            <div class="overview-preview" id="overview-application-panel" role="tabpanel" aria-labelledby="overview-mode-board">
+              <div class="overview-frame gary-solid-plate" data-viewport-frame>
+                <iframe id="overview-application-frame" title="看板模式预览" src="../patterns/application-modes/board.html" loading="eager"></iframe>
+              </div>
+              <div class="overview-preview-meta" aria-live="polite">
+                <span id="overview-application-kicker">MODE 01 · BOARD</span>
+                <strong id="overview-application-name">看板模式</strong>
+                <p id="overview-application-summary">把关键判断、证据和动作放进同一视野，用短回路支持连续决策。</p>
+              </div>
+            </div>
+          </div>
+
+          <article class="relationship-board portal-surface gary-glass gary-regular" aria-labelledby="relationship-title">
+            <div class="relationship-heading">
+              <div>
+                <p class="eyebrow">ONE MASTER · TWO LEVELS</p>
+                <h3 id="relationship-title">一套母本，两级组合</h3>
+              </div>
+              <button class="text-button" type="button" data-view-jump="starting-points">查看页面模板 <span aria-hidden="true">→</span></button>
+            </div>
+            <div class="relationship-flow">
+              <section>
+                <span class="relationship-index">01 · 应用模式</span>
+                <strong>决定工作方式</strong>
+                <p>看板模式、滚动 / 演示汇报模式、Web UI 模式</p>
+              </section>
+              <span class="relationship-arrow" aria-hidden="true">→</span>
+              <section>
+                <span class="relationship-index">02 · 页面模式</span>
+                <strong>决定信息主角</strong>
+                <p>报告封面 / 图像页 / 数据页 / 手册目录</p>
+              </section>
+              <span class="relationship-arrow" aria-hidden="true">→</span>
+              <section>
+                <span class="relationship-index">03 · 基础层</span>
+                <strong>组织稳定输出</strong>
+                <p>15 个组件 / Token / 材质与动效契约</p>
+              </section>
+            </div>
+          </article>
+        </section>
+
+        <section class="app-view" data-view="colors" aria-labelledby="colors-title" hidden>
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">FOUNDATION 01</p>
+              <h2 id="colors-title">颜色</h2>
+              <p>玻璃材质只改变中性 K 值；场景可以带色，但不把颜色写进玻璃本身。</p>
+            </div>
+            <code class="token-hint">--gary-text-primary</code>
+          </div>
+
+          <article class="foundation-board portal-surface gary-glass gary-regular">
+            <div class="section-heading">
+              <div><p class="eyebrow">NEUTRAL SCALE</p><h3>中性明度阶</h3></div>
+              <span class="gary-chip">双模式适配</span>
+            </div>
+            <div class="swatch-grid">
+              <button class="swatch-card" type="button" data-copy-value="#0A0A0C" style="--swatch:#0a0a0c"><span>K 96</span><strong>#0A0A0C</strong></button>
+              <button class="swatch-card" type="button" data-copy-value="#242428" style="--swatch:#242428"><span>K 86</span><strong>#242428</strong></button>
+              <button class="swatch-card" type="button" data-copy-value="#56565D" style="--swatch:#56565d"><span>K 66</span><strong>#56565D</strong></button>
+              <button class="swatch-card" type="button" data-copy-value="#929298" style="--swatch:#929298"><span>K 42</span><strong>#929298</strong></button>
+              <button class="swatch-card is-light" type="button" data-copy-value="#D9D9DD" style="--swatch:#d9d9dd"><span>K 15</span><strong>#D9D9DD</strong></button>
+              <button class="swatch-card is-light" type="button" data-copy-value="#F7F7F8" style="--swatch:#f7f7f8"><span>K 03</span><strong>#F7F7F8</strong></button>
+            </div>
+          </article>
+
+          <div class="foundation-grid">
+            <article class="portal-surface gary-glass gary-regular">
+              <p class="eyebrow">TEXT</p>
+              <h3>文本层级</h3>
+              <div class="text-token-list">
+                <button type="button" data-copy-value="--gary-text-primary"><span class="primary-text">主要文本 / 结论</span><code>--gary-text-primary</code></button>
+                <button type="button" data-copy-value="--gary-text-secondary"><span class="secondary-text">次级文本 / 说明</span><code>--gary-text-secondary</code></button>
+                <button type="button" data-copy-value="--gary-border-highlight"><span class="edge-text">左上边缘高光</span><code>--gary-border-highlight</code></button>
+              </div>
+            </article>
+            <article class="portal-surface gary-glass gary-regular">
+              <p class="eyebrow">USAGE</p>
+              <h3>怎么用</h3>
+              <div class="do-dont-grid">
+                <div class="gary-solid-plate"><strong>推荐</strong><p>背景负责环境色，玻璃负责中性明暗与折射。</p></div>
+                <div class="gary-solid-plate"><strong>避免</strong><p>彩色玻璃、等亮白边、商业蓝填充和装饰发光点。</p></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="app-view" data-view="typography" aria-labelledby="typography-title" hidden>
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">FOUNDATION 02</p>
+              <h2 id="typography-title">排版</h2>
+              <p>中文不加字距，用字重和尺度建立极端清晰的层级；数据统一使用等宽数字。</p>
+            </div>
+            <code class="token-hint">Helvetica · 微软雅黑</code>
+          </div>
+
+          <article class="type-specimen portal-surface gary-glass gary-regular">
+            <p class="eyebrow">DISPLAY / 52</p>
+            <p class="display-sample">让信息保持清晰，<br>让材质保持安静。</p>
+            <div class="type-divider"></div>
+            <div class="type-scale">
+              <div><span>标题一</span><p class="type-h1">建筑与数字体验的共同秩序</p><code>32 / 1.3 / 700</code></div>
+              <div><span>标题二</span><p class="type-h2">把核心判断放在视线最先到达的位置</p><code>24 / 1.4 / 650</code></div>
+              <div><span>正文</span><p class="type-body">玻璃不是内容本身。它建立空间、层级与触感，让图像和文字在连续场景中仍然可读。</p><code>15 / 1.7 / 400</code></div>
+              <div><span>数据</span><p class="type-number">28,500 <small>元 / m²</small> · FAR 2.80</p><code>tnum / 700</code></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="app-view" data-view="materials" aria-labelledby="materials-title" hidden>
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">FOUNDATION 03</p>
+              <h2 id="materials-title">材质</h2>
+              <p>四种厚度对应四种任务。点击任意样本，即可把它应用到整个控制台的主要表面。</p>
+            </div>
+            <code class="token-hint" id="active-material-token">--gary-glass-regular</code>
+          </div>
+
+          <div class="portal-preview-settings" aria-label="预览设置">
+              <div class="display-control" aria-label="预览视口">
+                <span class="control-label">预览视口</span>
+                <div class="gary-segmented compact-segmented" role="group" aria-label="切换预览视口">
+                  <button class="segment-button is-active" type="button" data-viewport-option="desktop" aria-pressed="true">桌面</button>
+                  <button class="segment-button" type="button" data-viewport-option="mobile" aria-pressed="false">390px</button>
+                </div>
+              </div>
+
+              <div class="display-control" aria-label="全局材质">
+                <label class="control-label" for="material-select">全局材质</label>
+                <span class="select-shell">
+                  <select id="material-select">
+                    <option value="ultrathin" selected>UltraThin</option>
+                    <option value="regular">Regular</option>
+                    <option value="thick">Thick</option>
+                    <option value="solid-plate">SolidPlate</option>
+                  </select>
+                </span>
+              </div>
+
+              <div class="display-control">
+                <span class="control-label">背景动态</span>
+                <button class="theme-toggle gary-button" id="scene-motion-toggle" type="button" aria-pressed="false" data-gary-icon="play" aria-label="强制开启背景动态">
+                  <span class="theme-label">跟随系统</span>
+                </button>
+              </div>
+          </div>
+
+          <div class="material-gallery">
+            <button class="material-sample gary-glass gary-ultrathin" type="button" data-material-card="ultrathin">
+              <span class="material-order">01</span>
+              <div><strong>UltraThin</strong><p>固定导航与轻状态轨道。背景最活跃，边缘最轻。</p></div>
+              <code>.gary-ultrathin</code>
+            </button>
+            <button class="material-sample gary-glass gary-regular is-selected" type="button" data-material-card="regular">
+              <span class="material-order">02</span>
+              <div><strong>Regular</strong><p>按钮、标签、筛选与次级面板。默认交互厚度。</p></div>
+              <code>.gary-regular</code>
+            </button>
+            <button class="material-sample gary-glass gary-thick" type="button" data-material-card="thick">
+              <span class="material-order">03</span>
+              <div><strong>Thick</strong><p>关键判断与长中文阅读。背景更安静，中心更清晰。</p></div>
+              <code>.gary-thick</code>
+            </button>
+            <button class="material-sample gary-solid-plate" type="button" data-material-card="solid-plate">
+              <span class="material-order">04</span>
+              <div><strong>SolidPlate</strong><p>表格、矩阵与密集 KPI。避免在玻璃里再套玻璃。</p></div>
+              <code>.gary-solid-plate</code>
+            </button>
+          </div>
+
+          <article class="material-anatomy portal-surface gary-glass gary-regular">
+            <div>
+              <p class="eyebrow">ANATOMY</p>
+              <h3>同一种左上主光</h3>
+              <p>高光集中在上边与左边，右下进入阴影；中心保持平整，不追随光标制造圆形聚光。</p>
+            </div>
+            <div class="anatomy-diagram gary-solid-plate" aria-label="材质剖面示意">
+              <span class="anatomy-label label-light">高光</span>
+              <span class="anatomy-label label-frost">霜化中心</span>
+              <span class="anatomy-label label-shadow">接触阴影</span>
+              <span class="anatomy-plane"></span>
+            </div>
+          </article>
+        </section>
+
+        <section class="app-view" data-view="geometry" aria-labelledby="geometry-title" hidden>
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">FOUNDATION 04</p>
+              <h2 id="geometry-title">几何与动效</h2>
+              <p>圆角随尺度增长，动效只改变位置、透明度与阴影；150 / 250 / 350ms 构成统一节奏。</p>
+            </div>
+            <button class="gary-button quiet-action" id="replay-motion" type="button" data-gary-icon="rotate-ccw" aria-label="重播动效">重播动效</button>
+          </div>
+
+          <div class="geometry-grid">
+            <article class="portal-surface gary-glass gary-regular">
+              <p class="eyebrow">RADII</p>
+              <h3>圆角层级</h3>
+              <div class="radius-list">
+                <button class="radius-sample gary-solid-plate radius-control" type="button" data-copy-value="--gary-radius-control"><span>控件</span><code>--gary-radius-control</code></button>
+                <button class="radius-sample gary-solid-plate radius-card" type="button" data-copy-value="--gary-radius-card"><span>卡片</span><code>--gary-radius-card</code></button>
+                <button class="radius-sample gary-solid-plate radius-panel" type="button" data-copy-value="--gary-radius-panel"><span>面板</span><code>--gary-radius-panel</code></button>
+              </div>
+            </article>
+            <article class="portal-surface gary-glass gary-regular">
+              <p class="eyebrow">MOTION</p>
+              <h3>三档时间</h3>
+              <div class="motion-track" id="motion-track" aria-label="动效节奏演示">
+                <div class="motion-row"><span>Fast · 150ms</span><i style="--motion-duration:150ms"></i></div>
+                <div class="motion-row"><span>Base · 250ms</span><i style="--motion-duration:250ms"></i></div>
+                <div class="motion-row"><span>Slow · 350ms</span><i style="--motion-duration:350ms"></i></div>
+              </div>
+              <code class="ease-code">cubic-bezier(0.32, 0.72, 0, 1)</code>
+            </article>
+          </div>
+        </section>
+
+        <section class="app-view" data-view="components" aria-labelledby="components-title" hidden>
+          <div class="page-intro component-intro">
+            <div>
+              <p class="eyebrow">COMPONENTS</p>
+              <h2 id="components-title">15 个核心组件</h2>
+              <p>搜索名称或标识，按任务筛选；点击每张卡右上角即可复制 class。</p>
+            </div>
+            <span class="result-count" id="result-count" aria-live="polite">显示 15 / 15</span>
+          </div>
+
+          <div class="gallery-toolbar portal-surface gary-glass gary-ultrathin">
+            <label class="search-field gary-field">
+              <span aria-hidden="true">⌕</span>
+              <input id="component-search" type="search" placeholder="搜索组件或 .gary-* 标识" autocomplete="off">
+              <kbd>/</kbd>
+            </label>
+            <div class="category-filters gary-segmented" role="group" aria-label="组件分类筛选">
+              <button class="filter-button is-active" type="button" data-category="all" aria-pressed="true">全部</button>
+              <button class="filter-button" type="button" data-category="control" aria-pressed="false">控件</button>
+              <button class="filter-button" type="button" data-category="navigation" aria-pressed="false">导航</button>
+              <button class="filter-button" type="button" data-category="content" aria-pressed="false">内容</button>
+              <button class="filter-button" type="button" data-category="data" aria-pressed="false">数据</button>
+            </div>
+            <label class="state-select">
+              <span>演示状态</span>
+              <select id="preview-state">
+                <option value="default">默认</option>
+                <option value="hover">悬停</option>
+                <option value="focus">聚焦</option>
+                <option value="disabled">禁用</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="component-gallery" id="component-gallery">
+            <article class="component-item" data-category="control" data-search="按钮 button action gary-button">
+              <div class="component-head"><div><span>01 · 控件</span><h3>按钮</h3></div><code class="component-selector">.gary-button</code><button class="copy-id" type="button" data-copy-id=".gary-button" data-gary-icon="copy" aria-label="复制 .gary-button">.gary-button</button></div>
+              <div class="component-preview gary-solid-plate">
+                <button class="gary-button demo-action" type="button" data-toggle-label data-label-default="执行操作" data-label-active="已执行" data-gary-icon="play" aria-label="执行操作">执行操作</button>
+                <button class="gary-button quiet-action" type="button" data-gary-icon="ellipsis" aria-label="次操作">次操作</button>
+              </div>
+              <p>用于明确动作，按压带轻微深度，不使用饱和蓝。</p>
+            </article>
+
+            <article class="component-item" data-category="control" data-search="分段 segmented switch gary-segmented">
+              <div class="component-head"><div><span>02 · 控件</span><h3>分段控件</h3></div><code class="component-selector">.gary-segmented</code><button class="copy-id" type="button" data-copy-id=".gary-segmented" data-gary-icon="copy" aria-label="复制 .gary-segmented">.gary-segmented</button></div>
+              <div class="component-preview gary-solid-plate">
+                <div class="gary-segmented demo-segmented" role="group" aria-label="密度">
+                  <button type="button" class="is-active" aria-pressed="true">舒展</button>
+                  <button type="button" aria-pressed="false">紧凑</button>
+                  <button type="button" aria-pressed="false">极简</button>
+                </div>
+              </div>
+              <p>在共享容器里切换互斥状态，激活块平滑移动。</p>
+            </article>
+
+            <article class="component-item" data-category="control" data-search="输入 field input gary-field">
+              <div class="component-head"><div><span>03 · 控件</span><h3>输入框</h3></div><code class="component-selector">.gary-field</code><button class="copy-id" type="button" data-copy-id=".gary-field" data-gary-icon="copy" aria-label="复制 .gary-field">.gary-field</button></div>
+              <div class="component-preview gary-solid-plate">
+                <label class="gary-field demo-field"><span>项目名称</span><input type="text" value="长岭山 E15" aria-label="项目名称"></label>
+              </div>
+              <p>嵌入式玻璃槽，标签始终可见，聚焦态只增强边缘。</p>
+            </article>
+
+            <article class="component-item" data-category="navigation" data-search="标签栏 tab bar navigation gary-tab-bar">
+              <div class="component-head"><div><span>04 · 导航</span><h3>标签栏</h3></div><code class="component-selector">.gary-tab-bar</code><button class="copy-id" type="button" data-copy-id=".gary-tab-bar" data-gary-icon="copy" aria-label="复制 .gary-tab-bar">.gary-tab-bar</button></div>
+              <div class="component-preview gary-solid-plate">
+                <div class="gary-tab-bar demo-tab-bar" role="tablist" aria-label="报告章节">
+                  <button role="tab" aria-selected="true" type="button">总览</button>
+                  <button role="tab" aria-selected="false" type="button">规划</button>
+                  <button role="tab" aria-selected="false" type="button">财务</button>
+                </div>
+              </div>
+              <p>用于同层内容切换，状态清晰但不过度抢占视觉。</p>
+            </article>
+
+            <article class="component-item" data-category="navigation" data-search="网页栏 web bar browser gary-web-bar">
+              <div class="component-head"><div><span>05 · 导航</span><h3>网页栏</h3></div><code class="component-selector">.gary-web-bar</code><button class="copy-id" type="button" data-copy-id=".gary-web-bar" data-gary-icon="copy" aria-label="复制 .gary-web-bar">.gary-web-bar</button></div>
+              <div class="component-preview gary-solid-plate">
+                <div class="gary-web-bar demo-web-bar">
+                  <button type="button" data-gary-icon="arrow-left" aria-label="返回">←</button>
+                  <span>gary.local / report</span>
+                  <button type="button" data-spin-on-click data-gary-icon="rotate-ccw" aria-label="刷新">↻</button>
+                </div>
+              </div>
+              <p>轻量工具导航，地址或上下文在中间保持稳定。</p>
+            </article>
+
+            <article class="component-item" data-category="content" data-search="信息卡 glass card content gary-glass-card">
+              <div class="component-head"><div><span>06 · 内容</span><h3>信息卡</h3></div><code class="component-selector">.gary-glass-card</code><button class="copy-id" type="button" data-copy-id=".gary-glass-card" data-gary-icon="copy" aria-label="复制 .gary-glass-card">.gary-glass-card</button></div>
+              <div class="component-preview gary-solid-plate">
+                <div class="gary-glass-card demo-content-card">
+                  <span>策略结论</span>
+                  <strong>先建立连续场景，再放置阅读表面。</strong>
+                </div>
+              </div>
+              <p>承载一句核心判断；在画廊中以实心预览台隔开，避免玻璃嵌套。</p>
+            </article>
+
+            <article class="component-item" data-category="data" data-search="指标卡 metric kpi gary-metric-card">
+              <div class="component-head"><div><span>07 · 数据</span><h3>指标卡</h3></div><code class="component-selector">.gary-metric-card</code><button class="copy-id" type="button" data-copy-id=".gary-metric-card" data-gary-icon="copy" aria-label="复制 .gary-metric-card">.gary-metric-card</button></div>
+              <div class="component-preview gary-solid-plate">
+                <div class="gary-metric-card demo-metric"><span>容积率</span><strong data-counter="2.80">2.80</strong><small>较基准 +0.25</small></div>
+              </div>
+              <p>用等宽数字展示单一关键值，说明文字退后一级。</p>
+            </article>
+
+            <article class="component-item" data-category="data" data-search="对比表 comparison table gary-comparison-table">
+              <div class="component-head"><div><span>08 · 数据</span><h3>对比表</h3></div><code class="component-selector">.gary-comparison-table</code><button class="copy-id" type="button" data-copy-id=".gary-comparison-table" data-gary-icon="copy" aria-label="复制 .gary-comparison-table">.gary-comparison-table</button></div>
+              <div class="component-preview gary-solid-plate">
+                <table class="gary-comparison-table demo-table">
+                  <thead><tr><th>方案</th><th>面积</th><th>判断</th></tr></thead>
+                  <tbody><tr tabindex="0"><td>A</td><td>12,480</td><td>推荐</td></tr><tr tabindex="0"><td>B</td><td>11,920</td><td>备选</td></tr></tbody>
+                </table>
+              </div>
+              <p>行列对齐优先于视觉特效，点击行可标记当前方案。</p>
+            </article>
+
+            <article class="component-item" data-category="content" data-search="决策网格 decision grid gary-decision-grid">
+              <div class="component-head"><div><span>09 · 内容</span><h3>决策网格</h3></div><code class="component-selector">.gary-decision-grid</code><button class="copy-id" type="button" data-copy-id=".gary-decision-grid" data-gary-icon="copy" aria-label="复制 .gary-decision-grid">.gary-decision-grid</button></div>
+              <div class="component-preview gary-solid-plate">
+                <div class="gary-decision-grid demo-decision-grid" role="group" aria-label="视觉方向">
+                  <button class="is-selected" type="button" aria-pressed="true"><strong>推荐</strong><span>清晰优先</span></button>
+                  <button type="button" aria-pressed="false"><strong>表达</strong><span>图像优先</span></button>
+                </div>
+              </div>
+              <p>把取舍变成可选择的视觉卡，适合路线决策。</p>
+            </article>
+
+            <article class="component-item" data-category="content" data-search="媒体卡 media image gary-media-card">
+              <div class="component-head"><div><span>10 · 内容</span><h3>媒体卡</h3></div><code class="component-selector">.gary-media-card</code><button class="copy-id" type="button" data-copy-id=".gary-media-card" data-gary-icon="copy" aria-label="复制 .gary-media-card">.gary-media-card</button></div>
+              <div class="component-preview gary-solid-plate">
+                <div class="gary-media-card demo-media-card">
+                  <div class="media-placeholder" aria-hidden="true"><span></span></div>
+                  <div><strong>山谷公共界面</strong><button type="button" class="media-like" aria-pressed="false" data-gary-icon="heart" aria-label="收藏案例">♡</button></div>
+                </div>
+              </div>
+              <p>图像独立于字幕，收藏状态不覆盖内容。</p>
+            </article>
+
+            <article class="component-item" data-category="content" data-search="人物卡 profile card gary-profile-card">
+              <div class="component-head"><div><span>11 · 内容</span><h3>人物卡</h3></div><code class="component-selector">.gary-profile-card</code><button class="copy-id" type="button" data-copy-id=".gary-profile-card" data-gary-icon="copy" aria-label="复制 .gary-profile-card">.gary-profile-card</button></div>
+              <div class="component-preview gary-solid-plate">
+                <div class="gary-profile-card demo-profile-card">
+                  <span class="avatar" aria-hidden="true">G</span>
+                  <div><strong>Gary</strong><small>设计系统负责人</small></div>
+                  <button type="button" data-follow aria-pressed="false" data-gary-icon="user-plus" aria-label="关注">关注</button>
+                </div>
+              </div>
+              <p>适合紧凑成员目录，身份信息与动作保持同一行。</p>
+            </article>
+
+            <article class="component-item" data-category="control" data-search="标签 chip filter gary-chip">
+              <div class="component-head"><div><span>12 · 控件</span><h3>标签</h3></div><code class="component-selector">.gary-chip</code><button class="copy-id" type="button" data-copy-id=".gary-chip" data-gary-icon="copy" aria-label="复制 .gary-chip">.gary-chip</button></div>
+              <div class="component-preview gary-solid-plate">
+                <div class="demo-chip-group" role="group" aria-label="筛选标签">
+                  <button class="gary-chip is-selected" type="button" aria-pressed="true">建筑</button>
+                  <button class="gary-chip" type="button" aria-pressed="false">数据</button>
+                  <button class="gary-chip" type="button" aria-pressed="false">交互</button>
+                </div>
+              </div>
+              <p>短标签只承担筛选和状态，不作为装饰徽章。</p>
+            </article>
+
+            <article class="component-item" data-category="data" data-search="证据栏 evidence bar progress gary-evidence-bar">
+              <div class="component-head"><div><span>13 · 数据</span><h3>证据栏</h3></div><code class="component-selector">.gary-evidence-bar</code><button class="copy-id" type="button" data-copy-id=".gary-evidence-bar" data-gary-icon="copy" aria-label="复制 .gary-evidence-bar">.gary-evidence-bar</button></div>
+              <div class="component-preview gary-solid-plate">
+                <button class="gary-evidence-bar demo-evidence" type="button" aria-pressed="false">
+                  <span>证据完整度</span><i><b style="width:72%"></b></i><strong>72%</strong>
+                </button>
+              </div>
+              <p>把定量依据与结论并置，点击可展开到完整状态。</p>
+            </article>
+
+            <article class="component-item" data-category="content" data-search="场景 scene background gary-scene">
+              <div class="component-head"><div><span>14 · 内容</span><h3>场景</h3></div><code class="component-selector">.gary-scene</code><button class="copy-id" type="button" data-copy-id=".gary-scene" data-gary-icon="copy" aria-label="复制 .gary-scene">.gary-scene</button></div>
+              <div class="component-preview gary-solid-plate">
+                <button class="demo-scene" type="button" data-scene-toggle aria-label="切换点阵亮度" aria-pressed="false"><strong>点网格</strong></button>
+              </div>
+              <p>单一背景层承载环境色与连续空间，不把模糊施加到背景本身。</p>
+            </article>
+
+            <article class="component-item" data-category="data" data-search="实心信息板 solid plate panel gary-solid-plate">
+              <div class="component-head"><div><span>15 · 数据</span><h3>实心信息板</h3></div><code class="component-selector">.gary-solid-plate</code><button class="copy-id" type="button" data-copy-id=".gary-solid-plate" data-gary-icon="copy" aria-label="复制 .gary-solid-plate">.gary-solid-plate</button></div>
+              <div class="component-preview gary-solid-plate">
+                <div class="demo-plate-list">
+                  <button type="button" aria-pressed="true"><span>总建筑面积</span><strong>68,420 m²</strong></button>
+                  <button type="button" aria-pressed="false"><span>可售面积</span><strong>51,680 m²</strong></button>
+                </div>
+              </div>
+              <p>为密集表格和指标提供稳定底板，是玻璃嵌套的替代方案。</p>
+            </article>
+          </div>
+
+          <div class="empty-state portal-surface gary-glass gary-regular" id="component-empty" hidden>
+            <strong>没有找到对应组件</strong>
+            <p>换一个关键词，或切回“全部”分类。</p>
+            <button class="gary-button" id="clear-component-filter" type="button" data-gary-icon="filter-x" aria-label="清除筛选">清除筛选</button>
+          </div>
+        </section>
+
+        <section class="app-view" data-view="patterns" aria-labelledby="patterns-title" hidden>
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">APPLICATION MODES</p>
+              <h2 id="patterns-title">三种应用模式</h2>
+              <p>先定义产品如何工作，再选择每一页如何表达。预览会跟随桌面 / 390px 视口模拟。</p>
+            </div>
+            <span class="viewport-readout" data-viewport-readout>桌面 · 自适应</span>
+          </div>
+
+          <div class="application-mode-tabs gary-solid-plate application-mode-tabs--workbench" role="tablist" aria-label="应用模式">
+            <button class="is-active" id="workbench-mode-board" type="button" role="tab" aria-selected="true" aria-controls="application-workbench-panel" tabindex="0" data-application-mode="board" aria-label="看板模式">看板</button>
+            <button id="workbench-mode-scroll-report" type="button" role="tab" aria-selected="false" aria-controls="application-workbench-panel" tabindex="-1" data-application-mode="scroll-report" aria-label="滚动 / 演示汇报模式">汇报演示</button>
+            <button id="workbench-mode-web-ui" type="button" role="tab" aria-selected="false" aria-controls="application-workbench-panel" tabindex="-1" data-application-mode="web-ui" aria-label="Web UI 模式">Web UI</button>
+          </div>
+
+          <article class="application-workbench portal-surface gary-glass gary-regular" id="application-workbench-panel" role="tabpanel" aria-labelledby="workbench-mode-board">
+            <div class="application-meta">
+              <div>
+                <p class="eyebrow" id="application-kicker">MODE 01 · BOARD</p>
+                <h3 id="application-name">看板模式</h3>
+              </div>
+              <a class="gary-button quiet-action" id="open-application-mode" href="../patterns/application-modes/board.html" target="_blank" rel="noopener" data-gary-icon="arrow-up-right" aria-label="独立打开 ↗">独立打开 <span aria-hidden="true">↗</span></a>
+              <dl class="application-facts">
+                <div><dt>目标</dt><dd id="application-target">让判断、证据和动作同时可见。</dd></div>
+                <div><dt>导航</dt><dd id="application-navigation">全局顶栏配合局部筛选与视图切换。</dd></div>
+                <div><dt>节奏</dt><dd id="application-rhythm">同屏扫描，短回路完成连续决策。</dd></div>
+                <div><dt>材质</dt><dd id="application-material">Regular 外壳，SolidPlate 承载密集数据。</dd></div>
+              </dl>
+            </div>
+            <div class="viewport-stage">
+              <div class="viewport-frame application-viewport-frame gary-solid-plate" data-viewport-frame>
+                <iframe id="application-frame" title="看板模式预览" src="../patterns/application-modes/board.html" loading="lazy"></iframe>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="app-view" data-view="demos" aria-labelledby="demos-title" hidden>
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">DEMO COLLECTION / EDITION 02</p>
+              <h2 id="demos-title">为专注而设计</h2>
+              <p>六个重制页面，一套连贯的设计语言。打开完整页面，体验阅读、分析与展示的不同节奏。</p>
+            </div>
+            <a class="gary-button quiet-action" href="../examples/demos/index.html" target="_blank" rel="noopener" data-gary-icon="arrow-up-right" aria-label="独立打开 Demo 首页 ↗">独立打开 Demo 首页 <span aria-hidden="true">↗</span></a>
+          </div>
+          <article class="visual-workbench portal-surface gary-glass gary-regular">
+            <header class="visual-workbench-header"><div><p class="eyebrow">WEB UI / KANBAN / REPORT</p><h3>从日常工作到重要时刻</h3></div><a href="../examples/demos/index.html" target="_blank" rel="noopener">全屏体验 ↗</a></header>
+            <div class="visual-engine-strip" aria-label="交付情境"><span>阅读 · 稳定正文</span><span>分析 · 图表判断证据</span><span>展示 · 有限动效</span></div>
+            <div class="visual-sample-frame gary-solid-plate" data-viewport-frame><iframe id="complete-demo-frame" title="Gary-UI 六个完整页面 Demo" src="../examples/demos/index.html" loading="eager"></iframe></div>
+          </article>
+        </section>
+
+        <section class="app-view" data-view="visuals" aria-labelledby="visuals-title" hidden>
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">LOCAL VISUAL TOOLCHAIN</p>
+              <h2 id="visuals-title">先判断内容，再选择引擎。</h2>
+              <p>原生源文件、生成方式、Gary 场景主题与导出结果放在同一入口；所有样例均为明确标注的演示数据。</p>
+            </div>
+            <a class="gary-button quiet-action" href="../examples/visuals/outputs/index.html" target="_blank" rel="noopener" data-gary-icon="arrow-up-right" aria-label="独立打开样例 ↗">独立打开样例 <span aria-hidden="true">↗</span></a>
+          </div>
+
+          <div class="visual-recipe-grid" aria-label="场景配方">
+            <article class="visual-recipe portal-surface gary-glass gary-regular">
+              <span>READING</span><h3>阅读</h3><p>稳定正文底板，玻璃只用于独立导航；正文 16px / 1.68。</p>
+            </article>
+            <article class="visual-recipe portal-surface gary-glass gary-regular">
+              <span>ANALYSIS</span><h3>分析</h3><p>图表主区、判断区与证据区并列，准确刻度优先于装饰。</p>
+            </article>
+            <article class="visual-recipe portal-surface gary-glass gary-regular">
+              <span>SHOWCASE</span><h3>展示</h3><p>允许更强玻璃与有限动效；减弱动态时直接呈现完整内容。</p>
+            </article>
+          </div>
+
+          <article class="visual-workbench portal-surface gary-glass gary-regular">
+            <header class="visual-workbench-header">
+              <div>
+                <p class="eyebrow">10 RUNNABLE EXAMPLES</p>
+                <h3>六个引擎，十类内容目的</h3>
+              </div>
+              <code>.\gary-ui.cmd visual export --manifest examples\visuals\visuals.json</code>
+            </header>
+            <div class="visual-engine-strip" aria-label="已接入引擎">
+              <span>Archify</span><span>ECharts</span><span>Markmap</span><span>AntV Infographic</span><span>Mermaid</span><span>Lucide</span>
+            </div>
+            <div class="visual-sample-frame gary-solid-plate" data-viewport-frame>
+              <iframe id="visual-sample-index" title="Gary-UI 本地制图样例" src="../examples/visuals/outputs/index.html" loading="eager"></iframe>
+            </div>
+          </article>
+        </section>
+
+        <section class="app-view" data-view="starting-points" aria-labelledby="starting-points-title" hidden>
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">STARTING POINTS</p>
+              <h2 id="starting-points-title">从真实结构开始</h2>
+              <p>四个起始点共享同一设计契约，可直接独立打开、复制并替换内容。</p>
+            </div>
+            <a class="gary-button quiet-action" href="../patterns/starting-points/index.html" target="_blank" rel="noopener" data-gary-icon="arrow-up-right" aria-label="打开模板入口 ↗">打开模板入口 <span aria-hidden="true">↗</span></a>
+          </div>
+
+          <article class="starting-workbench portal-surface gary-glass gary-regular">
+            <div class="starting-guide">
+              <p class="eyebrow">怎么选</p>
+              <h3>先判断页面的主角</h3>
+              <div class="starting-options">
+                <button class="starting-option is-active" type="button" data-starting-pattern="report-cover" aria-pressed="true"><span>01</span><div><strong>报告封面</strong><small>主角是结论</small></div></button>
+                <button class="starting-option" type="button" data-starting-pattern="image-page" aria-pressed="false"><span>02</span><div><strong>图像页</strong><small>主角是证据图</small></div></button>
+                <button class="starting-option" type="button" data-starting-pattern="data-page" aria-pressed="false"><span>03</span><div><strong>数据页</strong><small>主角是判断值</small></div></button>
+                <button class="starting-option" type="button" data-starting-pattern="manual-toc" aria-pressed="false"><span>04</span><div><strong>手册目录</strong><small>主角是结构</small></div></button>
+              </div>
+            </div>
+            <div class="starting-preview">
+              <div class="viewport-toolbar">
+                <span data-viewport-readout>桌面 · 自适应</span>
+                <a id="starting-open-link" href="../patterns/report-cover.html" target="_blank" rel="noopener">打开当前页 ↗</a>
+              </div>
+              <div class="viewport-stage">
+                <div class="viewport-frame" data-viewport-frame>
+                  <iframe id="starting-frame" title="起始模板预览" src="../patterns/report-cover.html" loading="lazy"></iframe>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="app-view" data-view="product-design" aria-labelledby="product-design-title" hidden>
+          <div class="page-intro product-design-intro">
+            <div>
+              <p class="eyebrow">PRODUCT DESIGN · PRACTICE LAB</p>
+              <h2 id="product-design-title">边看边改，理解设计规则。</h2>
+              <p>这里是你与 Codex 协作的本地设计工作台。左边调整参数，中间观察结果，右边把判断整理成 Product Design 指令。</p>
+            </div>
+            <div class="product-design-badges" aria-label="工作台特性">
+              <span>本地运行</span>
+              <span>无需 Figma</span>
+              <span>不自动写母本</span>
+            </div>
+          </div>
+
+          <div class="product-design-workbench">
+            <aside class="pd-controls portal-surface gary-glass gary-regular" aria-labelledby="pd-controls-title">
+              <div class="pd-panel-heading">
+                <div>
+                  <p class="eyebrow">01 · TUNE</p>
+                  <h3 id="pd-controls-title">调整设计参数</h3>
+                </div>
+                <button class="pd-reset" id="pd-reset" type="button" data-gary-icon="rotate-ccw" aria-label="恢复推荐值">恢复推荐值</button>
+              </div>
+
+              <label class="pd-control" for="pd-font-family">
+                <span><strong>中英文字体</strong><small>英文 Helvetica · 中文微软雅黑</small></span>
+                <select id="pd-font-family">
+                  <option value="gary" selected>Helvetica + 微软雅黑</option>
+                  <option value="noto">Noto Sans SC</option>
+                  <option value="yahei">Microsoft YaHei UI</option>
+                  <option value="serif">中文衬线</option>
+                </select>
+              </label>
+
+              <label class="pd-control" for="pd-sample-text">
+                <span><strong>预览字符</strong><small>直接改成你的真实文案</small></span>
+                <textarea id="pd-sample-text" rows="3" maxlength="72">让复杂信息保持清晰，让每一次设计判断都有依据。</textarea>
+              </label>
+
+              <label class="pd-control pd-range-control" for="pd-font-size">
+                <span><strong>正文字号</strong><output id="pd-font-size-output" for="pd-font-size">16px</output></span>
+                <input id="pd-font-size" type="range" min="14" max="20" step="1" value="16">
+              </label>
+
+              <label class="pd-control pd-range-control" for="pd-font-weight">
+                <span><strong>富文本字重</strong><output id="pd-font-weight-output" for="pd-font-weight">400</output></span>
+                <input id="pd-font-weight" type="range" min="100" max="900" step="100" value="400">
+              </label>
+
+              <label class="pd-control pd-range-control" for="pd-line-height">
+                <span><strong>中文行高</strong><output id="pd-line-height-output" for="pd-line-height">1.68</output></span>
+                <input id="pd-line-height" type="range" min="1.48" max="1.92" step="0.02" value="1.68">
+              </label>
+
+              <label class="pd-control pd-range-control" for="pd-letter-spacing">
+                <span><strong>字符间距</strong><output id="pd-letter-spacing-output" for="pd-letter-spacing">0em</output></span>
+                <input id="pd-letter-spacing" type="range" min="-0.02" max="0.08" step="0.01" value="0">
+              </label>
+
+              <label class="pd-control pd-range-control" for="pd-layout-gap">
+                <span><strong>组件间距</strong><output id="pd-layout-gap-output" for="pd-layout-gap">8px</output></span>
+                <input id="pd-layout-gap" type="range" min="8" max="32" step="2" value="8">
+              </label>
+
+              <div class="pd-control">
+                <span><strong>信息密度</strong><small>同时改变留白与表面内边距</small></span>
+                <div class="gary-segmented pd-density-control" role="group" aria-label="信息密度">
+                  <button type="button" data-pd-density="spacious" aria-pressed="false">宽松</button>
+                  <button class="is-active" type="button" data-pd-density="balanced" aria-pressed="true">均衡</button>
+                  <button type="button" data-pd-density="compact" aria-pressed="false">紧凑</button>
+                </div>
+              </div>
+
+              <section class="pd-card-tuner" aria-labelledby="pd-card-tuner-title">
+                <div class="pd-card-tuner-heading">
+                  <div><strong id="pd-card-tuner-title">卡片风格</strong><small>只改变中间预览</small></div>
+                  <output id="pd-card-preset-output">自定义</output>
+                </div>
+
+                <div class="gary-segmented pd-card-presets" role="group" aria-label="卡片风格预设">
+                  <button type="button" data-pd-card-preset="unified-glass" aria-pressed="false">统一玻璃</button>
+                  <button type="button" data-pd-card-preset="layered" aria-pressed="false">主次分层</button>
+                  <button type="button" data-pd-card-preset="minimal-solid" aria-pressed="false">极简实底</button>
+                </div>
+
+                <label class="pd-control pd-range-control" for="pd-card-opacity">
+                  <span><strong>卡片透明度</strong><output id="pd-card-opacity-output" for="pd-card-opacity">70%</output></span>
+                  <input id="pd-card-opacity" type="range" min="32" max="96" step="2" value="70">
+                </label>
+
+                <label class="pd-control pd-range-control" for="pd-card-radius">
+                  <span><strong>卡片圆角</strong><output id="pd-card-radius-output" for="pd-card-radius">30px</output></span>
+                  <input id="pd-card-radius" type="range" min="16" max="36" step="2" value="30">
+                </label>
+
+                <label class="pd-control pd-range-control" for="pd-card-contrast">
+                  <span><strong>层级对比</strong><output id="pd-card-contrast-output" for="pd-card-contrast">8%</output></span>
+                  <input id="pd-card-contrast" type="range" min="2" max="18" step="1" value="8">
+                </label>
+              </section>
+
+              <p class="pd-control-note"><strong>观察重点。</strong>一次只改变一个参数。先看层级，再看阅读节奏，最后判断它是否值得成为全局规则。</p>
+            </aside>
+
+            <section class="pd-preview-column" aria-labelledby="pd-preview-title">
+              <div class="pd-preview-toolbar">
+                <div>
+                  <p class="eyebrow">02 · OBSERVE</p>
+                  <h3 id="pd-preview-title">GaryUI 实时预览</h3>
+                </div>
+                <span id="pd-preview-status" role="status" aria-live="polite">均衡 · 16px · 1.68</span>
+              </div>
+
+              <div class="pd-preview-frame gary-solid-plate">
+                <article class="pd-live-preview gary-glass gary-regular" id="pd-live-preview" data-gary-density="balanced">
+                  <header class="pd-live-header">
+                    <div>
+                      <p class="eyebrow">GARYUI · DESIGN REVIEW</p>
+                      <h4>设计不是装饰，<br>而是一组可以验证的决定。</h4>
+                    </div>
+                    <span class="gary-chip">Draft 01</span>
+                  </header>
+
+                  <p class="pd-live-body" id="pd-live-body">让复杂信息保持清晰，让每一次设计判断都有依据。</p>
+
+                  <div class="pd-live-tabs gary-solid-plate" role="tablist" aria-label="预览分区">
+                    <button class="is-active" type="button" role="tab" aria-selected="true">概览</button>
+                    <button type="button" role="tab" aria-selected="false">排版</button>
+                    <button type="button" role="tab" aria-selected="false">间距</button>
+                  </div>
+
+                  <div class="pd-live-metrics">
+                    <div class="gary-solid-plate"><span>正文尺寸</span><strong id="pd-metric-size">16</strong><small>px</small></div>
+                    <div class="gary-solid-plate"><span>中文行高</span><strong id="pd-metric-line">1.68</strong><small>ratio</small></div>
+                    <div class="gary-solid-plate"><span>组件间距</span><strong id="pd-metric-gap">8</strong><small>px</small></div>
+                  </div>
+
+                  <div class="pd-live-decision gary-solid-plate">
+                    <div>
+                      <span>本轮设计判断</span>
+                      <strong id="pd-decision-summary">保持 16px / 1.68，并以 Balanced 作为默认密度。</strong>
+                    </div>
+                    <button class="gary-button gary-regular" id="pd-copy-token" type="button" data-gary-icon="copy" aria-label="复制 Token 提案">复制 Token 提案</button>
+                  </div>
+                </article>
+              </div>
+
+              <div class="pd-lesson-strip">
+                <div><span>先改</span><strong>真实内容</strong><small>避免用占位字做决定</small></div>
+                <div><span>再看</span><strong>层级与节奏</strong><small>不要同时改五个参数</small></div>
+                <div><span>最后</span><strong>形成规则</strong><small>提案先审查，再写母本</small></div>
+              </div>
+            </section>
+
+            <aside class="pd-guide portal-surface gary-glass gary-regular" aria-labelledby="pd-guide-title">
+              <div class="pd-panel-heading">
+                <div>
+                  <p class="eyebrow">03 · COLLABORATE</p>
+                  <h3 id="pd-guide-title">怎样使用 Product Design</h3>
+                </div>
+              </div>
+
+              <ol class="pd-workflow">
+                <li><span>01</span><div><strong>说明目标</strong><p>告诉我页面用途、使用者和你最想改善的问题。</p></div></li>
+                <li><span>02</span><div><strong>让我先审再做</strong><p>我会读取现有 GaryUI 规则，避免另起一套视觉语言。</p></div></li>
+                <li><span>03</span><div><strong>用视觉反馈迭代</strong><p>你只需说“更紧凑”“标题太重”“正文难读”。</p></div></li>
+                <li><span>04</span><div><strong>批准后再固化</strong><p>先生成 Token 提案；确认后才修改正式设计系统。</p></div></li>
+              </ol>
+
+              <div class="pd-prompt-card">
+                <span>你可以直接对 Codex 说</span>
+                <p id="pd-generated-prompt">使用 Product Design，在 GaryUI 现有规则内优化这个页面。先审查层级、中文排版和间距，再给出最小改动并打开本地预览。</p>
+                <button class="gary-button gary-thick" id="pd-copy-prompt" type="button" data-variant="primary" data-gary-icon="copy" aria-label="复制当前协作指令">复制当前协作指令</button>
+              </div>
+
+              <details class="pd-token-details">
+                <summary>查看当前 Token 提案</summary>
+                <pre id="pd-token-proposal" aria-live="polite"></pre>
+              </details>
+
+              <div class="pd-prompt-recipes" aria-label="常用 Product Design 指令">
+                <button type="button" data-pd-prompt="audit"><span>审查</span><strong>找出层级、间距与可读性问题</strong></button>
+                <button type="button" data-pd-prompt="refine"><span>优化</span><strong>保留结构，只收紧视觉规则</strong></button>
+                <button type="button" data-pd-prompt="compare"><span>比较</span><strong>给我三个可信方向再选择</strong></button>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="app-view" data-view="review" aria-labelledby="review-title" hidden>
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">COLLABORATIVE REVIEW</p>
+              <h2 id="review-title">共同定稿</h2>
+              <p>在这里做影响全系统的选择。保存后通过本机受限交接桥写入母本，并返回可见回执。</p>
+            </div>
+            <span class="review-status" id="review-status" role="status">草稿 · 尚未确认</span>
+          </div>
+
+          <div class="review-workbench">
+            <form class="review-form gary-glass gary-regular" id="review-form">
+              <section class="review-background-lock" aria-labelledby="review-background-title">
+                <div class="review-background-thumb" role="img" aria-label="Gary-UI 纯色点状网格默认场景"></div>
+                <div>
+                  <p class="eyebrow">BACKGROUND · CONFIRMED</p>
+                  <h3 id="review-background-title">纯色点状网格默认场景</h3>
+                  <p>深色严格使用纯黑，浅色严格使用纯白；点阵响应鼠标，减弱动态时保持静态。照片或图片只在用户明确提供并要求时使用。</p>
+                  <button class="copy-id" type="button" data-copy-value="--gary-scene-image: url(&quot;/user-provided-background.jpg&quot;);" data-gary-icon="copy" aria-label="复制用户自定义写法">复制用户自定义写法</button>
+                </div>
+              </section>
+
+              <fieldset class="review-fieldset">
+                <legend><span>01</span>默认主题</legend>
+                <p>决定 Design System 首次打开时的基准，不限制产品提供另一主题。</p>
+                <div class="review-choice-grid">
+                  <label class="review-choice">
+                    <input type="radio" name="review-theme" value="dark" checked>
+                    <span><strong>深色</strong><small>推荐 · 更能显示材质层级</small></span>
+                  </label>
+                  <label class="review-choice">
+                    <input type="radio" name="review-theme" value="light">
+                    <span><strong>浅色</strong><small>更接近文档与日间工具</small></span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset class="review-fieldset">
+                <legend><span>02</span>默认主材质</legend>
+                <p>这是卡片与主要控件的起手材质；导航和数据板仍遵循各自规则。</p>
+                <div class="review-choice-grid">
+                  <label class="review-choice">
+                    <input type="radio" name="review-material" value="ultrathin" checked>
+                    <span><strong>UltraThin</strong><small>推荐 · 默认起手材质</small></span>
+                  </label>
+                  <label class="review-choice">
+                    <input type="radio" name="review-material" value="regular">
+                    <span><strong>Regular</strong><small>阅读与分析内容的稳定底板</small></span>
+                  </label>
+                  <label class="review-choice">
+                    <input type="radio" name="review-material" value="thick">
+                    <span><strong>Thick</strong><small>强调结论与阅读稳定</small></span>
+                  </label>
+                  <label class="review-choice">
+                    <input type="radio" name="review-material" value="solid-plate">
+                    <span><strong>SolidPlate</strong><small>密集数据和长文本优先</small></span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset class="review-fieldset">
+                <legend><span>03</span>默认信息密度</legend>
+                <p>控制页面起手留白，不改变组件的最低可点击尺寸。</p>
+                <div class="review-choice-grid review-choice-grid--three">
+                  <label class="review-choice">
+                    <input type="radio" name="review-density" value="spacious">
+                    <span><strong>舒展</strong><small>展示与提案</small></span>
+                  </label>
+                  <label class="review-choice">
+                    <input type="radio" name="review-density" value="balanced" checked>
+                    <span><strong>均衡</strong><small>推荐 · 报告与产品通用</small></span>
+                  </label>
+                  <label class="review-choice">
+                    <input type="radio" name="review-density" value="compact">
+                    <span><strong>紧凑</strong><small>表格与工具</small></span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset class="review-fieldset">
+                <legend><span>04</span>React 适配策略</legend>
+                <p>决定框架层只包装真实复用部分，还是维护全部组件的第二层 API。</p>
+                <div class="review-choice-grid">
+                  <label class="review-choice">
+                    <input type="radio" name="review-react-adapter-strategy" value="demand-driven" checked>
+                    <span><strong>按需包装</strong><small>推荐 · 按真实复用逐步适配</small></span>
+                  </label>
+                  <label class="review-choice">
+                    <input type="radio" name="review-react-adapter-strategy" value="full-coverage">
+                    <span><strong>全量包装</strong><small>15 / 15 · 维护成本更高</small></span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset class="review-fieldset">
+                <legend><span>05</span>发布边界</legend>
+                <p>决定母本服务个人 / 内部协作，还是进入需要公开合规的发布流程。</p>
+                <div class="review-choice-grid">
+                  <label class="review-choice">
+                    <input type="radio" name="review-distribution-scope" value="internal" checked>
+                    <span><strong>个人 / 内部</strong><small>推荐 · 保持内部使用边界</small></span>
+                  </label>
+                  <label class="review-choice">
+                    <input type="radio" name="review-distribution-scope" value="public">
+                    <span><strong>公开发布</strong><small>需许可证与可公开背景</small></span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset class="review-fieldset">
+                <legend><span>06</span>同步审计频率</legend>
+                <p>同一任务只能绑定一个心跳。选择每周时，统一心跳每周检查 Gary，并在每月首个周一追加综合治理。</p>
+                <div class="review-choice-grid">
+                  <label class="review-choice">
+                    <input type="radio" name="review-sync-audit-cadence" value="weekly" checked>
+                    <span><strong>统一周检</strong><small>推荐 · 每周查 Gary · 每月首周追加综合治理</small></span>
+                  </label>
+                  <label class="review-choice">
+                    <input type="radio" name="review-sync-audit-cadence" value="monthly">
+                    <span><strong>仅保留月检</strong><small>每月 1 日 09:00 · Gary 与综合治理一起检查</small></span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <section class="review-impact" aria-labelledby="review-impact-title">
+                <div>
+                  <p class="eyebrow">CODEX DECISION SUPPORT</p>
+                  <h3 id="review-impact-title">这组选择意味着什么</h3>
+                </div>
+                <p id="review-impact-summary" role="status" aria-live="polite"></p>
+                <dl>
+                  <div><dt>最适合</dt><dd id="review-impact-fit"></dd></div>
+                  <div><dt>主要取舍</dt><dd id="review-impact-tradeoff"></dd></div>
+                  <div><dt>我的判断</dt><dd id="review-impact-recommendation"></dd></div>
+                </dl>
+              </section>
+
+              <label class="review-notes">
+                <span><strong>给 Codex 的备注</strong><small id="review-note-count">0 / 280</small></span>
+                <textarea class="gary-field" id="review-notes" maxlength="280" rows="4" placeholder="例如：玻璃可以再薄一点，但不要降低正文对比度。"></textarea>
+              </label>
+
+              <div class="review-actions">
+                <button class="gary-button gary-thick" id="review-save" type="button" data-variant="primary" data-gary-icon="save" aria-label="保存本轮决定">保存本轮决定</button>
+                <button class="gary-button gary-regular" id="review-copy" type="button" data-gary-icon="copy" aria-label="复制决策摘要">复制决策摘要</button>
+                <button class="review-reset" id="review-reset" type="button" data-gary-icon="rotate-ccw" aria-label="恢复推荐值">恢复推荐值</button>
+              </div>
+            </form>
+
+            <aside class="review-preview-column" aria-label="决策实时预览">
+              <article class="review-preview" id="review-preview" data-gary-theme="dark" data-review-density="balanced">
+                <div class="review-scene" aria-hidden="true"></div>
+                <div class="review-surface gary-glass gary-regular">
+                  <p class="eyebrow">LIVE DECISION PREVIEW</p>
+                  <h3 class="gary-role-title">清晰先于玻璃</h3>
+                  <p>默认值只决定起点。内容密度升高时，材质仍会自动向 Thick 或 SolidPlate 迁移。</p>
+                  <div class="review-preview-row">
+                    <span class="gary-chip">Gary-UI</span>
+                    <button class="gary-button gary-regular" type="button" data-gary-icon="check" aria-label="确认方案">确认方案</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="review-summary gary-glass gary-regular">
+                <div>
+                  <p class="eyebrow">DECISION PAYLOAD</p>
+                  <h3>写回母本的摘要</h3>
+                </div>
+                <pre id="review-summary-json" aria-label="当前决策摘要" aria-live="polite"></pre>
+                <div class="review-handoff" id="review-handoff" data-state="checking" role="status" aria-live="polite" aria-atomic="true">
+                  <strong>正在连接本地交接桥</strong>
+                  <span>只有收到交接文件回执，决定才会标记为已保存。</span>
+                </div>
+                <p>交接桥只接受固定 schema，并且只写入 Gary-UI 的固定决策文件。</p>
+              </article>
+
+              <article class="review-coverage gary-glass gary-regular" aria-labelledby="review-coverage-title">
+                <div>
+                  <p class="eyebrow">SYSTEM COVERAGE</p>
+                  <h3 id="review-coverage-title">完整性状态</h3>
+                </div>
+                <dl>
+                  <div><dt>组件契约</dt><dd>15 / 15 · 完整</dd></div>
+                  <div><dt>应用模式</dt><dd>3 / 3 · 完整</dd></div>
+                  <div><dt>页面模式</dt><dd>4 / 4 · 完整</dd></div>
+                  <div><dt>React 包装</dt><dd>5 / 15 · 按需</dd></div>
+                  <div><dt>原始落位清单</dt><dd>14 组 · 已裁决</dd></div>
+                  <div><dt>待你确认</dt><dd>基线 · 适配 · 发布边界 · 同步频率</dd></div>
+                  <div><dt>决策交接</dt><dd>本地文件 · applied 回执</dd></div>
+                  <div><dt>漂移审计</dt><dd>单一心跳 · 无重复任务</dd></div>
+                </dl>
+                <p>React 层只包装出现真实复用需求的组件；其余 10 个继续直接使用完整的 HTML/CSS 契约，避免形成第二套真相源。</p>
+              </article>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="copy-toast gary-solid-plate" id="copy-toast" role="status" aria-live="polite" aria-atomic="true">
+    <span aria-hidden="true">✓</span>
+    <span id="copy-toast-text">已复制</span>
+  </div>
+
+  <script src="../patterns/shared/dot-grid.js" defer></script>
+  <script src="./app.js" defer></script>
+  <script src="../patterns/shared/optical-glass.js" defer></script>
+  <script src="../patterns/shared/background-lab.js" defer></script>
+</body>
+</html>

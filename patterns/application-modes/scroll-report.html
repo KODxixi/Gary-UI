@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-theme="dark" data-gary-application-mode="scroll-report">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gary-UI 滚动与演示汇报模式应用骨架">
+  <title>Gary-UI · 滚动 / 演示汇报模式</title>
+  <link rel="stylesheet" href="./modes.css">
+  <script src="../shared/icons.js" defer></script>
+</head>
+<body class="gary-ui application-mode report-mode" data-report>
+  <div class="mode-scene" data-gary-scene-engine="dot-grid" aria-hidden="true"></div>
+  <div class="report-progress" aria-hidden="true"></div>
+
+  <header class="mode-webbar gary-web-bar gary-ultrathin" aria-label="汇报章节导航">
+    <a class="mode-brand" href="../../portal/index.html#patterns">
+      <strong>城市环项目研判</strong>
+      <span>Gary-UI · 滚动 / 演示汇报</span>
+    </a>
+    <nav class="mode-nav" aria-label="汇报章节">
+      <a class="is-active" href="#report-cover" data-report-link aria-current="true">判断</a>
+      <a href="#report-evidence" data-report-link>证据</a>
+      <a href="#report-data" data-report-link>比较</a>
+      <a href="#report-close" data-report-link>行动</a>
+    </nav>
+    <div class="mode-actions">
+      <span class="mode-status">阅读进度</span>
+      <button class="mode-quiet-action gary-button gary-regular" type="button" data-presentation-toggle aria-pressed="false" data-gary-icon="monitor" aria-label="演示视图">演示视图</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="report-section" id="report-cover" data-report-section aria-labelledby="report-title">
+      <div class="report-hero-grid">
+        <div class="report-copy">
+          <p class="mode-kicker">Decision brief · 01</p>
+          <h1 class="gary-role-title" id="report-title">判断先于证据</h1>
+          <p>滚动模式建立叙事连续性，演示模式保持每一屏的结论完整。两者共享章节、证据和页面模式，不复制内容。</p>
+          <div class="mode-chip-row">
+            <span class="mode-chip">单一场景</span>
+            <span class="mode-chip">章节进度</span>
+            <span class="mode-chip">键盘友好</span>
+          </div>
+        </div>
+        <article class="mode-card report-decision gary-glass gary-thick" data-tunable-surface>
+          <p class="mode-kicker">Overall judgment</p>
+          <h2>建议进入下一阶段，但先锁定公共界面与首开区成本。</h2>
+          <dl>
+            <div><dt>机会</dt><dd>空间识别度足够形成首发记忆点</dd></div>
+            <div><dt>风险</dt><dd>非标界面可能推高样板验证成本</dd></div>
+            <div><dt>动作</dt><dd>两周内完成 1:1 关键节点样板</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section class="report-section" id="report-evidence" data-report-section aria-labelledby="evidence-title">
+      <div class="report-evidence-grid">
+        <figure class="report-media">
+          <img src="../../assets/backgrounds/gary-default-scene.png" alt="环形建筑空间与人物尺度关系">
+        </figure>
+        <article class="mode-card report-caption gary-glass gary-regular" data-tunable-surface>
+          <p class="mode-kicker">Evidence · 02</p>
+          <h2 id="evidence-title">图像先证明空间关系，文字只补一句判断。</h2>
+          <p>人物位于视线收束点，环形界面提供连续导向；后续页面应继续使用同一场景语言，而不是逐章更换背景。</p>
+          <div class="mode-chip-row"><span class="mode-chip">现场证据</span><span class="mode-chip">构图安全区</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="report-section" id="report-data" data-report-section aria-labelledby="comparison-title">
+      <div class="report-decision-grid">
+        <article class="mode-card report-metric gary-glass gary-thick" data-tunable-surface>
+          <p class="mode-kicker">Confidence</p>
+          <strong>84%</strong>
+          <p>证据链完整度。玻璃只承担关键判断，密集比较回到 SolidPlate。</p>
+        </article>
+        <article class="mode-plate report-comparison gary-solid-plate">
+          <div class="mode-section-heading"><div><p class="mode-kicker">Scheme matrix · 03</p><h2 id="comparison-title">方案比较</h2></div></div>
+          <div class="report-comparison-row"><span>判断维度</span><span>A 方案</span><span>B 方案</span><span>C 方案</span></div>
+          <div class="report-comparison-row"><strong>空间识别度</strong><span>高</span><span>中</span><span>高</span></div>
+          <div class="report-comparison-row"><strong>建造可控性</strong><span>中</span><span>高</span><span>低</span></div>
+          <div class="report-comparison-row"><strong>首开呈现</strong><span>高</span><span>中</span><span>中</span></div>
+          <div class="report-comparison-row"><strong>综合建议</strong><span>推荐</span><span>备选</span><span>保留</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="report-section" id="report-close" data-report-section aria-labelledby="close-title">
+      <div class="report-closing">
+        <p class="mode-kicker">Next action · 04</p>
+        <h2 id="close-title">下一步不是再做一版汇报，而是验证两个关键假设。</h2>
+        <p>锁定样板、成本与责任人；报告结束时必须留下可执行动作，而不是停在视觉结论。</p>
+        <div class="mode-chip-row"><span class="mode-chip">01 · 节点样板</span><span class="mode-chip">02 · 成本复核</span><span class="mode-chip">03 · 责任确认</span></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../patterns/shared/dot-grid.js"></script>
+  <script src="./modes.js" defer></script>
+  <script src="../../patterns/shared/material.js"></script>
+  <script src="../../patterns/shared/optical-glass.js"></script>
+</body>
+</html>

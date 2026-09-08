@@ -1,0 +1,24 @@
+// Explicit local authoring/build step. No dependency installation or network access.
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
+import { build } from '../adapters/visual/node_modules/esbuild/lib/main.js';
+const root = path.resolve(import.meta.dirname, '..');
+const demos = path.join(root, 'examples/demos');
+const context = { window:{} };
+vm.runInNewContext(fs.readFileSync(path.join(demos,'data/project-data.js'),'utf8'),context);
+const data=context.window.GARY_PROJECT_DATA;
+const recipes=JSON.parse(fs.readFileSync(path.join(root,'spec/scene-recipes.json'),'utf8'));
+const themes=JSON.parse(fs.readFileSync(path.join(root,'adapters/visual/theme-map.json'),'utf8'));
+const months=['3月','4月','5月','6月','7月','8月'];
+const r=data.regions.all;
+for(const region of Object.values(data.regions)) if(region.trend.at(-1)!==region.completion) throw Error('August snapshot does not match trend');
+const quantitative={title:'华东交付完成率',sourceNote:data.meta.provenance+'；3—8月；AC-04 里程碑加权口径；总体权重独立于区域简单平均。',option:{aria:{enabled:true},grid:{left:56,right:24,top:60,bottom:40},legend:{top:8},tooltip:{trigger:'axis'},xAxis:{type:'category',data:months},yAxis:{type:'value',name:'完成率 %',min:0,max:100},series:[{name:'实际',type:'line',data:r.trend,lineStyle:{width:3}},{name:'目标',type:'line',data:r.target,lineStyle:{type:'dashed'}}]},table:[['月份','实际 %','目标 %'],...months.map((month,i)=>[month,r.trend[i],r.target[i]])]};
+fs.writeFileSync(path.join(demos,'visuals/sources/delivery-trend.json'),JSON.stringify(quantitative,null,2)+'\n');
+const entries=[['delivery-architecture','architecture','archify','json','showcase'],['delivery-trend','quantitative','echarts','json','analysis'],['research-outline','outline','markmap','md','reading'],['summary-infographic','infographic','antv-infographic','json','showcase'],['simple-flow','simple-flow','mermaid','mmd','reading']];
+const manifest={schemaVersion:1,project:'Gary Demo Edition 02 / 华东服务交付计划',outputRoot:'outputs',visuals:entries.flatMap(([id,purpose,tool,ext,scene])=>['dark','light'].map(theme=>({id:id+'-'+theme,title:({ 'delivery-architecture':'华东交付证据体系','delivery-trend':'华东交付完成率','research-outline':'华东交付研究提纲','summary-infographic':'四步推进计划','simple-flow':'工作项完成条件'})[id],purpose,tool,source:'sources/'+id+'.'+ext,scene,theme,quality:'showcase',formats:['html','svg','png'],citation:{label:'华东交付计划 · 固定验收示例',url:null,note:'人工编制 非真实业务；快照 2026-08-31。'}})))};
+fs.writeFileSync(path.join(demos,'visuals/visuals.json'),JSON.stringify(manifest,null,2)+'\n');
+fs.writeFileSync(path.join(demos,'shared/chart-policy.js'),'/* Generated from Gary scene recipes and theme-map. */\nwindow.GARY_DEMO_CHART_POLICY = '+JSON.stringify({themes:themes.themes,palettes:recipes.colors.chartCategory,fontFamily:themes.fontFamily})+';\n');
+await build({entryPoints:[path.join(demos,'shared/icons-entry.mjs')],outfile:path.join(demos,'shared/icons.js'),bundle:true,minify:true,format:'iife',legalComments:'eof'});
+await build({entryPoints:[path.join(root,'patterns/shared/icons-entry.mjs')],outfile:path.join(root,'patterns/shared/icons.js'),bundle:true,minify:true,format:'iife',legalComments:'eof'});
+console.log(JSON.stringify({status:'pass',sources:5,visuals:10,icons:'lucide 1.41.0',network:false}));

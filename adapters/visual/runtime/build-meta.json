@@ -1,0 +1,21 @@
+{
+  "packages": {
+    "@antv/infographic": "0.2.20",
+    "echarts": "6.1.0",
+    "lucide": "1.41.0",
+    "markmap-lib": "0.18.12",
+    "markmap-view": "0.18.12",
+    "mermaid": "11.17.2",
+    "playwright-core": "1.63.0"
+  },
+  "policySources": {
+    "themeMap": {
+      "path": "adapters/visual/theme-map.json",
+      "sha256": "a93e64eca9771eab8fff76c907083206a7fcef77a4c29180b63e928f087ee316"
+    },
+    "sceneRecipes": {
+      "path": "spec/scene-recipes.json",
+      "sha256": "2492afae1a0a273501156e3bddc5300237721814bcf1491bd2f455894821c462"
+    }
+  }
+}

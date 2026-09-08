@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "legacyBaseline": {
+    "spacing": "8px",
+    "cardRadius": "30px",
+    "immutableBySceneRecipes": true
+  },
+  "semanticRoles": [
+    "title",
+    "section-title",
+    "body",
+    "label",
+    "annotation",
+    "metric"
+  ],
+  "roleDefinitions": {
+    "title": {"fontSize": "min(clamp(1.75rem, 5vw, 4.5rem), 7vw)", "fontWeight": 720, "lineHeight": 1.08, "spacing": "0 0 24px", "lineCount": 1, "maxCjkCharacters": 12, "punctuation": "none", "longContent": "保持单行；中文最多 12 字，超长时先改写为短标题，完整语义移入副标题或正文，不换行、不截断", "use": "页面唯一主标题或汇报章节大字标题", "avoid": "句末或句内标点、强制 br 换行、卡片内部重复使用或全大写中文"},
+    "section-title": {"fontSize": "clamp(1.25rem, 2vw, 1.75rem)", "fontWeight": 650, "lineHeight": 1.28, "spacing": "0 0 16px", "longContent": "允许自然换行，与后续正文至少间隔 8px", "use": "章节、面板或关联内容的共享标题", "avoid": "为每个相邻指标重复加标题"},
+    "body": {"fontSize": "16px", "fontWeight": 400, "lineHeight": 1.68, "spacing": "0 0 1em", "longContent": "中文自然换行，65–75ch 行宽；URL 和英文长串允许断行", "use": "连续说明、报告正文和可独立阅读的解释", "avoid": "用 14px 正文承载长篇中文"},
+    "label": {"fontSize": "14px", "fontWeight": 600, "lineHeight": 1.4, "spacing": "0 0 8px", "longContent": "优先短语；超过两行改用正文角色", "use": "筛选项、字段名、状态和导航短标签", "avoid": "作为说明段落或结论"},
+    "annotation": {"fontSize": "13px", "fontWeight": 400, "lineHeight": 1.55, "spacing": "8px 0 0", "longContent": "允许多行并与主体分组；来源链接可断行", "use": "来源、口径、更新时间、单位与辅助提示", "avoid": "隐藏关键限制、风险或主要操作"},
+    "metric": {"fontSize": "clamp(1.75rem, 4vw, 3.5rem)", "fontWeight": 720, "lineHeight": 1, "spacing": "8px 0", "longContent": "启用等宽数字；值与单位基线对齐，超长值缩为紧凑字号但不省略单位", "use": "一个卡片中的主数值、变化量或排名", "avoid": "把多个同权数字挤成一句或用装饰图代替刻度"}
+  },
+  "typography": {
+    "families": {
+      "latin": ["Helvetica Neue", "Helvetica", "Arial"],
+      "cjk": ["Microsoft YaHei UI", "Microsoft YaHei", "微软雅黑"]
+    },
+    "richTextWeights": [100, 300, 400, 500, 600, 700, 800, 900],
+    "body": {
+      "fontSize": "16px",
+      "lineHeight": 1.68,
+      "measure": "65-75ch"
+    },
+    "cjk": {
+      "wordBreak": "normal",
+      "overflowWrap": "break-word",
+      "headingWrap": "display title nowrap; section title balance",
+      "bodyWrap": "pretty"
+    },
+    "numeric": {
+      "fontVariantNumeric": "tabular-nums",
+      "valueUnitAlignment": "baseline"
+    }
+  },
+  "cardStructures": ["metric", "comparison", "judgement", "media"],
+  "cardDefinitions": {
+    "metric": {"anatomy": ["label", "metric", "delta", "annotation"], "density": "每卡一个主指标，最多一个同比或环比", "use": "快速扫描单一量值及语境", "avoid": "连续正文、超过两个并列指标或无量纲装饰数字", "longContent": "长数值保持完整，单位换行时仍与数值同组"},
+    "comparison": {"anatomy": ["shared-title", "criteria", "option-a", "option-b", "decision"], "density": "2–4 个方案、3–6 个一致维度", "use": "同一口径下比较方案、时期或区域", "avoid": "维度不一致、缺少共同基线或仅有一个对象", "longContent": "窄屏转为逐维度纵向比较，不缩小字号"},
+    "judgement": {"anatomy": ["verdict", "confidence", "reason", "next-action"], "density": "一个判断、最多三条依据、一个明确动作", "use": "把分析结果转成可执行结论", "avoid": "把未经来源支持的猜测包装成确定结论", "longContent": "超过三条依据移入证据区，卡片保留摘要与入口"},
+    "media": {"anatomy": ["media", "caption", "source", "optional-action"], "density": "一项主媒体配一句解释和来源", "use": "图像、图示或视频本身是主要证据", "avoid": "纯装饰图片、缺少替代文本或来源的素材", "longContent": "长说明放在媒体下方，不覆盖图像关键区域"}
+  },
+  "scenes": {
+    "reading": {
+      "applicationModes": ["scroll-report"],
+      "surface": "solid-body-with-glass-navigation",
+      "density": {"contentGap": "24px", "sectionGap": "48px"},
+      "motion": "static"
+    },
+    "analysis": {
+      "applicationModes": ["board", "web-ui"],
+      "surface": "chart-judgement-evidence",
+      "density": {"contentGap": "16px", "sectionGap": "32px"},
+      "motion": "feedback-and-data-update"
+    },
+    "showcase": {
+      "applicationModes": ["scroll-report", "web-ui"],
+      "surface": "expressive-glass-with-controlled-scene",
+      "density": {"contentGap": "28px", "sectionGap": "56px"},
+      "motion": "finite-playback"
+    }
+  },
+  "colors": {
+    "interfaceState": {
+      "dark": {"positive": "#30d158", "caution": "#ffd60a", "critical": "#ff453a", "info": "#2e8dff"},
+      "light": {"positive": "#248a3d", "caution": "#9a6700", "critical": "#d70015", "info": "#007aff"}
+    },
+    "chartCategory": {
+      "dark": ["#74a7ff", "#f3bd62", "#72d4a6", "#d69cff", "#ff8f85", "#8bd3dd"],
+      "light": ["#245fbd", "#9a6500", "#167552", "#7546a7", "#b93a32", "#216d78"]
+    },
+    "diagramRelation": {
+      "dark": {"primary": "#74a7ff", "secondary": "#8b93a5", "exception": "#ff9f43", "boundary": "#b892ff"},
+      "light": {"primary": "#245fbd", "secondary": "#5f6878", "exception": "#a45300", "boundary": "#7546a7"}
+    }
+  },
+  "financialDirection": {
+    "cn-stock": {"up": "red", "down": "green"},
+    "international": {"up": "green", "down": "red"}
+  },
+  "motion": {
+    "feedback": "150ms",
+    "expand": "250ms",
+    "reorder": "250ms",
+    "dataUpdate": "350ms",
+    "presentation": "finite-with-play-pause-replay",
+    "reducedMotion": "complete-content-immediately"
+  }
+}

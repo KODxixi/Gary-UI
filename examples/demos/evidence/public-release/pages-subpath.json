@@ -1,0 +1,299 @@
+{
+  "generatedAt": "2026-09-08T10:10:00.100Z",
+  "base": "http://127.0.0.1:4188/Gary-UI/",
+  "checks": 24,
+  "passed": 24,
+  "results": [
+    {
+      "width": 1440,
+      "page": "index",
+      "pass": true,
+      "proof": {
+        "title": "Gary-UI Demo Collection",
+        "width": 1440,
+        "scrollWidth": 1440,
+        "dots": 1,
+        "backgroundText": "Background",
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 1440,
+      "page": "web-analysis",
+      "pass": true,
+      "proof": {
+        "title": "交付脉冲 · Gary-UI",
+        "width": 1440,
+        "scrollWidth": 1440,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 1440,
+      "page": "web-reading",
+      "pass": true,
+      "proof": {
+        "title": "项目知识库 · Gary-UI",
+        "width": 1440,
+        "scrollWidth": 1440,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 1440,
+      "page": "project-kanban",
+      "pass": true,
+      "proof": {
+        "title": "项目运行看板 · Gary-UI",
+        "width": 1440,
+        "scrollWidth": 1440,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 1440,
+      "page": "executive-board",
+      "pass": true,
+      "proof": {
+        "title": "管理层简报 · Gary-UI",
+        "width": 1440,
+        "scrollWidth": 1440,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 1440,
+      "page": "research-report",
+      "pass": true,
+      "proof": {
+        "title": "交付决策报告 · Gary-UI",
+        "width": 1440,
+        "scrollWidth": 1440,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 1440,
+      "page": "proposal-presentation",
+      "pass": true,
+      "proof": {
+        "title": "华东交付方案 · Gary-UI",
+        "width": 1440,
+        "scrollWidth": 1440,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 1440,
+      "page": "portal-components",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "page": "index",
+      "pass": true,
+      "proof": {
+        "title": "Gary-UI Demo Collection",
+        "width": 390,
+        "scrollWidth": 390,
+        "dots": 1,
+        "backgroundText": "Background",
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 390,
+      "page": "web-analysis",
+      "pass": true,
+      "proof": {
+        "title": "交付脉冲 · Gary-UI",
+        "width": 390,
+        "scrollWidth": 390,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 390,
+      "page": "web-reading",
+      "pass": true,
+      "proof": {
+        "title": "项目知识库 · Gary-UI",
+        "width": 390,
+        "scrollWidth": 390,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 390,
+      "page": "project-kanban",
+      "pass": true,
+      "proof": {
+        "title": "项目运行看板 · Gary-UI",
+        "width": 390,
+        "scrollWidth": 390,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 390,
+      "page": "executive-board",
+      "pass": true,
+      "proof": {
+        "title": "管理层简报 · Gary-UI",
+        "width": 390,
+        "scrollWidth": 390,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 390,
+      "page": "research-report",
+      "pass": true,
+      "proof": {
+        "title": "交付决策报告 · Gary-UI",
+        "width": 390,
+        "scrollWidth": 390,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 390,
+      "page": "proposal-presentation",
+      "pass": true,
+      "proof": {
+        "title": "华东交付方案 · Gary-UI",
+        "width": 390,
+        "scrollWidth": 390,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 390,
+      "page": "portal-components",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "page": "index",
+      "pass": true,
+      "proof": {
+        "title": "Gary-UI Demo Collection",
+        "width": 320,
+        "scrollWidth": 320,
+        "dots": 1,
+        "backgroundText": "Background",
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 320,
+      "page": "web-analysis",
+      "pass": true,
+      "proof": {
+        "title": "交付脉冲 · Gary-UI",
+        "width": 320,
+        "scrollWidth": 320,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 320,
+      "page": "web-reading",
+      "pass": true,
+      "proof": {
+        "title": "项目知识库 · Gary-UI",
+        "width": 320,
+        "scrollWidth": 320,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 320,
+      "page": "project-kanban",
+      "pass": true,
+      "proof": {
+        "title": "项目运行看板 · Gary-UI",
+        "width": 320,
+        "scrollWidth": 320,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 320,
+      "page": "executive-board",
+      "pass": true,
+      "proof": {
+        "title": "管理层简报 · Gary-UI",
+        "width": 320,
+        "scrollWidth": 320,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 320,
+      "page": "research-report",
+      "pass": true,
+      "proof": {
+        "title": "交付决策报告 · Gary-UI",
+        "width": 320,
+        "scrollWidth": 320,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 320,
+      "page": "proposal-presentation",
+      "pass": true,
+      "proof": {
+        "title": "华东交付方案 · Gary-UI",
+        "width": 320,
+        "scrollWidth": 320,
+        "dots": 1,
+        "backgroundIcons": 0,
+        "restrictedScript": false
+      }
+    },
+    {
+      "width": 320,
+      "page": "portal-components",
+      "pass": true
+    }
+  ]
+}

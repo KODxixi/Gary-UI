@@ -1,0 +1,46 @@
+{
+  "slug": "metric-card",
+  "name": "指标卡",
+  "category": "data-display",
+  "material": {
+    "default": "Thick",
+    "rules": [
+      "一个卡只突出一个主指标",
+      "支撑指标使用分隔行或 SolidPlate"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-metric-card"
+    },
+    {
+      "name": "interactive",
+      "selector": "[data-interactive=\"true\"]"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": "[data-interactive=\"true\"]:hover"
+    },
+    {
+      "name": "loading",
+      "selector": "[aria-busy=\"true\"]"
+    }
+  ],
+  "accessibility": {
+    "role": "group or article",
+    "requirements": [
+      "数值与单位在可访问名称中保持完整",
+      "趋势不能只用颜色表达",
+      "动态更新按需使用 aria-live=\"polite\""
+    ]
+  },
+  "cssClasses": [
+    ".gary-metric-card",
+    ".gary-metric-card__label",
+    ".gary-metric-card__value",
+    ".gary-metric-card__meta"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "archify": {
+    "version": "2.17.0-dev.1",
+    "commit": "c6519401f7b91b9d43011657880893b0a8955548",
+    "repository": "https://github.com/tt-a1i/archify",
+    "skillSha256": "10094272d6d1b4ad0f2c2e0880cb646fe4991454a2dc3d854aecb27e7407ee1f",
+    "updatesDisabledAtRuntime": true
+  },
+  "antvInfographicSkills": {
+    "repository": "https://github.com/antvis/Infographic",
+    "commit": "2ea1894255e4002c7735586778be86d13ec30346",
+    "packageVersion": "0.2.20",
+    "files": {
+      "infographic-creator": {
+        "SKILL.md": "00d0f5da0d7f17e8d23e9e06ce67f31d187b0c190f118aed50fa7cc736dcbc8b"
+      },
+      "infographic-syntax-creator": {
+        "SKILL.md": "5d954cc22ea77bbd142c6cd257fd346b1bd50b06369f40d50c39c76cef2f4b4a",
+        "references/prompt.md": "0c6865b19dc5bc515ff9ed3c9d19c7e13ace9ebb1de6a1bfbb73a61f728af81f"
+      }
+    },
+    "garyRenderPolicy": "Official skills choose template and syntax; Gary renders and exports through the local pinned adapter without runtime CDN access."
+  },
+  "browserAssets": {
+    "vendor/browser/infographic.min.js": "2890e658d6018b9ab385b4da9775b917a99e113ea333c59f03e538290e302b13"
+  },
+  "packages": {
+    "@antv/infographic": "0.2.20",
+    "echarts": "6.1.0",
+    "lucide": "1.41.0",
+    "markmap-lib": "0.18.12",
+    "markmap-view": "0.18.12",
+    "mermaid": "11.17.2",
+    "playwright-core": "1.63.0"
+  },
+  "buildPackages": {
+    "esbuild": "0.25.9"
+  }
+}

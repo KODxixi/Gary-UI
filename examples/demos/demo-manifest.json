@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "edition": "02",
+  "design": {
+    "direction": "Keynote editorial / precise product UI",
+    "baseline": "Gary fonts, pure black and white dot-grid, 30px cards, single-line punctuation-free display titles",
+    "sharedImplementation": "shared/demo.css + shared/demo.js",
+    "dataAuthority": "data/project-data.js",
+    "chartPolicy": "Gary scene recipes and visual theme-map via scripts/build_demo_assets.mjs",
+    "visualManifest": "visuals/visuals.json",
+    "acceptance": "evidence/edition-02/acceptance.md"
+  },
+  "dataSet": "Gary-UI 验收固定示例数据 / 华东服务交付计划 / 2026-08-31 快照",
+  "demos": [
+    {"id":"web-analysis","name":"交付脉冲","category":"web-ui","scene":"analysis","entry":"web-analysis/index.html"},
+    {"id":"web-reading","name":"项目知识库","category":"web-ui","scene":"reading","entry":"web-reading/index.html"},
+    {"id":"project-kanban","name":"项目运行看板","category":"kanban","scene":"analysis","entry":"project-kanban/index.html"},
+    {"id":"executive-board","name":"管理层简报","category":"kanban","scene":"showcase","entry":"executive-board/index.html"},
+    {"id":"research-report","name":"交付模式决策报告","category":"html-report","scene":"reading","entry":"research-report/index.html"},
+    {"id":"proposal-presentation","name":"华东交付方案汇报","category":"html-report","scene":"showcase","entry":"proposal-presentation/index.html"}
+  ]
+}

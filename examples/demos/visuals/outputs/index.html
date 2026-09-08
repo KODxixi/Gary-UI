@@ -1,0 +1,1850 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gary-UI 制图样例</title><style>/*
+ * Gary UI component runtime.
+ * Import only through ../tokens/base.css.
+ */
+
+:where(
+  .gary-button,
+  .gary-segmented,
+  .gary-field,
+  .gary-tab-bar,
+  .gary-web-bar,
+  .gary-glass-card,
+  .gary-metric-card,
+  .gary-comparison-table,
+  .gary-decision-grid,
+  .gary-media-card,
+  .gary-profile-card,
+  .gary-scene,
+  .gary-chip,
+  .gary-evidence-bar
+) {
+  font-family: var(--gary-font-sans);
+  letter-spacing: 0;
+}
+
+:where(
+  .gary-button,
+  .gary-segmented > button,
+  .gary-tab-bar [role="tab"],
+  .gary-web-bar a,
+  .gary-chip
+):focus-visible,
+.gary-field:focus-within {
+  outline: 3px solid var(--gary-focus-ring);
+  outline-offset: 3px;
+}
+
+/* Button */
+.gary-button {
+  --gary-glass-fill: var(--gary-glass-regular);
+  --gary-glass-blur: var(--gary-blur-regular);
+  min-height: var(--gary-control-height);
+  padding: 0 var(--gary-space-6);
+  border-radius: var(--gary-radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gary-space-2);
+  color: var(--gary-text-primary);
+  font: inherit;
+  font-weight: var(--gary-font-weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--gary-duration-base) var(--gary-ease),
+    opacity var(--gary-duration-fast) var(--gary-ease),
+    box-shadow var(--gary-duration-base) var(--gary-ease),
+    background-color var(--gary-duration-fast) var(--gary-ease);
+}
+
+.gary-button:hover:not(:disabled, [aria-disabled="true"]) {
+  transform: translateY(-1px);
+  box-shadow:
+    var(--gary-shadow-inset),
+    0 3px 7px var(--gary-border-shadow),
+    var(--gary-shadow-environment);
+}
+
+.gary-button:active:not(:disabled, [aria-disabled="true"]) {
+  transform: translateY(1px) scale(0.985);
+  box-shadow: var(--gary-shadow-inset), var(--gary-shadow-contact);
+}
+
+.gary-button[data-variant="primary"] {
+  --gary-glass-fill: var(--gary-glass-thick);
+  font-weight: var(--gary-font-weight-bold);
+}
+
+.gary-button[data-variant="quiet"] {
+  --gary-glass-fill: var(--gary-glass-ultrathin);
+  box-shadow: var(--gary-shadow-inset), var(--gary-shadow-contact);
+}
+
+.gary-button[data-variant="danger"] {
+  color: var(--gary-state-critical);
+}
+
+.gary-button[data-size="small"] {
+  min-height: 36px;
+  padding-inline: var(--gary-space-4);
+  font-size: var(--gary-font-size-label);
+}
+
+.gary-button[data-size="large"] {
+  min-height: 52px;
+  padding-inline: var(--gary-space-8);
+  font-size: var(--gary-font-size-lead);
+}
+
+.gary-button:is(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.44;
+  transform: none;
+}
+
+/* Segmented control */
+.gary-segmented {
+  --gary-glass-fill: var(--gary-glass-regular);
+  --gary-glass-blur: var(--gary-blur-regular);
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--gary-space-1);
+  border-radius: var(--gary-radius-pill);
+  display: inline-flex;
+  align-items: stretch;
+  gap: var(--gary-space-1);
+}
+
+.gary-segmented > button {
+  min-height: 36px;
+  padding: 0 var(--gary-space-4);
+  border: 0;
+  border-radius: var(--gary-radius-pill);
+  color: var(--gary-text-secondary);
+  background: transparent;
+  font: inherit;
+  font-weight: var(--gary-font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color var(--gary-duration-fast) var(--gary-ease),
+    background-color var(--gary-duration-base) var(--gary-ease),
+    transform var(--gary-duration-base) var(--gary-ease);
+}
+
+.gary-segmented > button:hover:not(:disabled) {
+  color: var(--gary-text-primary);
+}
+
+.gary-segmented > button:is([aria-pressed="true"], [aria-selected="true"], [data-active="true"]) {
+  color: var(--gary-text-primary);
+  background: var(--gary-solid-plate);
+  box-shadow: var(--gary-shadow-inset), var(--gary-shadow-contact);
+}
+
+.gary-segmented > button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.gary-segmented > button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+/* Field */
+.gary-field {
+  --gary-glass-fill: var(--gary-glass-regular);
+  --gary-glass-blur: var(--gary-blur-regular);
+  min-height: var(--gary-control-height);
+  padding: 0 var(--gary-space-4);
+  border-radius: var(--gary-radius-control);
+  display: flex;
+  align-items: center;
+  gap: var(--gary-space-3);
+  color: var(--gary-text-primary);
+  transition:
+    border-color var(--gary-duration-fast) var(--gary-ease),
+    box-shadow var(--gary-duration-base) var(--gary-ease),
+    opacity var(--gary-duration-fast) var(--gary-ease);
+}
+
+:where(input, textarea, select).gary-field {
+  width: 100%;
+  appearance: none;
+  font: inherit;
+}
+
+.gary-field > :where(input, textarea, select) {
+  width: 100%;
+  min-width: 0;
+  padding: var(--gary-space-3) 0;
+  border: 0;
+  outline: 0;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+}
+
+.gary-field > textarea {
+  min-height: 112px;
+  resize: vertical;
+  line-height: var(--gary-line-height-body);
+}
+
+:where(input, textarea).gary-field::placeholder,
+.gary-field > :where(input, textarea)::placeholder {
+  color: var(--gary-text-tertiary);
+  opacity: 1;
+}
+
+.gary-field:is([aria-invalid="true"], :has(> [aria-invalid="true"])) {
+  border-color: var(--gary-state-critical);
+}
+
+.gary-field:is([aria-disabled="true"], :has(> :disabled)),
+:where(input, textarea, select).gary-field:disabled {
+  pointer-events: none;
+  opacity: 0.44;
+}
+
+.gary-field__label {
+  display: block;
+  margin-bottom: var(--gary-space-2);
+  color: var(--gary-text-secondary);
+  font-size: var(--gary-font-size-label);
+  font-weight: 620;
+}
+
+.gary-field__message {
+  margin: var(--gary-space-2) 0 0;
+  color: var(--gary-text-tertiary);
+  font-size: var(--gary-font-size-caption);
+}
+
+[aria-invalid="true"] + .gary-field__message,
+.gary-field__message[data-state="error"] {
+  color: var(--gary-state-critical);
+}
+
+/* Tab bar */
+.gary-tab-bar {
+  --gary-glass-fill: var(--gary-glass-ultrathin);
+  --gary-glass-blur: var(--gary-blur-ultrathin);
+  width: fit-content;
+  max-width: 100%;
+  min-height: 52px;
+  padding: var(--gary-space-1);
+  border-radius: var(--gary-radius-pill);
+  display: flex;
+  align-items: center;
+  gap: var(--gary-space-1);
+}
+
+.gary-tab-bar [role="tab"] {
+  min-height: 42px;
+  padding: 0 var(--gary-space-4);
+  border: 0;
+  border-radius: var(--gary-radius-pill);
+  color: var(--gary-text-secondary);
+  background: transparent;
+  font: inherit;
+  font-weight: 620;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color var(--gary-duration-fast) var(--gary-ease),
+    background-color var(--gary-duration-base) var(--gary-ease);
+}
+
+.gary-tab-bar [role="tab"]:hover {
+  color: var(--gary-text-primary);
+}
+
+.gary-tab-bar [role="tab"][aria-selected="true"] {
+  color: var(--gary-text-primary);
+  background: var(--gary-solid-plate);
+  box-shadow: var(--gary-shadow-inset), var(--gary-shadow-contact);
+}
+
+.gary-tab-bar [role="tab"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+/* Web bar */
+.gary-web-bar {
+  --gary-glass-fill: var(--gary-glass-ultrathin);
+  --gary-glass-blur: var(--gary-blur-ultrathin);
+  width: min(1180px, calc(100% - 32px));
+  min-height: 56px;
+  margin-inline: auto;
+  padding: var(--gary-space-2) var(--gary-space-3) var(--gary-space-2) var(--gary-space-6);
+  border-radius: var(--gary-radius-pill);
+  display: flex;
+  align-items: center;
+  gap: var(--gary-density-control-gap);
+}
+
+.gary-web-bar__brand {
+  color: var(--gary-text-primary);
+  font-weight: 740;
+  white-space: nowrap;
+}
+
+.gary-web-bar__nav {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--gary-space-1);
+  scrollbar-width: none;
+}
+
+.gary-web-bar__nav::-webkit-scrollbar {
+  display: none;
+}
+
+.gary-web-bar a {
+  min-height: 38px;
+  padding: 0 var(--gary-space-3);
+  border-radius: var(--gary-radius-pill);
+  display: inline-flex;
+  align-items: center;
+  color: var(--gary-text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color var(--gary-duration-fast) var(--gary-ease),
+    background-color var(--gary-duration-base) var(--gary-ease);
+}
+
+.gary-web-bar a:hover,
+.gary-web-bar a[aria-current="page"] {
+  color: var(--gary-text-primary);
+  background: var(--gary-solid-plate);
+}
+
+.gary-web-bar__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--gary-space-2);
+}
+
+/* Glass and metric cards */
+.gary-glass-card,
+.gary-metric-card {
+  --gary-glass-fill: var(--gary-glass-thick);
+  --gary-glass-blur: var(--gary-blur-thick);
+  border-radius: var(--gary-radius-card);
+  padding: var(--gary-density-surface-padding);
+}
+
+.gary-glass-card[data-card-style="custom"] {
+  --gary-glass-fill: color-mix(
+    in srgb,
+    var(--gary-solid-plate) var(--gary-card-opacity),
+    transparent
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--gary-text-primary) var(--gary-card-hierarchy-contrast),
+    transparent
+  );
+}
+
+.gary-glass-card[data-interactive="true"],
+.gary-metric-card[data-interactive="true"] {
+  transition:
+    transform var(--gary-duration-slow) var(--gary-ease),
+    box-shadow var(--gary-duration-slow) var(--gary-ease);
+}
+
+.gary-glass-card[data-interactive="true"]:hover,
+.gary-metric-card[data-interactive="true"]:hover {
+  transform: translateY(-2px);
+}
+
+.gary-glass-card[aria-disabled="true"] {
+  pointer-events: none;
+  cursor: not-allowed;
+  border-style: dashed;
+  opacity: 0.62;
+  filter: grayscale(0.7);
+}
+
+.gary-glass-card__eyebrow,
+.gary-metric-card__label {
+  margin: 0 0 var(--gary-space-2);
+  color: var(--gary-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 650;
+}
+
+.gary-glass-card__title {
+  margin: 0;
+  font-size: var(--gary-font-size-title);
+  line-height: 1.28;
+}
+
+.gary-glass-card__body {
+  margin: var(--gary-space-3) 0 0;
+  color: var(--gary-text-secondary);
+}
+
+.gary-metric-card {
+  display: grid;
+  align-content: space-between;
+  gap: var(--gary-density-layout-gap);
+  min-height: 180px;
+}
+
+.gary-metric-card[aria-busy="true"] {
+  cursor: progress;
+}
+
+.gary-metric-card[aria-busy="true"] > * {
+  opacity: 0.42;
+}
+
+.gary-metric-card[aria-busy="true"] .gary-metric-card__value {
+  color: transparent;
+  border-radius: var(--gary-radius-control);
+  background:
+    linear-gradient(
+      100deg,
+      var(--gary-surface-sunken) 20%,
+      color-mix(in srgb, var(--gary-text-primary) 12%, transparent) 45%,
+      var(--gary-surface-sunken) 70%
+    );
+  background-size: 240% 100%;
+  animation: gary-loading-sweep var(--gary-duration-slow) var(--gary-ease) infinite alternate;
+}
+
+.gary-metric-card__value {
+  margin: 0;
+  font-family: var(--gary-font-mono);
+  font-size: var(--gary-font-size-display);
+  font-weight: 760;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.gary-metric-card__meta {
+  padding-top: var(--gary-space-4);
+  border-top: 1px solid var(--gary-border-shadow);
+  color: var(--gary-text-secondary);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gary-space-3);
+}
+
+/* Comparison table */
+.gary-comparison-table {
+  --gary-glass-fill: var(--gary-glass-thick);
+  --gary-glass-blur: var(--gary-blur-thick);
+  border-radius: var(--gary-radius-card);
+  padding: var(--gary-density-control-gap);
+}
+
+.gary-comparison-table > table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: var(--gary-space-1);
+  table-layout: fixed;
+}
+
+.gary-comparison-table :where(th, td) {
+  min-width: 0;
+  padding: var(--gary-space-3) var(--gary-space-4);
+  color: var(--gary-text-secondary);
+  background: var(--gary-solid-plate);
+  overflow-wrap: anywhere;
+  text-align: left;
+  vertical-align: top;
+}
+
+.gary-comparison-table th {
+  color: var(--gary-text-primary);
+  font-weight: 700;
+}
+
+.gary-comparison-table :where(th, td):first-child {
+  border-radius: var(--gary-radius-control) 0 0 var(--gary-radius-control);
+}
+
+.gary-comparison-table :where(th, td):last-child {
+  border-radius: 0 var(--gary-radius-control) var(--gary-radius-control) 0;
+}
+
+.gary-comparison-table [data-numeric="true"] {
+  font-family: var(--gary-font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.gary-comparison-table [data-recommended="true"] {
+  color: var(--gary-text-primary);
+  box-shadow: inset 0 0 0 2px var(--gary-focus-ring);
+}
+
+.gary-comparison-table__empty {
+  display: none;
+  min-height: 160px;
+  padding: var(--gary-density-surface-padding);
+  place-items: center;
+  color: var(--gary-text-secondary);
+  text-align: center;
+}
+
+.gary-comparison-table[data-state="empty"] > table {
+  display: none;
+}
+
+.gary-comparison-table[data-state="empty"] > .gary-comparison-table__empty {
+  display: grid;
+}
+
+/* Decision grid */
+.gary-decision-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gary-density-layout-gap);
+}
+
+.gary-decision-grid > [data-gary-decision] {
+  min-width: 0;
+  padding: var(--gary-density-surface-padding);
+  border: 1px solid;
+  border-color:
+    var(--gary-border-highlight)
+    var(--gary-border-shadow)
+    var(--gary-border-shadow)
+    var(--gary-border-highlight);
+  border-radius: var(--gary-radius-card);
+  color: var(--gary-text-primary);
+  background: var(--gary-glass-thick);
+  box-shadow:
+    var(--gary-shadow-inset),
+    var(--gary-shadow-contact),
+    var(--gary-shadow-environment);
+  -webkit-backdrop-filter:
+    blur(var(--gary-blur-thick)) saturate(var(--gary-glass-saturate))
+    brightness(var(--gary-glass-brightness)) contrast(var(--gary-glass-contrast));
+  backdrop-filter:
+    blur(var(--gary-blur-thick)) saturate(var(--gary-glass-saturate))
+    brightness(var(--gary-glass-brightness)) contrast(var(--gary-glass-contrast));
+}
+
+.gary-decision-grid > [data-gary-decision="recommended"] {
+  box-shadow:
+    inset 0 0 0 2px var(--gary-focus-ring),
+    var(--gary-shadow-inset),
+    var(--gary-shadow-contact),
+    var(--gary-shadow-environment);
+}
+
+.gary-decision-grid > [aria-selected="true"] {
+  border-color: var(--gary-focus-ring);
+  box-shadow:
+    inset 0 0 0 2px var(--gary-focus-ring),
+    var(--gary-shadow-inset),
+    var(--gary-shadow-contact),
+    var(--gary-shadow-environment);
+}
+
+.gary-decision-grid > [aria-disabled="true"] {
+  pointer-events: none;
+  cursor: not-allowed;
+  border-color: color-mix(in srgb, var(--gary-state-critical) 64%, var(--gary-border-shadow));
+  color: var(--gary-text-secondary);
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 10px,
+      color-mix(in srgb, var(--gary-state-critical) 8%, transparent) 10px 20px
+    ),
+    var(--gary-solid-plate);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gary-state-critical) 32%, transparent);
+}
+
+/* Media card */
+.gary-media-card {
+  --gary-glass-fill: var(--gary-glass-thick);
+  --gary-glass-blur: var(--gary-blur-thick);
+  margin: 0;
+  padding: var(--gary-space-2);
+  border-radius: var(--gary-radius-card);
+  display: grid;
+  gap: var(--gary-space-2);
+}
+
+.gary-media-card__media {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: calc(var(--gary-radius-card) - var(--gary-space-1));
+  display: block;
+  object-fit: cover;
+  background: var(--gary-surface-sunken);
+}
+
+.gary-media-card__caption {
+  padding: var(--gary-space-4);
+  border-radius: var(--gary-radius-control);
+  color: var(--gary-text-secondary);
+  background: var(--gary-solid-plate);
+}
+
+.gary-media-card__caption strong {
+  display: block;
+  margin-bottom: var(--gary-space-1);
+  color: var(--gary-text-primary);
+}
+
+.gary-media-card[aria-busy="true"] {
+  cursor: progress;
+}
+
+.gary-media-card[aria-busy="true"] .gary-media-card__media {
+  filter: grayscale(1);
+  opacity: 0.46;
+}
+
+.gary-media-card[data-state="error"] {
+  border-color: var(--gary-state-critical);
+}
+
+.gary-media-card[data-state="error"] .gary-media-card__media {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      var(--gary-surface-sunken) 0 12px,
+      color-mix(in srgb, var(--gary-state-critical) 10%, var(--gary-surface-sunken)) 12px 24px
+    );
+}
+
+/* Profile card */
+.gary-profile-card {
+  --gary-glass-fill: var(--gary-glass-thick);
+  --gary-glass-blur: var(--gary-blur-thick);
+  padding: var(--gary-density-surface-padding);
+  border-radius: var(--gary-radius-card);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--gary-density-control-gap);
+}
+
+.gary-profile-card__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  object-fit: cover;
+  background: var(--gary-solid-plate);
+  box-shadow: var(--gary-shadow-inset), var(--gary-shadow-contact);
+}
+
+.gary-profile-card__name {
+  margin: 0;
+  color: var(--gary-text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.gary-profile-card__meta {
+  margin: var(--gary-space-1) 0 0;
+  color: var(--gary-text-secondary);
+  font-size: 0.875rem;
+}
+
+.gary-profile-card__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gary-space-2);
+}
+
+.gary-profile-card[data-status="available"] .gary-profile-card__avatar {
+  outline: 2px solid var(--gary-state-positive);
+  outline-offset: 3px;
+}
+
+.gary-profile-card[aria-disabled="true"] {
+  pointer-events: none;
+  cursor: not-allowed;
+  border-style: dashed;
+  opacity: 0.62;
+  filter: grayscale(0.72);
+}
+
+/* One scene plus one global mask */
+.gary-scene {
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  color: var(--gary-text-primary);
+  background:
+    var(
+      --gary-scene-image,
+      radial-gradient(circle at 18% 18%, var(--gary-text-tertiary), transparent 34%),
+      linear-gradient(145deg, var(--gary-surface-page), var(--gary-surface-sunken))
+    );
+  background-position: var(--gary-scene-position, center);
+  background-repeat: no-repeat;
+  background-size: var(--gary-scene-size, cover);
+}
+
+.gary-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--gary-scene-mask);
+}
+
+.gary-scene > * {
+  position: relative;
+}
+
+/* Chip */
+.gary-chip {
+  min-height: 28px;
+  padding: 0 var(--gary-space-3);
+  border: 1px solid var(--gary-border-shadow);
+  border-radius: var(--gary-radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gary-space-2);
+  color: var(--gary-text-secondary);
+  background: var(--gary-solid-plate);
+  box-shadow: var(--gary-shadow-inset);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  line-height: 1;
+}
+
+button.gary-chip {
+  cursor: pointer;
+}
+
+.gary-chip:is([aria-pressed="true"], [aria-selected="true"]) {
+  color: var(--gary-text-primary);
+  box-shadow: inset 0 0 0 2px var(--gary-focus-ring), var(--gary-shadow-inset);
+}
+
+.gary-chip[data-tone="positive"] {
+  color: var(--gary-state-positive);
+}
+
+.gary-chip[data-tone="caution"] {
+  color: var(--gary-state-caution);
+}
+
+.gary-chip[data-tone="critical"] {
+  color: var(--gary-state-critical);
+}
+
+.gary-chip:is(:disabled, [aria-disabled="true"]) {
+  pointer-events: none;
+  opacity: 0.44;
+}
+
+.gary-solid-plate[aria-disabled="true"] {
+  pointer-events: none;
+  cursor: not-allowed;
+  border-style: dashed;
+  opacity: 0.62;
+}
+
+/* Evidence bar */
+.gary-evidence-bar {
+  min-width: 0;
+  padding: var(--gary-space-3) var(--gary-space-4);
+  border: 1px solid var(--gary-border-shadow);
+  border-radius: var(--gary-radius-control);
+  display: flex;
+  align-items: center;
+  gap: var(--gary-space-3);
+  color: var(--gary-text-secondary);
+  background: var(--gary-solid-plate);
+  box-shadow: var(--gary-shadow-inset), var(--gary-shadow-contact);
+  font-size: 0.8125rem;
+}
+
+.gary-evidence-bar__label {
+  color: var(--gary-text-primary);
+  font-weight: 700;
+}
+
+.gary-evidence-bar__source {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gary-evidence-bar__meta {
+  margin-left: auto;
+  color: var(--gary-text-tertiary);
+  font-family: var(--gary-font-mono);
+  white-space: nowrap;
+}
+
+.gary-evidence-bar[data-state="verified"] {
+  border-color: color-mix(in srgb, var(--gary-state-positive) 52%, var(--gary-border-shadow));
+}
+
+.gary-evidence-bar[data-state="verified"] .gary-evidence-bar__label {
+  color: var(--gary-state-positive);
+}
+
+.gary-evidence-bar[data-state="stale"] {
+  border-color: color-mix(in srgb, var(--gary-state-caution) 56%, var(--gary-border-shadow));
+}
+
+.gary-evidence-bar[data-state="stale"] .gary-evidence-bar__label {
+  color: var(--gary-state-caution);
+}
+
+.gary-evidence-bar[data-state="missing"] {
+  border-color: color-mix(in srgb, var(--gary-state-critical) 56%, var(--gary-border-shadow));
+  border-style: dashed;
+}
+
+.gary-evidence-bar[data-state="missing"] .gary-evidence-bar__label {
+  color: var(--gary-state-critical);
+}
+
+@keyframes gary-loading-sweep {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
+}
+
+@media (max-width: 900px) {
+  .gary-decision-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gary-web-bar__nav {
+    flex: 1 1 auto;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline proximity;
+  }
+
+  .gary-web-bar__nav > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .gary-web-bar {
+    width: calc(100% - 24px);
+    padding-left: var(--gary-space-4);
+  }
+
+  .gary-tab-bar,
+  .gary-segmented {
+    width: 100%;
+  }
+
+  .gary-tab-bar [role="tab"],
+  .gary-segmented > button {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: var(--gary-space-2);
+  }
+
+  .gary-decision-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gary-profile-card {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .gary-profile-card__actions {
+    grid-column: 1 / -1;
+  }
+
+  .gary-comparison-table > table,
+  .gary-comparison-table :where(thead, tbody, tr, th, td) {
+    display: block;
+    width: 100%;
+  }
+
+  .gary-comparison-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .gary-comparison-table tbody {
+    display: grid;
+    gap: var(--gary-space-2);
+  }
+
+  .gary-comparison-table tr {
+    padding: var(--gary-space-2);
+    border-radius: var(--gary-radius-control);
+    background: var(--gary-solid-plate);
+  }
+
+  .gary-comparison-table td {
+    padding: var(--gary-space-2);
+    border-radius: 0;
+    display: grid;
+    grid-template-columns: minmax(7rem, 0.45fr) minmax(0, 1fr);
+    gap: var(--gary-space-3);
+    background: transparent;
+    text-align: left;
+  }
+
+  .gary-comparison-table td::before {
+    content: attr(data-label);
+    color: var(--gary-text-tertiary);
+    font-weight: 620;
+  }
+
+  .gary-evidence-bar {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .gary-evidence-bar__meta {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+/* Shared neutral material. Semantic card structure is independent of surface style. */
+html [data-gary-material="glass"] { position:relative; isolation:isolate; border:1px solid var(--gary-card-edge); border-radius:var(--gary-radius-card,30px); background:var(--gary-card-plate); backdrop-filter:blur(12px); box-shadow:inset 0 1px 0 var(--gary-card-edge); }
+html [data-gary-material="glass"]:not([data-gary-card="action"])::before,html [data-gary-material="glass"]:not([data-gary-card="action"])::after { content:none; }
+html [data-gary-card="action"] { text-decoration:none; overflow:hidden; cursor:pointer; transition:box-shadow 200ms,transform 200ms; }
+html [data-gary-card="action"]::before { content:""; position:absolute; inset:0; z-index:0; pointer-events:none; border-radius:inherit; opacity:0; background:radial-gradient(320px circle at var(--gary-card-x,50%) var(--gary-card-y,50%),var(--gary-card-shine),transparent 80%); transition:opacity 200ms; }
+@property --gary-card-angle { syntax:'<angle>'; inherits:false; initial-value:0deg; }
+html [data-gary-card="action"]::after { content:""; position:absolute; inset:0; z-index:3; border-radius:inherit; padding:2px; pointer-events:none; opacity:0; background:conic-gradient(from var(--gary-card-angle),transparent 10%,var(--gary-card-orbit) 24%,transparent 38% 60%,var(--gary-card-orbit) 74%,transparent 88%); mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); mask-composite:exclude; transition:opacity 200ms; }
+html [data-gary-card="action"]>:not(canvas) { position:relative; z-index:1; }
+html [data-gary-card="action"]:focus-visible { outline:3px solid var(--gary-focus-ring); outline-offset:4px; }
+html [data-gary-card="action"]:focus-visible::before,html [data-gary-card="action"]:focus-visible::after { opacity:1; }
+@media(hover:hover) and (pointer:fine) { html [data-gary-card="action"]:hover::before,html [data-gary-card="action"]:hover::after { opacity:1; } html [data-gary-card="action"]:hover::after { animation:gary-card-orbit 6s linear 1; } html [data-gary-card="action"]:hover { transform:none; box-shadow:inset 0 1px 0 var(--gary-card-edge),0 12px 36px #0000000a; } }
+html [data-gary-card="action"]:active { transform:scale(.993); }
+@keyframes gary-card-orbit { to { --gary-card-angle:360deg; } }
+[data-card-flow-canvas] { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; border-radius:inherit; mask-image:linear-gradient(transparent, #000 85%); transition:transform 600ms; }
+[data-gary-card-flow]:is(:hover,:focus-visible) [data-card-flow-canvas] { transform:scale(1.06); }
+@media(prefers-reduced-motion:reduce) { html [data-gary-card="action"],html [data-gary-card="action"]::before,html [data-gary-card="action"]::after,[data-card-flow-canvas] { animation:none!important; transition:none!important; transform:none!important; } }
+@media print { html [data-gary-material="glass"] { background:#fff; backdrop-filter:none; box-shadow:none; } [data-card-flow-canvas],html [data-gary-card="action"]::before,html [data-gary-card="action"]::after { display:none; } }
+
+/* Opt-in refractive showcase glass. Text stays outside the backdrop filter. */
+html body [data-gary-material="glass"][data-gary-refraction-state="svg"] {
+  background:var(--gary-refraction-plate); border-color:transparent;
+  backdrop-filter:var(--gary-refraction-filter) saturate(1.05);
+  -webkit-backdrop-filter:var(--gary-refraction-filter) saturate(1.05);
+  box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner),inset 0 0 12px 2px var(--gary-refraction-inner),0 10px 28px #00000014;
+}
+html [data-gary-refraction-state="svg"]>.gary-refraction-filter { position:absolute;inset:0;width:100%;height:100%;opacity:0;z-index:-1;pointer-events:none; }
+html [data-gary-refraction-state="svg"] [data-card-flow-canvas] { display:none; }
+html [data-gary-refraction-state="svg"][data-gary-card="action"]::after { animation:none;opacity:0; }
+html [data-gary-refraction-state="svg"][data-gary-card="action"]::before { background:radial-gradient(300px circle at var(--gary-card-x,50%) var(--gary-card-y,50%),var(--gary-refraction-inner),transparent 80%); }
+@media print { html body [data-gary-material="glass"][data-gary-refraction-state] { backdrop-filter:none; -webkit-backdrop-filter:none; background:#fff; box-shadow:none; } .gary-refraction-filter { display:none!important; } }
+html body :is(.gary-solid-plate[data-gary-material="glass"],[data-material="solid-plate"] [data-gary-material="glass"],[data-gary-material="solid-plate"] [data-gary-material="glass"]) { background:var(--gary-solid-plate); backdrop-filter:none; -webkit-backdrop-filter:none; box-shadow:var(--gary-shadow-contact); }
+
+/* Geometry follows DeepSeek's public header; brand, typography and material are Gary. */
+html body [data-gary-header] { position:fixed; top:8px; left:0; right:0; z-index:100; width:min(calc(100% - 144px),1140px); height:46px; min-height:46px; margin:0 auto; padding:4px 0; display:flex; align-items:center; justify-content:space-between; gap:20px; border:1px solid transparent; border-radius:999px; background:transparent; box-shadow:none; backdrop-filter:none; transform:none; transition:width 350ms var(--gary-ease),padding 350ms var(--gary-ease),background-color 250ms,border-color 250ms; }
+html body [data-gary-header]::before,html body [data-gary-header]::after { display:none; }
+html body [data-gary-header].is-scrolled { width:min(calc(100% - 144px),980px); padding:4px 6px 4px 16px; background:rgba(18,18,18,.88); border-color:#ffffff20; backdrop-filter:blur(24px); box-shadow:0 6px 24px #0000000a; }
+html[data-gary-theme="light"] body [data-gary-header].is-scrolled { background:rgba(255,255,255,.90); border-color:#00000014; }
+html body [data-gary-header] :is(.demo-nav__brand,.topbar-leading) { display:flex; align-items:center; justify-content:center; gap:10px; min-width:0; height:36px; font-size:16px; font-weight:600; line-height:1; }
+html body [data-gary-header] :is(.demo-nav__links,.top-navigation) { align-items:center; justify-content:center; margin:0; gap:12px; padding:0; min-height:0; border:0; }
+html body [data-gary-header] :is(button,a,summary) { font-family:var(--gary-font-sans); text-align:center; }
+html body [data-gary-header] :is(.button,.icon-button,.gary-header-menu,.topbar-menu-toggle,.display-summary,.top-nav-item) { display:inline-flex; align-items:center; justify-content:center; height:36px; min-height:36px; padding:0 12px; font-size:14px; line-height:1; }
+html body [data-gary-header] .icon-button { width:36px; padding:0; }
+html body [data-gary-header] :is(.demo-actions,.topbar-actions) { display:flex; align-items:center; gap:8px; flex-wrap:nowrap; }
+html body [data-gary-header] .gary-role-annotation { margin:0; line-height:1; }
+html body [data-gary-header] .gary-brand-icon { display:block; flex:none; width:30px; height:30px; padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; transform:none; }
+html body [data-gary-header] .gary-brand-icon img { display:block; width:100%; height:100%; filter:invert(1); }
+html[data-gary-theme="light"] body [data-gary-header] .gary-brand-icon img { filter:none; }
+html body [data-gary-header] .topbar-leading .eyebrow { display:none; }
+html body [data-gary-header] .topbar-leading { flex-shrink:0; }
+html body [data-gary-header] .topbar-leading h1 { margin:0; font-size:14px; line-height:1; font-weight:600; white-space:nowrap; }
+html body .portal-topbar[data-gary-header] { gap:12px; }
+html body .portal-topbar[data-gary-header] .top-navigation { gap:4px; }
+html body .portal-topbar[data-gary-header] .top-nav-item { padding-inline:8px; font-size:13px; }
+html body [data-gary-header] .demo-nav__links a { min-height:36px; }
+html body [data-gary-header] .gary-header-menu,html body [data-gary-header] .topbar-menu-toggle { display:none; }
+.gary-header-menu { color:inherit; background:transparent; border:1px solid var(--demo-line); border-radius:99px; }
+@media(min-width:1560px) { html body [data-gary-header] { width:min(calc(100% - 160px),1280px); } html body [data-gary-header].is-scrolled { width:min(calc(100% - 160px),1180px); } }
+@media(max-width:1100px) {
+ html body [data-gary-header] :is(.demo-nav__links,.top-navigation) { display:none; }
+ html body [data-gary-header] :is(.gary-header-menu,.topbar-menu-toggle) { display:inline-flex; }
+ html body [data-gary-header] :is(.demo-nav__links,.top-navigation).is-open { display:flex; position:absolute; top:58px; left:0; right:0; width:100%; max-height:70vh; padding:16px; overflow:auto; flex-wrap:wrap; border:1px solid #ffffff20; border-radius:24px; background:#151515; color:#f5f5f7; }
+ html[data-gary-theme="light"] body [data-gary-header] :is(.demo-nav__links,.top-navigation).is-open { background:#fff; color:#111; border-color:#0002; }
+ html body [data-gary-header] .demo-nav__links a { flex:1 0 40%; justify-content:center; }
+}
+@media(max-width:767px) { html body [data-gary-header] { height:54px; min-height:54px; } html body [data-gary-header] :is(.button,.icon-button,.gary-header-menu,.topbar-menu-toggle,.display-summary,.top-nav-item) { height:44px; min-height:44px; } html body [data-gary-header] .icon-button { width:44px; } html body [data-gary-header],html body [data-gary-header].is-scrolled { width:calc(100% - 24px); } html body [data-gary-header] .demo-actions>.gary-role-annotation { display:none; } html body [data-gary-header] .demo-nav__brand { font-size:14px; } html body [data-gary-header] { gap:8px; } }
+@media(prefers-reduced-motion:reduce) { html body [data-gary-header] { transition:none; } }
+@media print { html body [data-gary-header] { display:none!important; } }
+
+/* Edition 02 action primitive: quiet circular controls with local Lucide icons. */
+html body .gary-icon-button,
+html body [data-gary-header] .gary-icon-button {
+  display: inline-flex; align-items: center; justify-content: center; flex: 0 0 44px;
+  width: 44px; height: 44px; min-width: 44px; min-height: 44px; max-width: 44px;
+  padding: 0; gap: 0; border: 1px solid var(--gary-action-border); border-radius: 50%;
+  color: var(--gary-text-primary); background: var(--gary-action-fill);
+  background-image: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+  text-decoration: none; vertical-align: middle; cursor: pointer;
+  transition: background 150ms, border-color 150ms, transform 150ms;
+}
+html body .gary-icon-button::before, html body .gary-icon-button::after { content: none; }
+html body .gary-icon-button:hover { background: var(--gary-surface-sunken); border-color: var(--gary-text-secondary); }
+html body .gary-icon-button:active { transform: scale(.96); }
+html body .gary-icon-button:focus-visible { outline: 2px solid var(--gary-focus-ring); outline-offset: 3px; }
+html body .gary-icon-button:disabled { opacity: .4; cursor: not-allowed; }
+html body .gary-icon-button[hidden] { display: none; }
+html body .gary-icon { display: block; width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; }
+html body .gary-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (prefers-reduced-motion: reduce) { html body .gary-icon-button { transition: none; } }
+
+/* Quiet controls match the Demo; content cards keep their optical material. */
+html .portal-shell :is(.gary-segmented, .gary-field, .gary-tab-bar, .gary-web-bar),
+html .application-mode :is(.gary-segmented, .gary-field),
+html .starter-page :is(.gary-segmented, .gary-field) {
+  background: var(--gary-action-fill); border: 1px solid var(--gary-action-border);
+  box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+html .portal-shell :is(.gary-segmented, .gary-field, .gary-tab-bar, .gary-web-bar)::before,
+html .portal-shell :is(.gary-segmented, .gary-field, .gary-tab-bar, .gary-web-bar)::after { content: none; }
+html .portal-shell :is(.gary-segmented, .gary-tab-bar) button {
+  background: transparent; border-color: transparent; box-shadow: none;
+}
+html .portal-shell :is(.gary-segmented, .gary-tab-bar) button:is(.is-active,[aria-selected="true"]) {
+  background: var(--gary-text-primary); color: var(--gary-surface-page); box-shadow: none;
+}
+html .portal-shell :is(.gary-segmented, .gary-tab-bar) button::before,
+html .portal-shell :is(.gary-segmented, .gary-tab-bar) button::after { content: none; }
+
+/* Material swatches use the same edge recipe; plate opacity expresses thickness. */
+.material-sample[data-material-card="ultrathin"] { --gary-refraction-plate: color-mix(in srgb, var(--gary-surface-page) 8%, transparent); }
+.material-sample[data-material-card="regular"] { --gary-refraction-plate: color-mix(in srgb, var(--gary-surface-page) 20%, transparent); }
+.material-sample[data-material-card="thick"] { --gary-refraction-plate: color-mix(in srgb, var(--gary-surface-page) 38%, transparent); }
+
+
+
+/*
+ * Gary UI runtime projection.
+ * Machine authority: ./tokens.json
+ * Public CSS entry: this file only.
+ */
+
+:root,
+[data-gary-theme="dark"] {
+  color-scheme: dark;
+  --gary-refraction-plate: rgba(255,255,255,.025);
+  --gary-refraction-edge: rgba(255,255,255,.48);
+  --gary-refraction-inner: rgba(255,255,255,.13);
+  --gary-text-primary: rgba(255, 255, 255, 0.94);
+  --gary-text-secondary: rgba(255, 255, 255, 0.68);
+  --gary-text-tertiary: rgba(255, 255, 255, 0.48);
+  --gary-surface-page: #000000;
+  --gary-surface-sunken: rgba(0, 0, 0, 0.34);
+  --gary-glass-ultrathin: rgba(15, 15, 15, 0.18);
+  --gary-glass-regular: rgba(15, 15, 15, 0.30);
+  --gary-glass-thick: rgba(20, 20, 20, 0.42);
+  --gary-solid-plate: rgba(14, 14, 14, 0.86);
+  --gary-border-highlight: rgba(255, 255, 255, 0.18);
+  --gary-border-shadow: rgba(0, 0, 0, 0.42);
+  --gary-focus-ring: #2e8dff;
+  --gary-state-positive: #30d158;
+  --gary-state-caution: #ffd60a;
+  --gary-state-critical: #ff453a;
+  --gary-shadow-contact: 0 2px 5px rgba(0, 0, 0, 0.46);
+  --gary-shadow-environment: 0 28px 72px rgba(0, 0, 0, 0.38);
+  --gary-shadow-inset: inset 0 1px 1px rgba(255, 255, 255, 0.24), inset 0 -1px 1px rgba(0, 0, 0, 0.30), inset 0 0 30px rgba(255, 255, 255, 0.05);
+  --gary-glass-frost:
+    repeating-radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.04) 0 0.6px, transparent 0.7px 3.6px),
+    repeating-radial-gradient(circle at 78% 64%, rgba(0, 0, 0, 0.018) 0 0.55px, transparent 0.65px 3.2px);
+  --gary-glass-highlight-angle: 135deg;
+  --gary-glass-specular-opacity: 0.18;
+  --gary-glass-sheen-opacity: 0.14;
+  --gary-glass-brightness: 0.80;
+  --gary-glass-contrast: 1.04;
+  --gary-glass-saturate: 108%;
+  --gary-glass-edge-width: 1px;
+  --gary-radius-control: 18px;
+  --gary-radius-card: 30px;
+  --gary-radius-panel: 36px;
+  --gary-radius-pill: 999px;
+  --gary-space-1: 4px;
+  --gary-space-2: 8px;
+  --gary-space-3: 12px;
+  --gary-space-4: 16px;
+  --gary-space-6: 24px;
+  --gary-space-8: 32px;
+  --gary-space-12: 48px;
+  --gary-density-surface-padding: 24px;
+  --gary-density-layout-gap: 8px;
+  --gary-density-section-gap: 32px;
+  --gary-density-control-gap: 8px;
+  --gary-blur-ultrathin: 16px;
+  --gary-blur-regular: 24px;
+  --gary-blur-thick: 32px;
+  --gary-duration-fast: 150ms;
+  --gary-duration-base: 250ms;
+  --gary-duration-slow: 350ms;
+  --gary-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --gary-font-latin: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --gary-font-cjk: "Microsoft YaHei UI", "Microsoft YaHei", "微软雅黑", sans-serif;
+  --gary-font-sans: "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei UI", "Microsoft YaHei", "微软雅黑", sans-serif;
+  --gary-card-opacity: 70%;
+  --gary-card-hierarchy-contrast: 8%;
+  --gary-font-mono: "SFMono-Regular", "JetBrains Mono", Consolas, monospace;
+  --gary-font-size-caption: 0.8125rem;
+  --gary-font-size-label: 0.875rem;
+  --gary-font-size-body: 1rem;
+  --gary-font-size-lead: 1.125rem;
+  --gary-font-size-title: clamp(1.25rem, 2vw, 1.75rem);
+  --gary-font-size-display: clamp(2rem, 6vw, 4.5rem);
+  --gary-font-weight-regular: 400;
+  --gary-font-weight-medium: 600;
+  --gary-font-weight-semibold: 650;
+  --gary-font-weight-bold: 720;
+  --gary-font-weight-medium-light: 500;
+  --gary-font-weight-extra-semibold: 620;
+  --gary-font-weight-semibold-strong: 660;
+  --gary-font-weight-semibold-extra: 670;
+  --gary-font-weight-bold-light: 680;
+  --gary-font-weight-bold-strong: 700;
+  --gary-font-weight-heavy: 740;
+  --gary-font-weight-black: 760;
+  --gary-font-weight-extra-black: 790;
+  --gary-line-height-tight: 1.1;
+  --gary-line-height-body: 1.68;
+  --gary-control-height: 44px;
+  --gary-scene-mask: rgba(0, 0, 0, 0);
+  --gary-scene-image: none;
+  --gary-scene-dot-color: rgba(255, 255, 255, 0.16);
+  --gary-scene-dot-active: rgba(255, 255, 255, 0.72);
+  --gary-scene-grid-size: 28px;
+  --gary-card-plate:rgba(32,32,32,.52);
+  --gary-card-edge:rgba(255,255,255,.14);
+  --gary-card-shine:rgba(255,255,255,.12);
+  --gary-card-orbit:rgba(255,255,255,.70);
+  --gary-scene-pointer-radius: 160px;
+  --gary-scene-position: center center;
+  --gary-scene-size: cover;
+}
+
+[data-gary-theme="light"] {
+  color-scheme: light;
+  --gary-refraction-plate: rgba(255,255,255,.08);
+  --gary-refraction-edge: rgba(255,255,255,.94);
+  --gary-refraction-inner: rgba(0,0,0,.10);
+  --gary-text-primary: rgba(34, 30, 27, 0.94);
+  --gary-text-secondary: rgba(34, 30, 27, 0.64);
+  --gary-text-tertiary: rgba(34, 30, 27, 0.46);
+  --gary-surface-page: #ffffff;
+  --gary-surface-sunken: rgba(74, 64, 54, 0.08);
+  --gary-glass-ultrathin: rgba(255, 252, 246, 0.22);
+  --gary-glass-regular: rgba(255, 252, 246, 0.34);
+  --gary-glass-thick: rgba(255, 252, 246, 0.48);
+  --gary-solid-plate: rgba(246, 242, 235, 0.88);
+  --gary-border-highlight: rgba(255, 255, 255, 0.74);
+  --gary-border-shadow: rgba(77, 67, 58, 0.16);
+  --gary-focus-ring: #007aff;
+  --gary-state-positive: #248a3d;
+  --gary-state-caution: #9a6700;
+  --gary-state-critical: #d70015;
+  --gary-shadow-contact: 0 2px 5px rgba(0, 0, 0, 0.14);
+  --gary-shadow-environment: 0 28px 72px rgba(0, 0, 0, 0.14);
+  --gary-shadow-inset: inset 0 1px 1px rgba(255, 255, 255, 0.44), inset 0 -1px 1px rgba(77, 67, 58, 0.10), inset 0 0 28px rgba(255, 255, 255, 0.08);
+  --gary-glass-specular-opacity: 0.22;
+  --gary-glass-sheen-opacity: 0.18;
+  --gary-glass-brightness: 1.03;
+  --gary-glass-contrast: 1.03;
+  --gary-glass-saturate: 106%;
+  --gary-scene-mask: rgba(255, 255, 255, 0);
+  --gary-scene-dot-color: rgba(0, 0, 0, 0.14);
+  --gary-scene-dot-active: rgba(0, 0, 0, 0.58);
+}
+
+[data-gary-density="spacious"] {
+  --gary-density-surface-padding: 32px;
+  --gary-density-layout-gap: 28px;
+  --gary-density-section-gap: 48px;
+  --gary-density-control-gap: 12px;
+}
+
+[data-gary-density="compact"] {
+  --gary-density-surface-padding: 18px;
+  --gary-density-layout-gap: 12px;
+  --gary-density-section-gap: 24px;
+  --gary-density-control-gap: 6px;
+}
+
+:where(.gary-ui, .gary-ui *),
+:where([data-gary-ui], [data-gary-ui] *) {
+  box-sizing: border-box;
+}
+
+:where(.gary-ui, [data-gary-ui]) {
+  min-width: 0;
+  color: var(--gary-text-primary);
+  font-family: var(--gary-font-sans);
+  font-feature-settings: "tnum" 1, "ss01" 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  line-height: var(--gary-line-height-body);
+}
+
+/* Executable semantic roles shared by plain HTML and React adapters. */
+.gary-role-title { margin: 0 0 var(--gary-space-6); max-width: none; font-size: min(clamp(1.75rem, 5vw, 4.5rem), 7vw); font-weight: var(--gary-font-weight-bold); line-height: 1.08; white-space: nowrap; text-wrap: nowrap; word-break: keep-all; overflow-wrap: normal; }
+.gary-role-section-title { margin: 0 0 var(--gary-space-4); font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: var(--gary-font-weight-semibold); line-height: 1.28; text-wrap: balance; }
+.gary-role-body { margin: 0 0 1em; max-width: 72ch; font-size: 1rem; font-weight: var(--gary-font-weight-regular); line-height: 1.68; word-break: normal; overflow-wrap: break-word; text-wrap: pretty; }
+.gary-role-label { margin: 0 0 var(--gary-space-2); font-size: .875rem; font-weight: var(--gary-font-weight-medium); line-height: 1.4; }
+.gary-role-annotation { margin: var(--gary-space-2) 0 0; color: var(--gary-text-secondary); font-size: .8125rem; font-weight: var(--gary-font-weight-regular); line-height: 1.55; overflow-wrap: anywhere; }
+.gary-role-metric { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .35em; margin: var(--gary-space-2) 0; font-size: clamp(1.75rem, 4vw, 3.5rem); font-weight: var(--gary-font-weight-bold); font-variant-numeric: tabular-nums; line-height: 1; }
+.gary-role-metric small { font-size: .36em; font-weight: var(--gary-font-weight-medium); }
+.gary-rich-text { font-family: var(--gary-font-sans); font-synthesis: weight; }
+[data-gary-font-weight="100"] { font-weight: 100; }
+[data-gary-font-weight="300"] { font-weight: 300; }
+[data-gary-font-weight="400"] { font-weight: 400; }
+[data-gary-font-weight="500"] { font-weight: 500; }
+[data-gary-font-weight="600"] { font-weight: 600; }
+[data-gary-font-weight="700"] { font-weight: 700; }
+[data-gary-font-weight="800"] { font-weight: 800; }
+[data-gary-font-weight="900"] { font-weight: 900; }
+
+[data-gary-card] { min-width: 0; border-radius: var(--gary-radius-card); }
+[data-gary-card="metric"] { display: grid; align-content: space-between; min-height: 180px; padding: 24px; }
+[data-gary-card="comparison"] { display: grid; grid-template-columns: minmax(9rem, .75fr) repeat(2, minmax(12rem, 1fr)); gap: 1px; overflow-x: auto; }
+[data-gary-card="judgement"] { display: grid; gap: 12px; padding: 28px; border-left: 4px solid var(--gary-focus-ring); }
+[data-gary-card="media"] { display: grid; grid-template-rows: minmax(200px, 1fr) auto; overflow: hidden; }
+[data-gary-card="media"] :where(img, iframe, svg) { width: 100%; min-height: 200px; object-fit: cover; }
+[data-gary-scene="reading"] { --gary-density-layout-gap: 24px; --gary-density-section-gap: 48px; }
+[data-gary-scene="analysis"] { --gary-density-layout-gap: 16px; --gary-density-section-gap: 32px; }
+[data-gary-scene="showcase"] { --gary-density-layout-gap: 28px; --gary-density-section-gap: 56px; }
+
+[data-gary-scene-engine="dot-grid"] {
+  background-color: var(--gary-surface-page);
+  background-image: radial-gradient(circle, var(--gary-scene-dot-color) 0 1px, transparent 1.2px);
+  background-position: center;
+  background-repeat: repeat;
+  background-size: var(--gary-scene-grid-size) var(--gary-scene-grid-size);
+}
+
+[data-gary-scene-engine="dot-grid"] {
+  overflow: hidden;
+}
+
+[data-gary-scene-engine="dot-grid"] > .gary-dot-grid-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+[data-gary-scene-engine="dot-grid"][data-scene-status="ready"],
+[data-gary-scene-engine="dot-grid"][data-scene-status="reduced-motion"] {
+  background-image: none;
+}
+
+@media (max-width: 640px) {
+  [data-gary-card="comparison"] { grid-template-columns: minmax(9rem, .75fr) minmax(12rem, 1fr); }
+  .gary-role-title { font-size: min(1.75rem, 6vw); }
+}
+
+:where(
+  .gary-glass,
+  .gary-button,
+  .gary-segmented,
+  .gary-field,
+  .gary-tab-bar,
+  .gary-web-bar,
+  .gary-glass-card,
+  .gary-metric-card,
+  .gary-comparison-table,
+  .gary-media-card,
+  .gary-profile-card
+) {
+  --gary-glass-fill: var(--gary-glass-regular);
+  --gary-glass-blur: var(--gary-blur-regular);
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--gary-text-primary);
+  background:
+    var(--gary-glass-frost),
+    linear-gradient(var(--gary-glass-highlight-angle), rgba(255, 255, 255, 0.10), transparent 44%, rgba(0, 0, 0, 0.035) 74%, rgba(255, 255, 255, 0.04)),
+    var(--gary-glass-fill);
+  background-blend-mode: overlay, normal, normal;
+  border: 1px solid;
+  border-color:
+    var(--gary-border-highlight)
+    var(--gary-border-shadow)
+    var(--gary-border-shadow)
+    var(--gary-border-highlight);
+  box-shadow:
+    var(--gary-shadow-inset),
+    var(--gary-shadow-contact),
+    var(--gary-shadow-environment);
+  -webkit-backdrop-filter:
+    blur(var(--gary-glass-blur)) saturate(var(--gary-glass-saturate))
+    brightness(var(--gary-glass-brightness)) contrast(var(--gary-glass-contrast));
+  backdrop-filter:
+    blur(var(--gary-glass-blur)) saturate(var(--gary-glass-saturate))
+    brightness(var(--gary-glass-brightness)) contrast(var(--gary-glass-contrast));
+}
+
+:where(
+  .gary-glass,
+  .gary-button,
+  .gary-segmented,
+  .gary-field,
+  .gary-tab-bar,
+  .gary-web-bar,
+  .gary-glass-card,
+  .gary-metric-card,
+  .gary-comparison-table,
+  .gary-media-card,
+  .gary-profile-card
+)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: var(--gary-glass-edge-width);
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      var(--gary-glass-highlight-angle),
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.04) 24%,
+      rgba(0, 0, 0, 0.04) 54%,
+      rgba(0, 0, 0, 0.08) 100%
+    );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  mix-blend-mode: screen;
+  opacity: var(--gary-glass-specular-opacity);
+}
+
+:where(
+  .gary-glass,
+  .gary-button,
+  .gary-segmented,
+  .gary-field,
+  .gary-tab-bar,
+  .gary-web-bar,
+  .gary-glass-card,
+  .gary-metric-card,
+  .gary-comparison-table,
+  .gary-media-card,
+  .gary-profile-card
+)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(221deg, transparent 0%, rgba(255, 255, 255, 0.04) 46%, rgba(0, 0, 0, 0.06) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 48%, rgba(0, 0, 0, 0.08));
+  mix-blend-mode: screen;
+  opacity: var(--gary-glass-sheen-opacity);
+}
+
+.gary-ultrathin {
+  --gary-glass-fill: var(--gary-glass-ultrathin);
+  --gary-glass-blur: var(--gary-blur-ultrathin);
+}
+
+.gary-regular {
+  --gary-glass-fill: var(--gary-glass-regular);
+  --gary-glass-blur: var(--gary-blur-regular);
+}
+
+.gary-thick {
+  --gary-glass-fill: var(--gary-glass-thick);
+  --gary-glass-blur: var(--gary-blur-thick);
+}
+
+.gary-solid-plate {
+  min-width: 0;
+  color: var(--gary-text-primary);
+  background: var(--gary-solid-plate);
+  border: 1px solid var(--gary-border-shadow);
+  box-shadow: var(--gary-shadow-inset), var(--gary-shadow-contact);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .gary-glass,
+  .gary-button,
+  .gary-segmented,
+  .gary-field,
+  .gary-tab-bar,
+  .gary-web-bar,
+  .gary-glass-card,
+  .gary-metric-card,
+  .gary-comparison-table,
+  .gary-media-card,
+  .gary-profile-card {
+    background-color: var(--gary-solid-plate);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.gary-ui, .gary-ui *),
+  :where([data-gary-ui], [data-gary-ui] *) {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Explicit local faces prevent similarly named display fonts and platform CJK substitution.
+   No font files are redistributed. Helvetica/YaHei remain subject to the host's license. */
+@font-face { font-family:"Helvetica Neue"; src:local("Helvetica Light"); font-weight:300; font-style:normal; font-display:swap; unicode-range:U+0000-024F,U+1E00-1EFF; }
+@font-face { font-family:"Helvetica Neue"; src:local("Helvetica"),local("Helvetica Neue"); font-weight:400; font-style:normal; font-display:swap; unicode-range:U+0000-024F,U+1E00-1EFF; }
+@font-face { font-family:"Helvetica Neue"; src:local("Helvetica-Bold"),local("Helvetica Bold"),local("Helvetica Neue Bold"); font-weight:700; font-style:normal; font-display:swap; unicode-range:U+0000-024F,U+1E00-1EFF; }
+@font-face { font-family:"Microsoft YaHei UI"; src:local("Microsoft YaHei Light"); font-weight:300; font-style:normal; font-display:swap; }
+@font-face { font-family:"Microsoft YaHei UI"; src:local("Microsoft YaHei"); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:"Microsoft YaHei UI"; src:local("Microsoft YaHei Bold"); font-weight:700; font-style:normal; font-display:swap; }
+html body,html button,html input,html select,html textarea,html summary { font-family:var(--gary-font-sans); }
+button,summary { text-align:center; }
+button svg,summary svg,[data-icon],.gary-brand-icon { display:block; flex-shrink:0; }
+[data-icon] { display:inline-flex; align-items:center; justify-content:center; line-height:0; }
+.gary-rich-text { font-weight:var(--gary-rich-text-weight,400); }
+[data-gary-font-weight="200"] { font-weight:200; }
+[data-gary-theme="light"] { --gary-card-plate:rgba(245,245,245,.60); --gary-card-edge:rgba(0,0,0,.10); --gary-card-shine:rgba(255,255,255,.85); --gary-card-orbit:rgba(70,70,70,.45); }
+
+/* Quiet action colors from the approved complete Demo. */
+:root { --gary-action-fill: #19191c; --gary-action-border: #ffffff16; }
+[data-gary-theme="light"] { --gary-action-fill: #fff; --gary-action-border: #00000014; }
+</style><style>
+    :root{color-scheme:dark light}*{box-sizing:border-box}
+    body{margin:0;padding:clamp(18px,4vw,56px);background:var(--gary-surface-page);color:var(--gary-text-primary);font-family:Helvetica Neue, Helvetica, Arial, Microsoft YaHei UI, Microsoft YaHei, 微软雅黑, sans-serif;font-size:16px;line-height:1.68}
+    main{width:min(1200px,100%);margin:auto}h1{font-size:clamp(32px,6vw,68px);line-height:1.05;text-wrap:balance}header{max-width:72ch;margin-bottom:48px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:24px}article{display:flex;flex-direction:column;min-height:260px;padding:24px;border-radius:30px}
+    article>div{display:flex;gap:8px;flex-wrap:wrap}span{padding:4px 10px;border:1px solid var(--gary-card-edge);border-radius:999px;color:var(--gary-text-secondary);font-size:13px}h2{margin:20px 0 8px}p{color:var(--gary-text-secondary)}
+    nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;align-items:start}.export-action{display:grid;justify-items:center;padding:0;border:0;gap:2px}.export-action small{font-size:11px}body{isolation:isolate}.gallery-scene{position:fixed;inset:0;z-index:-1;pointer-events:none}
+    @media(max-width:600px){body{padding:16px}}
+  </style></head><body><div class="gallery-scene" data-gary-scene-engine="dot-grid" aria-hidden="true"></div><main><header><h1>真实引擎，可回到源文件。</h1><p>示例数据均明确标注；HTML 自包含且无需公共 CDN。每张图保留原生源、主题、场景与导出结果。</p></header><section class="grid"><article data-gary-material="glass" data-gary-refraction><div><span>archify</span><span>showcase</span><span>dark</span></div><h2>华东交付证据体系</h2><p>人工编制 非真实业务；快照 2026-08-31。</p><nav><a data-gary-icon="arrow-up-right" aria-label="打开交互 HTML" href="delivery-architecture-dark.html">打开交互 HTML</a><a data-gary-icon="code" aria-label="查看原生源文件" href="sources/delivery-architecture-dark.json">原生源文件</a><span class="export-action"><a data-gary-icon="download" aria-label="打开 SVG 导出文件" href="delivery-architecture-dark.svg">SVG</a><small>SVG</small></span><span class="export-action"><a data-gary-icon="download" aria-label="打开 PNG 导出文件" href="delivery-architecture-dark.png">PNG</a><small>PNG</small></span></nav></article><article data-gary-material="glass" data-gary-refraction><div><span>archify</span><span>showcase</span><span>light</span></div><h2>华东交付证据体系</h2><p>人工编制 非真实业务；快照 2026-08-31。</p><nav><a data-gary-icon="arrow-up-right" aria-label="打开交互 HTML" href="delivery-architecture-light.html">打开交互 HTML</a><a data-gary-icon="code" aria-label="查看原生源文件" href="sources/delivery-architecture-light.json">原生源文件</a><span class="export-action"><a data-gary-icon="download" aria-label="打开 SVG 导出文件" href="delivery-architecture-light.svg">SVG</a><small>SVG</small></span><span class="export-action"><a data-gary-icon="download" aria-label="打开 PNG 导出文件" href="delivery-architecture-light.png">PNG</a><small>PNG</small></span></nav></article><article data-gary-material="glass" data-gary-refraction><div><span>echarts</span><span>analysis</span><span>dark</span></div><h2>华东交付完成率</h2><p>人工编制 非真实业务；快照 2026-08-31。</p><nav><a data-gary-icon="arrow-up-right" aria-label="打开交互 HTML" href="delivery-trend-dark.html">打开交互 HTML</a><a data-gary-icon="code" aria-label="查看原生源文件" href="sources/delivery-trend-dark.json">原生源文件</a><span class="export-action"><a data-gary-icon="download" aria-label="打开 SVG 导出文件" href="delivery-trend-dark.svg">SVG</a><small>SVG</small></span><span class="export-action"><a data-gary-icon="download" aria-label="打开 PNG 导出文件" href="delivery-trend-dark.png">PNG</a><small>PNG</small></span></nav></article><article data-gary-material="glass" data-gary-refraction><div><span>echarts</span><span>analysis</span><span>light</span></div><h2>华东交付完成率</h2><p>人工编制 非真实业务；快照 2026-08-31。</p><nav><a data-gary-icon="arrow-up-right" aria-label="打开交互 HTML" href="delivery-trend-light.html">打开交互 HTML</a><a data-gary-icon="code" aria-label="查看原生源文件" href="sources/delivery-trend-light.json">原生源文件</a><span class="export-action"><a data-gary-icon="download" aria-label="打开 SVG 导出文件" href="delivery-trend-light.svg">SVG</a><small>SVG</small></span><span class="export-action"><a data-gary-icon="download" aria-label="打开 PNG 导出文件" href="delivery-trend-light.png">PNG</a><small>PNG</small></span></nav></article><article data-gary-material="glass" data-gary-refraction><div><span>markmap</span><span>reading</span><span>dark</span></div><h2>华东交付研究提纲</h2><p>人工编制 非真实业务；快照 2026-08-31。</p><nav><a data-gary-icon="arrow-up-right" aria-label="打开交互 HTML" href="research-outline-dark.html">打开交互 HTML</a><a data-gary-icon="code" aria-label="查看原生源文件" href="sources/research-outline-dark.md">原生源文件</a><span class="export-action"><a data-gary-icon="download" aria-label="打开 SVG 导出文件" href="research-outline-dark.svg">SVG</a><small>SVG</small></span><span class="export-action"><a data-gary-icon="download" aria-label="打开 PNG 导出文件" href="research-outline-dark.png">PNG</a><small>PNG</small></span></nav></article><article data-gary-material="glass" data-gary-refraction><div><span>markmap</span><span>reading</span><span>light</span></div><h2>华东交付研究提纲</h2><p>人工编制 非真实业务；快照 2026-08-31。</p><nav><a data-gary-icon="arrow-up-right" aria-label="打开交互 HTML" href="research-outline-light.html">打开交互 HTML</a><a data-gary-icon="code" aria-label="查看原生源文件" href="sources/research-outline-light.md">原生源文件</a><span class="export-action"><a data-gary-icon="download" aria-label="打开 SVG 导出文件" href="research-outline-light.svg">SVG</a><small>SVG</small></span><span class="export-action"><a data-gary-icon="download" aria-label="打开 PNG 导出文件" href="research-outline-light.png">PNG</a><small>PNG</small></span></nav></article><article data-gary-material="glass" data-gary-refraction><div><span>antv-infographic</span><span>showcase</span><span>dark</span></div><h2>四步推进计划</h2><p>人工编制 非真实业务；快照 2026-08-31。</p><nav><a data-gary-icon="arrow-up-right" aria-label="打开交互 HTML" href="summary-infographic-dark.html">打开交互 HTML</a><a data-gary-icon="code" aria-label="查看原生源文件" href="sources/summary-infographic-dark.json">原生源文件</a><span class="export-action"><a data-gary-icon="download" aria-label="打开 SVG 导出文件" href="summary-infographic-dark.svg">SVG</a><small>SVG</small></span><span class="export-action"><a data-gary-icon="download" aria-label="打开 PNG 导出文件" href="summary-infographic-dark.png">PNG</a><small>PNG</small></span></nav></article><article data-gary-material="glass" data-gary-refraction><div><span>antv-infographic</span><span>showcase</span><span>light</span></div><h2>四步推进计划</h2><p>人工编制 非真实业务；快照 2026-08-31。</p><nav><a data-gary-icon="arrow-up-right" aria-label="打开交互 HTML" href="summary-infographic-light.html">打开交互 HTML</a><a data-gary-icon="code" aria-label="查看原生源文件" href="sources/summary-infographic-light.json">原生源文件</a><span class="export-action"><a data-gary-icon="download" aria-label="打开 SVG 导出文件" href="summary-infographic-light.svg">SVG</a><small>SVG</small></span><span class="export-action"><a data-gary-icon="download" aria-label="打开 PNG 导出文件" href="summary-infographic-light.png">PNG</a><small>PNG</small></span></nav></article><article data-gary-material="glass" data-gary-refraction><div><span>mermaid</span><span>reading</span><span>dark</span></div><h2>工作项完成条件</h2><p>人工编制 非真实业务；快照 2026-08-31。</p><nav><a data-gary-icon="arrow-up-right" aria-label="打开交互 HTML" href="simple-flow-dark.html">打开交互 HTML</a><a data-gary-icon="code" aria-label="查看原生源文件" href="sources/simple-flow-dark.mmd">原生源文件</a><span class="export-action"><a data-gary-icon="download" aria-label="打开 SVG 导出文件" href="simple-flow-dark.svg">SVG</a><small>SVG</small></span><span class="export-action"><a data-gary-icon="download" aria-label="打开 PNG 导出文件" href="simple-flow-dark.png">PNG</a><small>PNG</small></span></nav></article><article data-gary-material="glass" data-gary-refraction><div><span>mermaid</span><span>reading</span><span>light</span></div><h2>工作项完成条件</h2><p>人工编制 非真实业务；快照 2026-08-31。</p><nav><a data-gary-icon="arrow-up-right" aria-label="打开交互 HTML" href="simple-flow-light.html">打开交互 HTML</a><a data-gary-icon="code" aria-label="查看原生源文件" href="sources/simple-flow-light.mmd">原生源文件</a><span class="export-action"><a data-gary-icon="download" aria-label="打开 SVG 导出文件" href="simple-flow-light.svg">SVG</a><small>SVG</small></span><span class="export-action"><a data-gary-icon="download" aria-label="打开 PNG 导出文件" href="simple-flow-light.png">PNG</a><small>PNG</small></span></nav></article></section></main><script>document.documentElement.dataset.garyTheme=new URLSearchParams(location.search).get("theme")==="light"?"light":"dark";</script><script>(()=>{var R={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor","stroke-width":2,"stroke-linecap":"round","stroke-linejoin":"round"};var q=([e,a,o])=>{let r=document.createElementNS("http://www.w3.org/2000/svg",e);return Object.keys(a).forEach(t=>{r.setAttribute(t,String(a[t]))}),o?.length&&o.forEach(t=>{let v=q(t);r.appendChild(v)}),r},s=(e,a={})=>{let r={...R,...a};return q(["svg",r,e])};var u=[["path",{d:"m12 19-7-7 7-7"}],["path",{d:"M19 12H5"}]];var d=[["path",{d:"M7 7h10v10"}],["path",{d:"M7 17 17 7"}]];var p=[["path",{d:"M20 6 9 17l-5-5"}]];var m=[["path",{d:"m16 18 6-6-6-6"}],["path",{d:"m8 6-6 6 6 6"}]];var x=[["rect",{width:"14",height:"14",x:"8",y:"8",rx:"2",ry:"2"}],["path",{d:"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"}]];var i=[["path",{d:"M12 15V3"}],["path",{d:"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"}],["path",{d:"m7 10 5 5 5-5"}]];var f=[["circle",{cx:"12",cy:"12",r:"1"}],["circle",{cx:"19",cy:"12",r:"1"}],["circle",{cx:"5",cy:"12",r:"1"}]];var l=[["path",{d:"M12.531 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14v6a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341l.427-.473"}],["path",{d:"m16.5 3.5 5 5"}],["path",{d:"m21.5 3.5-5 5"}]];var n=[["path",{d:"M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"}]];var c=[["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2",ry:"2"}],["circle",{cx:"9",cy:"9",r:"2"}],["path",{d:"m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"}]];var C=[["path",{d:"M2 5h20"}],["path",{d:"M6 12h12"}],["path",{d:"M9 19h6"}]];var h=[["path",{d:"M4 5h16"}],["path",{d:"M4 12h16"}],["path",{d:"M4 19h16"}]];var S=[["path",{d:"M8 3v3a2 2 0 0 1-2 2H3"}],["path",{d:"M21 8h-3a2 2 0 0 1-2-2V3"}],["path",{d:"M3 16h3a2 2 0 0 1 2 2v3"}],["path",{d:"M16 21v-3a2 2 0 0 1 2-2h3"}]];var g=[["rect",{width:"20",height:"14",x:"2",y:"3",rx:"2"}],["line",{x1:"8",x2:"16",y1:"21",y2:"21"}],["line",{x1:"12",x2:"12",y1:"17",y2:"21"}]];var w=[["path",{d:"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"}]];var k=[["rect",{x:"14",y:"3",width:"5",height:"18",rx:"1"}],["rect",{x:"5",y:"3",width:"5",height:"18",rx:"1"}]];var P=[["path",{d:"M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"}]];var M=[["path",{d:"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"}],["path",{d:"M3 3v5h5"}]];var A=[["path",{d:"M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"}],["path",{d:"M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"}],["path",{d:"M7 3v4a1 1 0 0 0 1 1h7"}]];var B=[["path",{d:"M10 5H3"}],["path",{d:"M12 19H3"}],["path",{d:"M14 3v4"}],["path",{d:"M16 17v4"}],["path",{d:"M21 12h-9"}],["path",{d:"M21 19h-5"}],["path",{d:"M21 5h-7"}],["path",{d:"M8 10v4"}],["path",{d:"M8 12H3"}]];var F=[["circle",{cx:"12",cy:"12",r:"4"}],["path",{d:"M12 2v2"}],["path",{d:"M12 20v2"}],["path",{d:"m4.93 4.93 1.41 1.41"}],["path",{d:"m17.66 17.66 1.41 1.41"}],["path",{d:"M2 12h2"}],["path",{d:"M20 12h2"}],["path",{d:"m6.34 17.66-1.41 1.41"}],["path",{d:"m19.07 4.93-1.41 1.41"}]];var D=[["path",{d:"m16 11 2 2 4-4"}],["path",{d:"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"}],["circle",{cx:"9",cy:"7",r:"4"}]];var y=[["path",{d:"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"}],["circle",{cx:"9",cy:"7",r:"4"}],["line",{x1:"19",x2:"19",y1:"8",y2:"14"}],["line",{x1:"22",x2:"16",y1:"11",y2:"11"}]];var L=[["path",{d:"M18 6 6 18"}],["path",{d:"m6 6 12 12"}]];var T={sun:F,moon:w,play:P,pause:k,"rotate-ccw":M,"arrow-up-right":d,"arrow-left":u,copy:x,check:p,x:L,menu:h,sliders:B,heart:n,"user-plus":y,"user-check":D,ellipsis:f,save:A,"filter-x":l,filter:C,monitor:g,minimize:S,download:i,image:c,code:m};function b(e,a,o){if(!e||!T[a])return;e.dataset.garyIcon=a,e.classList.add("gary-icon-button");let r=o||e.getAttribute("aria-label")||e.textContent.trim();e.setAttribute("aria-label",r),e.title=r;let t=document.createElement("span");t.className="gary-visually-hidden",t.textContent=r,e.replaceChildren(s(T[a],{class:"gary-icon","aria-hidden":"true","stroke-width":1.6}),t)}function U(e=document){e.querySelectorAll("[data-gary-icon]").forEach(a=>b(a,a.dataset.garyIcon))}window.GaryIcons={set:b,render:U};U();})();
+/*! Bundled license information:
+
+lucide/dist/esm/defaultAttributes.mjs:
+lucide/dist/esm/createElement.mjs:
+lucide/dist/esm/icons/arrow-left.mjs:
+lucide/dist/esm/icons/arrow-up-right.mjs:
+lucide/dist/esm/icons/check.mjs:
+lucide/dist/esm/icons/code.mjs:
+lucide/dist/esm/icons/copy.mjs:
+lucide/dist/esm/icons/download.mjs:
+lucide/dist/esm/icons/ellipsis.mjs:
+lucide/dist/esm/icons/funnel-x.mjs:
+lucide/dist/esm/icons/heart.mjs:
+lucide/dist/esm/icons/image.mjs:
+lucide/dist/esm/icons/list-filter.mjs:
+lucide/dist/esm/icons/menu.mjs:
+lucide/dist/esm/icons/minimize.mjs:
+lucide/dist/esm/icons/monitor.mjs:
+lucide/dist/esm/icons/moon.mjs:
+lucide/dist/esm/icons/pause.mjs:
+lucide/dist/esm/icons/play.mjs:
+lucide/dist/esm/icons/rotate-ccw.mjs:
+lucide/dist/esm/icons/save.mjs:
+lucide/dist/esm/icons/sliders-horizontal.mjs:
+lucide/dist/esm/icons/sun.mjs:
+lucide/dist/esm/icons/user-check.mjs:
+lucide/dist/esm/icons/user-plus.mjs:
+lucide/dist/esm/icons/x.mjs:
+lucide/dist/esm/lucide.mjs:
+  (**
+   * @license lucide v1.41.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+*/
+</script><script>(() => {
+  "use strict";
+
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const initialized = new WeakSet();
+
+  const mount = (scene) => {
+    if (initialized.has(scene)) return;
+    initialized.add(scene);
+    let sceneStatus = "loading";
+    const setStatus = (value) => {
+      sceneStatus = value;
+      scene.dataset.sceneStatus = sceneStatus;
+    };
+    setStatus(sceneStatus);
+
+    const canvas = document.createElement("canvas");
+    canvas.className = "gary-dot-grid-canvas";
+    const context = canvas.getContext("2d", { alpha: true, desynchronized: true });
+    if (!context) {
+      setStatus("fallback");
+      return;
+    }
+    scene.append(canvas);
+
+    const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, active: false };
+    let motionOverride = scene.dataset.motionOverride === "on";
+    let width = 1;
+    let height = 1;
+    let dpr = 1;
+    let frame = 0;
+    let visible = true;
+
+    const isReduced = () => reduceMotion.matches && !motionOverride;
+    const cssNumber = (name, fallback) => {
+      const value = Number.parseFloat(getComputedStyle(scene).getPropertyValue(name));
+      return Number.isFinite(value) ? value : fallback;
+    };
+
+    const themeColors = () => {
+      const root = document.documentElement;
+      const theme = root.dataset.garyTheme || root.dataset.theme || "dark";
+      return theme === "light"
+        ? { base: "rgba(0,0,0,0.14)", active: "rgba(0,0,0,0.58)" }
+        : { base: "rgba(255,255,255,0.16)", active: "rgba(255,255,255,0.72)" };
+    };
+
+    const draw = () => {
+      frame = 0;
+      if (!visible || document.hidden || ["gradient-waves", "custom-media"].includes(scene.dataset.garyBackground)) return;
+
+      const reduced = isReduced();
+      const spacing = Math.max(18, cssNumber("--gary-scene-grid-size", 28));
+      const influenceRadius = Math.max(80, cssNumber("--gary-scene-pointer-radius", 160));
+      const colors = themeColors();
+      context.clearRect(0, 0, width, height);
+      context.save();
+      context.scale(dpr, dpr);
+
+      const viewWidth = width / dpr;
+      const viewHeight = height / dpr;
+      const startX = (viewWidth % spacing) / 2;
+      const startY = (viewHeight % spacing) / 2;
+      const interactive = pointer.active && !reduced;
+
+      for (let y = startY; y <= viewHeight + spacing; y += spacing) {
+        for (let x = startX; x <= viewWidth + spacing; x += spacing) {
+          let drawX = x;
+          let drawY = y;
+          let strength = 0;
+
+          if (interactive) {
+            const dx = x - pointer.x;
+            const dy = y - pointer.y;
+            const distance = Math.hypot(dx, dy);
+            strength = clamp(1 - distance / influenceRadius, 0, 1);
+            if (strength > 0 && distance > 0.01) {
+              const displacement = strength * strength * 7;
+              drawX += (dx / distance) * displacement;
+              drawY += (dy / distance) * displacement;
+            }
+          }
+
+          context.beginPath();
+          context.fillStyle = strength > 0.02 ? colors.active : colors.base;
+          context.globalAlpha = 0.44 + strength * 0.56;
+          context.arc(drawX, drawY, 0.9 + strength * 1.15, 0, Math.PI * 2);
+          context.fill();
+        }
+      }
+
+      context.restore();
+      context.globalAlpha = 1;
+      setStatus(reduced ? "reduced-motion" : "ready");
+    };
+
+    const schedule = () => {
+      if (!frame && visible && !document.hidden) frame = requestAnimationFrame(draw);
+    };
+
+    const resize = () => {
+      const rect = scene.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = Math.max(1, Math.round(rect.width * dpr));
+      height = Math.max(1, Math.round(rect.height * dpr));
+      if (canvas.width !== width) canvas.width = width;
+      if (canvas.height !== height) canvas.height = height;
+      schedule();
+    };
+
+    addEventListener("pointermove", (event) => {
+      if (isReduced()) return;
+      const rect = scene.getBoundingClientRect();
+      pointer.targetX = event.clientX - rect.left;
+      pointer.targetY = event.clientY - rect.top;
+      pointer.x = pointer.targetX;
+      pointer.y = pointer.targetY;
+      pointer.active = true;
+      schedule();
+    }, { passive: true });
+
+    addEventListener("pointerout", (event) => {
+      if (event.relatedTarget) return;
+      pointer.active = false;
+      schedule();
+    }, { passive: true });
+
+    addEventListener("gary:scene-motion-change", (event) => {
+      motionOverride = event.detail?.mode === "on" || scene.dataset.motionOverride === "on";
+      pointer.active = false;
+      schedule();
+    });
+
+    reduceMotion.addEventListener?.("change", () => {
+      pointer.active = false;
+      schedule();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) schedule();
+    });
+
+    new MutationObserver(schedule).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme", "data-gary-theme"]
+    });
+    new MutationObserver(() => { pointer.active = false; schedule(); }).observe(scene, {
+      attributes: true, attributeFilter: ["data-gary-background"]
+    });
+
+    new ResizeObserver(resize).observe(scene);
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) schedule();
+    }, { threshold: 0.01 }).observe(scene);
+
+    resize();
+  };
+
+  const scan = (scope = document) => {
+    if (scope.matches?.('[data-gary-scene-engine="dot-grid"]')) mount(scope);
+    scope.querySelectorAll?.('[data-gary-scene-engine="dot-grid"]').forEach(mount);
+  };
+
+  scan();
+  new MutationObserver((records) => {
+    records.forEach((record) => record.addedNodes.forEach((node) => {
+      if (node.nodeType === Node.ELEMENT_NODE) scan(node);
+    }));
+  }).observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script><script>/* SPDX-License-Identifier: MIT
+ * Gary-UI optical glass. Independently authored using a rounded-box signed
+ * distance field and the SVG filter primitives implemented by the browser.
+ * One RG vector map drives one displacement operation; there is no color split.
+ */
+(() => {
+  'use strict';
+  if (window.GaryGlassSurface) return;
+  const ns = 'http://www.w3.org/2000/svg';
+  const selector = '[data-gary-refraction]';
+  const property = '--gary-refraction-filter';
+  const cards = new Map();
+  const pending = new Set();
+  const mode = new URLSearchParams(location.search).get('glass');
+  // SVG filters in backdrop-filter are not interoperable yet. Keep other
+  // engines on their existing CSS frost instead of falsely claiming refraction.
+  const supported = !['fallback', 'frosted'].includes(mode)
+    && /(?:Chrome|Chromium|Edg)\//.test(navigator.userAgent)
+    && typeof SVGFEImageElement !== 'undefined'
+    && window.CSS?.supports('backdrop-filter', 'url(#gary-optical-probe)');
+  let strength = 180;
+  let sequence = 0;
+  let frame = 0;
+
+  function svgNode(name, attributes) {
+    const node = document.createElementNS(ns, name);
+    for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, String(value));
+    return node;
+  }
+
+  function cornerRadius(element, width, height) {
+    const values = getComputedStyle(element).borderTopLeftRadius.split(/\s+/);
+    const value = values[0];
+    const radius = value.endsWith('%') ? parseFloat(value) * Math.min(width, height) / 100 : parseFloat(value);
+    return Math.min(width / 2, height / 2, Math.max(0, radius || 0));
+  }
+
+  function normalField(width, height, radius) {
+    // Cap the texture cost, but express all distances in CSS pixels so the
+    // physical bevel thickness is stable on large and high-DPI cards.
+    const ratio = Math.min(1, 900 / width, 900 / height);
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.max(2, Math.ceil(width * ratio));
+    canvas.height = Math.max(2, Math.ceil(height * ratio));
+    const context = canvas.getContext('2d');
+    if (!context) throw new Error('Canvas is unavailable');
+    const pixels = context.createImageData(canvas.width, canvas.height);
+    const halfW = width / 2, halfH = height / 2;
+    const bevel = Math.min(34, Math.max(10, Math.min(width, height) * .13));
+    for (let y = 0; y < canvas.height; y++) {
+      for (let x = 0; x < canvas.width; x++) {
+        const px = (x + .5) / canvas.width * width - halfW;
+        const py = (y + .5) / canvas.height * height - halfH;
+        const qx = Math.abs(px) - halfW + radius;
+        const qy = Math.abs(py) - halfH + radius;
+        const ax = Math.max(qx, 0), ay = Math.max(qy, 0);
+        const outside = Math.hypot(ax, ay);
+        const distance = outside + Math.min(Math.max(qx, qy), 0) - radius;
+        let nx = 0, ny = 0;
+        if (outside > 0) { nx = ax / outside; ny = ay / outside; }
+        else if (qx > qy) nx = 1;
+        else ny = 1;
+        nx *= Math.sign(px); ny *= Math.sign(py);
+        const depth = Math.max(0, -distance);
+        const profile = distance <= 0 && depth < bevel ? Math.sin(Math.PI * depth / bevel) ** 1.3 : 0;
+        const i = (y * canvas.width + x) * 4;
+        pixels.data[i] = Math.round(127.5 + 127.5 * nx * profile);
+        pixels.data[i + 1] = Math.round(127.5 + 127.5 * ny * profile);
+        pixels.data[i + 2] = 128;
+        pixels.data[i + 3] = 255;
+      }
+    }
+    context.putImageData(pixels, 0, 0);
+    return canvas.toDataURL('image/png');
+  }
+
+  function useFallback(element, record) {
+    record.svg?.remove();
+    record.svg = null;
+    record.displacement = null;
+    element.style.removeProperty(property);
+    element.dataset.garyRefractionState = 'fallback';
+  }
+
+  function rebuild(element) {
+    const record = cards.get(element);
+    if (!record) return;
+    if (!element.isConnected) { destroy(element); return; }
+    if (!supported) { useFallback(element, record); return; }
+    // Layout coordinates, not transformed screen bounds, match filter space.
+    const width = element.offsetWidth, height = element.offsetHeight;
+    if (width < 2 || height < 2) { record.signature = ''; useFallback(element, record); return; }
+    const radius = cornerRadius(element, width, height);
+    const signature = `${width}:${height}:${radius}`;
+    if (record.signature === signature && record.svg) return;
+    try {
+      const texture = normalField(width, height, radius);
+      const id = `gary-optical-${++sequence}`;
+      const svg = svgNode('svg', { class: 'gary-refraction-filter', 'aria-hidden': 'true', focusable: 'false', width: 0, height: 0 });
+      // Inline positioning keeps this utility layout-neutral even without Gary CSS.
+      Object.assign(svg.style, { position: 'absolute', width: '0', height: '0', overflow: 'hidden', pointerEvents: 'none' });
+      const defs = svgNode('defs', {});
+      const filter = svgNode('filter', { id, x: 0, y: 0, width, height, filterUnits: 'userSpaceOnUse', primitiveUnits: 'userSpaceOnUse', 'color-interpolation-filters': 'sRGB' });
+      const image = svgNode('feImage', { href: texture, x: 0, y: 0, width, height, preserveAspectRatio: 'none', result: 'surfaceNormals' });
+      const frost = svgNode('feGaussianBlur', { in: 'SourceGraphic', stdDeviation: 2.4, edgeMode: 'duplicate', result: 'frostedBackdrop' });
+      const displacement = svgNode('feDisplacementMap', { in: 'frostedBackdrop', in2: 'surfaceNormals', scale: strength * .14, xChannelSelector: 'R', yChannelSelector: 'G' });
+      filter.append(image, frost, displacement); defs.append(filter); svg.append(defs);
+      record.svg?.remove(); element.append(svg);
+      record.svg = svg; record.displacement = displacement; record.signature = signature;
+      element.style.setProperty(property, `url(#${id})`);
+      element.dataset.garyRefractionState = 'svg';
+    } catch (_) { record.signature = ''; useFallback(element, record); }
+  }
+
+  function enqueue(element) {
+    if (!cards.has(element)) return;
+    pending.add(element);
+    if (!frame) frame = requestAnimationFrame(() => {
+      frame = 0;
+      const queue = [...pending]; pending.clear();
+      queue.forEach(rebuild);
+    });
+  }
+
+  const resizeObserver = typeof ResizeObserver === 'function'
+    ? new ResizeObserver(entries => entries.forEach(entry => enqueue(entry.target))) : null;
+
+  function mount(element) {
+    if (!(element instanceof Element)) throw new TypeError('GaryGlassSurface.mount requires an element');
+    if (cards.has(element)) { enqueue(element); return element; }
+    cards.set(element, {
+      svg: null, displacement: null, signature: '',
+      previousState: element.getAttribute('data-gary-refraction-state'),
+      previousProperty: element.style.getPropertyValue(property),
+      previousPriority: element.style.getPropertyPriority(property)
+    });
+    resizeObserver?.observe(element);
+    rebuild(element);
+    return element;
+  }
+
+  function destroy(element) {
+    const record = cards.get(element);
+    if (!record) return;
+    resizeObserver?.unobserve(element); pending.delete(element);
+    record.svg?.remove(); cards.delete(element);
+    if (record.previousState === null) element.removeAttribute('data-gary-refraction-state');
+    else element.setAttribute('data-gary-refraction-state', record.previousState);
+    if (record.previousProperty) element.style.setProperty(property, record.previousProperty, record.previousPriority);
+    else element.style.removeProperty(property);
+    if (!pending.size && frame) { cancelAnimationFrame(frame); frame = 0; }
+  }
+
+  function scan(root) {
+    if (!(root instanceof Element) && root !== document) return;
+    if (root.matches?.(selector)) mount(root);
+    root.querySelectorAll(selector).forEach(mount);
+  }
+
+  function start() {
+    scan(document);
+    const observer = new MutationObserver(records => {
+      for (const record of records) {
+        if (record.type === 'attributes') {
+          if (record.target.matches(selector)) {
+            if (cards.has(record.target)) enqueue(record.target); else mount(record.target);
+          } else if (record.attributeName === 'data-gary-refraction') destroy(record.target);
+        } else record.addedNodes.forEach(scan);
+      }
+      for (const element of cards.keys()) if (!element.isConnected) destroy(element);
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-gary-refraction', 'class'] });
+    addEventListener('resize', () => cards.forEach((_, element) => enqueue(element)), { passive: true });
+  }
+
+  window.GaryGlassSurface = Object.freeze({
+    mount, destroy,
+    setStrength(value) {
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric)) return strength;
+      strength = Math.max(0, Math.min(300, numeric));
+      cards.forEach(record => record.displacement?.setAttribute('scale', String(strength * .14)));
+      return strength;
+    },
+    get strength() { return strength; }
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
+  else start();
+})();
+</script><script>window.__garyVisualReady=true;</script></body></html>

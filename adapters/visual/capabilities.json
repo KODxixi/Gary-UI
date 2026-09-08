@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "engines": {
+    "archify": {
+      "purposes": ["architecture", "workflow", "sequence", "data-flow", "lifecycle"],
+      "source": ["json"],
+      "outputs": ["html", "svg", "png", "pdf"],
+      "interactive": true,
+      "skill": {
+        "name": "archify",
+        "canonical": "C:/AI/skills/archify/SKILL.md",
+        "runtimeDiscovery": "sibling managed skill first; locked bundled fallback second",
+        "referenceLoading": "read SKILL.md, then common schema + one matching schema + one matching example; optional references only on demand"
+      }
+    },
+    "echarts": {
+      "purposes": ["quantitative"],
+      "source": ["json"],
+      "outputs": ["html", "svg", "png", "pdf"],
+      "interactive": true,
+      "guide": "Use for quantitative comparison, trend, distribution, composition, and correlation. Preserve axes, units, missing values, source citation, and a data-table fallback."
+    },
+    "markmap": {
+      "purposes": ["outline"],
+      "source": ["markdown"],
+      "outputs": ["html", "svg", "png", "pdf"],
+      "interactive": true,
+      "guide": "Use for Markdown outlines, research structures, and knowledge hierarchies. Preserve Markdown as native source; do not force complex relationship graphs into a mind map."
+    },
+    "antv-infographic": {
+      "purposes": ["infographic"],
+      "source": ["json"],
+      "outputs": ["html", "svg", "png", "pdf"],
+      "interactive": false,
+      "skills": {
+        "renderedDeliverable": "infographic-creator",
+        "syntaxOnly": "infographic-syntax-creator",
+        "canonicalRoot": "C:/AI/skills",
+        "referenceLoading": "Read the selected official SKILL.md completely; infographic-syntax-creator then loads references/prompt.md exactly as directed.",
+        "garyOverride": "Use official content and syntax decisions, then render/export with Gary's local pinned @antv/infographic 0.2.20 adapter; upstream CDN instructions are superseded."
+      }
+    },
+    "mermaid": {
+      "purposes": ["simple-flow"],
+      "source": ["mmd", "mermaid", "markdown"],
+      "outputs": ["html", "svg", "png", "pdf"],
+      "interactive": false,
+      "guide": "Use for simple document-local flows and existing Mermaid sources. Use strict security mode; convert to Archify only when interaction or complex relationship validation is required."
+    },
+    "lucide": {
+      "purposes": ["icons"],
+      "source": ["json"],
+      "outputs": ["html", "svg", "png", "pdf"],
+      "interactive": false,
+      "guide": "Use only for interface actions and generic node icons. Provide accessible names and export the complete icon board or clearly named individual icons."
+    }
+  },
+  "routing": {
+    "architecture": "archify",
+    "workflow": "archify",
+    "sequence": "archify",
+    "data-flow": "archify",
+    "lifecycle": "archify",
+    "quantitative": "echarts",
+    "outline": "markmap",
+    "infographic": "antv-infographic",
+    "simple-flow": "mermaid",
+    "icons": "lucide"
+  }
+}

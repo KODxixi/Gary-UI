@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 2,
+  "command": "visual export",
+  "project": "Gary Demo Edition 02 / 华东服务交付计划",
+  "manifest": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\visuals.json",
+  "versionId": "run-2026-09-07T06-03-08-190Z-89e6ed45",
+  "generatedAt": "2026-09-07T06:03:31.496Z",
+  "records": [
+    {
+      "id": "delivery-architecture-dark",
+      "tool": "archify",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-architecture-dark.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\delivery-architecture-dark.json",
+      "sha256": "e8e464d50a300dc64be7b35e8606b3b042102eccf5f4bb959d8a17ee03c1b630",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-architecture-dark.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-architecture-dark.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-architecture-dark.png"
+      }
+    },
+    {
+      "id": "delivery-architecture-light",
+      "tool": "archify",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-architecture-light.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\delivery-architecture-light.json",
+      "sha256": "6b5bc680bc31c7741846ab80c2842501c064d2e59d5c9bced4af5896c4063bb6",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-architecture-light.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-architecture-light.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-architecture-light.png"
+      }
+    },
+    {
+      "id": "delivery-trend-dark",
+      "tool": "echarts",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-dark.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\delivery-trend-dark.json",
+      "sha256": "8910472e01d1177174a3fe62e2206d01110a536d35758fd19f4477405c73c0d4",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-dark.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-dark.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-dark.png"
+      }
+    },
+    {
+      "id": "delivery-trend-light",
+      "tool": "echarts",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-light.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\delivery-trend-light.json",
+      "sha256": "5e80f6fc2f1430e461cb185ae4c885e919957328947a72cc9e848207a3c098e7",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-light.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-light.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-light.png"
+      }
+    },
+    {
+      "id": "research-outline-dark",
+      "tool": "markmap",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-dark.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\research-outline-dark.md",
+      "sha256": "bf7a1fa35279739c611820a6d97df1fc74ecaca201e2f9aaaf1000d3e305c4fb",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-dark.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-dark.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-dark.png"
+      }
+    },
+    {
+      "id": "research-outline-light",
+      "tool": "markmap",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-light.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\research-outline-light.md",
+      "sha256": "4dd3f9f0f0d683d74106193cc8cd863dee37a0f3bc77520e49ef2dad58252221",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-light.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-light.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-light.png"
+      }
+    },
+    {
+      "id": "summary-infographic-dark",
+      "tool": "antv-infographic",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-dark.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\summary-infographic-dark.json",
+      "sha256": "9aae1076ee8669b7e80fe690c70a0d127bdb4af42b94c42b791ab67934d2abe7",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-dark.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-dark.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-dark.png"
+      }
+    },
+    {
+      "id": "summary-infographic-light",
+      "tool": "antv-infographic",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-light.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\summary-infographic-light.json",
+      "sha256": "06c754c6cd85660a6c7e90db70bed49c6a70b254c5174999be703cdd9a161e2c",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-light.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-light.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-light.png"
+      }
+    },
+    {
+      "id": "simple-flow-dark",
+      "tool": "mermaid",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-dark.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\simple-flow-dark.mmd",
+      "sha256": "0cc689dfc4bf96385d8a8aefa6400efab5a46ed2b1d156701c4737148b57c794",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-dark.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-dark.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-dark.png"
+      }
+    },
+    {
+      "id": "simple-flow-light",
+      "tool": "mermaid",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-light.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\simple-flow-light.mmd",
+      "sha256": "81f6d8ea4a539a53a9e4d4508a5a7917bcd26d06dca5a47cbce92a6eb3a9f38e",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-light.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-light.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-light.png"
+      }
+    }
+  ]
+}

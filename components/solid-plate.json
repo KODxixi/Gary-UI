@@ -1,0 +1,43 @@
+{
+  "slug": "solid-plate",
+  "name": "实心信息板",
+  "category": "surfaces",
+  "material": {
+    "default": "SolidPlate",
+    "rules": [
+      "用于玻璃卡内的表格、参数、KPI 行与字幕",
+      "禁用 backdrop-filter，避免玻璃套玻璃"
+    ]
+  },
+  "variants": [
+    {
+      "name": "block",
+      "selector": ".gary-solid-plate"
+    },
+    {
+      "name": "nested-data",
+      "selector": ".gary-glass-card .gary-solid-plate"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "selector": ".gary-solid-plate"
+    },
+    {
+      "name": "disabled",
+      "selector": "[aria-disabled=\"true\"]"
+    }
+  ],
+  "accessibility": {
+    "role": "semantic content element",
+    "requirements": [
+      "不为视觉样式添加多余 role",
+      "数据继续使用 table、dl 或 list 等原生语义",
+      "文本对比度不得依赖背景模糊"
+    ]
+  },
+  "cssClasses": [
+    ".gary-solid-plate"
+  ]
+}

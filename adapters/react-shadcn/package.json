@@ -1,0 +1,80 @@
+{
+  "name": "@gary-ui/react-shadcn",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Gary Liquid Glass adapter for React 19, Tailwind CSS 4, and shadcn.",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": [
+    "./dist/styles/gary-ui.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "style": "./dist/styles/gary-ui.css",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./button": {
+      "types": "./dist/components/ui/button.d.ts",
+      "import": "./dist/components/ui/button.js"
+    },
+    "./card": {
+      "types": "./dist/components/ui/card.d.ts",
+      "import": "./dist/components/ui/card.js"
+    },
+    "./chip": {
+      "types": "./dist/components/ui/chip.d.ts",
+      "import": "./dist/components/ui/chip.js"
+    },
+    "./evidence-bar": {
+      "types": "./dist/components/ui/evidence-bar.d.ts",
+      "import": "./dist/components/ui/evidence-bar.js"
+    },
+    "./solid-plate": {
+      "types": "./dist/components/ui/solid-plate.d.ts",
+      "import": "./dist/components/ui/solid-plate.js"
+    },
+    "./styles.css": "./dist/styles/gary-ui.css",
+    "./registry.json": "./registry.json"
+  },
+  "files": [
+    "dist",
+    "src/styles/gary-ui.css",
+    "components.json",
+    "registry.json",
+    "README.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "scripts": {
+    "prebuild": "node scripts/inline-styles.mjs",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "registry:validate": "shadcn registry validate ./registry.json"
+  },
+  "engines": {
+    "node": ">=20.18.1"
+  },
+  "packageManager": "npm@11.17.0",
+  "dependencies": {
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "radix-ui": "1.6.2",
+    "tailwind-merge": "3.6.0"
+  },
+  "peerDependencies": {
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "tailwindcss": "4.3.2"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "shadcn": "4.13.0",
+    "tailwindcss": "4.3.2",
+    "typescript": "6.0.3"
+  }
+}

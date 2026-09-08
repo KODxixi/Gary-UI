@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-theme="dark" data-gary-application-mode="board" data-range-state="week">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gary-UI 看板模式应用骨架">
+  <title>Gary-UI · 看板模式</title>
+  <link rel="stylesheet" href="./modes.css">
+  <script src="../shared/icons.js" defer></script>
+</head>
+<body class="gary-ui application-mode dashboard-mode">
+  <div class="mode-scene" data-gary-scene-engine="dot-grid" aria-hidden="true"></div>
+
+  <header class="mode-webbar gary-web-bar gary-ultrathin" aria-label="看板导航">
+    <a class="mode-brand" href="../../portal/index.html#patterns">
+      <strong>项目决策台</strong>
+      <span>Gary-UI · 看板模式</span>
+    </a>
+    <nav class="mode-nav" aria-label="看板范围">
+      <a class="is-active" href="#overview" aria-current="true">总览</a>
+      <a href="#decisions">决策</a>
+      <a href="#delivery">交付</a>
+    </nav>
+    <div class="mode-actions">
+      <span class="mode-status">同步于 14:30</span>
+      <a class="mode-quiet-action gary-button gary-regular" href="../../portal/index.html#patterns" data-gary-icon="arrow-left" aria-label="返回母本">返回母本</a>
+    </div>
+  </header>
+
+  <main class="mode-page">
+    <section class="dashboard-header" id="overview">
+      <div>
+        <p class="mode-kicker">Dashboard · Current state</p>
+        <h1 class="gary-role-title">异常先于明细</h1>
+        <p>看板模式回答“当前发生什么”。同屏呈现判断、趋势和责任项，避免用章节滚动重复同一组指标。</p>
+      </div>
+      <div class="dashboard-range gary-segmented gary-regular" data-select-group aria-label="统计周期">
+        <button class="is-active" type="button" data-range="week" aria-pressed="true">本周</button>
+        <button type="button" data-range="month" aria-pressed="false">近 30 天</button>
+      </div>
+    </section>
+
+    <section class="dashboard-grid" aria-label="项目状态看板">
+      <article class="mode-card dashboard-summary gary-glass gary-thick" data-tunable-surface>
+        <div>
+          <p class="mode-kicker">Priority judgment</p>
+          <h2>现金流边界已收紧，设计深化仍可按原节点推进。</h2>
+          <p>优先锁定两项成本假设；其余任务保持节奏，不扩大会议与汇报负担。</p>
+        </div>
+        <div class="dashboard-summary-row">
+          <div class="mode-plate gary-solid-plate"><span>决策完成度</span><strong>78%</strong></div>
+          <div class="mode-plate gary-solid-plate"><span>待确认金额</span><strong>¥ 4.8M</strong></div>
+          <div class="mode-plate gary-solid-plate"><span>关键风险</span><strong>02</strong></div>
+        </div>
+      </article>
+
+      <article class="mode-card dashboard-chart gary-glass gary-regular" data-tunable-surface>
+        <div class="mode-section-heading">
+          <div><p class="mode-kicker">Decision velocity</p><h2>决策推进</h2></div>
+          <span class="mode-chip" data-range-readout>本周</span>
+        </div>
+        <div class="chart-bars" role="img" aria-label="周一至周日决策推进柱状图">
+          <span style="--bar:38%"></span><span style="--bar:54%"></span><span style="--bar:46%"></span>
+          <span style="--bar:76%"></span><span style="--bar:64%"></span><span style="--bar:88%"></span><span style="--bar:72%"></span>
+        </div>
+        <div class="chart-axis" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+      </article>
+
+      <article class="mode-card dashboard-decisions gary-glass gary-regular" data-tunable-surface id="decisions">
+        <div class="mode-section-heading">
+          <div><p class="mode-kicker">Decision queue</p><h2>待拍板</h2></div>
+          <span class="mode-chip">3 项</span>
+        </div>
+        <div class="decision-list">
+          <div class="mode-plate gary-solid-plate"><div><strong>幕墙样板边界</strong><span>今天 17:00</span></div><b>高</b></div>
+          <div class="mode-plate gary-solid-plate"><div><strong>景观首开区范围</strong><span>明天</span></div><b>中</b></div>
+          <div class="mode-plate gary-solid-plate"><div><strong>机电顾问增补</strong><span>周五</span></div><b>中</b></div>
+        </div>
+      </article>
+
+      <article class="mode-card dashboard-table gary-glass gary-regular" data-tunable-surface id="delivery">
+        <div class="mode-section-heading">
+          <div><p class="mode-kicker">Delivery pulse</p><h2>交付脉冲</h2></div>
+          <span class="mode-chip">4 个工作包</span>
+        </div>
+        <table class="board-table">
+          <thead><tr><th>工作包</th><th>状态</th><th>负责人</th><th>下一节点</th></tr></thead>
+          <tbody>
+            <tr><td>概念深化</td><td><span class="status-mark" data-state="steady">正常</span></td><td>设计组</td><td>07 / 30</td></tr>
+            <tr><td>成本复核</td><td><span class="status-mark" data-state="risk">关注</span></td><td>成本组</td><td>07 / 28</td></tr>
+            <tr><td>报批策略</td><td><span class="status-mark" data-state="steady">正常</span></td><td>前期组</td><td>08 / 02</td></tr>
+            <tr><td>招商假设</td><td><span class="status-mark" data-state="risk">关注</span></td><td>运营组</td><td>08 / 05</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </section>
+  </main>
+
+  <script src="../../patterns/shared/dot-grid.js"></script>
+  <script src="./modes.js" defer></script>
+  <script src="../../patterns/shared/material.js"></script>
+  <script src="../../patterns/shared/optical-glass.js"></script>
+</body>
+</html>

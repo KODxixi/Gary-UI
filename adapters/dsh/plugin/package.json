@@ -1,0 +1,14 @@
+{
+  "name": "gary-ui-dsh",
+  "version": "0.1.0",
+  "description": "DSH tool plugin: Gary-UI design system static serve + self-contained HTML emit",
+  "type": "module",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": "^0.1.0-rc.6"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}

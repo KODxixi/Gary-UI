@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-theme="dark" data-gary-density="balanced" data-gary-material="ultrathin">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gary-UI · Starting Points</title>
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="./starting-points.css">
+  <script src="../shared/icons.js" defer></script>
+</head>
+<body class="gary-ui">
+  <div class="pattern-scene" data-gary-scene-engine="dot-grid" aria-hidden="true"></div>
+  <main class="pattern-page">
+    <header class="pattern-bar gary-glass gary-ultrathin">
+      <div><strong>Starting Points</strong><p>选择信息主角，再开始排版</p></div>
+      <a class="gary-button gary-regular" data-size="small" href="../../portal/index.html" data-gary-icon="arrow-left" aria-label="返回控制台">返回控制台</a>
+    </header>
+    <section class="pattern-hero starter-hero gary-glass gary-regular">
+      <p class="eyebrow">Two-level starting points</p>
+      <h1 class="gary-role-title">先选壳再选主角</h1>
+      <p class="lede">选择一个应用模式与一个页面模式，实时生成组合预览和可复制骨架。不是 12 份重复模板。</p>
+    </section>
+    <section class="starter-composer" aria-labelledby="starter-composer-title">
+      <form class="starter-controls gary-glass gary-regular" id="starter-form">
+        <div>
+          <p class="eyebrow">Composition</p>
+          <h2 id="starter-composer-title">组合起手模板</h2>
+          <p class="muted">两级选择只改变壳与内容主角；token、组件和页面语义仍共用一份。</p>
+        </div>
+
+        <fieldset class="starter-fieldset">
+          <legend><span>01</span>应用模式</legend>
+          <label class="starter-choice">
+            <input type="radio" name="starter-application" value="board" checked>
+            <span><strong>看板</strong><small>同屏扫描与比较</small></span>
+          </label>
+          <label class="starter-choice">
+            <input type="radio" name="starter-application" value="scroll-report">
+            <span><strong>滚动演示汇报</strong><small>叙事与逐屏演示</small></span>
+          </label>
+          <label class="starter-choice">
+            <input type="radio" name="starter-application" value="web-ui">
+            <span><strong>Web UI</strong><small>连续产品任务</small></span>
+          </label>
+        </fieldset>
+
+        <fieldset class="starter-fieldset">
+          <legend><span>02</span>页面模式</legend>
+          <label class="starter-choice">
+            <input type="radio" name="starter-page" value="report-cover" checked>
+            <span><strong>报告封面</strong><small>结论优先</small></span>
+          </label>
+          <label class="starter-choice">
+            <input type="radio" name="starter-page" value="image-page">
+            <span><strong>图像页</strong><small>证据图优先</small></span>
+          </label>
+          <label class="starter-choice">
+            <input type="radio" name="starter-page" value="data-page">
+            <span><strong>数据页</strong><small>判断值优先</small></span>
+          </label>
+          <label class="starter-choice">
+            <input type="radio" name="starter-page" value="manual-toc">
+            <span><strong>手册目录</strong><small>结构定位优先</small></span>
+          </label>
+        </fieldset>
+
+        <div class="starter-actions">
+          <button class="gary-button gary-thick" id="starter-copy" type="button" data-variant="primary" data-gary-icon="copy" aria-label="复制起手骨架">复制起手骨架</button>
+          <a class="gary-button gary-regular" id="starter-open" href="./preview.html" target="_blank" rel="noopener" data-gary-icon="arrow-up-right" aria-label="独立打开组合">独立打开组合</a>
+        </div>
+
+        <section class="starter-code gary-solid-plate" aria-labelledby="starter-code-title">
+          <div><strong id="starter-code-title">可复制骨架</strong><span id="starter-code-readout">board + report-cover</span></div>
+          <pre id="starter-code-output" aria-live="polite" aria-label="包含五个调用轴的 Gary-UI 起手骨架"></pre>
+        </section>
+      </form>
+
+      <section class="starter-preview gary-glass gary-regular" aria-labelledby="starter-preview-title">
+        <header>
+          <div>
+            <p class="eyebrow">Live composition</p>
+            <h2 id="starter-preview-title">组合预览</h2>
+          </div>
+          <code id="starter-preview-readout">board × report-cover · regular</code>
+        </header>
+        <div class="starter-frame">
+          <iframe id="starter-preview-frame" title="Gary-UI 组合起手模板预览" src="./preview.html?application=board&amp;page=report-cover&amp;theme=dark&amp;material=regular&amp;density=balanced"></iframe>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="../../patterns/shared/dot-grid.js"></script>
+  <script src="./app.js" defer></script>
+  <script src="../../patterns/shared/material.js"></script>
+  <script src="../../patterns/shared/optical-glass.js"></script>
+</body>
+</html>

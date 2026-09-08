@@ -1,0 +1,83 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "gary-ui",
+  "homepage": "local:C:\\AI\\UI\\gary-ui",
+  "items": [
+    {
+      "name": "gary-button",
+      "type": "registry:ui",
+      "title": "Gary Button",
+      "description": "Gary-UI Liquid Glass button adapter.",
+      "dependencies": ["class-variance-authority", "radix-ui"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/button.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/gary-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "gary-card",
+      "type": "registry:ui",
+      "title": "Gary Card",
+      "description": "Gary-UI card primitives.",
+      "dependencies": ["class-variance-authority", "radix-ui"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/gary-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "gary-chip",
+      "type": "registry:ui",
+      "title": "Gary Chip",
+      "description": "Gary-UI compact status marker.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/chip.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/gary-chip.tsx"
+        }
+      ]
+    },
+    {
+      "name": "gary-evidence-bar",
+      "type": "registry:ui",
+      "title": "Gary Evidence Bar",
+      "description": "Gary-UI evidence completeness indicator.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/evidence-bar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/gary-evidence-bar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "gary-solid-plate",
+      "type": "registry:ui",
+      "title": "Gary Solid Plate",
+      "description": "Gary-UI opaque surface for dense content.",
+      "dependencies": ["class-variance-authority", "radix-ui"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/solid-plate.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/gary-solid-plate.tsx"
+        }
+      ]
+    }
+  ]
+}
+

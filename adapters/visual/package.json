@@ -1,0 +1,28 @@
+{
+  "name": "@gary-ui/visual-adapter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Pinned local visual engines for Gary-UI reports and tools.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build-runtime.mjs",
+    "doctor": "node runner.mjs doctor",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@antv/infographic": "0.2.20",
+    "echarts": "6.1.0",
+    "lucide": "1.41.0",
+    "markmap-lib": "0.18.12",
+    "markmap-view": "0.18.12",
+    "mermaid": "11.17.2",
+    "playwright-core": "1.63.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.9"
+  }
+}

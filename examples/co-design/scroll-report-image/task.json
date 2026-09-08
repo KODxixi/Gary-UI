@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 2,
+  "skill": "gary-liquidglass-ui",
+  "operation": "create",
+  "mode": "deep-review",
+  "target": {
+    "stack": "html",
+    "scope": "Scroll-report/Image Page 建筑叙事汇报演示",
+    "deliveryPath": null
+  },
+  "brief": {
+    "goal": "把同一张概念建筑图组织为可滚动、可演示、可批注的空间叙事，让用户共同确定图像、文字和节奏的关系。",
+    "audience": "建筑设计负责人、汇报团队与方案决策者",
+    "content": "序章、空间证据、人物尺度和最终判断四段叙事。",
+    "assets": [
+      "/assets/backgrounds/gary-default-scene.png"
+    ],
+    "interactions": [
+      "顶部章节导航滚动到对应段落",
+      "切换浅色与深色主题",
+      "点击图像说明与结论区域添加批注"
+    ],
+    "constraints": [
+      "默认使用 Gary 建筑背景",
+      "保持一张全局场景与一个遮罩",
+      "汇报模式不使用永久侧边栏",
+      "尊重 prefers-reduced-motion"
+    ]
+  },
+  "applicationMode": "scroll-report",
+  "visualDefaults": {
+    "theme": "dark",
+    "material": "thick",
+    "density": "spacious"
+  },
+  "units": [
+    {
+      "id": "spatial-story",
+      "pageMode": "image-page",
+      "content": "建筑场景主图、空间证据与四段滚动叙事",
+      "assets": [
+        "/assets/backgrounds/gary-default-scene.png"
+      ],
+      "visualOverrides": {},
+      "acceptance": [
+        "主图始终是叙事主角",
+        "滚动章节可键盘到达",
+        "390px 保持正确叙事顺序"
+      ]
+    }
+  ],
+  "acceptance": {
+    "viewports": [
+      "1440x1000",
+      "390x844"
+    ],
+    "keyboard": true,
+    "browser": true,
+    "visual": [
+      "建筑背景完整可辨识",
+      "玻璃说明不遮挡人物和主空间",
+      "章节之间具有演示级节奏"
+    ],
+    "technical": [
+      "控制台无错误",
+      "不依赖外网",
+      "滚动与动效尊重 reduced motion"
+    ]
+  }
+}
