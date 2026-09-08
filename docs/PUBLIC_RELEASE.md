@@ -1,6 +1,8 @@
 # Gary-UI 公开版验收
 
-本次验收针对 2026-09-08 的独立公开源码候选。在线部署结果由 GitHub Pages 内建发布与发布后记录确认；以下只列实际完成的检查。
+[KODxixi/Gary-UI](https://github.com/KODxixi/Gary-UI) 已于 2026-09-08 公开发布，GitHub 识别许可为 MIT，默认分支为 `main`。[在线完整 Demo](https://kodxixi.github.io/Gary-UI/) 由 GitHub Pages 内建流程发布根目录。
+
+发布后的独立克隆与线上资源验收针对提交 `2c57f6e2cfea562a8914e526c4126319d47be794`；后续记录提交只补充这些验收证据。以下区分本地公开构建、真实克隆与线上范围。
 
 ## 已通过的检查
 
@@ -17,6 +19,13 @@
 | 独立公开审查 | 检查入门链接、机器路径边界和受限实现；已修复旧效果引用、不可用场景契约与历史证据断链。公开代码未发现实际凭据或私钥。 |
 
 可复核的页面结果见 [public-pages.json](../examples/demos/evidence/public-release/public-pages.json)，光学与动态背景结果见 [original-surfaces.json](../examples/demos/evidence/public-release/original-surfaces.json)。子路径见 [pages-subpath.json](../examples/demos/evidence/public-release/pages-subpath.json)，交互见 [demo-interactions.json](../examples/demos/evidence/public-release/demo-interactions.json)，模板见 [copied-templates.json](../examples/demos/evidence/public-release/copied-templates.json)。命令与后续发布流程见 [PUBLISHING.md](PUBLISHING.md)。
+
+## 发布后的独立复验
+
+- GitHub 全新克隆：939 个清单文件路径及 SHA-256 全部匹配；250 个本地链接有效；React 的 14 个导出入口全部存在。预览服务在独立临时端口启动，29 次页面与直接资源请求全部 200。未安装额外依赖，克隆工作树干净。详见 [fresh-clone.json](../examples/demos/evidence/public-release/fresh-clone.json)。
+- Pages 构建已确认 `built`。线上 18 个入口及关键资源均为 HTTP 200，字节哈希与已验证源码一致；方案页首次读取超时，单独重试通过，保留了原失败记录。详见 [online-http.json](../examples/demos/evidence/public-release/online-http.json)。
+- 在线应用浏览器已实际加载 Demo 首页、解析六个案例链接，并打开 Background 面板；打开面板时主题按钮保持独立。后续线上完整主题操作的自动化读取超时，未计为通过。上表中的 24 项视口矩阵与 12 / 28 项交互结果来自本地公开构建，不冒充完整线上矩阵。
+- 当前 GitHub 登录缺少自定义工作流的 `workflow` 权限，未启用自定义 Actions 检查；模板随源码保留，当前使用允许的 Pages 内建分支发布。详见 [维护说明](PUBLISHING.md)。
 
 ## 已知问题
 

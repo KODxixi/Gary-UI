@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repository": "KODxixi/Gary-UI",
-  "files": 939,
+  "files": 941,
   "entries": [
     {
       "path": ".gitattributes",
@@ -1297,7 +1297,7 @@
     },
     {
       "path": "docs/PUBLIC_RELEASE.md",
-      "sha256": "a707a61d1be7faaec099d7886c9b791f9ec7d3e58900f2aa8aac35ee6b54edc6"
+      "sha256": "c2d87fd0109fd1238b368788294a2e2a2056fdffb28349ff16a5108ed5e6ed90"
     },
     {
       "path": "docs/PUBLISHING.md",
@@ -1498,6 +1498,14 @@
     {
       "path": "examples/demos/evidence/public-release/demo-interactions.json",
       "sha256": "301bade9eab73209355bdc262842cdb1881527f535384cfeba4661d9ca0c5408"
+    },
+    {
+      "path": "examples/demos/evidence/public-release/fresh-clone.json",
+      "sha256": "fb794bd66676060805b6f222c3d504333fdf0b70838d7881e27eeb4b6126eb7d"
+    },
+    {
+      "path": "examples/demos/evidence/public-release/online-http.json",
+      "sha256": "44b6bc45fcd236576db3aae84139ba8128a23b5e2781194cdeb1648ee96fdbb3"
     },
     {
       "path": "examples/demos/evidence/public-release/original-surfaces.json",
