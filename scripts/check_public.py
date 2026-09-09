@@ -9,13 +9,13 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-REQUIRED = ('LICENSE', 'README.md', 'AGENTS.md', 'CONTRIBUTING.md', 'index.html', 'docs/ROADMAP.md',
+REQUIRED = ('LICENSE', 'README.md', 'AGENTS.md', 'CONTRIBUTING.md', 'index.html', 'demo0909.html', 'docs/ROADMAP.md',
             'docs/PUBLIC_RELEASE.md', 'docs/images/demo-home.png', 'licenses/third-party/manifest.json',
             'patterns/shared/optical-glass.js', 'patterns/shared/ambient-waves.js', 'scripts/preview.py',
             'adapters/react-shadcn/dist/index.js', 'adapters/react-shadcn/dist/styles/gary-ui.css')
 FORBIDDEN = ('portal/light-rays.js', 'patterns/shared/glass-surface.js', 'patterns/shared/gradient-waves.js',
              'provenance/react-bits/GlassSurface.jsx', 'provenance/react-bits/GradientWaves.jsx')
-PAGES = ('examples/demos/index.html', 'portal/index.html', 'patterns/starting-points/index.html',
+PAGES = ('demo0909.html', 'examples/demos/index.html', 'portal/index.html', 'patterns/starting-points/index.html',
          *(f'examples/demos/{slug}/index.html' for slug in ('web-analysis', 'web-reading', 'project-kanban', 'executive-board', 'research-report', 'proposal-presentation')))
 
 

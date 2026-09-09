@@ -30,10 +30,27 @@ README 以 [完整 Demo 首页](examples/demos/index.html) 的六种工作情境
 - **内容决定材质。** 正文、密集表格与指标使用稳定底板；玻璃主要服务导航、独立卡片与展示入口。文字本身不加模糊或折射。
 - **操作有一致的位置。** 工具操作以 44px 圆形图标为主，导航与筛选保留文字。顶栏的 `Background` 只打开背景实验室，旁边圆形按钮独立切换深浅主题。
 - **背景只做一层。** 默认单一点网格，不叠加线网和装饰等高线。背景实验由用户主动开启，本地照片和视频只在浏览器里预览。
+- **鼠标光影默认关闭。** 点阵位移、卡片高光、波面视差需在 `Background` 中手动开启；减弱动态优先。
 - **动效可以停下来。** 展示动效支持暂停、重播，页面不可见时停止渲染，减弱动态偏好下保留静态内容。
 - **规则能追溯到代码。** 15 个组件、3 类应用模式、4 类页面模式共享 Token、样式、状态和 Agent 契约。
 
 浏览 [Portal](https://kodxixi.github.io/Gary-UI/portal/) 查看排版、材质、组件、模板和制图；详细规则见 [DESIGN.md](DESIGN.md)。
+
+### 图表规范与跨域验证
+
+[图表表达规范](docs/CHART_EXPRESSION.md)提炼 **17 类图表与 7 种标注**的使用前提、尺度、排版和失败条件；[机器规则](spec/chart-recipes.json)是参数与选型真源。它把参考中的标注、对齐和阅读层次变成可迁移规则，业务字段、编号、判断与颜色语义由当前任务决定。
+
+[图表色彩体系](docs/CHART_COLOR.md)说明类别、连续量、偏差与状态如何选色，以及深浅主题和 Apple／Google 设计原则的应用边界；角色与色值统一落在机器规则中。
+
+[打开 demo0909.html](demo0909.html)：用不同领域的人工案例检验换单位、类别数量、尺度与缺测后的表达。[共享 SVG 参考实现](patterns/shared/chart-recipes.js)实际覆盖双轴、瀑布、环图、雷达、玫瑰五种，图表与数值表同源；不是新增适配器引擎，也不表示全部 17 类或 7 种标注已经自动实现。[调用示例与范围](docs/CHART_EXPRESSION.md#55-参考实现的调用边界)说明代码读取的参数及仍需人工审查的约束。
+
+三种材质按场景采用：**实体底纹（Solid）**、**磨砂玻璃（Frosted）**、**超白/全透玻璃（Optical）**。实体外卡与短指标可组合 `data-gary-surface="solid" data-gary-texture="flow"`，呈现静态中性指纹细线；图表绘图区、密集表格和长正文使用干净实底。磨砂玻璃用于摘要与导航，超白/全透玻璃用于短内容与展示。联动光影默认关闭，只有在右上角 `Background` 开启后才响应；主题按钮仍独立。[适用场景、调用代码与规则](docs/VISUAL_EXPRESSION.md)。此前的[视觉研究页](examples/visual-lab/index.html)保留为历史对照。
+
+### 可选交互示例
+
+[打开本地实验页](examples/interaction-lab/index.html)：体验可复用的数值过渡与手动内容轮播，比较媒体轻倾斜、标题分段呈现两个候选。后两项保留实验状态，由使用者判断后再推广；完整 Demo 继续作为视觉基线。
+
+这些配方参考 React Bits 的公开交互说明，由 Gary 独立实现，未引入其组件代码或新增依赖。[筛选依据、许可边界与复制用法](docs/INTERACTION_RECIPES.md)。
 
 ## 五分钟开始
 
@@ -73,7 +90,7 @@ python scripts/preview.py --port 4173
 | 内容 | 工具与入口 |
 | --- | --- |
 | 架构、流程、时序、数据流和生命周期 | [Archify](adapters/visual/ARCHIFY_SKILL.md) |
-| 定量分析图表 | ECharts |
+| 定量分析图表 | 先按 [17 类图表规范](docs/CHART_EXPRESSION.md)选型；既有 ECharts 为常规路径，五种 [SVG 参考配方](patterns/shared/chart-recipes.js)按实际范围选用 |
 | Markdown 层级思维导图 | Markmap |
 | 精选信息图 | [AntV Infographic](adapters/visual/ANTV_SKILLS.md) |
 | 简单流程 | Mermaid |

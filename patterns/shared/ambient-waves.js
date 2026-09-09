@@ -17,7 +17,7 @@
     turbulence: 35, tilt: 1.12, zoom: 1, height: 10, fogDepth: 20,
     brightness: 1.1, opacity: .47, parallaxStrength: .85, grainIntensity: .01,
     horizonColor: '#455164', waveColor: '#8193ab', crestColor: '#dbe4ef',
-    mouseInteraction: true, grain: true, detail: 'medium'
+    mouseInteraction: false, grain: true, detail: 'medium'
   });
   const colorKeys = ['horizonColor', 'waveColor', 'crestColor'];
   const mounted = new WeakMap();
@@ -51,6 +51,8 @@
     let context;
     try { context = canvas.getContext('2d', { alpha: true }); } catch (_) { context = null; }
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+    const pointerEnabled = () => document.documentElement.dataset.garyPointerEffects === 'on' && config.mouseInteraction && !motion.matches && finePointer.matches;
     const print = matchMedia('print');
     let printing = false, visible = true, paused = false, destroyed = false;
     let width = 0, height = 0, pixelRatio = 1, time = 0, frames = 0;
@@ -180,7 +182,7 @@
       const next = currentStatus(), changed = status !== next;
       status = next;
       if (request) cancelAnimationFrame(request); request = 0; lastFrame = 0;
-      if (motion.matches || !config.mouseInteraction) pointerX = pointerY = targetX = targetY = 0;
+      if (!pointerEnabled()) pointerX = pointerY = targetX = targetY = 0;
       canvas.style.opacity = String(config.opacity);
       if (dirty && !['suspended', 'print', 'fallback'].includes(status)) paint();
       if (status === 'playing') request = requestAnimationFrame(tick);
@@ -196,12 +198,14 @@
     }
     on(document, 'visibilitychange', () => refresh(false));
     on(motion, 'change', () => refresh());
+    on(finePointer, 'change', () => refresh());
+    on(window, 'gary:pointer-effects-change', () => refresh());
     on(print, 'change', () => refresh(false));
     on(window, 'beforeprint', () => { printing = true; refresh(false); });
     on(window, 'afterprint', () => { printing = false; refresh(); });
     on(window, 'resize', resize, { passive: true });
     on(window, 'pointermove', event => {
-      if (!config.mouseInteraction || motion.matches || status !== 'playing') return;
+      if (!pointerEnabled() || status !== 'playing') return;
       const rect = host.getBoundingClientRect();
       targetX = Math.max(-1, Math.min(1, (event.clientX - rect.left) / Math.max(1, rect.width) * 2 - 1));
       targetY = Math.max(-1, Math.min(1, (event.clientY - rect.top) / Math.max(1, rect.height) * 2 - 1));
@@ -221,6 +225,9 @@
       if (connected !== host.isConnected) { connected = host.isConnected; refresh(false); }
     });
     treeObserver.observe(document.documentElement, { subtree: true, childList: true });
+    const pointerObserver = new MutationObserver(() => refresh());
+    pointerObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-gary-pointer-effects'] });
+    cleanups.push(() => pointerObserver.disconnect());
     const api = Object.freeze({
       get state() { return state(); },
       update(patch) {

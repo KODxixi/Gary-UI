@@ -9,6 +9,7 @@
   const panel=document.createElement('dialog');panel.id='gary-background-lab';panel.className='gary-background-lab';panel.setAttribute('aria-labelledby','background-lab-title');
   panel.innerHTML=`<header><div><p class="eyebrow">SCENE STUDIO</p><h2 id="background-lab-title">让背景有呼吸</h2></div><button class="button" data-background-close aria-label="关闭背景实验室">关闭</button></header>
     <p class="gary-background-intro">在真实页面上调节 不改变全局默认</p>
+    <div class="gary-wave-switches"><label><input type="checkbox" name="pointerEffects"> 鼠标光影（默认关闭）</label></div>
     <div class="gary-background-choice"><label>背景<select name="background"><option value="dot-grid">点状网格 默认</option><option value="gradient-waves">渐变波浪</option></select></label><label>配色<select name="preset"><option value="gary">Gary 柔光</option><option value="silver" selected>银色三浪</option><option value="original">原版紫粉</option><option value="custom" disabled>自定义</option></select></label></div>
     <p data-waves-status role="status" aria-live="polite">当前使用默认点状网格</p>
     <section class="gary-local-media" aria-label="自定义背景素材">
@@ -24,7 +25,7 @@
     <label class="gary-wave-range">玻璃折射强度<output>180</output><input name="refractionStrength" aria-label="玻璃折射强度" type="range" min="0" max="300" step="10" value="180"></label>
     <div data-waves-settings hidden><div class="gary-wave-colors"></div><div class="gary-wave-primary"></div>
     <details><summary>更多参数</summary><div class="gary-wave-advanced"></div></details>
-    <div class="gary-wave-switches"><label><input type="checkbox" name="mouseInteraction" checked> 鼠标视差</label><label><input type="checkbox" name="grain"> 细腻颗粒</label><label>细节<select name="detail"><option value="low">低</option><option value="medium">中</option><option value="high">高</option></select></label></div>
+    <div class="gary-wave-switches"><label><input type="checkbox" name="grain"> 细腻颗粒</label><label>细节<select name="detail"><option value="low">低</option><option value="medium">中</option><option value="high">高</option></select></label></div>
     <div class="gary-wave-actions"><button class="button" data-waves-pause>暂停</button><button class="button" data-waves-replay>重播</button><button class="button" data-waves-reset>恢复配方</button></div>
     <div class="gary-wave-actions"><button class="button" data-waves-export>导出配置</button><button class="button" data-waves-png>保存背景 PNG</button><button class="button" data-waves-retry hidden>重新加载</button></div>
     <p class="gary-wave-help">默认持续播放 可随时暂停 页面不可见时暂停渲染<br>适合封面与展示 阅读和分析保留网格</p></div>
@@ -69,10 +70,23 @@
   q('[name="mediaFit"]').addEventListener('change',e=>scene.style.setProperty('--gary-media-fit',e.target.value));
   q('[name="mediaOpacity"]').addEventListener('input',e=>{scene.style.setProperty('--gary-media-opacity',e.target.value);e.target.parentElement.querySelector('output').textContent=e.target.value;});
   q('[name="refractionStrength"]').addEventListener('input',e=>{window.GaryGlassSurface?.setStrength(e.target.value);e.target.parentElement.querySelector('output').textContent=e.target.value;});
-  reducedMedia.addEventListener('change',mediaPlayback);document.addEventListener('visibilitychange',mediaPlayback);
+  reducedMedia.addEventListener('change',()=>{mediaPlayback();syncPointerEffects();});document.addEventListener('visibilitychange',mediaPlayback);
   new IntersectionObserver(([entry])=>{mediaVisible=entry.isIntersecting;mediaPlayback();}).observe(scene);
   addEventListener('beforeprint',()=>{mediaPrinting=true;mediaPlayback();});addEventListener('afterprint',()=>{mediaPrinting=false;mediaPlayback();});
   let engine=null,loading=null,request=0,preset='silver',options=null;
+  const pointerEnabled=()=>root.dataset.garyPointerEffects==='on'&&!reducedMedia.matches;
+  function syncPointerEffects(){
+    q('[name="pointerEffects"]').checked=root.dataset.garyPointerEffects==='on';
+    const enabled=pointerEnabled();
+    if(options)options={...options,mouseInteraction:enabled};
+    if(engine&&engine.state.options.mouseInteraction!==enabled)engine.update({mouseInteraction:enabled});
+  }
+  q('[name="pointerEffects"]').addEventListener('change',event=>{
+    root.dataset.garyPointerEffects=event.target.checked?'on':'off';
+    dispatchEvent(new CustomEvent('gary:pointer-effects-change',{detail:{enabled:event.target.checked}}));
+  });
+  addEventListener('gary:pointer-effects-change',syncPointerEffects);
+  new MutationObserver(syncPointerEffects).observe(root,{attributes:true,attributeFilter:['data-gary-pointer-effects']});
   const colorNames={horizonColor:'地平线',waveColor:'波面',crestColor:'浪尖'};
   const labels={speed:'速度',amplitude:'波幅',waveScale:'波纹尺度',waveRatio:'波纹比例',swell:'涌动',turbulence:'扰动',tilt:'倾角',zoom:'缩放',height:'地平线高度',fogDepth:'雾深',brightness:'亮度',opacity:'不透明度',parallaxStrength:'视差强度',grainIntensity:'颗粒强度'};
   const statusLabels={playing:'持续播放中 可随时暂停',paused:'已暂停 保留当前画面',complete:'播放完成 已停留于静帧',static:'速度为零 静态预览','reduced-motion':'减弱动态已开启 静态波面 无鼠标视差',suspended:'页面不可见 已暂停',print:'打印使用纯色底',fallback:'背景渲染不可用 已保留网格 可重新加载'};
@@ -83,16 +97,15 @@
     q('[data-waves-pause]').textContent=state.status==='paused'||state.status==='complete'?'播放':'暂停';
     const unavailable=['reduced-motion','fallback','static'].includes(state.status);
     q('[data-waves-pause]').disabled=unavailable;q('[data-waves-replay]').disabled=unavailable;
-    q('[name="mouseInteraction"]').disabled=state.status==='reduced-motion';
     q('[data-waves-png]').disabled=state.status==='fallback';q('[data-waves-retry]').hidden=state.status!=='fallback';
   }
   scene.addEventListener('gary-waves-status',syncStatus);
   function recipe(name){
     const light=root.dataset.garyTheme==='light';
-    const calm={...GaryGradientWaves.defaults,speed:.15,amplitude:2.5,grain:false,opacity:light?.32:.42,parallaxStrength:.2,detail:innerWidth<600?'low':'medium'};
-    if(name==='original')return {...GaryGradientWaves.defaults,opacity:light?.35:.6,detail:calm.detail};
+    const calm={...GaryGradientWaves.defaults,mouseInteraction:pointerEnabled(),speed:.15,amplitude:2.5,grain:false,opacity:light?.32:.42,parallaxStrength:.2,detail:innerWidth<600?'low':'medium'};
+    if(name==='original')return {...GaryGradientWaves.defaults,mouseInteraction:pointerEnabled(),opacity:light?.35:.6,detail:calm.detail};
     if(name==='silver')return {...recipe('gary'),speed:.1,amplitude:2,waveScale:1.35,waveRatio:.6,tilt:1.12,zoom:1,height:10,fogDepth:20,brightness:1.1,opacity:light?.32:.47,parallaxStrength:.85,grain:true,grainIntensity:.01,horizonColor:light?'#b8c1cb':'#455164',waveColor:light?'#627389':'#8193ab',crestColor:light?'#c1cad6':'#dbe4ef'};
-    return {...calm,amplitude:2.6,waveRatio:1,swell:0,turbulence:50,tilt:1.23,zoom:1.4,height:11,detail:'medium',opacity:light?.32:.6,mouseInteraction:false,parallaxStrength:0,grain:true,grainIntensity:.02,horizonColor:light?'#bec6ef':'#282d60',waveColor:light?'#8799d8':'#6976ad',crestColor:light?'#d1daf5':'#c1cce6'};
+    return {...calm,amplitude:2.6,waveRatio:1,swell:0,turbulence:50,tilt:1.23,zoom:1.4,height:11,detail:'medium',opacity:light?.32:.6,parallaxStrength:0,grain:true,grainIntensity:.02,horizonColor:light?'#bec6ef':'#282d60',waveColor:light?'#8799d8':'#6976ad',crestColor:light?'#d1daf5':'#c1cce6'};
   }
   function fields(){
     if(q('[name="speed"]'))return;
@@ -136,14 +149,14 @@
     q('[data-waves-status]').textContent='正在加载本地波浪';
     try{
       await ensureEngine();if(token!==request)return;fields();options||=recipe(preset);
-      paintFields();engine=GaryGradientWaves.mount(scene,options,{durationSeconds:null});syncStatus();
+      syncPointerEffects();paintFields();engine=GaryGradientWaves.mount(scene,options,{durationSeconds:null});syncStatus();
     }catch(error){
       q('[data-waves-status]').textContent=error.message+' 请切回网格后重试';
       q('[data-waves-settings]').hidden=true;q('[name="preset"]').disabled=true;
     }
   }
   function close(){panel.close();open.setAttribute('aria-expanded','false');open.focus();}
-  open.addEventListener('click',()=>{panel.show();open.setAttribute('aria-expanded','true');q('[name="background"]').focus();});
+  open.addEventListener('click',()=>{syncPointerEffects();paintFields();panel.show();open.setAttribute('aria-expanded','true');q('[name="background"]').focus();});
   q('[data-background-close]').addEventListener('click',close);
   panel.addEventListener('keydown',e=>{
     if(e.key==='Escape'){e.preventDefault();close();}
@@ -169,6 +182,7 @@
   addEventListener('pagehide',()=>{engine?.destroy();mediaPrinting=true;mediaPlayback();});
   addEventListener('pageshow',event=>{if(event.persisted){mediaPrinting=false;select(q('[name="background"]').value);}});
   window.GaryBackgroundLab={get engine(){return engine;},select};
+  syncPointerEffects();
   select(new URLSearchParams(location.search).get('background')==='gradient-waves'?'gradient-waves':'dot-grid');
   if(new URLSearchParams(location.search).get('customize')==='1')open.click();
 })();

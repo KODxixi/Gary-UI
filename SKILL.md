@@ -31,6 +31,9 @@ Gary-UI 是内容可读性优先的 Liquid Glass Design System，也提供可选
 6. 读 `DESIGN.md`、`tokens/tokens.json` 和目标 `components/<slug>.json`。
 7. HTML 项目只引入 `tokens/base.css`；需要骨架时使用 `patterns/starting-points/`。
 8. React/shadcn 项目再读 `adapters/react-shadcn/README.md`。
+9. 需要数值更新、案例横向浏览或展示动效时，读 `docs/INTERACTION_RECIPES.md`，复用共享配方；倾斜和分段标题仍是实验，须有当前任务的用户选择后才采用。不要引入 React Bits 受限组件代码。
+10. 优化图表／分析图／表格时，先读 `docs/CHART_EXPRESSION.md` 和 `spec/chart-recipes.json`：按 17 类规则选型，按 7 种标注语法绑定对象、文字、证据身份与依据，图表、表格、判断和导出保持同源。`patterns/shared/chart-recipes.js` 只实现 `combo / waterfall / donut / radar / rose` 五种 SVG 参考及对应数据表，不是新适配器引擎，也不提供完整七种标注的通用渲染器；其余类型复用既有工具。`demo0909.html` 与 `examples/demo0909/cases.json` 用于跨领域验证，不能只替换标题而保留旧判断与几何。最小 API、自动读取的 geometry／字体／笔画／填充和仍须审查的 spacing／对比度等范围见该规范，不把配置字段存在当作已自动执行。
+11. 图表颜色读 `docs/CHART_COLOR.md`，角色与主题值以 `spec/chart-recipes.json` 的 `colorSystem`、`themes` 为准；颜色语义由当前任务定义，不按图型或数组次序随意分配。玻璃与图表共存时读 `docs/VISUAL_EXPRESSION.md`。实体底纹、磨砂玻璃、超白/全透玻璃由 `data-gary-surface="solid|frosted|optical"` 按内容密度调用，不改变既有 Visual Route 的 material 枚举；不复制原参考的行业字段、编号或状态判断。`data-gary-light-scope` 连接背景与清透边缘；鼠标点阵、高光、波面视差默认关闭，根属性 `data-gary-pointer-effects="on"` 只能由 Background 中的明确开启动作设置，减弱动态仍优先。
 
 ## 默认协作行为
 
@@ -234,7 +237,7 @@ finalize 后状态进入 implementing，不能 reopen。
 ## 不可破坏的视觉约束
 
 - 一张页面只有一个 Scene 和一个全局遮罩；禁止 glass-in-glass。
-- 默认 Scene 是纯黑/纯白底上的唯一点网格；禁止叠加线网、卡片等高线或 CSS/Canvas 双重点阵。不主动加照片或图片，除非用户明确定制。
+- 默认 Scene 是纯黑/纯白底上的唯一点网格；禁止默认叠加线网、卡片等高线或 CSS/Canvas 双重点阵；显式实体底纹只在 Solid 内按 `docs/VISUAL_EXPRESSION.md` 裁切，不应用于页面 Scene。不主动加照片或图片，除非用户明确定制。
 - 完整 Demo 是 Portal、组件、模板与制图目录的视觉基线。普通卡片复用 `patterns/shared/material.js` / `patterns/shared/optical-glass.js`；实底证据板不折射。公开包使用原创光学实现，受再分发限制的旧移植仅保留在维护者本地。
 - 工具操作以圆形 Lucide 图标为主，复用 `patterns/shared/icons.js` 的 `data-gary-icon` / `GaryIcons.set`，默认 44px 点击区、1.6px 描边和可访问名称；导航、分段筛选、内容选择保留文字。
 - 玻璃保持 K-only 中性；状态色只用于小面积反馈。

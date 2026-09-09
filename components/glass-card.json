@@ -2,11 +2,24 @@
   "slug": "glass-card",
   "name": "玻璃卡片",
   "category": "surfaces",
+  "surfaceRecipe": {
+    "status": "approved",
+    "source": "spec/scene-recipes.json#/surfaceRecipes",
+    "attribute": "data-gary-surface",
+    "allowedValues": ["solid", "frosted", "optical"],
+    "implementation": "patterns/shared/material.js; patterns/shared/optical-glass.js; components/components.css",
+    "precedence": "Explicit data-gary-surface selects the approved surface before legacy automatic card routing; it does not change the task material enum",
+    "lightScopeSelector": "[data-gary-light-scope]",
+    "pointerPolicy": "spec/scene-recipes.json#/motion/pointerEffects",
+    "maxGlassLayers": 1,
+    "foregroundFilter": "none",
+    "tilt": false
+  },
   "refractionRecipe": {
     "reference": "Gary-UI original optical glass (MIT)",
     "implementation": "patterns/shared/optical-glass.js; components/components.css",
-    "selector": "[data-gary-refraction]",
-    "usage": "Shared card recipe used by Demo scenario entries, Portal content cards, component specimens and application/page/starting-point templates; material.js applies semantic card routing and optical-glass.js mounts optics. Dense SolidPlate content and material comparison specimens retain their own roles.",
+    "selector": "[data-gary-surface=\"optical\"], [data-gary-refraction]",
+    "usage": "Approved optical surface for short content, media and showcase. material.js routes explicit surfaces before legacy cards; optical-glass.js mounts backdrop optics. Solid data/long reading and frosted summaries/navigation/judgements retain their roles. Never nest glass surfaces.",
     "optics": "A rounded-rectangle signed distance field generates one Canvas RG normal map for one SVG feDisplacementMap on the backdrop; static Gaussian frost; radius follows computed card geometry; neutral low-opacity plate; default public strength 180, adjustable 0-300; foreground content remains unfiltered",
     "api": "window.GaryGlassSurface exposes mount(element), setStrength(value), strength getter and destroy(element); mounted cards use data-gary-refraction-state=svg with --gary-refraction-filter and an owned hidden .gary-refraction-filter SVG",
     "fallback": "Non-Chromium or unsupported rendering, glass=fallback and glass=frosted use data-gary-refraction-state=fallback and preserve the existing CSS frosted material",
@@ -15,11 +28,12 @@
     "baseline": "Preserve approved geometry, typography, source links, keyboard behavior and all other card styles"
   },
   "interactionRecipe": {
+    "pointerDefault": "off; root data-gary-pointer-effects=on requires explicit user opt-in; reduced motion takes priority",
     "reference": "https://www.deepseek.com/",
     "compositionReference": "COSMOS local mirror: calm center, generous separation, light display type, content-led media stages; no copied assets",
     "implementation": "components/components.css; patterns/shared/web-bar.js",
     "base": "neutral translucent plate, 12px backdrop blur, Gary 30px radius; dark and light share one recipe",
-    "action": "Only real links/buttons use data-gary-card=action: pointer glow, isolated 2px edge orbit, keyboard focus, pressed feedback",
+    "action": "Only real links/buttons use data-gary-card=action for focus and pressed feedback. Decorative pointer light is opt-in; approved surface lighting shares one scoped coordinate system and never tilts content.",
     "motion": "one 6s edge orbit per entry; no idle loop; reduced motion removes movement and retains visible focus",
     "flow": "Do not add card contour fields; preserve the calm card surface and the single default dot-grid scene",
     "reading": "Dense body, charts and evidence keep stable opaque plates; noninteractive cards never imply whole-card clickability"
@@ -27,8 +41,9 @@
   "material": {
     "default": "Thick",
     "rules": [
-      "只承载高优先级结论与阅读内容",
-      "卡内密集信息切换为 SolidPlate"
+      "按 data-gary-surface 明确选择已批准的 solid、frosted、optical，用途见场景配方",
+      "密集数据、表格与长正文使用 solid；摘要、导航与判断使用 frosted；短内容、媒体与展示使用 optical",
+      "一层玻璃，不嵌套；前景文字与数据不加滤镜，不做 tilt"
     ]
   },
   "variants": [

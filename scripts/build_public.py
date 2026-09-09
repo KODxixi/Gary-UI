@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EXCLUDED_PARTS = {'.git', 'node_modules', '__pycache__', '.pytest_cache', '.ruff_cache', '.last-good', '.failed', '.candidates', '_site', 'public-build', '.venv'}
 ROOT_DIRECTORIES = {'.github', 'adapters', 'assets', 'components', 'contracts', 'docs', 'examples', 'licenses', 'patterns', 'portal', 'runtime', 'scripts', 'session', 'spec', 'tokens'}
-ROOT_FILES = {'.gitattributes', '.nojekyll', '.gitignore', 'AGENTS.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'DESIGN.md', 'LICENSE', 'PROJECT_STRUCTURE.md', 'README.md', 'SKILL.md', 'THIRD_PARTY_NOTICES.md', 'design-qa.md', 'gary-ui.cmd', 'index.html', 'library-consumption.json', 'metadata.json'}
+ROOT_FILES = {'.gitattributes', '.nojekyll', '.gitignore', 'AGENTS.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'DESIGN.md', 'LICENSE', 'PROJECT_STRUCTURE.md', 'README.md', 'SKILL.md', 'THIRD_PARTY_NOTICES.md', 'design-qa.md', 'gary-ui.cmd', 'index.html', 'demo0909.html', 'library-consumption.json', 'metadata.json'}
 EXCLUDED = (
     'scripts/tests/test_light_rays_scene.py', 'provenance/*', 'decisions/*', 'portal/evidence/*', 'docs/LOCAL_WORKFLOW.md',
     'portal/light-rays.js', 'patterns/shared/glass-surface.js', 'patterns/shared/gradient-waves.js',

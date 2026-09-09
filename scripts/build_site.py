@@ -9,7 +9,7 @@ from pathlib import Path
 from check_public import check
 
 ROOT = Path(__file__).resolve().parents[1]
-DIRECTORIES = ('tokens', 'components', 'patterns', 'portal', 'examples', 'assets', 'docs', 'licenses', 'adapters')
+DIRECTORIES = ('tokens', 'components', 'patterns', 'portal', 'examples', 'assets', 'docs', 'licenses', 'adapters', 'spec', 'contracts')
 IGNORED = {'.git', 'node_modules', '__pycache__', '.last-good', '.failed', '.candidates'}
 
 
@@ -23,7 +23,7 @@ def build(output: Path) -> int:
     if output.exists() and any(output.iterdir()):
         raise ValueError('Output must be new or empty; existing files are never removed.')
     output.mkdir(parents=True, exist_ok=True)
-    files = [ROOT / name for name in ('index.html', 'README.md', 'DESIGN.md', 'SKILL.md', 'CONTRIBUTING.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md')]
+    files = [ROOT / name for name in ('index.html', 'demo0909.html', 'README.md', 'DESIGN.md', 'SKILL.md', 'CONTRIBUTING.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md')]
     for name in DIRECTORIES:
         files.extend(path for path in (ROOT / name).rglob('*') if path.is_file() and not any(part in IGNORED for part in path.relative_to(ROOT).parts))
     for path in files:

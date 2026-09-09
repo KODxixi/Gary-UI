@@ -1,0 +1,1064 @@
+{
+  "schemaVersion": 1,
+  "name": "Gary chart expression",
+  "authority": "Expression rules and opt-in SVG reference policy; domain examples are not normative",
+  "guide": "docs/CHART_EXPRESSION.md",
+  "referenceImplementation": "patterns/shared/chart-recipes.js",
+  "scope": {
+    "referenceTypes": [
+      "combo",
+      "waterfall",
+      "donut",
+      "radar",
+      "rose"
+    ],
+    "otherQuantitativeTypes": "adapters/visual/README.md",
+    "formalExportPipelineUnchanged": true
+  },
+  "themes": {
+    "dark": {
+      "background": "#101012",
+      "text": "#f5f5f7",
+      "muted": "#a1a1a9",
+      "grid": "#303035",
+      "primary": "#82b4bf",
+      "secondary": "#78c9ac",
+      "reference": "#d5af59",
+      "negative": "#c47b62",
+      "neutral": "#9a9ea0",
+      "point": "#ffffff",
+      "category1": "#82acec",
+      "category2": "#d5af59",
+      "category3": "#78c9ac",
+      "category4": "#be9bda",
+      "category5": "#d58d80",
+      "category6": "#82b4bf",
+      "category7": "#dda2c4",
+      "category8": "#aba69e",
+      "sequential1": "#203b3d",
+      "sequential2": "#2b5153",
+      "sequential3": "#38696a",
+      "sequential4": "#498384",
+      "sequential5": "#629e9d",
+      "sequential6": "#82b9b6",
+      "sequential7": "#a9d6d1",
+      "diverging1": "#93c7f4",
+      "diverging2": "#658fb3",
+      "diverging3": "#405c73",
+      "diverging4": "#333438",
+      "diverging5": "#6c5043",
+      "diverging6": "#a37962",
+      "diverging7": "#e5ad8d",
+      "referenceNeutral": "#9a9ea0",
+      "info": "#82acec",
+      "positive": "#78c9ac",
+      "caution": "#d5af59",
+      "critical": "#c47b62",
+      "directionRed": "#d58d80",
+      "directionGreen": "#78c9ac",
+      "onFillLight": "#000000",
+      "onFillDark": "#ffffff"
+    },
+    "light": {
+      "background": "#f5f5f7",
+      "text": "#1d1d1f",
+      "muted": "#68686f",
+      "grid": "#d9d9df",
+      "primary": "#367989",
+      "secondary": "#22765d",
+      "reference": "#89600a",
+      "negative": "#9d4a32",
+      "neutral": "#666b70",
+      "point": "#ffffff",
+      "category1": "#386aa9",
+      "category2": "#89600a",
+      "category3": "#22765d",
+      "category4": "#795098",
+      "category5": "#a85548",
+      "category6": "#367989",
+      "category7": "#965579",
+      "category8": "#70665a",
+      "sequential1": "#e1efee",
+      "sequential2": "#bddbd7",
+      "sequential3": "#98c4be",
+      "sequential4": "#72aca5",
+      "sequential5": "#4f918a",
+      "sequential6": "#32766f",
+      "sequential7": "#155b55",
+      "diverging1": "#295d91",
+      "diverging2": "#6692b8",
+      "diverging3": "#b2cbe0",
+      "diverging4": "#e7e7ea",
+      "diverging5": "#ddc0b3",
+      "diverging6": "#ba826a",
+      "diverging7": "#8d4d35",
+      "referenceNeutral": "#666b70",
+      "info": "#386aa9",
+      "positive": "#22765d",
+      "caution": "#89600a",
+      "critical": "#9d4a32",
+      "directionRed": "#a85548",
+      "directionGreen": "#22765d",
+      "onFillLight": "#000000",
+      "onFillDark": "#ffffff"
+    }
+  },
+  "colorRules": {
+    "primary": "Main measure or a declared emphasis; not a fixed industry field, brand button or good outcome",
+    "secondary": "Secondary measure; legacy reference role. Use semanticStates for declared outcomes",
+    "reference": "Accented reference retained for the SVG reference recipes; referenceNeutral is the quiet reference default for new charts",
+    "negative": "Signed negative contribution in reference recipes; sign alone never establishes harm, failure or a market convention",
+    "neutral": "Total, context or unselected comparison",
+    "binding": "Persist stable entity ID -> role in normalized input before sorting/filtering; reuse that binding across chart, table, legend and export. Never derive identity from current index",
+    "mustNot": [
+      "Colour is not the only identifier",
+      "Do not give the same colour contradictory meanings in one view without separating and naming the encodings",
+      "No rainbow per item without categorical need",
+      "No pointer lighting changes data colours",
+      "Do not silently turn null/unknown into zero or neutral midpoint",
+      "Do not automatically recolour analytical identities from wallpaper, imagery or a brand theme",
+      "Do not infer universal colour-blind safety from contrast ratios"
+    ],
+    "registry": "All chart color literals live only in themes. colorSystem palettes and semantic mappings contain role references, not copied hex arrays",
+    "label": "Use text/muted on the chart background; a colored label still meets normalTextMin. On a filled mark, select a tested onFill role against the final composite color"
+  },
+  "geometry": {
+    "wideWidth": 1100,
+    "wideHeight": 460,
+    "compactWidth": 400,
+    "compactHeight": 320,
+    "minWideWidth": 760,
+    "minCompactWidth": 280
+  },
+  "typography": {
+    "family": "Helvetica Neue, Helvetica, Arial, Microsoft YaHei UI, Microsoft YaHei, sans-serif",
+    "label": 16,
+    "small": 16,
+    "metric": 42,
+    "minRenderedPx": 11,
+    "bodyPx": 16,
+    "numeric": "tabular-nums",
+    "precision": "From input accuracy, never invented; units in axes/table headers",
+    "wrapping": "Wrap or move full labels outside plot before reducing text; never silently truncate"
+  },
+  "spacing": {
+    "panelPaddingPx": 28,
+    "titleToPlotPx": 24,
+    "labelOffsetPx": 10,
+    "annotationClearancePx": 12,
+    "plotToConclusionPx": 24,
+    "sectionGapPx": 48
+  },
+  "strokes": {
+    "data": 2.4,
+    "reference": 1.2,
+    "guide": 1,
+    "marker": 2
+  },
+  "fills": {
+    "area": 0.16,
+    "barTop": 0.9,
+    "barBottom": 0.16,
+    "band": 0.06
+  },
+  "grid": {
+    "targetMajorIntervals": [
+      4,
+      6
+    ],
+    "zero": "visible-solid",
+    "references": "sparse-dashed",
+    "pageBackground": "one-dot-grid-only",
+    "noDecoration": [
+      "no chart glow",
+      "no 3D depth",
+      "no duplicated page grid inside cards"
+    ]
+  },
+  "contrast": {
+    "normalTextMin": 4.5,
+    "essentialMarksMin": 3,
+    "secondaryGridExempt": "Only if positions remain understandable from axes/labels; primary data marks are not exempt"
+  },
+  "anatomy": [
+    "question-or-qualified-title",
+    "context-and-unit",
+    "plot",
+    "scale-and-encoding",
+    "annotation",
+    "qualified-takeaway",
+    "source-and-status"
+  ],
+  "annotations": {
+    "types": [
+      "anchor",
+      "band",
+      "range",
+      "reference",
+      "leader",
+      "status",
+      "takeaway"
+    ],
+    "kinds": [
+      "data",
+      "derived",
+      "assumed"
+    ],
+    "required": [
+      "target",
+      "text",
+      "kind",
+      "basis"
+    ],
+    "coordinateSpace": "Data value/category identity; convert to pixels at render, not copied screenshot coordinates",
+    "priority": [
+      "data labels",
+      "key finding",
+      "supporting reference",
+      "decoration"
+    ],
+    "maxPrimaryPerPanel": 2,
+    "collision": "Reserve space or move annotation outside; never place a label over a value, axis or mark",
+    "uncertainty": "Show assumed thresholds and unknowns as such; a coloured band is not evidence",
+    "recompute": "Changing source data must recompute or invalidate derived annotations"
+  },
+  "data": {
+    "requiredContext": [
+      "question",
+      "measures",
+      "units",
+      "domain",
+      "source",
+      "status",
+      "missingValueMeaning"
+    ],
+    "missing": "null means missing, never zero; finite numbers only; no interpolation without a declared method",
+    "scales": "Explicit unit and domain, include every observed value; comparative bars/areas include zero; matching small multiples share limits",
+    "aggregate": "Declare denominator/weight/baseline; totals and derived labels use the same source as marks and tables",
+    "zeroState": "All-zero part-to-whole cannot form a percentage ring; show an empty state/table",
+    "validation": "Reject invalid data before replacing the displayed chart; error text identifies the field"
+  },
+  "layout": {
+    "reading": "Question + one major chart + bounded explanation + source; details stay near the evidence",
+    "analysis": "Common scales and stable Solid surfaces; comparison before decorative symmetry",
+    "presentation": "One finding per frame, fewer labels with accessible exact values, export same meaning",
+    "responsive": "Reflow legend, annotations and tables; wide ordinal charts may locally scroll with an explicit cue; compact charts must fit; never page-level overflow",
+    "material": "Solid for marks/tables; Frosted for separate summary/navigation; Optical for short showcase content only",
+    "motion": "Static is complete. Optional reveal finite and cancellable; decoration default off via Background; tooltip/focus remain usable",
+    "export": "Preserve units, source status, scale, labels and data; rebuild theme colours, not whole-image inversion; verify the actual file"
+  },
+  "families": [
+    {
+      "id": "line",
+      "label": "趋势线",
+      "question": "量值随连续时间怎样变化？",
+      "requires": [
+        "ordered continuous domain",
+        "unit",
+        "missing intervals"
+      ],
+      "encoding": "position + connected segments; target dashed",
+      "must": [
+        "consistent time increments",
+        "break at null",
+        "label important endpoints"
+      ],
+      "avoid": "Unordered categories or unrelated observation intervals connected as a trend",
+      "alternative": "bar / scatter",
+      "engine": "echarts"
+    },
+    {
+      "id": "area",
+      "label": "面积图",
+      "question": "连续量的规模与累积怎样变化？",
+      "requires": [
+        "continuous domain",
+        "meaningful zero"
+      ],
+      "encoding": "zero-based area with restrained fill",
+      "must": [
+        "zero baseline",
+        "outline remains legible",
+        "only stack additive non-overlapping series"
+      ],
+      "avoid": "Overlapping opaque areas or showing tiny differences as large filled mass",
+      "alternative": "line",
+      "engine": "echarts"
+    },
+    {
+      "id": "bar",
+      "label": "条形比较",
+      "question": "对象之间相差多少？",
+      "requires": [
+        "comparable categories",
+        "one common unit"
+      ],
+      "encoding": "length from common zero",
+      "must": [
+        "zero baseline",
+        "explicit sorting",
+        "full category labels"
+      ],
+      "avoid": "Non-zero cut baseline or many colours without categorical meaning",
+      "alternative": "dot plot / table",
+      "engine": "echarts"
+    },
+    {
+      "id": "grouped-bar",
+      "label": "分组比较",
+      "question": "少量系列在各对象中如何比较？",
+      "requires": [
+        "same unit and denominator",
+        "stable grouping"
+      ],
+      "encoding": "adjacent bars sharing zero and category bands",
+      "must": [
+        "same series order",
+        "common domain",
+        "shared legend"
+      ],
+      "avoid": "Dense groups that require eye-tracking many repeated colours",
+      "alternative": "small-multiples / table",
+      "engine": "echarts"
+    },
+    {
+      "id": "stacked-bar-100",
+      "label": "百分比构成",
+      "question": "各组的内部构成有何不同？",
+      "requires": [
+        "exclusive exhaustive parts",
+        "nonzero total for each group"
+      ],
+      "encoding": "common 100% length; stable part order",
+      "must": [
+        "same denominator definition",
+        "show counts/totals separately",
+        "zero-total group marked empty"
+      ],
+      "avoid": "Suggesting equal lengths mean equal absolute sizes",
+      "alternative": "grouped-bar / table",
+      "engine": "echarts"
+    },
+    {
+      "id": "dual-axis",
+      "label": "双轴叠合",
+      "question": "同一分类下两个不同单位的量如何共同观察？",
+      "requires": [
+        "shared ordered categories",
+        "explicit left/right units and scales",
+        "reason to overlay instead of split"
+      ],
+      "encoding": "bar primary + line secondary; separate scale labels",
+      "must": [
+        "bar includes zero",
+        "no scale tuning to imply correlation",
+        "annotations state evidence/basis"
+      ],
+      "avoid": "Same-unit measures using separate scales; arbitrary category trend; causal inference from shape",
+      "alternative": "small-multiples / indexed-line / scatter",
+      "engine": "svg-reference:combo"
+    },
+    {
+      "id": "waterfall",
+      "label": "贡献瀑布",
+      "question": "起点经过哪些增减得到终点？",
+      "requires": [
+        "same unit",
+        "ordered additive contributions",
+        "declared starting amount"
+      ],
+      "encoding": "cumulative intervals + connectors + distinct total",
+      "must": [
+        "recompute all cumulative starts/ends",
+        "signed labels",
+        "domain covers negative and positive cumulative values"
+      ],
+      "avoid": "Non-additive rates or loosely related benefits assembled into a net total",
+      "alternative": "bar / table",
+      "engine": "svg-reference:waterfall"
+    },
+    {
+      "id": "point-scatter",
+      "label": "点图与散点",
+      "question": "两个数值如何关联或分布？",
+      "requires": [
+        "paired observations",
+        "axis units",
+        "threshold basis if any"
+      ],
+      "encoding": "x/y position; size only for a defined third variable",
+      "must": [
+        "equal marker treatment",
+        "outlier labels selective",
+        "disclose overlap/aggregation"
+      ],
+      "avoid": "Causal claims, invented quadrant thresholds, decorative bubbles",
+      "alternative": "small-multiples / table",
+      "engine": "echarts"
+    },
+    {
+      "id": "histogram",
+      "label": "分布直方",
+      "question": "观测值集中在哪里，有没有长尾？",
+      "requires": [
+        "raw observations or declared bins",
+        "sample size",
+        "bin boundaries"
+      ],
+      "encoding": "contiguous intervals, frequency or density with declared denominator",
+      "must": [
+        "same bin widths or density correction",
+        "sample count",
+        "consistent bins for comparisons"
+      ],
+      "avoid": "Treating categories as numeric bins or hiding results by manipulating bins",
+      "alternative": "boxplot / empirical distribution",
+      "engine": "echarts"
+    },
+    {
+      "id": "boxplot",
+      "label": "箱线分布",
+      "question": "中位数、离散度和异常观测如何比较？",
+      "requires": [
+        "observations or actual quantiles",
+        "whisker rule",
+        "sample count"
+      ],
+      "encoding": "median + quartiles + specified whiskers + outliers",
+      "must": [
+        "state quantile/whisker method",
+        "do not infer distribution from averages",
+        "common scale"
+      ],
+      "avoid": "Fabricated quartiles from summary means",
+      "alternative": "histogram / interval plot",
+      "engine": "echarts"
+    },
+    {
+      "id": "heatmap",
+      "label": "矩阵热图",
+      "question": "两个分类组合的强弱聚集在哪里？",
+      "requires": [
+        "row/column definitions",
+        "common measure",
+        "missing-cell meaning"
+      ],
+      "encoding": "ordered colour intensity + numeric legend",
+      "must": [
+        "sequential or divergent scale matches meaning",
+        "missing distinct from zero",
+        "stable row/column order"
+      ],
+      "avoid": "Arbitrary rainbow or independently normalised cells without disclosure",
+      "alternative": "table / small-multiples",
+      "engine": "echarts"
+    },
+    {
+      "id": "donut",
+      "label": "环形构成",
+      "question": "一个总体由哪些部分组成？",
+      "requires": [
+        "non-negative exclusive parts",
+        "positive total",
+        "small category count"
+      ],
+      "encoding": "angle + direct count/share; derived centre",
+      "must": [
+        "derive centre from source",
+        "no negative arc for zero/small parts",
+        "retain all parts in table"
+      ],
+      "avoid": "Fine ranking, progress without a denominator, implying confidence probability",
+      "alternative": "bar / stacked-bar-100",
+      "engine": "svg-reference:donut"
+    },
+    {
+      "id": "radar",
+      "label": "多维轮廓",
+      "question": "同一对象在少量已定义维度上的轮廓如何？",
+      "requires": [
+        "dimension definitions and direction",
+        "explicit normalisation",
+        "common comparison method"
+      ],
+      "encoding": "radial positions on named dimensions; thin reference polygon",
+      "must": [
+        "show per-axis bounds/units",
+        "stable axis order",
+        "no area-derived overall score"
+      ],
+      "avoid": "Incomparable units or claiming bigger shape means better",
+      "alternative": "grouped-bar / table",
+      "engine": "svg-reference:radar"
+    },
+    {
+      "id": "polar-rose",
+      "label": "方向与周期",
+      "question": "量值沿真实方向或周期如何分布？",
+      "requires": [
+        "genuine circular domain and order",
+        "value unit",
+        "radial/area encoding declared"
+      ],
+      "encoding": "angle gives direction/phase; radius or area encodes stated measure",
+      "must": [
+        "cyclic order fixed",
+        "zero safe",
+        "common radial scale"
+      ],
+      "avoid": "Putting arbitrary categories in a circle or confusing radius with area",
+      "alternative": "bar / heatmap",
+      "engine": "svg-reference:rose"
+    },
+    {
+      "id": "table",
+      "label": "精确数据表",
+      "question": "怎样核对完整的精确值和来源？",
+      "requires": [
+        "column names/units",
+        "row identity",
+        "missing and aggregate rules"
+      ],
+      "encoding": "aligned text, tabular numbers, optional subordinate in-cell bars",
+      "must": [
+        "numeric alignment",
+        "semantic headers",
+        "mobile field reflow",
+        "same source as charts"
+      ],
+      "avoid": "Manual duplicated totals, visual-only labels or decorations replacing values",
+      "alternative": "bar for overview, retain table for precision",
+      "engine": "native-html"
+    },
+    {
+      "id": "small-multiples",
+      "label": "小多图",
+      "question": "多组相同指标的模式有什么差异？",
+      "requires": [
+        "common chart family",
+        "same domains or explicit exceptions",
+        "shared legend"
+      ],
+      "encoding": "repeated comparable panels",
+      "must": [
+        "shared scales",
+        "stable ordering",
+        "clear panel labels"
+      ],
+      "avoid": "Each panel auto-ranging into an apparently similar trend",
+      "alternative": "grouped-bar / table",
+      "engine": "echarts"
+    },
+    {
+      "id": "range-error",
+      "label": "区间与误差",
+      "question": "估计范围有多宽，怎样与基准比较？",
+      "requires": [
+        "interval endpoints",
+        "interval meaning/method",
+        "estimate if available"
+      ],
+      "encoding": "point + bounded interval / band",
+      "must": [
+        "lower <= upper",
+        "identify confidence/prediction/scenario interval",
+        "keep raw evidence limits"
+      ],
+      "avoid": "Invented error bars or calling scenario extremes a confidence interval",
+      "alternative": "table with explicit limits",
+      "engine": "echarts"
+    }
+  ],
+  "acceptance": [
+    "change-domain-without-renderer-edit",
+    "change-cardinality-without-hardcoded-labels",
+    "chart-table-export-consistency",
+    "all-derived-geometry-recomputed",
+    "missing-zero-negative-edge-cases",
+    "annotations-data-bound-with-basis",
+    "theme-contrast",
+    "no-label-overlap-or-cropping",
+    "readable-responsive-layout",
+    "keyboard-and-table-fallback",
+    "no-unrequested-foreground-motion",
+    "source-status-visible"
+  ],
+  "provenance": {
+    "visualReference": "User-selected GarchOS chart expressions; interpreted as design evidence, not a template or data source",
+    "extractionMethod": "reference element -> communicative function -> invariant rule -> parameters -> counterexample -> cross-domain test"
+  },
+  "colorSystem": {
+    "version": "1.0.0",
+    "guide": "docs/CHART_COLOR.md",
+    "colorSpace": "sRGB hex, opaque reference swatches",
+    "ownership": {
+      "chartValues": "themes",
+      "interface": "tokens/tokens.json remains authoritative for UI text, surfaces, focus and control states",
+      "scene": "spec/scene-recipes.json governs scene/material/motion and existing adapter defaults; its chartCategory remains legacy and is not silently synchronized by this addition",
+      "adoption": "Opt-in chart policy; other renderers must explicitly map these roles and verify current output. No claim of automatic adoption across all adapters"
+    },
+    "palettes": {
+      "categorical6": {
+        "label": "分类 · 六色",
+        "kind": "categorical",
+        "roles": [
+          "category1",
+          "category2",
+          "category3",
+          "category4",
+          "category5",
+          "category6"
+        ],
+        "maxItems": 6,
+        "use": [
+          "unordered entities",
+          "grouped series",
+          "exclusive parts",
+          "named modules"
+        ],
+        "avoid": [
+          "continuous magnitudes",
+          "ordinal heat levels",
+          "automatic good/bad judgement"
+        ],
+        "requiredRedundancy": [
+          "stable ID and direct name",
+          "marker shape or dash for overlapping series",
+          "separator/outline for adjacent fills",
+          "accessible source table"
+        ],
+        "binding": "Freeze entity ID -> role once; additions must not renumber earlier entities"
+      },
+      "categorical8": {
+        "label": "分类 · 八色扩展",
+        "kind": "categorical",
+        "roles": [
+          "category1",
+          "category2",
+          "category3",
+          "category4",
+          "category5",
+          "category6",
+          "category7",
+          "category8"
+        ],
+        "maxItems": 8,
+        "use": [
+          "a necessary 7-8 entity overview with room for direct labels"
+        ],
+        "avoid": [
+          "dense crossing lines",
+          "small legends with colour-only matching",
+          "precision comparison by hue alone"
+        ],
+        "requiredRedundancy": [
+          "direct name or keyed pattern for every category",
+          "same legend order as marks",
+          "inspect all colour-vision modes and grayscale"
+        ],
+        "preferredAlternative": "Small multiples, grouped bars or a ranked table. Eight swatches are capacity, not proof of perceptual separability"
+      },
+      "sequential7": {
+        "label": "连续量 · 七级青色",
+        "kind": "sequential",
+        "roles": [
+          "sequential1",
+          "sequential2",
+          "sequential3",
+          "sequential4",
+          "sequential5",
+          "sequential6",
+          "sequential7"
+        ],
+        "order": "low-to-high",
+        "valueType": "nonnegative magnitude or explicitly ordered score",
+        "luminanceOrder": {
+          "dark": "increasing",
+          "light": "decreasing"
+        },
+        "use": [
+          "heatmap",
+          "binned intensity",
+          "ordered map values",
+          "subordinate table-cell magnitude"
+        ],
+        "avoid": [
+          "unrelated categories",
+          "signed deviations around a meaningful midpoint",
+          "rainbow interpolation",
+          "per-panel rescaling in a comparison"
+        ],
+        "requiredRedundancy": [
+          "legend with unit and explicit domain/breaks",
+          "number or accessible exact value",
+          "missing shown separately",
+          "visible boundary if a low-intensity mark is essential"
+        ],
+        "mapping": "Declare [min,max] and equal-width/quantile/custom breaks. Use seven discrete stops by default; interpolation is a renderer choice requiring renewed order/contrast checks"
+      },
+      "diverging7": {
+        "label": "偏差 · 七级蓝灰陶色",
+        "kind": "diverging",
+        "roles": [
+          "diverging1",
+          "diverging2",
+          "diverging3",
+          "diverging4",
+          "diverging5",
+          "diverging6",
+          "diverging7"
+        ],
+        "centerIndex": 3,
+        "order": "negative-extreme-to-declared-midpoint-to-positive-extreme",
+        "use": [
+          "difference from target",
+          "signed residual",
+          "change around a meaningful zero"
+        ],
+        "avoid": [
+          "part-to-whole",
+          "no meaningful midpoint",
+          "equating negative with bad",
+          "independent side scales without disclosure"
+        ],
+        "requiredRedundancy": [
+          "declared midpoint and units",
+          "signed values and visible zero/reference",
+          "shared symmetric extent for like-for-like magnitude comparison",
+          "missing shown separately"
+        ],
+        "mapping": "Use [-M,0,+M] for signed magnitudes when justified; a nonzero or asymmetric midpoint/domain must be explicit. Blue/rust are below/above roles, not a value judgement",
+        "neutralBin": "Exact declared midpoint by default; a nonzero tolerance must state its numeric width and unit. Never silently merge small signed values into zero"
+      }
+    },
+    "neutralRoles": {
+      "text": "text",
+      "secondaryText": "muted",
+      "zeroOrAxis": "neutral",
+      "reference": "referenceNeutral",
+      "total": "neutral",
+      "context": "neutral",
+      "secondaryGrid": "grid",
+      "missing": "neutral",
+      "missingTreatment": "Hatch or outlined empty cell plus explicit missing text; zero retains its real numeric encoding"
+    },
+    "semanticStates": {
+      "info": {
+        "role": "info",
+        "label": "信息",
+        "glyph": "info",
+        "requires": "Named observation; not an assurance of correctness"
+      },
+      "positive": {
+        "role": "positive",
+        "label": "已达到",
+        "glyph": "check",
+        "requires": "Explicit satisfied criterion or completed process"
+      },
+      "caution": {
+        "role": "caution",
+        "label": "待核验",
+        "glyph": "triangle-alert",
+        "requires": "Named uncertainty or attention condition"
+      },
+      "critical": {
+        "role": "critical",
+        "label": "未满足",
+        "glyph": "circle-x",
+        "requires": "Explicit failed criterion or adverse condition"
+      },
+      "unknown": {
+        "role": "neutral",
+        "label": "未知",
+        "glyph": "circle-help",
+        "requires": "Missing evidence; do not infer a pass or fail"
+      }
+    },
+    "taskConventions": {
+      "defaultSignedChange": {
+        "increase": "primary",
+        "decrease": "negative",
+        "unchanged": "neutral",
+        "meaning": "Amount increases/decreases, not good/bad; retain +/− and values"
+      },
+      "cn-stock": {
+        "up": "directionRed",
+        "down": "directionGreen",
+        "flat": "neutral",
+        "optIn": true,
+        "meaning": "Explicit red-rise/green-fall task convention; financial direction is independent from semanticStates"
+      },
+      "green-up-market": {
+        "up": "directionGreen",
+        "down": "directionRed",
+        "flat": "neutral",
+        "optIn": true,
+        "meaning": "Use only when that market or user explicitly requires green-rise/red-fall; never infer from interface language"
+      }
+    },
+    "labelOnFill": {
+      "candidates": [
+        "onFillLight",
+        "onFillDark"
+      ],
+      "selection": "Choose the candidate with the higher contrast against the actual composed fill; require contrast.normalTextMin without rounding. If neither qualifies, move the label onto background or give it a solid plate",
+      "forbidden": "Do not choose white for every coloured fill, or text against only the uncomposited source hue"
+    },
+    "redundancy": {
+      "lineMarkers": [
+        "circle",
+        "square",
+        "diamond",
+        "triangle",
+        "cross",
+        "plus",
+        "star",
+        "hexagon"
+      ],
+      "lineStyles": [
+        "solid",
+        "dash",
+        "dot",
+        "dash-dot"
+      ],
+      "policy": "Use names plus shapes/patterns or separate panels; shape/dash arrays are a design vocabulary, not permission for eight crossing lines",
+      "colourVisionChecks": [
+        "protanopia",
+        "deuteranopia",
+        "tritanopia",
+        "grayscale"
+      ],
+      "checkStatus": "Required per actual chart; no all-CVD-safe claim for these swatches",
+      "adjacency": "Check the colours that actually touch. If identity depends on their boundary, supply a separator/outline that itself remains visible; background contrast alone does not establish pairwise distinction"
+    },
+    "validation": {
+      "normalTextMinPath": "contrast.normalTextMin",
+      "essentialMarksMinPath": "contrast.essentialMarksMin",
+      "textOnBackgroundRoles": [
+        "text",
+        "muted"
+      ],
+      "essentialRoles": [
+        "primary",
+        "secondary",
+        "reference",
+        "negative",
+        "neutral",
+        "referenceNeutral",
+        "info",
+        "positive",
+        "caution",
+        "critical",
+        "directionRed",
+        "directionGreen",
+        "category1",
+        "category2",
+        "category3",
+        "category4",
+        "category5",
+        "category6",
+        "category7",
+        "category8"
+      ],
+      "colourLabelRoles": [
+        "primary",
+        "secondary",
+        "reference",
+        "negative",
+        "neutral",
+        "referenceNeutral",
+        "info",
+        "positive",
+        "caution",
+        "critical",
+        "directionRed",
+        "directionGreen",
+        "category1",
+        "category2",
+        "category3",
+        "category4",
+        "category5",
+        "category6",
+        "category7",
+        "category8"
+      ],
+      "continuousFills": "Sequential/diverging pale or dark-low stops are not universally 3:1 against background. Essential boundaries and legend/value redundancy are mandatory; never use those stops as small-text colours",
+      "gradients": "A faded area/column uses an opaque outline or endpoint marker with >= essentialMarksMin against the relevant background, plus an exact value/axis. Test stops and the lowest-opacity boundary after alpha compositing",
+      "point": "The light-theme white point fill needs its visible series-colour stroke; point alone is not an essentialMarks pass",
+      "matrix": "Both themes × actual surface × opacity × neighbours × colour-vision/grayscale × target export. Contrast math is one gate, not final visual acceptance"
+    },
+    "sources": [
+      {
+        "title": "Apple HIG Color",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/color",
+        "supports": "Inclusive colour, appearance-aware use and cultural interpretation"
+      },
+      {
+        "title": "Apple HIG Charts",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/charts",
+        "supports": "Meaningful colour plus shapes/patterns, contiguous mark separation and accessible descriptions"
+      },
+      {
+        "title": "Google Android Color for mobile design",
+        "url": "https://developer.android.com/design/ui/mobile/guides/styles/color",
+        "supports": "Material 3 semantic colour roles, paired foreground/container roles and independent light/dark tone assignments"
+      },
+      {
+        "title": "Google Material 2 The color system",
+        "url": "https://m2.material.io/guidelines/style/color.html",
+        "supports": "Older official guidance permits extra colours for data categories outside the main UI theme; not a claim of current M3 statistical palette prescriptions"
+      },
+      {
+        "title": "WCAG 2.2 Contrast minimum",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
+        "supports": "Text contrast calculation and unrounded threshold"
+      },
+      {
+        "title": "WCAG 2.2 Non-text contrast",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html",
+        "supports": "Essential graphical contrast against adjacent colours"
+      },
+      {
+        "title": "WCAG 2.2 Use of color",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html",
+        "supports": "Colour is not the sole carrier of information"
+      }
+    ],
+    "provenance": "Exact swatches, palette counts, family routing and defaults are Gary design decisions informed by official principles. They are not an Apple or Google chart palette, not HCT-generated, and not certified colour-vision-safe",
+    "familyMapping": {
+      "line": {
+        "palette": "single",
+        "defaultRole": "primary",
+        "rule": "单量用主色，少量独立系列按稳定ID用分类色；参考用中性虚线",
+        "whenSingle": "只有一个指标或仅需突出一条主线",
+        "alternative": "交叉过密改小多图，不能仅靠更多颜色辨认"
+      },
+      "area": {
+        "palette": "single",
+        "defaultRole": "primary",
+        "rule": "单量主色浅填充加实色边线；可加组成才用固定分类色堆叠",
+        "whenSingle": "只表达一个总量或同一量的区间",
+        "alternative": "组成不可加或细差比较改折线"
+      },
+      "bar": {
+        "palette": "single",
+        "defaultRole": "primary",
+        "rule": "同一指标柱条同色；只强调有依据的重点，零点共同",
+        "whenSingle": "类别只是被比较对象而无持续系列身份",
+        "alternative": "多系列比较才选categorical6；极多对象用排序与明细"
+      },
+      "grouped-bar": {
+        "palette": "categorical6",
+        "defaultRole": "primary",
+        "rule": "系列按稳定ID分色，跨组映射不变；同单位共同尺度",
+        "whenSingle": "仅一个系列时退回单色条形",
+        "alternative": "超过六系列先小多图；七八色仅允许直接标注且经过色觉检查"
+      },
+      "stacked-bar-100": {
+        "palette": "categorical6",
+        "defaultRole": "primary",
+        "rule": "互斥组成按稳定ID分色，固定顺序；相邻段需可辨边界",
+        "whenSingle": "只有一项组成时无须制造颜色层次",
+        "alternative": "细小段给外置名称和表格；类别过多改表或小多图"
+      },
+      "dual-axis": {
+        "palette": "categorical6",
+        "defaultRole": "primary",
+        "rule": "两个量各一种已声明颜色，并用柱与线区分；轴标签对应量",
+        "whenSingle": "可改同轴或对齐小多图时优先各用单主色",
+        "alternative": "同单位禁止用独立轴；颜色不能暗示相关性"
+      },
+      "waterfall": {
+        "palette": "conditional",
+        "choices": [
+          "single",
+          "taskConventions.defaultSignedChange"
+        ],
+        "defaultRole": "primary",
+        "rule": "增减方向按任务约定，终值中性；颜色不判断好坏",
+        "whenSingle": "仅比较同向贡献时单主色，参照与总计中性",
+        "alternative": "不可加的指标改条形，市场涨跌需另声明地区约定"
+      },
+      "point-scatter": {
+        "palette": "single",
+        "defaultRole": "primary",
+        "rule": "无第三变量先单色；真实分组可用分类色；量值色阶须另给单位与色条",
+        "whenSingle": "一个样本集合且没有需要表达的分组或第三量",
+        "alternative": "点密集先分箱或小多图，不随机上色"
+      },
+      "histogram": {
+        "palette": "single",
+        "defaultRole": "primary",
+        "rule": "一个分布单主色，共同比例和分箱；少量组用分类色或分面",
+        "whenSingle": "只展示一组样本的分布",
+        "alternative": "多组重叠不可辨时先小多图"
+      },
+      "boxplot": {
+        "palette": "single",
+        "defaultRole": "primary",
+        "rule": "同类分布中性或主色；有持续分组身份时分类色，异常点仍有标签/形状",
+        "whenSingle": "只比较各组同一量的分布",
+        "alternative": "同图颜色过多时用分面，不能用色彩暗示未提供的显著性"
+      },
+      "heatmap": {
+        "palette": "conditional",
+        "choices": [
+          "sequential7",
+          "diverging7"
+        ],
+        "defaultRole": "primary",
+        "rule": "非负强度用连续色阶，有明确基准的偏差用发散色阶；图例与缺测独立",
+        "whenSingle": "不需要量值编码时用中性数字表，不给每格染色",
+        "alternative": "精确读数为主时保留表格；跨组比较不能各行独立重设色域"
+      },
+      "donut": {
+        "palette": "categorical6",
+        "defaultRole": "primary",
+        "rule": "互斥组成稳定分色，中心值同源派生，零和缺测分别处理",
+        "whenSingle": "单一进度有合法分母时只用主色与中性轨道",
+        "alternative": "默认最多六类；七八类先条形/表格，不能靠近似颜色匹配小图例"
+      },
+      "radar": {
+        "palette": "single",
+        "defaultRole": "primary",
+        "rule": "一个对象主色轮廓，参照中性虚线；少量方案才用分类色与点形",
+        "whenSingle": "一个对象和一个已说明的参考轮廓",
+        "alternative": "轮廓遮挡或维度难读改分组条形/表格"
+      },
+      "polar-rose": {
+        "palette": "single",
+        "defaultRole": "primary",
+        "rule": "一个量沿真实周期/方向用单色；额外量才用具名色阶",
+        "whenSingle": "半径已表达唯一量时不重复制造分类色",
+        "alternative": "普通类别改条形，连续颜色须说明独立变量"
+      },
+      "table": {
+        "palette": "conditional",
+        "choices": [
+          "single",
+          "sequential7",
+          "diverging7",
+          "semanticStates"
+        ],
+        "defaultRole": "neutral",
+        "rule": "文字和底色中性；从属量值色阶/状态必须有原值与定义",
+        "whenSingle": "查数、计算、核验为主时保持中性，不用填色替代数字",
+        "alternative": "列过多先按任务分组；未知用文字/斜纹，不能涂成中点"
+      },
+      "small-multiples": {
+        "palette": "single",
+        "defaultRole": "primary",
+        "rule": "同对象同角色，共同比较范围；每个面板不自动换色",
+        "whenSingle": "重复的是同一个量/对象时全部复用同一主色",
+        "alternative": "多对象比较才用稳定分类绑定，不按面板序号生成颜色"
+      },
+      "range-error": {
+        "palette": "single",
+        "defaultRole": "primary",
+        "rule": "估计与范围用同角色，浅带有实色边界；参照中性虚线",
+        "whenSingle": "一个估计系列与其合法区间",
+        "alternative": "类别过多用分面；颜色透明度不表示概率"
+      }
+    }
+  }
+}

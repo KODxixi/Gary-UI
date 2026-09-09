@@ -106973,6 +106973,33 @@ var scene_recipes_default = {
     judgement: { anatomy: ["verdict", "confidence", "reason", "next-action"], density: "\u4E00\u4E2A\u5224\u65AD\u3001\u6700\u591A\u4E09\u6761\u4F9D\u636E\u3001\u4E00\u4E2A\u660E\u786E\u52A8\u4F5C", use: "\u628A\u5206\u6790\u7ED3\u679C\u8F6C\u6210\u53EF\u6267\u884C\u7ED3\u8BBA", avoid: "\u628A\u672A\u7ECF\u6765\u6E90\u652F\u6301\u7684\u731C\u6D4B\u5305\u88C5\u6210\u786E\u5B9A\u7ED3\u8BBA", longContent: "\u8D85\u8FC7\u4E09\u6761\u4F9D\u636E\u79FB\u5165\u8BC1\u636E\u533A\uFF0C\u5361\u7247\u4FDD\u7559\u6458\u8981\u4E0E\u5165\u53E3" },
     media: { anatomy: ["media", "caption", "source", "optional-action"], density: "\u4E00\u9879\u4E3B\u5A92\u4F53\u914D\u4E00\u53E5\u89E3\u91CA\u548C\u6765\u6E90", use: "\u56FE\u50CF\u3001\u56FE\u793A\u6216\u89C6\u9891\u672C\u8EAB\u662F\u4E3B\u8981\u8BC1\u636E", avoid: "\u7EAF\u88C5\u9970\u56FE\u7247\u3001\u7F3A\u5C11\u66FF\u4EE3\u6587\u672C\u6216\u6765\u6E90\u7684\u7D20\u6750", longContent: "\u957F\u8BF4\u660E\u653E\u5728\u5A92\u4F53\u4E0B\u65B9\uFF0C\u4E0D\u8986\u76D6\u56FE\u50CF\u5173\u952E\u533A\u57DF" }
   },
+  surfaceRecipes: {
+    status: "approved",
+    attribute: "data-gary-surface",
+    controller: "patterns/shared/material.js",
+    styleEntry: "tokens/base.css",
+    allowedValues: ["solid", "frosted", "optical"],
+    roles: {
+      solid: { label: "\u5B9E\u4F53\u5E95\u7EB9", use: ["dense-data", "charts", "tables", "long-reading", "outer-card", "short-metric"], backdrop: "opaque", refraction: false, texture: { attribute: "data-gary-texture", value: "flow", appearance: "\u9759\u6001\u4E2D\u6027\u6307\u7EB9\u7EC6\u7EBF", use: ["outer-card", "short-metric"], plotRule: "\u5BC6\u96C6\u7ED8\u56FE\u533A\u3001\u8868\u683C\u548C\u8FDE\u7EED\u6B63\u6587\u4F7F\u7528\u5E72\u51C0\u5B9E\u5E95\uFF0C\u4E0D\u53E0\u52A0\u6D41\u7EB9\u3002" } },
+      frosted: { label: "\u78E8\u7802\u73BB\u7483", use: ["summary", "navigation", "judgement"], backdrop: "soft-scattering", refraction: false },
+      optical: { label: "\u8D85\u767D/\u5168\u900F\u73BB\u7483", use: ["short-content", "media", "showcase"], backdrop: "edge-refraction", refraction: true, fallback: "frosted" }
+    },
+    maxGlassLayers: 1,
+    nestedGlass: false,
+    foregroundFilter: "none",
+    tilt: false,
+    lightScopeSelector: "[data-gary-light-scope]",
+    pointerPolicy: "motion.pointerEffects",
+    taskMaterialEnumUnchanged: true
+  },
+  analyticalReference: {
+    status: "expression-policy",
+    guide: "docs/CHART_EXPRESSION.md",
+    policy: "spec/chart-recipes.json",
+    referenceImplementation: "patterns/shared/chart-recipes.js",
+    transferDemo: "demo0909.html",
+    scope: "Visual grammar and opt-in recipes. Domain datasets, identifiers and conclusions are task inputs; not global defaults."
+  },
   scenes: {
     reading: {
       applicationModes: ["scroll-report"],
@@ -107012,6 +107039,7 @@ var scene_recipes_default = {
     international: { up: "green", down: "red" }
   },
   motion: {
+    pointerEffects: { default: "off", rootAttribute: "data-gary-pointer-effects", enabledValue: "on", entry: "Background > \u9F20\u6807\u5149\u5F71", reload: "off", reducedMotion: "disabled" },
     feedback: "150ms",
     expand: "250ms",
     reorder: "250ms",
@@ -107105,7 +107133,7 @@ function validateTextSource(text3, tool) {
 function commonCss(themeName, scene) {
   const theme = themes[themeName];
   const rules = sceneRules[scene] || sceneRules.analysis;
-  const sceneCss = `--content-gap:${rules.contentGap};--section-gap:${rules.sectionGap};--surface-alpha:${rules.surfaceAlpha};`;
+  const sceneCss = `--content-gap:${rules.contentGap};--section-gap:${rules.sectionGap};--surface-alpha:${rules.surfaceAlpha * 100}%;`;
   return `
     :root{color-scheme:${themeName};${sceneCss}}
     *{box-sizing:border-box}

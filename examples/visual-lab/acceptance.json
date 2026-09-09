@@ -1,0 +1,221 @@
+{
+  "status": "pass",
+  "checkedAt": "2026-09-09T13:24:05.514Z",
+  "checks": [
+    "five actual charts ready",
+    "data, totals, zero baseline and missing value",
+    "source tables and units present",
+    "optics mounted without text filtering",
+    "single scene and Gary 44px controls",
+    "hover default off in actual page",
+    "explicitly enabled shared light follows pointer",
+    "Background and page toggle agree",
+    "Background disables and clears light",
+    "reduced motion overrides opt-in",
+    "reload starts with hover off",
+    "material transmission can be isolated",
+    "material refraction can be isolated",
+    "material edge can be isolated",
+    "material shadow can be isolated",
+    "reference shapes optional",
+    "1440 dark no page or table overflow",
+    "1440 dark stable data surface",
+    "1440 light no page or table overflow",
+    "1440 light stable data surface",
+    "390 dark no page or table overflow",
+    "390 dark stable data surface",
+    "390 light no page or table overflow",
+    "390 light stable data surface",
+    "320 dark no page or table overflow",
+    "320 dark stable data surface",
+    "320 dark table stacks",
+    "320 light no page or table overflow",
+    "320 light stable data surface",
+    "320 light table stacks",
+    "trend dark standalone SVG",
+    "ranking dark standalone SVG",
+    "scatter dark standalone SVG",
+    "waterfall dark standalone SVG",
+    "composition dark standalone SVG",
+    "trend light standalone SVG",
+    "ranking light standalone SVG",
+    "scatter light standalone SVG",
+    "waterfall light standalone SVG",
+    "composition light standalone SVG",
+    "print drops optical layers",
+    "no runtime errors"
+  ],
+  "targetBrowserReport": {
+    "schemaVersion": 1,
+    "source": "real-browser",
+    "targetStack": "html",
+    "url": "http://127.0.0.1:4191/examples/visual-lab/index.html",
+    "styleEntry": "tokens/base.css",
+    "styleEntryLoaded": true,
+    "computedStyle": {
+      "property": "--gary-control-height",
+      "value": "44px"
+    },
+    "sceneCount": 1,
+    "nestedGlassCount": 0,
+    "consoleErrors": 0
+  },
+  "pending": [
+    "glass material preference",
+    "linked light intensity"
+  ],
+  "task": {
+    "schemaVersion": 2,
+    "skill": "gary-liquidglass-ui",
+    "operation": "integrate",
+    "mode": "quick",
+    "target": {
+      "stack": "html",
+      "scope": "Analysis chart recipes, glass material comparison and pointer effects off by default",
+      "deliveryPath": "examples/visual-lab/index.html"
+    },
+    "brief": {
+      "goal": "Improve visual expression of charts, tables and glass; pointer hover effects are off by default.",
+      "audience": "Gary-UI user and consuming Agents",
+      "content": "Five quantitative charts and one semantic table; three same-content materials; unified optional light.",
+      "assets": [
+        "examples/demos/evidence/edition-02/"
+      ],
+      "interactions": [
+        "SVG export",
+        "material layer isolation",
+        "pointer effects opt-in",
+        "separate theme and Background"
+      ],
+      "constraints": [
+        "single dot grid",
+        "stable data surface",
+        "no implicit pointer animation",
+        "no nested glass",
+        "explicit experimental material choices"
+      ]
+    },
+    "applicationMode": "web-ui",
+    "visualDefaults": {
+      "theme": "dark",
+      "material": "regular",
+      "density": "spacious"
+    },
+    "units": [
+      {
+        "id": "visual-lab",
+        "pageMode": "data-page",
+        "content": "Analysis and material comparison",
+        "assets": [
+          "examples/visual-lab/data.json"
+        ],
+        "visualOverrides": {},
+        "acceptance": [
+          "six representations from one data source",
+          "pointer effects default off",
+          "mobile tables stack",
+          "dark and light",
+          "SVG exports"
+        ]
+      }
+    ],
+    "acceptance": {
+      "viewports": [
+        "1440x1000",
+        "390x1000",
+        "320x1000"
+      ],
+      "keyboard": true,
+      "browser": true,
+      "visual": [
+        "one dot grid",
+        "stable text",
+        "no nested glass",
+        "separate Background/theme"
+      ],
+      "technical": [
+        "no new dependencies",
+        "native browser APIs",
+        "last valid number preserved",
+        "print complete content"
+      ]
+    }
+  },
+  "visualRoute": {
+    "schemaVersion": 1,
+    "skill": "gary-liquidglass-ui",
+    "application": "web-ui",
+    "page": "data-page",
+    "theme": "dark",
+    "material": "regular",
+    "density": "spacious"
+  },
+  "pointerEffects": {
+    "status": "pass",
+    "checkedAt": "2026-09-09T13:25:40.058Z",
+    "checks": [
+      "No panel: missing root attribute keeps dot pixels unchanged",
+      "No panel: missing root attribute blocks card light and coordinate writes",
+      "Attribute opt-in changes actual dot pixels",
+      "Attribute opt-in enables card light",
+      "Optical card never adds edge orbit",
+      "Attribute off resets dots exactly without residual displacement",
+      "Attribute off clears card coordinates and light immediately",
+      "Keyboard focus remains visible when effects are off",
+      "Card click remains functional",
+      "Reduced motion resets dots even with old scene override on",
+      "Reduced motion clears coordinates and hover light",
+      "Re-enable retains static dots until next pointer move",
+      "Standalone waves API default mouseInteraction is false",
+      "Standalone default waves remain centered on pointer movement",
+      "Standalone explicit local mouse setting cannot bypass root off",
+      "Standalone waves parallax works after root opt-in",
+      "Standalone waves root off immediately recenters",
+      "Root changes preserve wave pause",
+      "Background checkbox defaults unchecked",
+      "No independent local mouse checkbox can contradict total setting",
+      "Background wave selection preserves autoplay but pointer off",
+      "Background checkbox enables root and wave option",
+      "Background checkbox disables root and even original recipe wave pointer",
+      "Recipe reset does not re-enable pointer",
+      "Reopened panel reflects root state",
+      "Reload never restores pointer opt-in",
+      "No browser errors"
+    ],
+    "errors": []
+  },
+  "adapterFix": {
+    "status": "pass",
+    "scenes": 3,
+    "themes": 2,
+    "renderTests": 13,
+    "runtimeRebuilt": true,
+    "change": "surfaceAlpha emitted as CSS percentage, not unitless fraction"
+  },
+  "approved-baseline-drift": {
+    "status": "pass-with-authorized-change",
+    "targetArtifact": "../demos/index.html",
+    "browserReport": "../demos/evidence/public-release/public-pages.json",
+    "chatAuthorization": "Preserve complete Demo design. User explicitly requested mouse hover off by default.",
+    "pageContentDiffEmpty": true,
+    "sharedChange": "Pointer-driven decorative effects now default off; explicit opt-in required. Geometry and typography unchanged."
+  },
+  "knownBroaderFailure": {
+    "command": "python scripts/validate_v2.py",
+    "issue": "Pre-existing SVG namespace constant in unchanged optical-glass.js is flagged as a remote dependency. No additional issues."
+  },
+  "testedSourceSha256": {
+    "examples/visual-lab/index.html": "d030df66fc5b8f31b142cac655280ed6bf8fab303ea007f4cead76898676a464",
+    "examples/visual-lab/study.css": "fb847f64bfb636f1d95213497162bd0f99e33d3a3dc43ef7dbad962bc803e3dc",
+    "examples/visual-lab/study.js": "553b3ea09f3555ba013c1bddfa3ac5146af431e0d9e1de9b98e2919cbe166f83",
+    "examples/visual-lab/charts.js": "2e114ab14afe78e85c2828393fe3f1350139ec6b33ae4925c7d3ef241d2a36df",
+    "examples/visual-lab/data.json": "12908590e7bab1c906613f412177b6d60c863c67cf9c9ab581c419717529e869",
+    "patterns/shared/dot-grid.js": "92c8fc6d401c3a4e788f8a64ccba53871f7c90b9ec041f68162a5a9bf73786e0",
+    "patterns/shared/material.js": "8eb83f28c3d84b8d12e08d315413eedebf5705f0455dbcd53b65ae38417e70b9",
+    "patterns/shared/background-lab.js": "f2ac96a42b183dac9d45ec559828f92f5d4e9f45bb272689a8e82d5c8ac777ef",
+    "patterns/shared/ambient-waves.js": "3fd2d1c28b3022b1dfc17f75fc0723d858d4730db42df9ef1d709180c4933a39",
+    "components/components.css": "d147c90593b309011e8b4395faf00bdce035a2b179810aecc255075baad29f2a",
+    "adapters/visual/lib/renderers.mjs": "c0071779ae14395173e9cdc1b53fa8e1b2ff0f07a3476f7540e86ae7430e3f5a",
+    "adapters/visual/runtime/runner.cjs": "5c01988754484975701d0ffb22e0a86255439fa6ede6c48f33ce24ee1dc443c8"
+  }
+}

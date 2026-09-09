@@ -37,6 +37,20 @@
       "动态更新按需使用 aria-live=\"polite\""
     ]
   },
+  "updateRecipe": {
+    "module": "patterns/shared/number-transition.js",
+    "api": "GaryNumberTransition.set(element, finiteNumber, { format = value => String(value) } = {})",
+    "optIn": true,
+    "duration": "350ms",
+    "rules": [
+      "仅接管独立数值文本槽；标签、单位、交互元素放在槽外，format 必须是无副作用的数值格式化函数",
+      "首次设置直接显示完整值，只有后续有限数值变化使用有限插值；同值不重播",
+      "最终格式化值立即作为唯一可访问文本，动画副本 aria-hidden，不逐帧播报或自动添加 aria-live",
+      "连续更新取消旧动画并衔接当前显示值，数值槽始终按最终文本排版",
+      "reduced-motion、页面隐藏、打印或节点脱离页面时立即完成，不在后台循环",
+      "NaN、Infinity、非数字或格式化失败不得清空上次有效内容；动画中的格式化失败直接完成最终值"
+    ]
+  },
   "cssClasses": [
     ".gary-metric-card",
     ".gary-metric-card__label",

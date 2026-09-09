@@ -50,7 +50,7 @@ export function validateTextSource(text, tool) {
 function commonCss(themeName, scene) {
   const theme = themes[themeName];
   const rules = sceneRules[scene] || sceneRules.analysis;
-  const sceneCss = `--content-gap:${rules.contentGap};--section-gap:${rules.sectionGap};--surface-alpha:${rules.surfaceAlpha};`;
+  const sceneCss = `--content-gap:${rules.contentGap};--section-gap:${rules.sectionGap};--surface-alpha:${rules.surfaceAlpha * 100}%;`;
   return `
     :root{color-scheme:${themeName};${sceneCss}}
     *{box-sizing:border-box}

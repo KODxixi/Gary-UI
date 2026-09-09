@@ -15,7 +15,7 @@
     },
     "sceneRecipes": {
       "path": "spec/scene-recipes.json",
-      "sha256": "2492afae1a0a273501156e3bddc5300237721814bcf1491bd2f455894821c462"
+      "sha256": "784dae30e3eb9f71834c275a68bb2de4b756a9a49c95771dab8575bf770dd663"
     }
   }
 }

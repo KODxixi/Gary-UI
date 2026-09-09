@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-ui data-gary-theme="dark" data-gary-pointer-effects="off">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>图表表达规范 · 复用验证 — Gary-UI</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="examples/demos/shared/demo.css">
+  <link rel="stylesheet" href="patterns/shared/background-lab.css">
+  <link rel="stylesheet" href="examples/demo0909/demo.css">
+</head>
+<body data-gary-scene="analysis">
+<a class="skip" href="#main">跳到内容</a>
+<div class="gary-scene demo-global-scene" data-gary-scene-engine="dot-grid" data-gary-background-host aria-hidden="true"></div>
+<div class="demo-shell">
+  <nav class="demo-nav" aria-label="主导航">
+    <a class="demo-nav__brand" href="examples/demos/index.html"><span class="brand-mark">G</span>Gary-UI</a>
+    <div class="demo-nav__links"><a href="#grammar">表达规范</a><a href="#recipes">复用验证</a><a href="#colors">配色</a><a href="#materials">材质与光</a></div>
+    <div class="demo-actions"><button class="gary-background-nav" data-background-open>Background</button><button class="icon-button" data-theme-toggle data-gary-icon="sun" aria-label="切换浅色主题"></button></div>
+  </nav>
+  <main id="main">
+    <section class="framework-card" data-gary-surface="solid" data-gary-texture="flow" aria-label="表达体系概览">
+    <nav class="chapter-index" data-gary-surface="frosted" aria-label="本页四章">
+      <p class="chapter-index__label">GARY-UI / EXPRESSION FRAMEWORK</p>
+      <a href="#grammar"><span>01</span><strong>WHY</strong><b>表达语法</b><small>从参考提取规律</small></a>
+      <a href="#recipes"><span>02</span><strong>HOW</strong><b>换内容验证</b><small>同一配方，两组数据</small></a>
+      <a href="#colors"><span>03</span><strong>COLOR</strong><b>配色与选型</b><small>按语义调用色彩</small></a>
+      <a href="#materials"><span>04</span><strong>MAT</strong><b>材质与光</b><small>按内容调用</small></a>
+    </nav>
+    <header class="edition-hero">
+      <p class="eyebrow">GARY-UI / CHART EXPRESSION</p>
+      <h1 class="gary-role-title">让表达成为方法</h1>
+      <p class="hero-intro">先定义问题，再选择编码。<br>同一套表达规则，可以解释完全不同的内容。</p>
+      <p class="edition-note">17 类选型规范 · 7 种标注语法 · 两组内容验证复用</p>
+    </header>
+    </section>
+    <section class="grammar-section" id="grammar" aria-labelledby="grammar-title">
+      <div class="section-intro"><p class="eyebrow">01 / EXPRESSION GRAMMAR</p><h2 id="grammar-title">保留方法，放开内容</h2><p>从参考中提取的是信息关系与表达分寸。题目、数据、单位、阈值和判断都由当前任务决定。</p></div>
+      <div class="grammar-grid">
+        <article><span>01</span><h3>数据先于形状</h3><p>先问比较、趋势、组成还是不确定性，再选位置、长度、角度或色阶。双轴和雷达都有准入条件。</p></article>
+        <article><span>02</span><h3>层次先于装饰</h3><p>标题 → 语境 → 图形 → 尺度 → 标注 → 判断 → 来源。数据清楚，参考退后，文字与图互相解释。</p></article>
+        <article><span>03</span><h3>标注绑定依据</h3><p>点锚、带区、区间、参照、引线、状态和判断分别承担职责；记录、推导与假设明确区分。</p></article>
+      </div>
+      <div class="grammar-links"><a href="docs/CHART_EXPRESSION.md">完整表达规范 ↗</a><a href="spec/chart-recipes.json">参数与机器规则 ↗</a><a href="examples/demo0909/cases.json">两组调用数据 ↗</a></div>
+    </section>
+    <div class="section-intro recipe-intro" id="recipes"><p class="eyebrow">02 / TRANSFER TEST</p><h2>换一个领域，规则仍然成立</h2><p>切换每张图的示例。类别数量、单位、尺度、缺测和正负值都会变化，渲染规则保持同一份。</p></div>
+    <section class="report-panel recipe-panel" id="combo" data-gary-surface="solid" aria-labelledby="combo-title">
+      <header class="report-heading"><p class="eyebrow">RECIPE / COMBO</p><span class="evidence-tag">人工演示</span><h2 id="combo-title">两个尺度，先说清关系</h2><p>数量与另一个度量共用有序横轴，分别标明单位；条件不满足时改用对齐小多图。</p></header>
+      <div class="chart-toolbar"><label>切换内容 <select data-case-select="combo" aria-label="切换combo示例"></select></label><button class="icon-button" data-export-chart="combo" data-gary-icon="download" aria-label="导出combo SVG"></button></div>
+      <p class="recipe-question" data-case-question="combo"></p><p class="recipe-rationale" data-case-rationale="combo"></p>
+      <div class="chart-scroll" tabindex="0" role="region" aria-label="两个尺度，先说清关系，窄屏可横向查看"><div data-study-chart="combo"></div></div>
+      <footer class="report-foot"><p class="takeaway"><span class="decision-badge">解读</span><strong data-case-takeaway="combo"></strong></p></footer>
+      <details class="source-table"><summary>查看同源数值与口径</summary><div data-study-table="combo"></div></details>
+      <details class="source-table"><summary>查看本次调用输入</summary><pre class="recipe-input" data-case-source="combo"></pre></details>
+    </section>
+    <section class="report-panel recipe-panel" id="waterfall" data-gary-surface="solid" aria-labelledby="waterfall-title">
+      <header class="report-heading"><p class="eyebrow">RECIPE / WATERFALL</p><span class="evidence-tag">人工演示</span><h2 id="waterfall-title">变化有来处，累计有去处</h2><p>同基准贡献逐项衔接。浮动柱、连接线与总额从输入重算，负值可以穿过零线。</p></header>
+      <div class="chart-toolbar"><label>切换内容 <select data-case-select="waterfall" aria-label="切换waterfall示例"></select></label><button class="icon-button" data-export-chart="waterfall" data-gary-icon="download" aria-label="导出waterfall SVG"></button></div>
+      <p class="recipe-question" data-case-question="waterfall"></p><p class="recipe-rationale" data-case-rationale="waterfall"></p>
+      <div class="chart-scroll" tabindex="0" role="region" aria-label="变化有来处，累计有去处，窄屏可横向查看"><div data-study-chart="waterfall"></div></div>
+      <footer class="report-foot"><p class="takeaway"><span class="decision-badge">解读</span><strong data-case-takeaway="waterfall"></strong></p></footer>
+      <details class="source-table"><summary>查看同源数值与口径</summary><div data-study-table="waterfall"></div></details>
+      <details class="source-table"><summary>查看本次调用输入</summary><pre class="recipe-input" data-case-source="waterfall"></pre></details>
+    </section>
+    <section class="signals-section" id="profiles"><div class="section-intro"><p class="eyebrow">STRUCTURE / PROFILE / CYCLE</p><h2>圆形相似，编码不同</h2><p>构成用角度，轮廓用多维位置，周期用真实环形顺序。选择由问题决定。</p></div><div class="signal-grid"><article class="signal-card recipe-panel" id="donut" data-gary-surface="solid"><p class="eyebrow">RECIPE / DONUT</p><h3>构成先有整体</h3><p class="signal-description">互斥部分与明确分母</p><label class="case-label">切换内容<select data-case-select="donut" aria-label="切换donut示例"></select></label><p class="recipe-question" data-case-question="donut"></p><div data-study-chart="donut"></div><p class="recipe-rationale" data-case-rationale="donut"></p><div class="signal-tools"><span>同规则 · 不同领域</span><button class="icon-button" data-export-chart="donut" data-gary-icon="download" aria-label="导出donut SVG"></button></div><details class="source-table"><summary>数值与口径</summary><div data-study-table="donut"></div></details><details class="source-table"><summary>本次调用输入</summary><pre class="recipe-input" data-case-source="donut"></pre></details></article><article class="signal-card recipe-panel" id="radar" data-gary-surface="solid"><p class="eyebrow">RECIPE / RADAR</p><h3>轮廓先有尺度</h3><p class="signal-description">逐维归一，不按面积排名</p><label class="case-label">切换内容<select data-case-select="radar" aria-label="切换radar示例"></select></label><p class="recipe-question" data-case-question="radar"></p><div data-study-chart="radar"></div><p class="recipe-rationale" data-case-rationale="radar"></p><div class="signal-tools"><span>同规则 · 不同领域</span><button class="icon-button" data-export-chart="radar" data-gary-icon="download" aria-label="导出radar SVG"></button></div><details class="source-table"><summary>数值与口径</summary><div data-study-table="radar"></div></details><details class="source-table"><summary>本次调用输入</summary><pre class="recipe-input" data-case-source="radar"></pre></details></article><article class="signal-card recipe-panel" id="rose" data-gary-surface="solid"><p class="eyebrow">RECIPE / ROSE</p><h3>环形先有顺序</h3><p class="signal-description">真实周期或方向，明示半径编码</p><label class="case-label">切换内容<select data-case-select="rose" aria-label="切换rose示例"></select></label><p class="recipe-question" data-case-question="rose"></p><div data-study-chart="rose"></div><p class="recipe-rationale" data-case-rationale="rose"></p><div class="signal-tools"><span>同规则 · 不同领域</span><button class="icon-button" data-export-chart="rose" data-gary-icon="download" aria-label="导出rose SVG"></button></div><details class="source-table"><summary>数值与口径</summary><div data-study-table="rose"></div></details><details class="source-table"><summary>本次调用输入</summary><pre class="recipe-input" data-case-source="rose"></pre></details></article></div><p class="section-note">验收关注：换领域无需改渲染器；图形、数值表、可访问描述与独立导出始终一致。</p></section>
+    <section class="grammar-section" id="colors" aria-labelledby="colors-title"><div class="section-intro"><p class="eyebrow">03 / COLOR GRAMMAR</p><h2 id="colors-title">色彩有角色，表达有秩序</h2><p>借鉴 Apple 的清晰与一致、Google Material 的语义角色与深浅映射。以下为 Gary 自定色值，全部由同一份规范生成。</p></div><div class="grammar-links"><a href="docs/CHART_COLOR.md">完整配色规范 ↗</a><a href="#catalog">各类图表的选型 ↘</a></div><div class="palette-gallery" data-palette-gallery></div><div class="palette-state-row"><span>状态需有明确判据</span><div data-state-palette></div></div><p class="section-note">切换右上角深浅主题，观察色阶与标签同步适配。每一色块均给出数值或身份；不能仅靠颜色阅读。</p></section>
+    <section class="grammar-section" id="catalog" aria-labelledby="catalog-title"><div class="section-intro"><p class="eyebrow">03 / RECIPE CATALOG</p><h2 id="catalog-title">先选问题，再选图</h2><p>规范覆盖 17 类表达；上面的 5 类提供数据驱动的 SVG 参考实现，其余沿用已有图表工具。</p></div><div class="catalog-table" data-recipe-catalog></div><aside class="light-note"><span class="decision-badge">验收</span><div><strong>能换数据，才叫可复用。</strong><p>数据变了，图形和推导必须重算。NaN、缺少单位、无分母构成、反向区间和无依据标注，应明确拒绝或换一种表达。</p></div></aside></section>
+    <section class="materials-section" id="materials" aria-labelledby="materials-title">
+      <div class="section-intro"><p class="eyebrow">MT / MATERIAL EXPRESSION</p><h2 id="materials-title">三种材质，各得其所</h2><p>相同内容，不同的透光与厚度。先判断信息密度，再选择承载它的表面。</p></div>
+      <div class="material-controls"><label><input id="reference-enabled" type="checkbox" checked>显示材质参照色带</label><p id="light-status" role="status">联动光影已关闭 · 可在右上角 Background 开启</p></div>
+      <div class="material-stage" data-gary-light-scope data-reference="on">
+        <div class="material-reference" aria-hidden="true"><i></i><b></b></div>
+        <div class="material-grid">
+          <article class="material-card" data-gary-surface="solid" data-gary-texture="flow"><p class="eyebrow">01 / SOLID</p><h3>实体底纹</h3><p class="material-number">128<small>万元</small></p><p>四区合计营收</p><p class="material-caption">中性底纹，数字清晰。<br>报告外卡与短指标；绘图区保持实底。</p></article>
+          <article class="material-card" data-gary-surface="frosted"><p class="eyebrow">02 / FROSTED</p><h3>磨砂玻璃</h3><p class="material-number">128<small>万元</small></p><p>四区合计营收</p><p class="material-caption">背景化为柔和明暗。<br>摘要、导航与判断面板。</p></article>
+          <article class="material-card" data-gary-surface="optical"><p class="eyebrow">03 / OPTICAL</p><h3>超白/全透玻璃</h3><p class="material-number">128<small>万元</small></p><p>四区合计营收</p><p class="material-caption">边缘弯折，光线透入。<br>短内容、展示与媒体入口。</p></article>
+        </div>
+      </div>
+      <div class="material-rules">
+        <article><span>01</span><div><h3>实体底纹，承载报告与指标。</h3><p>外卡用中性指纹表达实体质感；密集图形、精确表格与长正文的读数面保持干净实底。</p></div></article>
+        <article><span>02</span><div><h3>磨砂玻璃，衔接信息层次。</h3><p>摘要与导航保留柔和背景关系；与数据底板并列，不把玻璃套在玻璃里。</p></div></article>
+        <article><span>03</span><div><h3>超白/全透玻璃，表达空间。</h3><p>短内容与展示入口使用透光、折射、边缘光与接触阴影；密集信息主动降为 Solid。</p></div></article>
+      </div>
+      <aside class="light-note"><span class="decision-badge">MT</span><div><strong>一束光，连接背景与卡片。</strong><p>Background 开启后，点阵、背景柔光与清透卡边缘响应同一指针位置。文字不移动，刷新恢复关闭；触摸与减弱动态保留静态材质。</p></div></aside>
+      <details class="reuse-example"><summary>复制材质调用方式</summary><div class="code-heading"><span>共享样式与脚本随项目引用</span><button class="icon-button" data-copy-recipe data-gary-icon="copy" aria-label="复制材质调用代码"></button></div><pre><code id="recipe-code">&lt;!-- 引入 tokens/base.css，依次加载 material.js 与 optical-glass.js --&gt;
+&lt;section data-gary-light-scope&gt;
+  &lt;article data-gary-surface="solid" data-gary-texture="flow"&gt;实体底纹 · 报告外卡&lt;/article&gt;
+  &lt;article data-gary-surface="solid"&gt;干净实底 · 精确数据与正文&lt;/article&gt;
+  &lt;article data-gary-surface="frosted"&gt;磨砂玻璃 · 摘要与导航&lt;/article&gt;
+  &lt;article data-gary-surface="optical"&gt;超白/全透玻璃 · 短内容与展示&lt;/article&gt;
+&lt;/section&gt;</code></pre><p>联动光影默认关闭。沿用顶部 Background 与共享背景面板，由用户主动开启。</p><p id="copy-status" role="status"></p></details>
+    </section>
+    <p class="page-status" id="page-status" role="status">正在准备图形。</p>
+    <noscript><p>图表与背景设置需要 JavaScript；材质调用规则与内容仍可阅读。</p></noscript>
+  </main>
+  <footer class="demo-footer"><span>Gary-UI · 09.09<br>持续深化，让表达服务内容。</span><div class="footer-links"><a href="docs/VISUAL_EXPRESSION.md">使用规则</a><a href="docs/CHART_EXPRESSION.md">图表规范</a><a href="examples/demos/index.html">完整 Demo</a></div></footer>
+</div>
+<script src="patterns/shared/icons.js"></script><script src="examples/demos/shared/icons.js"></script><script src="patterns/shared/web-bar.js"></script><script src="patterns/shared/dot-grid.js"></script><script src="patterns/shared/material.js"></script><script src="patterns/shared/optical-glass.js"></script><script src="patterns/shared/chart-recipes.js"></script><script src="examples/demo0909/charts.js"></script><script src="examples/demo0909/demo.js"></script><script src="patterns/shared/background-lab.js"></script>
+</body>
+</html>

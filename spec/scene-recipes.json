@@ -50,6 +50,33 @@
     "judgement": {"anatomy": ["verdict", "confidence", "reason", "next-action"], "density": "一个判断、最多三条依据、一个明确动作", "use": "把分析结果转成可执行结论", "avoid": "把未经来源支持的猜测包装成确定结论", "longContent": "超过三条依据移入证据区，卡片保留摘要与入口"},
     "media": {"anatomy": ["media", "caption", "source", "optional-action"], "density": "一项主媒体配一句解释和来源", "use": "图像、图示或视频本身是主要证据", "avoid": "纯装饰图片、缺少替代文本或来源的素材", "longContent": "长说明放在媒体下方，不覆盖图像关键区域"}
   },
+  "surfaceRecipes": {
+    "status": "approved",
+    "attribute": "data-gary-surface",
+    "controller": "patterns/shared/material.js",
+    "styleEntry": "tokens/base.css",
+    "allowedValues": ["solid", "frosted", "optical"],
+    "roles": {
+      "solid": {"label": "实体底纹", "use": ["dense-data", "charts", "tables", "long-reading", "outer-card", "short-metric"], "backdrop": "opaque", "refraction": false, "texture": {"attribute": "data-gary-texture", "value": "flow", "appearance": "静态中性指纹细线", "use": ["outer-card", "short-metric"], "plotRule": "密集绘图区、表格和连续正文使用干净实底，不叠加流纹。"}},
+      "frosted": {"label": "磨砂玻璃", "use": ["summary", "navigation", "judgement"], "backdrop": "soft-scattering", "refraction": false},
+      "optical": {"label": "超白/全透玻璃", "use": ["short-content", "media", "showcase"], "backdrop": "edge-refraction", "refraction": true, "fallback": "frosted"}
+    },
+    "maxGlassLayers": 1,
+    "nestedGlass": false,
+    "foregroundFilter": "none",
+    "tilt": false,
+    "lightScopeSelector": "[data-gary-light-scope]",
+    "pointerPolicy": "motion.pointerEffects",
+    "taskMaterialEnumUnchanged": true
+  },
+  "analyticalReference": {
+    "status": "expression-policy",
+    "guide": "docs/CHART_EXPRESSION.md",
+    "policy": "spec/chart-recipes.json",
+    "referenceImplementation": "patterns/shared/chart-recipes.js",
+    "transferDemo": "demo0909.html",
+    "scope": "Visual grammar and opt-in recipes. Domain datasets, identifiers and conclusions are task inputs; not global defaults."
+  },
   "scenes": {
     "reading": {
       "applicationModes": ["scroll-report"],
@@ -89,6 +116,7 @@
     "international": {"up": "green", "down": "red"}
   },
   "motion": {
+    "pointerEffects": {"default": "off", "rootAttribute": "data-gary-pointer-effects", "enabledValue": "on", "entry": "Background > 鼠标光影", "reload": "off", "reducedMotion": "disabled"},
     "feedback": "150ms",
     "expand": "250ms",
     "reorder": "250ms",

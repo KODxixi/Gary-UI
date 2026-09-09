@@ -24,15 +24,16 @@
     scene.append(canvas);
 
     const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+    const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
     const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, active: false };
-    let motionOverride = scene.dataset.motionOverride === "on";
     let width = 1;
     let height = 1;
     let dpr = 1;
     let frame = 0;
     let visible = true;
 
-    const isReduced = () => reduceMotion.matches && !motionOverride;
+    const isReduced = () => reduceMotion.matches;
+    const pointerEnabled = () => document.documentElement.dataset.garyPointerEffects === "on" && finePointer.matches && !isReduced();
     const cssNumber = (name, fallback) => {
       const value = Number.parseFloat(getComputedStyle(scene).getPropertyValue(name));
       return Number.isFinite(value) ? value : fallback;
@@ -62,7 +63,7 @@
       const viewHeight = height / dpr;
       const startX = (viewWidth % spacing) / 2;
       const startY = (viewHeight % spacing) / 2;
-      const interactive = pointer.active && !reduced;
+      const interactive = pointer.active && pointerEnabled();
 
       for (let y = startY; y <= viewHeight + spacing; y += spacing) {
         for (let x = startX; x <= viewWidth + spacing; x += spacing) {
@@ -98,6 +99,11 @@
     const schedule = () => {
       if (!frame && visible && !document.hidden) frame = requestAnimationFrame(draw);
     };
+    const resetPointer = () => {
+      pointer.active = false;
+      pointer.x = pointer.y = pointer.targetX = pointer.targetY = 0;
+      schedule();
+    };
 
     const resize = () => {
       const rect = scene.getBoundingClientRect();
@@ -110,7 +116,7 @@
     };
 
     addEventListener("pointermove", (event) => {
-      if (isReduced()) return;
+      if (!pointerEnabled()) return;
       const rect = scene.getBoundingClientRect();
       pointer.targetX = event.clientX - rect.left;
       pointer.targetY = event.clientY - rect.top;
@@ -122,30 +128,23 @@
 
     addEventListener("pointerout", (event) => {
       if (event.relatedTarget) return;
-      pointer.active = false;
-      schedule();
+      resetPointer();
     }, { passive: true });
 
-    addEventListener("gary:scene-motion-change", (event) => {
-      motionOverride = event.detail?.mode === "on" || scene.dataset.motionOverride === "on";
-      pointer.active = false;
-      schedule();
-    });
-
-    reduceMotion.addEventListener?.("change", () => {
-      pointer.active = false;
-      schedule();
-    });
+    addEventListener("gary:scene-motion-change", resetPointer);
+    addEventListener("gary:pointer-effects-change", resetPointer);
+    reduceMotion.addEventListener?.("change", resetPointer);
+    finePointer.addEventListener?.("change", resetPointer);
 
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) schedule();
     });
 
-    new MutationObserver(schedule).observe(document.documentElement, {
+    new MutationObserver(resetPointer).observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["data-theme", "data-gary-theme"]
+      attributeFilter: ["data-theme", "data-gary-theme", "data-gary-pointer-effects"]
     });
-    new MutationObserver(() => { pointer.active = false; schedule(); }).observe(scene, {
+    new MutationObserver(resetPointer).observe(scene, {
       attributes: true, attributeFilter: ["data-gary-background"]
     });
 

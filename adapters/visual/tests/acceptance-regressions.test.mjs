@@ -117,7 +117,7 @@ test('Archify manifest theme survives toolbar initialization without a URL overr
 });
 
 
-test('renderer consumes theme-map and scene recipes as runtime policy', () => {
+test('renderer consumes theme-map and scene recipes as valid browser surface policy', async () => {
   const themeMap = JSON.parse(fs.readFileSync(path.join(adapterRoot, 'theme-map.json'), 'utf8'));
   const recipes = JSON.parse(fs.readFileSync(path.resolve(adapterRoot, '..', '..', 'spec', 'scene-recipes.json'), 'utf8'));
   const html = buildEchartsHtml({
@@ -138,4 +138,61 @@ test('renderer consumes theme-map and scene recipes as runtime policy', () => {
   assert.doesNotMatch(rendererSource, /const\s+themes\s*=\s*\{/);
   assert.doesNotMatch(rendererSource, /const\s+palettes\s*=\s*\{/);
   assert.doesNotMatch(rendererSource, /const\s+sceneRules\s*=\s*\{/);
+
+  const output = fs.mkdtempSync(path.join(os.tmpdir(), 'gary-surface-policy-'));
+  const browser = await chromium.launch({ executablePath: process.env.GARY_UI_CHROME || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', headless: true });
+  try {
+    const page = await browser.newPage({ reducedMotion: 'reduce', viewport: { width: 1200, height: 1000 } });
+    const errors = [];
+    page.on('pageerror', error => errors.push(error.message));
+    assert.equal(await page.evaluate(() => CSS.supports('background', 'color-mix(in srgb,#111214 0.96,transparent)')), false);
+    for (const scene of ['reading', 'analysis', 'showcase']) {
+      for (const theme of ['dark', 'light']) {
+        const colors = themeMap.themes[theme];
+        const generated = buildEchartsHtml({
+          title: '月度交付趋势',
+          option: {
+            xAxis: { type: 'category', data: ['一月', '二月'], axisLabel: { color: colors.muted } },
+            yAxis: { type: 'value', name: '项', axisLabel: { color: colors.muted } },
+            series: [{ type: 'bar', data: [40, 64], label: { show: true, position: 'top', color: colors.text } }],
+          },
+          table: [['月份', '交付项'], ['一月', 40], ['二月', 64]],
+        }, { id: 'surface-policy', tool: 'echarts', scene, theme, citation: { label: '人工测试数据' } });
+        const file = path.join(output, `${scene}-${theme}.html`);
+        fs.writeFileSync(file, generated);
+        await page.goto(pathToFileURL(file).href);
+        await page.waitForFunction(() => window.__garyVisualReady);
+        const proof = await page.evaluate(() => {
+          const stage = document.querySelector('.gary-visual-stage');
+          const style = getComputedStyle(stage);
+          const canvas = document.createElement('canvas');
+          canvas.width = canvas.height = 1;
+          const context = canvas.getContext('2d');
+          context.fillStyle = style.backgroundColor;
+          context.fillRect(0, 0, 1, 1);
+          const alpha = context.getImageData(0, 0, 1, 1).data[3];
+          return {
+            alpha,
+            percentage: getComputedStyle(document.documentElement).getPropertyValue('--surface-alpha').trim(),
+            valid: CSS.supports('background-color', style.backgroundColor),
+            background: style.backgroundColor,
+            filtered: [...stage.querySelectorAll('svg, svg *, #chart'), stage].some(element => {
+              const computed = getComputedStyle(element);
+              return computed.filter !== 'none' || computed.backdropFilter !== 'none';
+            }),
+            values: [...stage.querySelectorAll('svg text')].map(element => element.textContent),
+          };
+        });
+        const expected = themeMap.scenes[scene].surfaceAlpha;
+        assert.equal(proof.percentage, `${expected * 100}%`, `${scene}/${theme}`);
+        assert.equal(proof.valid, true);
+        assert.ok(Math.abs(proof.alpha - Math.round(expected * 255)) <= 1, JSON.stringify(proof));
+        assert.equal(proof.filtered, false, 'Data marks and labels must remain unfiltered');
+        assert.ok(proof.values.includes('40') && proof.values.includes('64'));
+        if (scene === 'analysis') await page.screenshot({ path: path.join(output, `${scene}-${theme}.png`), fullPage: true });
+      }
+    }
+    assert.deepEqual(errors, []);
+    console.log(`Surface policy browser evidence: ${output}`);
+  } finally { await browser.close(); }
 });

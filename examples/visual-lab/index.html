@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-ui data-gary-theme="dark">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>分析与材质 · Gary-UI</title>
+<link rel="stylesheet" href="../demos/shared/demo.css"><link rel="stylesheet" href="../../patterns/shared/background-lab.css"><link rel="stylesheet" href="study.css"></head>
+<body data-gary-scene="analysis">
+<a class="skip" href="#main">跳到内容</a>
+<div class="gary-scene demo-global-scene" data-gary-scene-engine="dot-grid" data-gary-background-host aria-hidden="true"><div class="study-scene-light"></div></div>
+<div class="demo-shell">
+<nav class="demo-nav" aria-label="视觉研究导航"><a class="demo-nav__brand" href="../demos/index.html"><span class="brand-mark">G</span>Gary-UI</a><div class="demo-nav__links"><a href="#analysis">分析图表</a><a href="#materials">玻璃质感</a><a href="#light">背景与光</a></div><div class="demo-actions"><button class="gary-background-nav" data-background-open>Background</button><button class="icon-button" data-theme-toggle data-gary-icon="sun" aria-label="切换浅色主题"></button></div></nav>
+<main id="main">
+<header class="study-hero"><p class="eyebrow">GARY-UI / VISUAL EXPRESSION</p><h1 class="gary-role-title">看清信息感受材质</h1><p>图表有尺度，玻璃有厚度。<br>用真实图形与同内容对比，找到各自合适的表达。</p><div class="study-index"><a href="#analysis">01 分析的秩序</a><a href="#materials">02 材质的分寸</a><a href="#light">03 光的连贯</a></div></header>
+
+<section class="study-section" id="analysis" aria-labelledby="analysis-title">
+<div class="study-heading"><div><p class="eyebrow">01 / INFORMATION DESIGN</p><h2 id="analysis-title">让图形解释数据</h2></div><span class="study-tag">六类表达 · 同一份样本</span></div>
+<p class="study-lead">趋势看变化，排名看差距，象限看关系，瀑布看贡献，构成看比例，表格保留精确值。</p>
+<p class="study-note">四区经营设计样本 · 全部数字人工编制 · 单位万元 · 缺测保持空缺</p>
+<p id="chart-status" data-chart-status role="status">正在载入本地样本。</p>
+<div class="analysis-gallery">
+<article class="analysis-panel" aria-labelledby="trend-title"><header><div><p class="eyebrow">TREND</p><h3 id="trend-title">增长出现在哪里</h3></div><button class="icon-button" data-export-chart="trend" data-gary-icon="download" aria-label="导出趋势图 SVG"></button></header><p class="chart-reading">实际与目标共用尺度，5 月缺测保留断点。</p><div class="study-chart" data-chart="trend" role="img" aria-label="3 至 8 月营收实际与目标趋势，5 月实际缺测；原始数据见下方"></div><details><summary>查看数值与口径</summary><div class="table-scroll" data-chart-table="trend"></div></details></article>
+<article class="analysis-panel" aria-labelledby="rank-title"><header><div><p class="eyebrow">COMPARISON</p><h3 id="rank-title">差距一眼可见</h3></div><button class="icon-button" data-export-chart="ranking" data-gary-icon="download" aria-label="导出区域比较图 SVG"></button></header><p class="chart-reading">横向排序与零基线，目标标记保留共同参照。</p><div class="study-chart" data-chart="ranking" role="img" aria-label="四区营收排序与目标对照；原始数据见下方"></div><details><summary>查看数值与口径</summary><div class="table-scroll" data-chart-table="ranking"></div></details></article>
+<article class="analysis-panel" aria-labelledby="scatter-title"><header><div><p class="eyebrow">RELATIONSHIP</p><h3 id="scatter-title">速度与完成度</h3></div><button class="icon-button" data-export-chart="scatter" data-gary-icon="download" aria-label="导出象限图 SVG"></button></header><p class="chart-reading">位置表达关系，阈值写明依据，不用大气泡暗示额外权重。</p><div class="study-chart" data-chart="scatter" role="img" aria-label="四区交付周期与完成率；26 天及 80% 是演示阈值"></div><details><summary>查看数值与口径</summary><div class="table-scroll" data-chart-table="scatter"></div></details></article>
+<article class="analysis-panel" aria-labelledby="waterfall-title"><header><div><p class="eyebrow">CONTRIBUTION</p><h3 id="waterfall-title">变化来自哪里</h3></div><button class="icon-button" data-export-chart="waterfall" data-gary-icon="download" aria-label="导出贡献瀑布图 SVG"></button></header><p class="chart-reading">起点、正负贡献和终点形成闭环，差额不只依赖颜色。</p><div class="study-chart" data-chart="waterfall" role="img" aria-label="营收从目标 120 经正负贡献达到 128 万元"></div><details><summary>查看数值与口径</summary><div class="table-scroll" data-chart-table="waterfall"></div></details></article>
+<article class="analysis-panel" aria-labelledby="composition-title"><header><div><p class="eyebrow">COMPOSITION</p><h3 id="composition-title">比例放在同一尺度</h3></div><button class="icon-button" data-export-chart="composition" data-gary-icon="download" aria-label="导出构成图 SVG"></button></header><p class="chart-reading">按任务数量比较状态构成，颜色始终对应同一种状态；与工作完成率分开统计。</p><div class="study-chart" data-chart="composition" role="img" aria-label="四区已交付、进行中、待处理任务的百分比构成"></div><details><summary>查看数值与口径</summary><div class="table-scroll" data-chart-table="composition"></div></details></article>
+<article class="analysis-panel analysis-table" aria-labelledby="table-title"><header><div><p class="eyebrow">PRECISION</p><h3 id="table-title">精确值也有层次</h3></div><span class="study-tag">万元 / %</span></header><p class="chart-reading">数字右对齐、单位放表头、行内条形帮助扫读。合计独立成行。</p><div class="table-scroll" aria-label="区域经营明细，窄屏逐项展开"><table><caption class="sr-only">四区营收、目标、差额与完成率，人工编制</caption><thead><tr><th scope="col">区域</th><th scope="col">营收</th><th scope="col">目标</th><th scope="col">差额</th><th scope="col">工作完成率</th></tr></thead><tbody data-analysis-rows></tbody><tfoot><tr><th scope="row">合计</th><td data-label="营收">128</td><td data-label="目标">120</td><td data-label="差额">+8</td><td data-label="工作完成率">—</td></tr></tfoot></table></div><p class="study-note">完成率无统一权重，合计留空；不擅自计算简单平均。</p></article>
+</div>
+<div class="study-rule"><strong>玻璃负责容器的空间感，图形负责数据的确定性。</strong><p>趋势线、文字、坐标和表格用稳定底板。发光、模糊和折射不进入数据层；图形导出仍保持相同颜色与口径。</p></div>
+</section>
+
+<section class="study-section" id="materials" aria-labelledby="material-title">
+<div class="study-heading"><div><p class="eyebrow">02 / MATERIAL EXPRESSION</p><h2 id="material-title">同一内容三种材质</h2></div><span class="study-tag">材质候选 · 尚未推广</span></div>
+<p class="study-lead">透明让背景进入，散射软化背景，折射弯曲背景。边缘与接触阴影，再给这块玻璃一个厚度。</p>
+<div class="study-controls"><label><input type="checkbox" id="reference-enabled" checked>显示透射参照色块</label><span class="study-note">色块只用于比较材质；全页只有一层点阵。</span></div>
+<div class="material-stage" id="material-stage" data-reference="on" data-transmission="on" data-refraction="on" data-edge="on" data-shadow="on">
+<div class="material-reference" aria-hidden="true"><i></i><b></b></div>
+<div class="material-specimens">
+<article class="specimen specimen--solid" aria-labelledby="solid-title"><p class="eyebrow">01 / SOLID</p><h3 id="solid-title">实体底纹</h3><p class="specimen-number">128<span>万元</span></p><p>四区合计营收</p><div class="specimen-divider"></div><p class="specimen-caption">数字稳定，对比明确。<br>适合图表、表格和连续正文。</p></article>
+<article class="specimen specimen--frost" aria-labelledby="frost-title"><p class="eyebrow">02 / FROSTED</p><h3 id="frost-title">磨砂玻璃</h3><p class="specimen-number">128<span>万元</span></p><p>四区合计营收</p><div class="specimen-divider"></div><p class="specimen-caption">背景成为柔和的明暗。<br>适合摘要与导航面板。</p></article>
+<article class="specimen specimen--lens" data-gary-material="glass" data-gary-refraction aria-labelledby="lens-title"><p class="eyebrow">03 / OPTICAL</p><h3 id="lens-title">超白/全透玻璃</h3><p class="specimen-number">128<span>万元</span></p><p>四区合计营收</p><div class="specimen-divider"></div><p class="specimen-caption">边缘弯折，光线透入。<br>适合短内容与展示入口。</p></article>
+</div>
+</div>
+<fieldset class="material-layers"><legend>逐层拆开清透卡片，观察质感来自哪里</legend><label><input type="checkbox" data-layer="transmission" checked>透光</label><label><input type="checkbox" data-layer="refraction" checked>折射</label><label><input type="checkbox" data-layer="edge" checked>边缘光</label><label><input type="checkbox" data-layer="shadow" checked>接触阴影</label></fieldset>
+<p class="study-note" id="optical-support" role="status">清透卡片使用当前浏览器支持的玻璃效果。</p>
+</section>
+
+<section class="study-section light-section" id="light" aria-labelledby="light-title">
+<div class="study-heading"><div><p class="eyebrow">03 / ONE LIGHT FIELD</p><h2 id="light-title">让背景与玻璃相接</h2></div><span class="study-tag">联动光影 · 候选</span></div>
+<p class="study-lead">将鼠标从卡片外移入卡片。点阵、背景柔光与边缘高光使用同一位置；光穿过材质，文字始终稳定。</p>
+<div class="study-controls"><label><input type="checkbox" id="pointer-enabled">开启鼠标光影体验</label><span class="study-note">默认关闭；也可在 Background 中设置。</span></div>
+<div class="filters" aria-label="背景与卡片的响应方式"><button class="filter-button" data-light-mode="separate" aria-pressed="false">现有独立响应</button><button class="filter-button is-active" data-light-mode="linked" aria-pressed="true">联动光影</button></div>
+<div class="light-probe" id="light-probe"><div class="probe-label" aria-hidden="true">把指针移过这片空间</div><article class="specimen specimen--lens probe-card" data-gary-material="glass" data-gary-refraction><p class="eyebrow">LIGHT / MATERIAL / CONTENT</p><h3>光经过，内容留下</h3><p class="specimen-caption">边缘感知光的位置。<br>正文与数字不移动、不发光。</p><p class="specimen-number">128<span>万元</span></p></article></div>
+<p class="study-note" id="light-status" role="status">鼠标光影已关闭，当前为静态质感。</p>
+<div class="study-rule"><strong>不要把 hover 做成卡片的第二套背景。</strong><p>只有一个光场。卡片从同一背景采样，用材质强弱决定光通过多少；分析底板阻隔扰动，展示玻璃保留变化。</p></div>
+<div class="study-decisions"><label>你更喜欢哪种材质<select id="material-choice"><option value="pending">待判断</option><option value="frost">磨砂玻璃为主</option><option value="lens">超白/全透玻璃用于展示</option><option value="solid">优先实体底纹</option></select></label><label>背景与玻璃的关系<select id="light-choice"><option value="pending">待判断</option><option value="linked">采用联动光影</option><option value="softer">联动再弱一些</option><option value="separate">保留现有响应</option></select></label><button id="copy-direction" class="icon-button" data-gary-icon="copy" aria-label="复制视觉方向"></button></div><p class="study-note" id="choice-status" role="status">选择后复制发给我，再据此修改共享规则。</p><textarea id="choice-fallback" aria-label="手动复制视觉方向" hidden readonly></textarea>
+</section>
+</main><footer class="demo-footer"><span>Gary-UI · 分析与材质研究<br>固定人工样本 · 设计候选</span><div class="footer-links"><a href="../../docs/VISUAL_EXPRESSION.md">做法与来源</a><a href="data.json">原始数据</a><a href="../demos/index.html">完整 Demo</a></div></footer>
+</div>
+<script src="../../patterns/shared/icons.js"></script><script src="../demos/shared/icons.js"></script><script src="../../patterns/shared/web-bar.js"></script><script src="../../patterns/shared/dot-grid.js"></script><script src="../../patterns/shared/material.js"></script><script src="../../patterns/shared/optical-glass.js"></script><script src="../../adapters/visual/vendor/browser/echarts.min.js"></script><script src="../demos/shared/chart-policy.js"></script><script src="charts.js"></script><script src="study.js"></script><script src="../../patterns/shared/background-lab.js"></script>
+</body></html>

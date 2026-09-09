@@ -1,0 +1,36 @@
+{
+  "title": "四区经营设计样本",
+  "source": "人工编制的设计样本，不代表真实业务结果",
+  "revenueUnit": "万元",
+  "period": "8月",
+  "regions": [
+    { "name": "东区", "revenue": 42, "target": 40, "cycleDays": 24, "completion": 86, "composition": [60, 25, 15] },
+    { "name": "南区", "revenue": 36, "target": 38, "cycleDays": 32, "completion": 74, "composition": [50, 30, 20] },
+    { "name": "西区", "revenue": 28, "target": 24, "cycleDays": 20, "completion": 81, "composition": [65, 20, 15] },
+    { "name": "北区", "revenue": 22, "target": 18, "cycleDays": 28, "completion": 68, "composition": [45, 35, 20] }
+  ],
+  "monthly": {
+    "labels": ["3月", "4月", "5月", "6月", "7月", "8月"],
+    "actual": [86, 94, null, 108, 116, 128],
+    "target": [80, 88, 96, 104, 112, 120],
+    "missingNote": "5月未采集，不插值、不连线"
+  },
+  "quadrants": {
+    "cycleDays": 26,
+    "completion": 80,
+    "note": "26天与80%仅为设计示例分界，不构成业务策略"
+  },
+  "waterfall": {
+    "base": 120,
+    "changes": [
+      { "name": "新增业务", "value": 10 },
+      { "name": "提效", "value": 6 },
+      { "name": "延期", "value": -5 },
+      { "name": "调整", "value": -3 }
+    ],
+    "total": 128,
+    "note": "独立的人工贡献拆解；不由四区目标差额反推"
+  },
+  "compositionLabels": ["已交付", "进行中", "待处理"],
+  "compositionNote": "各区任务数量构成，各行合计100%；工作完成率为另一独立指标"
+}

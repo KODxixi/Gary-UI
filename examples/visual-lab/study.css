@@ -1,0 +1,88 @@
+.study-hero { padding:110px 0 64px; text-align:center; }
+.study-hero .gary-role-title { font-weight:400; letter-spacing:0; font-size:clamp(27px,4.8vw,68px); }
+.study-hero>p:not(.eyebrow) { color:var(--demo-muted); font-size:17px; line-height:1.9; }
+.study-index { display:flex; justify-content:center; flex-wrap:wrap; gap:28px; margin-top:32px; }
+.study-index a { min-height:44px; display:flex; align-items:center; color:var(--demo-muted); text-decoration:none; font-size:14px; }
+.study-section { padding:48px 0; scroll-margin-top:84px; }
+.study-heading { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+.study-heading .eyebrow { margin-bottom:12px; }
+.study-section h2 { margin:0; font-size:clamp(24px,3vw,38px); font-weight:400; letter-spacing:-.02em; }
+.study-section h3 { font-size:21px; font-weight:500; margin:0; }
+.study-lead { font-size:16px; line-height:1.8; color:var(--demo-muted); max-width:60em; margin:24px 0 12px; }
+.study-tag,.study-note,.chart-reading { color:var(--demo-muted); font-size:13px; line-height:1.7; }
+.study-tag { white-space:nowrap; }
+[data-chart-status] { font-size:13px; color:var(--demo-muted); }
+.analysis-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin-top:28px; }
+.analysis-panel { min-width:0; padding:28px; background:var(--demo-panel); border:1px solid var(--demo-line); border-radius:30px; }
+.analysis-panel header { display:flex; justify-content:space-between; gap:16px; align-items:center; }
+.analysis-panel header .eyebrow { font-size:10px; margin:0 0 10px; }
+.chart-reading { min-height:44px; margin:16px 0 0; }
+.study-chart { width:100%; height:286px; margin:8px 0; }
+.analysis-panel details { border-top:1px solid var(--demo-line); margin-top:12px; padding-top:4px; }
+.analysis-panel summary { min-height:44px; display:flex; align-items:center; text-align:left; font-size:13px; color:var(--demo-muted); cursor:pointer; }
+.analysis-panel summary::before { content:'+'; margin-right:10px; font-size:17px; }.analysis-panel details[open] summary::before { content:'−'; }
+.table-scroll { min-width:0; }
+.analysis-panel table { width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums; margin:12px 0; }
+.analysis-panel th,.analysis-panel td { padding:14px 10px; text-align:right; border-bottom:1px solid var(--demo-line); white-space:nowrap; }
+.analysis-panel th:first-child,.analysis-panel td:first-child { text-align:left; }
+.analysis-panel thead th { font-weight:400; color:var(--demo-muted); font-size:12px; }
+.analysis-panel tbody th { font-weight:500; }
+.analysis-panel tfoot td,.analysis-panel tfoot th { padding-top:20px; font-weight:600; border-bottom:0; }
+.analysis-panel tbody tr:hover { background:var(--demo-accent-soft); }
+.analysis-panel [data-row-bar],.row-bar { display:block; height:3px; margin-top:6px; border-radius:3px; background:var(--demo-accent); }
+.table-inline-bar { display:block; width:var(--bar-width); height:3px; margin:6px 0 0 auto; border-radius:3px; background:var(--demo-accent); }
+.study-rule { margin-top:32px; border-left:2px solid var(--demo-line); padding:4px 0 4px 24px; }
+.study-rule strong { font-size:16px; font-weight:500; }.study-rule p { max-width:68em; color:var(--demo-muted); font-size:14px; line-height:1.8; margin-bottom:0; }
+.study-controls,.material-layers { display:flex; align-items:center; flex-wrap:wrap; gap:16px 24px; margin:24px 0; }
+.study-controls label,.material-layers label { display:flex; align-items:center; gap:8px; min-height:44px; font-size:14px; }
+.study-controls input,.material-layers input { accent-color:var(--demo-accent); width:17px; height:17px; }
+.material-stage { position:relative; padding:36px 18px; margin:16px -18px; }
+.material-reference { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.material-reference i,.material-reference b { position:absolute; border-radius:50%; display:block; }
+.material-reference i { width:70%; height:180px; left:0; top:135px; background:linear-gradient(110deg,#426da7,#8bb6c4); transform:rotate(-12deg); }
+.material-reference b { width:47%; height:120px; right:0; bottom:90px; background:linear-gradient(110deg,#8b6840,#cfb48b); transform:rotate(-18deg); }
+[data-reference="off"] .material-reference { display:none; }
+.material-specimens { position:relative; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+html body .specimen { position:relative; min-width:0; border-radius:30px; padding:32px; min-height:336px; color:var(--demo-ink); overflow:hidden; }
+.specimen>.eyebrow { font-size:10px; letter-spacing:.13em; }
+.specimen p { position:relative; z-index:1; line-height:1.8; }
+.specimen h3 { position:relative; z-index:1; font-size:21px; }
+.specimen .specimen-number { font-size:54px; font-weight:400; line-height:1; letter-spacing:-.04em; font-variant-numeric:tabular-nums; margin:28px 0 12px; }
+.specimen-number span { font-size:13px; margin-left:10px; letter-spacing:0; color:var(--demo-muted); }
+.specimen-caption { color:var(--demo-muted); font-size:13px; margin-bottom:0; }
+.specimen-divider { height:1px; background:var(--demo-line); margin:22px 0; }
+.specimen--solid { background:var(--demo-panel); border:1px solid var(--demo-line); box-shadow:0 2px 6px #0001; }
+.specimen--frost { background:rgba(18,20,24,.56); backdrop-filter:blur(18px) saturate(.75); border:1px solid #ffffff24; box-shadow:inset 0 1px 0 #ffffff26,0 14px 30px #0003; }
+html body .specimen--lens[data-gary-material="glass"] { --gary-refraction-plate:rgba(10,14,20,.38); --gary-refraction-edge:rgba(255,255,255,.65); --gary-refraction-inner:rgba(255,255,255,.11); background:var(--gary-refraction-plate); box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner),0 5px 9px #0003,0 22px 44px #0002; }
+html body .specimen--lens[data-gary-material="glass"]::after { content:''; position:absolute; inset:0; border-radius:inherit; padding:1px; background:radial-gradient(180px circle at var(--light-x,50%) var(--light-y,0%),rgba(255,255,255,.85),transparent 85%); mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); mask-composite:exclude; pointer-events:none; opacity:var(--light-active,0); }
+html body .specimen--lens[data-gary-material="glass"]::before { content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background:radial-gradient(250px circle at var(--light-x,50%) var(--light-y,0%),#ffffff0d,transparent 80%); opacity:var(--light-active,0); }
+[data-gary-theme="light"] .specimen--frost { background:rgba(255,255,255,.65); border-color:#ffffffa0; box-shadow:inset 0 1px 0 #ffffffe0,0 14px 30px #12202a16; }
+html[data-gary-theme="light"] body .specimen--lens[data-gary-material="glass"] { --gary-refraction-plate:rgba(255,255,255,.54); --gary-refraction-edge:rgba(255,255,255,.95); --gary-refraction-inner:rgba(44,58,68,.17); box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner),0 5px 9px #12202a12,0 22px 44px #12202a16; }
+html body [data-transmission="off"] .specimen--lens { background:var(--demo-panel); }
+html body [data-refraction="off"] .specimen--lens { backdrop-filter:blur(2.4px); -webkit-backdrop-filter:blur(2.4px); }
+html body [data-edge="off"] .specimen--lens { --gary-refraction-edge:transparent; --gary-refraction-inner:transparent; }
+html body [data-edge="off"] .specimen--lens::after,html body [data-edge="off"] .specimen--lens::before { display:none; }
+html body [data-shadow="off"] .specimen--lens { box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner); }
+.material-layers { border:0; padding:0; }.material-layers legend { font-size:14px; color:var(--demo-muted); margin-bottom:8px; }
+.light-section .filters { margin-top:28px; }.light-probe { min-height:390px; padding:40px; display:flex; align-items:center; justify-content:space-around; gap:24px; position:relative; }
+.probe-label { color:var(--demo-muted); font-size:14px; max-width:12em; line-height:1.8; }
+.probe-card { width:min(440px,100%); flex-shrink:0; }
+.study-scene-light { position:absolute; inset:0; opacity:var(--scene-light-active,0); background:radial-gradient(260px circle at var(--scene-light-x,50%) var(--scene-light-y,50%),rgba(210,227,250,.2),transparent 80%); pointer-events:none; }
+[data-gary-theme="light"] .study-scene-light { background:radial-gradient(260px circle at var(--scene-light-x,50%) var(--scene-light-y,50%),rgba(74,99,135,.17),transparent 80%); }
+.study-decisions { display:flex; align-items:end; flex-wrap:wrap; gap:20px; margin:32px 0 16px; }
+.study-decisions label { display:flex; flex:1; min-width:220px; flex-direction:column; gap:12px; font-size:14px; }
+.study-decisions select { padding:10px 14px; min-height:44px; border:1px solid var(--demo-line); border-radius:18px; background:var(--demo-panel); color:var(--demo-ink); }
+#choice-fallback { width:100%; min-height:100px; background:var(--demo-panel); color:var(--demo-ink); padding:16px; border:1px solid var(--demo-line); border-radius:18px; }
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+@media(max-width:900px) { .material-specimens { gap:16px; }html body .specimen { padding:24px; }.specimen .specimen-number { font-size:44px; }.analysis-panel { padding:24px; } }
+@media(max-width:700px) { .analysis-gallery,.material-specimens { grid-template-columns:1fr; }.study-hero { padding:80px 0 32px; }.study-section { padding:32px 0; }.study-index { gap:8px 20px; }.study-chart { height:280px; }.material-reference i { width:90%; height:80%; left:5%; top:8%; }.material-reference b { width:45%; height:60%; bottom:10%; }.light-probe { flex-direction:column; padding:28px 0; }.probe-label { max-width:none; }.study-hero>p:not(.eyebrow) { font-size:16px; }.study-decisions { gap:16px; }.study-decisions label { min-width:100%; }.study-section h3 { font-size:19px; } }
+@media(max-width:600px) {
+  .material-stage { margin:16px 0; padding:28px 0; }
+  .analysis-panel table,.analysis-panel tbody,.analysis-panel tfoot { display:block; }.analysis-panel thead { display:none; }
+  .analysis-panel tbody tr,.analysis-panel tfoot tr { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 16px; padding:16px 0; border-bottom:1px solid var(--demo-line); }
+  .analysis-panel td,.analysis-panel tbody th,.analysis-panel tfoot th { padding:4px 0; border:0; white-space:normal; overflow-wrap:anywhere; text-align:left; }
+  .analysis-panel tbody th,.analysis-panel tfoot th { grid-column:1/-1; }
+  .analysis-panel td::before { content:attr(data-label); display:block; color:var(--demo-muted); font-size:11px; margin-bottom:4px; }
+}
+@media(prefers-reduced-motion:reduce) { .study-scene-light { display:none; }html body .specimen::before,html body .specimen::after { opacity:0; } }
+@media print { .demo-global-scene,.study-controls,.material-layers,.study-decisions,.filters,[data-export-chart],#choice-fallback { display:none!important; }.study-hero { padding:16px 0; }.analysis-gallery { display:block; }.analysis-panel { break-inside:avoid; margin-bottom:20px; }.study-chart { height:260px; }.material-specimens { display:block; }.specimen { break-inside:avoid; margin-bottom:20px; }html body .specimen--lens,html body .specimen--frost { background:#fff!important; backdrop-filter:none!important; box-shadow:none!important; color:#111!important; }.material-reference { display:none; }.light-probe { display:block; }.study-rule { break-inside:avoid; } }

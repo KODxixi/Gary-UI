@@ -37,6 +37,31 @@
       "视频提供字幕轨与键盘可用控件"
     ]
   },
+  "contentRailRecipe": {
+    "status": "optional-static-html-recipe",
+    "purpose": "项目案例、媒体证据与阶段记录的手动横向浏览",
+    "assets": [
+      "patterns/shared/content-rail.css",
+      "patterns/shared/content-rail.js"
+    ],
+    "markup": {
+      "host": "[data-gary-rail]",
+      "list": "ol.gary-content-rail 或 ul.gary-content-rail，tabindex=0，提供 aria-label",
+      "items": "列表直接 li 子项，每项包含 figure.gary-media-card",
+      "previous": "button[data-rail-prev][data-gary-icon=arrow-left]",
+      "next": "button[data-rail-next][data-gary-icon=arrow-left]，图标由 CSS 旋转 180 度",
+      "status": "[data-rail-status]，显示当前序号 / 总数"
+    },
+    "api": "GaryContentRail.mount(host) 返回 { destroy }；静态页面自动挂载且幂等",
+    "rules": [
+      "单主卡与下一张露边；图片和 figcaption 分开，不在轨道外套玻璃",
+      "手动按钮、触摸、轨迹板和列表自身的方向键、Home、End；不自动播放、不循环",
+      "不劫持子项链接、输入框或其他控件的键盘操作",
+      "减弱动态立即定位；打印时所有卡片纵向完整展开",
+      "复用 GaryIcons 渲染圆形控制按钮，不新增图标依赖",
+      "当前用于静态列表；改变条目集合前先 destroy，再 mount，不承诺 React 适配"
+    ]
+  },
   "cssClasses": [
     ".gary-media-card",
     ".gary-media-card__media",
