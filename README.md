@@ -2,7 +2,7 @@
 
 <h1 align="center">Gary-UI</h1>
 <p align="center">为专注而设计。一个以完整情境讲解、可以复制和持续深化的 UI 设计系统。</p>
-<p align="center"><a href="https://kodxixi.github.io/Gary-UI/">打开完整 Demo</a> · <a href="https://kodxixi.github.io/Gary-UI/portal/">探索设计系统</a> · <a href="#五分钟开始">复制与使用</a> · <a href="docs/ROADMAP.md">一起深化</a></p>
+<p align="center"><a href="https://kodxixi.github.io/Gary-UI/">打开完整 Demo</a> · <a href="https://kodxixi.github.io/Gary-UI/demo0909.html">图表与材质 Demo</a> · <a href="https://kodxixi.github.io/Gary-UI/portal/">探索设计系统</a> · <a href="#五分钟开始">复制与使用</a> · <a href="docs/ROADMAP.md">一起深化</a></p>
 
 [![完整 Demo 首页](docs/images/demo-home.png)](https://kodxixi.github.io/Gary-UI/)
 
@@ -42,7 +42,7 @@ README 以 [完整 Demo 首页](examples/demos/index.html) 的六种工作情境
 
 [图表色彩体系](docs/CHART_COLOR.md)说明类别、连续量、偏差与状态如何选色，以及深浅主题和 Apple／Google 设计原则的应用边界；角色与色值统一落在机器规则中。
 
-[打开 demo0909.html](demo0909.html)：用不同领域的人工案例检验换单位、类别数量、尺度与缺测后的表达。[共享 SVG 参考实现](patterns/shared/chart-recipes.js)实际覆盖双轴、瀑布、环图、雷达、玫瑰五种，图表与数值表同源；不是新增适配器引擎，也不表示全部 17 类或 7 种标注已经自动实现。[调用示例与范围](docs/CHART_EXPRESSION.md#55-参考实现的调用边界)说明代码读取的参数及仍需人工审查的约束。
+[在线体验图表与材质 Demo](https://kodxixi.github.io/Gary-UI/demo0909.html) · [查看 HTML 源码](demo0909.html)：用不同领域的人工案例检验换单位、类别数量、尺度与缺测后的表达。[共享 SVG 参考实现](patterns/shared/chart-recipes.js)实际覆盖双轴、瀑布、环图、雷达、玫瑰五种，图表与数值表同源；不是新增适配器引擎，也不表示全部 17 类或 7 种标注已经自动实现。[调用示例与范围](docs/CHART_EXPRESSION.md#55-参考实现的调用边界)说明代码读取的参数及仍需人工审查的约束。
 
 三种材质按场景采用：**实体底纹（Solid）**、**磨砂玻璃（Frosted）**、**超白/全透玻璃（Optical）**。实体外卡与短指标可组合 `data-gary-surface="solid" data-gary-texture="flow"`，呈现静态中性指纹细线；图表绘图区、密集表格和长正文使用干净实底。磨砂玻璃用于摘要与导航，超白/全透玻璃用于短内容与展示。联动光影默认关闭，只有在右上角 `Background` 开启后才响应；主题按钮仍独立。[适用场景、调用代码与规则](docs/VISUAL_EXPRESSION.md)。此前的[视觉研究页](examples/visual-lab/index.html)保留为历史对照。
 
