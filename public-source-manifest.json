@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repository": "KODxixi/Gary-UI",
-  "files": 978,
+  "files": 979,
   "entries": [
     {
       "path": ".gitattributes",
@@ -49,7 +49,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "6fb0da109c265b59bb8a323357ef85f80cd582414a09b8a87b70bdb7c50c5d9f"
+      "sha256": "c059253664812f6816e0ebd0ec8f4d9286d5a750e6f43bb485241175fe97aab5"
     },
     {
       "path": "SKILL.md",
@@ -1350,6 +1350,10 @@
     {
       "path": "docs/images/demo-home.png",
       "sha256": "9eace0782c0f628dc4dccfb2b439dba99083059903568819486f7b95637f8040"
+    },
+    {
+      "path": "docs/images/materials-demo.png",
+      "sha256": "9649341cb4f64be2e6c8136da3392d77c5607568d801d8d53375de88263f08b5"
     },
     {
       "path": "examples/co-design/board-data/rev1/a-decision-field/index.html",

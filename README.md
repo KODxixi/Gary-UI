@@ -4,7 +4,7 @@
 <p align="center">为专注而设计。一个以完整情境讲解、可以复制和持续深化的 UI 设计系统。</p>
 <p align="center"><a href="https://kodxixi.github.io/Gary-UI/">打开完整 Demo</a> · <a href="https://kodxixi.github.io/Gary-UI/demo0909.html">图表与材质 Demo</a> · <a href="https://kodxixi.github.io/Gary-UI/portal/">探索设计系统</a> · <a href="#五分钟开始">复制与使用</a> · <a href="docs/ROADMAP.md">一起深化</a></p>
 
-[![完整 Demo 首页](docs/images/demo-home.png)](https://kodxixi.github.io/Gary-UI/)
+[![三种材质：实体底纹、磨砂玻璃、超白/全透玻璃](docs/images/materials-demo.png)](https://kodxixi.github.io/Gary-UI/demo0909.html#materials)
 
 Gary-UI 把排版、卡片、图标、图表与动效放进真实页面里：先体验它们如何一起工作，再把同一套规则带回自己的项目。默认纯黑 / 纯白、单一点网格、中文阅读尺度和克制的玻璃材质。面向人的设计说明与面向 Agent 的契约放在同一份源码中。
 
