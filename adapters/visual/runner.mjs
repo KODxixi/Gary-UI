@@ -30,8 +30,9 @@ function resolveManagedSkillRoot(name) {
   const candidates = [
     path.resolve(PROJECT_ROOT, '..', '..', 'skills', name),
     path.resolve(ADAPTER_ROOT, '..', '..', '..', name),
+    path.join(ADAPTER_ROOT, 'vendor', 'antv-skills', name),
   ];
-  return candidates.find((candidate) => fs.existsSync(path.join(candidate, 'SKILL.md'))) || candidates[0];
+  return candidates.find((candidate) => fs.existsSync(path.join(candidate, 'SKILL.md'))) || candidates.at(-1);
 }
 function resolveArchifyRoot() {
   const candidates = [

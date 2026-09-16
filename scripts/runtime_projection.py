@@ -6,7 +6,6 @@ import argparse
 import fnmatch
 import hashlib
 import json
-import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -101,10 +100,27 @@ def file_hash(path: Path) -> str:
     return digest.hexdigest()
 
 
+def projected_bytes(relative: str, source: Path) -> bytes:
+    if relative == "patterns/shared/background-lab.js":
+        from build_public import public_text
+
+        return public_text(
+            Path(relative), source.read_text(encoding="utf-8")
+        ).encode("utf-8")
+    return source.read_bytes()
+
+
+def projected_hash(relative: str, source: Path) -> str:
+    return hashlib.sha256(projected_bytes(relative, source)).hexdigest()
+
+
 def projection_hash(manifest: dict, selected: dict[str, Path]) -> str:
     payload = {
         "manifest": manifest,
-        "files": {relative: file_hash(path) for relative, path in selected.items()},
+        "files": {
+            relative: projected_hash(relative, path)
+            for relative, path in selected.items()
+        },
     }
     encoded = json.dumps(
         payload,
@@ -172,7 +188,7 @@ def compare(selected: dict[str, Path], target: Path, manifest: dict | None = Non
         destination = target / Path(relative)
         if not destination.is_file():
             missing.append(relative)
-        elif file_hash(source) != file_hash(destination):
+        elif projected_hash(relative, source) != file_hash(destination):
             mismatch.append(relative)
 
     actual = {
@@ -201,7 +217,7 @@ def copy_projection(selected: dict[str, Path], destination: Path) -> int:
     for relative, source in selected.items():
         target = destination / Path(relative)
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source, target)
+        target.write_bytes(projected_bytes(relative, source))
         copied += 1
     return copied
 

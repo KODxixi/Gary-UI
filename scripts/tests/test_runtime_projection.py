@@ -55,7 +55,33 @@ class RuntimeProjectionTests(unittest.TestCase):
         self.assertNotIn("adapters/visual/tests/runner.test.mjs", selected)
         self.assertNotIn("examples/visuals/outputs/index.html", selected)
         self.assertNotIn("examples/demos/visuals/outputs/index.html", selected)
+        self.assertNotIn("patterns/shared/glass-surface.js", selected)
+        self.assertNotIn("patterns/shared/gradient-waves.js", selected)
+        self.assertFalse(
+            any(
+                path.startswith(
+                    (
+                        "examples/demos/evidence/glass-surface/",
+                        "examples/demos/evidence/gradient-waves/",
+                    )
+                )
+                for path in selected
+            )
+        )
         self.assertFalse(any(".pytest_cache" in path for path in selected))
+
+    def test_runtime_projection_sanitizes_restricted_background_route(self) -> None:
+        manifest = runtime_projection.read_manifest()
+        selected = runtime_projection.expand_selected(manifest)
+        source = selected["patterns/shared/background-lab.js"]
+
+        projected = runtime_projection.projected_bytes(
+            "patterns/shared/background-lab.js", source
+        ).decode("utf-8")
+
+        self.assertNotIn("new URL('gradient-waves.js'", projected)
+        self.assertNotIn('value="gradient-waves"', projected)
+        self.assertIn("动态海浪引擎不在公开包", projected)
 
     def test_build_produces_hash_identical_projection(self) -> None:
         manifest = runtime_projection.read_manifest()

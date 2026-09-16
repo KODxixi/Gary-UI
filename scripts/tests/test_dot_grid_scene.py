@@ -18,6 +18,16 @@ class DotGridSceneContractTests(unittest.TestCase):
         self.assertEqual(tokens["tokens"]["--gary-surface-page"]["light"], "#ffffff")
         self.assertEqual(tokens["tokens"]["--gary-scene-image"]["value"], "none")
         self.assertEqual(system["visualAxes"]["defaults"]["material"], "ultrathin")
+        self.assertEqual(
+            system["visualAxes"]["viewportBaseline"],
+            {
+                "width": 1920,
+                "height": 1080,
+                "aspectRatio": "16:9",
+                "priority": "primary",
+                "responsiveFallbacks": "secondary",
+            },
+        )
         self.assertEqual(metadata["defaultScene"], "dot-grid")
         self.assertIsNone(metadata["defaultBackground"])
         self.assertEqual(metadata["defaultMaterial"], "ultrathin")

@@ -32,6 +32,12 @@ HIG 校验边界；这是一层质量方法，不是配色或外观模板。采�
 [Adopting Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/adopting-liquid-glass)。
 `apple-design` 提供 Web 层的材质、排版与运动判断顺序；Gary 不复制 Apple 组件、字体或素材。
 
+### 1.2 首要画布基准
+
+正式网页设计、视觉验证与导出首先以 **1920 × 1080 px（16:9）** 为唯一首要基准。
+先保证 16:9 比例、内容层级、Scene 和可读性；其他视口只在基准通过后做次级适配，
+不得反过来改变基准几何。机器读取以 `spec/system.json.viewportBaseline` 为准。
+
 ## 2. 场景模型
 
 页面只有三层：唯一 Scene、唯一 Global mask、以及 UltraThin / Regular / Thick /
