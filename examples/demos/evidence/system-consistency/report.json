@@ -1,0 +1,8408 @@
+{
+  "generatedAt": "2026-09-07T19:14:16.194Z",
+  "method": "Real Chromium on the running Portal; 1440 and 390 CSS px; dark/light; reduced motion; Canvas draw instrumentation; external requests blocked",
+  "checks": 100,
+  "passed": 100,
+  "results": [
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "overview",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "colors",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "typography",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "materials",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "强制开启背景动态",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "geometry",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "重播动效",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "components",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-button",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "执行操作",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "次操作",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-segmented",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-field",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-tab-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-web-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "返回",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "刷新",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-glass-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-metric-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-comparison-table",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-decision-grid",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-media-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "收藏案例",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-profile-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "关注",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-chip",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-evidence-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-scene",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-solid-plate",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "patterns",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开看板模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "demos",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开 Demo 首页 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "visuals",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开样例 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "starting-points",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开模板入口 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "product-design",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "恢复推荐值",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 Token 提案",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制当前协作指令",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "review",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制用户自定义写法",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "保存本轮决定",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制决策摘要",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "恢复推荐值",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "确认方案",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "action-state-transitions",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "patterns/application-modes/board.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 5883
+        },
+        "actions": [
+          {
+            "label": "返回母本",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "patterns/application-modes/scroll-report.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "演示视图",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "patterns/application-modes/web-ui.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 5883
+        },
+        "actions": [
+          {
+            "label": "返回母本",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "应用筛选",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "重置",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "保存任务",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "patterns/report-cover.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 5883
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "patterns/image-page.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "patterns/data-page.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "patterns/manual-toc.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "patterns/starting-points/index.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 5883
+        },
+        "actions": [
+          {
+            "label": "返回控制台",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制起手骨架",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开组合",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "patterns/starting-points/preview.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 2120
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "examples/visuals/outputs/index.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 5883
+        },
+        "actions": [
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "examples/demos/visuals/outputs/index.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "page": "examples/demos/index.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "overview",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "colors",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "typography",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "materials",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "强制开启背景动态",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "geometry",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "重播动效",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "components",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-button",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "执行操作",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "次操作",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-segmented",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-field",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-tab-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-web-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "返回",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "刷新",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-glass-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-metric-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-comparison-table",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-decision-grid",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-media-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "收藏案例",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-profile-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "关注",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-chip",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-evidence-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-scene",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-solid-plate",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "patterns",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开看板模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "demos",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开 Demo 首页 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "visuals",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开样例 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "starting-points",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开模板入口 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "product-design",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "恢复推荐值",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 Token 提案",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制当前协作指令",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "review",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制用户自定义写法",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "保存本轮决定",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制决策摘要",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "恢复推荐值",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "确认方案",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "action-state-transitions",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "patterns/application-modes/board.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 5883
+        },
+        "actions": [
+          {
+            "label": "返回母本",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "patterns/application-modes/scroll-report.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 5883
+        },
+        "actions": [
+          {
+            "label": "演示视图",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "patterns/application-modes/web-ui.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 5883
+        },
+        "actions": [
+          {
+            "label": "返回母本",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "应用筛选",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "重置",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "保存任务",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "patterns/report-cover.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 5883
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "patterns/image-page.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "patterns/data-page.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "patterns/manual-toc.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "patterns/starting-points/index.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 5883
+        },
+        "actions": [
+          {
+            "label": "返回控制台",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制起手骨架",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开组合",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "patterns/starting-points/preview.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 2756
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "examples/visuals/outputs/index.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "examples/demos/visuals/outputs/index.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "page": "examples/demos/index.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 3922
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "overview",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "colors",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "typography",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "materials",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "强制开启背景动态",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "geometry",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "重播动效",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "components",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-button",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "执行操作",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "次操作",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-segmented",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-field",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-tab-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-web-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "返回",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "刷新",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-glass-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-metric-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-comparison-table",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-decision-grid",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-media-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "收藏案例",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-profile-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "关注",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-chip",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-evidence-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-scene",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-solid-plate",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "patterns",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开看板模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "demos",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开 Demo 首页 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "visuals",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开样例 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "starting-points",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开模板入口 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "product-design",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "恢复推荐值",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 Token 提案",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制当前协作指令",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "review",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为浅色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制用户自定义写法",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "保存本轮决定",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制决策摘要",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "恢复推荐值",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "确认方案",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "action-state-transitions",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "patterns/application-modes/board.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1665
+        },
+        "actions": [
+          {
+            "label": "返回母本",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "patterns/application-modes/scroll-report.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1665
+        },
+        "actions": [
+          {
+            "label": "演示视图",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "patterns/application-modes/web-ui.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1665
+        },
+        "actions": [
+          {
+            "label": "返回母本",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "应用筛选",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "重置",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "保存任务",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "patterns/report-cover.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1665
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "patterns/image-page.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "patterns/data-page.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "patterns/manual-toc.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "patterns/starting-points/index.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1665
+        },
+        "actions": [
+          {
+            "label": "返回控制台",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制起手骨架",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开组合",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "patterns/starting-points/preview.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 930
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "examples/visuals/outputs/index.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "examples/demos/visuals/outputs/index.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "page": "examples/demos/index.html",
+      "proof": {
+        "theme": "dark",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "overview",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "colors",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "typography",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "materials",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "强制开启背景动态",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "geometry",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "重播动效",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "components",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-button",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "执行操作",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "次操作",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-segmented",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-field",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-tab-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-web-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "返回",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "刷新",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-glass-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-metric-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-comparison-table",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-decision-grid",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-media-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "收藏案例",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-profile-card",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "关注",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-chip",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-evidence-bar",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-scene",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 .gary-solid-plate",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "patterns",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开看板模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "demos",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开 Demo 首页 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "visuals",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开样例 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "starting-points",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开模板入口 ↗",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "product-design",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "恢复推荐值",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制 Token 提案",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制当前协作指令",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "review",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "切换为深色模式",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "菜单",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制用户自定义写法",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "保存本轮决定",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制决策摘要",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "恢复推荐值",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "确认方案",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "action-state-transitions",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "patterns/application-modes/board.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1665
+        },
+        "actions": [
+          {
+            "label": "返回母本",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "patterns/application-modes/scroll-report.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 2220
+        },
+        "actions": [
+          {
+            "label": "演示视图",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "patterns/application-modes/web-ui.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1665
+        },
+        "actions": [
+          {
+            "label": "返回母本",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "应用筛选",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "重置",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "保存任务",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "patterns/report-cover.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "patterns/image-page.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "patterns/data-page.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "patterns/manual-toc.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1665
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "patterns/starting-points/index.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1665
+        },
+        "actions": [
+          {
+            "label": "返回控制台",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "复制起手骨架",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "独立打开组合",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "patterns/starting-points/preview.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 690
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "examples/visuals/outputs/index.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PDF 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "examples/demos/visuals/outputs/index.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开交互 HTML",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "查看原生源文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 SVG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          },
+          {
+            "label": "打开 PNG 导出文件",
+            "icon": true,
+            "width": "44px",
+            "height": "44px",
+            "radius": "50%"
+          }
+        ],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "page": "examples/demos/index.html",
+      "proof": {
+        "theme": "light",
+        "overflow": false,
+        "scenes": [
+          {
+            "canvases": 1,
+            "background": "none",
+            "status": "reduced-motion"
+          }
+        ],
+        "draw": {
+          "strokes": 0,
+          "dots": 1110
+        },
+        "actions": [],
+        "cards": [
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          },
+          {
+            "state": "svg",
+            "radius": "30px",
+            "filter": "none"
+          }
+        ],
+        "unmounted": [],
+        "nested": 0,
+        "contours": 0
+      },
+      "pass": true
+    }
+  ]
+}

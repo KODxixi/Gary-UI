@@ -15,6 +15,12 @@ REQUIRED = ('LICENSE', 'README.md', 'AGENTS.md', 'CONTRIBUTING.md', 'index.html'
             'adapters/react-shadcn/dist/index.js', 'adapters/react-shadcn/dist/styles/gary-ui.css')
 FORBIDDEN = ('portal/light-rays.js', 'patterns/shared/glass-surface.js', 'patterns/shared/gradient-waves.js',
              'provenance/react-bits/GlassSurface.jsx', 'provenance/react-bits/GradientWaves.jsx')
+PUBLIC_BACKGROUND_FORBIDDEN = (
+    "new URL('gradient-waves.js'",
+    'new URL("gradient-waves.js"',
+    '<option value="gradient-waves"',
+    "<option value='gradient-waves'",
+)
 PAGES = ('demo0909.html', 'examples/demos/index.html', 'portal/index.html', 'patterns/starting-points/index.html',
          *(f'examples/demos/{slug}/index.html' for slug in ('web-analysis', 'web-reading', 'project-kanban', 'executive-board', 'research-report', 'proposal-presentation')))
 
@@ -39,6 +45,14 @@ def check(root: Path) -> dict:
     for name in FORBIDDEN:
         if (root / name).exists():
             failures.append(f'Restricted historical implementation in public tree: {name}')
+    if (root / 'design-qa.md').exists():
+        failures.append('Archived design-qa.md must not be an active public entrypoint')
+    background_lab = root / 'patterns' / 'shared' / 'background-lab.js'
+    if background_lab.is_file():
+        content = background_lab.read_text(encoding='utf-8', errors='replace')
+        for marker in PUBLIC_BACKGROUND_FORBIDDEN:
+            if marker in content:
+                failures.append(f'Public Background retains restricted route: {marker}')
     for filename in (*PAGES, 'README.md', 'AGENTS.md', 'DESIGN.md', 'SKILL.md', 'PROJECT_STRUCTURE.md', 'CONTRIBUTING.md', 'docs/ROADMAP.md', 'docs/PUBLIC_RELEASE.md', 'docs/PUBLISHING.md'):
         file = root / filename
         if not file.is_file():

@@ -5,6 +5,33 @@
 Gary-UI 服务于高信息密度中文报告、分析界面与工具产品。判断顺序是：内容可读、层级可辨、
 操作可预期，最后才是玻璃表现。Liquid Glass 是材料语言，不是装饰滤镜。
 
+### 1.1 Apple quality layer
+
+Gary-UI 以已安装的 `apple-design` 作为还原 Apple 设计逻辑的首要方法入口，再用 Apple 官方
+HIG 校验边界；这是一层质量方法，不是配色或外观模板。采用的核心是目的、
+用户控制、熟悉性、适应性、简洁与细节质量，以及响应及时、空间路径一致、运动可中断、
+排版随字号变化和辅助功能降级。Gary 自己的三种表面、排版和图表规则仍是最终视觉权威。
+
+- Liquid Glass 只承担导航、控件、工具条和短暂功能层，让下方内容保持上下文；图表、表格、
+  长正文和密集证据使用稳定的实体材质，不把整页内容都玻璃化。
+- 三种已命名表面保持为 **实体底纹、磨砂玻璃、超白/全透玻璃**；一页只有一个 Scene，
+  玻璃最多一层，禁止 glass-in-glass。默认 Scene 仍是单一点网格。
+- 按压在 `100–160ms` 内回应；频繁 UI 状态转场不超过 `300ms`。用户可以随时打断并反向操作；
+  bounce 只用于真实拖拽、甩动或动量释放，不用于普通菜单和装饰入场。
+- hover 运动仅对 `hover: hover` 且 `pointer: fine` 的设备生效；Gary 的指针联动仍默认关闭，
+  只能从 Background 主动开启。触控和键盘路径不能依赖 hover。
+- 减弱动态时保留短促的透明度或颜色反馈，去除位移、弹性、视差和持续循环；减弱透明度时
+  提高表面不透明度并取消背景模糊；增强对比度时使用接近实底的表面和清晰边界。
+- 字距和行高按字号分别设定：展示字可适度收紧，正文保持自然字距和舒适行高，小字号标签
+  可轻微放宽。布局与间距使用可随文字缩放的单位，放大文本后仍保留层级、点击区和完整内容。
+- 顶部与底部功能层必须尊重浏览器安全区；状态、操作和关键信息不能只靠透明度、颜色或运动表达。
+
+官方参考：[Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles)、
+[Motion](https://developer.apple.com/design/human-interface-guidelines/motion)、
+[Typography](https://developer.apple.com/design/human-interface-guidelines/typography)、
+[Adopting Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/adopting-liquid-glass)。
+`apple-design` 提供 Web 层的材质、排版与运动判断顺序；Gary 不复制 Apple 组件、字体或素材。
+
 ## 2. 场景模型
 
 页面只有三层：唯一 Scene、唯一 Global mask、以及 UltraThin / Regular / Thick /
@@ -42,8 +69,9 @@ SolidPlate 不作为整页通用黑底。
 - 圆角：工具操作为 44 × 44px 圆形；其余 control 18px / card 30px / panel 36px / pill 999px。
 - 完整 Demo 是 Portal、组件、模板和制图目录的视觉基线。工具操作优先使用 `data-gary-icon` 与共享 Lucide 图标，1.6px 描边；使用 `aria-label` 和悬停标题表达动作，状态切换保留图标。导航、分段筛选、内容选择保留文字。
 - 普通卡片接入共享 `patterns/shared/material.js` 和原创 `patterns/shared/optical-glass.js`，复用 30px 光学边缘；实底信息板不施加折射，禁止在样例容器外再套玻璃卡片。受再分发限制的旧移植仅保留在维护者本地，不作为公开实现入口。
-- 基础反馈：150 / 250 / 350ms；本轮参考配方的光照过渡 200ms、轮廓舒展 600ms、悬停边缘单次 6s，
-  均有限时长且尊重 `prefers-reduced-motion`。默认无持续循环或自动播放。
+- 按压反馈使用 100–160ms；UI 状态转场不超过 300ms。600ms 舒展和悬停边缘单次 6s
+  仅属于明确启用的展示配方，不能阻塞输入。
+  所有运动均有限时长且尊重 `prefers-reduced-motion`，默认无持续循环或自动播放。
 - 动态 Scene 必须停止动画和鼠标跟随；不可用时不得阻断页面，必须显示静态 Scene token。
 
 Token 变更必须保持暗色、亮色与无 backdrop-filter 降级可用。
@@ -65,6 +93,10 @@ Token 变更必须保持暗色、亮色与无 backdrop-filter 降级可用。
   extra-black 790。正式语义角色 CSS 只应引用 `--gary-font-weight-*`；富文本编辑态可用
   `data-gary-font-weight="100|300|400|500|600|700|800|900"`，缺少真实字重时允许浏览器合成。
 - 正文行高 1.68，段落宽度约 38–72 个中文字符。
+- 字距与行高必须随字号分别调整：展示标题可适度负字距并收紧行高，正文接近自然字距，
+  小字号标签可轻微正字距；中文可读性优先，不机械套用英文负字距。
+- 页面文字和间距使用 `rem`、`em` 或可缩放的 `clamp()`；浏览器放大与用户文字缩放后，
+  层级、44px 最小点击区和完整内容仍成立，不用固定高度裁切文本。
 - 上述中间字重 token 是历史兼容别名；新页面只主动选择 400 / 500 / 600 / 700，展示标题可用 400，避免继续新增近似字重。富文本编辑仍允许数值调整。
 - 大字展示标题必须单行且不带标点，中文不超过 12 字；超长时先改写短标题，完整语义移入副标题或正文，不用 `<br>` 硬换行。
 - 章节标题可自然换行；标题依靠字号、字重和留白，数值用等宽数字。
@@ -73,8 +105,9 @@ Token 变更必须保持暗色、亮色与无 backdrop-filter 降级可用。
 
 内外圆角同心；主卡基准圆角为 30px，内部卡使用 16–20px；均衡密度以 8px 为组件节奏，
 并按 8 / 16 / 24px 组织留白。自定义主卡使用 70% 表面透明度与 8% 层级对比。
-hover 只用轻微位移或阴影，active 使用微小下压。键盘焦点必须清晰，
-动效只表达状态变化。
+hover 只在精确指针设备使用轻微位移或阴影，active 在 100–160ms 内回应。UI 运动不超过
+300ms，必须从当前画面值继续并允许立即打断；只有真实动量交互可以 bounce。键盘焦点必须清晰，
+动效只表达状态变化。`prefers-reduced-motion` 下取消位移、弹性与视差，保留轻柔透明度或颜色反馈。
 
 ### 参考提炼与 Gary 落地
 
@@ -167,6 +200,7 @@ Gary-UI 使用两级模式。一级决定页面壳、导航、滚动和交互密
 - 桌面与 390px 无溢出、裁切或玻璃嵌套。
 - 主题、材质、导航、筛选和页面模式可操作。
 - 键盘焦点、可访问名称、reduced-motion 合格。
+- reduced-transparency、increased-contrast 与安全区内边距可用；放大文本不裁切操作或关键信息。
 - 控制台无错误；静态页面无外网依赖。
 
 ### 10.1 最终交付门禁

@@ -20,15 +20,6 @@ await build({
   format: 'cjs',
   sourcemap: false,
   legalComments: 'eof',
-  plugins: [{
-    name: 'vendored-playwright',
-    setup(buildApi) {
-      buildApi.onResolve({ filter: /^playwright-core$/ }, () => ({
-        path: '../vendor/node/playwright-core/index.js',
-        external: true,
-      }));
-    },
-  }],
   logLevel: 'error',
 });
 
@@ -48,4 +39,8 @@ fs.writeFileSync(
 );
 
 const stat = fs.statSync(path.join(distRoot, 'runner.cjs'));
+fs.copyFileSync(
+  path.join(adapterRoot, 'node_modules', 'playwright-core', 'browsers.json'),
+  path.join(adapterRoot, 'browsers.json'),
+);
 process.stdout.write(`${JSON.stringify({ status: 'pass', output: path.join(distRoot, 'runner.cjs'), bytes: stat.size })}\n`);

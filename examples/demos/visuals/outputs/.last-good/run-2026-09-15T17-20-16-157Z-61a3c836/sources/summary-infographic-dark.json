@@ -1,0 +1,4 @@
+{
+  "title":"四步推进计划",
+  "syntax":"infographic sequence-timeline-simple\ndata\n  sequences\n    - label 上海样板\n      desc 验证完整交付路径\n      icon clipboard check\n    - label 江苏确认\n      desc 取得退款口径书面确认\n      icon shield check\n    - label 浙江就绪\n      desc 完成任务导向培训材料\n      icon book open\n    - label 复核发布\n      desc 证据满足后统一口径归档\n      icon check circle"
+}

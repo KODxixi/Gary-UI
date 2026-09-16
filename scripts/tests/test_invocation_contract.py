@@ -10,6 +10,7 @@ sys.path.insert(0, str(SCRIPTS))
 
 from invocation_contract import (  # noqa: E402
     InvocationContractError,
+    invocation_from_axes,
     load_schema,
     normalize_invocation,
 )
@@ -53,6 +54,14 @@ class InvocationContractTests(unittest.TestCase):
         invocation["material"] = "solid"
         with self.assertRaisesRegex(InvocationContractError, "material"):
             normalize_invocation(invocation)
+
+    def test_route_builder_requires_application_and_page_but_reads_system_defaults(self) -> None:
+        route = invocation_from_axes("web-ui", "data-page")
+        self.assertEqual(route["application"], "web-ui")
+        self.assertEqual(route["page"], "data-page")
+        self.assertEqual(route["theme"], "dark")
+        self.assertEqual(route["material"], "ultrathin")
+        self.assertEqual(route["density"], "balanced")
 
 
 if __name__ == "__main__":

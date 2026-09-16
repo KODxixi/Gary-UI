@@ -1,0 +1,219 @@
+{
+  "generatedAt": "2026-09-07T09:45:02.972Z",
+  "checks": 4,
+  "passed": 4,
+  "results": [
+    {
+      "theme": "dark",
+      "reduced": false,
+      "gridChanged": true,
+      "flow": {
+        "width": 411,
+        "height": 238,
+        "pixels": true
+      },
+      "idle": {
+        "blur": "blur(12px)",
+        "radius": "30px",
+        "background": "rgba(32, 32, 32, 0.52)",
+        "edge": "0",
+        "animation": "none",
+        "flow": false,
+        "weight": "400"
+      },
+      "hover": {
+        "blur": "blur(12px)",
+        "radius": "30px",
+        "background": "rgba(32, 32, 32, 0.52)",
+        "edge": "1",
+        "animation": "gary-card-orbit",
+        "flow": false,
+        "weight": "400"
+      },
+      "focus": {
+        "focused": true,
+        "outline": "solid"
+      },
+      "fonts": {
+        ".demo-nav__brand": [
+          {
+            "familyName": "Helvetica",
+            "postScriptName": "Helvetica-Bold",
+            "isCustomFont": false,
+            "glyphCount": 7
+          }
+        ],
+        ".gallery-hero h1": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei",
+            "isCustomFont": false,
+            "glyphCount": 6
+          }
+        ]
+      },
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "theme": "dark",
+      "reduced": true,
+      "gridChanged": false,
+      "flow": {
+        "width": 411,
+        "height": 238,
+        "pixels": true
+      },
+      "idle": {
+        "blur": "blur(12px)",
+        "radius": "30px",
+        "background": "rgba(32, 32, 32, 0.52)",
+        "edge": "0",
+        "animation": "none",
+        "flow": false,
+        "weight": "400"
+      },
+      "hover": {
+        "blur": "blur(12px)",
+        "radius": "30px",
+        "background": "rgba(32, 32, 32, 0.52)",
+        "edge": "1",
+        "animation": "none",
+        "flow": false,
+        "weight": "400"
+      },
+      "focus": {
+        "focused": true,
+        "outline": "solid"
+      },
+      "fonts": {
+        ".demo-nav__brand": [
+          {
+            "familyName": "Helvetica",
+            "postScriptName": "Helvetica-Bold",
+            "isCustomFont": false,
+            "glyphCount": 7
+          }
+        ],
+        ".gallery-hero h1": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei",
+            "isCustomFont": false,
+            "glyphCount": 6
+          }
+        ]
+      },
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "theme": "light",
+      "reduced": false,
+      "gridChanged": true,
+      "flow": {
+        "width": 411,
+        "height": 238,
+        "pixels": true
+      },
+      "idle": {
+        "blur": "blur(12px)",
+        "radius": "30px",
+        "background": "rgba(245, 245, 245, 0.6)",
+        "edge": "0",
+        "animation": "none",
+        "flow": false,
+        "weight": "400"
+      },
+      "hover": {
+        "blur": "blur(12px)",
+        "radius": "30px",
+        "background": "rgba(245, 245, 245, 0.6)",
+        "edge": "1",
+        "animation": "gary-card-orbit",
+        "flow": false,
+        "weight": "400"
+      },
+      "focus": {
+        "focused": true,
+        "outline": "solid"
+      },
+      "fonts": {
+        ".demo-nav__brand": [
+          {
+            "familyName": "Helvetica",
+            "postScriptName": "Helvetica-Bold",
+            "isCustomFont": false,
+            "glyphCount": 7
+          }
+        ],
+        ".gallery-hero h1": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei",
+            "isCustomFont": false,
+            "glyphCount": 6
+          }
+        ]
+      },
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "theme": "light",
+      "reduced": true,
+      "gridChanged": false,
+      "flow": {
+        "width": 411,
+        "height": 238,
+        "pixels": true
+      },
+      "idle": {
+        "blur": "blur(12px)",
+        "radius": "30px",
+        "background": "rgba(245, 245, 245, 0.6)",
+        "edge": "0",
+        "animation": "none",
+        "flow": false,
+        "weight": "400"
+      },
+      "hover": {
+        "blur": "blur(12px)",
+        "radius": "30px",
+        "background": "rgba(245, 245, 245, 0.6)",
+        "edge": "1",
+        "animation": "none",
+        "flow": false,
+        "weight": "400"
+      },
+      "focus": {
+        "focused": true,
+        "outline": "solid"
+      },
+      "fonts": {
+        ".demo-nav__brand": [
+          {
+            "familyName": "Helvetica",
+            "postScriptName": "Helvetica-Bold",
+            "isCustomFont": false,
+            "glyphCount": 7
+          }
+        ],
+        ".gallery-hero h1": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei",
+            "isCustomFont": false,
+            "glyphCount": 6
+          }
+        ]
+      },
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    }
+  ]
+}

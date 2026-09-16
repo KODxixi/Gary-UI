@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "name": "React Bits GradientWaves",
+  "repository": "https://github.com/DavidHDev/react-bits",
+  "commit": "88501f94882ef73be1ec79639ae7d3ad7ff7f23a",
+  "path": "src/content/Backgrounds/GradientWaves/GradientWaves.jsx",
+  "upstreamSha256": "92cf6aa408e3b7fe98474c6465441ecea7a7810250bbcc4a92b905e6848ae24f",
+  "snapshot": "provenance/react-bits/GradientWaves.jsx",
+  "license": "MIT + Commons Clause License Condition v1.0",
+  "licenseFile": "patterns/shared/gradient-waves-LICENSE.md",
+  "adaptation": "Unchanged vertex and fragment shader strings; native WebGL2 lifecycle instead of React and OGL",
+  "runtimeDependencies": [],
+  "runtimeNetwork": false,
+  "automaticUpdate": false,
+  "distribution": "Gary-UI internal application use only; no standalone component resale or redistribution"
+}

@@ -10,6 +10,7 @@
 - 材质与光影：[VISUAL_EXPRESSION.md](docs/VISUAL_EXPRESSION.md)；实体底纹、磨砂玻璃、超白/全透玻璃按内容选择 `data-gary-surface="solid|frosted|optical"`，不重新当作待选候选。鼠标联动光影默认关闭，只在 Background 显式开启后响应。
 - 图表色彩：[CHART_COLOR.md](docs/CHART_COLOR.md)；角色与主题值读取 `spec/chart-recipes.json` 的 `colorSystem`、`themes`，不在各个示例另立色彩权威。
 - 系统及场景权威：[spec/system.json](spec/system.json)、[spec/scene-recipes.json](spec/scene-recipes.json)。
+- Apple 质量层：[DESIGN.md §1.1](DESIGN.md#11-apple-quality-layer)。涉及 Apple 风格的层级、材质、运动、手势或动态排版时，优先完整读取已安装的 `apple-design` 还原设计逻辑，再用 Apple 官方 HIG 校验边界；Gary 契约保留已经确认的点阵、三材质、图表和 Background 本地决策。
 - 样式权威：[tokens/tokens.json](tokens/tokens.json)、[tokens/base.css](tokens/base.css)、[components/components.css](components/components.css)。
 - Agent 协作契约：[调用白皮书](docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md)；不要为确定性维护自动启动 Session。
 - 制图：[adapters/visual/README.md](adapters/visual/README.md)；官方专项 Skill 入口见 [Archify](adapters/visual/ARCHIFY_SKILL.md) 和 [AntV](adapters/visual/ANTV_SKILLS.md)。

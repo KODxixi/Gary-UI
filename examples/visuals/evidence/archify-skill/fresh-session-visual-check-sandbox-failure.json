@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "visual-check",
+  "evidenceKind": "automated-browser",
+  "status": "fail",
+  "visualReview": "pending",
+  "artifact": {
+    "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\fresh-session-delivery\\east-china-delivery-workflow.html",
+    "sha256": "739130fd619112a8d04766e68621c59359ec6aeeed17136cb3e3fa295b3f1727",
+    "bytes": 716156
+  },
+  "state": {
+    "detail": "read",
+    "motion": "still"
+  },
+  "chrome": {
+    "status": "available",
+    "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "diagnostics": [
+    {
+      "code": "viewer/visual-check-runtime",
+      "severity": "error",
+      "message": "visual-check could not complete its Chrome inspection.",
+      "subject": {
+        "artifact": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\fresh-session-delivery\\east-china-delivery-workflow.html"
+      },
+      "evidence": {
+        "reason": "Chrome DevTools process exit failed: Chrome closed with exit code 2147483651\nChrome process: exit code 2147483651.\nChrome stderr:\n[492:37900:0907/031130.732:ERROR:components\\os_crypt\\async\\browser\\os_crypt_win.cc:63] Failed to encrypt: 系统找不到指定的文件。 (0x2)\r\n[492:36584:0907/031130.756:ERROR:chrome\\installer\\util\\google_update_settings_win.cc:270] Failed opening key Software\\Google\\Update\\ClientStateMedium\\{8A69D345-D564-463c-AFF1-A69D9E530F96} to set usagestats; result: 5\r\n[492:56164:0907/031130.828:ERROR:components\\password_manager\\core\\browser\\password_store\\login_database_async_helper.cc:99] Encryption is not available.\r\n[492:46820:0907/031130.836:ERROR:components\\password_manager\\core\\browser\\password_store\\login_database_async_helper.cc:99] Encryption is not available.\r\n[492:37900:0907/031130.860:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:42532:0907/031130.861:ERROR:components\\viz\\host\\persistent_cache_sandboxed_file_factory.cc:153] Failed to open persistent cache files in directory \"C:\\AI\\UI\\gary-ui\\examples\\visuals\\fresh-session-delivery\\archify-visual-check-profile-fRek3C\\GPUPersistentCache\\DawnGraphiteCache\\6364HUQ4W4H7RKR7NMQK6IVM6XY564JE\", error: 0: 另一个程序正在使用此文件，进程无法访问。 (0x20)\r\n[492:37900:0907/031130.880:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:37900:0907/031130.887:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:44100:0907/031130.887:ERROR:components\\viz\\host\\persistent_cache_sandboxed_file_factory.cc:153] Failed to open persistent cache files in directory \"C:\\AI\\UI\\gary-ui\\examples\\visuals\\fresh-session-delivery\\archify-visual-check-profile-fRek3C\\GPUPersistentCache\\DawnGraphiteCache\\6364HUQ4W4H7RKR7NMQK6IVM6XY564JE\", error: 0: 另一个程序正在使用此文件，进程无法访问。 (0x20)\r\n[492:37900:0907/031130.891:ERROR:components\\device_event_log\\device_event_log_impl.cc:211] [03:11:30.892] USB: usb_service_win.cc:108 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 找不到元素。 (0x490)\r\n[492:37900:0907/031130.894:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:37900:0907/031130.900:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:42532:0907/031130.900:ERROR:components\\viz\\host\\persistent_cache_sandboxed_file_factory.cc:153] Failed to open persistent cache files in directory \"C:\\AI\\UI\\gary-ui\\examples\\visuals\\fresh-session-delivery\\archify-visual-check-profile-fRek3C\\GPUPersistentCache\\DawnGraphiteCache\\6364HUQ4W4H7RKR7NMQK6IVM6XY564JE\", error: 0: 另一个程序正在使用此文件，进程无法访问。 (0x20)\r\n[492:36560:0907/031130.901:ERROR:services\\device\\public\\cpp\\geolocation\\system_geolocation_source_win.cc:259] Failed to get location access status: 参数错误。 (0x80070057)\r\n[492:37900:0907/031130.906:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:37900:0907/031130.906:FATAL:content\\browser\\gpu\\gpu_data_manager_impl_private.cc:417] GPU process isn't usable. Goodbye."
+      },
+      "supportedFixes": [
+        "resolve the reported Chrome inspection error, then rerun visual-check"
+      ]
+    }
+  ],
+  "containment": {
+    "status": "fail",
+    "viewports": []
+  },
+  "readability": {
+    "status": "fail",
+    "minimumProjectedNodeTextPx": 6,
+    "viewports": []
+  },
+  "viewerChrome": {
+    "status": "fail",
+    "viewports": []
+  },
+  "captures": {
+    "status": "fail",
+    "screenshots": [],
+    "contactSheet": null
+  },
+  "sidecars": {
+    "receipt": "east-china-delivery-workflow.visual-check.json",
+    "contactSheet": "east-china-delivery-workflow.visual-check.html"
+  },
+  "error": "Chrome DevTools process exit failed: Chrome closed with exit code 2147483651\nChrome process: exit code 2147483651.\nChrome stderr:\n[492:37900:0907/031130.732:ERROR:components\\os_crypt\\async\\browser\\os_crypt_win.cc:63] Failed to encrypt: 系统找不到指定的文件。 (0x2)\r\n[492:36584:0907/031130.756:ERROR:chrome\\installer\\util\\google_update_settings_win.cc:270] Failed opening key Software\\Google\\Update\\ClientStateMedium\\{8A69D345-D564-463c-AFF1-A69D9E530F96} to set usagestats; result: 5\r\n[492:56164:0907/031130.828:ERROR:components\\password_manager\\core\\browser\\password_store\\login_database_async_helper.cc:99] Encryption is not available.\r\n[492:46820:0907/031130.836:ERROR:components\\password_manager\\core\\browser\\password_store\\login_database_async_helper.cc:99] Encryption is not available.\r\n[492:37900:0907/031130.860:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:42532:0907/031130.861:ERROR:components\\viz\\host\\persistent_cache_sandboxed_file_factory.cc:153] Failed to open persistent cache files in directory \"C:\\AI\\UI\\gary-ui\\examples\\visuals\\fresh-session-delivery\\archify-visual-check-profile-fRek3C\\GPUPersistentCache\\DawnGraphiteCache\\6364HUQ4W4H7RKR7NMQK6IVM6XY564JE\", error: 0: 另一个程序正在使用此文件，进程无法访问。 (0x20)\r\n[492:37900:0907/031130.880:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:37900:0907/031130.887:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:44100:0907/031130.887:ERROR:components\\viz\\host\\persistent_cache_sandboxed_file_factory.cc:153] Failed to open persistent cache files in directory \"C:\\AI\\UI\\gary-ui\\examples\\visuals\\fresh-session-delivery\\archify-visual-check-profile-fRek3C\\GPUPersistentCache\\DawnGraphiteCache\\6364HUQ4W4H7RKR7NMQK6IVM6XY564JE\", error: 0: 另一个程序正在使用此文件，进程无法访问。 (0x20)\r\n[492:37900:0907/031130.891:ERROR:components\\device_event_log\\device_event_log_impl.cc:211] [03:11:30.892] USB: usb_service_win.cc:108 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 找不到元素。 (0x490)\r\n[492:37900:0907/031130.894:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:37900:0907/031130.900:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:42532:0907/031130.900:ERROR:components\\viz\\host\\persistent_cache_sandboxed_file_factory.cc:153] Failed to open persistent cache files in directory \"C:\\AI\\UI\\gary-ui\\examples\\visuals\\fresh-session-delivery\\archify-visual-check-profile-fRek3C\\GPUPersistentCache\\DawnGraphiteCache\\6364HUQ4W4H7RKR7NMQK6IVM6XY564JE\", error: 0: 另一个程序正在使用此文件，进程无法访问。 (0x20)\r\n[492:36560:0907/031130.901:ERROR:services\\device\\public\\cpp\\geolocation\\system_geolocation_source_win.cc:259] Failed to get location access status: 参数错误。 (0x80070057)\r\n[492:37900:0907/031130.906:ERROR:content\\browser\\gpu\\gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=-1073741790\r\n[492:37900:0907/031130.906:FATAL:content\\browser\\gpu\\gpu_data_manager_impl_private.cc:417] GPU process isn't usable. Goodbye."
+}

@@ -46,6 +46,7 @@ class DeployUiManifestExcludeTests(unittest.TestCase):
                             "SKILL.md",
                             "session/index.html",
                             "scripts/gary_ui.py",
+                            "examples/co-design/**/*",
                         ],
                         "exclude": ["portal/**", "decisions/**", "CHANGELOG.md"],
                     }

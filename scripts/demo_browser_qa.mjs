@@ -7,7 +7,7 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const DEMOS = path.join(ROOT, 'examples', 'demos');
 const EVIDENCE = path.join(DEMOS, 'evidence', 'browser');
 const manifest = JSON.parse(fs.readFileSync(path.join(DEMOS, 'demo-manifest.json'), 'utf8'));
-const executablePath = process.env.GARY_UI_CHROME || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const executablePath = process.env.GARY_UI_CHROME || chromium.executablePath();
 fs.mkdirSync(EVIDENCE, { recursive: true });
 
 const browser = await chromium.launch({ executablePath, headless: true, args: ['--disable-gpu'] });
@@ -69,10 +69,17 @@ async function interactions(page, id) {
   proof.keyboardFocus = await page.evaluate(() => document.activeElement !== document.body && document.activeElement !== document.documentElement);
   if (id === 'web-analysis') {
     await page.locator('[data-filter-region="shanghai"]').click();
+    await page.waitForFunction(() => document.querySelector('[data-export-id="delivery-trend"][data-export-format="png"]')?.href.startsWith('data:image/png'), null, { timeout: 5000 });
     proof.filterRevenue = await page.locator('[data-region-value="revenue"]').first().textContent();
+    proof.shanghaiSvg = await page.locator('[data-export-id="delivery-trend"][data-export-format="svg"]').getAttribute('href');
+    proof.shanghaiPng = await page.locator('[data-export-id="delivery-trend"][data-export-format="png"]').getAttribute('href');
+    await page.locator('[data-filter-region="zhejiang"]').click();
+    proof.zhejiangSvg = await page.locator('[data-export-id="delivery-trend"][data-export-format="svg"]').getAttribute('href');
+    await page.locator('[data-filter-region="shanghai"]').click();
     await page.locator('.qa-controls').last().locator('summary').click();
     for (const state of ['loading','empty','error','ready']) { await page.locator('.qa-controls').last().locator(`[data-state-set="${state}"]`).click(); proof[`state_${state}`] = await page.locator('[data-view-state]').getAttribute('data-view-state'); }
-    await page.locator('[data-detail-trigger]').first().click(); proof.detailVisible = await page.locator('[data-detail-panel]').isVisible();
+    await page.locator('[data-detail-trigger]').first().click(); proof.detailVisible = await page.locator('[data-detail-panel]').isVisible(); proof.detailBody = await page.locator('[data-detail-body]').textContent();
+    proof.regionConsistency = proof.detailBody.includes('上海') && !proof.detailBody.includes('江苏') && proof.shanghaiSvg.startsWith('data:image/svg') && proof.shanghaiPng.startsWith('data:image/png') && proof.shanghaiSvg !== proof.zhejiangSvg;
   } else if (id === 'web-reading') {
     await page.locator('[data-search]').fill('上一有效版本'); proof.searchResults = await page.locator('.article-list button').count();
     await page.locator('[data-source-drawer]').click(); proof.sourcesVisible = await page.locator('[data-source-list]').isVisible();
@@ -110,7 +117,7 @@ for (const demo of manifest.demos) {
           }
         }
         const proof=await interactions(page,demo.id);
-        const ok=!metrics.horizontalOverflow && metrics.bodyTextLength>180 && metrics.semanticBodyPx.every(n=>n>=16) && metrics.clipped.length===0 && metrics.displayTitleViolations.length===0 && proof.keyboardFocus && consoleErrors.length===0 && frames.every(f=>!f.error && f.text>20 && f.svg>0);
+        const ok=!metrics.horizontalOverflow && metrics.bodyTextLength>180 && metrics.semanticBodyPx.every(n=>n>=16) && metrics.clipped.length===0 && metrics.displayTitleViolations.length===0 && proof.keyboardFocus && proof.regionConsistency!==false && consoleErrors.length===0 && frames.every(f=>!f.error && f.text>20 && f.svg>0);
         const row={demo:demo.id,viewport:viewport.name,theme,ok,metrics,frames,proof,blockedExternalRequests:blocked,consoleErrors}; results.push(row); if(!ok) errors.push(row);
       } catch(error) { const row={demo:demo.id,viewport:viewport.name,theme,ok:false,error:error.message}; results.push(row); errors.push(row); }
       await context.close();
@@ -159,8 +166,8 @@ for (const special of [
 }
 
 for (const sceneCheck of [
-  {theme:'dark',expected:'rgb(0, 0, 0)',reducedMotion:'no-preference',interactive:true},
-  {theme:'light',expected:'rgb(255, 255, 255)',reducedMotion:'no-preference',interactive:true},
+  {theme:'dark',expected:'rgb(0, 0, 0)',reducedMotion:'no-preference',interactive:false},
+  {theme:'light',expected:'rgb(255, 255, 255)',reducedMotion:'no-preference',interactive:false},
   {theme:'dark',expected:'rgb(0, 0, 0)',reducedMotion:'reduce',interactive:false},
 ]) {
   const context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:sceneCheck.reducedMotion});

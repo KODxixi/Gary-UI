@@ -29,23 +29,42 @@ jobs:
           node-version: '22'
           cache: npm
           cache-dependency-path: adapters/visual/package-lock.json
-      - name: Check public source and preview
-        run: |
-          python scripts/check_public.py
-          python -B -m unittest discover -s scripts/tests -p test_preview.py -v
-          python -B -m unittest discover -s scripts/tests -p test_public_export.py -v
-      - name: Install browser test dependencies
+      - name: Build and check public source snapshot
         run: |
           npm --prefix adapters/visual ci
+          node scripts/build_demo_assets.mjs
+          node adapters/visual/runner.mjs export --manifest examples/visuals/visuals.json
+          node adapters/visual/runner.mjs export --manifest examples/demos/visuals/visuals.json
+          node scripts/demo_edition_qa.mjs --quick
+          python scripts/build_public.py --output /tmp/gary-ui-public
+          python scripts/check_public.py --root /tmp/gary-ui-public
+      - name: Install browser test dependencies
+        run: |
+          npm --prefix adapters/visual run build
           node adapters/visual/node_modules/playwright-core/cli.js install --with-deps chromium
+          npm --prefix adapters/visual run doctor
+      - name: Check runtime projection and source contracts
+        run: |
+          python -B scripts/runtime_projection.py build --staging /tmp/gary-ui-runtime
+          python -B scripts/runtime_projection.py --runtime /tmp/gary-ui-runtime check
+          python -B -m pytest -q
+          python -B scripts/validate.py
+          python -B scripts/validate_v2.py
+      - name: Check React adapter
+        run: |
+          npm --prefix adapters/react-shadcn ci
+          npm --prefix adapters/react-shadcn run typecheck
+          npm --prefix adapters/react-shadcn run build
       - name: Build static site
-        run: python scripts/build_site.py
+        run: python /tmp/gary-ui-public/scripts/build_site.py --output /tmp/gary-ui-site
       - name: Check actual Pages subpath and complete demos
         run: |
-          mkdir -p /tmp/gary-ui-site/Gary-UI
-          cp -a _site/. /tmp/gary-ui-site/Gary-UI/
-          python -m http.server 4173 --bind 127.0.0.1 --directory /tmp/gary-ui-site > /tmp/gary-ui-preview.log 2>&1 &
+          mkdir -p /tmp/gary-ui-pages/Gary-UI
+          cp -a /tmp/gary-ui-site/. /tmp/gary-ui-pages/Gary-UI/
+          python -m http.server 4173 --bind 127.0.0.1 --directory /tmp/gary-ui-pages > /tmp/gary-ui-preview.log 2>&1 &
           GARY_UI_BASE_URL=http://127.0.0.1:4173/Gary-UI/ node scripts/public_smoke.mjs
+          GARY_UI_BASE_URL=http://127.0.0.1:4173/Gary-UI/ node scripts/demo0909_qa.mjs
+          node scripts/demo_browser_qa.mjs
       - name: Configure Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5

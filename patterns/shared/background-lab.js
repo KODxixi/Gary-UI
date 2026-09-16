@@ -3,6 +3,8 @@
   const base=new URL('.',document.currentScript.src),scene=document.querySelector('[data-gary-background-host],.demo-global-scene');
   if(!scene)return;
   const root=document.documentElement;
+  const CSS_BACKGROUNDS=new Set(['aurora-bloom','prism-veil','mercury-orbit']);
+  const BACKGROUND_LABELS=Object.freeze({'aurora-bloom':'极光薄雾','prism-veil':'棱镜幕帘','mercury-orbit':'银色轨道'});
   const open=document.querySelector('[data-background-open]')||document.createElement('button');
   if(!open.isConnected){open.className='button gary-background-launcher';open.dataset.backgroundOpen='';open.textContent='背景实验室';document.body.append(open);}
   open.setAttribute('aria-controls','gary-background-lab');open.setAttribute('aria-expanded','false');
@@ -10,7 +12,7 @@
   panel.innerHTML=`<header><div><p class="eyebrow">SCENE STUDIO</p><h2 id="background-lab-title">让背景有呼吸</h2></div><button class="button" data-background-close aria-label="关闭背景实验室">关闭</button></header>
     <p class="gary-background-intro">在真实页面上调节 不改变全局默认</p>
     <div class="gary-wave-switches"><label><input type="checkbox" name="pointerEffects"> 鼠标光影（默认关闭）</label></div>
-    <div class="gary-background-choice"><label>背景<select name="background"><option value="dot-grid">点状网格 默认</option><option value="gradient-waves">渐变波浪</option></select></label><label>配色<select name="preset"><option value="gary">Gary 柔光</option><option value="silver" selected>银色三浪</option><option value="original">原版紫粉</option><option value="custom" disabled>自定义</option></select></label></div>
+    <div class="gary-background-choice"><label>背景<select name="background"><option value="dot-grid">点状网格 默认</option><option value="gradient-waves">动态海浪（原版引擎）</option><option value="aurora-bloom">极光薄雾</option><option value="prism-veil">棱镜幕帘</option><option value="mercury-orbit">银色轨道</option></select></label><label>配色<select name="preset"><option value="gary">Gary 柔光</option><option value="silver" selected>银色三浪</option><option value="original">原版紫粉</option><option value="custom" disabled>自定义</option></select></label></div>
     <p data-waves-status role="status" aria-live="polite">当前使用默认点状网格</p>
     <section class="gary-local-media" aria-label="自定义背景素材">
       <label class="gary-media-file">本地照片或视频<input data-media-file type="file" accept="image/png,image/jpeg,image/webp,image/avif,video/mp4,video/webm,video/ogg"></label>
@@ -36,7 +38,8 @@
   let media=null,mediaTicket=0,userPaused=false,mediaVisible=true,mediaPrinting=false;
   const reducedMedia=matchMedia('(prefers-reduced-motion: reduce)');
   const mediaMessage=text=>{q('[data-media-status]').textContent=text;};
-  function disposeMedia(item){if(!item)return;if(item.node.tagName==='VIDEO'){item.node.pause();item.node.removeAttribute('src');item.node.load();}item.node.remove();URL.revokeObjectURL(item.url);}
+  const syncAmbientMotion=()=>{scene.dataset.garyBackgroundMotion=CSS_BACKGROUNDS.has(scene.dataset.garyBackground)&&!reducedMedia.matches&&!document.hidden&&mediaVisible?'playing':'static';};
+  function disposeMedia(item){if(!item)return;if(item.node.tagName==='VIDEO'){item.node.pause();item.node.removeAttribute('src');item.node.load();}item.node.remove();if(item.url)URL.revokeObjectURL(item.url);}
   function mediaPlayback(){
     if(!media)return;const video=media.node.tagName==='VIDEO',active=scene.dataset.garyBackground==='custom-media';
     media.node.hidden=!active;q('[data-media-pause]').hidden=!video;
@@ -45,7 +48,7 @@
     q('[data-media-pause]').disabled=reducedMedia.matches;
     q('[data-media-pause]').textContent=userPaused?'播放视频':'暂停视频';
     if(blocked||userPaused)media.node.pause();
-    else {const current=media;current.node.play().catch(()=>{if(current!==media||current.node.paused&&(document.hidden||reducedMedia.matches||!mediaVisible||mediaPrinting||scene.dataset.garyBackground!=='custom-media'||userPaused))return;userPaused=true;q('[data-media-pause]').textContent='播放视频';mediaMessage('浏览器阻止自动播放 请点击播放视频');});}
+    else {const current=media;current.node.play().catch(()=>{if(current!==media||current.node.paused&&(document.hidden||reducedMedia.matches||!mediaVisible||mediaPrinting||!active||userPaused))return;userPaused=true;q('[data-media-pause]').textContent='播放视频';mediaMessage('浏览器阻止自动播放 请点击播放视频');});}
     mediaMessage(media.name+(reducedMedia.matches?' · 减弱动态 静态画面':blocked?' · 暂停渲染':userPaused?' · 已暂停':' · 静音循环播放'));
   }
   async function chooseMedia(file){
@@ -70,8 +73,8 @@
   q('[name="mediaFit"]').addEventListener('change',e=>scene.style.setProperty('--gary-media-fit',e.target.value));
   q('[name="mediaOpacity"]').addEventListener('input',e=>{scene.style.setProperty('--gary-media-opacity',e.target.value);e.target.parentElement.querySelector('output').textContent=e.target.value;});
   q('[name="refractionStrength"]').addEventListener('input',e=>{window.GaryGlassSurface?.setStrength(e.target.value);e.target.parentElement.querySelector('output').textContent=e.target.value;});
-  reducedMedia.addEventListener('change',()=>{mediaPlayback();syncPointerEffects();});document.addEventListener('visibilitychange',mediaPlayback);
-  new IntersectionObserver(([entry])=>{mediaVisible=entry.isIntersecting;mediaPlayback();}).observe(scene);
+  reducedMedia.addEventListener('change',()=>{mediaPlayback();syncPointerEffects();syncAmbientMotion();});document.addEventListener('visibilitychange',()=>{mediaPlayback();syncAmbientMotion();});
+  new IntersectionObserver(([entry])=>{mediaVisible=entry.isIntersecting;mediaPlayback();syncAmbientMotion();}).observe(scene);
   addEventListener('beforeprint',()=>{mediaPrinting=true;mediaPlayback();});addEventListener('afterprint',()=>{mediaPrinting=false;mediaPlayback();});
   let engine=null,loading=null,request=0,preset='silver',options=null;
   const pointerEnabled=()=>root.dataset.garyPointerEffects==='on'&&!reducedMedia.matches;
@@ -98,6 +101,10 @@
     const unavailable=['reduced-motion','fallback','static'].includes(state.status);
     q('[data-waves-pause]').disabled=unavailable;q('[data-waves-replay]').disabled=unavailable;
     q('[data-waves-png]').disabled=state.status==='fallback';q('[data-waves-retry]').hidden=state.status!=='fallback';
+  }
+  function syncCssStatus(background){
+    scene.dataset.garyBackground=background;syncAmbientMotion();
+    q('[data-waves-status]').textContent=`${BACKGROUND_LABELS[background]} · ${reducedMedia.matches?'静态预览':'低速动态'} · 玻璃友好`;
   }
   scene.addEventListener('gary-waves-status',syncStatus);
   function recipe(name){
@@ -131,22 +138,25 @@
   function ensureEngine(){
     if(window.GaryGradientWaves)return Promise.resolve();
     if(!loading)loading=new Promise((resolve,reject)=>{
-      const script=document.createElement('script');script.src=new URL('ambient-waves.js',base);
+      const script=document.createElement('script');script.src=new URL('gradient-waves.js',base);
       script.onload=resolve;script.onerror=()=>{loading=null;script.remove();reject(Error('本地波浪脚本加载失败 当前网格保持不变'));};document.head.append(script);
     });return loading;
   }
   async function select(background,fromMedia=false){
     if(!fromMedia)mediaTicket++;
+    const supported=['dot-grid','gradient-waves','custom-media',...CSS_BACKGROUNDS];
+    if(!supported.includes(background))background='dot-grid';
     const token=++request;engine?.destroy();engine=null;
-    scene.dataset.garyBackground='dot-grid';q('[name="background"]').value=background;
+    scene.dataset.garyBackground='dot-grid';syncAmbientMotion();q('[name="background"]').value=background;
     q('[data-waves-settings]').hidden=background!=='gradient-waves';q('[name="preset"]').disabled=background!=='gradient-waves';
     if(background==='custom-media'){
-      scene.dataset.garyBackground=media?'custom-media':'dot-grid';mediaPlayback();
+      scene.dataset.garyBackground=media?'custom-media':'dot-grid';mediaPlayback();syncAmbientMotion();
       q('[data-waves-status]').textContent=media?'当前使用自定义素材':'选择本地照片或视频后生效 当前保留网格';return;
     }
     mediaPlayback();
+    if(CSS_BACKGROUNDS.has(background)){syncCssStatus(background);return;}
     if(background!=='gradient-waves'){q('[data-waves-status]').textContent='当前使用默认点状网格';return;}
-    q('[data-waves-status]').textContent='正在加载本地波浪';
+    q('[data-waves-status]').textContent='正在加载原版动态海浪';
     try{
       await ensureEngine();if(token!==request)return;fields();options||=recipe(preset);
       syncPointerEffects();paintFields();engine=GaryGradientWaves.mount(scene,options,{durationSeconds:null});syncStatus();
@@ -174,7 +184,7 @@
   q('[data-waves-retry]').addEventListener('click',()=>select('gradient-waves'));
   function download(url,name){const a=document.createElement('a');a.href=url;a.download=name;a.click();}
   q('[data-waves-export]').addEventListener('click',()=>{
-    const config={schemaVersion:1,engine:'gradient-waves',implementation:'gary-ambient-waves-1',theme:root.dataset.garyTheme,preset,options,playback:{mode:'continuous',durationSeconds:null,reducedMotion:'static'},globalDefaultChanged:false};
+    const config={schemaVersion:1,engine:'gradient-waves',implementation:'gary-webgl-gradient-waves-1',theme:root.dataset.garyTheme,preset,options,playback:{mode:'continuous',durationSeconds:null,reducedMotion:'static'},globalDefaultChanged:false};
     const url=URL.createObjectURL(new Blob([JSON.stringify(config,null,2)],{type:'application/json'}));download(url,'gary-gradient-waves.json');setTimeout(()=>URL.revokeObjectURL(url),1000);
   });
   q('[data-waves-png]').addEventListener('click',()=>{try{download(engine.snapshot(),'gary-gradient-waves.png');}catch(error){q('[data-waves-status]').textContent=error.message;}});
@@ -183,6 +193,7 @@
   addEventListener('pageshow',event=>{if(event.persisted){mediaPrinting=false;select(q('[name="background"]').value);}});
   window.GaryBackgroundLab={get engine(){return engine;},select};
   syncPointerEffects();
-  select(new URLSearchParams(location.search).get('background')==='gradient-waves'?'gradient-waves':'dot-grid');
+  const requestedBackground=new URLSearchParams(location.search).get('background');
+  select(['gradient-waves',...CSS_BACKGROUNDS].includes(requestedBackground)?requestedBackground:'dot-grid');
   if(new URLSearchParams(location.search).get('customize')==='1')open.click();
 })();

@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-07",
+  "command": "python -B scripts/runtime_projection.py sync --confirm 09019f127683d83549bc8c413731b8c575af03368f0dfc2b71f2b29a1032be0b",
+  "status": "pass",
+  "projectionHash": "09019f127683d83549bc8c413731b8c575af03368f0dfc2b71f2b29a1032be0b",
+  "target": "C:\\Users\\shiguanyu\\.agents\\skills\\gary-liquidglass-ui",
+  "copiedFiles": 576,
+  "removedFiles": [],
+  "verification": {"status":"pass","missing":0,"hashMismatch":0,"runtimeOnlyPreserved":101},
+  "evidence": "examples/demos/evidence/edition-02/acceptance.md",
+  "note": "Read-only check followed by hash-confirmed managed sync and final check. No prune, commit, push or deployment."
+}

@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-07T03:33:52.368Z",
+  "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "summary": {
+    "checks": 10,
+    "passed": 10,
+    "failed": 0
+  },
+  "results": [
+    {
+      "file": "architecture.svg",
+      "ok": true,
+      "metrics": {
+        "width": 440,
+        "height": 150,
+        "graphics": 157,
+        "textLength": 3058,
+        "iconCount": 2,
+        "background": null
+      },
+      "errors": []
+    },
+    {
+      "file": "data-flow.svg",
+      "ok": true,
+      "metrics": {
+        "width": 440,
+        "height": 150,
+        "graphics": 193,
+        "textLength": 3718,
+        "iconCount": 2,
+        "background": null
+      },
+      "errors": []
+    },
+    {
+      "file": "icons.svg",
+      "ok": true,
+      "metrics": {
+        "width": 880,
+        "height": 450,
+        "graphics": 66,
+        "textLength": 93,
+        "iconCount": 10,
+        "background": null
+      },
+      "errors": []
+    },
+    {
+      "file": "lifecycle.svg",
+      "ok": true,
+      "metrics": {
+        "width": 440,
+        "height": 150,
+        "graphics": 149,
+        "textLength": 2971,
+        "iconCount": 2,
+        "background": null
+      },
+      "errors": []
+    },
+    {
+      "file": "quantitative.svg",
+      "ok": true,
+      "metrics": {
+        "width": 1416,
+        "height": 976,
+        "graphics": 45,
+        "textLength": 34,
+        "iconCount": 0,
+        "background": "rgb(8, 8, 8)"
+      },
+      "errors": []
+    },
+    {
+      "file": "research-outline.svg",
+      "ok": true,
+      "metrics": {
+        "width": 1416,
+        "height": 976,
+        "graphics": 62,
+        "textLength": 2172,
+        "iconCount": 0,
+        "background": "rgb(222, 219, 214)"
+      },
+      "errors": []
+    },
+    {
+      "file": "sequence.svg",
+      "ok": true,
+      "metrics": {
+        "width": 440,
+        "height": 150,
+        "graphics": 187,
+        "textLength": 3155,
+        "iconCount": 2,
+        "background": null
+      },
+      "errors": []
+    },
+    {
+      "file": "simple-flow.svg",
+      "ok": true,
+      "metrics": {
+        "width": 1153,
+        "height": 174,
+        "graphics": 79,
+        "textLength": 5313,
+        "iconCount": 0,
+        "background": "rgb(222, 219, 214)"
+      },
+      "errors": []
+    },
+    {
+      "file": "summary-infographic.svg",
+      "ok": true,
+      "metrics": {
+        "width": 576,
+        "height": 181,
+        "graphics": 50,
+        "textLength": 99,
+        "iconCount": 0,
+        "background": "rgb(8, 8, 8)"
+      },
+      "errors": []
+    },
+    {
+      "file": "workflow-with-exception.svg",
+      "ok": true,
+      "metrics": {
+        "width": 440,
+        "height": 150,
+        "graphics": 201,
+        "textLength": 4390,
+        "iconCount": 2,
+        "background": null
+      },
+      "errors": []
+    }
+  ]
+}

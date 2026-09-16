@@ -17,6 +17,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
 
 from session_contract import SessionContractError, normalize_command_result
+from invocation_contract import InvocationContractError, invocation_from_axes, load_schema
 from session_store import (
     DEFAULT_SESSIONS_ROOT,
     SessionAuthenticationError,
@@ -302,20 +303,57 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_common(close, writer=True, needs_lease=True)
     close.add_argument("--session", required=True)
 
+    invocation = groups.add_parser(
+        "invocation",
+        aliases=["invoke"],
+        help="Create a normalized Visual Route from explicit application/page axes.",
+        description="Create a runnable Gary-UI Visual Route; application and page are always explicit.",
+    )
+    invocation.add_argument("--application", required=True, help="application mode")
+    invocation.add_argument("--page", required=True, help="page mode")
+    invocation.add_argument("--theme", help="theme; defaults to spec/system.json")
+    invocation.add_argument("--material", help="material; defaults to spec/system.json")
+    invocation.add_argument("--density", help="density; defaults to spec/system.json")
+
     visual = groups.add_parser("visual", help="Run the local visual toolchain.")
     visual_actions = visual.add_subparsers(dest="action", required=True)
-    visual_actions.add_parser("doctor", help="Check visual engines and local browser.")
+    visual_actions.add_parser(
+        "doctor",
+        help="Check pinned visual engines and the local Chromium; no manifest required.",
+    )
     for action_name in ("validate", "render", "export"):
-        action = visual_actions.add_parser(action_name)
-        action.add_argument("--manifest", type=Path, required=True)
-        action.add_argument("--id", dest="visual_id")
+        action = visual_actions.add_parser(
+            action_name,
+            help=f"{action_name.title()} manifest-selected visuals through the pinned local adapter.",
+            description=f"{action_name.title()} visuals. Requires a local --manifest; no network or auto-install.",
+        )
+        action.add_argument("--manifest", type=Path, required=True, help="local visual manifest JSON")
+        action.add_argument("--id", dest="visual_id", help="optional visual id")
         if action_name == "export":
-            action.add_argument("--format", choices=["html", "svg", "png", "pdf"])
+            action.add_argument("--format", choices=["html", "svg", "png", "pdf"], help="optional single export format")
     return parser.parse_args(argv)
 
 
 def run(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
-    command = f"{args.group} {args.action}"
+    command = f"{args.group} {getattr(args, 'action', '')}".strip()
+    if args.group in {"invocation", "invoke"}:
+        try:
+            invocation = invocation_from_axes(
+                args.application,
+                args.page,
+                theme=args.theme,
+                material=args.material,
+                density=args.density,
+                schema=load_schema(),
+            )
+        except (InvocationContractError, OSError, json.JSONDecodeError) as error:
+            return 1, _result(command, status="fail", issues=[str(error)])
+        routing = load_schema().get("x-gary-routing", {})
+        return 0, _result(
+            command,
+            outputs={"invocation": invocation, "startingPoint": routing.get("startingPoint"), "preview": routing.get("previewTemplate")},
+            evidence=[{"kind": "invocation-contract", "value": "contracts/invocation.schema.json"}],
+        )
     if args.group == "visual":
         exit_code, payload = run_visual_command(
             args.action,

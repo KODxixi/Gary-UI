@@ -5,6 +5,7 @@ import argparse
 import fnmatch
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -12,7 +13,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EXCLUDED_PARTS = {'.git', 'node_modules', '__pycache__', '.pytest_cache', '.ruff_cache', '.last-good', '.failed', '.candidates', '_site', 'public-build', '.venv'}
 ROOT_DIRECTORIES = {'.github', 'adapters', 'assets', 'components', 'contracts', 'docs', 'examples', 'licenses', 'patterns', 'portal', 'runtime', 'scripts', 'session', 'spec', 'tokens'}
-ROOT_FILES = {'.gitattributes', '.nojekyll', '.gitignore', 'AGENTS.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'DESIGN.md', 'LICENSE', 'PROJECT_STRUCTURE.md', 'README.md', 'SKILL.md', 'THIRD_PARTY_NOTICES.md', 'design-qa.md', 'gary-ui.cmd', 'index.html', 'demo0909.html', 'library-consumption.json', 'metadata.json'}
+ROOT_FILES = {'.gitattributes', '.nojekyll', '.gitignore', 'AGENTS.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'DESIGN.md', 'LICENSE', 'PROJECT_STRUCTURE.md', 'README.md', 'SKILL.md', 'THIRD_PARTY_NOTICES.md', 'gary-ui.cmd', 'index.html', 'demo0909.html', 'library-consumption.json', 'metadata.json'}
+PUBLIC_GENERATED = (
+    'examples/visuals/outputs/**/*',
+    'examples/demos/visuals/outputs/**/*',
+    'examples/demos/evidence/edition-02/*.png',
+)
 EXCLUDED = (
     'scripts/tests/test_light_rays_scene.py', 'provenance/*', 'decisions/*', 'portal/evidence/*', 'docs/LOCAL_WORKFLOW.md',
     'portal/light-rays.js', 'patterns/shared/glass-surface.js', 'patterns/shared/gradient-waves.js',
@@ -20,6 +26,7 @@ EXCLUDED = (
     'licenses/react-bits-LICENSE.md', 'assets/backgrounds/gary-default-scene.png',
     'examples/visuals/fresh-session-*', 'examples/visuals/evidence/*',
     'docs/GARY_UI_ACCEPTANCE_*', 'docs/GARY_UI_INDEPENDENT_ACCEPTANCE_*',
+    'design-qa.md',
 )
 
 
@@ -46,7 +53,43 @@ def source_files(root: Path) -> list[Path]:
         ['git', '-C', str(root), 'ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '.'],
         capture_output=True, check=True,
     )
-    return sorted({Path(item.decode('utf-8')) for item in result.stdout.split(b'\0') if item})
+    paths = {Path(item.decode('utf-8')) for item in result.stdout.split(b'\0') if item}
+    # Public outputs are explicit release artifacts. Include them even when a
+    # local checkout still has the historical generated-output ignore rule.
+    for pattern in PUBLIC_GENERATED:
+        paths.update(path.relative_to(root) for path in root.glob(pattern) if path.is_file())
+    return sorted(paths)
+
+
+def public_text(relative: Path, text: str) -> str:
+    if relative.as_posix() != 'patterns/shared/background-lab.js':
+        return text
+    # The restricted React Bits engine is intentionally absent from the public
+    # tree. Keep the public CSS background routes, and make the old route
+    # impossible to select or load from the exported artifact.
+    text = re.sub(
+        r"  function ensureEngine\(\)\{.*?\n  \}\n  async function select",
+        "  function ensureEngine(){return Promise.reject(Error('动态海浪引擎不在公开包'));}\n  async function select",
+        text,
+        flags=re.S,
+    )
+    text = text.replace(
+        "const supported=['dot-grid','gradient-waves','custom-media',...CSS_BACKGROUNDS];",
+        "const supported=['dot-grid','custom-media',...CSS_BACKGROUNDS];",
+    )
+    text = text.replace(
+        '<option value="gradient-waves">动态海浪（原版引擎）</option>',
+        '',
+    )
+    text = text.replace(
+        "select(['gradient-waves',...CSS_BACKGROUNDS].includes(requestedBackground)?requestedBackground:'dot-grid');",
+        "select([...CSS_BACKGROUNDS].includes(requestedBackground)?requestedBackground:'dot-grid');",
+    )
+    text = text.replace(
+        "q('[data-waves-retry]').addEventListener('click',()=>select('gradient-waves'));",
+        "q('[data-waves-retry]').addEventListener('click',()=>select('dot-grid'));",
+    )
+    return text
 
 
 def export(root: Path, output: Path) -> dict:
@@ -73,6 +116,11 @@ def export(root: Path, output: Path) -> dict:
             if 'data-gary-static' not in html:
                 html = html.replace('<html ', '<html data-gary-static ', 1)
             destination.write_text(html, encoding='utf-8')
+        elif relative.as_posix() == 'patterns/shared/background-lab.js':
+            destination.write_text(
+                public_text(relative, destination.read_text(encoding='utf-8')),
+                encoding='utf-8',
+            )
         records.append({'path': relative.as_posix(), 'sha256': hashlib.sha256(destination.read_bytes()).hexdigest()})
     attributes = root / 'scripts/public.gitattributes'
     if attributes.is_file() and not (output / '.gitattributes').exists():

@@ -35,12 +35,11 @@ class RuntimeProjectionTests(unittest.TestCase):
         self.assertIn("scripts/visual_adapter.py", selected)
         self.assertIn("spec/scene-recipes.json", selected)
         self.assertIn("contracts/visual-manifest.schema.json", selected)
-        self.assertIn("adapters/visual/runtime/runner.cjs", selected)
+        self.assertIn("adapters/visual/capabilities.json", selected)
         self.assertIn("adapters/visual/vendor/browser/echarts.min.js", selected)
         self.assertIn("adapters/visual/vendor/archify/bin/archify.mjs", selected)
-        self.assertIn("adapters/visual/vendor/node/playwright-core/index.js", selected)
         self.assertIn(
-            "examples/visuals/fresh-session-delivery/east-china-delivery-workflow.json",
+            "examples/demos/visuals/delivery-workflow/east-china-delivery-workflow.json",
             selected,
         )
         self.assertIn(
@@ -54,6 +53,9 @@ class RuntimeProjectionTests(unittest.TestCase):
         self.assertNotIn("scripts/tests/test_session_store.py", selected)
         self.assertNotIn("adapters/visual/runner.mjs", selected)
         self.assertNotIn("adapters/visual/tests/runner.test.mjs", selected)
+        self.assertNotIn("examples/visuals/outputs/index.html", selected)
+        self.assertNotIn("examples/demos/visuals/outputs/index.html", selected)
+        self.assertFalse(any(".pytest_cache" in path for path in selected))
 
     def test_build_produces_hash_identical_projection(self) -> None:
         manifest = runtime_projection.read_manifest()

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "canonicalRoot": "C:\\AI\\UI\\gary-ui",
+  "sources": [
+    {
+      "id": "user-default-background",
+      "sourcePath": "D:\\ArchLib\\90_资源\\91_AI素材\\nanobanana可灵生成网站封面图p_概念性科幻建筑废墟_Clove深思圈\\nanobanana可灵生成网站封面图p_概念性科幻建筑废墟_Clove深思圈_04.png",
+      "canonicalPath": "assets/backgrounds/gary-default-scene.png",
+      "sha256": "476d559ad52be6c801cda1954b602153e205dcb7b6a834622aca51bfc9683812",
+      "decision": "user-confirmed default scene background",
+      "customizableToken": "--gary-scene-image"
+    },
+    {
+      "id": "react-bits-light-rays",
+      "sourceUrl": "https://github.com/DavidHDev/react-bits",
+      "commit": "1ba7ecd4e570d20392fb62c923efb00f5b440642",
+      "sourceFile": "src/content/Backgrounds/LightRays/LightRays.jsx",
+      "sourceSha256": "b2be0dd25ba903c1a0897cc5ddac82634f599c99984df465cf5f632a265a4150",
+      "canonicalPath": "portal/light-rays.js",
+      "license": "licenses/react-bits-LICENSE.md",
+      "decision": "adapt Light Rays shader and motion model to a dependency-free native WebGL2 Portal scene"
+    },
+    {
+      "id": "deepseek-harness-navigation-reference",
+      "sourceUrl": "https://www.deepseek.com/harness/",
+      "decision": "reference only: lightweight three-part topbar layout and primary/secondary pill interactions; no source assets copied"
+    },
+    {
+      "id": "active-local",
+      "path": "C:\\Users\\shiguanyu\\skills-archive\\Apple-UI-legacy-20260727",
+      "fileCount": 153,
+      "treeSha256": "bc70788ed6000ae7f8d7a2c896cd9f0e782e9d8e28ef2d8bb2e76546b5eadf34"
+    },
+    {
+      "id": "nice-report-archive",
+      "path": "C:\\AI\\UI\\Nice-report-archive",
+      "fileCount": 126,
+      "treeSha256": "a31092113df690da00b5963c32abaaed5cdd3d0f1d5b481969147285233318e0",
+      "treeHashAlgorithm": "sha256(sorted(relative-posix-path + NUL + lowercase-file-sha256-hex + LF))",
+      "excludedDirectories": [".git", "node_modules", "dist"],
+      "decision": "absorb information hierarchy, scene continuity, report navigation and card whitespace principles; do not copy implementation"
+    },
+    {
+      "id": "trae-v27",
+      "fileCount": 81,
+      "treeSha256": "5c9922e5573a3cce87bb96fd427039dc72ffa065245e8e45595d4ecdde7a107b"
+    },
+    {
+      "id": "trae-v9",
+      "fileCount": 33,
+      "treeSha256": "55fb17ee3c8996d11f44f322f4f243e4c9dad20a9feed9c455f8e8a6b21c1459"
+    },
+    {
+      "id": "trae-test",
+      "fileCount": 9,
+      "treeSha256": "6d874b4480ad5d02edd538ca33f128db6a4a67c873246a7839cb29b4971fb285"
+    },
+    {
+      "id": "shadcn-reference",
+      "path": "D:\\Vault-assets\\AI_Projects\\shadcn-app",
+      "fileCount": 50,
+      "treeSha256": "236b0260122a8eb030803c0c69a9f607fc137b3122a59739acdd143cf5a171c4"
+    },
+    {
+      "id": "claude-design-handoff",
+      "sha256": "68d928cdce7742f7262eb32b030c7f8051dcd109a9bab163a63e70532bfc099f",
+      "availability": "text-only; cloud files unavailable"
+    },
+    {
+      "id": "vibecamp-light-reference",
+      "path": "C:\\Users\\shiguanyu\\skills\\UI-template\\VibeCamp-UI\\ui_kits\\dashboard\\index.html",
+      "sha256": "8efec660dcc2b64ee98d00ce6b35b2269cd5b909484ecddb304d1b4c42081d35",
+      "decision": "light-theme mood reference only; Gary tokens remain authoritative"
+    },
+    {
+      "id": "liquid-glass-v5-dark-reference",
+      "path": "C:\\Users\\shiguanyu\\skills\\arch-front-html\\assets\\demos\\liquid-glass-scrolling-v5.html",
+      "sha256": "00773e85f989e5121238d824aae8d5c1aa65f3e42017188f4c4cf6b2cee12a8f",
+      "decision": "dark-theme glass, edge-light and floating navigation reference"
+    },
+    {
+      "id": "dds-liquid-glass-v4-report-baseline",
+      "sourceTemplate": "D:\\Vault-assets\\AI_Projects\\DDS_v2\\src\\dds\\reporting\\templates\\dds_report_liquid_glass_v4.html",
+      "templateSha256": "5ae75f40d52f6d82aa6a124c41a16dd67e89fba17fb7558f6173405341c6ca39",
+      "sourceProfile": "D:\\Vault-assets\\AI_Projects\\DDS_v2\\src\\dds\\reporting\\profiles\\report_template_profile_v4.json",
+      "profileSha256": "b3627ca32c4489116b997f2cd9611c199edb3a2a373b742ae199600bb928766e",
+      "verifiedReport": "D:\\Vault-assets\\AI_Projects\\DDS_v2\\data\\exports\\shenzhen-highrise-input2-ad-20260724\\report.html",
+      "verifiedReportSha256": "bc757a66ce77bd5ebb0cc6499db1c7541d28054c4db2c49d561b37258bfbc75d",
+      "browserQaSha256": "6bd8bff12a6267b74e5b26c84d2e7122fcc2e126c9190d26d0265b6bc42c3e61",
+      "printQaSha256": "a12ba5737792ab9c613dca40dc8ff376a2cf50c0fa6516d5ecdc0579517c8579",
+      "decision": "user-directed deterministic sync of report composition and interaction for future reuse; no Gary approvalId was created"
+    }
+  ]
+}

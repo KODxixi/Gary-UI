@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "engine": "gradient-waves",
+  "sourceCommit": "88501f94882ef73be1ec79639ae7d3ad7ff7f23a",
+  "theme": "light",
+  "preset": "silver",
+  "options": {
+    "horizonColor": "#b8c1cb",
+    "waveColor": "#627389",
+    "crestColor": "#c1cad6",
+    "speed": 0.1,
+    "amplitude": 2,
+    "waveScale": 1.35,
+    "waveRatio": 0.6,
+    "swell": 0,
+    "turbulence": 50,
+    "tilt": 1.12,
+    "zoom": 1,
+    "height": 10,
+    "fogDepth": 20,
+    "detail": "medium",
+    "brightness": 1.1,
+    "opacity": 0.32,
+    "mouseInteraction": false,
+    "parallaxStrength": 0.85,
+    "grain": true,
+    "grainIntensity": 0.01
+  },
+  "playback": {
+    "mode": "continuous",
+    "durationSeconds": null,
+    "reducedMotion": "static"
+  },
+  "globalDefaultChanged": false
+}

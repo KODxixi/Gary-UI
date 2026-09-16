@@ -6,6 +6,8 @@ description: 使用 Gary-UI 设计、实现或审查 Liquid Glass 界面。默�
 # Gary-UI 2.0
 
 Gary-UI 是内容可读性优先的 Liquid Glass Design System，也提供可选的 Agent–User HTML 共创集成。
+已安装的 `apple-design` 是还原 Apple 设计逻辑的首要方法入口：功能玻璃克制使用、输入即时反馈、运动可中断、排版随字号适配；
+它不替代 Gary 已批准的材质、图表、点阵和组件语言。
 公开仓库为 [KODxixi/Gary-UI](https://github.com/KODxixi/Gary-UI)。下文所有项目相对路径均从
 本 `SKILL.md` 所在的完整仓库根目录解析；运行命令前先将工作目录切到该目录，不依赖盘符或用户名。
 
@@ -34,6 +36,7 @@ Gary-UI 是内容可读性优先的 Liquid Glass Design System，也提供可选
 9. 需要数值更新、案例横向浏览或展示动效时，读 `docs/INTERACTION_RECIPES.md`，复用共享配方；倾斜和分段标题仍是实验，须有当前任务的用户选择后才采用。不要引入 React Bits 受限组件代码。
 10. 优化图表／分析图／表格时，先读 `docs/CHART_EXPRESSION.md` 和 `spec/chart-recipes.json`：按 17 类规则选型，按 7 种标注语法绑定对象、文字、证据身份与依据，图表、表格、判断和导出保持同源。`patterns/shared/chart-recipes.js` 只实现 `combo / waterfall / donut / radar / rose` 五种 SVG 参考及对应数据表，不是新适配器引擎，也不提供完整七种标注的通用渲染器；其余类型复用既有工具。`demo0909.html` 与 `examples/demo0909/cases.json` 用于跨领域验证，不能只替换标题而保留旧判断与几何。最小 API、自动读取的 geometry／字体／笔画／填充和仍须审查的 spacing／对比度等范围见该规范，不把配置字段存在当作已自动执行。
 11. 图表颜色读 `docs/CHART_COLOR.md`，角色与主题值以 `spec/chart-recipes.json` 的 `colorSystem`、`themes` 为准；颜色语义由当前任务定义，不按图型或数组次序随意分配。玻璃与图表共存时读 `docs/VISUAL_EXPRESSION.md`。实体底纹、磨砂玻璃、超白/全透玻璃由 `data-gary-surface="solid|frosted|optical"` 按内容密度调用，不改变既有 Visual Route 的 material 枚举；不复制原参考的行业字段、编号或状态判断。`data-gary-light-scope` 连接背景与清透边缘；鼠标点阵、高光、波面视差默认关闭，根属性 `data-gary-pointer-effects="on"` 只能由 Background 中的明确开启动作设置，减弱动态仍优先。
+12. 涉及 Apple 风格的材质、运动、手势、动态排版或辅助功能升级时，优先完整读取已安装的 `apple-design` 作为设计逻辑入口，再用 Apple 官方 HIG 校验边界；实现沿用本仓库已确认的点阵、三材质、图表与 Background 契约。不要复制 Apple 字体、素材或原生组件。
 
 ## 默认协作行为
 
@@ -247,7 +250,8 @@ finalize 后状态进入 implementing，不能 reopen。
 - 使用非对称边缘光、接触影和环境影。
 - 中文正文行高默认 1.68，不为“高级感”牺牲可读性。
 - 大字展示标题单行、无标点、中文最多 12 字；超长时改写短标题，完整语义放入副标题或正文，不使用 `<br>` 强制换行。
-- 基础反馈用 150/250/350ms；参考卡片配方允许 200ms 光照、600ms 局部舒展与悬停单次 6s 边缘反馈，尊重 `prefers-reduced-motion`，不自动循环。接入前读取 `patterns/shared/README.md`，复用现有实现。
+- 按压必须在 100–160ms 内回应，UI 转场不超过 300ms；运动可从当前状态打断和反向，bounce 只用于真实动量。600ms 舒展与悬停边缘单次 6s 仅属于明确启用的展示配方，不能阻塞输入。hover 动效仅对精确指针生效，指针联动仍由 Background 明确开启。接入前读取 `patterns/shared/README.md`，复用现有实现。
+- `prefers-reduced-motion` 保留轻柔透明度或颜色反馈；`prefers-reduced-transparency` 使用更实的表面；`prefers-contrast: more` 使用清晰边界。功能层尊重安全区，文字缩放后不裁切。
 - 交付前在真实浏览器验证桌面、390px、键盘焦点与关键交互。
 
 ## 场景配方与制图路由

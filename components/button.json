@@ -6,6 +6,7 @@
     "default": "Regular",
     "rules": [
       "工具操作默认圆形 Lucide 图标按钮，复用完整 Demo 的 44px 点击区和 1.6px 描边；不叠加旧版厚玻璃斜面",
+      "React 默认按钮与所有 icon 尺寸变体的实际点击区至少 44×44px；紧凑层级只调整内部图标与字号",
       "导航、分段筛选和内容选择保留文字；必要的业务主操作可以保留清晰短标签",
       "每个决策区只保留一个主操作"
     ]
@@ -50,13 +51,26 @@
       "selector": ":disabled, [aria-disabled=\"true\"], [aria-busy=\"true\"]"
     }
   ],
+  "interaction": {
+    "pressResponseMs": {
+      "min": 100,
+      "max": 160
+    },
+    "frequentUiMaxMs": 300,
+    "hover": "@media (hover: hover) and (pointer: fine)",
+    "interruptible": true,
+    "bounce": "momentum-driven-only",
+    "reducedMotion": "keep opacity and color feedback; remove displacement and bounce"
+  },
   "accessibility": {
     "role": "native button or link",
     "requirements": [
       "操作使用 button，导航使用 a",
       "仅图标按钮必须有 aria-label",
       "文字、图标及文字与图标组合在点击区域内水平和垂直居中",
-      "异步操作同步 aria-busy 与禁用态"
+      "异步操作同步 aria-busy 与禁用态",
+      "点击区至少 44px；文字缩放后标签不裁切",
+      "按压即时反馈且不锁住后续输入"
     ]
   },
   "cssClasses": [

@@ -1,0 +1,12 @@
+[
+  {
+    "reduced": false,
+    "changed": true,
+    "pass": true
+  },
+  {
+    "reduced": true,
+    "changed": false,
+    "pass": true
+  }
+]

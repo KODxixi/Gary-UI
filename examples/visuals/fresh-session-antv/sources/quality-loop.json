@@ -1,0 +1,4 @@
+{
+  "title": "本地报告制图质量闭环",
+  "syntax": "infographic sequence-ascending-steps\ndata\n  title 本地报告制图质量闭环\n  desc 验收构造数据｜四步形成可追溯闭环；失败候选不得覆盖上一有效版本\n  sequences\n    - label 1 接收需求\n      desc 负责人：分析 Agent｜输出：内容目的与场景\n    - label 2 选择工具\n      desc 负责人：路由器｜输出：确定性工具\n    - label 3 本地生成\n      desc 负责人：制图适配器｜输出：原生源、HTML、SVG、PNG\n    - label 4 浏览器验收\n      desc 负责人：验收 Agent｜输出：通过或带原因失败；失败候选不得覆盖上一有效版本\n  order asc\ntheme\n  palette #74a7ff #d69cff #72d4a6 #f3bd62"
+}

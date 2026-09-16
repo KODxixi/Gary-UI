@@ -20,7 +20,6 @@
   "commandResultAuthority": "contracts/command-result.schema.json",
   "visualManifestAuthority": "contracts/visual-manifest.schema.json",
   "sceneRecipeAuthority": "spec/scene-recipes.json",
-  "collaborationWhitepaper": "docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md",
   "runtimeManifest": "runtime/manifest.json",
   "componentCount": 15,
   "componentContractCoverage": "15/15",
@@ -29,37 +28,8 @@
   "patternCountScope": "page-mode",
   "patternCoverage": "4/4",
   "applicationModeCount": 3,
-  "applicationModes": [
-    "board",
-    "scroll-report",
-    "web-ui"
-  ],
-  "pageModes": [
-    "report-cover",
-    "image-page",
-    "data-page",
-    "manual-toc"
-  ],
-  "patternLevelOrder": [
-    "application-mode",
-    "page-mode"
-  ],
-  "patternCompositionModel": "one-application-mode-with-shared-page-modes",
   "decisionReportRecipe": "patterns/recipes/decision-report/index.html",
   "decisionReportRecipeProfile": "patterns/recipes/decision-report/profile.json",
-  "themes": [
-    "dark",
-    "light"
-  ],
-  "materials": [
-    "ultrathin",
-    "regular",
-    "thick",
-    "solid-plate"
-  ],
-  "shellNavigation": "top-centered",
-  "persistentSidebar": false,
-  "defaultCardMaterial": "glass",
   "offlinePortal": "portal/index.html",
   "collaborativeReview": "portal/#review",
   "taskCollaborationUI": "session/index.html",
@@ -70,51 +40,8 @@
   "surfaceMode": "separate",
   "sessionSurfaceArgument": "--surface session",
   "portalSurfaceArgument": "--surface portal",
-  "sessionCommandCount": 11,
-  "visualCommands": ["doctor", "validate", "render", "export"],
-  "visualEngineCount": 6,
-  "visualAdapter": "adapters/visual/README.md",
-  "visualSamples": "examples/visuals/outputs/index.html",
-  "sessionCommands": [
-    "start",
-    "propose",
-    "watch",
-    "feedback",
-    "revise",
-    "status",
-    "resume",
-    "reopen",
-    "finalize",
-    "verify",
-    "close"
-  ],
-  "collaborationModes": [
-    "quick",
-    "compare",
-    "deep-review"
-  ],
-  "proposalCardinality": {
-    "quick": [
-      "recommended"
-    ],
-    "compare": [
-      "recommended",
-      "alternative",
-      "stretch"
-    ],
-    "deep-review": [
-      "recommended",
-      "alternative",
-      "stretch"
-    ]
-  },
   "defaultInteraction": "direct-chat",
-  "directChatDefaultFor": [
-    "create",
-    "integrate",
-    "audit",
-    "govern"
-  ],
+  "directChatDefaultFor": ["create", "integrate", "audit", "govern"],
   "sessionRequiredFor": [],
   "sessionActivationTriggers": [
     "user-explicit-request",
@@ -133,18 +60,8 @@
   "writerLeaseRequiredForMutations": true,
   "takeoverRotatesCapabilities": true,
   "artifactEvidenceAccess": "tokenless-url-path-scoped-httponly-cookie",
-  "evidenceReceiptFields": [
-    "checks",
-    "artifacts",
-    "skillsUsed"
-  ],
   "canonicalOnlyWritable": true,
   "consumerRuntimeReadOnly": true,
-  "runtimeSyncReceiptPersistence": "none",
-  "reviewDecisionSchemaVersion": 3,
-  "syncAuditCadence": "weekly",
-  "sourceCoverage": "provenance/coverage.json",
-  "sourceCoverageStatus": "complete",
   "defaultScene": "dot-grid",
   "defaultSceneImplementation": "assets/scenes/dot-grid.js",
   "defaultBackground": null,
@@ -155,6 +72,8 @@
   "defaultDensity": "balanced",
   "reactAdapterStrategy": "demand-driven",
   "distributionScope": "internal",
+  "reviewDecisionSchemaVersion": 3,
+  "syncAuditCadence": "weekly",
   "syncAuditStrategy": "single-heartbeat-weekly-with-first-monday-governance",
   "reviewDecisionStatus": "confirmed",
   "reviewDecisionId": "5576b3e478f2b533",

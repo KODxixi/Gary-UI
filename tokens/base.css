@@ -59,10 +59,13 @@
   --gary-blur-ultrathin: 16px;
   --gary-blur-regular: 24px;
   --gary-blur-thick: 32px;
+  --gary-duration-press: 120ms;
   --gary-duration-fast: 150ms;
   --gary-duration-base: 250ms;
   --gary-duration-slow: 350ms;
   --gary-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --gary-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --gary-press-scale: 0.97;
   --gary-font-latin: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --gary-font-cjk: "Microsoft YaHei UI", "Microsoft YaHei", "微软雅黑", sans-serif;
   --gary-font-sans: "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei UI", "Microsoft YaHei", "微软雅黑", sans-serif;
@@ -90,6 +93,11 @@
   --gary-font-weight-extra-black: 790;
   --gary-line-height-tight: 1.1;
   --gary-line-height-body: 1.68;
+  --gary-tracking-display: -0.025em;
+  --gary-tracking-title: -0.015em;
+  --gary-tracking-label: 0.01em;
+  --gary-tracking-caption: 0.012em;
+  --gary-tracking-metric: -0.03em;
   --gary-control-height: 44px;
   --gary-scene-mask: rgba(0, 0, 0, 0);
   --gary-scene-image: none;
@@ -138,6 +146,36 @@
   --gary-scene-dot-active: rgba(0, 0, 0, 0.58);
 }
 
+@media (prefers-contrast: more) {
+  :root,
+  [data-gary-theme="dark"] {
+    --gary-text-secondary: rgba(255, 255, 255, 0.84);
+    --gary-text-tertiary: rgba(255, 255, 255, 0.68);
+    --gary-border-highlight: rgba(255, 255, 255, 0.48);
+  }
+
+  [data-gary-theme="light"] {
+    --gary-text-secondary: rgba(34, 30, 27, 0.82);
+    --gary-text-tertiary: rgba(34, 30, 27, 0.66);
+    --gary-border-shadow: rgba(34, 30, 27, 0.48);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root,
+  [data-gary-theme="dark"] {
+    --gary-glass-ultrathin: rgba(14, 14, 14, 0.94);
+    --gary-glass-regular: rgba(14, 14, 14, 0.96);
+    --gary-glass-thick: rgba(14, 14, 14, 0.98);
+  }
+
+  [data-gary-theme="light"] {
+    --gary-glass-ultrathin: rgba(250, 248, 244, 0.94);
+    --gary-glass-regular: rgba(250, 248, 244, 0.96);
+    --gary-glass-thick: rgba(250, 248, 244, 0.98);
+  }
+}
+
 [data-gary-density="spacious"] {
   --gary-density-surface-padding: 32px;
   --gary-density-layout-gap: 28px;
@@ -162,18 +200,21 @@
   color: var(--gary-text-primary);
   font-family: var(--gary-font-sans);
   font-feature-settings: "tnum" 1, "ss01" 1;
+  font-optical-sizing: auto;
   font-variant-numeric: tabular-nums;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   letter-spacing: 0;
   line-height: var(--gary-line-height-body);
 }
 
 /* Executable semantic roles shared by plain HTML and React adapters. */
-.gary-role-title { margin: 0 0 var(--gary-space-6); max-width: none; font-size: min(clamp(1.75rem, 5vw, 4.5rem), 7vw); font-weight: var(--gary-font-weight-bold); line-height: 1.08; white-space: nowrap; text-wrap: nowrap; word-break: keep-all; overflow-wrap: normal; }
-.gary-role-section-title { margin: 0 0 var(--gary-space-4); font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: var(--gary-font-weight-semibold); line-height: 1.28; text-wrap: balance; }
+.gary-role-title { margin: 0 0 var(--gary-space-6); max-width: none; font-size: min(clamp(1.75rem, 5vw, 4.5rem), 7vw); font-weight: var(--gary-font-weight-bold); line-height: 1.08; letter-spacing: var(--gary-tracking-display); white-space: nowrap; text-wrap: nowrap; word-break: keep-all; overflow-wrap: normal; }
+.gary-role-section-title { margin: 0 0 var(--gary-space-4); font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: var(--gary-font-weight-semibold); line-height: 1.28; letter-spacing: var(--gary-tracking-title); text-wrap: balance; }
 .gary-role-body { margin: 0 0 1em; max-width: 72ch; font-size: 1rem; font-weight: var(--gary-font-weight-regular); line-height: 1.68; word-break: normal; overflow-wrap: break-word; text-wrap: pretty; }
-.gary-role-label { margin: 0 0 var(--gary-space-2); font-size: .875rem; font-weight: var(--gary-font-weight-medium); line-height: 1.4; }
-.gary-role-annotation { margin: var(--gary-space-2) 0 0; color: var(--gary-text-secondary); font-size: .8125rem; font-weight: var(--gary-font-weight-regular); line-height: 1.55; overflow-wrap: anywhere; }
-.gary-role-metric { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .35em; margin: var(--gary-space-2) 0; font-size: clamp(1.75rem, 4vw, 3.5rem); font-weight: var(--gary-font-weight-bold); font-variant-numeric: tabular-nums; line-height: 1; }
+.gary-role-label { margin: 0 0 var(--gary-space-2); font-size: .875rem; font-weight: var(--gary-font-weight-medium); line-height: 1.4; letter-spacing: var(--gary-tracking-label); }
+.gary-role-annotation { margin: var(--gary-space-2) 0 0; color: var(--gary-text-secondary); font-size: .8125rem; font-weight: var(--gary-font-weight-regular); line-height: 1.55; letter-spacing: var(--gary-tracking-caption); overflow-wrap: anywhere; }
+.gary-role-metric { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .35em; margin: var(--gary-space-2) 0; font-size: clamp(1.75rem, 4vw, 3.5rem); font-weight: var(--gary-font-weight-bold); font-variant-numeric: tabular-nums; line-height: 1; letter-spacing: var(--gary-tracking-metric); }
 .gary-role-metric small { font-size: .36em; font-weight: var(--gary-font-weight-medium); }
 .gary-rich-text { font-family: var(--gary-font-sans); font-synthesis: weight; }
 [data-gary-font-weight="100"] { font-weight: 100; }
@@ -379,9 +420,7 @@
   :where(.gary-ui, .gary-ui *),
   :where([data-gary-ui], [data-gary-ui] *) {
     scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
   }
 }
 

@@ -32,6 +32,7 @@ README 以 [完整 Demo 首页](examples/demos/index.html) 的六种工作情境
 - **背景只做一层。** 默认单一点网格，不叠加线网和装饰等高线。背景实验由用户主动开启，本地照片和视频只在浏览器里预览。
 - **鼠标光影默认关闭。** 点阵位移、卡片高光、波面视差需在 `Background` 中手动开启；减弱动态优先。
 - **动效可以停下来。** 展示动效支持暂停、重播，页面不可见时停止渲染，减弱动态偏好下保留静态内容。
+- **`apple-design` 是 Apple 方法入口。** 先用它统一层级、功能玻璃、排版与运动逻辑，再用 Apple 官方 HIG 校验边界；图表、表格与正文保持稳定实体承载，并适配文字缩放、减弱透明度和增强对比度。
 - **规则能追溯到代码。** 15 个组件、3 类应用模式、4 类页面模式共享 Token、样式、状态和 Agent 契约。
 
 浏览 [Portal](https://kodxixi.github.io/Gary-UI/portal/) 查看排版、材质、组件、模板和制图；详细规则见 [DESIGN.md](DESIGN.md)。
@@ -79,6 +80,7 @@ python scripts/preview.py --port 4173
 请读取当前 Gary-UI 仓库的 SKILL.md、DESIGN.md，并参考 examples/demos/ 中最接近的完整页面。
 为我的项目制作一个可运行的页面。先明确它属于阅读、分析还是展示情境，复用共享 Token 和组件。
 保持 Background 文字入口与圆形主题按钮独立，默认只使用一层点网格。
+优先完整读取已安装的 apple-design，还原 Apple 的层级、材质、排版与运动逻辑；正文和数据保持稳定。
 交付 HTML、所需资源和运行说明，实际验证深浅主题、手机布局、键盘操作及主要交互。
 需求明确就直接实施；只询问会改变结果的关键信息。
 ```
@@ -124,3 +126,4 @@ python scripts/gary_ui.py visual --help
 [MIT](LICENSE) 适用于 Gary-UI 原创代码与文档。第三方代码、依赖和品牌标识继续适用各自许可证，见 [第三方声明](THIRD_PARTY_NOTICES.md) 与 [完整许可证目录](licenses/third-party/)。系统字体由设备提供，仓库不打包 Apple 或其他商业字体。
 
 Gary-UI 是独立的 Web 设计系统，与 Apple 无隶属关系。Liquid Glass 是设计参考；这里的 Web 材质实现不等同于原生系统组件。
+质量层以 Emil Kowalski 的 MIT `apple-design` Skill 作为 Apple 设计逻辑的首要 Web 方法入口，并用 Apple 官方 [Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles)、[Motion](https://developer.apple.com/design/human-interface-guidelines/motion)、[Typography](https://developer.apple.com/design/human-interface-guidelines/typography) 与 [Adopting Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/adopting-liquid-glass) 校验边界；仓库不复制 Apple 素材或原生组件。

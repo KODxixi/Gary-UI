@@ -22,6 +22,7 @@
     "tokens": "tokens/tokens.json",
     "components": "components/index.json",
     "design": "DESIGN.md",
+    "appleQuality": "DESIGN.md#11-apple-quality-layer",
     "collaboration": "docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md",
     "runtimeProjection": "runtime/manifest.json"
   },
@@ -198,6 +199,58 @@
     "consumerRuntimeReadOnly": true,
     "runtimeMayAuthorSource": false,
     "syncReceiptPersistence": "none"
+  },
+  "appleQualityLayer": {
+    "version": "1.0.0",
+    "status": "adopted-web-translation",
+    "primaryMethodReference": "apple-design",
+    "referenceSkill": "apple-design",
+    "officialSources": [
+      "https://developer.apple.com/design/human-interface-guidelines/design-principles",
+      "https://developer.apple.com/design/human-interface-guidelines/motion",
+      "https://developer.apple.com/design/human-interface-guidelines/typography",
+      "https://developer.apple.com/documentation/technologyoverviews/adopting-liquid-glass"
+    ],
+    "surfacePolicy": {
+      "liquidGlass": [
+        "navigation",
+        "controls",
+        "transient-functional-surfaces"
+      ],
+      "stableContent": [
+        "charts",
+        "tables",
+        "long-form-body",
+        "dense-evidence"
+      ],
+      "namedSurfaces": [
+        "实体底纹",
+        "磨砂玻璃",
+        "超白/全透玻璃"
+      ],
+      "maxGlassLayers": 1
+    },
+    "motion": {
+      "pressResponseMs": {
+        "min": 100,
+        "max": 160
+      },
+      "frequentUiMaxMs": 300,
+      "hover": "fine-pointer-only-and-explicitly-enabled",
+      "interruptible": true,
+      "bounce": "momentum-driven-only",
+      "reducedMotion": "gentle-opacity-and-color-feedback"
+    },
+    "typography": {
+      "tracking": "size-specific",
+      "leading": "size-specific",
+      "dynamicText": true
+    },
+    "accessibility": {
+      "reducedTransparency": true,
+      "increasedContrast": true,
+      "safeArea": true
+    }
   },
   "visualToolchain": {
     "commands": ["doctor", "validate", "render", "export"],

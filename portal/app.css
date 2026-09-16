@@ -271,7 +271,6 @@ kbd {
 
 :where(.gary-button):hover {
   background: var(--portal-control-hover);
-  transform: translateY(-1px);
 }
 
 :where(.gary-button):active {
@@ -605,15 +604,6 @@ kbd {
   padding: 28px 28px 80px 14px;
 }
 
-.app-view {
-  animation: view-enter var(--portal-slow) var(--portal-ease) both;
-}
-
-@keyframes view-enter {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 .portal-surface {
   border-radius: var(--portal-radius-panel);
   box-shadow: var(--portal-active-shadow);
@@ -723,7 +713,6 @@ kbd {
     inset 0 1px 0 color-mix(in srgb, var(--portal-edge) 58%, transparent),
     0 24px 52px color-mix(in srgb, var(--portal-edge-shadow) 56%, transparent);
   overflow: hidden;
-  transition: width var(--portal-slow) var(--portal-ease);
 }
 
 :root[data-viewport="mobile"] .overview-frame {
@@ -938,10 +927,6 @@ kbd {
   transition: transform var(--portal-base) var(--portal-ease);
 }
 
-.swatch-card:hover {
-  transform: translateY(-3px);
-}
-
 .swatch-card.is-light {
   color: rgba(0, 0, 0, 0.82);
 }
@@ -1071,10 +1056,6 @@ kbd {
   transition:
     transform var(--portal-base) var(--portal-ease),
     box-shadow var(--portal-slow) var(--portal-ease);
-}
-
-.material-sample:hover {
-  transform: translateY(-4px);
 }
 
 .material-sample.is-selected {
@@ -1346,10 +1327,6 @@ kbd {
   padding: 18px;
   border-radius: var(--portal-radius-card);
   flex-direction: column;
-}
-
-.component-item:hover {
-  transform: translateY(-2px);
 }
 
 .component-head {
@@ -1782,7 +1759,6 @@ kbd {
   height: 100%;
   border-radius: inherit;
   background: var(--portal-text);
-  transition: width var(--portal-slow) var(--portal-ease);
 }
 
 .demo-scene {
@@ -1923,7 +1899,6 @@ kbd {
   background: #111;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
   overflow: hidden;
-  transition: width var(--portal-slow) var(--portal-ease);
 }
 
 .application-viewport-frame {
@@ -2301,7 +2276,26 @@ kbd {
 
 .review-choice:hover > span {
   color: var(--portal-text);
-  transform: translateY(-1px);
+}
+
+/* Decorative pointer depth belongs to the opt-in Background interaction. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html[data-gary-pointer-effects="on"] :where(.gary-button):hover,
+  html[data-gary-pointer-effects="on"] .review-choice:hover > span {
+    transform: translateY(-1px);
+  }
+
+  html[data-gary-pointer-effects="on"] .component-item:hover {
+    transform: translateY(-2px);
+  }
+
+  html[data-gary-pointer-effects="on"] .swatch-card:hover {
+    transform: translateY(-3px);
+  }
+
+  html[data-gary-pointer-effects="on"] .material-sample:hover {
+    transform: translateY(-4px);
+  }
 }
 
 .review-choice input:checked + span {
@@ -3042,12 +3036,6 @@ summary.top-nav-item::after {
   transform: translateY(-1px) rotate(45deg);
 }
 
-.top-nav-item:hover {
-  color: var(--portal-text);
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-1px);
-}
-
 .top-nav-item:active {
   transform: scale(0.97);
 }
@@ -3097,7 +3085,6 @@ summary.top-nav-item::after {
   background: transparent;
 }
 
-.top-nav-popover button:hover,
 .top-nav-popover button.is-active {
   color: var(--portal-text);
   background: var(--portal-selection);
@@ -3145,14 +3132,31 @@ summary.top-nav-item::after {
     transform var(--portal-fast) var(--portal-ease);
 }
 
-.display-summary:hover {
-  color: var(--portal-text);
-  background: rgba(255, 255, 255, 0.10);
-  transform: translateY(-1px);
-}
-
 .display-summary:active {
   transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .top-nav-item:hover,
+  .display-summary:hover,
+  .topbar-menu-toggle:hover {
+    color: var(--portal-text);
+    background: rgba(255, 255, 255, 0.10);
+  }
+
+  .top-nav-popover button:hover {
+    color: var(--portal-text);
+    background: var(--portal-selection);
+  }
+
+  html body .portal-topbar[data-gary-header] .gary-background-nav:hover {
+    color: var(--demo-ink);
+  }
+
+  html body .portal-topbar[data-gary-header] .gary-icon-button:hover {
+    border-color: var(--gary-text-secondary);
+    background: var(--gary-surface-sunken);
+  }
 }
 
 .display-details[open] .display-summary {
@@ -4127,9 +4131,16 @@ summary.top-nav-item::after {
   --harness-compact-width: 980px;
   isolation: isolate;
   transition:
-    width 450ms cubic-bezier(0.22, 1, 0.36, 1),
-    padding 450ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-radius 350ms var(--portal-ease);
+    background-color 180ms ease-out,
+    border-color 180ms ease-out,
+    box-shadow 180ms ease-out;
+}
+
+html body .portal-topbar[data-gary-header] {
+  transition:
+    background-color 180ms ease-out,
+    border-color 180ms ease-out,
+    box-shadow 180ms ease-out;
 }
 
 .portal-topbar::before {
@@ -4147,7 +4158,7 @@ summary.top-nav-item::after {
   -webkit-backdrop-filter: blur(22px);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 400ms ease-in-out, visibility 0s 400ms;
+  transition: opacity 180ms ease-out, visibility 0s 180ms;
   pointer-events: none;
 }
 
@@ -4160,16 +4171,12 @@ summary.top-nav-item::after {
 .portal-topbar.is-scrolled::before {
   opacity: 1;
   visibility: visible;
-  transition: opacity 400ms ease-in-out, visibility 0s;
+  transition: opacity 180ms ease-out, visibility 0s;
 }
 
 .topbar-leading .eyebrow {
   max-height: 16px;
-  transition:
-    opacity 250ms ease,
-    transform 350ms var(--portal-ease),
-    max-height 350ms var(--portal-ease),
-    margin 350ms var(--portal-ease);
+  transition: opacity 150ms ease-out;
 }
 
 .portal-topbar.is-scrolled .topbar-leading .eyebrow {
@@ -4187,38 +4194,6 @@ summary.top-nav-item::after {
   -webkit-backdrop-filter: none;
 }
 
-.top-nav-item,
-.display-summary,
-.topbar-menu-toggle {
-  position: relative;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.top-nav-item::before,
-.display-summary::before,
-.topbar-menu-toggle::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150%;
-  aspect-ratio: 1;
-  z-index: -1;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.10);
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 360ms ease-out, opacity 100ms ease;
-}
-
-.top-nav-item:hover::before,
-.display-summary:hover::before,
-.topbar-menu-toggle:hover::before {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
 .topbar-menu-toggle {
   display: none;
   min-width: 58px;
@@ -4229,6 +4204,22 @@ summary.top-nav-item::after {
   color: var(--portal-text-secondary);
   background: rgba(8, 12, 18, 0.24);
   cursor: pointer;
+  transition:
+    color var(--portal-fast) var(--portal-ease),
+    background-color var(--portal-fast) var(--portal-ease),
+    border-color var(--portal-fast) var(--portal-ease),
+    transform var(--portal-fast) var(--portal-ease);
+}
+
+html body .portal-topbar[data-gary-header] :is(
+  .top-nav-item,
+  .display-summary,
+  .topbar-menu-toggle,
+  .gary-background-nav,
+  .gary-icon-button
+):active {
+  transform: scale(0.97);
+  transition-duration: 100ms;
 }
 
 @media (min-width: 1560px) {
@@ -4288,7 +4279,6 @@ summary.top-nav-item::after {
 
   .portal-topbar .top-navigation.is-open {
     display: flex;
-    animation: harness-menu-in 220ms var(--portal-ease) both;
   }
 
   .top-navigation > .top-nav-item,
@@ -4305,17 +4295,6 @@ summary.top-nav-item::after {
     margin-top: 4px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     transform: none;
-  }
-}
-
-@keyframes harness-menu-in {
-  from {
-    opacity: 0;
-    transform: translateY(-8px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
   }
 }
 
@@ -4349,10 +4328,89 @@ summary.top-nav-item::after {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    animation: none !important;
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+    transition-property: color, background-color, border-color, opacity !important;
+    transition-duration: 120ms !important;
+    transition-timing-function: ease-out !important;
+  }
+
+  html body .portal-topbar[data-gary-header] :is(
+    .top-nav-item,
+    .display-summary,
+    .topbar-menu-toggle,
+    .gary-background-nav,
+    .gary-icon-button
+  ):active {
+    transform: none;
+  }
+
+  :where(.gary-button):active,
+  .nav-item:active,
+  .application-mode-tabs button:active,
+  .component-preview[data-demo-state="hover"] button:not(:disabled),
+  .component-preview[data-demo-state="hover"] input:not(:disabled),
+  .copy-toast,
+  .copy-toast.is-visible,
+  .portal-topbar.is-scrolled .topbar-leading .eyebrow {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  html body .portal-topbar[data-gary-header],
+  html body .portal-topbar[data-gary-header].is-scrolled,
+  html body .portal-topbar[data-gary-header] :is(.top-navigation, .display-summary, .topbar-menu-toggle),
+  .portal-topbar::before,
+  .top-nav-popover,
+  .display-popover {
+    background: #0e1117;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  html[data-gary-theme="light"] body .portal-topbar[data-gary-header],
+  html[data-gary-theme="light"] body .portal-topbar[data-gary-header].is-scrolled,
+  html[data-gary-theme="light"] body .portal-topbar[data-gary-header] :is(.top-navigation, .display-summary, .topbar-menu-toggle),
+  html[data-gary-theme="light"] .portal-topbar::before,
+  html[data-gary-theme="light"] .top-nav-popover,
+  html[data-gary-theme="light"] .display-popover {
+    background: #f7f4ee;
+  }
+}
+
+@media (prefers-contrast: more) {
+  html body .portal-topbar[data-gary-header] {
+    border-color: currentColor;
+  }
+
+  html body .portal-topbar[data-gary-header] :is(
+    .top-nav-item,
+    .display-summary,
+    .topbar-menu-toggle,
+    .gary-background-nav,
+    .gary-icon-button
+  ) {
+    color: var(--portal-text);
+    border-color: currentColor;
+    outline: 1px solid currentColor;
+    outline-offset: -1px;
+  }
+
+  html body .portal-topbar[data-gary-header] :is(button, a, summary):focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  html body .portal-topbar[data-gary-header] .gary-background-nav:hover {
+    color: var(--demo-muted);
+  }
+
+  html body .portal-topbar[data-gary-header] .gary-icon-button:hover {
+    border-color: var(--gary-action-border);
+    background: var(--gary-action-fill);
   }
 }
 

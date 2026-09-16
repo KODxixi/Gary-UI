@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-09-15（Apple quality layer）
+
+- 以 MIT `apple-design` Skill 为 Apple 设计逻辑的首要入口，并用 Apple 官方 HIG 校验边界；新增可执行的质量层：Liquid Glass
+  只承载导航、控件与短暂功能层，图表、表格、正文和密集证据保持稳定实体承载。
+- 统一按压 100–160ms、频繁 UI 转场不超过 300ms、运动可中断、仅动量交互使用 bounce；
+  hover 只用于精确指针且 Gary 指针联动仍默认关闭。
+- 补齐字号相关字距/行高、动态文字、安全区、减弱动态、减弱透明度与增强对比度的组件契约。
+
 ## 2026-09-08 — Gary-UI 独立公开版
 
 - 新建 `KODxixi/Gary-UI`，原创代码与文档采用 MIT；第三方原始许可证与版本清单随源码保留。

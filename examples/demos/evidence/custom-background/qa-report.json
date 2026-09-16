@@ -1,0 +1,39 @@
+{
+  "generatedAt": "2026-09-07T10:44:47.072Z",
+  "results": [
+    {
+      "width": 1440,
+      "theme": "dark",
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "pass": true
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "pass": true
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "pass": true
+    },
+    {
+      "case": "video",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-07T07:34:38.408Z",
+  "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "status": "pass",
+  "results": [
+    {
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\research-report\\index.html",
+      "output": "C:\\AI\\UI\\gary-ui\\examples\\demos\\research-report\\research-report.pdf",
+      "size": 426937,
+      "blockedExternalRequests": []
+    },
+    {
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\proposal-presentation\\index.html",
+      "output": "C:\\AI\\UI\\gary-ui\\examples\\demos\\proposal-presentation\\proposal-presentation.pdf",
+      "size": 458090,
+      "blockedExternalRequests": []
+    }
+  ]
+}

@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-06T16:33:01.104Z",
+  "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "baseUrl": "http://127.0.0.1:8891",
+  "portal": [
+    {
+      "name": "portal-desktop-dark",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "pageScale": 1,
+      "status": 200,
+      "iframeLoaded": true,
+      "sampleCards": 10,
+      "screenshot": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\evidence\\portal-desktop-dark.png",
+      "consoleErrors": [],
+      "theme": "dark",
+      "reducedMotion": false,
+      "cssLoaded": "44px",
+      "scrollWidth": 1440,
+      "innerWidth": 1440
+    },
+    {
+      "name": "portal-tablet-light",
+      "viewport": {
+        "width": 768,
+        "height": 900
+      },
+      "pageScale": 1,
+      "status": 200,
+      "iframeLoaded": true,
+      "sampleCards": 10,
+      "screenshot": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\evidence\\portal-tablet-light.png",
+      "consoleErrors": [],
+      "theme": "light",
+      "reducedMotion": false,
+      "cssLoaded": "44px",
+      "scrollWidth": 768,
+      "innerWidth": 768
+    },
+    {
+      "name": "portal-mobile-dark",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pageScale": 1,
+      "status": 200,
+      "iframeLoaded": true,
+      "sampleCards": 10,
+      "screenshot": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\evidence\\portal-mobile-dark.png",
+      "consoleErrors": [],
+      "theme": "dark",
+      "reducedMotion": false,
+      "cssLoaded": "44px",
+      "scrollWidth": 390,
+      "innerWidth": 390
+    },
+    {
+      "name": "portal-reduced-motion",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "pageScale": 1,
+      "status": 200,
+      "iframeLoaded": true,
+      "sampleCards": 10,
+      "screenshot": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\evidence\\portal-reduced-motion.png",
+      "consoleErrors": [],
+      "theme": "dark",
+      "reducedMotion": true,
+      "cssLoaded": "44px",
+      "scrollWidth": 1440,
+      "innerWidth": 1440
+    },
+    {
+      "name": "portal-200-percent",
+      "viewport": {
+        "width": 768,
+        "height": 900
+      },
+      "pageScale": 2,
+      "status": 200,
+      "iframeLoaded": true,
+      "sampleCards": 10,
+      "screenshot": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\evidence\\portal-200-percent.png",
+      "consoleErrors": [],
+      "theme": "dark",
+      "reducedMotion": false,
+      "cssLoaded": "44px",
+      "scrollWidth": 768,
+      "innerWidth": 768
+    }
+  ],
+  "servedArtifacts": [
+    {
+      "id": "architecture",
+      "status": 200,
+      "ready": true,
+      "renderError": null,
+      "consoleErrors": []
+    },
+    {
+      "id": "workflow-with-exception",
+      "status": 200,
+      "ready": true,
+      "renderError": null,
+      "consoleErrors": []
+    },
+    {
+      "id": "sequence",
+      "status": 200,
+      "ready": true,
+      "renderError": null,
+      "consoleErrors": []
+    },
+    {
+      "id": "data-flow",
+      "status": 200,
+      "ready": true,
+      "renderError": null,
+      "consoleErrors": []
+    },
+    {
+      "id": "lifecycle",
+      "status": 200,
+      "ready": true,
+      "renderError": null,
+      "consoleErrors": []
+    },
+    {
+      "id": "quantitative",
+      "status": 200,
+      "ready": true,
+      "renderError": null,
+      "consoleErrors": []
+    },
+    {
+      "id": "research-outline",
+      "status": 200,
+      "ready": true,
+      "renderError": null,
+      "consoleErrors": []
+    },
+    {
+      "id": "summary-infographic",
+      "status": 200,
+      "ready": true,
+      "renderError": null,
+      "consoleErrors": []
+    },
+    {
+      "id": "simple-flow",
+      "status": 200,
+      "ready": true,
+      "renderError": null,
+      "consoleErrors": []
+    },
+    {
+      "id": "icons",
+      "status": 200,
+      "ready": true,
+      "renderError": null,
+      "consoleErrors": []
+    }
+  ],
+  "offlineArtifacts": [
+    {
+      "id": "architecture",
+      "tool": "archify",
+      "consoleErrors": [],
+      "ready": true,
+      "renderError": null,
+      "svgCount": 2,
+      "textLength": 796,
+      "reducedMotion": true,
+      "externalResources": []
+    },
+    {
+      "id": "workflow-with-exception",
+      "tool": "archify",
+      "consoleErrors": [],
+      "ready": true,
+      "renderError": null,
+      "svgCount": 2,
+      "textLength": 1087,
+      "reducedMotion": true,
+      "externalResources": []
+    },
+    {
+      "id": "sequence",
+      "tool": "archify",
+      "consoleErrors": [],
+      "ready": true,
+      "renderError": null,
+      "svgCount": 2,
+      "textLength": 996,
+      "reducedMotion": true,
+      "externalResources": []
+    },
+    {
+      "id": "data-flow",
+      "tool": "archify",
+      "consoleErrors": [],
+      "ready": true,
+      "renderError": null,
+      "svgCount": 2,
+      "textLength": 1466,
+      "reducedMotion": true,
+      "externalResources": []
+    },
+    {
+      "id": "lifecycle",
+      "tool": "archify",
+      "consoleErrors": [],
+      "ready": true,
+      "renderError": null,
+      "svgCount": 2,
+      "textLength": 1132,
+      "reducedMotion": true,
+      "externalResources": []
+    },
+    {
+      "id": "quantitative",
+      "tool": "echarts",
+      "consoleErrors": [],
+      "ready": true,
+      "renderError": null,
+      "svgCount": 1,
+      "textLength": 208,
+      "reducedMotion": true,
+      "externalResources": []
+    },
+    {
+      "id": "research-outline",
+      "tool": "markmap",
+      "consoleErrors": [],
+      "ready": true,
+      "renderError": null,
+      "svgCount": 1,
+      "textLength": 192,
+      "reducedMotion": true,
+      "externalResources": []
+    },
+    {
+      "id": "summary-infographic",
+      "tool": "antv-infographic",
+      "consoleErrors": [],
+      "ready": true,
+      "renderError": null,
+      "svgCount": 1,
+      "textLength": 204,
+      "reducedMotion": true,
+      "externalResources": []
+    },
+    {
+      "id": "simple-flow",
+      "tool": "mermaid",
+      "consoleErrors": [],
+      "ready": true,
+      "renderError": null,
+      "svgCount": 1,
+      "textLength": 160,
+      "reducedMotion": true,
+      "externalResources": []
+    },
+    {
+      "id": "icons",
+      "tool": "lucide",
+      "consoleErrors": [],
+      "ready": true,
+      "renderError": null,
+      "svgCount": 10,
+      "textLength": 180,
+      "reducedMotion": true,
+      "externalResources": []
+    }
+  ],
+  "status": "pass"
+}

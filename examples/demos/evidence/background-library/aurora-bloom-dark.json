@@ -1,0 +1,12 @@
+{
+  "background": "aurora-bloom",
+  "motion": "playing",
+  "canvas": 1,
+  "beforeAnimation": "gary-ambient-drift",
+  "afterAnimation": "gary-ambient-breathe",
+  "beforeImage": "radial-gradient(at 72% 18%, rgba(138, 158, 218, 0.35), rgba(0, 0, 0, 0) 38%), radial-gradient(at 18% 78%, rgba(214, 224, 244, 0.15), rgba(0, 0, 0, 0) 42%), none",
+  "afterImage": "radial-gradient(circle at 78% 24%, rgba(220, 231, 255, 0.22), rgba(0, 0, 0, 0) 26%), radial-gradient(circle at 22% 82%, rgba(110, 133, 190, 0.15), rgba(0, 0, 0, 0) 32%)",
+  "glassFilter": "url(\"#gary-optical-1\") saturate(1.05)",
+  "control": "44px",
+  "scrollWidth": 1440
+}

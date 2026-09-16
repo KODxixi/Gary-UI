@@ -1,0 +1,137 @@
+{
+  "generatedAt": "2026-09-07T11:08:34.946Z",
+  "results": [
+    {
+      "width": 1440,
+      "theme": "dark",
+      "gate": {
+        "schemaVersion": 1,
+        "source": "real-browser",
+        "targetStack": "html",
+        "url": "http://127.0.0.1:4173/examples/demos/index.html?theme=dark",
+        "styleEntry": "tokens/base.css",
+        "styleEntryLoaded": true,
+        "computedStyle": {
+          "property": "--gary-control-height",
+          "value": "44px"
+        },
+        "sceneCount": 1,
+        "nestedGlassCount": 0,
+        "consoleErrors": 0
+      },
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "gate": {
+        "schemaVersion": 1,
+        "source": "real-browser",
+        "targetStack": "html",
+        "url": "http://127.0.0.1:4173/examples/demos/index.html?theme=light",
+        "styleEntry": "tokens/base.css",
+        "styleEntryLoaded": true,
+        "computedStyle": {
+          "property": "--gary-control-height",
+          "value": "44px"
+        },
+        "sceneCount": 1,
+        "nestedGlassCount": 0,
+        "consoleErrors": 0
+      },
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "gate": {
+        "schemaVersion": 1,
+        "source": "real-browser",
+        "targetStack": "html",
+        "url": "http://127.0.0.1:4173/examples/demos/index.html?theme=dark",
+        "styleEntry": "tokens/base.css",
+        "styleEntryLoaded": true,
+        "computedStyle": {
+          "property": "--gary-control-height",
+          "value": "44px"
+        },
+        "sceneCount": 1,
+        "nestedGlassCount": 0,
+        "consoleErrors": 0
+      },
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "gate": {
+        "schemaVersion": 1,
+        "source": "real-browser",
+        "targetStack": "html",
+        "url": "http://127.0.0.1:4173/examples/demos/index.html?theme=light",
+        "styleEntry": "tokens/base.css",
+        "styleEntryLoaded": true,
+        "computedStyle": {
+          "property": "--gary-control-height",
+          "value": "44px"
+        },
+        "sceneCount": 1,
+        "nestedGlassCount": 0,
+        "consoleErrors": 0
+      },
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "gate": {
+        "schemaVersion": 1,
+        "source": "real-browser",
+        "targetStack": "html",
+        "url": "http://127.0.0.1:4173/examples/demos/index.html?theme=dark",
+        "styleEntry": "tokens/base.css",
+        "styleEntryLoaded": true,
+        "computedStyle": {
+          "property": "--gary-control-height",
+          "value": "44px"
+        },
+        "sceneCount": 1,
+        "nestedGlassCount": 0,
+        "consoleErrors": 0
+      },
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "gate": {
+        "schemaVersion": 1,
+        "source": "real-browser",
+        "targetStack": "html",
+        "url": "http://127.0.0.1:4173/examples/demos/index.html?theme=light",
+        "styleEntry": "tokens/base.css",
+        "styleEntryLoaded": true,
+        "computedStyle": {
+          "property": "--gary-control-height",
+          "value": "44px"
+        },
+        "sceneCount": 1,
+        "nestedGlassCount": 0,
+        "consoleErrors": 0
+      },
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    }
+  ]
+}

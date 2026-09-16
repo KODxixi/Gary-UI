@@ -1,4 +1,6 @@
-# Design QA — Approved Product Design canonical merge
+# Design QA — Archive
+
+> Archive notice: this is a historical decision record, not the active Gary-UI specification. Current rules are defined by `DESIGN.md`, `spec/system.json`, and `docs/PUBLIC_RELEASE.md`.
 
 final result: passed
 

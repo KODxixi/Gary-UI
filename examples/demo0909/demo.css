@@ -29,10 +29,9 @@
 html body .chapter-index[data-gary-surface="frosted"] { background:linear-gradient(120deg,#ffffff08,transparent 70%),rgba(34,34,34,.48);border-color:#ffffff20;box-shadow:inset 0 1px 0 #ffffff12; }
 .chapter-index__label { grid-column:1/-1; margin:4px 0 6px; font-size:11px; line-height:1.5; letter-spacing:.08em; text-align:center; color:var(--demo-muted); }
 .chapter-index a { text-decoration:none; display:flex; flex-direction:column; align-items:center; padding:14px 10px; border:1px solid #ffffff04; border-radius:16px; gap:2px; background:rgba(0,0,0,.28); }
-.chapter-index a:hover { background:rgba(0,0,0,.40); border-color:#ffffff18; }
 html[data-gary-theme="light"] body .chapter-index[data-gary-surface="frosted"] { background:rgba(255,255,255,.48);border-color:#ffffffa0;box-shadow:inset 0 1px 0 #ffffffc0; }
 [data-gary-theme="light"] .chapter-index a { background:rgba(0,0,0,.05);border-color:#00000004; }
-[data-gary-theme="light"] .chapter-index a:hover { background:rgba(0,0,0,.09);border-color:#00000014; }
+@media(hover:hover) and (pointer:fine) { .chapter-index a:hover { background:rgba(0,0,0,.40); border-color:#ffffff18; }[data-gary-theme="light"] .chapter-index a:hover { background:rgba(0,0,0,.09);border-color:#00000014; } }
 .chapter-index span,.chapter-index small { font-size:11px; color:var(--demo-muted); }.chapter-index strong { font-size:17px; font-weight:500; }.chapter-index b { font-size:14px; font-weight:400; }
 .report-panel { padding:40px 42px 16px; margin-bottom:32px; scroll-margin-top:96px; }
 .report-heading { position:relative; text-align:center; padding:28px 70px 16px; }

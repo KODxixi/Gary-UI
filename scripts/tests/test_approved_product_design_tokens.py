@@ -50,6 +50,80 @@ class ApprovedProductDesignTokenTests(unittest.TestCase):
         self.assertIn("var(--gary-card-opacity)", component_css)
         self.assertIn("var(--gary-card-hierarchy-contrast)", component_css)
 
+    def test_apple_quality_layer_is_executable_across_adapters(self):
+        self.assertEqual(self.tokens["--gary-duration-press"]["value"], "120ms")
+        self.assertEqual(self.tokens["--gary-press-scale"]["value"], "0.97")
+        self.assertEqual(self.tokens["--gary-tracking-title"]["value"], "-0.015em")
+        self.assertIn("@media (prefers-reduced-transparency: reduce)", self.base_css)
+        self.assertIn("@media (prefers-contrast: more)", self.base_css)
+
+        component_css = (ROOT / "components" / "components.css").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("(hover: hover) and (pointer: fine)", component_css)
+        self.assertIn('html[data-gary-pointer-effects="on"]', component_css)
+        self.assertIn("top:max(8px,env(safe-area-inset-top,0px))", component_css)
+
+        react_css = (
+            ROOT / "adapters" / "react-shadcn" / "src" / "styles" / "gary-ui.css"
+        ).read_text(encoding="utf-8")
+        self.assertIn("var(--gary-duration-press)", react_css)
+        self.assertIn("@media (forced-colors: active)", react_css)
+
+        system = json.loads(
+            (ROOT / "spec" / "system.json").read_text(encoding="utf-8")
+        )
+        policy = system["appleQualityLayer"]
+        self.assertEqual(policy["primaryMethodReference"], "apple-design")
+        self.assertEqual(policy["surfacePolicy"]["maxGlassLayers"], 1)
+        self.assertEqual(policy["motion"]["hover"], "fine-pointer-only-and-explicitly-enabled")
+
+    def test_reduced_motion_keeps_non_spatial_feedback(self):
+        self.assertNotIn("animation-duration: 0.01ms", self.base_css)
+        self.assertNotIn("transition-duration: 0.01ms", self.base_css)
+
+        component_css = (ROOT / "components" / "components.css").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(
+            "transition-duration:var(--gary-duration-fast)!important",
+            component_css,
+        )
+        self.assertIn(
+            "transition-property:color,background-color,border-color,box-shadow,opacity!important",
+            component_css,
+        )
+
+        react_css = (
+            ROOT / "adapters" / "react-shadcn" / "src" / "styles" / "gary-ui.css"
+        ).read_text(encoding="utf-8")
+        self.assertNotIn("animation-duration: .01ms", react_css)
+        self.assertNotIn("transition-duration: .01ms", react_css)
+        self.assertIn(
+            "transition-property: color, background-color, border-color, box-shadow, opacity",
+            react_css,
+        )
+
+    def test_react_button_hit_areas_and_progress_motion_follow_contract(self):
+        button_source = (
+            ROOT
+            / "adapters"
+            / "react-shadcn"
+            / "src"
+            / "components"
+            / "ui"
+            / "button.tsx"
+        ).read_text(encoding="utf-8")
+        self.assertIn('"h-11 gap-2 rounded-full', button_source)
+        self.assertIn('icon: "size-11 ', button_source)
+        self.assertIn('"icon-xs": "size-11 ', button_source)
+        self.assertIn('"icon-sm": "size-11 ', button_source)
+
+        react_css = (
+            ROOT / "adapters" / "react-shadcn" / "src" / "styles" / "gary-ui.css"
+        ).read_text(encoding="utf-8")
+        self.assertNotRegex(react_css, r"transition\s*:\s*width\b")
+
 
 if __name__ == "__main__":
     unittest.main()

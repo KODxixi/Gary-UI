@@ -3,15 +3,15 @@
   "command": "visual export",
   "project": "gary-ui-visual-engine-samples",
   "manifest": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\visuals.json",
-  "versionId": "run-2026-09-07T04-13-02-819Z-1e8e32e9",
-  "generatedAt": "2026-09-07T04:13:31.895Z",
+  "versionId": "run-2026-09-15T17-42-26-402Z-392144a7",
+  "generatedAt": "2026-09-15T17:42:54.571Z",
   "records": [
     {
       "id": "architecture",
       "tool": "archify",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\architecture.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\architecture.json",
-      "sha256": "f17c2c1b1be00e39880998e4c46b6f6b92e7ff2a65495122766f3016a7e24f89",
+      "sha256": "ccb15ea21903ed0115fb0ca2bebde442eca3bb96234a37d7f74a7a592200f3c2",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\architecture.html",
@@ -25,7 +25,7 @@
       "tool": "archify",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\workflow-with-exception.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\workflow-with-exception.json",
-      "sha256": "3dde8bcd9bb6d7c4dcb6b3c35aa218a618f93d831c4557674324b2119474bbbe",
+      "sha256": "df391580312a87180e977e07cf188fe3f8be42f3538f07e9aa04864d27f71ab0",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\workflow-with-exception.html",
@@ -38,7 +38,7 @@
       "tool": "archify",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sequence.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\sequence.json",
-      "sha256": "65ee5611fe43cf64e38b79c47bec7d34d4abb1735adfef58ecb23bae903358ee",
+      "sha256": "b323704b538e994616f8b9f5756f1a8e60f889d49015d98ce17df335ba06655b",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sequence.html",
@@ -51,7 +51,7 @@
       "tool": "archify",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\data-flow.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\data-flow.json",
-      "sha256": "335dafb6e0386ebadcf7882ce150c9280d88c5aea29b663b49310096c91d612f",
+      "sha256": "ef3d910f9df04cf2f6f155428289df33e83b0ef88ba79710a0bd642ff58a76cb",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\data-flow.html",
@@ -64,7 +64,7 @@
       "tool": "archify",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\lifecycle.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\lifecycle.json",
-      "sha256": "c4252a07af66bc7cfc3905f32e9210047d6c6a1ff8ab0430e304cedfeb2e00b4",
+      "sha256": "40d591962c66d5983c5d6e3eeef59f6f15fb6ac7b05c9c6f7681eebdd3c9e7e2",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\lifecycle.html",
@@ -77,7 +77,7 @@
       "tool": "echarts",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\quantitative.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\quantitative.json",
-      "sha256": "0fa0d18f4c0b253a007b83607df959b3c957831fc57c2b50014ee57d7948d338",
+      "sha256": "69ff77acf5515e52fb58131b815d585e706f2ac42cf1ed92a586017f4f8a0930",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\quantitative.html",
@@ -91,7 +91,7 @@
       "tool": "markmap",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\research-outline.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\research-outline.md",
-      "sha256": "3b2d39301f01d7ed1f945238f6ba52abe77ae323a7850bedc615c4f73cfe30dd",
+      "sha256": "d0c9277084d7e95268d571aae08e14861b6fd6bb172b9261a43bbd314f5d5a2d",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\research-outline.html",
@@ -105,7 +105,7 @@
       "tool": "antv-infographic",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\summary-infographic.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\summary-infographic.json",
-      "sha256": "43401a54ce4360ef90dc6a0843a4981909b5158d48bfb44d4e505f8d9809d85c",
+      "sha256": "9e873edadd632f6fa67b4822e54ae83f6cc002ba65b200bda07e3f64deb02866",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\summary-infographic.html",
@@ -119,7 +119,7 @@
       "tool": "mermaid",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\simple-flow.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\simple-flow.mmd",
-      "sha256": "bd828a099609ae099ba2464a3d67ad475f7130768ca2cc59000f11e3367cb2d3",
+      "sha256": "647939314e82cc62c55a7e461a2489260ad835e2a52cc2a47522181a159bf62c",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\simple-flow.html",
@@ -132,7 +132,7 @@
       "tool": "lucide",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\icons.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\icons.json",
-      "sha256": "3bde421ca78e7aa83a94c81f410413d81f2dc440299f2950c5a1d0ccc2ce93ef",
+      "sha256": "1535cbcc2349b12dd1e84d58b9d30bfc6b0eb2eb8a143ecbb7d38adf6f7a2470",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\icons.html",

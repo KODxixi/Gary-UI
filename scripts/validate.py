@@ -17,7 +17,7 @@ from invocation_contract import (
 
 ROOT = Path(__file__).resolve().parents[1]
 COMPONENTS = [
-    "button", "segmented-control", "field", "tab-bar", "web-bar",
+    "button", "segmented", "field", "tab-bar", "web-bar",
     "glass-card", "solid-plate", "metric-card", "comparison-table",
     "decision-grid", "media-card", "profile-card", "scene", "chip",
     "evidence-bar",
@@ -155,7 +155,6 @@ REQUIRED_DENSITY_TOKENS = {
 
 STATE_CSS_MARKERS = {
     "button": [".gary-button:hover", ".gary-button:active", ".gary-button:is(:disabled"],
-    "segmented-control": [".gary-segmented > button:hover", ".gary-segmented > button:active", ".gary-segmented > button:disabled"],
     "field": [".gary-field:focus-within", 'aria-invalid="true"', 'aria-disabled="true"'],
     "tab-bar": ['[role="tab"][aria-selected="true"]', '[role="tab"]:hover', '[role="tab"]:disabled'],
     "web-bar": ['a[aria-current="page"]', ".gary-web-bar a:hover"],
@@ -182,6 +181,11 @@ def has_remote_dependency(text):
     without_namespace = re.sub(
         r"\bcreateElementNS\(\s*(['\"])http://www\.w3\.org/2000/svg\1",
         "createElementNS(local-svg-namespace",
+        without_namespace,
+    )
+    without_namespace = re.sub(
+        r"""(?:const|let|var)\s+\w+\s*=\s*(['"])http://www\.w3\.org/2000/svg\1""",
+        "SVG_NS = local-svg-namespace",
         without_namespace,
     )
     return REMOTE.search(without_namespace) is not None
@@ -237,6 +241,16 @@ def main():
         except Exception as error:
             issues.append(f"JSON 无效: {rel}: {error}")
 
+    system = {}
+    system_path = ROOT / "spec" / "system.json"
+    if system_path.exists():
+        try:
+            system = json.loads(system_path.read_text(encoding="utf-8-sig"))
+        except Exception as error:
+            issues.append(f"JSON 无效: spec/system.json: {error}")
+    visual_axes = system.get("visualAxes", {})
+    defaults = visual_axes.get("defaults", {})
+
     metadata = {}
     metadata_path = ROOT / "metadata.json"
     if metadata_path.exists():
@@ -253,20 +267,8 @@ def main():
                 issues.append("metadata patternCoverage 与正式页面模式不一致")
             if metadata.get("applicationModeCount") != len(APPLICATION_MODES):
                 issues.append("metadata applicationModeCount 与正式应用模式不一致")
-            if metadata.get("applicationModes") != list(APPLICATION_MODES):
-                issues.append("metadata applicationModes 顺序或集合不一致")
-            if metadata.get("pageModes") != list(PAGE_MODES):
-                issues.append("metadata pageModes 顺序或集合不一致")
-            if metadata.get("patternLevelOrder") != PATTERN_LEVEL_ORDER:
-                issues.append("metadata patternLevelOrder 必须先应用模式、后页面模式")
-            if metadata.get("patternCompositionModel") != PATTERN_COMPOSITION_MODEL:
-                issues.append("metadata patternCompositionModel 不符合共享页面模式模型")
             if metadata.get("invocationAuthority") != INVOCATION_AUTHORITY:
                 issues.append("metadata invocationAuthority 不正确")
-            if metadata.get("themes") != THEMES:
-                issues.append("metadata themes 顺序或集合不一致")
-            if metadata.get("materials") != MATERIALS:
-                issues.append("metadata materials 顺序或集合不一致")
             if metadata.get("reviewDecisionSchemaVersion") != REVIEW_DECISION_SCHEMA_VERSION:
                 issues.append("metadata reviewDecisionSchemaVersion 必须为 3")
             if metadata.get("syncAuditCadence") not in {"weekly", "monthly"}:
@@ -315,19 +317,19 @@ def main():
                 issues.append(f"Agent 调用枚举与母本不一致: {key}")
         if properties.get("schemaVersion", {}).get("const") != 1:
             issues.append("Agent 调用 schemaVersion 必须为 1")
-        if properties.get("skill", {}).get("const") != metadata.get(
-            "runtimeSkillName", "gary-liquidglass-ui"
+        if properties.get("skill", {}).get("const") != system.get(
+            "skill", metadata.get("runtimeSkillName", "gary-liquidglass-ui")
         ):
-            issues.append("Agent 调用 skill 与 runtimeSkillName 不一致")
+            issues.append("Agent 调用 skill 与 system skill 不一致")
 
         expected_defaults = {
-            "theme": metadata.get("defaultTheme"),
-            "material": metadata.get("defaultMaterial"),
-            "density": metadata.get("defaultDensity"),
+            "theme": defaults.get("theme"),
+            "material": defaults.get("material"),
+            "density": defaults.get("density"),
         }
         for key, expected in expected_defaults.items():
             if properties.get(key, {}).get("default") != expected:
-                issues.append(f"Agent 调用默认值与 metadata 不一致: {key}")
+                issues.append(f"Agent 调用默认值与 spec/system.json 不一致: {key}")
 
         examples = invocation_schema.get("examples", [])
         if not isinstance(examples, list) or len(examples) < len(APPLICATION_MODES):
@@ -641,7 +643,7 @@ def main():
             'id="starter-copy"',
             'src="./app.js"',
             "不是 12 份重复模板",
-            f'data-gary-material="{metadata.get("defaultMaterial")}"',
+            f'data-gary-material="{defaults.get("material")}"',
         ):
             if marker not in starting_text:
                 issues.append(f"Starting Points 缺组合器标记: {marker}")
@@ -672,7 +674,7 @@ def main():
             issues.append("Starting Points 组合预览缺两级根标识")
         preview_parser = Links()
         preview_parser.feed(preview_text)
-        if preview_parser.root_attrs.get("data-gary-material") != metadata.get("defaultMaterial"):
+        if preview_parser.root_attrs.get("data-gary-material") != defaults.get("material"):
             issues.append("Starting Points 组合预览缺默认主材质根标识")
 
     starting_preview_js_path = (

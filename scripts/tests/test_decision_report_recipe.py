@@ -152,7 +152,7 @@ class DecisionReportRecipeTests(unittest.TestCase):
         for marker in (
             'data-texture="b-ridge-current"',
             'data-strength-pct="10"',
-            'data-density-per-1000-px="200"',
+            'data-density-per-1000-px="100"',
             'data-disturbance-pct="10"',
             'data-curvature-pct="105"',
             'data-stroke-px="0.55"',

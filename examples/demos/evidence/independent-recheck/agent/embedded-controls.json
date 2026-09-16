@@ -1,0 +1,206 @@
+[
+  {
+    "width": 320,
+    "initial": {
+      "theme": "dark",
+      "open": false,
+      "viewport": 214,
+      "docWidth": 320,
+      "brand": {
+        "client": {
+          "x": 25,
+          "y": 17,
+          "width": 0,
+          "height": 36,
+          "top": 17,
+          "right": 25,
+          "bottom": 53,
+          "left": 25
+        },
+        "scrollWidth": 45
+      },
+      "panel": null,
+      "headerText": 3
+    },
+    "background": {
+      "theme": "dark",
+      "open": true,
+      "viewport": 214,
+      "docWidth": 320,
+      "brand": {
+        "client": {
+          "x": 25,
+          "y": 17,
+          "width": 0,
+          "height": 36,
+          "top": 17,
+          "right": 25,
+          "bottom": 53,
+          "left": 25
+        },
+        "scrollWidth": 45
+      },
+      "panel": {
+        "x": 16,
+        "y": 24,
+        "width": 182,
+        "height": 568,
+        "top": 24,
+        "right": 198,
+        "bottom": 592,
+        "left": 16
+      },
+      "headerText": 3
+    },
+    "outerThemeAfterBackground": "dark",
+    "escape": {
+      "theme": "dark",
+      "open": false,
+      "viewport": 214,
+      "docWidth": 320,
+      "brand": {
+        "client": {
+          "x": 25,
+          "y": 17,
+          "width": 0,
+          "height": 36,
+          "top": 17,
+          "right": 25,
+          "bottom": 53,
+          "left": 25
+        },
+        "scrollWidth": 45
+      },
+      "panel": null,
+      "headerText": 3
+    },
+    "theme": {
+      "theme": "light",
+      "open": false,
+      "viewport": 214,
+      "docWidth": 320,
+      "brand": {
+        "client": {
+          "x": 25,
+          "y": 17,
+          "width": 0,
+          "height": 36,
+          "top": 17,
+          "right": 25,
+          "bottom": 53,
+          "left": 25
+        },
+        "scrollWidth": 45
+      },
+      "panel": null,
+      "headerText": 3
+    },
+    "outerThemeAfterTheme": "dark",
+    "menu": {
+      "open": "true",
+      "visibleLinks": 3
+    }
+  },
+  {
+    "width": 390,
+    "initial": {
+      "theme": "dark",
+      "open": false,
+      "viewport": 284,
+      "docWidth": 320,
+      "brand": {
+        "client": {
+          "x": 25,
+          "y": 17,
+          "width": 56.609375,
+          "height": 36,
+          "top": 17,
+          "right": 81.609375,
+          "bottom": 53,
+          "left": 25
+        },
+        "scrollWidth": 74
+      },
+      "panel": null,
+      "headerText": 3
+    },
+    "background": {
+      "theme": "dark",
+      "open": true,
+      "viewport": 284,
+      "docWidth": 320,
+      "brand": {
+        "client": {
+          "x": 25,
+          "y": 17,
+          "width": 56.609375,
+          "height": 36,
+          "top": 17,
+          "right": 81.609375,
+          "bottom": 53,
+          "left": 25
+        },
+        "scrollWidth": 74
+      },
+      "panel": {
+        "x": 16,
+        "y": 24,
+        "width": 252,
+        "height": 568,
+        "top": 24,
+        "right": 268,
+        "bottom": 592,
+        "left": 16
+      },
+      "headerText": 3
+    },
+    "outerThemeAfterBackground": "dark",
+    "escape": {
+      "theme": "dark",
+      "open": false,
+      "viewport": 284,
+      "docWidth": 320,
+      "brand": {
+        "client": {
+          "x": 25,
+          "y": 17,
+          "width": 56.609375,
+          "height": 36,
+          "top": 17,
+          "right": 81.609375,
+          "bottom": 53,
+          "left": 25
+        },
+        "scrollWidth": 74
+      },
+      "panel": null,
+      "headerText": 3
+    },
+    "theme": {
+      "theme": "light",
+      "open": false,
+      "viewport": 284,
+      "docWidth": 320,
+      "brand": {
+        "client": {
+          "x": 25,
+          "y": 17,
+          "width": 56.609375,
+          "height": 36,
+          "top": 17,
+          "right": 81.609375,
+          "bottom": 53,
+          "left": 25
+        },
+        "scrollWidth": 74
+      },
+      "panel": null,
+      "headerText": 3
+    },
+    "outerThemeAfterTheme": "dark",
+    "menu": {
+      "open": "true",
+      "visibleLinks": 3
+    }
+  }
+]

@@ -3,8 +3,8 @@
   "command": "visual export",
   "project": "Gary Demo Edition 02 / 华东服务交付计划",
   "manifest": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\visuals.json",
-  "versionId": "run-2026-09-07T06-03-08-190Z-89e6ed45",
-  "generatedAt": "2026-09-07T06:03:31.496Z",
+  "versionId": "run-2026-09-15T17-42-26-402Z-ad29c9c1",
+  "generatedAt": "2026-09-15T17:42:50.315Z",
   "records": [
     {
       "id": "delivery-architecture-dark",
@@ -37,7 +37,7 @@
       "tool": "echarts",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-dark.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\delivery-trend-dark.json",
-      "sha256": "8910472e01d1177174a3fe62e2206d01110a536d35758fd19f4477405c73c0d4",
+      "sha256": "997e2daa110a43994d3013a35b8c354e8287add0bd064f8f837f22537444c724",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-dark.html",
@@ -50,7 +50,7 @@
       "tool": "echarts",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-light.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\delivery-trend-light.json",
-      "sha256": "5e80f6fc2f1430e461cb185ae4c885e919957328947a72cc9e848207a3c098e7",
+      "sha256": "ea474ed14a0b64b2da471138ca557f975e314940bee83a8ab3fe9c820106c2fa",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\delivery-trend-light.html",
@@ -63,7 +63,7 @@
       "tool": "markmap",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-dark.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\research-outline-dark.md",
-      "sha256": "bf7a1fa35279739c611820a6d97df1fc74ecaca201e2f9aaaf1000d3e305c4fb",
+      "sha256": "a9a4359ce8e5afeb220934db2f5e3fa238380574180e11c8a10879a9b60b3da6",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-dark.html",
@@ -76,7 +76,7 @@
       "tool": "markmap",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-light.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\research-outline-light.md",
-      "sha256": "4dd3f9f0f0d683d74106193cc8cd863dee37a0f3bc77520e49ef2dad58252221",
+      "sha256": "b2b4e9f13d0a7e0fbc903f7ffe8a6ca488f8018c4babc16ddcddfd1051003265",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\research-outline-light.html",
@@ -89,7 +89,7 @@
       "tool": "antv-infographic",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-dark.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\summary-infographic-dark.json",
-      "sha256": "9aae1076ee8669b7e80fe690c70a0d127bdb4af42b94c42b791ab67934d2abe7",
+      "sha256": "c553d6368f61ab29e9e1508563c681381f4afc95d0891dba57d3eb38cf958521",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-dark.html",
@@ -102,7 +102,7 @@
       "tool": "antv-infographic",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-light.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\summary-infographic-light.json",
-      "sha256": "06c754c6cd85660a6c7e90db70bed49c6a70b254c5174999be703cdd9a161e2c",
+      "sha256": "df5e4034d0c29e86327a281fb304225a60ae82c92acc910d45777c6a863facea",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\summary-infographic-light.html",
@@ -115,7 +115,7 @@
       "tool": "mermaid",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-dark.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\simple-flow-dark.mmd",
-      "sha256": "0cc689dfc4bf96385d8a8aefa6400efab5a46ed2b1d156701c4737148b57c794",
+      "sha256": "993cc7e6156d16d528bac95e018af2e1da7561954b91a6be5c0799cb4dbe1541",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-dark.html",
@@ -128,7 +128,7 @@
       "tool": "mermaid",
       "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-light.html",
       "source": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\sources\\simple-flow-light.mmd",
-      "sha256": "81f6d8ea4a539a53a9e4d4508a5a7917bcd26d06dca5a47cbce92a6eb3a9f38e",
+      "sha256": "160a25a0f124f0f60f89837736d4e28a9be140aac35ff362dba2a8a9ca4ac393",
       "status": "pass",
       "outputs": {
         "html": "C:\\AI\\UI\\gary-ui\\examples\\demos\\visuals\\outputs\\simple-flow-light.html",

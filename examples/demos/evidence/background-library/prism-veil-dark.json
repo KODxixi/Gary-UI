@@ -1,0 +1,12 @@
+{
+  "background": "prism-veil",
+  "motion": "playing",
+  "canvas": 1,
+  "beforeAnimation": "gary-ambient-drift",
+  "afterAnimation": "gary-ambient-breathe",
+  "beforeImage": "conic-gradient(from 210deg at 62% 24%, rgba(82, 93, 158, 0.1), rgba(218, 227, 255, 0.38), rgba(108, 82, 170, 0.17), rgba(12, 15, 25, 0.03), rgba(82, 93, 158, 0.1)), none",
+  "afterImage": "radial-gradient(at 54% 18%, rgba(235, 241, 255, 0.28), rgba(0, 0, 0, 0) 34%), linear-gradient(112deg, rgba(0, 0, 0, 0) 35%, rgba(198, 210, 255, 0.1) 48%, rgba(0, 0, 0, 0) 60%)",
+  "glassFilter": "url(\"#gary-optical-1\") saturate(1.05)",
+  "control": "44px",
+  "scrollWidth": 1440
+}

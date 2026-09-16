@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from build_public import export, selected
+from build_public import export, public_text, selected
 
 
 class PublicExportTests(unittest.TestCase):
@@ -39,6 +39,12 @@ class PublicExportTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 export(source, source / 'nested')
             self.assertEqual((output / 'README.md').read_text(encoding='utf-8'), 'public')
+
+    def test_public_background_route_is_static_and_restricted_engine_free(self):
+        source = (Path(__file__).resolve().parents[2] / 'patterns' / 'shared' / 'background-lab.js').read_text(encoding='utf-8')
+        public = public_text(Path('patterns/shared/background-lab.js'), source)
+        self.assertNotIn("new URL('gradient-waves.js'", public)
+        self.assertNotIn('value="gradient-waves"', public)
 
 
 if __name__ == '__main__':

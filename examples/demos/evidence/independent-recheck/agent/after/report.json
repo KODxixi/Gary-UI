@@ -1,0 +1,2150 @@
+[
+  {
+    "target": "portal",
+    "width": 320,
+    "top": {
+      "w": 320,
+      "docWidth": 320,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 120,
+        "h": 36,
+        "right": 133,
+        "bottom": 53
+      },
+      "brandPaint": [],
+      "background": {
+        "x": 137.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 207,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 137.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 207,
+          "bottom": 57,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "切换为浅色模式",
+          "label": "切换为浅色模式",
+          "class": "theme-toggle gary-button gary-icon-button",
+          "x": 213,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 257,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        },
+        {
+          "text": "菜单",
+          "label": "菜单",
+          "class": "topbar-menu-toggle gary-icon-button",
+          "x": 263,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 307,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "frame": {
+      "w": 320,
+      "docWidth": 320,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 90.578125,
+        "h": 36,
+        "right": 103.578125,
+        "bottom": 53
+      },
+      "brandPaint": [
+        {
+          "x": 53,
+          "y": 27,
+          "width": 50.578125,
+          "height": 16,
+          "top": 27,
+          "right": 103.578125,
+          "bottom": 43,
+          "left": 53,
+          "text": "Gary-UI"
+        }
+      ],
+      "background": {
+        "x": 133.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 203,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Gary-UI",
+          "label": null,
+          "class": "demo-nav__brand",
+          "x": 13,
+          "y": 17,
+          "w": 90.578125,
+          "h": 36,
+          "right": 103.578125,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 133.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 203,
+          "bottom": 57,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "",
+          "label": "切换浅色主题",
+          "class": "icon-button",
+          "x": 211,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 255,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        },
+        {
+          "text": "",
+          "label": "菜单",
+          "class": "gary-header-menu icon-button",
+          "x": 263,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 307,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "frameBackground": {
+      "w": 320,
+      "docWidth": 320,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 90.578125,
+        "h": 36,
+        "right": 103.578125,
+        "bottom": 53
+      },
+      "brandPaint": [
+        {
+          "x": 53,
+          "y": 27,
+          "width": 50.578125,
+          "height": 16,
+          "top": 27,
+          "right": 103.578125,
+          "bottom": 43,
+          "left": 53,
+          "text": "Gary-UI"
+        }
+      ],
+      "background": {
+        "x": 133.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 203,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Gary-UI",
+          "label": null,
+          "class": "demo-nav__brand",
+          "x": 13,
+          "y": 17,
+          "w": 90.578125,
+          "h": 36,
+          "right": 103.578125,
+          "bottom": 53,
+          "svg": 0,
+          "hit": false,
+          "radius": "0px"
+        },
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 133.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 203,
+          "bottom": 57,
+          "svg": 0,
+          "hit": false,
+          "radius": "0px"
+        },
+        {
+          "text": "",
+          "label": "切换浅色主题",
+          "class": "icon-button",
+          "x": 211,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 255,
+          "bottom": 57,
+          "svg": 1,
+          "hit": false,
+          "radius": "99px"
+        },
+        {
+          "text": "",
+          "label": "菜单",
+          "class": "gary-header-menu icon-button",
+          "x": 263,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 307,
+          "bottom": 57,
+          "svg": 1,
+          "hit": false,
+          "radius": "99px"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": true,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "frameTheme": {
+      "w": 320,
+      "docWidth": 320,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 90.578125,
+        "h": 36,
+        "right": 103.578125,
+        "bottom": 53
+      },
+      "brandPaint": [
+        {
+          "x": 53,
+          "y": 27,
+          "width": 50.578125,
+          "height": 16,
+          "top": 27,
+          "right": 103.578125,
+          "bottom": 43,
+          "left": 53,
+          "text": "Gary-UI"
+        }
+      ],
+      "background": {
+        "x": 133.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 203,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Gary-UI",
+          "label": null,
+          "class": "demo-nav__brand",
+          "x": 13,
+          "y": 17,
+          "w": 90.578125,
+          "h": 36,
+          "right": 103.578125,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 133.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 203,
+          "bottom": 57,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "",
+          "label": "切换深色主题",
+          "class": "icon-button",
+          "x": 211,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 255,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        },
+        {
+          "text": "",
+          "label": "菜单",
+          "class": "gary-header-menu icon-button",
+          "x": 263,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 307,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        }
+      ],
+      "theme": "light",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "frameMenu": {
+      "expanded": "false",
+      "svg": 1,
+      "links": 0
+    },
+    "portalMenu": {
+      "expanded": "true",
+      "navVisible": true,
+      "icon": "x"
+    },
+    "portalNavigation": {
+      "hash": "#components",
+      "componentVisible": true,
+      "expanded": "false"
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "portal",
+    "width": 390,
+    "top": {
+      "w": 390,
+      "docWidth": 390,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 120,
+        "h": 36,
+        "right": 133,
+        "bottom": 53
+      },
+      "brandPaint": [],
+      "background": {
+        "x": 207.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 277,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 207.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 277,
+          "bottom": 57,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "切换为浅色模式",
+          "label": "切换为浅色模式",
+          "class": "theme-toggle gary-button gary-icon-button",
+          "x": 283,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 327,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        },
+        {
+          "text": "菜单",
+          "label": "菜单",
+          "class": "topbar-menu-toggle gary-icon-button",
+          "x": 333,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 377,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "frame": {
+      "w": 390,
+      "docWidth": 390,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 90.578125,
+        "h": 36,
+        "right": 103.578125,
+        "bottom": 53
+      },
+      "brandPaint": [
+        {
+          "x": 53,
+          "y": 27,
+          "width": 50.578125,
+          "height": 16,
+          "top": 27,
+          "right": 103.578125,
+          "bottom": 43,
+          "left": 53,
+          "text": "Gary-UI"
+        }
+      ],
+      "background": {
+        "x": 203.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 273,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Gary-UI",
+          "label": null,
+          "class": "demo-nav__brand",
+          "x": 13,
+          "y": 17,
+          "w": 90.578125,
+          "h": 36,
+          "right": 103.578125,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 203.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 273,
+          "bottom": 57,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "",
+          "label": "切换浅色主题",
+          "class": "icon-button",
+          "x": 281,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 325,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        },
+        {
+          "text": "",
+          "label": "菜单",
+          "class": "gary-header-menu icon-button",
+          "x": 333,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 377,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "frameBackground": {
+      "w": 390,
+      "docWidth": 390,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 90.578125,
+        "h": 36,
+        "right": 103.578125,
+        "bottom": 53
+      },
+      "brandPaint": [
+        {
+          "x": 53,
+          "y": 27,
+          "width": 50.578125,
+          "height": 16,
+          "top": 27,
+          "right": 103.578125,
+          "bottom": 43,
+          "left": 53,
+          "text": "Gary-UI"
+        }
+      ],
+      "background": {
+        "x": 203.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 273,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Gary-UI",
+          "label": null,
+          "class": "demo-nav__brand",
+          "x": 13,
+          "y": 17,
+          "w": 90.578125,
+          "h": 36,
+          "right": 103.578125,
+          "bottom": 53,
+          "svg": 0,
+          "hit": false,
+          "radius": "0px"
+        },
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 203.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 273,
+          "bottom": 57,
+          "svg": 0,
+          "hit": false,
+          "radius": "0px"
+        },
+        {
+          "text": "",
+          "label": "切换浅色主题",
+          "class": "icon-button",
+          "x": 281,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 325,
+          "bottom": 57,
+          "svg": 1,
+          "hit": false,
+          "radius": "99px"
+        },
+        {
+          "text": "",
+          "label": "菜单",
+          "class": "gary-header-menu icon-button",
+          "x": 333,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 377,
+          "bottom": 57,
+          "svg": 1,
+          "hit": false,
+          "radius": "99px"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": true,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "frameTheme": {
+      "w": 390,
+      "docWidth": 390,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 90.578125,
+        "h": 36,
+        "right": 103.578125,
+        "bottom": 53
+      },
+      "brandPaint": [
+        {
+          "x": 53,
+          "y": 27,
+          "width": 50.578125,
+          "height": 16,
+          "top": 27,
+          "right": 103.578125,
+          "bottom": 43,
+          "left": 53,
+          "text": "Gary-UI"
+        }
+      ],
+      "background": {
+        "x": 203.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 273,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Gary-UI",
+          "label": null,
+          "class": "demo-nav__brand",
+          "x": 13,
+          "y": 17,
+          "w": 90.578125,
+          "h": 36,
+          "right": 103.578125,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 203.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 273,
+          "bottom": 57,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "",
+          "label": "切换深色主题",
+          "class": "icon-button",
+          "x": 281,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 325,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        },
+        {
+          "text": "",
+          "label": "菜单",
+          "class": "gary-header-menu icon-button",
+          "x": 333,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 377,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        }
+      ],
+      "theme": "light",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "frameMenu": {
+      "expanded": "false",
+      "svg": 1,
+      "links": 0
+    },
+    "portalMenu": {
+      "expanded": "true",
+      "navVisible": true,
+      "icon": "x"
+    },
+    "portalNavigation": {
+      "hash": "#components",
+      "componentVisible": true,
+      "expanded": "false"
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "portal",
+    "width": 700,
+    "top": {
+      "w": 700,
+      "docWidth": 700,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 120,
+        "h": 36,
+        "right": 133,
+        "bottom": 53
+      },
+      "brandPaint": [],
+      "background": {
+        "x": 517.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 587,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 517.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 587,
+          "bottom": 57,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "切换为浅色模式",
+          "label": "切换为浅色模式",
+          "class": "theme-toggle gary-button gary-icon-button",
+          "x": 593,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 637,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        },
+        {
+          "text": "菜单",
+          "label": "菜单",
+          "class": "topbar-menu-toggle gary-icon-button",
+          "x": 643,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 687,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "portalMenu": {
+      "expanded": "true",
+      "navVisible": true,
+      "icon": "x"
+    },
+    "portalNavigation": {
+      "hash": "#components",
+      "componentVisible": true,
+      "expanded": "false"
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "portal",
+    "width": 701,
+    "top": {
+      "w": 701,
+      "docWidth": 701,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 124,
+        "h": 36,
+        "right": 137,
+        "bottom": 53
+      },
+      "brandPaint": [],
+      "background": {
+        "x": 514.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 584,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 514.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 584,
+          "bottom": 57,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "切换为浅色模式",
+          "label": "切换为浅色模式",
+          "class": "theme-toggle gary-button gary-icon-button",
+          "x": 592,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 636,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        },
+        {
+          "text": "菜单",
+          "label": "菜单",
+          "class": "topbar-menu-toggle gary-icon-button",
+          "x": 644,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 688,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "portalMenu": {
+      "expanded": "true",
+      "navVisible": true,
+      "icon": "x"
+    },
+    "portalNavigation": {
+      "hash": "#components",
+      "componentVisible": true,
+      "expanded": "false"
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "portal",
+    "width": 768,
+    "top": {
+      "w": 768,
+      "docWidth": 768,
+      "brand": {
+        "x": 73,
+        "y": 13,
+        "w": 124,
+        "h": 36,
+        "right": 197,
+        "bottom": 49
+      },
+      "brandPaint": [],
+      "background": {
+        "x": 521.609375,
+        "y": 9,
+        "w": 69.390625,
+        "h": 44,
+        "right": 591,
+        "bottom": 53
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 521.609375,
+          "y": 9,
+          "w": 69.390625,
+          "h": 44,
+          "right": 591,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "切换为浅色模式",
+          "label": "切换为浅色模式",
+          "class": "theme-toggle gary-button gary-icon-button",
+          "x": 599,
+          "y": 9,
+          "w": 44,
+          "h": 44,
+          "right": 643,
+          "bottom": 53,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        },
+        {
+          "text": "菜单",
+          "label": "菜单",
+          "class": "topbar-menu-toggle gary-icon-button",
+          "x": 651,
+          "y": 9,
+          "w": 44,
+          "h": 44,
+          "right": 695,
+          "bottom": 53,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "portalMenu": {
+      "expanded": "true",
+      "navVisible": true,
+      "icon": "x"
+    },
+    "portalNavigation": {
+      "hash": "#components",
+      "componentVisible": true,
+      "expanded": "false"
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "portal",
+    "width": 900,
+    "top": {
+      "w": 900,
+      "docWidth": 900,
+      "brand": {
+        "x": 73,
+        "y": 13,
+        "w": 124,
+        "h": 36,
+        "right": 197,
+        "bottom": 49
+      },
+      "brandPaint": [],
+      "background": {
+        "x": 653.609375,
+        "y": 9,
+        "w": 69.390625,
+        "h": 44,
+        "right": 723,
+        "bottom": 53
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 653.609375,
+          "y": 9,
+          "w": 69.390625,
+          "h": 44,
+          "right": 723,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "切换为浅色模式",
+          "label": "切换为浅色模式",
+          "class": "theme-toggle gary-button gary-icon-button",
+          "x": 731,
+          "y": 9,
+          "w": 44,
+          "h": 44,
+          "right": 775,
+          "bottom": 53,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        },
+        {
+          "text": "菜单",
+          "label": "菜单",
+          "class": "topbar-menu-toggle gary-icon-button",
+          "x": 783,
+          "y": 9,
+          "w": 44,
+          "h": 44,
+          "right": 827,
+          "bottom": 53,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "portalMenu": {
+      "expanded": "true",
+      "navVisible": true,
+      "icon": "x"
+    },
+    "portalNavigation": {
+      "hash": "#components",
+      "componentVisible": true,
+      "expanded": "false"
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "portal",
+    "width": 1024,
+    "top": {
+      "w": 1024,
+      "docWidth": 1024,
+      "brand": {
+        "x": 73,
+        "y": 13,
+        "w": 124,
+        "h": 36,
+        "right": 197,
+        "bottom": 49
+      },
+      "brandPaint": [],
+      "background": {
+        "x": 777.609375,
+        "y": 9,
+        "w": 69.390625,
+        "h": 44,
+        "right": 847,
+        "bottom": 53
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 777.609375,
+          "y": 9,
+          "w": 69.390625,
+          "h": 44,
+          "right": 847,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "切换为浅色模式",
+          "label": "切换为浅色模式",
+          "class": "theme-toggle gary-button gary-icon-button",
+          "x": 855,
+          "y": 9,
+          "w": 44,
+          "h": 44,
+          "right": 899,
+          "bottom": 53,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        },
+        {
+          "text": "菜单",
+          "label": "菜单",
+          "class": "topbar-menu-toggle gary-icon-button",
+          "x": 907,
+          "y": 9,
+          "w": 44,
+          "h": 44,
+          "right": 951,
+          "bottom": 53,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "portalMenu": {
+      "expanded": "true",
+      "navVisible": true,
+      "icon": "x"
+    },
+    "portalNavigation": {
+      "hash": "#components",
+      "componentVisible": true,
+      "expanded": "false"
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "portal",
+    "width": 1100,
+    "top": {
+      "w": 1100,
+      "docWidth": 1100,
+      "brand": {
+        "x": 73,
+        "y": 13,
+        "w": 124,
+        "h": 36,
+        "right": 197,
+        "bottom": 49
+      },
+      "brandPaint": [],
+      "background": {
+        "x": 853.609375,
+        "y": 9,
+        "w": 69.390625,
+        "h": 44,
+        "right": 923,
+        "bottom": 53
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 853.609375,
+          "y": 9,
+          "w": 69.390625,
+          "h": 44,
+          "right": 923,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "切换为浅色模式",
+          "label": "切换为浅色模式",
+          "class": "theme-toggle gary-button gary-icon-button",
+          "x": 931,
+          "y": 9,
+          "w": 44,
+          "h": 44,
+          "right": 975,
+          "bottom": 53,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        },
+        {
+          "text": "菜单",
+          "label": "菜单",
+          "class": "topbar-menu-toggle gary-icon-button",
+          "x": 983,
+          "y": 9,
+          "w": 44,
+          "h": 44,
+          "right": 1027,
+          "bottom": 53,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "portalMenu": {
+      "expanded": "true",
+      "navVisible": true,
+      "icon": "x"
+    },
+    "portalNavigation": {
+      "hash": "#components",
+      "componentVisible": true,
+      "expanded": "false"
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "portal",
+    "width": 1101,
+    "top": {
+      "w": 1101,
+      "docWidth": 1101,
+      "brand": {
+        "x": 73,
+        "y": 13,
+        "w": 124,
+        "h": 36,
+        "right": 197,
+        "bottom": 49
+      },
+      "brandPaint": [],
+      "background": {
+        "x": 906.609375,
+        "y": 9,
+        "w": 69.390625,
+        "h": 44,
+        "right": 976,
+        "bottom": 53
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "总览",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 246.171875,
+          "y": 13,
+          "w": 42,
+          "h": 36,
+          "right": 288.171875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "基础",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 292.171875,
+          "y": 13,
+          "w": 53,
+          "h": 36,
+          "right": 345.171875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "组件",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 349.171875,
+          "y": 13,
+          "w": 42,
+          "h": 36,
+          "right": 391.171875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "应用模式",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 395.171875,
+          "y": 13,
+          "w": 68,
+          "h": 36,
+          "right": 463.171875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "完整 Demo",
+          "label": null,
+          "class": "top-nav-item is-active",
+          "x": 467.171875,
+          "y": 13,
+          "w": 80.296875,
+          "h": 36,
+          "right": 547.46875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "制图",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 551.46875,
+          "y": 13,
+          "w": 42,
+          "h": 36,
+          "right": 593.46875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "页面模板",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 597.46875,
+          "y": 13,
+          "w": 68,
+          "h": 36,
+          "right": 665.46875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "设计实验室",
+          "label": null,
+          "class": "top-nav-item top-nav-item--lab",
+          "x": 669.46875,
+          "y": 13,
+          "w": 117.984375,
+          "h": 36,
+          "right": 787.453125,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "定稿 ✓",
+          "label": null,
+          "class": "top-nav-item top-nav-item--review",
+          "x": 791.453125,
+          "y": 13,
+          "w": 66,
+          "h": 36,
+          "right": 857.453125,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 906.609375,
+          "y": 9,
+          "w": 69.390625,
+          "h": 44,
+          "right": 976,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "切换为浅色模式",
+          "label": "切换为浅色模式",
+          "class": "theme-toggle gary-button gary-icon-button",
+          "x": 984,
+          "y": 9,
+          "w": 44,
+          "h": 44,
+          "right": 1028,
+          "bottom": 53,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "portal",
+    "width": 1280,
+    "top": {
+      "w": 1280,
+      "docWidth": 1280,
+      "brand": {
+        "x": 73,
+        "y": 13,
+        "w": 124,
+        "h": 36,
+        "right": 197,
+        "bottom": 49
+      },
+      "brandPaint": [],
+      "background": {
+        "x": 1085.609375,
+        "y": 9,
+        "w": 69.390625,
+        "h": 44,
+        "right": 1155,
+        "bottom": 53
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "总览",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 335.671875,
+          "y": 13,
+          "w": 42,
+          "h": 36,
+          "right": 377.671875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "基础",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 381.671875,
+          "y": 13,
+          "w": 53,
+          "h": 36,
+          "right": 434.671875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "组件",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 438.671875,
+          "y": 13,
+          "w": 42,
+          "h": 36,
+          "right": 480.671875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "应用模式",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 484.671875,
+          "y": 13,
+          "w": 68,
+          "h": 36,
+          "right": 552.671875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "完整 Demo",
+          "label": null,
+          "class": "top-nav-item is-active",
+          "x": 556.671875,
+          "y": 13,
+          "w": 80.296875,
+          "h": 36,
+          "right": 636.96875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "制图",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 640.96875,
+          "y": 13,
+          "w": 42,
+          "h": 36,
+          "right": 682.96875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "页面模板",
+          "label": null,
+          "class": "top-nav-item",
+          "x": 686.96875,
+          "y": 13,
+          "w": 68,
+          "h": 36,
+          "right": 754.96875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "设计实验室",
+          "label": null,
+          "class": "top-nav-item top-nav-item--lab",
+          "x": 758.96875,
+          "y": 13,
+          "w": 117.984375,
+          "h": 36,
+          "right": 876.953125,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "定稿 ✓",
+          "label": null,
+          "class": "top-nav-item top-nav-item--review",
+          "x": 880.953125,
+          "y": 13,
+          "w": 66,
+          "h": 36,
+          "right": 946.953125,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "999px"
+        },
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 1085.609375,
+          "y": 9,
+          "w": 69.390625,
+          "h": 44,
+          "right": 1155,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "切换为浅色模式",
+          "label": "切换为浅色模式",
+          "class": "theme-toggle gary-button gary-icon-button",
+          "x": 1163,
+          "y": 9,
+          "w": 44,
+          "h": 44,
+          "right": 1207,
+          "bottom": 53,
+          "svg": 1,
+          "hit": true,
+          "radius": "50%"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "demo",
+    "width": 320,
+    "top": {
+      "w": 320,
+      "docWidth": 320,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 90.578125,
+        "h": 36,
+        "right": 103.578125,
+        "bottom": 53
+      },
+      "brandPaint": [
+        {
+          "x": 53,
+          "y": 27,
+          "width": 50.578125,
+          "height": 16,
+          "top": 27,
+          "right": 103.578125,
+          "bottom": 43,
+          "left": 53,
+          "text": "Gary-UI"
+        }
+      ],
+      "background": {
+        "x": 133.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 203,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Gary-UI",
+          "label": null,
+          "class": "demo-nav__brand",
+          "x": 13,
+          "y": 17,
+          "w": 90.578125,
+          "h": 36,
+          "right": 103.578125,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 133.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 203,
+          "bottom": 57,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "",
+          "label": "切换浅色主题",
+          "class": "icon-button",
+          "x": 211,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 255,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        },
+        {
+          "text": "",
+          "label": "菜单",
+          "class": "gary-header-menu icon-button",
+          "x": 263,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 307,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "demo",
+    "width": 390,
+    "top": {
+      "w": 390,
+      "docWidth": 390,
+      "brand": {
+        "x": 13,
+        "y": 17,
+        "w": 90.578125,
+        "h": 36,
+        "right": 103.578125,
+        "bottom": 53
+      },
+      "brandPaint": [
+        {
+          "x": 53,
+          "y": 27,
+          "width": 50.578125,
+          "height": 16,
+          "top": 27,
+          "right": 103.578125,
+          "bottom": 43,
+          "left": 53,
+          "text": "Gary-UI"
+        }
+      ],
+      "background": {
+        "x": 203.609375,
+        "y": 13,
+        "w": 69.390625,
+        "h": 44,
+        "right": 273,
+        "bottom": 57
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Gary-UI",
+          "label": null,
+          "class": "demo-nav__brand",
+          "x": 13,
+          "y": 17,
+          "w": 90.578125,
+          "h": 36,
+          "right": 103.578125,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 203.609375,
+          "y": 13,
+          "w": 69.390625,
+          "h": 44,
+          "right": 273,
+          "bottom": 57,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "",
+          "label": "切换浅色主题",
+          "class": "icon-button",
+          "x": 281,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 325,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        },
+        {
+          "text": "",
+          "label": "菜单",
+          "class": "gary-header-menu icon-button",
+          "x": 333,
+          "y": 13,
+          "w": 44,
+          "h": 44,
+          "right": 377,
+          "bottom": 57,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  },
+  {
+    "target": "demo",
+    "width": 768,
+    "top": {
+      "w": 768,
+      "docWidth": 768,
+      "brand": {
+        "x": 73,
+        "y": 13,
+        "w": 97.796875,
+        "h": 36,
+        "right": 170.796875,
+        "bottom": 49
+      },
+      "brandPaint": [
+        {
+          "x": 113,
+          "y": 21,
+          "width": 57.796875,
+          "height": 19,
+          "top": 21,
+          "right": 170.796875,
+          "bottom": 40,
+          "left": 113,
+          "text": "Gary-UI"
+        }
+      ],
+      "background": {
+        "x": 537.609375,
+        "y": 9,
+        "w": 69.390625,
+        "h": 44,
+        "right": 607,
+        "bottom": 53
+      },
+      "overlapPaint": false,
+      "controls": [
+        {
+          "text": "Gary-UI",
+          "label": null,
+          "class": "demo-nav__brand",
+          "x": 73,
+          "y": 13,
+          "w": 97.796875,
+          "h": 36,
+          "right": 170.796875,
+          "bottom": 49,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "Background",
+          "label": null,
+          "class": "gary-role-annotation gary-background-nav",
+          "x": 537.609375,
+          "y": 9,
+          "w": 69.390625,
+          "h": 44,
+          "right": 607,
+          "bottom": 53,
+          "svg": 0,
+          "hit": true,
+          "radius": "0px"
+        },
+        {
+          "text": "",
+          "label": "切换浅色主题",
+          "class": "icon-button",
+          "x": 615,
+          "y": 13,
+          "w": 36,
+          "h": 36,
+          "right": 651,
+          "bottom": 49,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        },
+        {
+          "text": "",
+          "label": "菜单",
+          "class": "gary-header-menu icon-button",
+          "x": 659,
+          "y": 13,
+          "w": 36,
+          "h": 36,
+          "right": 695,
+          "bottom": 49,
+          "svg": 1,
+          "hit": true,
+          "radius": "99px"
+        }
+      ],
+      "theme": "dark",
+      "bgOpen": false,
+      "scene": [
+        {
+          "canvas": 1,
+          "background": "none",
+          "before": "none",
+          "after": "none"
+        }
+      ]
+    },
+    "background": {
+      "theme": "dark",
+      "open": true
+    },
+    "theme": {
+      "theme": "light",
+      "open": false
+    }
+  }
+]

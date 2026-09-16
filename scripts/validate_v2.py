@@ -150,6 +150,7 @@ def main() -> int:
     build_schema = documents.get("contracts/build-report.schema.json", {})
     runtime_manifest = documents.get("runtime/manifest.json", {})
     collaboration = system.get("collaboration", {})
+    defaults = system.get("visualAxes", {}).get("defaults", {})
 
     if system:
         if system.get("systemVersion") != "2.0.0":
@@ -237,38 +238,46 @@ def main() -> int:
     if metadata:
         if metadata.get("version") != "2.0.0":
             issues.append("metadata.json version 必须为 2.0.0")
-        if metadata.get("defaultInteraction") != "direct-chat":
-            issues.append("metadata 默认协作必须为 direct-chat")
-        if metadata.get("directChatDefaultFor") != collaboration.get(
-            "directChatDefaultFor"
-        ):
-            issues.append("metadata 直接对话 operation 投影漂移")
-        if metadata.get("sessionRequiredFor") != []:
-            issues.append("metadata 不得声明强制 Session")
-        if metadata.get("sessionActivationTriggers") != collaboration.get(
-            "sessionActivationTriggers"
-        ):
-            issues.append("metadata Session 触发条件投影漂移")
-        if metadata.get("sessionStartRequiresUserConsent") is not True:
-            issues.append("metadata 缺 Session 用户同意门禁")
-        if metadata.get("sessionSkipRequiresReason") is not False:
-            issues.append("metadata 不得要求解释直接对话路径")
+        if metadata.get("systemAuthority") != "spec/system.json":
+            issues.append("metadata systemAuthority 必须指向 spec/system.json")
+        for key, expected in {
+            "defaultTheme": defaults.get("theme"),
+            "defaultMaterial": defaults.get("material"),
+            "defaultDensity": defaults.get("density"),
+            "defaultScene": defaults.get("scene"),
+            "defaultBackground": defaults.get("background"),
+        }.items():
+            if metadata.get(key) != expected:
+                issues.append(f"metadata 兼容发现字段漂移: {key}")
+        if metadata.get("defaultInteraction") != collaboration.get("defaultInteraction"):
+            issues.append("metadata 默认协作投影漂移")
+        if metadata.get("sessionRequiredFor") != collaboration.get("requiredFor"):
+            issues.append("metadata Session requiredFor 投影漂移")
+        if metadata.get("sessionStartRequiresUserConsent") is not collaboration.get("sessionStartRequiresUserConsent"):
+            issues.append("metadata Session 用户同意投影漂移")
+        if metadata.get("sessionSkipRequiresReason") is not collaboration.get("skipRequiresReason"):
+            issues.append("metadata Session skip 投影漂移")
 
     if consumption:
-        session_policy = consumption.get("session", {})
+        if len(consumption.get("readOrder", [])) > 4:
+            issues.append("library-consumption 默认 readOrder 不得超过 4 个入口")
+        if consumption.get("readOrder") != [
+            "SKILL.md",
+            "spec/system.json",
+            "contracts/invocation.schema.json",
+            "README.md",
+        ]:
+            issues.append("library-consumption 默认 readOrder 必须是最小入口集")
+        routes = consumption.get("routes", {})
+        for route_name in ("visual", "chart", "session", "react", "component"):
+            if not isinstance(routes.get(route_name), dict) or not routes[route_name].get("when"):
+                issues.append(f"library-consumption 缺条件路由: {route_name}")
+        session_policy = routes.get("session", {})
         if session_policy.get("activation") != "optional-escalation":
             issues.append("library Session 必须是 optional-escalation")
         if session_policy.get("defaultFor") != []:
             issues.append("library 不得默认启动 Session")
-        if session_policy.get("availableFor") != collaboration.get(
-            "directChatDefaultFor"
-        ):
-            issues.append("library Session 可用 operation 投影漂移")
-        if session_policy.get("activationTriggers") != collaboration.get(
-            "sessionActivationTriggers"
-        ):
-            issues.append("library Session 触发条件投影漂移")
-        if session_policy.get("requiresUserConsent") is not True:
+        if session_policy.get("requiresUserConsent") is not collaboration.get("sessionStartRequiresUserConsent"):
             issues.append("library 缺 Session 用户同意门禁")
 
     if task_schema:

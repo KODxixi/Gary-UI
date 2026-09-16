@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "source": "real-browser",
+  "targetStack": "html",
+  "url": "http://127.0.0.1:8878/portal/#product-design",
+  "styleEntry": "tokens/base.css",
+  "styleEntryLoaded": true,
+  "computedStyle": {
+    "property": "--gary-control-height",
+    "value": "44px"
+  },
+  "sceneCount": 1,
+  "nestedGlassCount": 0,
+  "consoleErrors": 0
+}

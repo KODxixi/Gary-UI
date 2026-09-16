@@ -5,8 +5,9 @@
 - `web-bar.js`：滚动顶栏、圆形菜单、键盘与焦点行为。
 - `icons.js` / `icons-entry.mjs`：固定 Lucide 图标子集，使用 `GaryIcons.set(button, icon, label)` 更新状态。
 - `optical-glass.js`：Gary 原创边缘法线折射，前景内容保持稳定。
+- `gradient-waves.js`：Background 入口使用的最初 WebGL 动态海浪；`ambient-waves.js` 是独立 Canvas 实现，不替代该入口。
 - `ambient-waves.js`：Gary 原创 Canvas 环境波面，主动选择后才运行；独立 API 的 `mouseInteraction` 也默认 false，须同时满足根鼠标开关与非减弱动态。
-- `background-lab.js`：纯文字 Background 入口、材质强度、本地照片/视频及波面参数；主题按钮独立。
+- `background-lab.js`：纯文字 Background 入口、材质强度、本地照片/视频、波面参数及三种 CSS 环境背景（极光薄雾、棱镜幕帘、银色轨道）；主题按钮独立。
 - `number-transition.js`：独立数值槽的 350ms 更新；首次直接结果，真实终值即时可访问，减弱动态与打印立即结束。
 - `content-rail.css` / `content-rail.js`：原生 scroll-snap 媒体浏览，手动前后、键盘与触摸，无自动播放。
 - `chart-recipes.js`：读取 `spec/chart-recipes.json` 的五种数据驱动 SVG 参考配方与原生数据表；不新增正式 Visual Adapter 引擎。

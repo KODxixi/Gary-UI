@@ -7,6 +7,11 @@
     "source": "spec/scene-recipes.json#/surfaceRecipes",
     "attribute": "data-gary-surface",
     "allowedValues": ["solid", "frosted", "optical"],
+    "labels": {
+      "solid": "实体底纹",
+      "frosted": "磨砂玻璃",
+      "optical": "超白/全透玻璃"
+    },
     "implementation": "patterns/shared/material.js; patterns/shared/optical-glass.js; components/components.css",
     "precedence": "Explicit data-gary-surface selects the approved surface before legacy automatic card routing; it does not change the task material enum",
     "lightScopeSelector": "[data-gary-light-scope]",
@@ -34,7 +39,7 @@
     "implementation": "components/components.css; patterns/shared/web-bar.js",
     "base": "neutral translucent plate, 12px backdrop blur, Gary 30px radius; dark and light share one recipe",
     "action": "Only real links/buttons use data-gary-card=action for focus and pressed feedback. Decorative pointer light is opt-in; approved surface lighting shares one scoped coordinate system and never tilts content.",
-    "motion": "one 6s edge orbit per entry; no idle loop; reduced motion removes movement and retains visible focus",
+    "motion": "Press responds within 100-160ms; frequent UI transitions stay under 300ms and remain interruptible; bounce only follows real momentum. One 6s edge orbit per explicitly enabled entry; no idle loop. Reduced motion removes displacement, parallax and bounce while retaining gentle opacity/color feedback and visible focus",
     "flow": "Do not add card contour fields; preserve the calm card surface and the single default dot-grid scene",
     "reading": "Dense body, charts and evidence keep stable opaque plates; noninteractive cards never imply whole-card clickability"
   },
@@ -43,7 +48,8 @@
     "rules": [
       "按 data-gary-surface 明确选择已批准的 solid、frosted、optical，用途见场景配方",
       "密集数据、表格与长正文使用 solid；摘要、导航与判断使用 frosted；短内容、媒体与展示使用 optical",
-      "一层玻璃，不嵌套；前景文字与数据不加滤镜，不做 tilt"
+      "一层玻璃，不嵌套；前景文字与数据不加滤镜，不做 tilt",
+      "Liquid Glass 优先用于导航、控件和短暂功能层；图表、表格、长正文与密集证据使用稳定实体承载"
     ]
   },
   "variants": [
@@ -75,7 +81,9 @@
     "requirements": [
       "可交互整卡必须使用单一明确的链接或按钮",
       "region 需要可访问名称",
-      "不可只靠悬停呈现关键信息"
+      "不可只靠悬停呈现关键信息",
+      "减弱透明度时提高不透明度并移除 backdrop-filter；增强对比度时使用近实底和明确边界",
+      "文字放大后内容不裁切，功能层尊重设备安全区"
     ]
   },
   "cssClasses": [

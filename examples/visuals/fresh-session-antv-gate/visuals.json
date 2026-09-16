@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "project": "fresh-session-offline-map-publishing-gate",
+  "outputRoot": "output",
+  "visuals": [
+    {
+      "id": "offline-map-publishing-gate",
+      "title": "离线制图发布闸门",
+      "description": "四步发布流程：需求判型、可追溯原生源、候选验证、原子晋升；失败候选隔离且上一有效版本永不被失败尝试覆盖。",
+      "purpose": "infographic",
+      "tool": "antv-infographic",
+      "source": "source/offline-map-publishing-gate.json",
+      "scene": "showcase",
+      "theme": "dark",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "本轮用户自然语言需求",
+        "url": null,
+        "note": "全新会话端到端验收；内容与模板均由本轮重新判型，未复制项目现有样例。"
+      }
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import fnmatch
 import hashlib
 import json
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -55,10 +56,26 @@ def expand_selected(manifest: dict) -> dict[str, Path]:
     if not isinstance(exclude, list) or not all(isinstance(item, str) for item in exclude):
         raise ProjectionError("runtime manifest exclude 必须为 string array")
 
+    try:
+        listed = subprocess.run(
+            ["git", "-C", str(ROOT), "ls-files", "--cached", "--others", "--exclude-standard", "-z", "--", "."],
+            capture_output=True,
+            check=True,
+        ).stdout.split(b"\0")
+    except (OSError, subprocess.CalledProcessError) as error:
+        raise ProjectionError(f"无法读取受控源码清单: {error}") from error
+    candidates = {Path(item.decode("utf-8")) for item in listed if item}
+    generated = manifest.get("generatedFiles", [])
+    if not isinstance(generated, list) or not all(isinstance(item, str) for item in generated):
+        raise ProjectionError("runtime manifest generatedFiles 必须为 string array")
+    candidates.update(Path(item) for item in generated)
+
     selected: dict[str, Path] = {}
-    all_files = [path for path in ROOT.rglob("*") if path.is_file()]
-    for path in all_files:
-        relative = posix_relative(path)
+    for relative_path in sorted(candidates):
+        path = ROOT / relative_path
+        if not path.is_file():
+            continue
+        relative = relative_path.as_posix()
         if any(matches(relative, pattern) for pattern in include):
             if not any(matches(relative, pattern) for pattern in exclude):
                 selected[relative] = path

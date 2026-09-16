@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 2,
+  "command": "visual export",
+  "project": "gary-ui-visual-engine-samples",
+  "manifest": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\visuals.json",
+  "versionId": "run-2026-09-15T17-20-16-307Z-aa797b77",
+  "generatedAt": "2026-09-15T17:20:45.046Z",
+  "records": [
+    {
+      "id": "architecture",
+      "tool": "archify",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\architecture.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\architecture.json",
+      "sha256": "ccb15ea21903ed0115fb0ca2bebde442eca3bb96234a37d7f74a7a592200f3c2",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\architecture.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\architecture.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\architecture.png",
+        "pdf": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\architecture.pdf"
+      }
+    },
+    {
+      "id": "workflow-with-exception",
+      "tool": "archify",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\workflow-with-exception.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\workflow-with-exception.json",
+      "sha256": "df391580312a87180e977e07cf188fe3f8be42f3538f07e9aa04864d27f71ab0",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\workflow-with-exception.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\workflow-with-exception.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\workflow-with-exception.png"
+      }
+    },
+    {
+      "id": "sequence",
+      "tool": "archify",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sequence.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\sequence.json",
+      "sha256": "b323704b538e994616f8b9f5756f1a8e60f889d49015d98ce17df335ba06655b",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sequence.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sequence.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sequence.png"
+      }
+    },
+    {
+      "id": "data-flow",
+      "tool": "archify",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\data-flow.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\data-flow.json",
+      "sha256": "ef3d910f9df04cf2f6f155428289df33e83b0ef88ba79710a0bd642ff58a76cb",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\data-flow.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\data-flow.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\data-flow.png"
+      }
+    },
+    {
+      "id": "lifecycle",
+      "tool": "archify",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\lifecycle.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\lifecycle.json",
+      "sha256": "40d591962c66d5983c5d6e3eeef59f6f15fb6ac7b05c9c6f7681eebdd3c9e7e2",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\lifecycle.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\lifecycle.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\lifecycle.png"
+      }
+    },
+    {
+      "id": "quantitative",
+      "tool": "echarts",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\quantitative.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\quantitative.json",
+      "sha256": "69ff77acf5515e52fb58131b815d585e706f2ac42cf1ed92a586017f4f8a0930",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\quantitative.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\quantitative.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\quantitative.png",
+        "pdf": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\quantitative.pdf"
+      }
+    },
+    {
+      "id": "research-outline",
+      "tool": "markmap",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\research-outline.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\research-outline.md",
+      "sha256": "d0c9277084d7e95268d571aae08e14861b6fd6bb172b9261a43bbd314f5d5a2d",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\research-outline.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\research-outline.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\research-outline.png",
+        "pdf": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\research-outline.pdf"
+      }
+    },
+    {
+      "id": "summary-infographic",
+      "tool": "antv-infographic",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\summary-infographic.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\summary-infographic.json",
+      "sha256": "9e873edadd632f6fa67b4822e54ae83f6cc002ba65b200bda07e3f64deb02866",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\summary-infographic.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\summary-infographic.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\summary-infographic.png",
+        "pdf": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\summary-infographic.pdf"
+      }
+    },
+    {
+      "id": "simple-flow",
+      "tool": "mermaid",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\simple-flow.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\simple-flow.mmd",
+      "sha256": "647939314e82cc62c55a7e461a2489260ad835e2a52cc2a47522181a159bf62c",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\simple-flow.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\simple-flow.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\simple-flow.png"
+      }
+    },
+    {
+      "id": "icons",
+      "tool": "lucide",
+      "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\icons.html",
+      "source": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sources\\icons.json",
+      "sha256": "1535cbcc2349b12dd1e84d58b9d30bfc6b0eb2eb8a143ecbb7d38adf6f7a2470",
+      "status": "pass",
+      "outputs": {
+        "html": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\icons.html",
+        "svg": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\icons.svg",
+        "png": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\icons.png"
+      }
+    }
+  ]
+}

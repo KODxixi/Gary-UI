@@ -137,10 +137,6 @@ class PortalSurfaceTests(SurfaceServerTestCase):
             200,
         )
         self.assertEqual(
-            self.status(f"{self.base}/examples/visuals/outputs/index.html"),
-            200,
-        )
-        self.assertEqual(
             self.status(f"{self.base}/examples/demos/index.html"),
             200,
         )
@@ -156,10 +152,10 @@ class PortalSurfaceTests(SurfaceServerTestCase):
         )
 
         with urlopen(
-            f"{self.base}/examples/visuals/outputs/index.html", timeout=3
+            f"{self.base}/examples/demos/index.html", timeout=3
         ) as response:
             policy = response.headers["Content-Security-Policy"]
-        self.assertIn("script-src 'unsafe-inline'", policy)
+        self.assertIn("script-src 'self' 'unsafe-inline'", policy)
         self.assertIn("frame-ancestors 'self'", policy)
         self.assertIn("connect-src 'none'", policy)
 

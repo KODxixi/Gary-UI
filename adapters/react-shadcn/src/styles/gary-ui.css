@@ -57,7 +57,10 @@
   color: var(--gary-text-primary);
   background: var(--gary-surface-page);
   font-family: var(--gary-font-sans);
+  font-optical-sizing: auto;
   font-variant-numeric: tabular-nums;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 .gary-card {
@@ -91,13 +94,15 @@
     var(--gary-glass-fill, var(--gary-glass-regular));
   box-shadow: var(--gary-shadow-inset), var(--gary-shadow-contact), var(--gary-shadow-environment);
   backdrop-filter: blur(var(--gary-glass-blur, var(--gary-blur-regular))) saturate(108%) contrast(1.03);
+  -webkit-backdrop-filter: blur(var(--gary-glass-blur, var(--gary-blur-regular))) saturate(108%) contrast(1.03);
 }
 
 .gary-button {
-  transition: transform var(--gary-duration-base) var(--gary-ease), opacity var(--gary-duration-fast) var(--gary-ease);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform var(--gary-duration-press) var(--gary-ease-out), opacity var(--gary-duration-fast) var(--gary-ease-out);
 }
-.gary-button:hover:not(:disabled) { transform: translateY(-1px); }
-.gary-button:active:not(:disabled) { transform: translateY(1px) scale(.985); }
+.gary-button:active:not(:disabled) { transform: scale(var(--gary-press-scale)); }
 .gary-button--primary { --gary-glass-fill: var(--gary-glass-thick); }
 .gary-button--secondary, .gary-button--outline { --gary-glass-fill: var(--gary-glass-regular); }
 .gary-button--ghost, .gary-button--link { --gary-glass-fill: var(--gary-glass-ultrathin); box-shadow: var(--gary-shadow-inset); }
@@ -147,7 +152,6 @@
   height: 100%;
   border-radius: inherit;
   background: var(--gary-text-primary);
-  transition: width var(--gary-duration-slow) var(--gary-ease);
 }
 .gary-evidence-bar--success [data-slot="evidence-bar-indicator"] { background: var(--gary-state-positive); }
 .gary-evidence-bar--warning [data-slot="evidence-bar-indicator"] { background: var(--gary-state-caution); }
@@ -162,8 +166,46 @@
   [data-gary-ui-root] *,
   [data-gary-ui-root] *::before,
   [data-gary-ui-root] *::after {
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
+    animation: none !important;
+  }
+  .gary-button {
+    transform: none !important;
+    transition-property: color, background-color, border-color, box-shadow, opacity !important;
+    transition-duration: var(--gary-duration-fast) !important;
+    transition-timing-function: linear !important;
   }
 }
 
+@media (prefers-reduced-transparency: reduce) {
+  .gary-card,
+  .gary-button {
+    background: var(--gary-solid-plate);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .gary-card,
+  .gary-button,
+  .gary-chip,
+  .gary-evidence-bar { border-color: currentColor; }
+}
+
+@media (forced-colors: active) {
+  .gary-card,
+  .gary-button,
+  .gary-chip,
+  .gary-evidence-bar {
+    color: CanvasText;
+    background: Canvas;
+    border-color: CanvasText;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (max-width: 640px) {
+  [data-gary-ui-root] :is(input, textarea, select) { font-size: 1rem; }
+}

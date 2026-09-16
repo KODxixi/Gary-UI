@@ -1,4 +1,4 @@
-{
+﻿{
   "schemaVersion": 2,
   "systemVersion": "2.0.0",
   "skill": "gary-liquidglass-ui",
@@ -46,14 +46,10 @@
     "adapters/visual/toolchain.lock.json",
     "adapters/visual/package.json",
     "adapters/visual/package-lock.json",
-    "adapters/visual/runtime/**/*",
     "adapters/visual/vendor/browser/**/*",
     "adapters/visual/vendor/archify/**/*",
-    "adapters/visual/vendor/node/playwright-core/**/*",
     "examples/visuals/visuals.json",
     "examples/visuals/sources/**/*",
-    "examples/visuals/outputs/**/*",
-    "examples/visuals/fresh-session-delivery/**/*",
     "examples/visuals/evidence/archify-skill/**/*",
     "examples/visuals/evidence/transaction/**/*",
     "examples/demos/**/*",
@@ -65,7 +61,10 @@
     "scripts/review_contract.py",
     "scripts/session_contract.py",
     "scripts/session_store.py",
-    "scripts/invocation_contract.py"
+    "scripts/invocation_contract.py",
+    "adapters/visual/browsers.json",
+    "adapters/visual/runtime/runner.cjs",
+    "adapters/visual/runtime/build-meta.json"
   ],
   "exclude": [
     "portal/**",
@@ -97,7 +96,9 @@
     "adapters/visual/vendor/archify/THIRD_PARTY_NOTICES.md",
     "adapters/visual/vendor/archify/SKILL.md",
     "CHANGELOG.md",
-    "THIRD_PARTY_NOTICES.md"
+    "THIRD_PARTY_NOTICES.md",
+    "examples/visuals/outputs/**",
+    "examples/demos/visuals/outputs/**"
   ],
   "forbiddenRuntimeContent": [
     "global governance history",
@@ -126,5 +127,10 @@
     "examples/visuals/outputs/.candidates/lifecycle.archify.json",
     "examples/visuals/outputs/.candidates/sequence.archify.json",
     "examples/visuals/outputs/.candidates/workflow-with-exception.archify.json"
+  ],
+  "generatedFiles": [
+    "adapters/visual/browsers.json",
+    "adapters/visual/runtime/runner.cjs",
+    "adapters/visual/runtime/build-meta.json"
   ]
 }

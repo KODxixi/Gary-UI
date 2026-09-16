@@ -1,0 +1,5 @@
+flowchart LR
+    task[提交工作项] --> check{证据复核}
+    check -->|通过| archive[归档发布]
+    check -->|未通过| revise[补充证据]
+    revise --> check

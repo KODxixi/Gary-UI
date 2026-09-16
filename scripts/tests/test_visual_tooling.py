@@ -159,6 +159,13 @@ def test_cli_exposes_visual_commands_without_changing_session_contract() -> None
     assert session.group == "session"
     assert session.action == "status"
 
+    route = gary_ui.parse_args(
+        ["invocation", "--application", "web-ui", "--page", "data-page"]
+    )
+    assert route.group == "invocation"
+    assert route.application == "web-ui"
+    assert route.page == "data-page"
+
 
 def test_visual_runtime_inventory_is_pinned_and_complete() -> None:
     lock = json.loads(

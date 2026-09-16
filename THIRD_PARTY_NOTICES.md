@@ -1,4 +1,4 @@
-# Third-party notices
+﻿# Third-party notices
 
 Gary-UI 原创 Token、组件契约、样式、页面模式、交互、文档、光学玻璃与环境波浪实现适用根目录 [MIT](LICENSE)。第三方作品不因被本仓库引用或打包而改变其原有许可。
 
@@ -6,7 +6,7 @@ Gary-UI 原创 Token、组件契约、样式、页面模式、交互、文档、
 
 本地制图使用 Archify、ECharts、Markmap、AntV Infographic、Mermaid、Lucide、D3 与 Playwright Core；构建使用 esbuild。React 适配器使用 React、Tailwind CSS、Radix UI、class-variance-authority、clsx、tailwind-merge 等依赖。
 
-版本与用途见 [适配器许可清单](adapters/visual/LICENSES.md)，完整原始许可、NOTICE、版本与哈希见 [licenses/third-party](licenses/third-party/)。生成物中内联的运行库同样受各自许可约束。第三方品牌标识可能另有署名、商标与用途限制，不纳入 Gary-UI 原创 MIT 授权。
+版本与用途见 [适配器许可清单](adapters/visual/LICENSES.md)，完整原始许可文本见 [licenses/third-party/THIRD_PARTY_LICENSES.txt](licenses/third-party/THIRD_PARTY_LICENSES.txt)，版本与元数据见 [manifest.json](licenses/third-party/manifest.json)。生成物中内联的运行库同样受各自许可约束。第三方品牌标识可能另有署名、商标与用途限制，不纳入 Gary-UI 原创 MIT 授权。
 
 ## 设计参考与未分发内容
 

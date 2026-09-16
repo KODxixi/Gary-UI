@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "status": "pass",
+  "svg": [
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\architecture.svg",
+      "bytes": 95041,
+      "viewBox": true,
+      "iconCount": 2,
+      "hasInlinePresentation": true
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\data-flow.svg",
+      "bytes": 113238,
+      "viewBox": true,
+      "iconCount": 2,
+      "hasInlinePresentation": true
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\icons.svg",
+      "bytes": 25573,
+      "viewBox": true,
+      "iconCount": 10,
+      "hasInlinePresentation": true
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\lifecycle.svg",
+      "bytes": 88337,
+      "viewBox": true,
+      "iconCount": 2,
+      "hasInlinePresentation": true
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\quantitative.svg",
+      "bytes": 25308,
+      "viewBox": true,
+      "iconCount": 0,
+      "hasInlinePresentation": true
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\research-outline.svg",
+      "bytes": 44486,
+      "viewBox": true,
+      "iconCount": 0,
+      "hasInlinePresentation": true
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sequence.svg",
+      "bytes": 105398,
+      "viewBox": true,
+      "iconCount": 2,
+      "hasInlinePresentation": true
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\simple-flow.svg",
+      "bytes": 73083,
+      "viewBox": true,
+      "iconCount": 0,
+      "hasInlinePresentation": true
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\summary-infographic.svg",
+      "bytes": 38233,
+      "viewBox": true,
+      "iconCount": 0,
+      "hasInlinePresentation": true
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\workflow-with-exception.svg",
+      "bytes": 121612,
+      "viewBox": true,
+      "iconCount": 2,
+      "hasInlinePresentation": true
+    }
+  ],
+  "png": [
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\architecture.png",
+      "bytes": 160042,
+      "width": 1440,
+      "height": 792,
+      "sampledColors": 11288
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\data-flow.png",
+      "bytes": 232472,
+      "width": 1440,
+      "height": 1019,
+      "sampledColors": 9036
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\icons.png",
+      "bytes": 21902,
+      "width": 1440,
+      "height": 1000,
+      "sampledColors": 2018
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\lifecycle.png",
+      "bytes": 147157,
+      "width": 1440,
+      "height": 976,
+      "sampledColors": 6811
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\quantitative.png",
+      "bytes": 39923,
+      "width": 1440,
+      "height": 1365,
+      "sampledColors": 2571
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\research-outline.png",
+      "bytes": 81944,
+      "width": 1440,
+      "height": 1000,
+      "sampledColors": 8843
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\sequence.png",
+      "bytes": 305010,
+      "width": 1440,
+      "height": 1336,
+      "sampledColors": 8191
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\simple-flow.png",
+      "bytes": 27013,
+      "width": 1440,
+      "height": 1000,
+      "sampledColors": 2849
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\summary-infographic.png",
+      "bytes": 91135,
+      "width": 1440,
+      "height": 1000,
+      "sampledColors": 14650
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\workflow-with-exception.png",
+      "bytes": 202533,
+      "width": 1440,
+      "height": 905,
+      "sampledColors": 12603
+    }
+  ],
+  "pdf": [
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\architecture.pdf",
+      "bytes": 280463,
+      "pages": 1,
+      "textChars": 344,
+      "sampledColors": [
+        3753
+      ],
+      "renderedPages": [
+        "C:\\AI\\UI\\gary-ui\\examples\\demos\\evidence\\export-integrity\\architecture-page-1.png"
+      ]
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\quantitative.pdf",
+      "bytes": 87921,
+      "pages": 1,
+      "textChars": 47,
+      "sampledColors": [
+        454
+      ],
+      "renderedPages": [
+        "C:\\AI\\UI\\gary-ui\\examples\\demos\\evidence\\export-integrity\\quantitative-page-1.png"
+      ]
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\research-outline.pdf",
+      "bytes": 29632,
+      "pages": 1,
+      "textChars": 83,
+      "sampledColors": [
+        1149
+      ],
+      "renderedPages": [
+        "C:\\AI\\UI\\gary-ui\\examples\\demos\\evidence\\export-integrity\\research-outline-page-1.png"
+      ]
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\outputs\\summary-infographic.pdf",
+      "bytes": 65250,
+      "pages": 1,
+      "textChars": 235,
+      "sampledColors": [
+        1494
+      ],
+      "renderedPages": [
+        "C:\\AI\\UI\\gary-ui\\examples\\demos\\evidence\\export-integrity\\summary-infographic-page-1.png"
+      ]
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\demos\\research-report\\research-report.pdf",
+      "bytes": 426937,
+      "pages": 3,
+      "textChars": 1731,
+      "sampledColors": [
+        208,
+        303
+      ],
+      "renderedPages": [
+        "C:\\AI\\UI\\gary-ui\\examples\\demos\\evidence\\export-integrity\\research-report-page-1.png",
+        "C:\\AI\\UI\\gary-ui\\examples\\demos\\evidence\\export-integrity\\research-report-page-3.png"
+      ]
+    },
+    {
+      "path": "C:\\AI\\UI\\gary-ui\\examples\\demos\\proposal-presentation\\proposal-presentation.pdf",
+      "bytes": 458090,
+      "pages": 6,
+      "textChars": 1081,
+      "sampledColors": [
+        243,
+        202
+      ],
+      "renderedPages": [
+        "C:\\AI\\UI\\gary-ui\\examples\\demos\\evidence\\export-integrity\\proposal-presentation-page-1.png",
+        "C:\\AI\\UI\\gary-ui\\examples\\demos\\evidence\\export-integrity\\proposal-presentation-page-6.png"
+      ]
+    }
+  ]
+}

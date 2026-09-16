@@ -1,91 +1,91 @@
-{
-  "schemaVersion": 1,
-  "library": "gary-ui",
-  "contractRequiredFields": [
-    "slug",
-    "name",
-    "category",
-    "material",
-    "variants",
-    "states",
-    "accessibility",
-    "cssClasses"
-  ],
-  "components": [
-    {
-      "slug": "button",
-      "file": "button.json",
-      "cssClass": ".gary-button"
-    },
-    {
-      "slug": "segmented-control",
-      "file": "segmented-control.json",
-      "cssClass": ".gary-segmented"
-    },
-    {
-      "slug": "field",
-      "file": "field.json",
-      "cssClass": ".gary-field"
-    },
-    {
-      "slug": "tab-bar",
-      "file": "tab-bar.json",
-      "cssClass": ".gary-tab-bar"
-    },
-    {
-      "slug": "web-bar",
-      "file": "web-bar.json",
-      "cssClass": ".gary-web-bar"
-    },
-    {
-      "slug": "glass-card",
-      "file": "glass-card.json",
-      "cssClass": ".gary-glass-card"
-    },
-    {
-      "slug": "solid-plate",
-      "file": "solid-plate.json",
-      "cssClass": ".gary-solid-plate"
-    },
-    {
-      "slug": "metric-card",
-      "file": "metric-card.json",
-      "cssClass": ".gary-metric-card"
-    },
-    {
-      "slug": "comparison-table",
-      "file": "comparison-table.json",
-      "cssClass": ".gary-comparison-table"
-    },
-    {
-      "slug": "decision-grid",
-      "file": "decision-grid.json",
-      "cssClass": ".gary-decision-grid"
-    },
-    {
-      "slug": "media-card",
-      "file": "media-card.json",
-      "cssClass": ".gary-media-card"
-    },
-    {
-      "slug": "profile-card",
-      "file": "profile-card.json",
-      "cssClass": ".gary-profile-card"
-    },
-    {
-      "slug": "scene",
-      "file": "scene.json",
-      "cssClass": ".gary-scene"
-    },
-    {
-      "slug": "chip",
-      "file": "chip.json",
-      "cssClass": ".gary-chip"
-    },
-    {
-      "slug": "evidence-bar",
-      "file": "evidence-bar.json",
-      "cssClass": ".gary-evidence-bar"
-    }
-  ]
+﻿{
+    "schemaVersion":  1,
+    "library":  "gary-ui",
+    "contractRequiredFields":  [
+                                   "slug",
+                                   "name",
+                                   "category",
+                                   "material",
+                                   "variants",
+                                   "states",
+                                   "accessibility",
+                                   "cssClasses"
+                               ],
+    "components":  [
+                       {
+                           "slug":  "button",
+                           "file":  "button.json",
+                           "cssClass":  ".gary-button"
+                       },
+                       {
+                           "slug":  "segmented",
+                           "file":  "segmented.json",
+                           "cssClass":  ".gary-segmented"
+                       },
+                       {
+                           "slug":  "field",
+                           "file":  "field.json",
+                           "cssClass":  ".gary-field"
+                       },
+                       {
+                           "slug":  "tab-bar",
+                           "file":  "tab-bar.json",
+                           "cssClass":  ".gary-tab-bar"
+                       },
+                       {
+                           "slug":  "web-bar",
+                           "file":  "web-bar.json",
+                           "cssClass":  ".gary-web-bar"
+                       },
+                       {
+                           "slug":  "glass-card",
+                           "file":  "glass-card.json",
+                           "cssClass":  ".gary-glass-card"
+                       },
+                       {
+                           "slug":  "solid-plate",
+                           "file":  "solid-plate.json",
+                           "cssClass":  ".gary-solid-plate"
+                       },
+                       {
+                           "slug":  "metric-card",
+                           "file":  "metric-card.json",
+                           "cssClass":  ".gary-metric-card"
+                       },
+                       {
+                           "slug":  "comparison-table",
+                           "file":  "comparison-table.json",
+                           "cssClass":  ".gary-comparison-table"
+                       },
+                       {
+                           "slug":  "decision-grid",
+                           "file":  "decision-grid.json",
+                           "cssClass":  ".gary-decision-grid"
+                       },
+                       {
+                           "slug":  "media-card",
+                           "file":  "media-card.json",
+                           "cssClass":  ".gary-media-card"
+                       },
+                       {
+                           "slug":  "profile-card",
+                           "file":  "profile-card.json",
+                           "cssClass":  ".gary-profile-card"
+                       },
+                       {
+                           "slug":  "scene",
+                           "file":  "scene.json",
+                           "cssClass":  ".gary-scene"
+                       },
+                       {
+                           "slug":  "chip",
+                           "file":  "chip.json",
+                           "cssClass":  ".gary-chip"
+                       },
+                       {
+                           "slug":  "evidence-bar",
+                           "file":  "evidence-bar.json",
+                           "cssClass":  ".gary-evidence-bar"
+                       }
+                   ]
 }

@@ -1,0 +1,25 @@
+{
+  "bridgeSchemaVersion": 1,
+  "decisionId": "5576b3e478f2b533",
+  "handoffStatus": "applied",
+  "savedAt": "2026-07-27T16:34:51Z",
+  "appliedAt": "2026-07-27T16:37:04Z",
+  "appliedFiles": [
+    "metadata.json",
+    "tokens/tokens.json"
+  ],
+  "decision": {
+    "schemaVersion": 3,
+    "system": "Gary-UI",
+    "defaultBackground": "assets/backgrounds/gary-default-scene.png",
+    "backgroundCustomizable": true,
+    "defaultTheme": "dark",
+    "defaultMaterial": "regular",
+    "defaultDensity": "balanced",
+    "reactAdapterStrategy": "demand-driven",
+    "distributionScope": "internal",
+    "syncAuditCadence": "weekly",
+    "notes": "",
+    "status": "ready"
+  }
+}

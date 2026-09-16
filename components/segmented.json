@@ -1,0 +1,53 @@
+{
+  "slug": "segmented",
+  "name": "分段控件",
+  "category": "controls",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "互斥选项共享一层玻璃容器",
+      "选中项使用中性 SolidPlate，不用语义色装饰",
+      "短标签保留文字，不替换为无含义图标"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-segmented"
+    },
+    {
+      "name": "compact",
+      "selector": ".gary-segmented[data-density=\"compact\"]"
+    }
+  ],
+  "states": [
+    {
+      "name": "selected",
+      "selector": "[aria-pressed=\"true\"], [aria-selected=\"true\"], [data-active=\"true\"]"
+    },
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled"
+    }
+  ],
+  "accessibility": {
+    "role": "group with native button children",
+    "requirements": [
+      "容器提供可读名称",
+      "每个选项使用 button，并同步 aria-pressed 或 aria-selected",
+      "支持键盘聚焦，选中状态不能只靠颜色表达",
+      "每个选项点击区至少 44px"
+    ]
+  },
+  "cssClasses": [
+    ".gary-segmented"
+  ]
+}

@@ -85,6 +85,33 @@ def normalize_invocation(
     return normalized
 
 
+def invocation_from_axes(
+    application: str,
+    page: str,
+    *,
+    theme: str | None = None,
+    material: str | None = None,
+    density: str | None = None,
+    system_path: Path | None = None,
+    schema: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Build the smallest runnable route, filling only formal system defaults."""
+    if system_path is None:
+        system_path = ROOT / "spec" / "system.json"
+    system = json.loads(system_path.read_text(encoding="utf-8-sig"))
+    defaults = system.get("visualAxes", {}).get("defaults", {})
+    raw = {
+        "schemaVersion": 1,
+        "skill": "gary-liquidglass-ui",
+        "application": application,
+        "page": page,
+        "theme": theme if theme is not None else defaults.get("theme"),
+        "material": material if material is not None else defaults.get("material"),
+        "density": density if density is not None else defaults.get("density"),
+    }
+    return normalize_invocation(raw, schema=schema)
+
+
 def payload_from_args(args: argparse.Namespace) -> dict[str, Any]:
     axes = ("application", "page", "theme", "material", "density")
     if args.file:

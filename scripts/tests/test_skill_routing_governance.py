@@ -78,5 +78,5 @@ def test_legacy_architecture_skill_defers_ordinary_requests_to_archify() -> None
 
 
 def test_runtime_projection_excludes_nested_archify_skill_entrypoint() -> None:
-    manifest = json.loads((ROOT / "runtime" / "manifest.json").read_text(encoding="utf-8"))
+    manifest = json.loads((ROOT / "runtime" / "manifest.json").read_text(encoding="utf-8-sig"))
     assert "adapters/visual/vendor/archify/SKILL.md" in manifest["exclude"]

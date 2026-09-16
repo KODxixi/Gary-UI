@@ -26,6 +26,12 @@ try {
     const context = await browser.newContext({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
     const page = await context.newPage();
     let errors = [];
+    const externalRequests = [];
+    const localOrigin = new URL(base).origin;
+    await context.route(/^https?:\/\//, route => {
+      if (new URL(route.request().url()).origin === localOrigin) route.continue();
+      else { externalRequests.push(route.request().url()); route.abort(); }
+    });
     page.on('pageerror', error => errors.push(error.message));
     page.on('response', response => {
       if (response.status() >= 400 && !response.url().endsWith('/favicon.ico')) errors.push(`${response.status()} ${response.url()}`);
@@ -45,10 +51,12 @@ try {
           backgroundText: document.querySelector('[data-background-open]')?.textContent.trim(),
           backgroundIcons: document.querySelectorAll('[data-background-open] svg').length,
           restrictedScript: [...document.scripts].some(s => /\/(glass-surface|gradient-waves|light-rays)\.js/.test(s.src)),
+          hoverDefaults: [...document.querySelectorAll('[data-gary-pointer-effects]')].every(el => el.dataset.garyPointerEffects !== 'on'),
         }));
         assert.ok(proof.title && proof.scrollWidth <= width + 1, `horizontal overflow: ${JSON.stringify(proof)}`);
         assert.equal(proof.dots, 1);
         assert.equal(proof.restrictedScript, false);
+        assert.equal(proof.hoverDefaults, true);
         if (slug === 'index') {
           assert.equal(proof.backgroundText, 'Background');
           assert.equal(proof.backgroundIcons, 0);
@@ -63,9 +71,9 @@ try {
           await page.locator('[data-theme-toggle]').click();
           assert.equal(await page.locator('html').getAttribute('data-gary-theme'), 'light');
           await background.click();
-          await page.locator('#gary-background-lab [name="background"]').selectOption('gradient-waves');
-          await page.waitForFunction(() => window.GaryBackgroundLab?.engine?.state.status === 'reduced-motion');
-          assert.equal(await page.locator('.gary-gradient-waves-canvas').count(), 1);
+          await page.locator('#gary-background-lab [name="background"]').selectOption('aurora-bloom');
+          await page.waitForFunction(() => document.querySelector('[data-waves-status]')?.textContent.includes('极光'));
+          assert.equal(await page.locator('.gary-gradient-waves-canvas').count(), 0);
           await page.locator('#gary-background-lab [name="background"]').selectOption('dot-grid');
           assert.equal(await page.locator('.gary-gradient-waves-canvas').count(), 0);
           await page.keyboard.press('Escape');
@@ -81,6 +89,7 @@ try {
           await page.waitForTimeout(100);
         }
         assert.deepEqual(errors, [], 'failed assets or browser errors');
+        assert.deepEqual(externalRequests, [], 'public smoke must make no external requests');
         results.push({ width, page: slug, pass: true, proof });
       } catch (error) { results.push({ width, page: slug, pass: false, error: error.message, errors }); }
     }

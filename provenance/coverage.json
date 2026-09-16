@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 1,
+  "purpose": "原始 Gary-UI 落位清单的去重与吸纳裁决；不定义视觉 token 或组件行为。",
+  "canonicalRoot": "C:\\AI\\UI\\gary-ui",
+  "statusValues": ["absorbed", "replaced", "reference-only", "rejected", "reconstructed"],
+  "coverage": [
+    {
+      "source": "user-default-background",
+      "scope": "静态降级 Scene 素材与可覆盖 token",
+      "status": "absorbed",
+      "canonicalEvidence": [
+        "assets/backgrounds/gary-default-scene.png",
+        "tokens/tokens.json",
+        "DESIGN.md"
+      ],
+      "reason": "该素材保留为 reduced-motion 与 WebGL2 不可用时的静态降级背景；消费项目可通过正式 token 覆盖。"
+    },
+    {
+      "source": "react-bits-light-rays",
+      "scope": "Light Rays 着色器、动效参数与可见性生命周期",
+      "status": "absorbed",
+      "canonicalEvidence": [
+        "portal/light-rays.js",
+        "components/scene.json",
+        "licenses/react-bits-LICENSE.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "reason": "用户明确指定 Light Rays 为 Portal 默认背景；保留官方视觉模型，改写 React/OGL 外壳以满足 GaryUI 离线静态 Portal、单 Scene 与 reduced-motion 契约。"
+    },
+    {
+      "source": "deepseek-harness-navigation-reference",
+      "scope": "顶部导航排版与胶囊按钮状态层级",
+      "status": "reference-only",
+      "canonicalEvidence": [
+        "portal/index.html",
+        "portal/app.css",
+        "DESIGN.md"
+      ],
+      "reason": "只参考品牌左置、导航居中、动作右置的轻量逻辑，以及白色主按钮与透明描边次按钮反馈；未复制源码或资产。"
+    },
+    {
+      "source": "active-local",
+      "scope": "legacy Apple-UI/Gary 规范骨架、Agent 行为与 demo",
+      "status": "absorbed",
+      "canonicalEvidence": [
+        "SKILL.md",
+        "DESIGN.md",
+        "tokens/tokens.json",
+        "portal/index.html"
+      ],
+      "reason": "legacy 内容已归一到 Gary 唯一母本；归档仅作来源证据，不再参与运行或生效。"
+    },
+    {
+      "source": "claude-design-handoff",
+      "scope": "base.css, *.dc.html, 13-component bundle, four foundations, four patterns, Chip, EvidenceBar",
+      "status": "reconstructed",
+      "canonicalEvidence": [
+        "tokens/tokens.json",
+        "tokens/base.css",
+        "components/index.json",
+        "patterns/starting-points/index.html",
+        "portal/index.html"
+      ],
+      "reason": "云端原文件不可恢复；依据用户提供的完成记录重建，不冒充原文件导出。"
+    },
+    {
+      "source": "trae-v27",
+      "scope": "colors_and_type.css, css.json, components.css, 6 component contracts",
+      "status": "absorbed",
+      "canonicalEvidence": [
+        "tokens/tokens.json",
+        "tokens/base.css",
+        "components/index.json",
+        "components/components.css"
+      ],
+      "reason": "语义、材质与基础组件行为已归一到单一 token 和正式 15 组件契约。"
+    },
+    {
+      "source": "trae-v27",
+      "scope": "preview pages and dashboard UI kit",
+      "status": "replaced",
+      "canonicalEvidence": [
+        "portal/index.html",
+        "patterns/starting-points/index.html"
+      ],
+      "reason": "旧预览存在重复 token、外壳和测试内容；由离线 Portal 与四种正式页面模式替代。"
+    },
+    {
+      "source": "trae-v27",
+      "scope": "42 Lucide SVG icons",
+      "status": "reference-only",
+      "canonicalEvidence": [
+        "DESIGN.md"
+      ],
+      "reason": "图标不是 Gary-UI 独有视觉资产，不复制第三方图标包；消费项目可自行使用 Lucide。"
+    },
+    {
+      "source": "trae-v27",
+      "scope": "vendor Apple CSS, report CSS, liquid-rig.svg",
+      "status": "rejected",
+      "canonicalEvidence": [
+        "tokens/tokens.json",
+        "DESIGN.md"
+      ],
+      "reason": "禁止 vendor 基准成为并行真相源；SVG 位移滤镜不是核心可读性所需能力。"
+    },
+    {
+      "source": "trae-v9",
+      "scope": "tag component",
+      "status": "replaced",
+      "canonicalEvidence": [
+        "components/chip.json"
+      ],
+      "reason": "与 Chip 语义重叠，统一为 Chip。"
+    },
+    {
+      "source": "trae-v9",
+      "scope": "data-table component",
+      "status": "replaced",
+      "canonicalEvidence": [
+        "components/comparison-table.json",
+        "components/solid-plate.json",
+        "patterns/data-page.html"
+      ],
+      "reason": "比较语义归 ComparisonTable；通用密集表格使用原生 table 加 SolidPlate，避免重复组件。"
+    },
+    {
+      "source": "trae-v9",
+      "scope": "chart component",
+      "status": "reference-only",
+      "canonicalEvidence": [
+        "components/metric-card.json",
+        "components/media-card.json",
+        "patterns/data-page.html"
+      ],
+      "reason": "Gary-UI 只规定图表容器、指标与证据呈现，不绑定某个图表渲染库。"
+    },
+    {
+      "source": "trae-v9",
+      "scope": "progress-ring component",
+      "status": "replaced",
+      "canonicalEvidence": [
+        "components/metric-card.json"
+      ],
+      "reason": "进度是 MetricCard 的一种数值表达，不保留低复用的独立组件。"
+    },
+    {
+      "source": "trae-v9",
+      "scope": "modal component",
+      "status": "reference-only",
+      "canonicalEvidence": [
+        "DESIGN.md"
+      ],
+      "reason": "专用报告系统不自建焦点陷阱和对话框行为；产品实现应使用成熟的可访问 Dialog primitive，再套 Gary surface。"
+    },
+    {
+      "source": "trae-v9",
+      "scope": "theme comparison and component previews",
+      "status": "replaced",
+      "canonicalEvidence": [
+        "portal/index.html"
+      ],
+      "reason": "主题与组件状态已由可交互 Portal 统一覆盖。"
+    },
+    {
+      "source": "trae-test",
+      "scope": "delivery checklist and web motion recipe",
+      "status": "absorbed",
+      "canonicalEvidence": [
+        "DESIGN.md",
+        "tokens/tokens.json",
+        "scripts/validate.py",
+        "provenance/coverage.json"
+      ],
+      "reason": "交付门槛、三档动效和 reduced-motion 规则已转化为正式规范与自动校验。"
+    },
+    {
+      "source": "trae-test",
+      "scope": "showcase and webui previews",
+      "status": "replaced",
+      "canonicalEvidence": [
+        "portal/index.html",
+        "patterns/starting-points/index.html"
+      ],
+      "reason": "测试预览由正式离线 Portal 和起始模板替代。"
+    },
+    {
+      "source": "shadcn-reference",
+      "scope": "React, Tailwind 4 and shadcn integration",
+      "status": "absorbed",
+      "canonicalEvidence": [
+        "adapters/react-shadcn/README.md",
+        "adapters/react-shadcn/registry.json"
+      ],
+      "reason": "只吸收接口与构建方式；Gary tokens 仍是唯一视觉真相源。"
+    },
+    {
+      "source": "nice-report-archive",
+      "scope": "信息层级、场景连续性、报告导航与卡片留白原则",
+      "status": "absorbed",
+      "canonicalEvidence": [
+        "DESIGN.md",
+        "patterns/application-modes/scroll-report.html",
+        "portal/index.html"
+      ],
+      "reason": "只吸收经审阅的组织原则；不复制归档中的 HTML、CSS、JavaScript、素材或页面实现。"
+    },
+    {
+      "source": "vibecamp-light-reference",
+      "scope": "浅色暖灰、低阴影与柔和几何氛围",
+      "status": "reference-only",
+      "canonicalEvidence": [
+        "tokens/tokens.json",
+        "DESIGN.md",
+        "portal/index.html"
+      ],
+      "reason": "仅用于比较浅色氛围；不得成为并行 token 或 CSS 真相源，Gary 母本仍唯一权威。"
+    },
+    {
+      "source": "liquid-glass-v5-dark-reference",
+      "scope": "深色玻璃、非对称边缘光与浮动顶部导航",
+      "status": "reference-only",
+      "canonicalEvidence": [
+        "tokens/tokens.json",
+        "DESIGN.md",
+        "portal/index.html"
+      ],
+      "reason": "仅用于比较材质与壳层表现；不得成为并行 token 或 CSS 真相源，Gary 母本仍唯一权威。"
+    },
+    {
+      "source": "dds-liquid-glass-v4-report-baseline",
+      "scope": "左侧主要视觉、右侧判断卡、底部结论条、来源抽屉、连续阅读与 16:9 演示/打印",
+      "status": "absorbed",
+      "canonicalEvidence": [
+        "patterns/recipes/decision-report/index.html",
+        "patterns/recipes/decision-report/decision-report.css",
+        "patterns/recipes/decision-report/decision-report.js",
+        "patterns/recipes/decision-report/profile.json",
+        "DESIGN.md"
+      ],
+      "reason": "用户明确要求将已认可的 DDS 报告界面写入 Gary-UI 供后续复用；只吸收表现与交互，不复制深圳项目数据、DDS 业务字段、证据准入或运行时。"
+    }
+  ]
+}

@@ -7,8 +7,17 @@
     "default": "UltraThin",
     "rules": [
       "顶栏浮于唯一场景背景上",
-      "不为顶栏新增页面级遮罩"
+      "不为顶栏新增页面级遮罩",
+      "Liquid Glass 只作为导航和控件的功能层，不承载长正文或数据图表",
+      "顶部内边距包含 env(safe-area-inset-top)"
     ]
+  },
+  "interaction": {
+    "frequentUiMaxMs": 300,
+    "hover": "@media (hover: hover) and (pointer: fine)",
+    "interruptible": true,
+    "bounce": "momentum-driven-only",
+    "reducedMotion": "keep opacity and color feedback; remove displacement and bounce"
   },
   "variants": [
     {
@@ -39,7 +48,9 @@
     "requirements": [
       "使用 nav 并提供 aria-label",
       "当前页链接设置 aria-current=\"page\"",
-      "窄屏折叠到具名菜单，所有主要页面入口仍可达，Escape 关闭并恢复焦点"
+      "窄屏折叠到具名菜单，所有主要页面入口仍可达，Escape 关闭并恢复焦点",
+      "减弱透明度时提高表面不透明度并取消模糊；增强对比度时显示清晰边界",
+      "文字放大后导航仍可达，功能层不侵入设备安全区"
     ]
   },
   "cssClasses": [

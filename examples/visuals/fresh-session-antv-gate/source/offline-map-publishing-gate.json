@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "title": "离线制图发布闸门",
+  "description": "候选先隔离，失败不晋升；验证通过才原子替换，上一有效版本始终可回退。",
+  "syntax": "infographic sequence-ascending-steps\ndata\n  title 离线制图发布闸门\n  desc 候选先隔离，失败不晋升；验证通过才原子替换，上一有效版本始终可回退\n  sequences\n    - label 需求判型\n      desc 先识别信息结构，再选择匹配的引擎与模板；不让装饰形状掩盖真实关系\n      icon route compass\n    - label 生成可追溯原生源\n      desc 保存含内容、模板、主题与来源说明的原生 JSON；渲染文件始终是可再生派生物\n      icon file json history\n    - label 验证候选渲染\n      desc 只在 .candidates 隔离区离线检查可读 SVG、深色主题、控制台与导出；失败移入 .failed\n      icon shield check alert\n    - label 原子替换正式产物\n      desc 仅当 HTML、SVG、PNG 同批通过才晋升；替换前把上一有效版本保存在 .last-good\n      icon package check backup\n  order asc\ntheme\n  palette #74A7FF #B892FF #FF9F43 #30D158",
+  "provenance": {
+    "request": "本轮全新会话自然语言需求：制作离线制图发布闸门四步信息图，并突出失败候选隔离与上一有效版本保护。",
+    "templateDecision": "内容是有严格先后关系的四步发布流程，因此选择 sequence-ascending-steps；失败路径作为闸门纪律嵌入验证与晋升说明，不增加第五步。",
+    "skills": [
+      "infographic-creator",
+      "gary-liquidglass-ui"
+    ],
+    "engineLock": "@antv/infographic 0.2.20; upstream commit 2ea1894255e4002c7735586778be86d13ec30346",
+    "offlinePolicy": "Gary 本地固定适配器渲染；禁止 CDN、自动安装与运行期更新。"
+  }
+}

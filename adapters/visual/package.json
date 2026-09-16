@@ -23,6 +23,7 @@
     "playwright-core": "1.63.0"
   },
   "devDependencies": {
+    "chromium-bidi": "12.1.0",
     "esbuild": "0.25.9"
   }
 }

@@ -1,0 +1,498 @@
+{
+  "generatedAt": "2026-09-15T17:59:30.967Z",
+  "method": "Real Chromium; network blocked; final page screenshots",
+  "checks": 12,
+  "passed": 12,
+  "results": [
+    {
+      "id": "web-analysis",
+      "theme": "dark",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(0, 0, 0)",
+        "titles": [
+          {
+            "text": "每一步都有据可循",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ]
+      },
+      "frameThemes": [],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "id": "web-analysis",
+      "theme": "light",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(255, 255, 255)",
+        "titles": [
+          {
+            "text": "每一步都有据可循",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ]
+      },
+      "frameThemes": [],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "id": "web-reading",
+      "theme": "dark",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(0, 0, 0)",
+        "titles": [
+          {
+            "text": "让知识保持连贯",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16,
+          16,
+          16
+        ]
+      },
+      "frameThemes": [
+        {
+          "theme": "dark",
+          "svg": 1,
+          "title": "华东服务交付计划"
+        }
+      ],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "id": "web-reading",
+      "theme": "light",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(255, 255, 255)",
+        "titles": [
+          {
+            "text": "让知识保持连贯",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16,
+          16,
+          16
+        ]
+      },
+      "frameThemes": [
+        {
+          "theme": "light",
+          "svg": 1,
+          "title": "华东服务交付计划"
+        }
+      ],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "id": "project-kanban",
+      "theme": "dark",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(0, 0, 0)",
+        "titles": [
+          {
+            "text": "让下一步更明确",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16
+        ]
+      },
+      "frameThemes": [
+        {
+          "theme": "dark",
+          "svg": 1,
+          "title": "工作项完成条件"
+        }
+      ],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "id": "project-kanban",
+      "theme": "light",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(255, 255, 255)",
+        "titles": [
+          {
+            "text": "让下一步更明确",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16
+        ]
+      },
+      "frameThemes": [
+        {
+          "theme": "light",
+          "svg": 1,
+          "title": "工作项完成条件"
+        }
+      ],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "id": "executive-board",
+      "theme": "dark",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(0, 0, 0)",
+        "titles": [
+          {
+            "text": "稳步推进守住门槛",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16,
+          16,
+          16,
+          16
+        ]
+      },
+      "frameThemes": [
+        {
+          "theme": "dark",
+          "svg": 2,
+          "title": "华东交付证据体系"
+        }
+      ],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "id": "executive-board",
+      "theme": "light",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(255, 255, 255)",
+        "titles": [
+          {
+            "text": "稳步推进守住门槛",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16,
+          16,
+          16,
+          16
+        ]
+      },
+      "frameThemes": [
+        {
+          "theme": "light",
+          "svg": 2,
+          "title": "华东交付证据体系"
+        }
+      ],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "id": "research-report",
+      "theme": "dark",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(0, 0, 0)",
+        "titles": [
+          {
+            "text": "以证据推动交付",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ]
+      },
+      "frameThemes": [],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "id": "research-report",
+      "theme": "light",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(255, 255, 255)",
+        "titles": [
+          {
+            "text": "以证据推动交付",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ]
+      },
+      "frameThemes": [],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "id": "proposal-presentation",
+      "theme": "dark",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(0, 0, 0)",
+        "titles": [
+          {
+            "text": "让交付从容向前",
+            "overflow": false,
+            "lines": 1
+          },
+          {
+            "text": "一步一程更有把握",
+            "overflow": false,
+            "lines": 1
+          },
+          {
+            "text": "每一步都能回看",
+            "overflow": false,
+            "lines": 1
+          },
+          {
+            "text": "从一个样板开始",
+            "overflow": false,
+            "lines": 1
+          },
+          {
+            "text": "让证据决定下一步",
+            "overflow": false,
+            "lines": 1
+          },
+          {
+            "text": "从容来自每步有据",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ]
+      },
+      "frameThemes": [
+        {
+          "theme": "dark",
+          "svg": 2,
+          "title": "华东交付证据体系"
+        },
+        {
+          "theme": "dark",
+          "svg": 1,
+          "title": "四步推进计划"
+        }
+      ],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "id": "proposal-presentation",
+      "theme": "light",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "token": "44px",
+        "sceneCount": 1,
+        "bg": "rgb(255, 255, 255)",
+        "titles": [
+          {
+            "text": "让交付从容向前",
+            "overflow": false,
+            "lines": 1
+          },
+          {
+            "text": "一步一程更有把握",
+            "overflow": false,
+            "lines": 1
+          },
+          {
+            "text": "每一步都能回看",
+            "overflow": false,
+            "lines": 1
+          },
+          {
+            "text": "从一个样板开始",
+            "overflow": false,
+            "lines": 1
+          },
+          {
+            "text": "让证据决定下一步",
+            "overflow": false,
+            "lines": 1
+          },
+          {
+            "text": "从容来自每步有据",
+            "overflow": false,
+            "lines": 1
+          }
+        ],
+        "bodySizes": [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ]
+      },
+      "frameThemes": [
+        {
+          "theme": "light",
+          "svg": 2,
+          "title": "华东交付证据体系"
+        },
+        {
+          "theme": "light",
+          "svg": 1,
+          "title": "四步推进计划"
+        }
+      ],
+      "brokenLinks": [],
+      "pass": true,
+      "errors": [],
+      "externalRequests": []
+    }
+  ]
+}

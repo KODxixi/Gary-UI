@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "name": "React Bits GlassSurface",
+  "repository": "https://github.com/DavidHDev/react-bits",
+  "commit": "c39f1f69222288986e4336c74f7e1a9b6a7060fb",
+  "path": "src/content/Components/GlassSurface/GlassSurface.jsx",
+  "upstreamSha256": "86851af613462b29e8efd7fa5590618c35c7cab6ac2a225a2f30a778ea2e5f4",
+  "snapshot": "provenance/react-bits/GlassSurface.jsx",
+  "license": "MIT + Commons Clause License Condition v1.0",
+  "licenseFile": "patterns/shared/glass-surface-LICENSE.md",
+  "adaptation": "Native DOM lifecycle, upstream displacement-map and RGB channel filter method; Gary 30px radius, theme tokens, default -180/-179/-178 channel displacement, user strength 0-300 and 0.35 output blur; only explicit showcase cards",
+  "runtimeDependencies": [],
+  "runtimeNetwork": false,
+  "automaticUpdate": false,
+  "distribution": "Gary-UI internal application use only; no standalone component resale or redistribution"
+}

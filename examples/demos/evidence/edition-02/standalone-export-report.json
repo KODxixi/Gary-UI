@@ -1,0 +1,217 @@
+{
+  "generatedAt": "2026-09-07T06:03:35.765Z",
+  "checks": 20,
+  "passed": 20,
+  "results": [
+    {
+      "file": "delivery-architecture-dark.png",
+      "pass": true,
+      "metrics": {
+        "width": 1440,
+        "height": 861,
+        "complete": true
+      }
+    },
+    {
+      "file": "delivery-architecture-dark.svg",
+      "pass": true,
+      "metrics": {
+        "width": 870,
+        "height": 516,
+        "kind": "standalone",
+        "viewBox": "0 0 870 516",
+        "text": "\n        华东交付证据体系\n        由 Archify 生成的架构图。\n        \n        \n          \n            \n          \n          \n            \n          \n          \n            \n          \n          \n  ",
+        "graphics": 62
+      }
+    },
+    {
+      "file": "delivery-architecture-light.png",
+      "pass": true,
+      "metrics": {
+        "width": 1440,
+        "height": 861,
+        "complete": true
+      }
+    },
+    {
+      "file": "delivery-architecture-light.svg",
+      "pass": true,
+      "metrics": {
+        "width": 870,
+        "height": 516,
+        "kind": "standalone",
+        "viewBox": "0 0 870 516",
+        "text": "\n        华东交付证据体系\n        由 Archify 生成的架构图。\n        \n        \n          \n            \n          \n          \n            \n          \n          \n            \n          \n          \n  ",
+        "graphics": 62
+      }
+    },
+    {
+      "file": "delivery-trend-dark.png",
+      "pass": true,
+      "metrics": {
+        "width": 1440,
+        "height": 1413,
+        "complete": true
+      }
+    },
+    {
+      "file": "delivery-trend-dark.svg",
+      "pass": true,
+      "metrics": {
+        "width": 1416,
+        "height": 976,
+        "kind": "standalone",
+        "viewBox": "0 0 1416 976",
+        "text": "完成率 %0204060801003月4月5月6月7月8月实际目标",
+        "graphics": 47
+      }
+    },
+    {
+      "file": "delivery-trend-light.png",
+      "pass": true,
+      "metrics": {
+        "width": 1440,
+        "height": 1413,
+        "complete": true
+      }
+    },
+    {
+      "file": "delivery-trend-light.svg",
+      "pass": true,
+      "metrics": {
+        "width": 1416,
+        "height": 976,
+        "kind": "standalone",
+        "viewBox": "0 0 1416 976",
+        "text": "完成率 %0204060801003月4月5月6月7月8月实际目标",
+        "graphics": 47
+      }
+    },
+    {
+      "file": "research-outline-dark.png",
+      "pass": true,
+      "metrics": {
+        "width": 1440,
+        "height": 1000,
+        "complete": true
+      }
+    },
+    {
+      "file": "research-outline-dark.svg",
+      "pass": true,
+      "metrics": {
+        "width": 1416,
+        "height": 976,
+        "kind": "standalone",
+        "viewBox": "0 0 1416 976",
+        "text": ".markmap {\n  --markmap-max-width: 9999px;\n  --markmap-a-color: #0097e6;\n  --markmap-a-hover-color: #00a8ff;\n  --markmap-code-bg: #f0f0f0;\n  --markmap-code-color: #555;\n  --markmap-",
+        "graphics": 48
+      }
+    },
+    {
+      "file": "research-outline-light.png",
+      "pass": true,
+      "metrics": {
+        "width": 1440,
+        "height": 1000,
+        "complete": true
+      }
+    },
+    {
+      "file": "research-outline-light.svg",
+      "pass": true,
+      "metrics": {
+        "width": 1416,
+        "height": 976,
+        "kind": "standalone",
+        "viewBox": "0 0 1416 976",
+        "text": ".markmap {\n  --markmap-max-width: 9999px;\n  --markmap-a-color: #0097e6;\n  --markmap-a-hover-color: #00a8ff;\n  --markmap-code-bg: #f0f0f0;\n  --markmap-code-color: #555;\n  --markmap-",
+        "graphics": 48
+      }
+    },
+    {
+      "file": "simple-flow-dark.png",
+      "pass": true,
+      "metrics": {
+        "width": 1440,
+        "height": 1000,
+        "complete": true
+      }
+    },
+    {
+      "file": "simple-flow-dark.svg",
+      "pass": true,
+      "metrics": {
+        "width": 552,
+        "height": 175.5,
+        "kind": "standalone",
+        "viewBox": "0 0 552 175.5",
+        "text": "#gary-mermaid{font-family:\"Helvetica Neue\",Helvetica,Arial,\"Microsoft YaHei UI\",\"Microsoft YaHei\",微软雅黑,sans-serif;font-size:16px;fill:#f2f4f7;}@keyframes edge-animation-frame{from{",
+        "graphics": 31
+      }
+    },
+    {
+      "file": "simple-flow-light.png",
+      "pass": true,
+      "metrics": {
+        "width": 1440,
+        "height": 1000,
+        "complete": true
+      }
+    },
+    {
+      "file": "simple-flow-light.svg",
+      "pass": true,
+      "metrics": {
+        "width": 552,
+        "height": 175.5,
+        "kind": "standalone",
+        "viewBox": "0 0 552 175.5",
+        "text": "#gary-mermaid{font-family:\"Helvetica Neue\",Helvetica,Arial,\"Microsoft YaHei UI\",\"Microsoft YaHei\",微软雅黑,sans-serif;font-size:16px;fill:#221e1b;}@keyframes edge-animation-frame{from{",
+        "graphics": 31
+      }
+    },
+    {
+      "file": "summary-infographic-dark.png",
+      "pass": true,
+      "metrics": {
+        "width": 1440,
+        "height": 1000,
+        "complete": true
+      }
+    },
+    {
+      "file": "summary-infographic-dark.svg",
+      "pass": true,
+      "metrics": {
+        "width": 329.03125,
+        "height": 361.921875,
+        "kind": "standalone",
+        "viewBox": "-4.519774011299435 -10.96774193548387 329.03954802259886 361.9354838709677",
+        "text": "\n  \n\n  \n  \n上海样板验证完整交付路径江苏确认取得退款口径书面确认浙江就绪完成任务导向培训材料复核发布证据满足后统一口径归档",
+        "graphics": 23
+      }
+    },
+    {
+      "file": "summary-infographic-light.png",
+      "pass": true,
+      "metrics": {
+        "width": 1440,
+        "height": 1000,
+        "complete": true
+      }
+    },
+    {
+      "file": "summary-infographic-light.svg",
+      "pass": true,
+      "metrics": {
+        "width": 329.03125,
+        "height": 361.921875,
+        "kind": "standalone",
+        "viewBox": "-4.519774011299435 -10.96774193548387 329.03954802259886 361.9354838709677",
+        "text": "\n  \n\n  \n  \n上海样板验证完整交付路径江苏确认取得退款口径书面确认浙江就绪完成任务导向培训材料复核发布证据满足后统一口径归档",
+        "graphics": 23
+      }
+    }
+  ]
+}

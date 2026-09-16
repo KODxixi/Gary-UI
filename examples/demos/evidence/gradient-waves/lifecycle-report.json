@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-09-07T11:08:30.965Z",
+  "results": [
+    {
+      "name": "gary-palette-with-user-wave-parameters",
+      "pass": true
+    },
+    {
+      "name": "silver-three-waves-exact-options",
+      "pass": true
+    },
+    {
+      "name": "continuous-play-pause-theme-export",
+      "pass": true
+    },
+    {
+      "name": "context-loss-fallback-retry-grid-return",
+      "pass": true
+    },
+    {
+      "name": "unsupported-webgl-and-invalid-options",
+      "pass": true
+    },
+    {
+      "name": "missing-local-script-keeps-grid-and-recovers",
+      "pass": true
+    },
+    {
+      "name": "file-offline-reduced-and-offscreen",
+      "pass": true
+    }
+  ]
+}

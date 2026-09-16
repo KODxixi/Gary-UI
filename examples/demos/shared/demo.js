@@ -97,12 +97,37 @@
   if(q("[data-execution-table]"))data.workItems.forEach(item=>{const row=document.createElement("tr");[item.id,item.title,item.owner,item.due,item.detail].forEach(value=>{const td=document.createElement("td");td.textContent=value;row.append(td)});q("[data-execution-table]").append(row)});
 
   const months=["3月","4月","5月","6月","7月","8月"];
-  let regionKey="all",charts=[],policy;
+  let regionKey="all",charts=[],policy,analysisChart;
+  function refreshTrendExports(){
+    if(!analysisChart)return;
+    const background=policy.themes[theme].background;
+    const svg=analysisChart.getDataURL({type:"svg",pixelRatio:1,backgroundColor:background});
+    const pngSource=analysisChart.getDataURL({type:"svg",pixelRatio:2,backgroundColor:background});
+    all('[data-export-id="delivery-trend"]').forEach(link=>{
+      const format=link.dataset.exportFormat;
+      if(!["svg","png"].includes(format))return;
+      if(format==="svg")link.href=svg;
+      link.download=`delivery-trend-${regionKey}-${theme}.${format}`;
+      if(format!=="png")return;
+      link.dataset.exportReady="false";
+      const image=new Image();
+      image.onload=()=>{
+        const canvas=document.createElement("canvas");
+        canvas.width=image.naturalWidth||analysisChart.getWidth()*2;
+        canvas.height=image.naturalHeight||analysisChart.getHeight()*2;
+        const context=canvas.getContext("2d");
+        if(context){context.drawImage(image,0,0,canvas.width,canvas.height);link.href=canvas.toDataURL("image/png");link.dataset.exportReady="true";}
+      };
+      image.onerror=()=>{link.dataset.exportReady="error";};
+      image.src=pngSource;
+    });
+  }
   function draw(region=data.regions[regionKey]){
     all("[data-trend-table]").forEach(body=>{body.replaceChildren(...months.map((m,i)=>{const tr=document.createElement("tr");[m,region.trend[i],region.target[i]].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.append(td)});return tr}))});
     if(!policy||!window.echarts)return;
     const palette=policy.palettes[theme],colors=policy.themes[theme],font=policy.fontFamily;
     charts.forEach(c=>c.setOption({animation:!reducedQuery.matches,animationDuration:350,animationDurationUpdate:350,color:palette,textStyle:{fontFamily:font,color:colors.text},aria:{enabled:true},tooltip:{trigger:"axis",confine:true,backgroundColor:colors.surface,borderColor:colors.border,textStyle:{color:colors.text,fontFamily:font}},legend:{top:0,right:0,itemWidth:18,itemHeight:7,textStyle:{color:colors.muted,fontFamily:font},data:["实际","目标"]},grid:{left:44,right:14,top:48,bottom:38},xAxis:{type:"category",data:months,boundaryGap:false,axisTick:{show:false},axisLine:{show:false},axisLabel:{color:colors.muted,margin:16}},yAxis:{type:"value",min:0,max:100,interval:25,axisLabel:{color:colors.muted,formatter:"{value}%"},splitLine:{lineStyle:{color:colors.border,type:"dashed"}}},series:[{name:"实际",type:"line",smooth:false,data:region.trend,symbol:"circle",symbolSize:6,lineStyle:{width:3},areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:palette[0]+"30"},{offset:1,color:palette[0]+"00"}])}},{name:"目标",type:"line",smooth:false,data:region.target,symbol:"none",lineStyle:{type:"dashed",width:1.5},itemStyle:{color:palette[1]}}]}));
+    refreshTrendExports();
   }
   function updateRegion(key){
     regionKey=data.regions[key]?key:"all";const r=data.regions[regionKey];
@@ -113,6 +138,8 @@
     if(q("[data-progress-evidence]"))q("[data-progress-evidence]").textContent="实际 "+r.completion+"% / 目标 "+r.target.at(-1)+"%";
     const judgments={all:["推进交付 保留发布门槛","江苏退款口径尚未书面确认。取得确认前，继续保留双口径。","1 项阻断管理层发布"],shanghai:["保持样板 持续验证","上海完成率已达 86%，继续完善证据归档，向其他区域提供稳定样板。","1 项风险 正在跟进"],jiangsu:["确认口径 再行发布","退款归属月份待书面确认。周野负责在 09-06 决策门前完成确认。","1 项阻断发布 1 项跟进"],zhejiang:["完善培训 逐项推进","浙江完成率 68%，优先将培训材料整理为任务导向章节，降低一线理解成本。","1 项培训风险"]};
     if(q("[data-judgement-title]")){q("[data-judgement-title]").textContent=judgments[regionKey][0];q("[data-judgement-body]").textContent=judgments[regionKey][1];q("[data-risk-caption]").textContent=judgments[regionKey][2];q("[data-judgement-status]").textContent=regionKey==="shanghai"?"按计划推进":"需关注";}
+    const judgementDetail=q("#evidence [data-detail-trigger]");
+    if(judgementDetail){judgementDetail.dataset.title=r.label+"交付详情";judgementDetail.dataset.detail=judgments[regionKey][1];}
     const table=q("[data-region-table]");
     if(table){table.replaceChildren();Object.entries(data.regions).filter(([k])=>k!=="all"&&(regionKey==="all"||k===regionKey)).forEach(([k,v])=>{
       const tr=document.createElement("tr");[v.label,v.revenue.toLocaleString("en-US"),v.completion+"%",v.risks].forEach((value,i)=>{const td=document.createElement("td");td.textContent=value;if(i)td.className="num";tr.append(td)});
@@ -123,7 +150,7 @@
   }
   all("[data-filter-region]").forEach(b=>b.addEventListener("click",()=>updateRegion(b.dataset.filterRegion)));
   if(q("[data-filter-region]"))updateRegion("all");else draw(data.regions.all);
-  load("chart-policy.js").then(()=>{policy=window.GARY_DEMO_CHART_POLICY;all("#analysis-chart,#exec-chart,#report-chart").forEach(el=>{const c=echarts.init(el,null,{renderer:"svg"});charts.push(c);new ResizeObserver(()=>c.resize()).observe(el)});draw();window.__garyDemoReady=true}).catch(e=>{console.error(e);q("[data-view-state]")?.setAttribute("data-view-state","error")});
+  load("chart-policy.js").then(()=>{policy=window.GARY_DEMO_CHART_POLICY;all("#analysis-chart,#exec-chart,#report-chart").forEach(el=>{const c=echarts.init(el,null,{renderer:"svg"});charts.push(c);if(el.id==="analysis-chart")analysisChart=c;new ResizeObserver(()=>c.resize()).observe(el)});draw();window.__garyDemoReady=true}).catch(e=>{console.error(e);q("[data-view-state]")?.setAttribute("data-view-state","error")});
   load("icons.js").catch(console.error);
   addEventListener("gary-theme-change",()=>draw());
 
