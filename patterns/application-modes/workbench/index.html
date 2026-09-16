@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-theme="dark" data-gary-density="balanced" data-gary-application-mode="web-ui" data-gary-page-mode="data-page">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gary-UI Web UI 三列工作台变体：可折叠侧栏、稳定工作面和按需详情抽屉。">
+  <title>Gary-UI · 三列工作台</title>
+  <link rel="stylesheet" href="../../../tokens/base.css">
+  <link rel="stylesheet" href="../modes.css">
+  <link rel="stylesheet" href="../../shared/background-lab.css">
+  <link rel="stylesheet" href="./workbench.css">
+  <script src="../../shared/icons.js" defer></script>
+  <script src="./workbench.js" defer></script>
+</head>
+<body class="gary-ui application-mode workbench-mode">
+  <div class="mode-scene" data-gary-background-host data-gary-scene-engine="dot-grid" aria-hidden="true"></div>
+
+  <header class="mode-webbar gary-web-bar gary-ultrathin" aria-label="产品导航">
+    <a class="mode-brand" href="../../../portal/index.html#patterns">
+      <strong>三列工作台</strong>
+      <span>Gary-UI · Web UI 变体</span>
+    </a>
+    <nav class="mode-nav" aria-label="产品区域">
+      <a class="is-active" href="#workspace" aria-current="page">工作台</a>
+      <a href="#sources">素材</a>
+      <a href="#delivery">交付</a>
+    </nav>
+    <div class="mode-actions">
+      <button class="workbench-background" type="button" data-background-open>Background</button>
+      <button class="gary-icon-button" type="button" data-theme-toggle data-gary-icon="sun" aria-label="切换为浅色模式"></button>
+    </div>
+  </header>
+
+  <main class="workbench-page" id="workspace">
+    <div class="workbench-mobile-bar" aria-label="移动端工作台栏">
+      <button class="gary-icon-button" type="button" data-mobile-open="left" data-gary-icon="sliders" aria-label="打开工作参数"></button>
+      <span><strong>东岸文化站</strong><small>方案推敲 · 进行中</small></span>
+      <button class="gary-icon-button" type="button" data-mobile-open="right" data-gary-icon="image" aria-label="打开结果详情"></button>
+    </div>
+
+    <div class="workbench-shell" data-left-collapsed="false" data-right-collapsed="false">
+      <aside class="workbench-rail workbench-rail--left" data-rail="left" data-gary-surface="frosted" aria-label="工作参数">
+        <header class="workbench-rail__header">
+          <div class="workbench-rail__identity">
+            <span class="workbench-mark" aria-hidden="true">G</span>
+            <span class="workbench-rail__label">工作参数</span>
+          </div>
+          <button class="gary-icon-button" type="button" data-rail-toggle="left" data-gary-icon="menu" aria-expanded="true" aria-label="折叠工作参数"></button>
+        </header>
+        <div class="workbench-rail__body">
+          <details class="workbench-section" open>
+            <summary><span>当前方案</span><span class="workbench-count">01</span></summary>
+            <div class="workbench-section__content">
+              <p class="workbench-section__eyebrow">ACTIVE STUDY</p>
+              <h2>东岸文化站</h2>
+              <p>把材料、体量和公共动线放回同一张工作面。</p>
+              <div class="workbench-tags"><span>概念深化</span><span>已同步</span></div>
+            </div>
+          </details>
+
+          <details class="workbench-section" id="sources" open>
+            <summary><span>参考来源</span><span class="workbench-count">03</span></summary>
+            <div class="workbench-section__content workbench-source-list">
+              <button class="workbench-source" type="button"><span class="workbench-source__thumb">A</span><span><strong>场地照片</strong><small>已提取 4 个元素</small></span></button>
+              <button class="workbench-source" type="button"><span class="workbench-source__thumb">B</span><span><strong>体量草图</strong><small>灰模 · 16:9</small></span></button>
+              <button class="workbench-source" type="button"><span class="workbench-source__thumb">C</span><span><strong>材质样本</strong><small>浅色混凝土</small></span></button>
+            </div>
+          </details>
+
+          <details class="workbench-section" open>
+            <summary><span>生成约束</span><span class="workbench-count">02</span></summary>
+            <div class="workbench-section__content workbench-constraint-list">
+              <label><span>画幅</span><select><option>16:9 横向</option><option>4:3 横向</option></select></label>
+              <label><span>清晰度</span><select><option>标准预览</option><option>高保真</option></select></label>
+            </div>
+          </details>
+        </div>
+        <footer class="workbench-rail__footer"><span class="workbench-status-dot" aria-hidden="true"></span><span>本地工作区 · 已保存</span></footer>
+      </aside>
+
+      <section class="workbench-main" data-gary-surface="solid" aria-label="方案工作面">
+        <header class="workbench-main__header">
+          <div>
+            <p class="mode-kicker">SCENE 01 · WORKING CANVAS</p>
+            <h1>在一个工作面完成推敲</h1>
+          </div>
+          <div class="workbench-main__actions">
+            <span class="workbench-readout">最后同步 14:32</span>
+            <button class="gary-button gary-regular" type="button" data-gary-icon="save" aria-label="保存当前方案">保存</button>
+          </div>
+        </header>
+
+        <div class="workbench-main__body">
+          <section class="workbench-preview" data-gary-surface="optical" data-gary-material="glass" aria-label="方案预览">
+            <div class="workbench-preview__topline"><span>LIVE PREVIEW</span><span class="workbench-preview__state"><i aria-hidden="true"></i>可继续推敲</span></div>
+            <div class="workbench-building" aria-hidden="true">
+              <div class="workbench-building__mass workbench-building__mass--back"></div>
+              <div class="workbench-building__mass workbench-building__mass--mid"></div>
+              <div class="workbench-building__mass workbench-building__mass--front"></div>
+              <div class="workbench-building__shadow"></div>
+              <span class="workbench-building__axis workbench-building__axis--x">公共界面</span>
+              <span class="workbench-building__axis workbench-building__axis--y">东岸步行线</span>
+            </div>
+            <div class="workbench-preview__caption"><strong>轻介入的连续界面</strong><span>保留原有树阵，以灰空间连接展厅与社区客厅。</span></div>
+          </section>
+
+          <div class="workbench-observations" aria-label="方案观察">
+            <article><span>体量关系</span><strong>稳定</strong><small>主入口朝向公共界面</small></article>
+            <article><span>光影方向</span><strong>东南</strong><small>上午自然光较柔和</small></article>
+            <article><span>待确认</span><strong>02</strong><small>材料与夜景照明</small></article>
+          </div>
+
+          <form class="workbench-prompt" data-prompt-form>
+            <label for="workbench-prompt-input">继续推敲</label>
+            <div class="workbench-prompt__row">
+              <input id="workbench-prompt-input" type="text" placeholder="输入下一条设计指令…" autocomplete="off">
+              <button class="gary-button gary-thick" type="submit" data-gary-icon="arrow-up-right" aria-label="发送设计指令">发送</button>
+            </div>
+            <div class="workbench-suggestions" aria-label="快捷指令"><button type="button" data-suggestion="压低入口体量，保留连续灰空间">压低入口体量</button><button type="button" data-suggestion="补充雨天状态的材质表现">补充雨天状态</button><button type="button" data-suggestion="解释公共动线的判断依据">解释动线依据</button></div>
+          </form>
+        </div>
+        <footer class="workbench-main__footer"><span>一个 Scene · 稳定内容使用实体底板 · 默认关闭指针光影</span><a href="#delivery">查看交付条件 ↗</a></footer>
+      </section>
+
+      <aside class="workbench-rail workbench-rail--right" data-rail="right" data-gary-surface="frosted" aria-label="结果详情">
+        <header class="workbench-rail__header">
+          <div class="workbench-rail__identity"><span class="workbench-rail__label">结果详情</span><span class="workbench-badge">3</span></div>
+          <button class="gary-icon-button" type="button" data-rail-toggle="right" data-gary-icon="menu" aria-expanded="true" aria-label="折叠结果详情"></button>
+        </header>
+        <div class="workbench-rail__body">
+          <details class="workbench-section" open>
+            <summary><span>当前判断</span><span class="workbench-count">NOW</span></summary>
+            <div class="workbench-section__content">
+              <p class="workbench-section__eyebrow">DESIGN READOUT</p>
+              <h2>先保持克制</h2>
+              <p>入口不需要额外装饰。用连续阴影和尺度变化交代公共性。</p>
+              <button class="workbench-inline-action" type="button" data-gary-icon="check" aria-label="标记为已确认">标记已确认</button>
+            </div>
+          </details>
+          <details class="workbench-section" id="delivery" open>
+            <summary><span>交付条件</span><span class="workbench-count">03</span></summary>
+            <div class="workbench-section__content workbench-check-list">
+              <label><input type="checkbox" checked><span>主入口与步行线对应</span></label>
+              <label><input type="checkbox" checked><span>材料板保持干净底板</span></label>
+              <label><input type="checkbox"><span>补齐夜景照明说明</span></label>
+            </div>
+          </details>
+          <details class="workbench-section" open>
+            <summary><span>最近动作</span><span class="workbench-count">04</span></summary>
+            <div class="workbench-section__content workbench-timeline">
+              <p><time>14:32</time>同步当前方案</p>
+              <p><time>14:18</time>加入体量草图</p>
+              <p><time>13:56</time>确认公共界面方向</p>
+            </div>
+          </details>
+        </div>
+        <footer class="workbench-rail__footer"><button class="gary-button gary-regular" type="button" data-gary-icon="download" aria-label="导出当前交付摘要">导出摘要</button></footer>
+      </aside>
+    </div>
+    <button class="workbench-overlay" type="button" data-mobile-close aria-label="关闭侧栏" hidden></button>
+    <p class="workbench-toast" role="status" aria-live="polite" hidden>已加入下一步推敲</p>
+  </main>
+
+  <script src="../../shared/dot-grid.js"></script>
+  <script src="../../shared/material.js"></script>
+  <script src="../../shared/optical-glass.js"></script>
+  <script src="../../shared/background-lab.js"></script>
+</body>
+</html>

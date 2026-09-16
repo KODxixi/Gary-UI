@@ -35,7 +35,9 @@ README 以 [完整 Demo 首页](examples/demos/index.html) 的六种工作情境
 - **`apple-design` 是 Apple 方法入口。** 先用它统一层级、功能玻璃、排版与运动逻辑，再用 Apple 官方 HIG 校验边界；图表、表格与正文保持稳定实体承载，并适配文字缩放、减弱透明度和增强对比度。
 - **规则能追溯到代码。** 15 个组件、3 类应用模式、4 类页面模式共享 Token、样式、状态和 Agent 契约。
 
-浏览 [Portal](https://kodxixi.github.io/Gary-UI/portal/) 查看排版、材质、组件、模板和制图；详细规则见 [DESIGN.md](DESIGN.md)。
+浏览 [Portal](https://kodxixi.github.io/Gary-UI/portal/) 查看排版、材质、组件、模板和制图；
+应用端的三列可折叠工作台变体见 [workbench](patterns/application-modes/workbench/index.html)，
+它把史宝生图的极简动态三列骨架落到 Gary-UI 的 Token、玻璃表面和可访问交互上；详细规则见 [DESIGN.md](DESIGN.md)。
 
 ### 图表规范与跨域验证
 
