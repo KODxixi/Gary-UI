@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "comment": "配方 = 页面结构 + 交互声明。agent 只选配方 + 填内容，不写 HTML/JS。",
+  "recipes": {
+    "dashboard": {
+      "shell": "stack",
+      "sections": [
+        {
+          "type": "header",
+          "id": "head"
+        },
+        {
+          "type": "kpis",
+          "id": "kpis"
+        },
+        {
+          "type": "chart",
+          "id": "chart",
+          "kind": "area"
+        },
+        {
+          "type": "table",
+          "id": "table"
+        }
+      ],
+      "interactions": [
+        "theme",
+        "palette"
+      ]
+    },
+    "report": {
+      "shell": "article",
+      "sections": [
+        {
+          "type": "cover",
+          "id": "cover"
+        },
+        {
+          "type": "prose",
+          "id": "prose"
+        },
+        {
+          "type": "table",
+          "id": "table"
+        }
+      ],
+      "interactions": [
+        "theme",
+        "palette",
+        "print"
+      ]
+    },
+    "settings": {
+      "shell": "settings",
+      "sections": [
+        {
+          "type": "header",
+          "id": "head"
+        },
+        {
+          "type": "groups",
+          "id": "groups"
+        }
+      ],
+      "interactions": [
+        "theme",
+        "palette"
+      ]
+    },
+    "workbench": {
+      "shell": "workbench",
+      "sections": [
+        {
+          "type": "header",
+          "id": "head"
+        },
+        {
+          "type": "canvas",
+          "id": "canvas"
+        },
+        {
+          "type": "composer",
+          "id": "composer"
+        },
+        {
+          "type": "groups",
+          "id": "inspector",
+          "pane": "right"
+        }
+      ],
+      "interactions": [
+        "theme",
+        "palette",
+        "gutters"
+      ]
+    }
+  }
+}

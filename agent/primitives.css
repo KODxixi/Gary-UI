@@ -1,0 +1,278 @@
+﻿/* ────────────────────────────────────────────────────────────────
+   Gary Primitives · 材质原语层
+   从 examples/demos/shared/demo.css 的原生配方提炼而来。
+   规则：页面只允许用这里的类；不要自创颜色、字号、投影。
+   ──────────────────────────────────────────────────────────────── */
+
+:root{
+  --font:"Helvetica Neue",Helvetica,Arial,"Microsoft YaHei UI","Microsoft YaHei","微软雅黑",system-ui,sans-serif;
+  --mono:"SFMono-Regular","JetBrains Mono",Consolas,monospace;
+
+  /* 材质：底 / 板 / 抬升 / 凹槽 */
+  --bg:#000; --win:#101012; --win2:#141416; --raised:#1c1c1f; --sunken:#0b0b0d;
+  --ink:#f5f5f7; --muted:#a1a1a9; --dim:#8a8a92;
+  --line:#ffffff14; --line2:#ffffff0a; --hair:#ffffff1f;
+  --accent:#74a7ff; --accent-soft:#74a7ff1a;
+  --ok:#30d158; --warn:#ffd60a; --bad:#ff453a;
+  --shadow:0 26px 70px #000000b3, 0 1px 2px #00000073;
+
+  --r-win:22px; --r-panel:18px; --r-ctl:11px; --r-pill:99px;
+  /* 密度：四页共用同一把尺子 */
+  --pad-row:12px; --pad-item:10px; --gap-sect:20px; --pad-head:18px;
+  --gap:14px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+html[data-density="compact"]{ --pad-row:1px; --pad-item:4px; --gap-sect:8px; --pad-head:10px; }
+
+html[data-theme="light"]{
+  --bg:#fbfbfd; --win:#ffffff; --win2:#f7f7f9; --raised:#ffffff; --sunken:#f0f0f3;
+  --ink:#1d1d1f; --muted:#6e6e73; --dim:#6b6b70;
+  --line:#00000012; --line2:#00000008; --hair:#00000014;
+  --accent:#0071e3; --accent-soft:#0071e314;
+  --shadow:0 26px 70px #0000001a, 0 1px 3px #0000000f;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  font-size:13.5px; line-height:1.6;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:radial-gradient(120% 80% at 50% -10%, #ffffff0f 0%, #ffffff00 55%);
+}
+html[data-theme="light"] body::before{ background:radial-gradient(120% 80% at 50% -20%, #ffffff 0%, #ffffff00 60%); }
+
+/* ── 材质：一块板 ─────────────────────────────── */
+.surface{
+  position:relative; background:var(--win); border:1px solid var(--line);
+  border-radius:var(--r-win); box-shadow:var(--shadow); min-height:0;
+}
+.surface::before{
+  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  box-shadow:inset 0 1px 0 var(--hair);
+}
+.surface--flush{box-shadow:none; background:var(--win2)}
+.surface--sunken{background:var(--sunken); box-shadow:inset 0 1px 0 var(--line2)}
+
+/* ── 排版：尺寸决定字距，权重决定层级 ─────────────── */
+.eyebrow{
+  margin:0; font-size:10.5px; font-weight:600; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--dim);
+}
+.display{
+  margin:0; font-size:clamp(28px,2.9vw,40px); font-weight:400;
+  letter-spacing:-.032em; line-height:1.14; text-wrap:balance;
+}
+.display--xl{font-size:clamp(40px,5.4vw,72px); letter-spacing:-.042em; line-height:1.05}
+.h2{margin:0; font-size:19px; font-weight:600; letter-spacing:-.018em; line-height:1.3}
+.h3{margin:0; font-size:14.5px; font-weight:600; letter-spacing:-.012em}
+.sub{margin:10px 0 0; font-size:13.5px; color:var(--muted); line-height:1.7; max-width:52ch}
+.body{font-size:13.5px; color:var(--muted); line-height:1.75}
+.small{font-size:11.5px; color:var(--dim)}
+.mono{font-family:var(--mono); font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+.metric{margin:0; font-size:30px; font-weight:400; letter-spacing:-.03em; line-height:1.1;
+  font-variant-numeric:tabular-nums}
+.metric small{font-size:12px; font-weight:400; letter-spacing:0; color:var(--muted); margin-left:5px}
+.metric--sm{font-size:24px}
+
+/* ── 控件 ──────────────────────────────────── */
+.btn{
+  appearance:none; display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:34px; padding:0 16px; border-radius:var(--r-ctl);
+  border:1px solid var(--line); background:transparent; color:var(--ink);
+  font:inherit; font-size:12.5px; cursor:pointer;
+  transition:background .16s ease, border-color .16s ease, opacity .16s ease, transform .1s ease;
+}
+.btn:hover{background:var(--line2); border-color:var(--hair)}
+.btn:active{transform:scale(.975)}
+.btn--primary{background:var(--ink); color:var(--bg); border-color:transparent; font-weight:500}
+.btn--primary:hover{opacity:.88; background:var(--ink)}
+.btn--ghost{border-color:transparent; color:var(--muted)}
+.btn--ghost:hover{background:var(--line2); color:var(--ink)}
+.btn[disabled]{opacity:.35; cursor:default}
+
+.iconbtn{
+  width:38px; height:38px; border-radius:50%; border:1px solid var(--line);
+  background:transparent; color:var(--muted); display:grid; place-items:center;
+  cursor:pointer; transition:background .16s ease, color .16s ease, transform .1s ease;
+}
+.iconbtn:hover{background:var(--line2); color:var(--ink)}
+.iconbtn:active{transform:scale(.96)}
+.iconbtn--sm{width:30px; height:30px}
+
+.seg{display:flex; border:1px solid var(--line); border-radius:9px; padding:2px; gap:2px}
+.seg button{
+  min-width:40px; height:26px; padding:0 9px; border:0; border-radius:7px; background:transparent;
+  color:var(--dim); font:inherit; font-size:11.5px; cursor:pointer;
+  transition:background .15s ease, color .15s ease;
+}
+.seg button[aria-pressed="true"]{background:var(--raised); color:var(--ink); font-weight:500}
+
+.sw{
+  width:40px; height:24px; border-radius:99px; border:1px solid var(--line);
+  background:transparent; position:relative; cursor:pointer; flex:none;
+  transition:background .2s ease, border-color .2s ease;
+}
+.sw i{
+  position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%;
+  background:var(--dim); transition:transform .22s var(--ease), background .2s;
+}
+.sw[aria-pressed="true"]{background:var(--accent); border-color:transparent}
+.sw[aria-pressed="true"] i{transform:translateX(16px); background:#fff}
+
+.chip{
+  display:inline-flex; align-items:center; gap:7px; height:30px; padding:0 12px;
+  border-radius:var(--r-pill); border:1px solid var(--line);
+  font-size:12.5px; color:var(--muted); white-space:nowrap;
+}
+.dot{width:6px; height:6px; border-radius:50%; background:var(--accent); flex:none}
+.dot--ok{background:var(--ok)} .dot--warn{background:var(--warn)} .dot--bad{background:var(--bad)}
+.dot--live{box-shadow:0 0 0 3px var(--accent-soft)}
+
+.field{
+  display:flex; align-items:flex-end; gap:10px; padding:12px 12px 12px 16px;
+  border-radius:20px; border:1px solid var(--line); background:var(--win2);
+  transition:border-color .18s ease, box-shadow .18s ease;
+}
+.field:focus-within{border-color:var(--hair); box-shadow:0 0 0 4px var(--accent-soft)}
+.field textarea, .field input[type="text"]{
+  flex:1; resize:none; border:0; outline:0; background:transparent; color:var(--ink);
+  font:inherit; font-size:13.5px; line-height:1.7; padding:2px 0; min-height:24px;
+}
+.field textarea::placeholder, .field input::placeholder{color:var(--dim)}
+.send{
+  width:34px; height:34px; border-radius:50%; border:0; background:var(--ink); color:var(--bg);
+  display:grid; place-items:center; cursor:pointer; flex:none;
+  transition:transform .12s ease, opacity .16s ease;
+}
+.send:hover{opacity:.86}
+.send:active{transform:scale(.94)}
+.send[disabled]{opacity:.35; cursor:default}
+
+/* 行：用来做设置项、参数项、键值对 */
+.row{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:var(--pad-row) 0; border-bottom:1px solid var(--line2);
+}
+.row:last-child{border-bottom:0}
+.row__k{font-size:12.5px; color:var(--ink)}
+.row__h{font-size:11px; color:var(--dim); margin-top:2px}
+.row--static{cursor:default}
+.row--link{cursor:pointer; transition:background .15s ease; border-radius:10px; padding-left:8px; padding-right:8px}
+.row--link:hover{background:var(--line2)}
+
+/* 列表项 */
+.item{
+  appearance:none; width:100%; text-align:left; border:0; background:transparent; color:inherit;
+  font:inherit; display:flex; gap:10px; align-items:flex-start; padding:var(--pad-item);
+  border-radius:12px; cursor:pointer; transition:background .16s ease;
+}
+.item:hover{background:var(--line2)}
+.item[aria-current="true"]{background:var(--raised)}
+.item__dot{width:6px; height:6px; border-radius:50%; margin-top:7px; flex:none; background:var(--dim)}
+.item__body{min-width:0; flex:1}
+.item__title{display:block; font-size:13px; font-weight:500; letter-spacing:-.01em}
+.item__meta{display:block; font-size:11.5px; color:var(--dim); margin-top:2px}
+
+/* 徽标 */
+.badge{
+  display:inline-flex; align-items:center; gap:5px; font-size:10.5px; font-weight:500;
+  padding:3px 8px; border-radius:var(--r-pill); background:var(--line2); color:var(--muted);
+  white-space:nowrap;
+}
+.badge--accent{background:var(--accent-soft); color:var(--accent)}
+html[data-theme="light"] .badge--accent{color:#0059b3}
+.badge--ok{background:#30d1581f; color:var(--ok)}
+
+/* 发丝线 */
+.hr{height:1px;background:var(--line2);border:0;margin:14px 0}
+
+/* 硬规则：面板里带 .item 列表时，标签必须与条目「文字」左边缘对齐（跳过圆点列）。
+   圆点 6px + 间距 10px = 16px，所以标签缩进 = 条目内距 + 16px。 */
+.eyebrow--indent{margin-left:calc(var(--pad-item) + 16px)}
+
+/* 骨架 / 空态 */
+.sk{display:flex; flex-direction:column; gap:12px}
+.sk i{display:block; height:12px; border-radius:99px; background:var(--line); animation:pulse 1.4s ease-in-out infinite}
+.sk i:nth-child(1){width:46%; height:16px}
+.sk i:nth-child(2){width:100%}
+.sk i:nth-child(3){width:78%}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* ── 浮层：命令面板 / 抽屉 / 弹层 ─────────────────── */
+.scrim{
+  position:fixed; inset:0; z-index:40; background:#00000059;
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  opacity:0; pointer-events:none; transition:opacity .2s ease;
+}
+html[data-theme="light"] .scrim{background:#00000014}
+.scrim.on{opacity:1; pointer-events:auto}
+
+.palette{
+  position:fixed; z-index:41; left:50%; top:16%; width:min(560px,88vw);
+  transform:translate(-50%,-8px) scale(.985); opacity:0; pointer-events:none;
+  transition:opacity .18s ease, transform .22s var(--ease);
+  background:var(--win); border:1px solid var(--hair); border-radius:18px;
+  box-shadow:0 40px 120px #000000cc, inset 0 1px 0 var(--hair); overflow:hidden;
+}
+html[data-theme="light"] .palette{box-shadow:0 40px 120px #00000026, inset 0 1px 0 #fff}
+.palette.on{opacity:1; transform:translate(-50%,0) scale(1); pointer-events:auto}
+.palette input{
+  width:100%; height:52px; padding:0 18px; border:0; border-bottom:1px solid var(--line2);
+  background:transparent; color:var(--ink); font:inherit; font-size:14px; outline:0;
+}
+.palette input::placeholder{color:var(--dim)}
+.plist{max-height:320px; overflow-y:auto; padding:8px}
+.pitem{
+  display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:10px;
+  cursor:pointer; font-size:13px; color:var(--muted); min-height:44px;
+}
+.pitem[aria-selected="true"]{background:var(--raised); color:var(--ink)}
+.pitem .tag{margin-left:auto; font-size:10.5px; color:var(--dim); letter-spacing:.08em; text-transform:uppercase}
+
+/* ── 动效与可达性 ────────────────────────────── */
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important; transition-duration:.001ms!important}
+}
+/* 减少透明 / 增强对比：把材质做实 */
+@media (prefers-reduced-transparency:reduce){
+  .scrim{ -webkit-backdrop-filter:none; backdrop-filter:none; background:#000000b3 }
+  .surface{ background:var(--win) }
+}
+@media (prefers-contrast:more){
+  .surface{ border-color:var(--ink); }
+  .muted, .small, .row__h{ color:var(--ink) }
+}
+
+
+
+
+/* ── 滚动条：无底、灰色圆头（不要白底轨道） ───────────── */
+:root{ --scroll-thumb:#ffffff33; --scroll-thumb-hover:#ffffff5c; }
+html[data-theme="light"]{ --scroll-thumb:#00000026; --scroll-thumb-hover:#00000042; }
+*{ scrollbar-width:thin; scrollbar-color:var(--scroll-thumb) transparent; }
+::-webkit-scrollbar{ width:11px; height:11px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{
+  background:var(--scroll-thumb); border-radius:99px;
+  border:3px solid transparent; background-clip:content-box;
+}
+::-webkit-scrollbar-thumb:hover{ background:var(--scroll-thumb-hover); background-clip:content-box; }
+::-webkit-scrollbar-corner{ background:transparent; }
+
+
+
+/* ── 硬规则：面板标签名必须与内容左边缘对齐 ────────────────
+   标签（.eyebrow）的左内边缘 = 该面板内容盒（.item / .row）的左边缘。
+   即：标签容器 padding-left = 列表容器 padding-left + 条目 padding-left。
+   不许靠目测；改完跑 `node C:\AI\tmp\gary-surgery\check-label-align.cjs` 验 Δ=0。 */
+
+
+

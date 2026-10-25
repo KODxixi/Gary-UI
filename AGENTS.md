@@ -1,4 +1,4 @@
-# Gary-UI 项目入口
+﻿# Gary-UI 项目入口
 
 本文件适用于当前 Gary-UI 仓库；所有相对路径以包含本文件的目录为准。维护者的母本位于 `C:\AI\UI\gary-ui`，仅在该环境内继续遵循上层工作约定。其他克隆不要求具备此路径。
 
@@ -38,3 +38,4 @@ Portal 与完整 Demo 的顶栏入口保持一致：纯文字 `Background` 只�
 - 原创代码采用 MIT，第三方保留各自条款。公开材质使用 `optical-glass.js` 与 `ambient-waves.js`；受再分发限制的旧移植与原始快照只保留在本地历史，不加入公开包。
 - `scripts/build_public.py` 从当前源码生成独立公开包，`scripts/build_site.py` 生成 Pages 静态站点；发布前运行公开检查并核对产物，不能从 C:\AI 整仓推送到 UI 仓库。
 - `scripts/public_smoke.mjs` 验证公开页面、子路径部署与主要交互；本机治理、运行投影及外部 Skill 测试属于另一个集成范围。不要为了公共 CI 把它们的失败改成通过。
+
