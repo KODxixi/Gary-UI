@@ -4,7 +4,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { INTERACTION_CSS, PRINT_CSS, PALETTE_MARKUP, INTERACTION_JS } from "./interactions.mjs";
 
-const DIR = path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, "$1");
+import { fileURLToPath } from "node:url";
+const DIR = path.dirname(fileURLToPath(import.meta.url));
 const { recipes } = JSON.parse(fs.readFileSync(path.join(DIR, "recipes.json"), "utf8"));
 const content = JSON.parse(fs.readFileSync(path.join(DIR, "content.json"), "utf8"));
 const CSS = "../primitives.css?v=g6";
@@ -193,7 +194,8 @@ function page({ title, recipe, data, theme = "dark" }) {
     { k: "切换主题", tag: "视图", fn: "function(){var b=document.getElementById('themeBtn');if(b)b.click()}" },
     ...(acts.includes("print") ? [{ k: "打印 / 存为 PDF", tag: "导出", fn: "function(){window.print()}" }] : [])
   ].map((c) => ({ k: c.k, tag: c.tag, fn: `(${c.fn})()` }));
-  const cmdsJs = "[" + cmds.map((c) => `{k:${JSON.stringify(c.k)},tag:${JSON.stringify(c.tag)},fn:function(){${c.fn}}}`).join(",") + "]";
+  const j = (v) => JSON.stringify(v).replace(/</g, "\\u003c");
+  const cmdsJs = "[" + cmds.map((c) => `{k:${j(c.k)},tag:${j(c.tag)},fn:function(){${c.fn}}}`).join(",") + "]";
 
   const rightSecs = recipe.sections.filter((s) => s.pane === "right");
   const mainBody = recipe.sections.filter((s) => s.pane !== "right").map((s) => S[s.type](data[s.id])).join("\n");

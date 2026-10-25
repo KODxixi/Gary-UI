@@ -272,7 +272,7 @@ html[data-theme="light"]{ --scroll-thumb:#00000026; --scroll-thumb-hover:#000000
 /* ── 硬规则：面板标签名必须与内容左边缘对齐 ────────────────
    标签（.eyebrow）的左内边缘 = 该面板内容盒（.item / .row）的左边缘。
    即：标签容器 padding-left = 列表容器 padding-left + 条目 padding-left。
-   不许靠目测；改完跑 `node C:\AI\tmp\gary-surgery\check-label-align.cjs` 验 Δ=0。 */
+   不许靠目测；改完跑 `node agent/checks/check-label-align.cjs` 验 Δ=0。 */
 
 
 
