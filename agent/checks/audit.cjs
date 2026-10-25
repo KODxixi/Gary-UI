@@ -53,7 +53,19 @@ const THEMES = ["dark", "light"];
             const need = size >= 24 || (size >= 18.66 && Number(cs.fontWeight) >= 700) ? 3 : 4.5;
             if (rr < need) out.push({ t: t.slice(0, 18), r: Math.round(rr * 100) / 100, need });
           }
-          return { fails: out.length, worst: out.slice(0, 3), overflow: document.documentElement.scrollWidth > window.innerWidth + 1 };
+          const vw = window.innerWidth;
+          let overflow = document.documentElement.scrollWidth > vw + 1;
+          if (!overflow) {
+            // body 可能 overflow:hidden，scrollWidth 不会超标 —— 逐个元素看是否越出视口
+            for (const el of document.querySelectorAll("body *")) {
+              const r = el.getBoundingClientRect();
+              if (r.width < 2 || r.height < 2) continue;
+              const cs2 = getComputedStyle(el);
+              if (cs2.position === "fixed") continue;
+              if (r.right > vw + 2 || r.left < -2) { overflow = true; break; }
+            }
+          }
+          return { fails: out.length, worst: out.slice(0, 3), overflow };
         });
         rows.push({ page, vp: w, theme, errs: errs.slice(0, 2), ...m });
         await ctx.close();
@@ -66,7 +78,5 @@ const THEMES = ["dark", "light"];
   console.log("---- 不合格组合:", bad.length);
   const sampled = rows.filter((r) => (r.worst || []).length || r.contrastFails === 0).length;
   if (rows.length < 8) { console.log("❌ 空跑：组合数不足，结果不可信"); process.exit(2); }
-  if (rows.length < 8) { console.log("❌ 空跑：只跑到 " + rows.length + " 个组合（应 ≥8），结果不可信"); process.exit(2); }
+  process.exit(bad.length ? 1 : 0);
 })();
-
-
