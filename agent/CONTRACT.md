@@ -59,7 +59,7 @@ node render.mjs <recipe> <content.json> [out.html]
 |---|---|
 | 1 标签对齐 | `checks/check-label-align.cjs`（Range 量真实文字左缘） |
 | 2 数字等宽 | 静态：`.num` 定义在 primitives，渲染器统一加（无独立闸门） |
-| 3 对比度 | `checks/audit.cjs`（半透明前景按合成底算；**祖先 opacity 与渐变底尚未覆盖**） |
+| 3 对比度 | `checks/audit.cjs`：CSS 合成法（半透明前景按合成底算；**祖先 opacity 与渐变底未覆盖**）。`checks/contrast.cjs` 是像素法实验版，**未接入闸门**，已知限制见文件头 |
 | 4 热区 ≥44 | **无闸门**（audit 只打印 smallTargets，不作为失败条件） |
 | 5 动效 | `checks/audit.cjs` 查 `transition: all`；时长/只动 transform 无自动闸门 |
 | 6 首帧主题 | 无自动闸门（渲染器写死 dark，脚本再覆盖） |
@@ -102,6 +102,7 @@ node checks/audit.cjs                   # 对比度/溢出/报错
 例：`"workbench": { "shell":"workbench", "interactions":["theme","palette","gutters"], ... }`
 
 改完必须复验：`node checks/verify-interactions.cjs`（⌘K 能开、主题能切、分隔条能拖、零报错）。
+
 
 
 
