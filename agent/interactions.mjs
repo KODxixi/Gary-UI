@@ -41,6 +41,8 @@ export const INTERACTION_JS = `
 (function(){
   var cmds = window.__GARY_CMDS__ || [];
   var i;
+  function syncThemeBtn(){ var b = document.getElementById('themeBtn'); if (b) b.textContent = document.documentElement.dataset.theme === 'dark' ? '亮' : '暗'; }
+  syncThemeBtn();
 
   /* 主题 */
   var themeBtn = document.getElementById('themeBtn');

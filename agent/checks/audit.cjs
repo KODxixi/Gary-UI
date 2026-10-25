@@ -214,6 +214,48 @@ const MIN_COMBOS = 8;
       }
     }
   }
+  // ── 规则 5：reduced-motion 下动效必须几乎为零 ──
+  const motionGate = [];
+  // ── 规则 6：首帧主题必须在 head 内联脚本里定好（预置 light 后首帧即 light）──
+  const themeGate = [];
+  // ── 规则 9：出现数值指标时必须有「示意/示例」标注 ──
+  const fakeGate = [];
+
+  for (const page of PAGES) {
+    // 规则 5
+    {
+      const ctx0 = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
+      const p0 = await ctx0.newPage();
+      await p0.goto(`${BASE}/${page}.html`, { waitUntil: "load" });
+      await p0.waitForTimeout(200);
+      const maxDur = await p0.evaluate(() => {
+        let max = 0;
+        for (const el of document.querySelectorAll("button,a,input,select,textarea,[role=button]")) {
+          const d = String(getComputedStyle(el).transitionDuration || "0s").split(",").map((x) => parseFloat(x) || 0);
+          max = Math.max(max, ...d);
+        }
+        return max;
+      });
+      if (maxDur > 0.02) motionGate.push(`${page}: reduced-motion 下仍有 ${maxDur}s 过渡`);
+      await ctx0.close();
+    }
+    // 规则 6 + 9
+    {
+      const ctx1 = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      await ctx1.addInitScript(() => { try { localStorage.setItem("gary.theme", "light"); } catch (e) {} });
+      const p1 = await ctx1.newPage();
+      await p1.goto(`${BASE}/${page}.html`, { waitUntil: "domcontentloaded" });
+      const first = await p1.evaluate(() => document.documentElement.dataset.theme);
+      if (first !== "light") themeGate.push(`${page}: 预置 light 但首帧是 ${first}`);
+
+      await p1.waitForTimeout(200);
+      const hasMetric = await p1.evaluate(() => document.querySelectorAll(".metric").length);
+      const marked = await p1.evaluate(() => /示意|示例/.test(document.body.innerText || ""));
+      if (hasMetric && !marked) fakeGate.push(`${page}: 有 ${hasMetric} 个指标但正文没有「示意/示例」标注`);
+      await ctx1.close();
+    }
+  }
+
   await browser.close();
 
   const bad = rows.filter((r) =>
@@ -239,10 +281,14 @@ const MIN_COMBOS = 8;
     if (r.smallHitSample && r.smallHitSample.length) r.smallHitSample.forEach((s) => console.log(`      ↳ 热区「${s.t}」 ${s.w}×${s.h}`));
   }
 
-  console.log(`\n组合数: ${rows.length} · 受检文本: ${textsChecked} · 不合格: ${bad.length}`);
+  motionGate.forEach((m) => console.log("❌ 规则5 " + m));
+  themeGate.forEach((m) => console.log("❌ 规则6 " + m));
+  fakeGate.forEach((m) => console.log("❌ 规则9 " + m));
+  const extra = motionGate.length + themeGate.length + fakeGate.length;
+  console.log(`\n组合数: ${rows.length} · 受检文本: ${textsChecked} · 不合格: ${bad.length + extra}（其中规则5/6/9: ${extra}）`);
   if (rows.length < MIN_COMBOS || textsChecked < MIN_TEXTS) {
     console.log(`❌ 覆盖不足（组合 ${rows.length}/${MIN_COMBOS}，文本 ${textsChecked}/${MIN_TEXTS}），结果不可信`);
     process.exit(2);
   }
-  process.exit(bad.length ? 1 : 0);
+  process.exit(bad.length + extra ? 1 : 0);
 })();

@@ -61,11 +61,11 @@ node render.mjs <recipe> <content.json> [out.html]
 | 2 数字等宽 | 静态：`.num` 定义在 primitives，渲染器统一加（无独立闸门） |
 | 3 对比度 | `checks/audit.cjs`：CSS 合成法，含祖先 opacity 与渐变取平均色 |
 | 4 热区 ≥44 | `checks/audit.cjs`：elementFromPoint 实测命中区（按缺口取点） |
-| 5 动效 | `checks/audit.cjs`：禁 `transition:all`（有时长才判）、交互元素时长 ≤300ms；reduced-motion 未测 |
-| 6 首帧主题 | **无闸门**（渲染器写死 dark，脚本再覆盖） |
+| 5 动效 | `checks/audit.cjs`：禁 `transition:all`（有时长才判）、交互元素 ≤300ms、reduced-motion 下过渡 ≤0.02s |
+| 6 首帧主题 | `checks/audit.cjs`：预置 localStorage=light 后首帧必须为 light（渲染器已在 head 内联脚本定主题） |
 | 7 密度 | `checks/audit.cjs`：`data-density` 合法 + 四个间距变量存在 |
 | 8 滚动条 | `checks/audit.cjs`：track 必须透明 |
-| 9 禁假数据/CDN/emoji | `checks/audit.cjs`：禁跨源请求、禁 emoji；假数据仍靠 review |
+| 9 禁假数据/CDN/emoji | `checks/audit.cjs`：禁跨源请求、禁 emoji、有 `.metric` 时必须出现「示意/示例」标注 |
 | 10 不许折行 | `checks/no-wrap.cjs`（Range 数行盒，覆盖下限 20） |
 
 > 未覆盖项不要假装已验：交付说明里按上表如实标注。
@@ -102,6 +102,7 @@ node checks/audit.cjs                   # 对比度/溢出/报错
 例：`"workbench": { "shell":"workbench", "interactions":["theme","palette","gutters"], ... }`
 
 改完必须复验：`node checks/verify-interactions.cjs`（⌘K 能开、主题能切、分隔条能拖、零报错）。
+
 
 
 

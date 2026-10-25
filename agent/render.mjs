@@ -217,6 +217,7 @@ function page({ title, recipe, data, theme = "dark" }) {
 <title>${esc(title)}</title>
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="${CSS}">
+<script>/* 首帧前定主题，避免闪白/闪黑 */(function(){try{var t=localStorage.getItem("gary.theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;}}catch(e){}})();</script>
 <style>${SHELL_CSS}${acts.length ? INTERACTION_CSS : ""}${acts.includes("print") ? PRINT_CSS : ""}</style>
 </head>
 <body>

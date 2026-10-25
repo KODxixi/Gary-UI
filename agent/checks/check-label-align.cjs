@@ -19,7 +19,12 @@ const probe = () => {
         return r.width > 20 && r.top > lr.bottom - 4 && r.top < lr.bottom + 320;
       });
     if (!cands.length) continue;
-    const c = cands[0];
+    const pick = (list) => list.slice().sort((a, b) => {
+        const ar = a.getBoundingClientRect(), br = b.getBoundingClientRect();
+        return Math.abs(ar.left - lr.left) - Math.abs(br.left - lr.left) ||
+               ar.top - br.top;
+      })[0];
+      const c = pick(cands);
     const cr = c.getBoundingClientRect();
       const cs0 = getComputedStyle(c);
     // 内容真正的文字左边缘：取元素自身 padding 之后
