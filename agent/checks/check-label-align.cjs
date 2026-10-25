@@ -1,6 +1,6 @@
 ﻿// 硬规则检查：面板标签名必须与其内容的左边缘对齐
 const { chromium } = require(require("node:path").resolve(__dirname, "../../adapters/visual/node_modules/playwright-core"));
-const CHROME = "C:/Program Files/Google/Chrome/Application/chrome.exe";
+const CHROME = process.env.GARY_CHROME !== undefined ? process.env.GARY_CHROME : "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const BASE = process.env.GARY_BASE || "http://127.0.0.1:4173/agent/out";
 
 const probe = () => {
@@ -37,7 +37,7 @@ const probe = () => {
 };
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: CHROME, args: ["--no-sandbox", "--disable-gpu"] });
+  const browser = await chromium.launch({ ...(CHROME ? { executablePath: CHROME } : {}), args: ["--no-sandbox", "--disable-gpu"] });
   let bad = 0;
   for (const page of ["workbench", "settings", "dashboard", "report"]) {
     for (const [w, h] of [[1440, 900], [1024, 700]]) {

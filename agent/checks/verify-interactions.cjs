@@ -1,11 +1,11 @@
 ﻿// 交互验收：对 v4 生成页逐项驱动，确认配方声明的交互真的生效
 const { chromium } = require(require("node:path").resolve(__dirname, "../../adapters/visual/node_modules/playwright-core"));
-const CHROME = "C:/Program Files/Google/Chrome/Application/chrome.exe";
+const CHROME = process.env.GARY_CHROME !== undefined ? process.env.GARY_CHROME : "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const BASE = process.env.GARY_BASE || "http://127.0.0.1:4173/agent/out";
 const PAGES = ["dashboard", "report", "settings", "workbench"];
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: CHROME, args: ["--no-sandbox", "--disable-gpu"] });
+  const browser = await chromium.launch({ ...(CHROME ? { executablePath: CHROME } : {}), args: ["--no-sandbox", "--disable-gpu"] });
   let bad = 0;
   const out = {};
   for (const n of PAGES) {

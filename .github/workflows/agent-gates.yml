@@ -1,0 +1,54 @@
+name: agent-gates
+
+on:
+  pull_request:
+    paths: ["agent/**", ".github/workflows/agent-gates.yml"]
+  push:
+    branches: [main]
+    paths: ["agent/**"]
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install visual adapter deps
+        working-directory: adapters/visual
+        run: npm install --no-audit --no-fund
+
+      - name: Install Playwright Chromium
+        working-directory: adapters/visual
+        run: npx playwright install --with-deps chromium
+
+      - name: Render pages from recipes
+        run: node agent/render.mjs
+
+      - name: Serve repo for the gates
+        run: |
+          python3 -m http.server 4173 --directory . >/tmp/http.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:4173/agent/out/dashboard.html >/dev/null && break
+            sleep 1
+          done
+
+      - name: Gate 1 · label alignment
+        env: { GARY_CHROME: "" }
+        run: node agent/checks/check-label-align.cjs
+
+      - name: Gate 2 · interactions
+        env: { GARY_CHROME: "" }
+        run: node agent/checks/verify-interactions.cjs
+
+      - name: Gate 3 · contrast / overflow / console
+        env: { GARY_CHROME: "" }
+        run: node agent/checks/audit.cjs
+
+      - name: Gate 4 · no wrapped short labels
+        env: { GARY_CHROME: "" }
+        run: node agent/checks/no-wrap.cjs

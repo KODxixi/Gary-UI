@@ -1,13 +1,13 @@
 ﻿// 全局 UI 规则检查：短标签/说明不许折成两行（会被判不合格）
 // 判定：单行元素实际高度 > 单行行高 × 1.5 即视为折行
 const { chromium } = require(require("node:path").resolve(__dirname, "../../adapters/visual/node_modules/playwright-core"));
-const CHROME = "C:/Program Files/Google/Chrome/Application/chrome.exe";
+const CHROME = process.env.GARY_CHROME !== undefined ? process.env.GARY_CHROME : "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const BASE = process.env.GARY_BASE || "http://127.0.0.1:4173/agent/out";
 const PAGES = ["dashboard", "report", "settings", "workbench"];
 const VIEWS = [[1440, 900], [1024, 768]]; // 桌面宽度才算硬规则；390 允许自然折行
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: CHROME, args: ["--no-sandbox", "--disable-gpu"] });
+  const browser = await chromium.launch({ ...(CHROME ? { executablePath: CHROME } : {}), args: ["--no-sandbox", "--disable-gpu"] });
   let bad = 0;
   for (const page of PAGES) {
     for (const [w, h] of VIEWS) {

@@ -1,13 +1,13 @@
 ﻿// 四页客观验收：对比度（按实际合成底色）、横向溢出、console/404
 const { chromium } = require(require("node:path").resolve(__dirname, "../../adapters/visual/node_modules/playwright-core"));
-const CHROME = "C:/Program Files/Google/Chrome/Application/chrome.exe";
+const CHROME = process.env.GARY_CHROME !== undefined ? process.env.GARY_CHROME : "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const BASE = process.env.GARY_BASE || "http://127.0.0.1:4173/agent/out";
 const PAGES = ["workbench", "dashboard", "report", "settings"];
 const VIEWS = [[1440, 900], [390, 844]];
 const THEMES = ["dark", "light"];
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: CHROME, args: ["--no-sandbox", "--disable-gpu"] });
+  const browser = await chromium.launch({ ...(CHROME ? { executablePath: CHROME } : {}), args: ["--no-sandbox", "--disable-gpu"] });
   const rows = [];
   for (const page of PAGES) {
     for (const [w, h] of VIEWS) {
