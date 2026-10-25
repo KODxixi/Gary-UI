@@ -1,0 +1,63 @@
+﻿name: agent-gates
+
+on:
+  pull_request:
+    paths: ["agent/**", ".github/workflows/agent-gates.yml"]
+  push:
+    branches: [main]
+    paths: ["agent/**"]
+
+permissions:
+  contents: read
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "20"
+
+      - name: Install visual adapter deps
+        working-directory: adapters/visual
+        run: npm install --no-audit --no-fund --ignore-scripts
+
+      - name: Install Playwright Chromium (from the locked playwright-core)
+        working-directory: adapters/visual
+        run: |
+          # 用已安装的 playwright-core 自带 CLI，避免 npx 动态拉取任意版本
+          node node_modules/playwright-core/cli.js install --with-deps chromium
+
+      - name: Render pages from recipes
+        run: node agent/render.mjs
+
+      - name: Serve repo for the gates
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory . >/tmp/http.log 2>&1 &
+          ok=0
+          for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:4173/agent/out/dashboard.html >/dev/null; then ok=1; break; fi
+            sleep 1
+          done
+          if [ "$ok" != "1" ]; then echo "静态服务没起来"; cat /tmp/http.log; exit 1; fi
+
+      - name: Gate 1 · label alignment
+        env: { GARY_CHROME: "" }
+        run: node agent/checks/check-label-align.cjs
+
+      - name: Gate 2 · interactions
+        env: { GARY_CHROME: "" }
+        run: node agent/checks/verify-interactions.cjs
+
+      - name: Gate 3 · contrast / overflow / console
+        env: { GARY_CHROME: "" }
+        run: node agent/checks/audit.cjs
+
+      - name: Gate 4 · no wrapped short labels
+        env: { GARY_CHROME: "" }
+        run: node agent/checks/no-wrap.cjs
+
+

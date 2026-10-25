@@ -42,3 +42,4 @@ portal/evidence/**/*.jpg
 **/*.visual-check.*.png
 # Generated output directories (singular form used by some visual recipes)
 examples/visuals/**/output/
+out/
