@@ -56,7 +56,7 @@ const probe = () => {
     }
   }
   console.log(`\n受检标签: ${checkedPairs} · 错位总数: ${bad}`);
-  if (!checkedPairs) { console.log('❌ 空跑：没有任何标签被检查，结果不可信'); process.exit(2); }
+  if (checkedPairs < 20) { console.log('❌ 覆盖不足：受检标签 ${checkedPairs} < 20（页面可能被清空）'); process.exit(2); }
   process.exit(bad ? 1 : 0);
   await browser.close();
 })();

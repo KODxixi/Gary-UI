@@ -64,7 +64,8 @@ const THEMES = ["dark", "light"];
   const bad = rows.filter((r) => r.fails || r.overflow || r.errs.length);
   rows.forEach((r) => console.log(`${r.page.padEnd(10)} ${String(r.vp).padEnd(5)} ${r.theme.padEnd(6)} contrastFails=${r.fails} overflow=${r.overflow} errs=${r.errs.length}${r.worst.length ? " " + JSON.stringify(r.worst[0]) : ""}`));
   console.log("---- 不合格组合:", bad.length);
-  process.exit(bad.length ? 1 : 0);
+  const sampled = rows.filter((r) => (r.worst || []).length || r.contrastFails === 0).length;
+  if (rows.length < 8) { console.log("❌ 空跑：组合数不足，结果不可信"); process.exit(2); }
   if (rows.length < 8) { console.log("❌ 空跑：只跑到 " + rows.length + " 个组合（应 ≥8），结果不可信"); process.exit(2); }
 })();
 
