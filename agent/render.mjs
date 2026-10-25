@@ -174,6 +174,8 @@ const SHELL_CSS = `
   /* settings / workbench 两栏 */
   .cols{display:flex;gap:var(--gap);height:100%;padding:6px 16px 16px}
   .side{width:236px;flex:none;padding:22px 14px 14px}
+  .item{position:relative}
+  .item::after{content:""/*noop*/}
   .main{flex:1;min-width:0;overflow:auto;padding:22px 24px 20px}
   .group{margin-bottom:12px}
   .group .row + .row{border-top:0}
@@ -235,11 +237,12 @@ const outDir = path.join(DIR, "out");
 fs.mkdirSync(outDir, { recursive: true });
 for (const [name, recipe] of Object.entries(recipes)) {
   const data = content[name];
-  if (!data) { console.warn("跳过（缺内容）:", name); continue; }
+  if (!data) { console.error("❌ 配方 " + name + " 缺少内容，拒绝生成空页"); process.exit(1); }
   const html = page({ title: data.title || name, recipe, data });
   fs.writeFileSync(path.join(outDir, `${name}.html`), html, "utf8");
   console.log("生成", name, "→", `${name}.html`, html.length, "B");
 }
+
 
 
 

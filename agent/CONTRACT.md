@@ -59,13 +59,13 @@ node render.mjs <recipe> <content.json> [out.html]
 |---|---|
 | 1 标签对齐 | `checks/check-label-align.cjs`（Range 量真实文字左缘） |
 | 2 数字等宽 | 静态：`.num` 定义在 primitives，渲染器统一加（无独立闸门） |
-| 3 对比度 | `checks/audit.cjs`：CSS 合成法（半透明前景按合成底算；**祖先 opacity 与渐变底未覆盖**）。`checks/contrast.cjs` 是像素法实验版，**未接入闸门**，已知限制见文件头 |
-| 4 热区 ≥44 | **无闸门**（audit 只打印 smallTargets，不作为失败条件） |
-| 5 动效 | `checks/audit.cjs` 查 `transition: all`；时长/只动 transform 无自动闸门 |
-| 6 首帧主题 | 无自动闸门（渲染器写死 dark，脚本再覆盖） |
-| 7 密度 | 无自动闸门 |
-| 8 滚动条 | 无自动闸门 |
-| 9 禁假数据/CDN/emoji | **无闸门**（假数据、emoji、外部请求都只能靠 review） |
+| 3 对比度 | `checks/audit.cjs`：CSS 合成法，含祖先 opacity 与渐变取平均色 |
+| 4 热区 ≥44 | `checks/audit.cjs`：elementFromPoint 实测命中区（按缺口取点） |
+| 5 动效 | `checks/audit.cjs`：禁 `transition:all`（有时长才判）、交互元素时长 ≤300ms；reduced-motion 未测 |
+| 6 首帧主题 | **无闸门**（渲染器写死 dark，脚本再覆盖） |
+| 7 密度 | `checks/audit.cjs`：`data-density` 合法 + 四个间距变量存在 |
+| 8 滚动条 | `checks/audit.cjs`：track 必须透明 |
+| 9 禁假数据/CDN/emoji | `checks/audit.cjs`：禁跨源请求、禁 emoji；假数据仍靠 review |
 | 10 不许折行 | `checks/no-wrap.cjs`（Range 数行盒，覆盖下限 20） |
 
 > 未覆盖项不要假装已验：交付说明里按上表如实标注。
@@ -102,6 +102,7 @@ node checks/audit.cjs                   # 对比度/溢出/报错
 例：`"workbench": { "shell":"workbench", "interactions":["theme","palette","gutters"], ... }`
 
 改完必须复验：`node checks/verify-interactions.cjs`（⌘K 能开、主题能切、分隔条能拖、零报错）。
+
 
 
 

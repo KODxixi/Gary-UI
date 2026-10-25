@@ -2,6 +2,8 @@
 // 原则：交互也只组合原语，不引入新材质。
 
 export const INTERACTION_CSS = `
+  .topbar__btn, .topbar .iconbtn{position:relative}
+  .topbar__btn::after, .topbar .iconbtn::after{content:"";position:absolute;inset:-11px -8px;border-radius:8px}
   .topbar__btn{appearance:none;border:1px solid var(--line);background:transparent;color:var(--muted);
     height:22px;padding:0 8px;border-radius:6px;font:inherit;font-size:11px;cursor:pointer}
   .topbar__btn:hover{background:var(--line2);color:var(--ink)}

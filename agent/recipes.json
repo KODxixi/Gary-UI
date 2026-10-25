@@ -15,8 +15,7 @@
         },
         {
           "type": "chart",
-          "id": "chart",
-          "kind": "area"
+          "id": "chart"
         },
         {
           "type": "table",
