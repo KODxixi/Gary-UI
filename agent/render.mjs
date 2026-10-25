@@ -145,8 +145,8 @@ const SHELL_CSS = `
   .canvas__badge{position:absolute;top:10px;right:12px;color:var(--dim)}
   .canvas__inner{width:min(460px,78%)}
   .pcard{border:1px solid var(--hair);border-radius:18px;padding:16px;margin-top:8px;
-    background:linear-gradient(180deg,#ffffff0f,#ffffff05);box-shadow:inset 0 1px 0 var(--hair),0 16px 40px #000000a6}
-  html[data-theme="light"] .pcard{background:linear-gradient(180deg,#ffffffee,#ffffffb8);box-shadow:inset 0 1px 0 #fff,0 16px 40px #00000012}
+    background:var(--raised);box-shadow:inset 0 1px 0 var(--hair),0 16px 40px #000000a6}
+  html[data-theme="light"] .pcard{background:#fff;box-shadow:inset 0 1px 0 #fff,0 16px 40px #00000012}
   .pcard__row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
   .pcard__t{font-size:14px;font-weight:600;letter-spacing:-.015em;margin-bottom:3px}
   .pcard__foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px}

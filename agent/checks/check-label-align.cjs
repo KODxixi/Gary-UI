@@ -21,6 +21,7 @@ const probe = () => {
     if (!cands.length) continue;
     const c = cands[0];
     const cr = c.getBoundingClientRect();
+      const cs0 = getComputedStyle(c);
     // 内容真正的文字左边缘：取元素自身 padding 之后
     const cs = getComputedStyle(c);
     const textX = cr.left + parseFloat(cs.paddingLeft || 0);

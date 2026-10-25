@@ -53,6 +53,23 @@ node render.mjs <recipe> <content.json> [out.html]
 10. **不许折行**：短标签、说明、徽标、表头、按钮一律单行；写不下就**加宽容器或改短文案**，不许让它折成两行。
     验收：`node checks/no-wrap.cjs` 必须报「折行合计: 0」（桌面 1440/1024 生效；390 允许自然折行）。典型修法——右栏 280→300px、把「预览画板宽度」改「画板宽度」、把说明移进 title 提示。
 
+## 4.1 闸门覆盖对照（谁真的会查）
+
+| 规则 | 闸门 |
+|---|---|
+| 1 标签对齐 | `checks/check-label-align.cjs`（Range 量真实文字左缘） |
+| 2 数字等宽 | 静态：`.num` 定义在 primitives，渲染器统一加（无独立闸门） |
+| 3 对比度 | `checks/audit.cjs`（半透明前景按合成底算；**祖先 opacity 与渐变底尚未覆盖**） |
+| 4 热区 ≥44 | **无闸门**（audit 只打印 smallTargets，不作为失败条件） |
+| 5 动效 | `checks/audit.cjs` 查 `transition: all`；时长/只动 transform 无自动闸门 |
+| 6 首帧主题 | 无自动闸门（渲染器写死 dark，脚本再覆盖） |
+| 7 密度 | 无自动闸门 |
+| 8 滚动条 | 无自动闸门 |
+| 9 禁假数据/CDN/emoji | **无闸门**（假数据、emoji、外部请求都只能靠 review） |
+| 10 不许折行 | `checks/no-wrap.cjs`（Range 数行盒，覆盖下限 20） |
+
+> 未覆盖项不要假装已验：交付说明里按上表如实标注。
+
 ## 5. 配方一览
 
 | 配方 | 用在哪 | 结构 |
@@ -85,6 +102,7 @@ node checks/audit.cjs                   # 对比度/溢出/报错
 例：`"workbench": { "shell":"workbench", "interactions":["theme","palette","gutters"], ... }`
 
 改完必须复验：`node checks/verify-interactions.cjs`（⌘K 能开、主题能切、分隔条能拖、零报错）。
+
 
 
 
