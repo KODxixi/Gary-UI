@@ -7,6 +7,9 @@ on:
     branches: [main]
     paths: ["agent/**"]
 
+permissions:
+  contents: read
+
 jobs:
   gates:
     runs-on: ubuntu-latest
@@ -22,12 +25,11 @@ jobs:
         working-directory: adapters/visual
         run: npm install --no-audit --no-fund
 
-      - name: Install Playwright Chromium (matched to playwright-core)
+      - name: Install Playwright Chromium (from the locked playwright-core)
         working-directory: adapters/visual
         run: |
-          VER=$(node -p "require('playwright-core/package.json').version")
-          echo "playwright-core $VER"
-          npx --yes playwright@$VER install --with-deps chromium
+          # 用已安装的 playwright-core 自带 CLI，避免 npx 动态拉取任意版本
+          node node_modules/playwright-core/cli.js install --with-deps chromium
 
       - name: Render pages from recipes
         run: node agent/render.mjs

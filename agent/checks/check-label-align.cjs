@@ -38,7 +38,7 @@ const probe = () => {
 
 (async () => {
   const browser = await chromium.launch({ ...(CHROME ? { executablePath: CHROME } : {}), args: ["--no-sandbox", "--disable-gpu"] });
-  let bad = 0;
+  let bad = 0, checkedPairs = 0;
   for (const page of ["workbench", "settings", "dashboard", "report"]) {
     for (const [w, h] of [[1440, 900], [1024, 700]]) {
       const ctx = await browser.newContext({ viewport: { width: w, height: h } });
@@ -47,7 +47,7 @@ const probe = () => {
       await p.waitForTimeout(450);
       const rows = await p.evaluate(probe);
       console.log(`\n== ${page} @${w}`);
-      rows.forEach((r) => {
+      rows.forEach((r) => { checkedPairs++;
         const ok = Math.abs(r.delta) <= 0.5;
         if (!ok) bad++;
         console.log(`  ${ok ? "✅" : "❌"} [${r.panel}] "${r.label}" 标签x=${r.labelX} 文字x=${r.textX} Δ=${r.delta} · 内容"${r.sample}"`);
@@ -55,6 +55,7 @@ const probe = () => {
       await ctx.close();
     }
   }
-  console.log(`\n错位总数: ${bad}`);
+  console.log(`\n受检标签: ${checkedPairs} · 错位总数: ${bad}`);
+  if (!checkedPairs) { console.log("❌ 空跑：没有任何标签被检查，结果不可信"); process.exit(2); }
   await browser.close();
 })();

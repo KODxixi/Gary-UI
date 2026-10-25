@@ -8,7 +8,7 @@ const VIEWS = [[1440, 900], [1024, 768]]; // 桌面宽度才算硬规则；390 �
 
 (async () => {
   const browser = await chromium.launch({ ...(CHROME ? { executablePath: CHROME } : {}), args: ["--no-sandbox", "--disable-gpu"] });
-  let bad = 0;
+  let bad = 0, checkedEls = 0;
   for (const page of PAGES) {
     for (const [w, h] of VIEWS) {
       const ctx = await browser.newContext({ viewport: { width: w, height: h } });
@@ -18,7 +18,7 @@ const VIEWS = [[1440, 900], [1024, 768]]; // 桌面宽度才算硬规则；390 �
       const wraps = await p.evaluate(() => {
         const sel = ".row__h, .eyebrow, .badge, .item__meta, .small, .row__k, .table th, .btn";
         const out = [];
-        for (const el of document.querySelectorAll(sel)) {
+        for (const el of document.querySelectorAll(sel)) { checkedEls++;
           const text = (el.textContent || "").trim();
           if (!text || text.length > 60) continue;
           const box = el.getBoundingClientRect();
@@ -44,7 +44,8 @@ const VIEWS = [[1440, 900], [1024, 768]]; // 桌面宽度才算硬规则；390 �
     }
   }
   await browser.close();
-  console.log(`\n折行合计: ${bad}`);
+  console.log(`\n受检元素: ${checkedEls} · 折行合计: ${bad}`);
+  if (checkedEls < 20) { console.log("❌ 空跑：受检元素太少（<20），结果不可信"); process.exit(2); }
   process.exit(bad ? 1 : 0);
 })();
 
