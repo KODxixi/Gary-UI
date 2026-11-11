@@ -1,0 +1,48 @@
+{
+  "slug": "carousel",
+  "name": "轮播",
+  "category": "media",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/carousel)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "左右按钮圆形 44px 点击区；指示点用小圆点"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-carousel"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-carousel",
+    ".gary-carousel__viewport",
+    ".gary-carousel__slide",
+    ".gary-carousel__prev",
+    ".gary-carousel__next"
+  ]
+}

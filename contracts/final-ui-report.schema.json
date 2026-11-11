@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gary-ui:contracts:final-ui-report:v1",
+  "title": "Gary-UI Final Target Browser Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "source",
+    "targetStack",
+    "url",
+    "styleEntry",
+    "styleEntryLoaded",
+    "computedStyle",
+    "sceneCount",
+    "nestedGlassCount",
+    "consoleErrors"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "source": {
+      "type": "string",
+      "const": "real-browser"
+    },
+    "targetStack": {
+      "type": "string",
+      "enum": ["html", "react-shadcn", "other"]
+    },
+    "url": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048,
+      "pattern": "^(?:https?://(?:127\\.0\\.0\\.1|localhost)(?::[0-9]{1,5})?(?:/.*)?|file:///[^\\r\\n]+)$"
+    },
+    "styleEntry": {
+      "type": "string",
+      "enum": [
+        "tokens/base.css",
+        "@gary-ui/react-shadcn/styles.css"
+      ]
+    },
+    "styleEntryLoaded": {
+      "type": "boolean",
+      "const": true
+    },
+    "computedStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["property", "value"],
+      "properties": {
+        "property": {
+          "type": "string",
+          "const": "--gary-control-height"
+        },
+        "value": {
+          "type": "string",
+          "const": "44px"
+        }
+      }
+    },
+    "sceneCount": {
+      "type": "integer",
+      "const": 1
+    },
+    "nestedGlassCount": {
+      "type": "integer",
+      "const": 0
+    },
+    "consoleErrors": {
+      "type": "integer",
+      "const": 0
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "slug": "avatar",
+  "name": "头像",
+  "category": "media",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/avatar)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "圆形裁剪；图片加载失败时显示 fallback 文字"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-avatar"
+    },
+    {
+      "name": "fallback",
+      "selector": ".gary-avatar__fallback"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-avatar",
+    ".gary-avatar__image",
+    ".gary-avatar__fallback"
+  ]
+}

@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-theme="dark" data-gary-density="balanced" data-gary-material="thick" data-gary-application-mode="board" data-gary-page-mode="data-page">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>证据增强 · Gary-UI Board/Data R2</title>
+  <link rel="stylesheet" href="/tokens/base.css">
+  <style data-gary-demo-style>
+:root {
+  --demo-edge: color-mix(in srgb, var(--gary-border-highlight) 56%, transparent);
+  --demo-muted: var(--gary-text-secondary);
+  --demo-faint: var(--gary-text-tertiary);
+  --demo-well: rgba(255, 255, 255, 0.07);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 0;
+  min-height: 100%;
+  scroll-behavior: smooth;
+  background: var(--gary-surface-page);
+}
+
+body {
+  min-width: 0;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--gary-text-primary);
+  background: transparent;
+}
+
+button,
+a {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--gary-focus-ring);
+  outline-offset: 3px;
+}
+
+.demo-scene {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(rgba(6, 7, 8, 0.48), rgba(6, 7, 8, 0.62)),
+    url("/assets/backgrounds/gary-default-scene.png") center / cover no-repeat;
+}
+
+.demo-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(89, 151, 163, 0.16), transparent 43%),
+    linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.38));
+}
+
+.demo-topbar {
+  position: sticky;
+  top: 10px;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: min(calc(100% - 20px), 1500px);
+  min-height: 70px;
+  margin: 10px auto 0;
+  padding: 10px 16px;
+  border-radius: var(--gary-radius-panel);
+}
+
+.demo-brand {
+  display: grid;
+  justify-self: start;
+  line-height: 1.18;
+}
+
+.demo-brand small,
+.demo-eyebrow {
+  color: var(--demo-faint);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.demo-brand strong {
+  margin-top: 3px;
+  font-size: 0.92rem;
+}
+
+.demo-nav,
+.demo-filter {
+  display: flex;
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid var(--demo-edge);
+  border-radius: var(--gary-radius-pill);
+  background: var(--gary-surface-sunken);
+}
+
+.demo-nav a,
+.demo-filter button,
+.demo-control {
+  min-height: 36px;
+  padding: 7px 13px;
+  border: 0;
+  border-radius: var(--gary-radius-pill);
+  color: var(--demo-muted);
+  background: transparent;
+  font-size: var(--gary-font-size-label);
+}
+
+.demo-nav a:hover,
+.demo-filter button:hover,
+.demo-control:hover {
+  color: var(--gary-text-primary);
+}
+
+.demo-nav a:first-child,
+.demo-filter button[aria-pressed="true"] {
+  color: var(--gary-text-primary);
+  background: var(--demo-well);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.13);
+}
+
+.demo-control {
+  justify-self: end;
+  border: 1px solid var(--demo-edge);
+  background: var(--demo-well);
+}
+
+.demo-shell {
+  width: min(100%, 1540px);
+  margin: 0 auto;
+  padding: clamp(40px, 7vw, 92px) clamp(14px, 3vw, 40px) 80px;
+}
+
+.demo-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: 24px;
+}
+
+.demo-heading h1 {
+  max-width: 14ch;
+  margin: 9px 0 0;
+  font-size: clamp(2.6rem, 7vw, 6.6rem);
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+}
+
+.demo-heading > p {
+  max-width: 46ch;
+  margin: 0 0 8px;
+  color: var(--demo-muted);
+}
+
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--gary-density-layout-gap);
+}
+
+.board-card {
+  min-height: 180px;
+  padding: var(--gary-density-surface-padding);
+  border-radius: var(--gary-radius-card);
+}
+
+.board-card h2,
+.board-card h3,
+.story-panel h2 {
+  margin: 8px 0 12px;
+  line-height: 1.05;
+}
+
+.board-card p,
+.story-panel p {
+  color: var(--demo-muted);
+}
+
+.board-card--hero {
+  grid-column: span 7;
+  min-height: 360px;
+}
+
+.board-card--hero h2 {
+  max-width: 10ch;
+  font-size: clamp(2.3rem, 5vw, 4.8rem);
+  letter-spacing: -0.04em;
+}
+
+.board-card--status {
+  grid-column: span 5;
+  display: grid;
+  place-items: center;
+}
+
+.status-orbit {
+  display: grid;
+  place-items: center;
+  width: min(220px, 70%);
+  aspect-ratio: 1;
+  border: 1px solid var(--demo-edge);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 28px rgba(255, 255, 255, 0.025),
+    0 0 0 58px rgba(255, 255, 255, 0.018);
+}
+
+.status-orbit strong {
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 1;
+}
+
+.status-orbit span {
+  color: var(--demo-faint);
+  font-size: var(--gary-font-size-caption);
+}
+
+.metric-card {
+  grid-column: span 3;
+}
+
+.metric-card strong {
+  display: block;
+  margin: 20px 0 8px;
+  font-size: clamp(2.4rem, 4vw, 4.2rem);
+  line-height: 0.9;
+}
+
+.metric-card footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 13px;
+  border-top: 1px solid var(--demo-edge);
+  color: var(--demo-faint);
+  font-size: var(--gary-font-size-caption);
+}
+
+.action-band {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+}
+
+.action-band strong {
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+}
+
+.action-link {
+  flex: 0 0 auto;
+  padding: 11px 16px;
+  border: 1px solid var(--demo-edge);
+  border-radius: var(--gary-radius-control);
+  background: var(--demo-well);
+}
+
+.is-filtered-out {
+  display: none;
+}
+
+.ledger-grid .board-card--hero {
+  grid-column: 1 / -1;
+  min-height: 260px;
+}
+
+.ledger-grid .metric-card {
+  grid-column: span 4;
+}
+
+.evidence-table {
+  grid-column: 1 / -1;
+  overflow-x: auto;
+}
+
+.evidence-row {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr 0.7fr;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--demo-edge);
+}
+
+.evidence-row span {
+  color: var(--demo-muted);
+}
+
+.spatial-board {
+  position: relative;
+  min-height: 760px;
+}
+
+.spatial-board .board-card--hero {
+  grid-column: 1 / -1;
+  min-height: 640px;
+  padding: clamp(34px, 7vw, 90px);
+}
+
+.spatial-board .board-card--hero h2 {
+  max-width: 12ch;
+}
+
+.signal {
+  position: absolute;
+  width: clamp(170px, 22vw, 300px);
+  min-height: 170px;
+}
+
+.signal--one {
+  top: 48%;
+  right: 8%;
+}
+
+.signal--two {
+  right: 31%;
+  bottom: 3%;
+}
+
+.signal--three {
+  bottom: 7%;
+  left: 7%;
+}
+
+.story-shell {
+  width: min(100%, 1540px);
+  margin: 0 auto;
+  padding: 30px clamp(14px, 3vw, 40px) 100px;
+}
+
+.story-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  align-items: center;
+  gap: clamp(28px, 7vw, 100px);
+  min-height: 92vh;
+  padding: clamp(44px, 7vw, 100px) 0;
+}
+
+.story-section:nth-child(even) {
+  grid-template-columns: minmax(320px, 0.85fr) minmax(0, 1.15fr);
+}
+
+.story-section:nth-child(even) .story-visual {
+  order: 2;
+}
+
+.story-visual {
+  position: relative;
+  overflow: hidden;
+  min-height: 65vh;
+  border: 1px solid var(--demo-edge);
+  border-radius: var(--gary-radius-panel);
+  background:
+    linear-gradient(rgba(4, 5, 6, 0.08), rgba(4, 5, 6, 0.18)),
+    url("/assets/backgrounds/gary-default-scene.png") center / cover no-repeat;
+  box-shadow: var(--gary-shadow-contact), var(--gary-shadow-environment);
+}
+
+.story-visual::after {
+  content: attr(data-caption);
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  padding: 7px 11px;
+  border: 1px solid var(--demo-edge);
+  border-radius: var(--gary-radius-pill);
+  color: rgba(255, 255, 255, 0.78);
+  background: rgba(0, 0, 0, 0.35);
+  font-size: var(--gary-font-size-caption);
+  backdrop-filter: blur(16px);
+}
+
+.story-visual--close {
+  background-position: 58% center;
+  background-size: 150%;
+}
+
+.story-visual--light {
+  background-position: 80% center;
+  filter: saturate(0.8) contrast(1.05);
+}
+
+.story-panel {
+  padding: clamp(26px, 4vw, 52px);
+  border-radius: var(--gary-radius-card);
+}
+
+.story-panel h1,
+.story-panel h2 {
+  font-size: clamp(2.2rem, 5vw, 5.5rem);
+  letter-spacing: -0.045em;
+}
+
+.story-index {
+  color: var(--demo-faint);
+  font-family: var(--gary-font-mono);
+}
+
+.story-rule {
+  width: 80px;
+  height: 1px;
+  margin: 24px 0;
+  background: var(--demo-edge);
+}
+
+.editorial-story .story-section {
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.7fr);
+}
+
+.editorial-story .story-panel {
+  max-width: 560px;
+}
+
+.orbital-story .story-section {
+  position: relative;
+  grid-template-columns: 1fr;
+  min-height: 100vh;
+}
+
+.orbital-story .story-visual {
+  min-height: 78vh;
+}
+
+.orbital-story .story-panel {
+  position: absolute;
+  right: 5%;
+  bottom: 7%;
+  width: min(520px, 48%);
+}
+
+@media (max-width: 900px) {
+  .demo-topbar {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+  }
+
+  .demo-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: center;
+    margin-top: 8px;
+  }
+
+  .demo-heading {
+    display: block;
+  }
+
+  .demo-heading > p {
+    margin-top: 18px;
+  }
+
+  .board-card--hero,
+  .board-card--status {
+    grid-column: 1 / -1;
+  }
+
+  .metric-card,
+  .ledger-grid .metric-card {
+    grid-column: span 6;
+  }
+
+  .story-section,
+  .story-section:nth-child(even),
+  .editorial-story .story-section {
+    grid-template-columns: 1fr;
+  }
+
+  .story-section:nth-child(even) .story-visual {
+    order: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .demo-topbar {
+    top: 6px;
+    width: calc(100% - 12px);
+    margin-top: 6px;
+    padding: 9px 10px;
+    border-radius: 24px;
+  }
+
+  .demo-brand small {
+    display: none;
+  }
+
+  .demo-control {
+    min-height: 34px;
+    padding: 5px 9px;
+  }
+
+  .demo-nav {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .demo-nav a {
+    flex: 1 0 auto;
+    text-align: center;
+  }
+
+  .demo-shell {
+    padding-top: 42px;
+  }
+
+  .demo-heading h1 {
+    font-size: 3rem;
+  }
+
+  .demo-filter {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .demo-filter button {
+    flex: 1 0 auto;
+  }
+
+  .board-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .board-card--hero,
+  .board-card--status,
+  .metric-card,
+  .ledger-grid .metric-card,
+  .evidence-table,
+  .action-band {
+    grid-column: auto;
+  }
+
+  .board-card--hero {
+    min-height: 330px;
+  }
+
+  .action-band {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .spatial-board {
+    min-height: auto;
+  }
+
+  .spatial-board .board-card--hero {
+    min-height: 420px;
+  }
+
+  .signal {
+    position: relative;
+    inset: auto;
+    width: auto;
+  }
+
+  .evidence-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .story-section {
+    min-height: 0;
+    padding: 56px 0;
+  }
+
+  .story-visual {
+    min-height: 62vh;
+  }
+
+  .story-panel {
+    padding: 24px;
+  }
+
+  .orbital-story .story-panel {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: auto;
+    margin-top: -100px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+  </style>
+  <style>
+    .revision-two .demo-heading h1 { font-size: clamp(2.2rem, 5vw, 4.8rem); }
+    .revision-two .board-card--hero { grid-column: 1 / -1; min-height: 250px; }
+    .revision-two .board-card--hero h2 { max-width: 16ch; font-size: clamp(1.9rem, 4vw, 3.5rem); }
+  </style>
+</head>
+<body class="gary-ui revision-two">
+  <div class="demo-scene" aria-hidden="true"></div>
+  <header class="demo-topbar gary-glass gary-ultrathin" data-gary-node-id="topbar">
+    <a class="demo-brand" href="#overview" data-gary-node-id="brand">
+      <small>GARY-UI · EVIDENCE HYBRID R2</small>
+      <strong>项目健康度</strong>
+    </a>
+    <nav class="demo-nav" aria-label="看板导航" data-gary-node-id="top-navigation">
+      <a href="#overview">判断</a><a href="#metrics">指标</a><a href="#evidence">证据</a>
+    </nav>
+    <button class="demo-control" type="button" data-theme-toggle aria-pressed="false" data-gary-node-id="theme-toggle">切换浅色</button>
+  </header>
+
+  <main class="demo-shell" id="overview">
+    <header class="demo-heading" data-gary-node-id="page-heading">
+      <div><p class="demo-eyebrow">ROUND 02 · EVIDENCE HYBRID</p><h1>判断不变，出处前置。</h1></div>
+      <p>同样保留 A 的决策结构，但把三条高影响证据直接放进首屏下半部。</p>
+    </header>
+
+    <div class="demo-filter" role="group" aria-label="筛选指标" data-gary-node-id="metric-filter">
+      <button type="button" data-filter="all" aria-pressed="true">全部</button>
+      <button type="button" data-filter="risk" aria-pressed="false">风险</button>
+      <button type="button" data-filter="opportunity" aria-pressed="false">机会</button>
+      <span class="demo-eyebrow" data-filter-status aria-live="polite">当前显示 3 项</span>
+    </div>
+
+    <section class="board-grid ledger-grid" id="metrics" aria-label="指标与证据">
+      <article class="board-card board-card--hero gary-glass gary-thick" data-gary-material-preview data-gary-node-id="decision-summary">
+        <p class="demo-eyebrow">CURRENT JUDGEMENT</p>
+        <h2 data-gary-node-id="decision-title">结构可冻结，两项出处待补。</h2>
+        <p>组件与路由已经稳定。移动端长标题和 evidence source 是本轮唯一阻塞项。</p>
+      </article>
+
+      <article class="board-card metric-card gary-glass gary-thick" data-category="opportunity" data-gary-material-preview data-gary-node-id="metric-structure">
+        <span class="demo-eyebrow">STRUCTURE</span><strong>92</strong><p>决策路径完整。</p>
+        <footer><span>机会 +8</span><span>Route matrix</span></footer>
+      </article>
+      <article class="board-card metric-card gary-glass gary-thick" data-category="risk" data-gary-material-preview data-gary-node-id="metric-sources">
+        <span class="demo-eyebrow">SOURCES</span><strong>68</strong><p>两项出处待补。</p>
+        <footer><span>风险 −4</span><span>Trace log</span></footer>
+      </article>
+      <article class="board-card metric-card gary-glass gary-thick" data-category="opportunity" data-gary-material-preview data-gary-node-id="metric-runtime">
+        <span class="demo-eyebrow">RUNTIME</span><strong>100</strong><p>母本保持同步。</p>
+        <footer><span>机会 +3</span><span>Manifest hash</span></footer>
+      </article>
+
+      <article class="board-card evidence-table gary-glass gary-thick" id="evidence" data-gary-material-preview data-gary-node-id="evidence-table">
+        <p class="demo-eyebrow">THREE DECISIVE SOURCES</p>
+        <h3>只展开影响当前判断的证据</h3>
+        <div class="evidence-row" data-gary-node-id="source-contracts"><strong>15 个组件契约完整</strong><span>components/index.json</span><span>07/28 · 高</span></div>
+        <div class="evidence-row" data-gary-node-id="source-routing"><strong>3×4 路由通过</strong><span>browser matrix</span><span>07/28 · 高</span></div>
+        <div class="evidence-row" data-gary-node-id="source-mobile"><strong>移动长标题待回归</strong><span>visual QA</span><span>07/28 · 中</span></div>
+      </article>
+
+      <article class="board-card action-band gary-glass gary-thick" data-gary-material-preview data-gary-node-id="next-action">
+        <div><p class="demo-eyebrow">ACTION</p><strong>补来源，跑 390px，随后冻结。</strong></div>
+        <a class="action-link" href="#evidence">查看三条证据 →</a>
+      </article>
+    </section>
+  </main>
+  <script data-gary-demo-script>
+(() => {
+  "use strict";
+
+  const root = document.documentElement;
+  const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
+  const filterItems = Array.from(document.querySelectorAll("[data-category]"));
+  const filterStatus = document.querySelector("[data-filter-status]");
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const filter = button.dataset.filter;
+      filterButtons.forEach((candidate) => {
+        candidate.setAttribute("aria-pressed", String(candidate === button));
+      });
+      let visible = 0;
+      filterItems.forEach((item) => {
+        const show = filter === "all" || item.dataset.category === filter;
+        item.classList.toggle("is-filtered-out", !show);
+        if (show) visible += 1;
+      });
+      if (filterStatus) {
+        filterStatus.textContent = `当前显示 ${visible} 项`;
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const next = root.getAttribute("data-gary-theme") === "light" ? "dark" : "light";
+      root.setAttribute("data-gary-theme", next);
+      button.setAttribute("aria-pressed", String(next === "light"));
+      button.textContent = next === "light" ? "切换深色" : "切换浅色";
+    });
+  });
+
+  document.querySelectorAll("[data-scroll-target]").forEach((control) => {
+    control.addEventListener("click", (event) => {
+      const target = document.getElementById(control.dataset.scrollTarget);
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({ block: "start" });
+      target.focus({ preventScroll: true });
+    });
+  });
+})();
+  </script>
+</body>
+</html>

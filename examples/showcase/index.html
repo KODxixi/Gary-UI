@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-gary-density="1">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atelier · 让每个界面都经得起推敲</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%232e8dff'/%3E%3Ctext x='16' y='23' font-family='Arial' font-size='19' font-weight='bold' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../tokens/base.css">
+<link rel="stylesheet" href="../../patterns/shared/layout.css">
+<style>
+  /* ============================================================
+   * Atelier — full showcase built on Gary-UI
+   * 深色基调 · 发布会级排版 · 自适应圆角 · morph 图标
+   * ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--gary-surface-page);
+    color: var(--gary-text-primary);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  ::selection { background: color-mix(in oklch, var(--gary-focus-ring) 35%, transparent); }
+
+  /* ---------- 容器 ---------- */
+  .wrap { width: min(100% - 48px, 1120px); margin-inline: auto; }
+  .wrap-tight { width: min(100% - 48px, 780px); margin-inline: auto; }
+  section { padding-block: clamp(72px, 10vw, 128px); position: relative; }
+  .section-head { max-width: 640px; margin: 0 auto clamp(40px, 6vw, 64px); text-align: center; }
+  .section-head h2 { margin: 18px 0 16px; }
+  .section-head .lede { margin: 0 auto; }
+
+  /* ---------- 排版 ---------- */
+  h1, h2, h3, h4 { font-family: var(--gary-font-display); font-weight: 600; margin: 0; }
+  h1 { font-size: clamp(2.8rem, 6.2vw, 5.1rem); line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance; }
+  h2 { font-size: clamp(1.95rem, 3.7vw, 2.9rem); line-height: 1.08; letter-spacing: -0.025em; text-wrap: balance; }
+  h3 { font-size: 1.18rem; line-height: 1.28; letter-spacing: -0.012em; }
+  p { margin: 0; }
+  .eyebrow {
+    font-family: var(--gary-font-display); font-weight: 600;
+    font-size: 0.76rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gary-text-secondary);
+  }
+  .lede { font-size: clamp(1.06rem, 1.4vw, 1.24rem); line-height: 1.62; color: var(--gary-text-secondary); }
+  .muted { color: var(--gary-text-tertiary); }
+
+  /* ---------- 图标尺寸 ---------- */
+  [data-gary-icon] { display: inline-flex; flex: none; }
+  [data-gary-icon] svg { width: 100%; height: 100%; display: block; }
+  .ic-xs { width: 14px; height: 14px; }
+  .ic-sm { width: 18px; height: 18px; }
+  .ic-md { width: 20px; height: 20px; }
+  .ic-lg { width: 24px; height: 24px; }
+
+  /* ---------- 按钮 ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: var(--gary-font-display); font-weight: 600; font-size: 0.95rem;
+    padding: 12px 20px; border-radius: 12px; border: 1px solid transparent;
+    cursor: pointer; text-decoration: none; white-space: nowrap; user-select: none;
+    transition: transform var(--gary-duration-respond) var(--gary-ease-out),
+                background var(--gary-duration-respond) var(--gary-ease-out),
+                border-color var(--gary-duration-respond) var(--gary-ease-out),
+                filter var(--gary-duration-respond) var(--gary-ease-out);
+  }
+  .btn-primary { background: var(--gary-focus-ring); color: #fff; box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 6px 18px color-mix(in oklch, var(--gary-focus-ring) 40%, transparent); }
+  .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-ghost { background: rgba(255,255,255,.055); border-color: rgba(255,255,255,.12); color: var(--gary-text-primary); }
+  .btn-ghost:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); transform: translateY(-1px); }
+  .btn-lg { padding: 15px 26px; font-size: 1rem; border-radius: 14px; }
+  .btn-block { width: 100%; }
+  .link-underline { color: var(--gary-text-secondary); text-decoration: none; font-size: .9rem; }
+  .link-underline:hover { color: var(--gary-text-primary); }
+
+  /* ---------- 表面（卡片） ---------- */
+  .surface {
+    background: linear-gradient(180deg, var(--gary-card-surface-top), var(--gary-card-surface-bottom));
+    border: 1px solid var(--gary-card-edge);
+    border-radius: var(--gary-radius, var(--gary-radius-card));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06), var(--gary-elevation-2);
+    transition: transform var(--gary-duration-respond) var(--gary-ease-out),
+                box-shadow var(--gary-duration-respond) var(--gary-ease-out),
+                border-color var(--gary-duration-respond) var(--gary-ease-out);
+  }
+  .surface-hover:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.22); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), var(--gary-elevation-3); }
+
+  /* ============================================================
+   * 顶部公告条
+   * ============================================================ */
+  .announce {
+    text-align: center; padding: 10px 16px; font-size: .84rem;
+    background: color-mix(in oklch, var(--gary-focus-ring) 12%, transparent);
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .announce a { color: var(--gary-text-primary); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+  .announce a:hover .ic-sm { transform: translateX(2px); }
+  .announce .ic-sm { transition: transform var(--gary-duration-respond); }
+
+  /* ============================================================
+   * 导航
+   * ============================================================ */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(18px) saturate(1.6);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    background: color-mix(in oklch, var(--gary-surface-page) 72%, transparent);
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 66px; position: relative; }
+  .brand { display: flex; align-items: center; gap: 11px; font-family: var(--gary-font-display); font-weight: 600; font-size: 1.12rem; color: var(--gary-text-primary); text-decoration: none; }
+  .brand-mark {
+    width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center;
+    background: linear-gradient(180deg, color-mix(in oklch, var(--gary-focus-ring) 90%, white), var(--gary-focus-ring));
+    color: #fff; font-size: 1rem; box-shadow: 0 2px 8px color-mix(in oklch, var(--gary-focus-ring) 45%, transparent);
+  }
+  .nav-links { display: flex; gap: 30px; }
+  .nav-links a { color: var(--gary-text-secondary); text-decoration: none; font-size: .92rem; font-weight: 500; transition: color var(--gary-duration-respond); }
+  .nav-links a:hover { color: var(--gary-text-primary); }
+  .nav-actions { display: flex; align-items: center; gap: 14px; }
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 11px; display: none; place-items: center;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: var(--gary-text-primary); cursor: pointer;
+  }
+  .mnav { position: absolute; top: 66px; left: 0; right: 0; display: none; flex-direction: column; padding: 10px 16px 18px; background: var(--gary-surface-page); border-bottom: 1px solid rgba(255,255,255,.1); }
+  .mnav.open { display: flex; }
+  .mnav a { padding: 13px 8px; color: var(--gary-text-primary); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.06); font-weight: 500; }
+  .mnav .btn { margin-top: 14px; }
+
+  /* ============================================================
+   * Hero
+   * ============================================================ */
+  .hero { padding-block: clamp(72px, 10vw, 118px) clamp(48px, 7vw, 88px); text-align: center; }
+  .hero .wrap-tight { display: flex; flex-direction: column; align-items: center; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 8px;
+    border-radius: 999px; border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.05); font-size: .82rem; color: var(--gary-text-secondary);
+    text-decoration: none; margin-bottom: 28px;
+  }
+  .pill .tag { background: var(--gary-focus-ring); color: #fff; font-size: .72rem; font-weight: 600; padding: 2px 9px; border-radius: 999px; }
+  .pill .ic-sm { color: var(--gary-text-secondary); transition: transform var(--gary-duration-respond); }
+  .pill:hover .ic-sm { transform: translateX(2px); }
+  .hero h1 { margin-bottom: 24px; }
+  .hero .lede { max-width: 620px; margin-bottom: 36px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .hero-note { margin-top: 22px; font-size: .86rem; color: var(--gary-text-tertiary); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .hero-note .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: currentColor; }
+
+  /* ============================================================
+   * 产品预览（App mock）
+   * ============================================================ */
+  .app-window { overflow: hidden; padding: 0; }
+  .app-bar { display: flex; align-items: center; gap: 8px; padding: 13px 16px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .app-bar .traffic { width: 11px; height: 11px; border-radius: 50%; }
+  .app-bar .url {
+    margin-inline: auto; width: min(40%, 340px); height: 26px; border-radius: 8px;
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
+    display: flex; align-items: center; justify-content: center; gap: 6px; font-size: .76rem; color: var(--gary-text-tertiary);
+  }
+  .app-body { display: grid; grid-template-columns: 216px 1fr; min-height: 420px; }
+  .app-sidebar { border-right: 1px solid rgba(255,255,255,.08); padding: 16px 12px; display: flex; flex-direction: column; gap: 3px; }
+  .app-logo { display: flex; align-items: center; gap: 9px; padding: 6px 10px 14px; font-family: var(--gary-font-display); font-weight: 600; font-size: .92rem; }
+  .app-logo .brand-mark { width: 24px; height: 24px; border-radius: 7px; font-size: .8rem; }
+  .app-nav { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 9px; font-size: .86rem; color: var(--gary-text-secondary); cursor: pointer; }
+  .app-nav .ic-sm { width: 17px; height: 17px; }
+  .app-nav.active { background: color-mix(in oklch, var(--gary-focus-ring) 18%, transparent); color: var(--gary-text-primary); }
+  .app-nav:not(.active):hover { background: rgba(255,255,255,.05); color: var(--gary-text-primary); }
+  .app-spacer { margin-top: auto; }
+  .app-user { display: flex; align-items: center; gap: 9px; padding: 8px 10px; font-size: .82rem; }
+  .app-main { padding: 22px; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  .app-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .app-top h3 { font-size: 1.05rem; }
+  .app-search { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 9px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); font-size: .82rem; color: var(--gary-text-tertiary); }
+  .app-top-icons { display: flex; gap: 8px; }
+  .app-round { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); color: var(--gary-text-secondary); position: relative; }
+  .app-round .badge-dot { position: absolute; top: 7px; right: 7px; width: 7px; height: 7px; border-radius: 50%; background: var(--gary-focus-ring); border: 2px solid var(--gary-surface-page); }
+  .app-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--gary-focus-ring), #7c5cff); display: grid; place-items: center; font-size: .8rem; font-weight: 600; color: #fff; }
+  .app-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .app-stat { padding: 14px 16px; border-radius: 12px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); }
+  .app-stat .label { font-size: .78rem; color: var(--gary-text-tertiary); display: flex; align-items: center; gap: 6px; }
+  .app-stat .num { font-family: var(--gary-font-display); font-weight: 600; font-size: 1.4rem; margin-top: 4px; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .app-stat .delta { font-size: .76rem; color: #34d399; }
+  .app-chart { padding: 16px 18px; border-radius: 12px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); }
+  .app-chart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: .82rem; color: var(--gary-text-secondary); }
+  .app-chart svg { width: 100%; height: auto; display: block; }
+
+  /* ============================================================
+   * 信任条
+   * ============================================================ */
+  .trust { padding-block: clamp(48px, 6vw, 72px); }
+  .trust p { text-align: center; font-size: .82rem; color: var(--gary-text-tertiary); margin-bottom: 28px; letter-spacing: .04em; }
+  .trust-row { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(28px, 6vw, 56px); align-items: center; }
+  .trust-row span { font-family: var(--gary-font-display); font-weight: 600; font-size: 1.12rem; color: var(--gary-text-tertiary); letter-spacing: .01em; display: inline-flex; align-items: center; gap: 8px; }
+
+  /* ============================================================
+   * 特性 Bento
+   * ============================================================ */
+  .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .feature { padding: 26px; display: flex; flex-direction: column; }
+  .feature.span-2 { grid-column: span 2; }
+  .feature-icon {
+    width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+    background: color-mix(in oklch, var(--gary-focus-ring) 16%, transparent);
+    border: 1px solid color-mix(in oklch, var(--gary-focus-ring) 30%, transparent);
+    color: var(--gary-focus-ring); margin-bottom: 16px;
+  }
+  .feature h3 { margin-bottom: 8px; }
+  .feature p { font-size: .92rem; color: var(--gary-text-secondary); }
+  /* 大格：流体刻度示意 */
+  .scale-demo { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .scale-row { display: flex; align-items: baseline; gap: 14px; color: var(--gary-text-tertiary); }
+  .scale-row .sample { font-family: var(--gary-font-display); font-weight: 600; color: var(--gary-text-primary); line-height: 1; letter-spacing: -0.02em; }
+  .scale-row .scale-label { margin-left: auto; font-size: .72rem; font-variant-numeric: tabular-nums; }
+  /* 大格：叠层示意 */
+  .stack-demo { position: relative; margin-top: 24px; height: 120px; }
+  .stack-layer { position: absolute; border-radius: 12px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); }
+  .stack-layer.l1 { inset: 0 0 0 0; }
+  .stack-layer.l2 { inset: 16px 0 0 28px; background: rgba(255,255,255,.06); }
+  .stack-layer.l3 { inset: 32px 0 0 56px; background: rgba(255,255,255,.08); border-color: color-mix(in oklch, var(--gary-focus-ring) 40%, transparent); }
+
+  /* ============================================================
+   * 数据指标
+   * ============================================================ */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .stat { padding: 26px; }
+  .stat-num { font-family: var(--gary-font-display); font-weight: 600; font-size: clamp(2.1rem, 4vw, 3.1rem); line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; margin-bottom: 10px; }
+  .stat-label { font-size: .9rem; color: var(--gary-text-secondary); }
+
+  /* ============================================================
+   * 重点侧栏
+   * ============================================================ */
+  .split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(36px, 6vw, 64px); align-items: center; }
+  .split h2 { margin: 16px 0 18px; }
+  .checklist { display: flex; flex-direction: column; gap: 15px; margin-top: 26px; }
+  .check-item { display: flex; gap: 12px; align-items: flex-start; font-size: .95rem; }
+  .check-badge { width: 22px; height: 22px; border-radius: 7px; flex: none; display: grid; place-items: center; background: color-mix(in oklch, var(--gary-focus-ring) 20%, transparent); color: var(--gary-focus-ring); margin-top: 1px; }
+  .settings-card { padding: 12px; }
+  .settings-title { padding: 12px 14px 10px; font-size: .82rem; color: var(--gary-text-tertiary); }
+  .setting-row { display: flex; align-items: center; gap: 13px; padding: 13px 14px; border-radius: 13px; }
+  .setting-row + .setting-row { margin-top: 2px; }
+  .setting-row:hover { background: rgba(255,255,255,.04); }
+  .setting-ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.09); color: var(--gary-text-secondary); }
+  .setting-txt { display: flex; flex-direction: column; }
+  .setting-txt strong { font-size: .9rem; font-weight: 600; }
+  .setting-txt span { font-size: .78rem; color: var(--gary-text-tertiary); }
+  .toggle { margin-left: auto; width: 42px; height: 25px; border-radius: 999px; background: rgba(255,255,255,.14); position: relative; flex: none; transition: background var(--gary-duration-respond); }
+  .toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 19px; height: 19px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform var(--gary-duration-respond) var(--gary-ease-out); }
+  .toggle.on { background: var(--gary-focus-ring); }
+  .toggle.on::after { transform: translateX(17px); }
+
+  /* ============================================================
+   * 大引言
+   * ============================================================ */
+  .quote-wrap { text-align: center; }
+  .quote-mark { font-family: var(--gary-font-display); font-size: 3.4rem; line-height: 1; color: color-mix(in oklch, var(--gary-focus-ring) 60%, transparent); margin-bottom: 8px; }
+  .quote-text { font-family: var(--gary-font-display); font-weight: 500; font-size: clamp(1.35rem, 2.8vw, 2.1rem); line-height: 1.38; letter-spacing: -0.02em; max-width: 880px; margin: 0 auto 36px; text-wrap: balance; }
+  .quote-person { display: flex; align-items: center; justify-content: center; gap: 13px; }
+  .quote-avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #7c5cff, var(--gary-focus-ring)); display: grid; place-items: center; font-family: var(--gary-font-display); font-weight: 600; color: #fff; }
+  .quote-person .who { text-align: left; }
+  .quote-person .who strong { display: block; font-size: .95rem; }
+  .quote-person .who span { font-size: .84rem; color: var(--gary-text-tertiary); }
+
+  /* ============================================================
+   * 定价
+   * ============================================================ */
+  .pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+  .plan { padding: 32px 28px; display: flex; flex-direction: column; position: relative; }
+  .plan.featured { border-color: color-mix(in oklch, var(--gary-focus-ring) 55%, transparent); background: linear-gradient(180deg, color-mix(in oklch, var(--gary-focus-ring) 14%, var(--gary-card-surface-top)), var(--gary-card-surface-bottom)); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 0 0 1px color-mix(in oklch, var(--gary-focus-ring) 35%, transparent), var(--gary-elevation-3); }
+  .plan-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--gary-focus-ring); color: #fff; font-size: .74rem; font-weight: 600; padding: 4px 14px; border-radius: 999px; white-space: nowrap; }
+  .plan-name { font-size: .95rem; font-weight: 600; font-family: var(--gary-font-display); }
+  .plan-desc { font-size: .85rem; color: var(--gary-text-tertiary); margin-top: 4px; }
+  .plan-price { display: flex; align-items: baseline; gap: 6px; margin: 20px 0 4px; }
+  .plan-price .amount { font-family: var(--gary-font-display); font-weight: 600; font-size: 2.9rem; line-height: 1; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
+  .plan-price .per { font-size: .88rem; color: var(--gary-text-tertiary); }
+  .plan-features { display: flex; flex-direction: column; gap: 13px; margin: 26px 0; }
+  .plan-feature { display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; color: var(--gary-text-secondary); }
+  .plan-feature .ic-sm { color: var(--gary-focus-ring); margin-top: 2px; }
+  .plan-feature.off { color: var(--gary-text-tertiary); }
+  .plan-feature.off .ic-sm { color: var(--gary-text-tertiary); }
+
+  /* ============================================================
+   * FAQ
+   * ============================================================ */
+  .faq { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+  .faq details {
+    background: linear-gradient(180deg, var(--gary-card-surface-top), var(--gary-card-surface-bottom));
+    border: 1px solid var(--gary-card-edge); border-radius: 16px; padding: 0 22px;
+    transition: border-color var(--gary-duration-respond);
+  }
+  .faq details[open] { border-color: rgba(255,255,255,.2); }
+  .faq summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 19px 0; cursor: pointer; font-family: var(--gary-font-display); font-weight: 600; font-size: 1.02rem; list-style: none; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary .ic-sm { color: var(--gary-text-tertiary); transition: transform var(--gary-duration-enter) var(--gary-ease-out); flex: none; }
+  .faq details[open] summary .ic-sm { transform: rotate(180deg); }
+  .faq .answer { padding: 0 0 20px; color: var(--gary-text-secondary); font-size: .94rem; line-height: 1.68; }
+
+  /* ============================================================
+   * Final CTA
+   * ============================================================ */
+  .cta-panel { padding: clamp(52px, 9vw, 92px); text-align: center; }
+  .cta-panel h2 { margin-bottom: 16px; }
+  .cta-panel .lede { max-width: 520px; margin: 0 auto; }
+  .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+  .cta-note { margin-top: 20px; font-size: .85rem; color: var(--gary-text-tertiary); }
+
+  /* ============================================================
+   * Footer
+   * ============================================================ */
+  .footer { border-top: 1px solid rgba(255,255,255,.07); padding-top: clamp(56px, 7vw, 80px); }
+  .footer-grid { display: grid; grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr; gap: 32px; }
+  .footer-brand p { font-size: .88rem; color: var(--gary-text-tertiary); margin: 14px 0 20px; max-width: 260px; }
+  .footer-social { display: flex; gap: 8px; }
+  .footer-social a { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); color: var(--gary-text-secondary); }
+  .footer-social a:hover { color: var(--gary-text-primary); background: rgba(255,255,255,.1); }
+  .footer-col h4 { font-size: .8rem; color: var(--gary-text-secondary); text-transform: uppercase; letter-spacing: .09em; margin-bottom: 16px; font-family: var(--gary-font-display); font-weight: 600; }
+  .footer-col a { display: block; color: var(--gary-text-tertiary); text-decoration: none; font-size: .89rem; margin-bottom: 11px; transition: color var(--gary-duration-respond); }
+  .footer-col a:hover { color: var(--gary-text-primary); }
+  .footer-bottom { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; padding: 28px 0 40px; border-top: 1px solid rgba(255,255,255,.07); margin-top: 48px; font-size: .83rem; color: var(--gary-text-tertiary); }
+  .footer-status { display: flex; align-items: center; gap: 8px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d399; }
+  .footer-legal { display: flex; gap: 18px; }
+  .footer-legal a { color: var(--gary-text-tertiary); text-decoration: none; }
+  .footer-legal a:hover { color: var(--gary-text-primary); }
+
+  /* ============================================================
+   * 响应式
+   * ============================================================ */
+  @media (max-width: 980px) {
+    .nav-links, .nav-actions .btn { display: none; }
+    .icon-btn { display: grid; }
+    .bento { grid-template-columns: 1fr 1fr; }
+    .feature.span-2 { grid-column: span 2; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .pricing { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
+    .split { grid-template-columns: 1fr; }
+    .app-body { grid-template-columns: 1fr; }
+    .app-sidebar { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 600px) {
+    .bento, .stats { grid-template-columns: 1fr; }
+    .feature.span-2 { grid-column: span 1; }
+    .app-stats { grid-template-columns: 1fr; }
+    .app-search { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ 顶部公告 ============ -->
+<div class="announce">
+  <a href="#features">
+    Atelier 2.0 正式发布——全新 morph 图标与自适应圆角
+    <span class="ic-sm" data-gary-icon="arrow-right"></span>
+  </a>
+</div>
+
+<!-- ============ 导航 ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#">
+      <span class="brand-mark">A</span>
+      Atelier
+    </a>
+    <nav class="nav-links">
+      <a href="#features">功能</a>
+      <a href="#how">方案</a>
+      <a href="#pricing">定价</a>
+      <a href="#faq">文档</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="link-underline" href="#">登录</a>
+      <a class="btn btn-primary" href="#pricing">开始使用</a>
+      <button class="icon-btn" id="menuBtn" aria-label="菜单" onclick="document.getElementById('mnav').classList.toggle('open')">
+        <span class="ic-md" data-gary-icon="menu"></span>
+      </button>
+    </div>
+    <nav class="mnav" id="mnav">
+      <a href="#features">功能</a>
+      <a href="#how">方案</a>
+      <a href="#pricing">定价</a>
+      <a href="#faq">文档</a>
+      <a class="btn btn-primary btn-block" href="#pricing">开始使用</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ============ Hero ============ -->
+<section class="hero">
+  <div class="wrap-tight">
+    <a class="pill" href="#features">
+      <span class="tag">2.0</span>
+      全新发布
+      <span class="ic-sm" data-gary-icon="arrow-up-right"></span>
+    </a>
+    <h1>让每个界面都<br>经得起推敲</h1>
+    <p class="lede">Atelier 是面向产品团队的界面工作台——流体字阶、排版原语、自适应圆角与 morph 图标，把发布会级的细节变成默认，而不是临场发挥。</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary btn-lg" href="#pricing">
+        免费开始
+        <span class="ic-sm" data-gary-icon="arrow-right"></span>
+      </a>
+      <a class="btn btn-ghost btn-lg" href="#preview">
+        <span class="ic-sm" data-gary-icon="play"></span>
+        观看演示
+      </a>
+    </div>
+    <div class="hero-note">
+      <span>免费开始</span><span class="dot-sep"></span>
+      <span>无需信用卡</span><span class="dot-sep"></span>
+      <span>已服务 2,000+ 团队</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 产品预览 ============ -->
+<section id="preview" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="surface app-window" data-gary-radius="panel">
+      <div class="app-bar">
+        <span class="traffic" style="background:#ff5f57"></span>
+        <span class="traffic" style="background:#febc2e"></span>
+        <span class="traffic" style="background:#28c840"></span>
+        <span class="url">
+          <span class="ic-xs" data-gary-icon="ellipsis"></span>
+          app.atelier.studio/workspace
+        </span>
+      </div>
+      <div class="app-body">
+        <aside class="app-sidebar">
+          <div class="app-logo"><span class="brand-mark">A</span> Atelier</div>
+          <div class="app-nav active"><span class="ic-sm" data-gary-icon="sliders"></span> 概览</div>
+          <div class="app-nav"><span class="ic-sm" data-gary-icon="monitor"></span> 项目</div>
+          <div class="app-nav"><span class="ic-sm" data-gary-icon="calendar"></span> 日程</div>
+          <div class="app-nav"><span class="ic-sm" data-gary-icon="message-square"></span> 消息</div>
+          <div class="app-nav"><span class="ic-sm" data-gary-icon="image"></span> 文件</div>
+          <div class="app-nav"><span class="ic-sm" data-gary-icon="settings"></span> 设置</div>
+          <div class="app-spacer"></div>
+          <div class="app-user"><span class="app-avatar">G</span> Gary</div>
+        </aside>
+        <div class="app-main">
+          <div class="app-top">
+            <h3>工作台概览</h3>
+            <div class="app-search"><span class="ic-sm" data-gary-icon="search"></span> 搜索…</div>
+            <div class="app-top-icons">
+              <span class="app-round"><span class="ic-sm" data-gary-icon="bell"></span><span class="badge-dot"></span></span>
+              <span class="app-round"><span class="ic-sm" data-gary-icon="settings"></span></span>
+              <span class="app-avatar">G</span>
+            </div>
+          </div>
+          <div class="app-stats">
+            <div class="app-stat">
+              <div class="label">活跃项目</div>
+              <div class="num">128</div>
+              <div class="delta">+12% 本周</div>
+            </div>
+            <div class="app-stat">
+              <div class="label">本周交付</div>
+              <div class="num">42</div>
+              <div class="delta">+8% 本周</div>
+            </div>
+            <div class="app-stat">
+              <div class="label"><span class="ic-xs" data-gary-icon="star"></span> 满意度</div>
+              <div class="num">4.8</div>
+              <div class="delta">稳定</div>
+            </div>
+          </div>
+          <div class="app-chart">
+            <div class="app-chart-head">
+              <span>交付趋势</span>
+              <span>近 12 周</span>
+            </div>
+            <svg viewBox="0 0 400 150" preserveAspectRatio="none" aria-label="交付趋势图">
+              <defs>
+                <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2e8dff" stop-opacity="0.32"/>
+                  <stop offset="100%" stop-color="#2e8dff" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,120 L40,104 L80,112 L120,84 L160,90 L200,62 L240,72 L280,48 L320,58 L360,32 L400,40 L400,150 L0,150 Z" fill="url(#chartFill)"/>
+              <path d="M0,120 L40,104 L80,112 L120,84 L160,90 L200,62 L240,72 L280,48 L320,58 L360,32 L400,40" fill="none" stroke="#2e8dff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="200" cy="62" r="3.4" fill="#2e8dff"/>
+              <circle cx="360" cy="32" r="3.4" fill="#2e8dff"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 信任条 ============ -->
+<section class="trust">
+  <div class="wrap">
+    <p>被这些团队用于关键产品</p>
+    <div class="trust-row">
+      <span>ACME</span>
+      <span>GLOBEX</span>
+      <span>INITECH</span>
+      <span>UMBRELLA</span>
+      <span>HOOLI</span>
+      <span>NORTHWIND</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 特性 Bento ============ -->
+<section id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">核心能力</span>
+      <h2>高级感，是一套默认值</h2>
+      <p class="lede">不是事后加滤镜，而是从字号、间距、圆角到图标，每一项都由 tokens 精确规定。</p>
+    </div>
+    <div class="bento">
+      <!-- 流体刻度（大格） -->
+      <div class="surface surface-hover feature span-2" data-gary-radius="card">
+        <div class="feature-icon"><span class="ic-md" data-gary-icon="sliders"></span></div>
+        <h3>文字随屏幕呼吸</h3>
+        <p>13 个流体字号，从 390 到 1440 视口用 clamp 平滑插值，不需要一个媒体查询。</p>
+        <div class="scale-demo">
+          <div class="scale-row"><span class="sample" style="font-size:1.7rem">Aa</span><span>展示标题</span><span class="scale-label">type-6</span></div>
+          <div class="scale-row"><span class="sample" style="font-size:1.25rem">Aa</span><span>章节标题</span><span class="scale-label">type-3</span></div>
+          <div class="scale-row"><span class="sample" style="font-size:.95rem">Aa</span><span>正文</span><span class="scale-label">type-0</span></div>
+        </div>
+      </div>
+      <!-- 深色模式 -->
+      <div class="surface surface-hover feature" data-gary-radius="card">
+        <div class="feature-icon"><span class="ic-md" data-gary-icon="moon"></span></div>
+        <h3>深色是一等公民</h3>
+        <p>oklch 带色相的中性色，同一份语义在两种模式下保持一致的层次。</p>
+      </div>
+      <!-- 排版原语 -->
+      <div class="surface surface-hover feature" data-gary-radius="card">
+        <div class="feature-icon"><span class="ic-md" data-gary-icon="code"></span></div>
+        <h3>算法化的布局</h3>
+        <p>stack、cluster、sidebar、grid 等九种原语，密度与折行从容器里自然涌现。</p>
+      </div>
+      <!-- Morph 图标 -->
+      <div class="surface surface-hover feature" data-gary-radius="card">
+        <div class="feature-icon"><span class="ic-md" data-gary-icon="heart"></span></div>
+        <h3>会变形的图标</h3>
+        <p>48 个图标共享一套路径，状态切换是真实的形变，而非生硬替换。</p>
+      </div>
+      <!-- 动效 -->
+      <div class="surface surface-hover feature" data-gary-radius="card">
+        <div class="feature-icon"><span class="ic-md" data-gary-icon="play"></span></div>
+        <h3>克制的动效</h3>
+        <p>响应、进入、退出三档时长与缓动，动效服务于层级，不喧宾夺主。</p>
+      </div>
+      <!-- 表面质感（大格） -->
+      <div class="surface surface-hover feature span-2" data-gary-radius="card">
+        <div class="feature-icon"><span class="ic-md" data-gary-icon="monitor"></span></div>
+        <h3>看得见的层次</h3>
+        <p>contact shadow、环境光与 inset 高光，卡片的距离感不靠夸张特效。</p>
+        <div class="stack-demo">
+          <div class="stack-layer l1"></div>
+          <div class="stack-layer l2"></div>
+          <div class="stack-layer l3"></div>
+        </div>
+      </div>
+      <!-- 性能 -->
+      <div class="surface surface-hover feature" data-gary-radius="card">
+        <div class="feature-icon"><span class="ic-md" data-gary-icon="refresh-cw"></span></div>
+        <h3>原生速度</h3>
+        <p>纯 CSS、零运行时依赖，布局由浏览器完成，60fps 是底线。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 数据指标 ============ -->
+<section>
+  <div class="wrap">
+    <div class="stats">
+      <div class="surface stat" data-gary-radius="card">
+        <div class="stat-num">60<span style="font-size:1.4rem">fps</span></div>
+        <div class="stat-label">动效与交互</div>
+      </div>
+      <div class="surface stat" data-gary-radius="card">
+        <div class="stat-num">184</div>
+        <div class="stat-label">设计 tokens</div>
+      </div>
+      <div class="surface stat" data-gary-radius="card">
+        <div class="stat-num">48</div>
+        <div class="stat-label">morph 图标</div>
+      </div>
+      <div class="surface stat" data-gary-radius="card">
+        <div class="stat-num">2,000+</div>
+        <div class="stat-label">团队在用</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 重点侧栏 ============ -->
+<section id="how">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <span class="eyebrow">为挑剔而生</span>
+        <h2>细节不是装饰，是结构</h2>
+        <p class="lede">高级感来自一连串看不见的决定。Atelier 把这些决定固化成 tokens，让你每次都从一个很高的基线出发。</p>
+        <div class="checklist">
+          <div class="check-item">
+            <span class="check-badge"><span class="ic-xs" data-gary-icon="check"></span></span>
+            <span>标题 600 semibold、正文 400，字重分工清晰</span>
+          </div>
+          <div class="check-item">
+            <span class="check-badge"><span class="ic-xs" data-gary-icon="check"></span></span>
+            <span>数字 tabular-nums 等宽，数据不再跳动</span>
+          </div>
+          <div class="check-item">
+            <span class="check-badge"><span class="ic-xs" data-gary-icon="check"></span></span>
+            <span>圆角随卡片自身尺寸，方形角不变形</span>
+          </div>
+          <div class="check-item">
+            <span class="check-badge"><span class="ic-xs" data-gary-icon="check"></span></span>
+            <span>行宽 65ch、行高 1.65，长文不费眼</span>
+          </div>
+        </div>
+      </div>
+      <div class="surface settings-card" data-gary-radius="card">
+        <div class="settings-title">默认偏好</div>
+        <div class="setting-row">
+          <span class="setting-ic"><span class="ic-sm" data-gary-icon="moon"></span></span>
+          <span class="setting-txt"><strong>深色模式</strong><span>oklch 带色相中性色</span></span>
+          <span class="toggle on"></span>
+        </div>
+        <div class="setting-row">
+          <span class="setting-ic"><span class="ic-sm" data-gary-icon="sliders"></span></span>
+          <span class="setting-txt"><strong>流体刻度</strong><span>字号随视口平滑缩放</span></span>
+          <span class="toggle on"></span>
+        </div>
+        <div class="setting-row">
+          <span class="setting-ic"><span class="ic-sm" data-gary-icon="monitor"></span></span>
+          <span class="setting-txt"><strong>自适应圆角</strong><span>随卡片尺寸，方形角</span></span>
+          <span class="toggle on"></span>
+        </div>
+        <div class="setting-row">
+          <span class="setting-ic"><span class="ic-sm" data-gary-icon="play"></span></span>
+          <span class="setting-txt"><strong>减弱动效</strong><span>尊重系统偏好</span></span>
+          <span class="toggle"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 大引言 ============ -->
+<section>
+  <div class="wrap quote-wrap">
+    <div class="quote-mark">“</div>
+    <p class="quote-text">我们不再为每个页面重新发明排版。Atelier 把团队从「差不多」里解放出来，让最终的界面看起来就像我们一直想要的那样。</p>
+    <div class="quote-person">
+      <span class="quote-avatar">L</span>
+      <span class="who">
+        <strong>李然</strong>
+        <span>设计负责人 · 某科技公司</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 定价 ============ -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">定价</span>
+      <h2>从免费开始，按需升级</h2>
+      <p class="lede">所有方案都包含完整 tokens 与排版原语，随时可取消。</p>
+    </div>
+    <div class="pricing">
+      <!-- 入门 -->
+      <div class="surface surface-hover plan" data-gary-radius="card">
+        <div class="plan-name">入门</div>
+        <div class="plan-desc">适合个人与原型</div>
+        <div class="plan-price"><span class="amount">¥0</span><span class="per">永久免费</span></div>
+        <div class="plan-features">
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 全部 tokens 与原语</div>
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 1 个项目</div>
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 社区支持</div>
+        </div>
+        <a class="btn btn-ghost btn-block" href="#">开始免费使用</a>
+      </div>
+      <!-- 专业（推荐） -->
+      <div class="surface plan featured" data-gary-radius="card">
+        <span class="plan-badge">最受欢迎</span>
+        <div class="plan-name">专业</div>
+        <div class="plan-desc">适合独立开发者与小团队</div>
+        <div class="plan-price"><span class="amount">¥99</span><span class="per">/月，年付 ¥999</span></div>
+        <div class="plan-features">
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 无限项目</div>
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 48 个 morph 图标</div>
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 深色 / 浅色双模式</div>
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 组件与模板库</div>
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 优先邮件支持</div>
+        </div>
+        <a class="btn btn-primary btn-block" href="#">开始 14 天试用</a>
+      </div>
+      <!-- 团队 -->
+      <div class="surface surface-hover plan" data-gary-radius="card">
+        <div class="plan-name">团队</div>
+        <div class="plan-desc">适合成长型组织</div>
+        <div class="plan-price"><span class="amount">¥299</span><span class="per">/人/月</span></div>
+        <div class="plan-features">
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 包含专业版全部能力</div>
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 共享库与协作</div>
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 设计系统同步</div>
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 权限管理</div>
+          <div class="plan-feature"><span class="ic-sm" data-gary-icon="check"></span> 专属支持</div>
+        </div>
+        <a class="btn btn-ghost btn-block" href="#">联系我们</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">常见问题</span>
+      <h2>你可能想知道</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Atelier 是免费的吗？<span class="ic-sm" data-gary-icon="chevron-down"></span></summary>
+        <div class="answer">入门版永久免费，包含全部 tokens 与排版原语。专业版与团队版提供 14 天试用，试用期内不收取费用。</div>
+      </details>
+      <details>
+        <summary>需要特定的前端框架吗？<span class="ic-sm" data-gary-icon="chevron-down"></span></summary>
+        <div class="answer">不需要。核心是纯 CSS 与语义化 HTML，可直接在任何页面使用。同时我们也提供 React 适配器，方便在组件化项目里按需引入。</div>
+      </details>
+      <details>
+        <summary>可以只使用其中一部分吗？<span class="ic-sm" data-gary-icon="chevron-down"></span></summary>
+        <div class="answer">可以。tokens、排版原语、图标与组件各自独立，你可以只引入需要的部分，不必整体采纳。</div>
+      </details>
+      <details>
+        <summary>支持移动端吗？<span class="ic-sm" data-gary-icon="chevron-down"></span></summary>
+        <div class="answer">所有能力默认响应式。流体刻度与布局原语不依赖固定断点，在手机、平板与桌面都能自然适配。</div>
+      </details>
+      <details>
+        <summary>如何升级或迁移？<span class="ic-sm" data-gary-icon="chevron-down"></span></summary>
+        <div class="answer">升级只需更新 tokens 文件并重新构建。版本遵循语义化版本，破坏性变更会提供迁移脚本与指南，不影响现有页面。</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Final CTA ============ -->
+<section>
+  <div class="wrap">
+    <div class="surface cta-panel" data-gary-radius="panel">
+      <h2>从一个很高的基线开始</h2>
+      <p class="lede">今天就把发布会级的细节变成默认。</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary btn-lg" href="#">
+          免费开始
+          <span class="ic-sm" data-gary-icon="arrow-right"></span>
+        </a>
+        <a class="btn btn-ghost btn-lg" href="#">预约演示</a>
+      </div>
+      <div class="cta-note">30 秒上手 · 随时退出</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#"><span class="brand-mark">A</span> Atelier</a>
+        <p>面向产品团队的界面工作台，把发布会级的细节变成默认。</p>
+        <div class="footer-social">
+          <a href="#" aria-label="消息"><span class="ic-sm" data-gary-icon="message-square"></span></a>
+          <a href="#" aria-label="外部链接"><span class="ic-sm" data-gary-icon="external-link"></span></a>
+          <a href="#" aria-label="发送"><span class="ic-sm" data-gary-icon="send"></span></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>产品</h4>
+        <a href="#features">功能</a>
+        <a href="#pricing">定价</a>
+        <a href="#">更新日志</a>
+        <a href="#">路线图</a>
+      </div>
+      <div class="footer-col">
+        <h4>资源</h4>
+        <a href="#faq">文档</a>
+        <a href="#">模板</a>
+        <a href="#">组件</a>
+        <a href="#">示例</a>
+      </div>
+      <div class="footer-col">
+        <h4>公司</h4>
+        <a href="#">关于</a>
+        <a href="#">博客</a>
+        <a href="#">招聘</a>
+        <a href="#">联系我们</a>
+      </div>
+      <div class="footer-col">
+        <h4>法律</h4>
+        <a href="#">隐私政策</a>
+        <a href="#">服务条款</a>
+        <a href="#">安全</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Atelier · 由 Gary-UI 构建</span>
+      <span class="footer-status">
+        <span class="status-dot"></span>
+        所有系统正常
+      </span>
+      <span class="footer-legal">
+        <a href="#">隐私</a>
+        <a href="#">条款</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="../../patterns/shared/morph-icons.js"></script>
+<script src="../../patterns/shared/adaptive-radius.js"></script>
+</body>
+</html>

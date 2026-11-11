@@ -1,0 +1,248 @@
+{
+  "repository": "https://github.com/KODxixi/Gary-UI",
+  "clone": "C:\\tmp\\gary-ui-fresh-clone-20260908-102223-245",
+  "checkedAt": "2026-09-08T10:24:33.005491+00:00",
+  "commit": "2c57f6e2cfea562a8914e526c4126319d47be794",
+  "sourceManifest": {
+    "declaredFiles": 939,
+    "entries": 939,
+    "missing": [],
+    "sha256Mismatches": [],
+    "escapingPaths": [],
+    "pass": true
+  },
+  "publicBoundary": {
+    "restrictedMatches": [],
+    "credentialShapes": [],
+    "activeActionsWorkflow": false,
+    "automationTemplates": [
+      "docs/automation/pages-workflow.yml"
+    ],
+    "pass": true
+  },
+  "reactExports": {
+    "checked": [
+      "./dist/components/ui/button.d.ts",
+      "./dist/components/ui/button.js",
+      "./dist/components/ui/card.d.ts",
+      "./dist/components/ui/card.js",
+      "./dist/components/ui/chip.d.ts",
+      "./dist/components/ui/chip.js",
+      "./dist/components/ui/evidence-bar.d.ts",
+      "./dist/components/ui/evidence-bar.js",
+      "./dist/components/ui/solid-plate.d.ts",
+      "./dist/components/ui/solid-plate.js",
+      "./dist/index.d.ts",
+      "./dist/index.js",
+      "./dist/styles/gary-ui.css",
+      "./registry.json"
+    ],
+    "missing": [],
+    "pass": true
+  },
+  "checkPublic": {
+    "exitCode": 0,
+    "report": {
+      "status": "pass",
+      "localLinks": 250,
+      "failures": []
+    },
+    "pass": true
+  },
+  "preview": {
+    "command": "python scripts/preview.py --port 49765",
+    "port": 49765,
+    "checks": [
+      {
+        "path": "/",
+        "status": 200,
+        "finalUrl": "http://127.0.0.1:49765/examples/demos/index.html",
+        "contentType": "text/html; charset=utf-8",
+        "bytes": 10761,
+        "title": "Gary-UI Demo Collection"
+      },
+      {
+        "path": "/portal/",
+        "status": 200,
+        "finalUrl": "http://127.0.0.1:49765/portal/",
+        "contentType": "text/html; charset=utf-8",
+        "bytes": 70637,
+        "title": "Gary Design System · 控制台"
+      },
+      {
+        "path": "/examples/demos/visuals/outputs/",
+        "status": 200,
+        "finalUrl": "http://127.0.0.1:49765/examples/demos/visuals/outputs/",
+        "contentType": "text/html; charset=utf-8",
+        "bytes": 83831,
+        "title": "Gary-UI 制图样例"
+      },
+      {
+        "path": "/examples/demos/visuals/outputs/delivery-trend-dark.html",
+        "status": 200,
+        "finalUrl": "http://127.0.0.1:49765/examples/demos/visuals/outputs/delivery-trend-dark.html",
+        "contentType": "text/html; charset=utf-8",
+        "bytes": 1132075,
+        "title": "华东交付完成率"
+      },
+      {
+        "path": "/examples/demos/visuals/outputs/delivery-architecture-dark.html",
+        "status": 200,
+        "finalUrl": "http://127.0.0.1:49765/examples/demos/visuals/outputs/delivery-architecture-dark.html",
+        "contentType": "text/html; charset=utf-8",
+        "bytes": 707783,
+        "title": "华东交付证据体系"
+      },
+      {
+        "path": "/examples/demos/visuals/outputs/research-outline-dark.html",
+        "status": 200,
+        "finalUrl": "http://127.0.0.1:49765/examples/demos/visuals/outputs/research-outline-dark.html",
+        "contentType": "text/html; charset=utf-8",
+        "bytes": 340327,
+        "title": "华东服务交付计划"
+      },
+      {
+        "asset": "/examples/demos/data/project-data.js",
+        "status": 200,
+        "bytes": 3783,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "asset": "/examples/demos/evidence/edition-02/executive-board-dark.png",
+        "status": 200,
+        "bytes": 85599,
+        "contentType": "image/png"
+      },
+      {
+        "asset": "/examples/demos/evidence/edition-02/project-kanban-dark.png",
+        "status": 200,
+        "bytes": 89392,
+        "contentType": "image/png"
+      },
+      {
+        "asset": "/examples/demos/evidence/edition-02/proposal-presentation-dark.png",
+        "status": 200,
+        "bytes": 71772,
+        "contentType": "image/png"
+      },
+      {
+        "asset": "/examples/demos/evidence/edition-02/research-report-dark.png",
+        "status": 200,
+        "bytes": 123166,
+        "contentType": "image/png"
+      },
+      {
+        "asset": "/examples/demos/evidence/edition-02/web-analysis-dark.png",
+        "status": 200,
+        "bytes": 94919,
+        "contentType": "image/png"
+      },
+      {
+        "asset": "/examples/demos/evidence/edition-02/web-reading-dark.png",
+        "status": 200,
+        "bytes": 117397,
+        "contentType": "image/png"
+      },
+      {
+        "asset": "/examples/demos/index.html",
+        "status": 200,
+        "bytes": 10761,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "asset": "/examples/demos/shared/demo.css",
+        "status": 200,
+        "bytes": 31867,
+        "contentType": "text/css; charset=utf-8"
+      },
+      {
+        "asset": "/examples/demos/shared/demo.js",
+        "status": 200,
+        "bytes": 17607,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "asset": "/examples/visuals/outputs/index.html",
+        "status": 200,
+        "bytes": 84134,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "asset": "/patterns/application-modes/board.html",
+        "status": 200,
+        "bytes": 5952,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "asset": "/patterns/report-cover.html",
+        "status": 200,
+        "bytes": 1665,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "asset": "/patterns/shared/background-lab.css",
+        "status": 200,
+        "bytes": 5655,
+        "contentType": "text/css; charset=utf-8"
+      },
+      {
+        "asset": "/patterns/shared/background-lab.js",
+        "status": 200,
+        "bytes": 17805,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "asset": "/patterns/shared/dot-grid.js",
+        "status": 200,
+        "bytes": 6114,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "asset": "/patterns/shared/icons.js",
+        "status": 200,
+        "bytes": 5525,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "asset": "/patterns/shared/material.js",
+        "status": 200,
+        "bytes": 2298,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "asset": "/patterns/shared/optical-glass.js",
+        "status": 200,
+        "bytes": 9132,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "asset": "/patterns/shared/web-bar.js",
+        "status": 200,
+        "bytes": 2123,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "asset": "/portal/app.css",
+        "status": 200,
+        "bytes": 95955,
+        "contentType": "text/css; charset=utf-8"
+      },
+      {
+        "asset": "/portal/app.js",
+        "status": 200,
+        "bytes": 56890,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "asset": "/tokens/base.css",
+        "status": 200,
+        "bytes": 16672,
+        "contentType": "text/css; charset=utf-8"
+      }
+    ],
+    "pass": true
+  },
+  "previewProcessStopped": true,
+  "worktreeClean": true,
+  "pass": true
+}

@@ -1,0 +1,667 @@
+{
+  "generatedAt": "2026-09-08T10:08:57.118Z",
+  "checks": 12,
+  "passed": 12,
+  "results": [
+    {
+      "id": "web-analysis",
+      "width": 1440,
+      "proof": {
+        "keyboard": true,
+        "filteredSeries": [
+          62,
+          68,
+          72,
+          75,
+          80,
+          86
+        ],
+        "statesAndDetail": true,
+        "frameThemes": [],
+        "text200": {
+          "width": 1440,
+          "scrollWidth": 1440,
+          "body": [
+            32,
+            32,
+            32,
+            32,
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "每一步都有据可循",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 150,
+            "y": 8,
+            "width": 1140,
+            "height": 46,
+            "top": 8,
+            "right": 1290,
+            "bottom": 54,
+            "left": 150
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "id": "web-analysis",
+      "width": 390,
+      "proof": {
+        "keyboard": true,
+        "filteredSeries": [
+          62,
+          68,
+          72,
+          75,
+          80,
+          86
+        ],
+        "statesAndDetail": true,
+        "frameThemes": [],
+        "text200": {
+          "width": 390,
+          "scrollWidth": 390,
+          "body": [
+            32,
+            32,
+            32,
+            32,
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "每一步都有据可循",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 12,
+            "y": 8,
+            "width": 366,
+            "height": 54,
+            "top": 8,
+            "right": 378,
+            "bottom": 62,
+            "left": 12
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "id": "web-reading",
+      "width": 1440,
+      "proof": {
+        "keyboard": true,
+        "search": true,
+        "sources": true,
+        "frameThemes": [
+          "light"
+        ],
+        "text200": {
+          "width": 1440,
+          "scrollWidth": 1440,
+          "body": [
+            32,
+            32,
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "让知识保持连贯",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 150,
+            "y": 8,
+            "width": 1140,
+            "height": 46,
+            "top": 8,
+            "right": 1290,
+            "bottom": 54,
+            "left": 150
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "id": "web-reading",
+      "width": 390,
+      "proof": {
+        "keyboard": true,
+        "search": true,
+        "sources": true,
+        "frameThemes": [
+          "light"
+        ],
+        "text200": {
+          "width": 390,
+          "scrollWidth": 390,
+          "body": [
+            32,
+            32,
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "让知识保持连贯",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 12,
+            "y": 8,
+            "width": 366,
+            "height": 54,
+            "top": 8,
+            "right": 378,
+            "bottom": 62,
+            "left": 12
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "id": "project-kanban",
+      "width": 1440,
+      "proof": {
+        "keyboard": true,
+        "filterAndFocusRestore": true,
+        "frameThemes": [
+          "light"
+        ],
+        "text200": {
+          "width": 1440,
+          "scrollWidth": 1440,
+          "body": [
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "让下一步更明确",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 150,
+            "y": 8,
+            "width": 1140,
+            "height": 46,
+            "top": 8,
+            "right": 1290,
+            "bottom": 54,
+            "left": 150
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "id": "project-kanban",
+      "width": 390,
+      "proof": {
+        "keyboard": true,
+        "filterAndFocusRestore": true,
+        "frameThemes": [
+          "light"
+        ],
+        "text200": {
+          "width": 390,
+          "scrollWidth": 390,
+          "body": [
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "让下一步更明确",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 12,
+            "y": 8,
+            "width": 366,
+            "height": 54,
+            "top": 8,
+            "right": 378,
+            "bottom": 62,
+            "left": 12
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "id": "executive-board",
+      "width": 1440,
+      "proof": {
+        "keyboard": true,
+        "motion": {
+          "pausedAt": [
+            {
+              "time": 149.98499999032356,
+              "state": "paused"
+            },
+            {
+              "time": 149.98499999032356,
+              "state": "paused"
+            },
+            {
+              "time": 149.98499999032356,
+              "state": "paused"
+            },
+            {
+              "time": 149.98499999032356,
+              "state": "paused"
+            }
+          ],
+          "completed": true
+        },
+        "frameThemes": [
+          "light"
+        ],
+        "diagramPan": {
+          "before": 0,
+          "after": 0,
+          "width": 1278
+        },
+        "text200": {
+          "width": 1440,
+          "scrollWidth": 1440,
+          "body": [
+            32,
+            32,
+            32,
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "稳步推进守住门槛",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 150,
+            "y": 8,
+            "width": 1140,
+            "height": 46,
+            "top": 8,
+            "right": 1290,
+            "bottom": 54,
+            "left": 150
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "id": "executive-board",
+      "width": 390,
+      "proof": {
+        "keyboard": true,
+        "motion": {
+          "pausedAt": [
+            {
+              "time": 149.84800000290855,
+              "state": "paused"
+            },
+            {
+              "time": 149.84800000290855,
+              "state": "paused"
+            },
+            {
+              "time": 149.84800000290855,
+              "state": "paused"
+            },
+            {
+              "time": 149.84800000290855,
+              "state": "paused"
+            }
+          ],
+          "completed": true
+        },
+        "frameThemes": [
+          "light"
+        ],
+        "diagramPan": {
+          "before": 0,
+          "after": 200,
+          "width": 1200
+        },
+        "text200": {
+          "width": 390,
+          "scrollWidth": 390,
+          "body": [
+            32,
+            32,
+            32,
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "稳步推进守住门槛",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 12,
+            "y": 8,
+            "width": 366,
+            "height": 54,
+            "top": 8,
+            "right": 378,
+            "bottom": 62,
+            "left": 12
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "id": "research-report",
+      "width": 1440,
+      "proof": {
+        "keyboard": true,
+        "sources": true,
+        "toc": true,
+        "frameThemes": [],
+        "text200": {
+          "width": 1440,
+          "scrollWidth": 1440,
+          "body": [
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "以证据推动交付",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 150,
+            "y": 8,
+            "width": 1140,
+            "height": 46,
+            "top": 8,
+            "right": 1290,
+            "bottom": 54,
+            "left": 150
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "id": "research-report",
+      "width": 390,
+      "proof": {
+        "keyboard": true,
+        "sources": true,
+        "toc": true,
+        "frameThemes": [],
+        "text200": {
+          "width": 390,
+          "scrollWidth": 390,
+          "body": [
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "以证据推动交付",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 12,
+            "y": 8,
+            "width": 366,
+            "height": 54,
+            "top": 8,
+            "right": 378,
+            "bottom": 62,
+            "left": 12
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "id": "proposal-presentation",
+      "width": 1440,
+      "proof": {
+        "keyboard": true,
+        "motion": {
+          "pausedAt": [
+            {
+              "time": 149.98699999044186,
+              "state": "paused"
+            },
+            {
+              "time": 149.98699999044186,
+              "state": "paused"
+            },
+            {
+              "time": 149.98699999044186,
+              "state": "paused"
+            }
+          ],
+          "completed": true
+        },
+        "frameThemes": [
+          "light",
+          "light"
+        ],
+        "diagramPan": {
+          "before": 0,
+          "after": 2,
+          "width": 1200
+        },
+        "text200": {
+          "width": 1440,
+          "scrollWidth": 1440,
+          "body": [
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "让交付从容向前",
+              "overflow": false
+            },
+            {
+              "text": "一步一程更有把握",
+              "overflow": false
+            },
+            {
+              "text": "每一步都能回看",
+              "overflow": false
+            },
+            {
+              "text": "从一个样板开始",
+              "overflow": false
+            },
+            {
+              "text": "让证据决定下一步",
+              "overflow": false
+            },
+            {
+              "text": "从容来自每步有据",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 150,
+            "y": 8,
+            "width": 1140,
+            "height": 46,
+            "top": 8,
+            "right": 1290,
+            "bottom": 54,
+            "left": 150
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "id": "proposal-presentation",
+      "width": 390,
+      "proof": {
+        "keyboard": true,
+        "motion": {
+          "pausedAt": [
+            {
+              "time": 133.2949999891222,
+              "state": "paused"
+            },
+            {
+              "time": 133.2949999891222,
+              "state": "paused"
+            },
+            {
+              "time": 133.2949999891222,
+              "state": "paused"
+            }
+          ],
+          "completed": true
+        },
+        "frameThemes": [
+          "light",
+          "light"
+        ],
+        "diagramPan": {
+          "before": 0,
+          "after": 200,
+          "width": 1200
+        },
+        "text200": {
+          "width": 390,
+          "scrollWidth": 390,
+          "body": [
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32,
+            32
+          ],
+          "titles": [
+            {
+              "text": "让交付从容向前",
+              "overflow": false
+            },
+            {
+              "text": "一步一程更有把握",
+              "overflow": false
+            },
+            {
+              "text": "每一步都能回看",
+              "overflow": false
+            },
+            {
+              "text": "从一个样板开始",
+              "overflow": false
+            },
+            {
+              "text": "让证据决定下一步",
+              "overflow": false
+            },
+            {
+              "text": "从容来自每步有据",
+              "overflow": false
+            }
+          ],
+          "nav": {
+            "x": 12,
+            "y": 8,
+            "width": 366,
+            "height": 54,
+            "top": 8,
+            "right": 378,
+            "bottom": 62,
+            "left": 12
+          }
+        },
+        "reducedMotion": true
+      },
+      "pass": true,
+      "errors": [],
+      "external": []
+    }
+  ]
+}

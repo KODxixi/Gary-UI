@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "status": "pass",
+  "generatedAt": "2026-09-07T03:34:00.841Z",
+  "sequence": [
+    "valid export",
+    "invalid Mermaid export rejected",
+    "valid files unchanged",
+    "valid export recovered"
+  ],
+  "initialValidVersion": "run-2026-09-07T03-33-53-830Z-494ef5eb",
+  "failedAttempt": {
+    "versionId": "run-2026-09-07T03-33-56-882Z-1b20b099",
+    "status": "fail",
+    "completedAt": "2026-09-07T03:33:57.785Z"
+  },
+  "currentValidDuringFailure": "run-2026-09-07T03-33-53-830Z-494ef5eb",
+  "staleArtifacts": [
+    "guard.html",
+    "guard.svg",
+    "guard.png"
+  ],
+  "unchangedAfterFailure": true,
+  "failure": {
+    "status": "fail",
+    "outputs": {},
+    "issues": [
+      "Candidate render failed: Parse error on line 2:\n...art LR  A[未闭合 --> B[错误候选]\n----------------------^\nExpecting 'SQE', 'DOUBLECIRCLEEND', 'PE', '-)', 'STADIUMEND', 'SUBROUTINEEND', 'PIPE', 'CYLINDEREND', 'DIAMOND_STOP', 'TAGEND', 'TRAPEND', 'INVTRAPEND', 'UNICODE_TEXT', 'TEXT', 'TAGSTART', got 'SQS'; failure evidence: C:\\AI\\UI\\gary-ui\\examples\\visuals\\evidence\\transaction\\outputs\\.failed\\run-2026-09-07T03-33-56-882Z-1b20b099\\failure.json"
+    ],
+    "warnings": [],
+    "evidence": [],
+    "nextActions": [
+      "Fix the reported source or dependency issue and retry"
+    ]
+  },
+  "recoveredValidVersion": "run-2026-09-07T03-33-58-122Z-fe1d6acb",
+  "previousValidVersionAfterRecovery": "run-2026-09-07T03-33-53-830Z-494ef5eb",
+  "hashesBeforeFailure": {
+    "guard.html": "ce611fd60bef9da601b4ef3f53d6502b6325dfc9a0288172169d464033ead273",
+    "guard.svg": "91883ccc8559e39106b7e655a2bf472d6adefce97aaf2df9e934146fb224e122",
+    "guard.png": "3833bef4e377c10016ca07ec04806acea2b462b3b7cf7a61029f289e1c3946ed",
+    "generation-receipt.json": "42b4594d8acb42804826bb88ff68f3e3d581a7d7939f76de39551dec3f00b998"
+  },
+  "hashesAfterFailure": {
+    "guard.html": "ce611fd60bef9da601b4ef3f53d6502b6325dfc9a0288172169d464033ead273",
+    "guard.svg": "91883ccc8559e39106b7e655a2bf472d6adefce97aaf2df9e934146fb224e122",
+    "guard.png": "3833bef4e377c10016ca07ec04806acea2b462b3b7cf7a61029f289e1c3946ed",
+    "generation-receipt.json": "42b4594d8acb42804826bb88ff68f3e3d581a7d7939f76de39551dec3f00b998"
+  },
+  "finalStatusPath": "C:\\AI\\UI\\gary-ui\\examples\\visuals\\evidence\\transaction\\outputs\\generation-status.json"
+}

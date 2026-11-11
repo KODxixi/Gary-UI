@@ -1,0 +1,50 @@
+{
+  "slug": "resizable",
+  "name": "可调整大小",
+  "category": "layout",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/resizable)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "拖拽手柄 4px 宽；hover/focus 时高亮；双击重置"
+    ]
+  },
+  "variants": [
+    {
+      "name": "horizontal",
+      "selector": ".gary-resizable--horizontal"
+    },
+    {
+      "name": "vertical",
+      "selector": ".gary-resizable--vertical"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-resizable",
+    ".gary-resizable__panel",
+    ".gary-resizable__handle"
+  ]
+}

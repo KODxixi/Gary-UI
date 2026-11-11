@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ArchOS：控制面已齐备，执行体待接</title>
+<style>
+  :root{
+    --k-page:#141414; --k-card:#1c1c1c; --k-raised:#262626; --k-line:#333333;
+    --k-sel:#2a2a2d; --k-sel-edge:#6a6b70; --k-accent:#cfd0d3;
+    --t-faint:#7c7d81; --t-meta:#9d9ea2; --t-body:#c3c4c7; --t-strong:#f7f7f7;
+    --font:"Helvetica Neue", Helvetica, Arial, "Microsoft YaHei UI", "Microsoft YaHei", 微软雅黑, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--k-page);color:var(--t-body);font-family:var(--font);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:40px 32px 48px}
+  .kicker{font-size:11px;letter-spacing:.14em;color:var(--t-faint);text-transform:uppercase}
+  h1{margin:10px 0 28px;font-size:22px;line-height:1.35;font-weight:600;color:var(--t-strong)}
+  figure{margin:0}
+  svg{display:block;width:100%;height:auto}
+  figcaption{margin-top:18px;font-size:11px;color:var(--t-faint);line-height:1.7}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:32px}
+  .card{background:var(--k-card);border:1px solid var(--k-line);border-radius:12px;padding:18px 18px 16px}
+  .card h2{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--t-strong);letter-spacing:.01em}
+  .card ul{margin:0;padding:0;list-style:none}
+  .card li{position:relative;padding-left:14px;margin:0 0 8px;font-size:12px;line-height:1.65;color:var(--t-meta)}
+  .card li:last-child{margin-bottom:0}
+  .card li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--k-sel-edge)}
+  .card li b{color:var(--t-body);font-weight:500}
+  .sources{margin-top:26px;padding-top:14px;border-top:1px solid var(--k-line);font-size:11px;color:var(--t-faint);line-height:1.75}
+  .sources code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--t-meta)}
+  /* svg */
+  .node{fill:color-mix(in srgb,var(--c,#6a6b70) 20%,#1c1c1c);stroke:color-mix(in srgb,var(--c,#6a6b70) 62%,#2e2e2e);stroke-width:1}
+  .node-planned{fill:color-mix(in srgb,var(--c,#6a6b70) 7%,#141414);stroke:color-mix(in srgb,var(--c,#6a6b70) 45%,transparent);stroke-dasharray:5 4}
+  .ntitle{fill:var(--t-strong);font-size:13px;font-weight:600}
+  .nsub{fill:var(--t-meta);font-size:10px}
+  .ntag{fill:color-mix(in srgb,var(--c,#6a6b70) 26%,#262626)}
+  .ntag-t{fill:#f7f7f7;font-size:9.5px;letter-spacing:.04em}
+  .bnd{fill:color-mix(in srgb,var(--b,#6a6b70) 5%,transparent);stroke:color-mix(in srgb,var(--b,#6a6b70) 46%,transparent);stroke-width:1;stroke-dasharray:6 5}
+  .bnd-t{fill:color-mix(in srgb,var(--b,#6a6b70) 52%,#f7f7f7);font-size:11.5px;font-weight:500;letter-spacing:.02em}
+  .edge{fill:none;stroke:color-mix(in srgb,var(--e,#6a6b70) 78%,#9d9ea2);stroke-width:1.15}
+  .edge-main{fill:none;stroke:var(--e,#cfd0d3);stroke-width:1.8;opacity:.95}
+  .edge-open{fill:none;stroke:var(--e,#9d9ea2);stroke-width:1.35;stroke-dasharray:5 4;opacity:.85}
+  .edge-trust{fill:none;stroke:var(--e,#9d9ea2);stroke-width:1.2;stroke-dasharray:5 4;opacity:.8}
+  .elabel{fill:var(--t-meta);font-size:10.5px;paint-order:stroke;stroke:var(--k-page);stroke-width:4px;stroke-linejoin:round}
+  .elabel-strong{fill:var(--t-body);font-size:10.5px;font-weight:500;paint-order:stroke;stroke:var(--k-page);stroke-width:4px;stroke-linejoin:round}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">ArchOS · 控制面与执行体</div>
+  <h1>控制面已齐备，执行体待接</h1>
+
+  <figure>
+    <svg viewBox="30 158 1180 528" role="img" aria-label="ArchOS 架构：控制面已齐备，执行体稀疏，Hermes 作为外部执行器拟接入">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/>
+        </marker>
+        <marker id="ars" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/>
+        </marker>
+      </defs>
+
+      <!-- 边界 -->
+      <rect class="bnd" style="--b:#d5af59" x="190" y="170" width="794" height="430" rx="16"/>
+      <text class="bnd-t" x="206" y="188" paint-order="stroke" stroke="#141414" stroke-width="5">ArchOS 控制面 · 已齐备</text>
+      <rect class="bnd" style="--b:#be9bda" x="1012" y="202" width="186" height="340" rx="16"/>
+      <text class="bnd-t" x="1026" y="220" paint-order="stroke" stroke="#141414" stroke-width="5">执行体 · 稀疏</text>
+
+      <!-- 主路径 -->
+      <line style="--e:#82acec" class="edge" x1="150" y1="382" x2="210" y2="382" marker-end="url(#ar)"/>
+      <line style="--e:#d58d80" class="edge-main" x1="334" y1="382" x2="414" y2="382" marker-end="url(#ar)"/>
+      <line style="--e:#d5af59" class="edge-main" x1="540" y1="382" x2="620" y2="382" marker-end="url(#ar)"/>
+      <line style="--e:#be9bda" class="edge-main" x1="750" y1="382" x2="830" y2="382" marker-end="url(#ar)"/>
+
+      <!-- 派发到执行体 -->
+      <path style="--e:#78c9ac" class="edge-main" d="M964,382 L997,382 L997,252 L1030,252" marker-end="url(#ar)"/>
+      <line style="--e:#82b4bf" class="edge-open" x1="964" y1="382" x2="1030" y2="382" marker-end="url(#ars)"/>
+      <path style="--e:#dda2c4" class="edge-open" d="M964,396 L997,396 L997,492 L1030,492" marker-end="url(#ars)"/>
+      <path style="--e:#aba69e" class="edge-open" d="M897,414 L897,660 L1105,660 L1105,644" marker-end="url(#ars)"/>
+
+      <!-- 控制面内部 -->
+      <line style="--e:#d58d80" class="edge-trust" x1="685" y1="350" x2="685" y2="250" marker-end="url(#ars)"/>
+      <line style="--e:#d5af59" class="edge" x1="685" y1="414" x2="685" y2="520" marker-end="url(#ar)"/>
+
+      <!-- 关系标签 -->
+      <text class="elabel" x="374" y="374" text-anchor="middle">签名请求</text>
+      <text class="elabel-strong" x="580" y="374" text-anchor="middle">签名 HTTP</text>
+      <text class="elabel-strong" x="790" y="374" text-anchor="middle">派发任务</text>
+      <text class="elabel-strong" x="995" y="240" text-anchor="end">已接通 4 个</text>
+      <text class="elabel-strong" x="1097" y="676" text-anchor="middle">拟接入 /v1/runs</text>
+      <text class="elabel" x="694" y="304">风险评分</text>
+      <text class="elabel" x="694" y="471">回执 / 额度</text>
+
+      <!-- 节点 -->
+      <g style="--c:#aba69e">
+        <rect class="node" x="40" y="350" width="110" height="64" rx="8"/>
+        <text class="ntitle" x="95" y="378" text-anchor="middle">设计师 / 业务方</text>
+        <text class="nsub" x="95" y="396" text-anchor="middle">浏览器</text>
+      </g>
+      <g style="--c:#82acec">
+        <rect class="node" x="210" y="350" width="124" height="64" rx="8"/>
+        <text class="ntitle" x="272" y="378" text-anchor="middle">archos-console</text>
+        <text class="nsub" x="272" y="396" text-anchor="middle">三栏工作台</text>
+      </g>
+      <g style="--c:#d58d80">
+        <rect class="node" x="414" y="350" width="126" height="64" rx="8"/>
+        <text class="ntitle" x="477" y="378" text-anchor="middle">同源签名网关</text>
+        <text class="nsub" x="477" y="396" text-anchor="middle">HTTP :7701</text>
+      </g>
+      <g style="--c:#d5af59">
+        <rect class="node" x="620" y="350" width="130" height="64" rx="8"/>
+        <text class="ntitle" x="685" y="378" text-anchor="middle">ArchOS Core</text>
+        <text class="nsub" x="685" y="396" text-anchor="middle">packages/core</text>
+      </g>
+      <g style="--c:#be9bda">
+        <rect class="node" x="830" y="350" width="134" height="64" rx="8"/>
+        <text class="ntitle" x="897" y="378" text-anchor="middle">Agent Gateway</text>
+        <text class="nsub" x="897" y="396" text-anchor="middle">registerLocalExecutor</text>
+      </g>
+
+      <g style="--c:#78c9ac">
+        <rect class="node" x="1030" y="220" width="150" height="64" rx="8"/>
+        <rect class="ntag" x="1038" y="228" width="47" height="14" rx="7"/>
+        <text class="ntag-t" x="1061.5" y="238.5" text-anchor="middle">已接通</text>
+        <text class="ntitle" x="1038" y="262">已接通执行器</text>
+        <text class="nsub" x="1038" y="276" style="font-size:9px">archlib · modeling · id-agent</text>
+      </g>
+      <g style="--c:#82b4bf">
+        <rect class="node" x="1030" y="350" width="150" height="64" rx="8"/>
+        <rect class="ntag" x="1038" y="358" width="65" height="14" rx="7"/>
+        <text class="ntag-t" x="1070.5" y="368.5" text-anchor="middle">仅模型通道</text>
+        <text class="ntitle" x="1038" y="392">个人助理</text>
+        <text class="nsub" x="1038" y="406">GlobalHttpModel</text>
+      </g>
+      <g style="--c:#dda2c4">
+        <rect class="node" x="1030" y="460" width="150" height="64" rx="8"/>
+        <rect class="ntag" x="1038" y="468" width="47" height="14" rx="7"/>
+        <text class="ntag-t" x="1061.5" y="478.5" text-anchor="middle">未接通</text>
+        <text class="ntitle" x="1038" y="502">9 个规划角色</text>
+        <text class="nsub" x="1038" y="516">capabilities 为空</text>
+      </g>
+      <g style="--c:#aba69e">
+        <rect class="node-planned" x="1030" y="580" width="150" height="64" rx="8"/>
+        <rect class="ntag" x="1038" y="588" width="47" height="14" rx="7"/>
+        <text class="ntag-t" x="1061.5" y="598.5" text-anchor="middle">拟接入</text>
+        <text class="ntitle" x="1038" y="622">Hermes 执行器</text>
+        <text class="nsub" x="1038" y="636" style="font-size:9px">hermes serve · /v1/runs</text>
+      </g>
+
+      <g style="--c:#d58d80">
+        <rect class="node" x="610" y="190" width="150" height="60" rx="8"/>
+        <text class="ntitle" x="685" y="216" text-anchor="middle">Guardrails</text>
+        <text class="nsub" x="685" y="234" text-anchor="middle">风险评分 + L2</text>
+      </g>
+      <g style="--c:#d5af59">
+        <rect class="node" x="610" y="520" width="150" height="60" rx="8"/>
+        <text class="ntitle" x="685" y="546" text-anchor="middle">回执 / 额度账本</text>
+        <text class="nsub" x="685" y="564" text-anchor="middle">receipt + quota</text>
+      </g>
+    </svg>
+    <figcaption>实线 = 已成立的关系；虚线 = 未成立（规划、外部、待接入）。跨出边界的连接绕行，绕行长度表示它尚未纳入该边界的身份与审批约束。</figcaption>
+  </figure>
+
+  <div class="cards">
+    <div class="card" style="--c:#d5af59">
+      <h2>控制面 · 已齐备（复用，别重造）</h2>
+      <ul>
+        <li>身份 / 审批 / 额度 / 审计以 Core 为唯一权威</li>
+        <li><b>projectId + clientRequestId</b> 是硬性血缘，缺失即 <b>INVALID_INPUT</b></li>
+        <li>出网未签发返回 <b>EGRESS_DENIED</b>；<b>OUTCOME_UNKNOWN</b> 不重发</li>
+      </ul>
+    </div>
+    <div class="card" style="--c:#dda2c4">
+      <h2>执行体 · 稀疏（缺口只在这一侧）</h2>
+      <ul>
+        <li>13 个角色里仅 4 个接执行器：注册不等于接通</li>
+        <li>个人助理只注入 <b>GlobalHttpModel</b>，禁止宣称已执行工具</li>
+        <li>9 个规划角色 capabilities 为空，返回 <b>AGENT_NOT_CONNECTED</b></li>
+      </ul>
+    </div>
+    <div class="card" style="--c:#82acec">
+      <h2>接入 Hermes 前必验两条</h2>
+      <ul>
+        <li>提交端要有 <b>clientRequestId</b> 级去重，否则生图 / 外部写双花</li>
+        <li><b>principalId</b> 必须由 Core 传入，Hermes profile 不得当身份源</li>
+        <li>run 的 approval 接口要能对齐 Guardrails L2 确认</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sources">
+    证据：<code>C:\GarchOS\apps\archos-core\adapters\README.md</code>（执行器表）· <code>contracts/agent.interface.ts</code> · <code>packages/core/src/personal-assistant-chat.ts</code> · <code>packages/core/src/agent-gateway.ts</code>。注册状态不代表运行状态。
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "gary-board-demo",
+  "proposalId": "board-data-round-two",
+  "revision": 2,
+  "baseRevision": 1,
+  "mode": "compare",
+  "understanding": "用户已经确认 A 的结论先行决策结构。本轮不再探索新的空间隐喻，而是在同一结构上收敛标题、补足证据来源，并让 Thick 材质与 balanced 密度承担更稳定的正式评审体验。",
+  "assumptions": [
+    "A 的信息顺序已锁定为结论、指标、证据、行动。",
+    "证据来源需要在指标卡内直接可见，但不默认展开完整引用。",
+    "所谓更克制是降低标题尺度与装饰数量，而不是削弱结论优先级。"
+  ],
+  "recommendation": {
+    "optionId": "a-refined-decision",
+    "reason": "推荐方向完整保留上一轮 A 的决策路径，只收敛标题、统一 Thick 表面并把证据来源放进每张指标卡；这是对用户反馈最直接、可追溯且改动最小的回应。"
+  },
+  "options": [
+    {
+      "optionId": "a-refined-decision",
+      "label": "收敛决策",
+      "kind": "recommended",
+      "rationale": "保留结论先行的非对称骨架，把过大的宣言式标题改为正式判断，并在每张指标卡底部显示来源与更新时间。",
+      "risks": [
+        "证据来源必须保持短标签；完整文件名会挤压 390px 布局。"
+      ],
+      "expectedBenefit": "用户无需重新学习页面，即可得到更克制、更可信、更适合正式定稿的第二轮。",
+      "visualRoute": {
+        "schemaVersion": 1,
+        "skill": "gary-liquidglass-ui",
+        "application": "board",
+        "page": "data-page",
+        "theme": "dark",
+        "material": "thick",
+        "density": "balanced"
+      },
+      "artifactPath": "C:/AI/UI/gary-ui/examples/co-design/board-data/rev2/a-refined-decision/index.html"
+    },
+    {
+      "optionId": "b-evidence-hybrid",
+      "label": "证据增强",
+      "kind": "alternative",
+      "rationale": "沿用 A 的结论和指标结构，在首屏下半部增加轻量证据台账，适合需要当场核对出处的正式评审。",
+      "risks": [
+        "首屏信息量高于推荐方向，需要严格限制为三条关键证据。"
+      ],
+      "expectedBenefit": "减少在页面与外部文档之间切换，提升集体评审中的可追溯性。",
+      "visualRoute": {
+        "schemaVersion": 1,
+        "skill": "gary-liquidglass-ui",
+        "application": "board",
+        "page": "data-page",
+        "theme": "dark",
+        "material": "thick",
+        "density": "balanced"
+      },
+      "artifactPath": "C:/AI/UI/gary-ui/examples/co-design/board-data/rev2/b-evidence-hybrid/index.html"
+    },
+    {
+      "optionId": "c-minimal-focus",
+      "label": "极简聚焦",
+      "kind": "stretch",
+      "rationale": "把用户要求的删除过度装饰推进到极致：只保留一个判断面、三项指标和一条行动，所有证据以短来源行出现。",
+      "risks": [
+        "不适合需要同屏比较更多指标的后续扩展。",
+        "信息极简后，内容质量比布局变化更重要。"
+      ],
+      "expectedBenefit": "验证 Gary-UI 是否能在几乎没有装饰的情况下仍依靠材质、排版和证据关系建立识别度。",
+      "visualRoute": {
+        "schemaVersion": 1,
+        "skill": "gary-liquidglass-ui",
+        "application": "board",
+        "page": "data-page",
+        "theme": "dark",
+        "material": "thick",
+        "density": "balanced"
+      },
+      "artifactPath": "C:/AI/UI/gary-ui/examples/co-design/board-data/rev2/c-minimal-focus/index.html"
+    }
+  ],
+  "lockedDecisions": [
+    {
+      "key": "first-screen-focus",
+      "value": "风险例外"
+    },
+    {
+      "key": "evidence-detail",
+      "value": "显示来源摘要"
+    }
+  ],
+  "openDecisions": [
+    {
+      "id": "source-format",
+      "question": "指标卡中的证据来源默认显示到什么程度？",
+      "options": [
+        "来源短标签",
+        "来源加更新时间",
+        "来源加可信度"
+      ]
+    },
+    {
+      "id": "action-emphasis",
+      "question": "最后一条行动应采用什么强调方式？",
+      "options": [
+        "独立行动带",
+        "结论卡内联",
+        "只保留文本链接"
+      ]
+    }
+  ],
+  "changeSet": [
+    "保留第一轮 A 的结论、指标、证据、行动决策结构，不改变用户已确认的信息顺序。",
+    "把宣言式大标题收敛为更短、更正式的判断标题，并降低标题视觉尺度。",
+    "在每张指标卡中增加可见的证据来源，推荐方案同时显示更新时间。",
+    "将所有主要内容表面统一改为 Thick 材质，UltraThin 仅保留在顶部短导航。",
+    "将信息密度由 compact 调整为 balanced，扩大正文与来源行的可读空间。",
+    "删除状态圆环、漂浮信号节点、轨道线和其他不承担信息的过度装饰。"
+  ]
+}

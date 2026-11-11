@@ -1,0 +1,30 @@
+{
+  "cards": [
+    {
+      "class": "gary-web-bar gary-glass gary-ultrathin starter-shell-bar",
+      "refraction": null,
+      "material": null,
+      "filter": "blur(16px) saturate(1.08) brightness(0.8) contrast(1.04)",
+      "radius": "999px",
+      "background": "rgba(15, 15, 15, 0.18)"
+    },
+    {
+      "class": "starter-shell-context gary-glass gary-regular",
+      "refraction": null,
+      "material": null,
+      "filter": "blur(24px) saturate(1.08) brightness(0.8) contrast(1.04)",
+      "radius": "30px",
+      "background": "rgba(15, 15, 15, 0.3)"
+    },
+    {
+      "class": "starter-conclusion gary-glass gary-regular",
+      "refraction": "svg",
+      "material": "glass",
+      "filter": "url(\"#gary-optics-1\") saturate(1.05)",
+      "radius": "30px",
+      "background": "rgba(255, 255, 255, 0.024)"
+    }
+  ],
+  "viewport": 1440,
+  "generatedCssStatus": 404
+}

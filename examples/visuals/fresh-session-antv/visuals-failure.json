@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "project": "fresh-session-antv-quality-loop-failure-injection",
+  "outputRoot": "outputs",
+  "visuals": [
+    {
+      "id": "quality-loop",
+      "title": "本地报告制图质量闭环｜故障注入候选",
+      "description": "仅用于验证失败候选不会覆盖上一有效版本。",
+      "purpose": "infographic",
+      "tool": "antv-infographic",
+      "source": "sources/quality-loop.failure.json",
+      "scene": "showcase",
+      "theme": "dark",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "故障注入验收构造数据",
+        "url": null,
+        "note": "预期失败；不得覆盖上一有效版本。"
+      }
+    }
+  ]
+}

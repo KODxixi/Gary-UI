@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "project": "Gary Demo Edition 02 / 华东服务交付计划",
+  "outputRoot": "outputs",
+  "visuals": [
+    {
+      "id": "delivery-architecture-dark",
+      "title": "华东交付证据体系",
+      "purpose": "architecture",
+      "tool": "archify",
+      "source": "sources/delivery-architecture.json",
+      "scene": "showcase",
+      "theme": "dark",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "华东交付计划 · 固定验收示例",
+        "url": null,
+        "note": "人工编制 非真实业务；快照 2026-08-31。"
+      }
+    },
+    {
+      "id": "delivery-architecture-light",
+      "title": "华东交付证据体系",
+      "purpose": "architecture",
+      "tool": "archify",
+      "source": "sources/delivery-architecture.json",
+      "scene": "showcase",
+      "theme": "light",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "华东交付计划 · 固定验收示例",
+        "url": null,
+        "note": "人工编制 非真实业务；快照 2026-08-31。"
+      }
+    },
+    {
+      "id": "delivery-trend-dark",
+      "title": "华东交付完成率",
+      "purpose": "quantitative",
+      "tool": "echarts",
+      "source": "sources/delivery-trend.json",
+      "scene": "analysis",
+      "theme": "dark",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "华东交付计划 · 固定验收示例",
+        "url": null,
+        "note": "人工编制 非真实业务；快照 2026-08-31。"
+      }
+    },
+    {
+      "id": "delivery-trend-light",
+      "title": "华东交付完成率",
+      "purpose": "quantitative",
+      "tool": "echarts",
+      "source": "sources/delivery-trend.json",
+      "scene": "analysis",
+      "theme": "light",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "华东交付计划 · 固定验收示例",
+        "url": null,
+        "note": "人工编制 非真实业务；快照 2026-08-31。"
+      }
+    },
+    {
+      "id": "research-outline-dark",
+      "title": "华东交付研究提纲",
+      "purpose": "outline",
+      "tool": "markmap",
+      "source": "sources/research-outline.md",
+      "scene": "reading",
+      "theme": "dark",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "华东交付计划 · 固定验收示例",
+        "url": null,
+        "note": "人工编制 非真实业务；快照 2026-08-31。"
+      }
+    },
+    {
+      "id": "research-outline-light",
+      "title": "华东交付研究提纲",
+      "purpose": "outline",
+      "tool": "markmap",
+      "source": "sources/research-outline.md",
+      "scene": "reading",
+      "theme": "light",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "华东交付计划 · 固定验收示例",
+        "url": null,
+        "note": "人工编制 非真实业务；快照 2026-08-31。"
+      }
+    },
+    {
+      "id": "summary-infographic-dark",
+      "title": "四步推进计划",
+      "purpose": "infographic",
+      "tool": "antv-infographic",
+      "source": "sources/summary-infographic.json",
+      "scene": "showcase",
+      "theme": "dark",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "华东交付计划 · 固定验收示例",
+        "url": null,
+        "note": "人工编制 非真实业务；快照 2026-08-31。"
+      }
+    },
+    {
+      "id": "summary-infographic-light",
+      "title": "四步推进计划",
+      "purpose": "infographic",
+      "tool": "antv-infographic",
+      "source": "sources/summary-infographic.json",
+      "scene": "showcase",
+      "theme": "light",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "华东交付计划 · 固定验收示例",
+        "url": null,
+        "note": "人工编制 非真实业务；快照 2026-08-31。"
+      }
+    },
+    {
+      "id": "simple-flow-dark",
+      "title": "工作项完成条件",
+      "purpose": "simple-flow",
+      "tool": "mermaid",
+      "source": "sources/simple-flow.mmd",
+      "scene": "reading",
+      "theme": "dark",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "华东交付计划 · 固定验收示例",
+        "url": null,
+        "note": "人工编制 非真实业务；快照 2026-08-31。"
+      }
+    },
+    {
+      "id": "simple-flow-light",
+      "title": "工作项完成条件",
+      "purpose": "simple-flow",
+      "tool": "mermaid",
+      "source": "sources/simple-flow.mmd",
+      "scene": "reading",
+      "theme": "light",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "华东交付计划 · 固定验收示例",
+        "url": null,
+        "note": "人工编制 非真实业务；快照 2026-08-31。"
+      }
+    }
+  ]
+}

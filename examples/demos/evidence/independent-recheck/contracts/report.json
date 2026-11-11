@@ -1,0 +1,264 @@
+{
+  "generatedAt": "2026-09-07T19:03:07.987Z",
+  "generatedBefore": {
+    "viewport": null,
+    "innerWidth": 980,
+    "charset": "GBK",
+    "controlHeight": "",
+    "sceneCanvas": 0,
+    "card": "<section class=\"gary-glass-card gary-glass gary-regular\" data-gary-material=\"glass\" data-gary-refraction=\"\">\n      <!-- 浣跨敤鏃㈡湁 Gary 缁勪欢缁勫悎 鎶ュ憡灏侀潰锛屼笉瑕佸鍒剁粍浠� CSS銆� -->\n    </section>",
+    "sceneCount": 1,
+    "bodyFont": "\"Times New Roman\""
+  },
+  "failedResources": [
+    {
+      "url": "http://127.0.0.1:4173/gary-ui/patterns/shared/dot-grid.js",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4173/gary-ui/patterns/shared/icons.js",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4173/gary-ui/patterns/shared/material.js",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4173/gary-ui/patterns/shared/glass-surface.js",
+      "status": 404
+    }
+  ],
+  "results": [
+    {
+      "target": "patterns/starting-points/index.html",
+      "material": "solid-plate",
+      "proof": {
+        "rootMaterial": "solid-plate",
+        "cards": [
+          {
+            "class": "starter-controls gary-glass gary-regular",
+            "material": "glass",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)",
+            "refraction": "svg"
+          },
+          {
+            "class": "starter-code gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "starter-preview gary-glass gary-regular",
+            "material": "glass",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)",
+            "refraction": "svg"
+          }
+        ],
+        "overflow": false
+      }
+    },
+    {
+      "target": "patterns/starting-points/preview.html",
+      "material": "solid-plate",
+      "proof": {
+        "rootMaterial": "solid-plate",
+        "cards": [
+          {
+            "class": "starter-shell-context gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "starter-conclusion gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          }
+        ],
+        "overflow": false
+      }
+    },
+    {
+      "target": "patterns/application-modes/board.html",
+      "material": "solid-plate",
+      "proof": {
+        "rootMaterial": "solid-plate",
+        "cards": [
+          {
+            "class": "mode-card dashboard-summary gary-solid-plate",
+            "material": "glass",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)",
+            "refraction": "svg"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-card dashboard-chart gary-solid-plate",
+            "material": "glass",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)",
+            "refraction": "svg"
+          },
+          {
+            "class": "mode-card dashboard-decisions gary-solid-plate",
+            "material": "glass",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)",
+            "refraction": "svg"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-card dashboard-table gary-solid-plate",
+            "material": "glass",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)",
+            "refraction": "svg"
+          }
+        ],
+        "overflow": false
+      }
+    },
+    {
+      "target": "patterns/starting-points/index.html",
+      "material": "regular",
+      "proof": {
+        "rootMaterial": "regular",
+        "cards": [
+          {
+            "class": "starter-controls gary-glass gary-regular",
+            "material": "glass",
+            "filter": "url(\"#gary-optics-1\") saturate(1.05)",
+            "background": "rgba(255, 255, 255, 0.024)",
+            "refraction": "svg"
+          },
+          {
+            "class": "starter-code gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "starter-preview gary-glass gary-regular",
+            "material": "glass",
+            "filter": "url(\"#gary-optics-2\") saturate(1.05)",
+            "background": "rgba(255, 255, 255, 0.024)",
+            "refraction": "svg"
+          }
+        ],
+        "overflow": false
+      }
+    },
+    {
+      "target": "patterns/starting-points/preview.html",
+      "material": "regular",
+      "proof": {
+        "rootMaterial": "regular",
+        "cards": [
+          {
+            "class": "starter-conclusion gary-glass gary-regular",
+            "material": "glass",
+            "filter": "url(\"#gary-optics-1\") saturate(1.05)",
+            "background": "rgba(255, 255, 255, 0.024)",
+            "refraction": "svg"
+          }
+        ],
+        "overflow": false
+      }
+    },
+    {
+      "target": "patterns/application-modes/board.html",
+      "material": "regular",
+      "proof": {
+        "rootMaterial": "regular",
+        "cards": [
+          {
+            "class": "mode-card dashboard-summary gary-glass gary-regular",
+            "material": "glass",
+            "filter": "url(\"#gary-optics-1\") saturate(1.05)",
+            "background": "rgba(255, 255, 255, 0.024)",
+            "refraction": "svg"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-card dashboard-chart gary-glass gary-regular",
+            "material": "glass",
+            "filter": "url(\"#gary-optics-2\") saturate(1.05)",
+            "background": "rgba(255, 255, 255, 0.024)",
+            "refraction": "svg"
+          },
+          {
+            "class": "mode-card dashboard-decisions gary-glass gary-regular",
+            "material": "glass",
+            "filter": "url(\"#gary-optics-3\") saturate(1.05)",
+            "background": "rgba(255, 255, 255, 0.024)",
+            "refraction": "svg"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-plate gary-solid-plate",
+            "filter": "none",
+            "background": "rgba(14, 14, 14, 0.86)"
+          },
+          {
+            "class": "mode-card dashboard-table gary-glass gary-regular",
+            "material": "glass",
+            "filter": "url(\"#gary-optics-4\") saturate(1.05)",
+            "background": "rgba(255, 255, 255, 0.024)",
+            "refraction": "svg"
+          }
+        ],
+        "overflow": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "source": "real-browser",
+  "targetStack": "html",
+  "url": "file:///C:/AI/UI/gary-ui/examples/demos/project-kanban/index.html?theme=dark",
+  "styleEntry": "tokens/base.css",
+  "styleEntryLoaded": true,
+  "computedStyle": {
+    "property": "--gary-control-height",
+    "value": "44px"
+  },
+  "sceneCount": 1,
+  "nestedGlassCount": 0,
+  "consoleErrors": 0
+}

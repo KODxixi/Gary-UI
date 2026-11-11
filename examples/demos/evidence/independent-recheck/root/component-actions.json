@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "selector": ".demo-action",
+      "pass": true
+    },
+    {
+      "selector": ".media-like",
+      "pass": true
+    },
+    {
+      "selector": "[data-follow]",
+      "pass": true
+    },
+    {
+      "selector": ".demo-evidence",
+      "pass": true
+    },
+    {
+      "selector": ".demo-scene",
+      "pass": true
+    }
+  ],
+  "scene": {
+    "text": "点网格",
+    "background": "radial-gradient(circle, rgba(255, 255, 255, 0.16) 0px, rgba(255, 255, 255, 0.16) 1px, rgba(0, 0, 0, 0) 1.2px)",
+    "curves": 0
+  }
+}

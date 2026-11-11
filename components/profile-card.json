@@ -1,0 +1,47 @@
+{
+  "slug": "profile-card",
+  "name": "人物卡",
+  "category": "identity",
+  "material": {
+    "default": "Thick",
+    "rules": [
+      "列表密度下保持平面稳定",
+      "头像、身份、动作三段结构清晰"
+    ]
+  },
+  "variants": [
+    {
+      "name": "horizontal",
+      "selector": ".gary-profile-card"
+    },
+    {
+      "name": "compact-mobile",
+      "selector": "@media (max-width: 640px)"
+    }
+  ],
+  "states": [
+    {
+      "name": "available",
+      "selector": "[data-status=\"available\"]"
+    },
+    {
+      "name": "disabled",
+      "selector": "[aria-disabled=\"true\"]"
+    }
+  ],
+  "accessibility": {
+    "role": "article or listitem",
+    "requirements": [
+      "姓名使用可定位的标题元素",
+      "头像 alt 不重复相邻姓名时可留空",
+      "状态与动作必须有文字标签"
+    ]
+  },
+  "cssClasses": [
+    ".gary-profile-card",
+    ".gary-profile-card__avatar",
+    ".gary-profile-card__name",
+    ".gary-profile-card__meta",
+    ".gary-profile-card__actions"
+  ]
+}

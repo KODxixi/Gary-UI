@@ -1,0 +1,4 @@
+{
+  "title": "本地报告制图质量闭环｜故障注入候选",
+  "syntax": "infographic sequence-timeline-rounded-rect-node\ndata\n  title 故障注入候选 <script>alert('blocked')</script>\n  sequences\n    - label 此候选必须失败\n      desc 用于验证上一有效版本不被覆盖\n      icon shield alert"
+}

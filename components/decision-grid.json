@@ -1,0 +1,47 @@
+{
+  "slug": "decision-grid",
+  "name": "决策网格",
+  "category": "decision-support",
+  "material": {
+    "default": "Independent Thick cards",
+    "rules": [
+      "网格本身透明，每个选项是同级玻璃卡",
+      "推荐、保守、表达、拒绝按此顺序排列"
+    ]
+  },
+  "variants": [
+    {
+      "name": "recommended",
+      "selector": "[data-gary-decision=\"recommended\"]"
+    },
+    {
+      "name": "conservative|expressive|rejected",
+      "selector": "[data-gary-decision]"
+    },
+    {
+      "name": "responsive",
+      "selector": "4 columns to 2 columns to 1 column"
+    }
+  ],
+  "states": [
+    {
+      "name": "selected",
+      "selector": "[aria-selected=\"true\"]"
+    },
+    {
+      "name": "rejected",
+      "selector": "[aria-disabled=\"true\"]"
+    }
+  ],
+  "accessibility": {
+    "role": "list, radiogroup, or group",
+    "requirements": [
+      "纯展示使用 list，互斥选择使用 radiogroup",
+      "每个方案必须包含完整取舍文字",
+      "禁用或拒绝方案不可只用低透明度表达"
+    ]
+  },
+  "cssClasses": [
+    ".gary-decision-grid"
+  ]
+}

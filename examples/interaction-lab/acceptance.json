@@ -1,0 +1,175 @@
+{
+  "status": "pass",
+  "checkedAt": "2026-09-09T12:15:49.246Z",
+  "url": "http://127.0.0.1:4191/examples/interaction-lab/index.html",
+  "checks": [
+    "tokens / one scene / no nested glass",
+    "first metric complete without animation",
+    "accessible number is final during transition",
+    "finite metric transition ends",
+    "same value / rapid updates / invalid value / print preserve real result",
+    "rail start boundary",
+    "rail end and keyboard",
+    "horizontal wheel scroll",
+    "title pauses",
+    "runtime reduced-motion completes title",
+    "complete title exists in accessibility tree",
+    "reduced-motion number immediate",
+    "tilt is opt-in and media-only",
+    "reduced-motion cancels tilt",
+    "judgment survives reload",
+    "clipboard denial provides copyable fallback",
+    "1440 dark reflow",
+    "1440 dark rail peek",
+    "1440 light reflow",
+    "1440 light rail peek",
+    "390 dark reflow",
+    "390 dark rail peek",
+    "390 light reflow",
+    "390 light rail peek",
+    "320 dark reflow",
+    "320 dark rail peek",
+    "320 light reflow",
+    "320 light rail peek",
+    "Background stays separate from theme",
+    "Background Escape restores trigger",
+    "print expands all media",
+    "no page or resource errors",
+    "without JavaScript text and media remain readable"
+  ],
+  "errors": [],
+  "targetBrowserReport": {
+    "label": "target-browser-report",
+    "kind": "browser-report",
+    "path": "target-browser-report.json",
+    "schema": "../../contracts/final-ui-report.schema.json",
+    "status": "pass"
+  },
+  "pendingUserJudgment": [
+    "media-tilt",
+    "phrase-reveal"
+  ],
+  "task": {
+    "schemaVersion": 2,
+    "skill": "gary-liquidglass-ui",
+    "operation": "integrate",
+    "mode": "quick",
+    "target": {
+      "stack": "html",
+      "scope": "Optional Gary-UI interaction recipes and a review demo",
+      "deliveryPath": "examples/interaction-lab/index.html"
+    },
+    "brief": {
+      "goal": "Select compatible React Bits interaction ideas, implement original reusable Gary recipes, and expose uncertain variants for user judgment.",
+      "audience": "Gary-UI user and consuming Agents",
+      "content": "Two adopted recipes: number updates and manual content rail. Two experimental variants: media tilt and phrase reveal.",
+      "assets": [
+        "examples/demos/evidence/edition-02/"
+      ],
+      "interactions": [
+        "number update",
+        "manual carousel",
+        "opt-in media tilt",
+        "play pause replay",
+        "theme and separate Background",
+        "save and copy user choices"
+      ],
+      "constraints": [
+        "MIT-compatible original implementation",
+        "single dot grid",
+        "44px round tool actions",
+        "approved complete Demo unchanged",
+        "experiments remain pending"
+      ]
+    },
+    "applicationMode": "web-ui",
+    "visualDefaults": {
+      "theme": "dark",
+      "material": "regular",
+      "density": "spacious"
+    },
+    "units": [
+      {
+        "id": "interaction-lab",
+        "pageMode": "image-page",
+        "content": "Analyze and browse scenes with two opt-in experiments",
+        "assets": [
+          "examples/demos/evidence/edition-02/"
+        ],
+        "visualOverrides": {},
+        "acceptance": [
+          "keyboard",
+          "light/dark",
+          "reduced motion",
+          "320/390px reflow"
+        ]
+      }
+    ],
+    "acceptance": {
+      "viewports": [
+        "1440x1000",
+        "390x1000",
+        "320x1000"
+      ],
+      "keyboard": true,
+      "browser": true,
+      "visual": [
+        "one dot grid",
+        "stable text",
+        "no nested glass",
+        "separate Background/theme"
+      ],
+      "technical": [
+        "no new dependencies",
+        "native browser APIs",
+        "last valid number preserved",
+        "print complete content"
+      ]
+    }
+  },
+  "visualRoute": {
+    "schemaVersion": 1,
+    "skill": "gary-liquidglass-ui",
+    "application": "web-ui",
+    "page": "image-page",
+    "theme": "dark",
+    "material": "regular",
+    "density": "spacious"
+  },
+  "approved-baseline-drift": {
+    "status": "pass",
+    "targetArtifact": "../demos/index.html",
+    "browserReport": "../demos/evidence/public-release/public-pages.json",
+    "chatAuthorization": "User requested compatible additions and demos for uncertain choices; previously approved complete Demo remains the baseline.",
+    "baseCommit": "b121491f9bc8cbc9b922207b6491360c19b56e6e",
+    "trackedFiles": 870,
+    "gitDiffEmpty": true,
+    "rawByteEqual": false,
+    "lineEndingOnlyDifferences": 16,
+    "normalizedContentEqual": true,
+    "normalizedTreeSha256": "31a96ccc3ce60bd3702b539946cb86c48edff018336d61652852806d14a7f326"
+  },
+  "publicExport": {
+    "status": "pass",
+    "files": 953,
+    "localLinks": 260,
+    "restrictedPortsExcluded": true,
+    "note": "Snapshot before this acceptance record; no push or deployment performed."
+  },
+  "broaderValidation": {
+    "command": "python scripts/validate_v2.py",
+    "status": "fail-pre-existing",
+    "issue": "Kernel reports optical-glass.js SVG namespace constant as a remote dependency.",
+    "reproducedAtBaseCommit": true,
+    "opticsUnchanged": true,
+    "opticsSha256": "8476adeaac597d2595127bff12bee589f2555c2ef672324cf2e0141ecd59fe8d"
+  },
+  "testedSourceSha256": {
+    "examples/interaction-lab/index.html": "60c13e72d3f5fd8648ffcecbb45fbd2f318c41a26886e4b03e1554134dd62aa3",
+    "examples/interaction-lab/lab.css": "150458f57477c8c960a029a0f6452f6a245104c9f54dcd3d2976fcda5ba6d0de",
+    "examples/interaction-lab/lab.js": "161406433b292c261dd55ea2e1fb17651c10ce751337210f6d2d346eb8ce35f2",
+    "patterns/shared/number-transition.js": "ad9d3afe6ee05e1dc231b9300a620702bf9aa7210594a4194c39311ac4d8c775",
+    "patterns/shared/content-rail.js": "3a002debc8d55a833e6eaa7f143bcc959e35412e9e5699269cefc84c981b7bd4",
+    "patterns/shared/content-rail.css": "ea9b118a0ef092740353ba21b5e5c50d329165726fd81f68c3183b260c67bf15"
+  }
+}

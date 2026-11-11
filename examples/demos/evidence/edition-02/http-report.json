@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-09-07T07:47:00.947Z",
+  "checks": 5,
+  "passed": 5,
+  "results": [
+    {
+      "width": 1440,
+      "theme": "dark",
+      "pass": true,
+      "links": 28,
+      "entries": 6,
+      "external": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "pass": true,
+      "links": 28,
+      "entries": 6,
+      "external": [],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "pass": true,
+      "links": 28,
+      "entries": 6,
+      "external": [],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "pass": true,
+      "links": 28,
+      "entries": 6,
+      "external": [],
+      "errors": []
+    },
+    {
+      "portal": true,
+      "embeddedGallery": true,
+      "pass": true
+    }
+  ]
+}

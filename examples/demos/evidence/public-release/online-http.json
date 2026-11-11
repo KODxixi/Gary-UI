@@ -1,0 +1,124 @@
+{
+  "repository": "https://github.com/KODxixi/Gary-UI",
+  "site": "https://kodxixi.github.io/Gary-UI/",
+  "checkedAt": "2026-09-08T10:30:24.312895+00:00",
+  "testedCommit": "2c57f6e2cfea562a8914e526c4126319d47be794",
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 401,
+      "matchesLocal": true
+    },
+    {
+      "path": "examples/demos/index.html",
+      "status": 200,
+      "bytes": 10761,
+      "matchesLocal": true
+    },
+    {
+      "path": "portal/index.html",
+      "status": 200,
+      "bytes": 70637,
+      "matchesLocal": true
+    },
+    {
+      "path": "patterns/starting-points/index.html",
+      "status": 200,
+      "bytes": 5321,
+      "matchesLocal": true
+    },
+    {
+      "path": "docs/images/demo-home.png",
+      "status": 200,
+      "bytes": 80022,
+      "matchesLocal": true
+    },
+    {
+      "path": "LICENSE",
+      "status": 200,
+      "bytes": 1110,
+      "matchesLocal": true
+    },
+    {
+      "path": "patterns/shared/optical-glass.js",
+      "status": 200,
+      "bytes": 9132,
+      "matchesLocal": true
+    },
+    {
+      "path": "patterns/shared/ambient-waves.js",
+      "status": 200,
+      "bytes": 14135,
+      "matchesLocal": true
+    },
+    {
+      "path": "patterns/shared/background-lab.js",
+      "status": 200,
+      "bytes": 17805,
+      "matchesLocal": true
+    },
+    {
+      "path": "patterns/shared/icons.js",
+      "status": 200,
+      "bytes": 5525,
+      "matchesLocal": true
+    },
+    {
+      "path": "examples/demos/shared/demo.js",
+      "status": 200,
+      "bytes": 17607,
+      "matchesLocal": true
+    },
+    {
+      "path": "examples/demos/shared/demo.css",
+      "status": 200,
+      "bytes": 31867,
+      "matchesLocal": true
+    },
+    {
+      "path": "examples/demos/web-analysis/index.html",
+      "status": 200,
+      "bytes": 7358,
+      "matchesLocal": true
+    },
+    {
+      "path": "examples/demos/web-reading/index.html",
+      "status": 200,
+      "bytes": 5413,
+      "matchesLocal": true
+    },
+    {
+      "path": "examples/demos/project-kanban/index.html",
+      "status": 200,
+      "bytes": 5998,
+      "matchesLocal": true
+    },
+    {
+      "path": "examples/demos/executive-board/index.html",
+      "status": 200,
+      "bytes": 6377,
+      "matchesLocal": true
+    },
+    {
+      "path": "examples/demos/research-report/index.html",
+      "status": 200,
+      "bytes": 7963,
+      "matchesLocal": true
+    },
+    {
+      "path": "examples/demos/proposal-presentation/index.html",
+      "status": 200,
+      "bytes": 9034,
+      "matchesLocal": true,
+      "attempts": 2
+    }
+  ],
+  "initialFailures": [
+    {
+      "path": "examples/demos/proposal-presentation/index.html",
+      "error": "The read operation timed out"
+    }
+  ],
+  "passed": true
+}

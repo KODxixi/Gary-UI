@@ -1,0 +1,51 @@
+{
+  "slug": "dialog",
+  "name": "对话框",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/dialog)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "模态遮罩；内容区 Thick 玻璃；Esc 关闭；焦点陷阱"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-dialog"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-dialog",
+    ".gary-dialog__overlay",
+    ".gary-dialog__content",
+    ".gary-dialog__header",
+    ".gary-dialog__title",
+    ".gary-dialog__description",
+    ".gary-dialog__footer",
+    ".gary-dialog__close"
+  ]
+}

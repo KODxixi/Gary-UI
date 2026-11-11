@@ -1,0 +1,96 @@
+{
+  "slug": "solid-plate",
+  "name": "实心信息板",
+  "category": "surfaces",
+  "source": "adapters/react-shadcn/src/components/ui/solid-plate.tsx",
+  "material": {
+    "default": "SolidPlate",
+    "rules": [
+      "用于图表、表格、参数、KPI、长正文与密集证据的稳定承载",
+      "禁用 backdrop-filter，避免玻璃套玻璃",
+      "正文和数据无需通过玻璃效果证明层级，依靠排版、间距和语义边界"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-solid-plate--default",
+      "background": "var(--gary-solid-plate)"
+    },
+    {
+      "name": "subtle",
+      "selector": ".gary-solid-plate--subtle",
+      "background": "color-mix(in srgb, var(--gary-solid-plate) 60%, transparent)"
+    },
+    {
+      "name": "inverse",
+      "selector": ".gary-solid-plate--inverse",
+      "background": "var(--gary-text-primary)",
+      "color": "var(--gary-surface-page)"
+    },
+    {
+      "name": "nested-data",
+      "selector": ".gary-glass-card .gary-solid-plate"
+    }
+  ],
+  "densities": [
+    {
+      "name": "compact",
+      "selector": ".gary-solid-plate[data-density='compact'], .gary-solid-plate--compact",
+      "gap": "6px",
+      "radius": "12px",
+      "paddingX": "12px",
+      "paddingY": "10px"
+    },
+    {
+      "name": "default",
+      "selector": ".gary-solid-plate[data-density='default'], .gary-solid-plate--default-density",
+      "gap": "8px",
+      "radius": "16px",
+      "paddingX": "16px",
+      "paddingY": "14px"
+    },
+    {
+      "name": "spacious",
+      "selector": ".gary-solid-plate[data-density='spacious'], .gary-solid-plate--spacious",
+      "gap": "10px",
+      "radius": "18px",
+      "paddingX": "20px",
+      "paddingY": "18px"
+    }
+  ],
+  "slots": [
+    {
+      "name": "label",
+      "selector": "[data-slot='solid-plate-label'], .gary-solid-plate__label",
+      "description": "辅助标签，12px，font-weight 500，opacity 65%"
+    },
+    {
+      "name": "value",
+      "selector": "[data-slot='solid-plate-value'], .gary-solid-plate__value",
+      "description": "数值或关键信息，16px，font-weight 700，tabular-nums"
+    }
+  ],
+  "states": [
+    {"name": "default", "selector": ".gary-solid-plate"},
+    {"name": "disabled", "selector": ".gary-solid-plate[aria-disabled='true']"}
+  ],
+  "accessibility": {
+    "role": "semantic content element",
+    "requirements": [
+      "不为视觉样式添加多余 role",
+      "数据继续使用 table、dl 或 list 等原生语义",
+      "文本对比度不得依赖背景模糊",
+      "增强对比度与减弱透明度下继续保持实体承载",
+      "文字放大后内容与数据标签不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-solid-plate",
+    ".gary-solid-plate--default",
+    ".gary-solid-plate--subtle",
+    ".gary-solid-plate--inverse",
+    ".gary-solid-plate__label",
+    ".gary-solid-plate__value"
+  ]
+}

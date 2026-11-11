@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-theme="dark" data-gary-density="balanced" data-gary-material="regular">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; connect-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'"
+  >
+  <meta name="description" content="Gary-UI 受监控的本地 HTML 共创 Session">
+  <title>Gary-UI · 共创 Session</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23141416'/%3E%3Cpath d='M16 35 29 22a7 7 0 0 1 10 10L26 45a7 7 0 0 1-10-10Zm22-16 3-3a7 7 0 1 1 10 10l-3 3Z' fill='%23f3f3f4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../tokens/base.css">
+  <link rel="stylesheet" href="./app.css">
+</head>
+<body class="gary-ui">
+  <div class="session-scene" aria-hidden="true"></div>
+  <a class="skip-link" href="#session-main">跳到共创内容</a>
+
+  <header class="session-topbar gary-glass gary-ultrathin">
+    <a class="session-brand" href="#session-main" aria-label="Gary-UI 共创 Session 首页">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+      <span>
+        <small>GARY-UI · CO-DESIGN</small>
+        <strong>共同打磨</strong>
+      </span>
+    </a>
+
+    <nav class="session-nav" aria-label="共创页导航">
+      <a class="is-active" href="#proposal-stage" data-nav-target="proposal-stage">提案</a>
+      <a href="#agent-thinking" data-nav-target="agent-thinking">Agent 判断</a>
+      <a href="#feedback-studio" data-nav-target="feedback-studio">反馈定稿</a>
+    </nav>
+
+    <div class="live-state" aria-live="polite">
+      <span class="connection-dot" data-connection-dot></span>
+      <span data-connection-label>正在连接</span>
+      <span class="revision-badge" data-revision-badge>R—</span>
+    </div>
+  </header>
+
+  <main class="session-main" id="session-main" tabindex="-1">
+    <section class="system-state gary-glass gary-regular" data-loading-state aria-live="polite">
+      <span class="state-orbit" aria-hidden="true"></span>
+      <p class="eyebrow">LOCAL SESSION</p>
+      <h1>正在接入共创现场</h1>
+      <p>正在读取 Agent 的任务理解、可操作提案与当前决策。</p>
+    </section>
+
+    <section class="system-state system-state--error gary-glass gary-thick" data-error-state hidden>
+      <p class="eyebrow">SESSION UNAVAILABLE</p>
+      <h1>暂时无法进入这个 Session</h1>
+      <p data-error-message>请检查 Session 地址后重试。</p>
+      <button class="action-button action-button--primary" type="button" data-retry>重新连接</button>
+    </section>
+
+    <div class="session-workspace" data-workspace hidden>
+      <section class="task-intro" aria-labelledby="session-title">
+        <div>
+          <p class="eyebrow">
+            <span data-session-mode>COMPARE</span>
+            <span aria-hidden="true">·</span>
+            <span data-session-status>AWAITING FEEDBACK</span>
+          </p>
+          <h1 id="session-title" data-task-goal>共同把方向变成可确认的页面。</h1>
+          <p class="task-audience" data-task-audience>Agent 会把高影响判断放进真实 HTML，而不是只用文字描述。</p>
+        </div>
+        <dl class="task-meta" aria-label="任务信息">
+          <div>
+            <dt>应用模式</dt>
+            <dd data-application-mode>—</dd>
+          </div>
+          <div>
+            <dt>交付技术</dt>
+            <dd data-target-stack>—</dd>
+          </div>
+          <div>
+            <dt>共创状态</dt>
+            <dd data-state-label>—</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="proposal-stage" aria-labelledby="proposal-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LIVE PROPOSAL</p>
+            <h2 id="proposal-heading">在真实页面里做决定</h2>
+          </div>
+          <p class="section-note">点击页面元素即可添加定向批注。</p>
+        </div>
+
+        <article class="preview-shell gary-glass gary-regular">
+          <div class="preview-toolbar">
+            <div class="option-tabs" role="tablist" aria-label="设计方案" data-option-tabs></div>
+            <div class="preview-presence" aria-live="polite">
+              <span aria-hidden="true"></span>
+              <span data-preview-presence>等待提案</span>
+            </div>
+          </div>
+
+          <div class="proposal-summary">
+            <div>
+              <span class="option-kind" data-option-kind>RECOMMENDED</span>
+              <h3 data-option-label>当前提案</h3>
+            </div>
+            <div class="proposal-value">
+              <span>预期收益</span>
+              <p data-option-benefit>加载后将在这里解释这个方向带来的价值。</p>
+            </div>
+          </div>
+
+          <div class="visual-controls" aria-label="提案视觉控制">
+            <label>
+              <span>主题</span>
+              <select data-control="theme">
+                <option value="dark">深色</option>
+                <option value="light">浅色</option>
+              </select>
+            </label>
+            <label>
+              <span>材质</span>
+              <select data-control="material">
+                <option value="ultrathin">UltraThin</option>
+                <option value="regular">Regular</option>
+                <option value="thick">Thick</option>
+                <option value="solid-plate">SolidPlate</option>
+              </select>
+            </label>
+            <label>
+              <span>密度</span>
+              <select data-control="density">
+                <option value="spacious">舒展</option>
+                <option value="balanced">均衡</option>
+                <option value="compact">紧凑</option>
+              </select>
+            </label>
+            <label>
+              <span>页面模式</span>
+              <select data-control="pageMode">
+                <option value="report-cover">报告封面</option>
+                <option value="image-page">图像页</option>
+                <option value="data-page">数据页</option>
+                <option value="manual-toc">手册目录</option>
+              </select>
+            </label>
+            <label>
+              <span>布局</span>
+              <select data-control="layout">
+                <option value="as-proposed">沿用提案</option>
+                <option value="split-emphasis">分区强调</option>
+                <option value="balanced-grid">均衡网格</option>
+                <option value="single-flow">单线叙事</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="preview-frame">
+            <div class="preview-loading" data-preview-loading>
+              <span class="state-orbit" aria-hidden="true"></span>
+              <span>正在准备可操作提案</span>
+            </div>
+            <iframe
+              data-preview-frame
+              title="Gary-UI 可操作设计提案"
+              sandbox="allow-scripts"
+              referrerpolicy="no-referrer"
+            ></iframe>
+          </div>
+
+          <div class="selection-strip" aria-live="polite">
+            <span class="selection-indicator" aria-hidden="true"></span>
+            <span data-selected-node>尚未选择页面元素</span>
+            <button type="button" data-clear-node hidden>清除选择</button>
+          </div>
+        </article>
+      </section>
+
+      <section id="agent-thinking" aria-labelledby="thinking-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">AGENT REASONING · VISIBLE</p>
+            <h2 id="thinking-heading">看见判断，再决定方向</h2>
+          </div>
+          <p class="section-note">推荐不是黑箱；假设、收益与风险都应可检查。</p>
+        </div>
+
+        <div class="thinking-grid">
+          <article class="thinking-card gary-glass gary-regular thinking-card--wide">
+            <span class="card-index">01</span>
+            <p class="eyebrow">TASK UNDERSTANDING</p>
+            <h3>Agent 对任务的理解</h3>
+            <p class="long-copy" data-understanding>等待 Agent 发布任务理解。</p>
+          </article>
+
+          <article class="thinking-card gary-glass gary-regular">
+            <span class="card-index">02</span>
+            <p class="eyebrow">ASSUMPTIONS</p>
+            <h3>当前假设</h3>
+            <ul class="evidence-list" data-assumptions>
+              <li>尚无公开假设。</li>
+            </ul>
+          </article>
+
+          <article class="thinking-card gary-glass gary-regular">
+            <span class="card-index">03</span>
+            <p class="eyebrow">WHY THIS DIRECTION</p>
+            <h3>推荐理由</h3>
+            <p class="long-copy" data-recommendation>等待 Agent 说明为什么推荐这个方向。</p>
+          </article>
+
+          <article class="thinking-card gary-glass gary-thick">
+            <span class="card-index">04</span>
+            <p class="eyebrow">RISKS</p>
+            <h3>风险与取舍</h3>
+            <ul class="evidence-list" data-risks>
+              <li>尚无已识别风险。</li>
+            </ul>
+          </article>
+
+          <article class="thinking-card gary-glass gary-regular thinking-card--wide">
+            <span class="card-index">05</span>
+            <p class="eyebrow">CHANGE SET</p>
+            <h3>这一版改变了什么</h3>
+            <ol class="change-list" data-change-set>
+              <li>第一版提案将在这里说明它建立了什么。</li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <section id="feedback-studio" aria-labelledby="feedback-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">FEEDBACK STUDIO</p>
+            <h2 id="feedback-heading">把感受变成 Agent 可执行的反馈</h2>
+          </div>
+          <p class="section-note">一轮聚焦 1–3 个高影响决定。</p>
+        </div>
+
+        <div class="feedback-grid">
+          <article class="decision-card gary-glass gary-regular">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">DECISION LOCKS</p>
+                <h3>已确认与待确认</h3>
+              </div>
+              <span class="count-badge" data-decision-count>0</span>
+            </div>
+            <section class="confirmed-decisions" aria-labelledby="confirmed-decisions-heading">
+              <div class="subcard-heading">
+                <h4 id="confirmed-decisions-heading">已确认决定</h4>
+                <span class="count-badge count-badge--quiet" data-confirmed-count>0</span>
+              </div>
+              <div class="confirmed-decision-list" data-confirmed-decisions>
+                <p class="empty-copy">当前还没有锁定的决定。</p>
+              </div>
+            </section>
+            <div class="open-decision-heading">
+              <h4>本轮仍需确认</h4>
+            </div>
+            <div class="decision-list" data-open-decisions>
+              <p class="empty-copy">当前没有待确认问题。</p>
+            </div>
+          </article>
+
+          <article class="annotation-card gary-glass gary-regular">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">ELEMENT NOTES</p>
+                <h3>元素级批注</h3>
+              </div>
+              <span class="count-badge" data-annotation-count>0</span>
+            </div>
+
+            <div class="annotation-empty" data-annotation-empty>
+              <span class="target-glyph" aria-hidden="true"></span>
+              <p>先在上方真实页面中点击一个元素。</p>
+            </div>
+
+            <form class="annotation-composer" data-annotation-form hidden>
+              <p class="selected-node-label">当前元素 <code data-annotation-node>—</code></p>
+              <fieldset>
+                <legend>希望怎么处理</legend>
+                <div class="choice-row" data-annotation-intent>
+                  <button type="button" data-value="keep" aria-pressed="false">保留</button>
+                  <button type="button" data-value="adjust" aria-pressed="true">调整</button>
+                  <button type="button" data-value="delete" aria-pressed="false">删除</button>
+                  <button type="button" data-value="question" aria-pressed="false">疑问</button>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>优先级</legend>
+                <div class="choice-row choice-row--priority" data-annotation-priority>
+                  <button type="button" data-value="must" aria-pressed="true">必须</button>
+                  <button type="button" data-value="should" aria-pressed="false">应该</button>
+                  <button type="button" data-value="could" aria-pressed="false">可以</button>
+                </div>
+              </fieldset>
+              <label class="text-field">
+                <span>具体说明</span>
+                <textarea data-annotation-note rows="3" maxlength="2000" placeholder="例如：保留内容，但标题需要更克制。"></textarea>
+              </label>
+              <button class="action-button" type="submit">加入本轮反馈</button>
+            </form>
+
+            <ul class="annotation-list" data-annotation-list></ul>
+          </article>
+
+          <article class="combination-card gary-glass gary-regular">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">REGION COMBINATION</p>
+                <h3>跨方案组合区域</h3>
+              </div>
+              <span class="count-badge" data-combination-count>0 / 12</span>
+            </div>
+
+            <p class="combination-guidance">
+              从当前方案与所选元素提取区域。Agent 会按来源组合，而不是把整套方案混在一起。
+            </p>
+            <div class="combination-empty" data-combination-empty>
+              <span class="target-glyph" aria-hidden="true"></span>
+              <p>先切换到来源方案，再在上方页面点击要借用的区域。</p>
+            </div>
+            <form class="combination-composer" data-combination-form hidden>
+              <p class="combination-source">
+                <span>来源方案 <strong data-combination-option>—</strong></span>
+                <span>区域 <code data-combination-node>—</code></span>
+              </p>
+              <label class="text-field">
+                <span>组合说明</span>
+                <textarea data-combination-note rows="3" minlength="1" maxlength="2000" placeholder="例如：采用 B 的指标卡区域，但保留 A 的标题节奏。" required></textarea>
+              </label>
+              <button class="action-button" type="submit">加入区域组合</button>
+            </form>
+            <ul class="combination-list" data-combination-list></ul>
+          </article>
+
+          <article class="submission-card gary-glass gary-thick">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">SEND TO AGENT</p>
+                <h3>提交这一轮判断</h3>
+              </div>
+              <span class="submit-state" data-submit-state data-state="idle">未提交</span>
+            </div>
+
+            <label class="text-field">
+              <span>整体反馈</span>
+              <textarea data-feedback-notes rows="5" maxlength="10000" placeholder="补充整体感受、想保留的方向，或还没有被覆盖的目标。"></textarea>
+            </label>
+
+            <div class="submission-actions">
+              <button class="action-button action-button--ghost" type="button" data-submit-action="reject">否决本轮</button>
+              <button class="action-button" type="button" data-submit-action="iterate">继续迭代</button>
+              <button class="action-button action-button--primary" type="button" data-request-approval>批准实施</button>
+            </div>
+
+            <p class="submission-help" data-submission-help>
+              提交后，Agent 会在同一个 URL 发布下一版；页面不会直接修改 Gary-UI 母本或目标项目。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="verification-section" id="verification-evidence" aria-labelledby="verification-heading" data-verification-section hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">IMPLEMENTATION EVIDENCE</p>
+            <h2 id="verification-heading">实施与验证回执</h2>
+          </div>
+          <p class="section-note">只展示后端快照提供的受保护证据，不读取本地源路径。</p>
+        </div>
+
+        <article class="verification-card gary-glass gary-thick">
+          <div class="verification-overview">
+            <div>
+              <span class="verification-result" data-verification-result data-result="pending">等待验证</span>
+              <h3 data-verification-summary>Agent 完成实施后，证据会回到同一个 Session。</h3>
+            </div>
+            <dl class="verification-meta">
+              <div>
+                <dt>回执</dt>
+                <dd data-verification-receipt>—</dd>
+              </div>
+              <div>
+                <dt>Revision</dt>
+                <dd data-verification-revision>—</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="verification-grid">
+            <section>
+              <p class="eyebrow">CHECKS</p>
+              <h4>验证检查</h4>
+              <ul class="verification-checks" data-verification-checks></ul>
+            </section>
+            <section>
+              <p class="eyebrow">SKILLS USED</p>
+              <h4>真正使用的 Skill</h4>
+              <ul class="verification-skills" data-verification-skills></ul>
+            </section>
+          </div>
+
+          <section class="verification-artifact-section">
+            <p class="eyebrow">ARTIFACTS</p>
+            <h4>证据附件</h4>
+            <div class="verification-artifacts" data-verification-artifacts></div>
+          </section>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <dialog class="approval-dialog" data-approval-dialog aria-labelledby="approval-title">
+    <form method="dialog">
+      <p class="eyebrow">FINAL APPROVAL</p>
+      <h2 id="approval-title">确认让 Agent 进入实施？</h2>
+      <p>批准会锁定当前 revision、所选方案、视觉设置与本轮决定。后续调整需要显式重新打开 Session。</p>
+      <div class="dialog-summary">
+        <span>当前方案</span>
+        <strong data-approval-option>—</strong>
+      </div>
+      <div class="dialog-actions">
+        <button class="action-button action-button--ghost" value="cancel">继续检查</button>
+        <button class="action-button action-button--primary" type="button" data-confirm-approval>确认批准</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite" aria-atomic="true" data-toast hidden></div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
+
+
+

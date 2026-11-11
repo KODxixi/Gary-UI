@@ -1,0 +1,37 @@
+/* Original Gary-UI content rail. Native scrolling; existing MediaCard owns its surface. */
+.gary-content-rail {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 4px 4px 12px;
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 4px;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+.gary-content-rail > li {
+  flex: 0 0 calc(100% - 72px);
+  min-width: 0;
+  scroll-snap-align: start;
+  overflow-wrap: anywhere;
+}
+.gary-content-rail > li:only-child { flex-basis: 100%; }
+.gary-content-rail:focus-visible {
+  outline: 2px solid var(--gary-focus-ring);
+  outline-offset: 3px;
+}
+.gary-content-rail-controls { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+[data-gary-rail] [data-rail-status] { min-width: 5ch; font-variant-numeric: tabular-nums; color: var(--gary-text-secondary); }
+[data-gary-rail] [data-rail-next] .gary-icon { transform: rotate(180deg); }
+@media (max-width: 560px) {
+  .gary-content-rail { gap: 16px; }
+  .gary-content-rail > li { flex-basis: calc(100% - 48px); }
+  .gary-content-rail > li:only-child { flex-basis: 100%; }
+}
+@media print {
+  .gary-content-rail { display: block; overflow: visible; padding: 0; scroll-snap-type: none; }
+  .gary-content-rail > li { margin-bottom: 24px; break-inside: avoid; }
+  [data-gary-rail] :is([data-rail-prev], [data-rail-next], [data-rail-status]) { display: none !important; }
+}

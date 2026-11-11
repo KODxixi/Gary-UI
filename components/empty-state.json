@@ -1,0 +1,48 @@
+{
+  "slug": "empty-state",
+  "name": "空状态",
+  "category": "layout",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/empty-state)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "图标居中 48px；标题 18px；描述 14px secondary；主操作按钮居下"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-empty-state"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-empty-state",
+    ".gary-empty-state__icon",
+    ".gary-empty-state__title",
+    ".gary-empty-state__description",
+    ".gary-empty-state__action"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "input-otp",
+  "name": "OTP 输入",
+  "category": "forms",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/input-otp)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "6 个 44px 方形输入框；当前位用 focus-ring；输入自动跳到下一位"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-input-otp"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-input-otp",
+    ".gary-input-otp__group",
+    ".gary-input-otp__slot",
+    ".gary-input-otp__separator"
+  ]
+}

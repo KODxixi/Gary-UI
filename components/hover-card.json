@@ -1,0 +1,46 @@
+{
+  "slug": "hover-card",
+  "name": "悬停卡片",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/hover-card)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "延迟 300ms 触发；内容用 Regular 玻璃；不拦截焦点"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-hover-card"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-hover-card",
+    ".gary-hover-card__trigger",
+    ".gary-hover-card__content"
+  ]
+}

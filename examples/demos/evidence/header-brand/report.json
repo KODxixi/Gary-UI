@@ -1,0 +1,2367 @@
+{
+  "generatedAt": "2026-09-07T07:47:55.349Z",
+  "checks": 64,
+  "passed": 64,
+  "results": [
+    {
+      "entry": "examples/demos/index.html",
+      "width": 1440,
+      "theme": "dark",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/index.html",
+      "width": 1440,
+      "theme": "light",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/index.html",
+      "width": 1600,
+      "theme": "dark",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/index.html",
+      "width": 1600,
+      "theme": "light",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/index.html",
+      "width": 768,
+      "theme": "dark",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/index.html",
+      "width": 768,
+      "theme": "light",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/index.html",
+      "width": 390,
+      "theme": "dark",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/index.html",
+      "width": 390,
+      "theme": "light",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-analysis/index.html",
+      "width": 1440,
+      "theme": "dark",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-analysis/index.html",
+      "width": 1440,
+      "theme": "light",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-analysis/index.html",
+      "width": 1600,
+      "theme": "dark",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-analysis/index.html",
+      "width": 1600,
+      "theme": "light",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-analysis/index.html",
+      "width": 768,
+      "theme": "dark",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-analysis/index.html",
+      "width": 768,
+      "theme": "light",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-analysis/index.html",
+      "width": 390,
+      "theme": "dark",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-analysis/index.html",
+      "width": 390,
+      "theme": "light",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-reading/index.html",
+      "width": 1440,
+      "theme": "dark",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-reading/index.html",
+      "width": 1440,
+      "theme": "light",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-reading/index.html",
+      "width": 1600,
+      "theme": "dark",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-reading/index.html",
+      "width": 1600,
+      "theme": "light",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-reading/index.html",
+      "width": 768,
+      "theme": "dark",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-reading/index.html",
+      "width": 768,
+      "theme": "light",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-reading/index.html",
+      "width": 390,
+      "theme": "dark",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/web-reading/index.html",
+      "width": 390,
+      "theme": "light",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/project-kanban/index.html",
+      "width": 1440,
+      "theme": "dark",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/project-kanban/index.html",
+      "width": 1440,
+      "theme": "light",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/project-kanban/index.html",
+      "width": 1600,
+      "theme": "dark",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/project-kanban/index.html",
+      "width": 1600,
+      "theme": "light",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/project-kanban/index.html",
+      "width": 768,
+      "theme": "dark",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/project-kanban/index.html",
+      "width": 768,
+      "theme": "light",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/project-kanban/index.html",
+      "width": 390,
+      "theme": "dark",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/project-kanban/index.html",
+      "width": 390,
+      "theme": "light",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/executive-board/index.html",
+      "width": 1440,
+      "theme": "dark",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/executive-board/index.html",
+      "width": 1440,
+      "theme": "light",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/executive-board/index.html",
+      "width": 1600,
+      "theme": "dark",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/executive-board/index.html",
+      "width": 1600,
+      "theme": "light",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/executive-board/index.html",
+      "width": 768,
+      "theme": "dark",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/executive-board/index.html",
+      "width": 768,
+      "theme": "light",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/executive-board/index.html",
+      "width": 390,
+      "theme": "dark",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/executive-board/index.html",
+      "width": 390,
+      "theme": "light",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/research-report/index.html",
+      "width": 1440,
+      "theme": "dark",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/research-report/index.html",
+      "width": 1440,
+      "theme": "light",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/research-report/index.html",
+      "width": 1600,
+      "theme": "dark",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/research-report/index.html",
+      "width": 1600,
+      "theme": "light",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/research-report/index.html",
+      "width": 768,
+      "theme": "dark",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/research-report/index.html",
+      "width": 768,
+      "theme": "light",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/research-report/index.html",
+      "width": 390,
+      "theme": "dark",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/research-report/index.html",
+      "width": 390,
+      "theme": "light",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/proposal-presentation/index.html",
+      "width": 1440,
+      "theme": "dark",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/proposal-presentation/index.html",
+      "width": 1440,
+      "theme": "light",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/proposal-presentation/index.html",
+      "width": 1600,
+      "theme": "dark",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/proposal-presentation/index.html",
+      "width": 1600,
+      "theme": "light",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/proposal-presentation/index.html",
+      "width": 768,
+      "theme": "dark",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/proposal-presentation/index.html",
+      "width": 768,
+      "theme": "light",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/proposal-presentation/index.html",
+      "width": 390,
+      "theme": "dark",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "examples/demos/proposal-presentation/index.html",
+      "width": 390,
+      "theme": "light",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "menuOpen": true,
+      "menuClosed": true,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "portal/#demos",
+      "width": 1440,
+      "theme": "dark",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "portal/#demos",
+      "width": 1440,
+      "theme": "light",
+      "top": {
+        "width": 1140,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 980,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "portal/#demos",
+      "width": 1600,
+      "theme": "dark",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "portal/#demos",
+      "width": 1600,
+      "theme": "light",
+      "top": {
+        "width": 1280,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 1180,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "portal/#demos",
+      "width": 768,
+      "theme": "dark",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "portal/#demos",
+      "width": 768,
+      "theme": "light",
+      "top": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 624,
+        "height": 46,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "portal/#demos",
+      "width": 390,
+      "theme": "dark",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(18, 18, 18, 0.88)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    },
+    {
+      "entry": "portal/#demos",
+      "width": 390,
+      "theme": "light",
+      "top": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(0, 0, 0, 0)",
+        "scrolled": false,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "floating": {
+        "width": 342,
+        "height": 54,
+        "top": 8,
+        "background": "rgba(255, 255, 255, 0.9)",
+        "scrolled": true,
+        "logo": true,
+        "legacyG": false,
+        "position": "fixed",
+        "overflow": false,
+        "token": "44px"
+      },
+      "contentFit": {
+        "logoLoaded": true,
+        "titleSingle": true,
+        "separated": true
+      },
+      "pass": true,
+      "errors": []
+    }
+  ]
+}

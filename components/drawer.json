@@ -1,0 +1,62 @@
+{
+  "slug": "drawer",
+  "name": "抽屉",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/drawer)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "从边缘滑入；移动端全屏；与 sheet 共用样式但无标题栏"
+    ]
+  },
+  "variants": [
+    {
+      "name": "right",
+      "selector": ".gary-drawer--right"
+    },
+    {
+      "name": "left",
+      "selector": ".gary-drawer--left"
+    },
+    {
+      "name": "top",
+      "selector": ".gary-drawer--top"
+    },
+    {
+      "name": "bottom",
+      "selector": ".gary-drawer--bottom"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-drawer",
+    ".gary-drawer__overlay",
+    ".gary-drawer__content",
+    ".gary-drawer__header",
+    ".gary-drawer__title",
+    ".gary-drawer__description",
+    ".gary-drawer__close"
+  ]
+}

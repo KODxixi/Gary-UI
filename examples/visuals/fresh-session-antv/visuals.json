@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "project": "fresh-session-antv-quality-loop",
+  "outputRoot": "outputs",
+  "visuals": [
+    {
+      "id": "quality-loop",
+      "title": "本地报告制图质量闭环",
+      "description": "明确标注的验收构造数据：从需求接收到浏览器验收的四步本地制图闭环。",
+      "purpose": "infographic",
+      "tool": "antv-infographic",
+      "source": "sources/quality-loop.json",
+      "scene": "showcase",
+      "theme": "dark",
+      "quality": "showcase",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "验收构造数据",
+        "url": null,
+        "note": "仅用于本次全新会话端到端验收，不代表真实生产记录。"
+      }
+    }
+  ]
+}

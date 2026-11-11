@@ -1,0 +1,51 @@
+{
+  "slug": "tab-bar",
+  "name": "标签栏",
+  "category": "navigation",
+  "material": {
+    "default": "UltraThin",
+    "rules": [
+      "所有标签共享一层玻璃容器",
+      "选中项使用 SolidPlate"
+    ]
+  },
+  "variants": [
+    {
+      "name": "desktop",
+      "selector": ".gary-tab-bar"
+    },
+    {
+      "name": "equal-mobile",
+      "selector": "@media (max-width: 640px)"
+    }
+  ],
+  "states": [
+    {
+      "name": "selected",
+      "selector": "[aria-selected=\"true\"]"
+    },
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled"
+    }
+  ],
+  "accessibility": {
+    "role": "tablist with tab children",
+    "requirements": [
+      "tab 关联 aria-controls 与对应 tabpanel",
+      "激活项同步 aria-selected 与 tabindex",
+      "支持左右方向键切换"
+    ]
+  },
+  "cssClasses": [
+    ".gary-tab-bar"
+  ]
+}

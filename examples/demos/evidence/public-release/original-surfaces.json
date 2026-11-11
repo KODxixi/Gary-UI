@@ -1,0 +1,42 @@
+{
+  "checks": [
+    "both public APIs available",
+    "wave renderer is opt-in",
+    "foreground has no CSS filter",
+    "refraction 0 to 180 changes actual backdrop pixels",
+    "refraction preserves layout dimensions",
+    "one displacement operation without color separation",
+    "resize regenerates the normal field",
+    "dynamic card mounts a unique filter",
+    "removed card releases its filter and state",
+    "repeated mount reuses one renderer",
+    "ranges expose controller-compatible triples",
+    "invalid and out-of-range options normalize safely",
+    "pause holds frames and time",
+    "snapshot returns a PNG",
+    "PNG includes configured opacity",
+    "play resumes and emits the controller event",
+    "playing changes the rendered wave image",
+    "zero speed is static",
+    "reduced motion is static and ignores pointer parallax",
+    "print pauses rendering",
+    "offscreen host suspends frames",
+    "static offscreen update is painted when visible",
+    "onscreen host resumes and resizes",
+    "visibility signal suspends rendering",
+    "replay resets playback",
+    "destroy removes owned canvases and filters",
+    "destroy clears only owned card state",
+    "fallback mode preserves base glass",
+    "frosted mode preserves base glass",
+    "unavailable canvas produces a controlled fallback",
+    "no uncaught browser errors"
+  ],
+  "browser": "152.0.7977.76",
+  "refractionPixels": {
+    "changed": 32535,
+    "pixels": 124700,
+    "meanDifference": 11.233488372093023
+  },
+  "passed": true
+}

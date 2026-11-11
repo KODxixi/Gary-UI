@@ -1,0 +1,126 @@
+{
+  "slug": "typography",
+  "name": "排版",
+  "category": "layout",
+  "source": "adapters/react-shadcn/src/components/ui/typography.tsx",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "display 层级 H1–H4 使用 tracking-tight 与对应 font-weight，正文正文与次要文字区分 foreground 与 muted-foreground",
+      "InlineCode 使用 bg-muted 圆角底衬与等宽字体；Lead 为大号次要引导段",
+      "所有组件只消费 Tailwind 语义色（text-foreground / text-muted-foreground / bg-muted），不硬编码色值"
+    ]
+  },
+  "variants": [
+    {
+      "name": "h1",
+      "selector": ".gary-h1, [data-slot='typography-h1']",
+      "fontSize": "40/48px",
+      "fontWeight": "800",
+      "tracking": "tight"
+    },
+    {
+      "name": "h2",
+      "selector": ".gary-h2, [data-slot='typography-h2']",
+      "fontSize": "30px",
+      "fontWeight": "600",
+      "tracking": "tight"
+    },
+    {
+      "name": "h3",
+      "selector": ".gary-h3, [data-slot='typography-h3']",
+      "fontSize": "24px",
+      "fontWeight": "600",
+      "tracking": "tight"
+    },
+    {
+      "name": "h4",
+      "selector": ".gary-h4, [data-slot='typography-h4']",
+      "fontSize": "20px",
+      "fontWeight": "600",
+      "tracking": "tight"
+    },
+    {
+      "name": "lead",
+      "selector": ".gary-lead, [data-slot='typography-lead']",
+      "color": "var(--muted-foreground)",
+      "fontSize": "20px"
+    },
+    {
+      "name": "p",
+      "selector": ".gary-p, [data-slot='typography-p']",
+      "color": "var(--foreground)",
+      "lineHeight": "1.75"
+    },
+    {
+      "name": "small",
+      "selector": ".gary-small, [data-slot='typography-small']",
+      "fontSize": "14px",
+      "fontWeight": "500"
+    },
+    {
+      "name": "muted",
+      "selector": ".gary-muted, [data-slot='typography-muted']",
+      "color": "var(--muted-foreground)",
+      "fontSize": "14px"
+    },
+    {
+      "name": "blockquote",
+      "selector": ".gary-blockquote, [data-slot='typography-blockquote']",
+      "border": "2px solid var(--border)",
+      "style": "italic"
+    },
+    {
+      "name": "inline-code",
+      "selector": ".gary-inline-code, [data-slot='typography-inline-code']",
+      "background": "var(--muted)",
+      "fontFamily": "monospace",
+      "padding": "2px 4px",
+      "borderRadius": "4px"
+    },
+    {
+      "name": "list",
+      "selector": ".gary-list, [data-slot='typography-list']",
+      "style": "disc"
+    },
+    {
+      "name": "list-item",
+      "selector": ".gary-list-item, [data-slot='typography-list-item']"
+    },
+    {
+      "name": "caption",
+      "selector": ".gary-caption, [data-slot='typography-caption']",
+      "color": "var(--muted-foreground)",
+      "fontSize": "14px"
+    }
+  ],
+  "states": [
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "语义化 HTML 元素（h1–h4 / p / blockquote / ul li / code / caption）",
+    "requirements": [
+      "标题层级按文档顺序递进，不跳级",
+      "颜色不作为唯一信息传达手段",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-h1",
+    ".gary-h2",
+    ".gary-h3",
+    ".gary-h4",
+    ".gary-lead",
+    ".gary-p",
+    ".gary-small",
+    ".gary-muted",
+    ".gary-blockquote",
+    ".gary-inline-code",
+    ".gary-list",
+    ".gary-list-item",
+    ".gary-caption"
+  ]
+}

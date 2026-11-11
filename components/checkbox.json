@@ -1,0 +1,45 @@
+{
+  "slug": "checkbox",
+  "name": "复选框",
+  "category": "forms",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/checkbox)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "18px 方形控件；选中态用 focus-ring 边框；半选态用横线"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-checkbox"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-checkbox",
+    ".gary-checkbox__indicator"
+  ]
+}

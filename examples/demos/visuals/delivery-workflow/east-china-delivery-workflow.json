@@ -1,0 +1,174 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "华东服务交付计划",
+    "locale": "zh-CN",
+    "output": "east-china-delivery-workflow.html",
+    "animation": "none",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "delivery-main-path",
+        "label": "交付主路径",
+        "focus": ["request-register", "regional-confirm", "evidence-check", "publish-report", "archive-version"],
+        "note": "从客户需求登记到同版本归档，逐项查看主交付链路。"
+      },
+      {
+        "id": "evidence-recovery-loop",
+        "label": "证据修正闭环",
+        "focus": ["evidence-check", "compliance-block", "evidence-correction"],
+        "note": "证据不合规即阻断，修正后必须回到证据检查。"
+      },
+      {
+        "id": "publish-failure-guard",
+        "label": "发布失败保护",
+        "focus": ["publish-report", "preserve-last-good"],
+        "note": "失败候选留痕，同时保持上一有效版本可用。"
+      }
+    ]
+  },
+  "lanes": [
+    { "id": "shanghai-pilot", "label": "上海样板" },
+    { "id": "jiangsu-standard", "label": "江苏口径" },
+    { "id": "zhejiang-training", "label": "浙江培训材料" }
+  ],
+  "phases": [
+    { "id": "intake", "label": "受理与确认", "fromCol": 0, "toCol": 1 },
+    { "id": "evidence", "label": "证据门禁", "fromCol": 2, "toCol": 3, "variant": "security" },
+    { "id": "release", "label": "发布与留存", "fromCol": 4, "toCol": 5, "variant": "emphasis" }
+  ],
+  "groups": [
+    { "id": "evidence-loop", "label": "不合规证据修正闭环", "lane": "jiangsu-standard", "fromCol": 2, "toCol": 3, "variant": "security" }
+  ],
+  "mainPath": [
+    "request-register",
+    "regional-confirm",
+    "evidence-check",
+    "publish-report",
+    "archive-version"
+  ],
+  "semanticChecks": {
+    "allowedRoots": ["request-register"],
+    "allowedTerminals": ["archive-version", "preserve-last-good"],
+    "requiredEdges": [
+      { "from": "evidence-check", "to": "compliance-block" },
+      { "from": "evidence-correction", "to": "evidence-check" },
+      { "from": "publish-report", "to": "preserve-last-good" }
+    ],
+    "requiredPaths": [
+      { "from": "request-register", "to": "archive-version" },
+      { "from": "compliance-block", "to": "evidence-check" }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "request-register",
+      "lane": "shanghai-pilot",
+      "col": 0,
+      "type": "frontend",
+      "label": "客户需求登记",
+      "sublabel": "建立交付条目",
+      "tag": "入口"
+    },
+    {
+      "id": "regional-confirm",
+      "lane": "jiangsu-standard",
+      "col": 1,
+      "type": "security",
+      "label": "区域负责人确认",
+      "sublabel": "统一江苏口径",
+      "tag": "责任门"
+    },
+    {
+      "id": "evidence-check",
+      "lane": "zhejiang-training",
+      "col": 2,
+      "type": "security",
+      "label": "证据检查",
+      "sublabel": "校核培训材料",
+      "tag": "合规门禁"
+    },
+    {
+      "id": "compliance-block",
+      "lane": "jiangsu-standard",
+      "col": 2,
+      "type": "security",
+      "label": "合规阻断",
+      "sublabel": "停止进入发布",
+      "tag": "失败分支"
+    },
+    {
+      "id": "evidence-correction",
+      "lane": "jiangsu-standard",
+      "col": 3,
+      "type": "backend",
+      "label": "修正证据",
+      "sublabel": "补齐依据与版本说明"
+    },
+    {
+      "id": "publish-report",
+      "lane": "shanghai-pilot",
+      "col": 4,
+      "type": "cloud",
+      "label": "发布管理层报告",
+      "sublabel": "以上海样板发布",
+      "tag": "受控发布"
+    },
+    {
+      "id": "archive-version",
+      "lane": "zhejiang-training",
+      "col": 5,
+      "type": "database",
+      "label": "归档同版本产物",
+      "sublabel": "报告、证据、材料一致",
+      "tag": "完成"
+    },
+    {
+      "id": "preserve-last-good",
+      "lane": "shanghai-pilot",
+      "col": 5,
+      "type": "database",
+      "label": "保留上一有效版本",
+      "sublabel": "登记失败候选及原因",
+      "tag": "发布保护",
+      "width": 124
+    }
+  ],
+  "edges": [
+    { "from": "request-register", "to": "regional-confirm", "label": "提交需求", "role": "main" },
+    { "from": "regional-confirm", "to": "evidence-check", "label": "确认口径", "role": "main" },
+    { "from": "evidence-check", "to": "publish-report", "label": "检查通过", "variant": "emphasis", "role": "main" },
+    { "from": "publish-report", "to": "archive-version", "label": "发布成功", "variant": "emphasis", "role": "main" },
+    { "from": "evidence-check", "to": "compliance-block", "label": "检查失败", "variant": "security", "role": "error" },
+    { "from": "compliance-block", "to": "evidence-correction", "label": "发起修正", "variant": "security", "role": "branch" },
+    { "from": "evidence-correction", "to": "evidence-check", "label": "重新检查", "variant": "dashed", "role": "return" },
+    { "from": "publish-report", "to": "preserve-last-good", "label": "发布失败", "variant": "security", "role": "error" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "三地责任",
+      "items": [
+        "上海：需求入口、报告发布与有效版本保护",
+        "江苏负责口径与修正；浙江负责检查与归档"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "阻断规则",
+      "items": [
+        "检查失败不得发布",
+        "修正后必须重新检查"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "版本安全",
+      "items": [
+        "成功：归档报告、证据与材料的同一版本",
+        "失败：保留上一有效版本并记录原因"
+      ]
+    }
+  ]
+}

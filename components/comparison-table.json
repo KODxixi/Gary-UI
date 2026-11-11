@@ -1,0 +1,48 @@
+{
+  "slug": "comparison-table",
+  "name": "对比表",
+  "category": "data-display",
+  "material": {
+    "default": "Thick shell with SolidPlate cells",
+    "rules": [
+      "表格必须适配可见容器，禁止卡内横向滚动",
+      "数值右对齐并使用等宽数字"
+    ]
+  },
+  "variants": [
+    {
+      "name": "desktop-matrix",
+      "selector": ".gary-comparison-table > table"
+    },
+    {
+      "name": "mobile-stacked",
+      "selector": "@media (max-width: 640px)"
+    },
+    {
+      "name": "recommended-column",
+      "selector": "[data-recommended=\"true\"]"
+    }
+  ],
+  "states": [
+    {
+      "name": "recommended",
+      "selector": "[data-recommended=\"true\"]"
+    },
+    {
+      "name": "empty",
+      "selector": "[data-state=\"empty\"]"
+    }
+  ],
+  "accessibility": {
+    "role": "native table",
+    "requirements": [
+      "使用 caption、th 与正确 scope",
+      "移动端 td 提供与表头一致的 data-label",
+      "推荐结论除视觉高亮外还需可读文本"
+    ]
+  },
+  "cssClasses": [
+    ".gary-comparison-table",
+    ".gary-comparison-table__empty"
+  ]
+}

@@ -1,0 +1,554 @@
+{
+  "schemaVersion": 1,
+  "types": {
+    "combo": [
+      {
+        "id": "service-load",
+        "label": "客服运营 · 五周",
+        "question": "服务量与处理时长是否在同一时段上升？",
+        "rationale": "共享时间轴但单位不同；只并列观察，不由折线形状推断因果。",
+        "takeaway": "先沿各自尺度读取量值，再用业务证据解释共同变化。",
+        "config": {
+          "meta": {
+            "title": "服务量与处理时长",
+            "unit": "件 / 小时",
+            "source": "人工编制 · 用于规范迁移验证",
+            "status": "演示"
+          },
+          "categories": [
+            "第1周",
+            "第2周",
+            "第3周",
+            "第4周",
+            "第5周"
+          ],
+          "bar": {
+            "label": "工单量",
+            "unit": "件",
+            "values": [
+              28,
+              44,
+              35,
+              58,
+              47
+            ],
+            "role": "primary"
+          },
+          "line": {
+            "label": "处理时长",
+            "unit": "小时",
+            "values": [
+              9,
+              13,
+              11,
+              18,
+              14
+            ],
+            "role": "reference"
+          },
+          "scales": {
+            "left": [
+              0,
+              70
+            ],
+            "right": [
+              0,
+              24
+            ]
+          },
+          "annotation": {
+            "start": "第3周",
+            "end": "第4周",
+            "label": "重点复核期",
+            "kind": "assumed",
+            "basis": "人工设定的观察窗；不代表自动判定异常。"
+          }
+        }
+      },
+      {
+        "id": "energy-temperature",
+        "label": "设施运行 · 七时段",
+        "question": "负荷与温度在一天中怎样并列变化？",
+        "rationale": "不同物理单位分别定标；08时温度缺测，保留断点，禁止补零或连线。",
+        "takeaway": "缺测仍是缺测，观察窗随输入类别改变，不沿用上一业务的结论。",
+        "config": {
+          "meta": {
+            "title": "用电负荷与室外温度",
+            "unit": "kW / °C",
+            "source": "人工编制 · 用于规范迁移验证",
+            "status": "演示"
+          },
+          "categories": [
+            "00时",
+            "04时",
+            "08时",
+            "12时",
+            "16时",
+            "20时",
+            "24时"
+          ],
+          "bar": {
+            "label": "负荷",
+            "unit": "kW",
+            "values": [
+              42,
+              39,
+              48,
+              61,
+              57,
+              50,
+              44
+            ],
+            "role": "primary"
+          },
+          "line": {
+            "label": "温度",
+            "unit": "°C",
+            "values": [
+              17,
+              16,
+              null,
+              26,
+              24,
+              21,
+              19
+            ],
+            "role": "reference"
+          },
+          "scales": {
+            "left": [
+              0,
+              80
+            ],
+            "right": [
+              0,
+              40
+            ]
+          },
+          "annotation": {
+            "start": "12时",
+            "end": "16时",
+            "label": "日间观察窗",
+            "kind": "data",
+            "basis": "对应输入的12时与16时两个观测类别。"
+          }
+        }
+      }
+    ],
+    "waterfall": [
+      {
+        "id": "capacity-ledger",
+        "label": "项目管理 · 产能",
+        "question": "本周可用产能由哪些增减项组成？",
+        "rationale": "起点和贡献使用同一人日单位，所有浮动柱及最终值由累计运算得到。",
+        "takeaway": "总量、连接线和表格均从贡献列表计算，调整项数不会留下旧柱高。",
+        "config": {
+          "meta": {
+            "title": "本周产能形成",
+            "unit": "人日",
+            "source": "人工编制 · 用于规范迁移验证",
+            "status": "演示"
+          },
+          "items": [
+            {
+              "label": "期初可用",
+              "value": 30
+            },
+            {
+              "label": "休假占用",
+              "value": -8
+            },
+            {
+              "label": "增援",
+              "value": 14
+            },
+            {
+              "label": "维护占用",
+              "value": -5
+            }
+          ],
+          "scale": [
+            0,
+            40
+          ],
+          "totalLabel": "期末可用",
+          "scenarios": [
+            {
+              "label": "低配",
+              "value": 24,
+              "role": "reference",
+              "kind": "assumed",
+              "basis": "人工设定的独立配置情景，不由本图贡献项推导。"
+            },
+            {
+              "label": "当前",
+              "value": 31,
+              "role": "secondary",
+              "kind": "assumed",
+              "basis": "人工设定的独立配置情景，不由本图贡献项推导。"
+            },
+            {
+              "label": "增配",
+              "value": 36,
+              "role": "primary",
+              "kind": "assumed",
+              "basis": "人工设定的独立配置情景，不由本图贡献项推导。"
+            }
+          ]
+        }
+      },
+      {
+        "id": "energy-balance",
+        "label": "能源管理 · 跨零收支",
+        "question": "发电、补给与消耗如何形成能源缺口？",
+        "rationale": "净量允许为负，尺度覆盖所有累计中间值，终点与零线之间的方向不能颠倒。",
+        "takeaway": "负终值是输入账目的结果；同一配方可以表达盈余与缺口。",
+        "config": {
+          "meta": {
+            "title": "能源余缺形成",
+            "unit": "kWh",
+            "source": "人工编制 · 用于规范迁移验证",
+            "status": "演示"
+          },
+          "items": [
+            {
+              "label": "发电",
+              "value": 42
+            },
+            {
+              "label": "外部补给",
+              "value": 18
+            },
+            {
+              "label": "运行消耗",
+              "value": -76
+            },
+            {
+              "label": "回收",
+              "value": 9
+            }
+          ],
+          "scale": [
+            -20,
+            70
+          ],
+          "totalLabel": "净余缺"
+        }
+      }
+    ],
+    "donut": [
+      {
+        "id": "support-status",
+        "label": "客服运营 · 状态构成",
+        "question": "这一批工单处于哪些互斥状态？",
+        "rationale": "总体由互斥项组成，中心值随选定类别占比计算，不写死某个百分数。",
+        "takeaway": "中心说明选中部分；图例与数值表保留整体构成。",
+        "config": {
+          "meta": {
+            "title": "工单状态构成",
+            "unit": "件",
+            "source": "人工编制 · 用于规范迁移验证",
+            "status": "演示"
+          },
+          "items": [
+            {
+              "key": "done",
+              "label": "已处理",
+              "value": 120,
+              "role": "secondary"
+            },
+            {
+              "key": "waiting",
+              "label": "排队",
+              "value": 45,
+              "role": "reference"
+            },
+            {
+              "key": "blocked",
+              "label": "阻断",
+              "value": 15,
+              "role": "negative"
+            }
+          ],
+          "focusKey": "done"
+        }
+      },
+      {
+        "id": "budget-allocation",
+        "label": "研究项目 · 经费构成",
+        "question": "一个项目的经费怎样分配？",
+        "rationale": "中心改为另一类别，零值分项仍在表格中，不画虚假扇区。",
+        "takeaway": "构成图不用于精确排名；细微差异应改用条形图比较。",
+        "config": {
+          "meta": {
+            "title": "研究经费分配",
+            "unit": "万元",
+            "source": "人工编制 · 用于规范迁移验证",
+            "status": "演示"
+          },
+          "items": [
+            {
+              "key": "field",
+              "label": "调研",
+              "value": 35,
+              "role": "primary"
+            },
+            {
+              "key": "lab",
+              "label": "实验",
+              "value": 50,
+              "role": "secondary"
+            },
+            {
+              "key": "tools",
+              "label": "工具",
+              "value": 15,
+              "role": "reference"
+            },
+            {
+              "key": "reserve",
+              "label": "预留",
+              "value": 0,
+              "role": "neutral"
+            }
+          ],
+          "focusKey": "lab"
+        }
+      }
+    ],
+    "radar": [
+      {
+        "id": "service-profile",
+        "label": "服务质量 · 四维",
+        "question": "服务质量在几个已定义维度中呈现怎样的轮廓？",
+        "rationale": "各维度均为0–100分，高分含义一致；展示维度轮廓，不按多边形面积排名。",
+        "takeaway": "需追问评分来源，轮廓不会自动构成总分。",
+        "config": {
+          "meta": {
+            "title": "服务质量轮廓",
+            "unit": "归一化评分",
+            "source": "人工编制 · 用于规范迁移验证",
+            "status": "演示"
+          },
+          "dimensions": [
+            {
+              "label": "响应",
+              "unit": "分",
+              "min": 0,
+              "max": 100
+            },
+            {
+              "label": "完整",
+              "unit": "分",
+              "min": 0,
+              "max": 100
+            },
+            {
+              "label": "准确",
+              "unit": "分",
+              "min": 0,
+              "max": 100
+            },
+            {
+              "label": "连续",
+              "unit": "分",
+              "min": 0,
+              "max": 100
+            }
+          ],
+          "values": [
+            76,
+            88,
+            69,
+            82
+          ],
+          "reference": [
+            70,
+            70,
+            70,
+            70
+          ],
+          "normalization": "linear-min-max",
+          "referenceMeta": {
+            "label": "统一参照轮廓",
+            "kind": "assumed",
+            "basis": "为演示比较方法人工设定，不代表通过门槛或行业标准。"
+          }
+        }
+      },
+      {
+        "id": "product-profile",
+        "label": "产品体验 · 六维",
+        "question": "产品体验的强项与短板分别落在哪里？",
+        "rationale": "六个维度先按0–5分线性归一，原单位及边界仍公开；不能与另一个量表直接比较。",
+        "takeaway": "换维数与量表后重算坐标；每条轴的原值在表格中保留。",
+        "config": {
+          "meta": {
+            "title": "产品体验轮廓",
+            "unit": "0–5分线性归一",
+            "source": "人工编制 · 用于规范迁移验证",
+            "status": "演示"
+          },
+          "dimensions": [
+            {
+              "label": "可读",
+              "unit": "分",
+              "min": 0,
+              "max": 5
+            },
+            {
+              "label": "导航",
+              "unit": "分",
+              "min": 0,
+              "max": 5
+            },
+            {
+              "label": "反馈",
+              "unit": "分",
+              "min": 0,
+              "max": 5
+            },
+            {
+              "label": "性能",
+              "unit": "分",
+              "min": 0,
+              "max": 5
+            },
+            {
+              "label": "容错",
+              "unit": "分",
+              "min": 0,
+              "max": 5
+            },
+            {
+              "label": "一致",
+              "unit": "分",
+              "min": 0,
+              "max": 5
+            }
+          ],
+          "values": [
+            4.4,
+            3.8,
+            4.2,
+            3.1,
+            3.6,
+            4.1
+          ],
+          "reference": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "normalization": "linear-min-max",
+          "referenceMeta": {
+            "label": "统一参照轮廓",
+            "kind": "assumed",
+            "basis": "为演示比较方法人工设定，不代表通过门槛或行业标准。"
+          }
+        }
+      }
+    ],
+    "rose": [
+      {
+        "id": "cycle-demand",
+        "label": "服务运营 · 一日周期",
+        "question": "服务需求沿一天的周期如何分布？",
+        "rationale": "真实周期依时刻顺序排列，半径编码数量；不能把任意分类排成一圈。",
+        "takeaway": "角度说明时段，半径说明数量，花瓣面积不作另一种度量。",
+        "config": {
+          "meta": {
+            "title": "日内服务需求",
+            "unit": "件",
+            "source": "人工编制 · 用于规范迁移验证",
+            "status": "演示"
+          },
+          "items": [
+            {
+              "label": "00",
+              "value": 2,
+              "role": "primary"
+            },
+            {
+              "label": "03",
+              "value": 1,
+              "role": "primary"
+            },
+            {
+              "label": "06",
+              "value": 8,
+              "role": "primary"
+            },
+            {
+              "label": "09",
+              "value": 20,
+              "role": "primary"
+            },
+            {
+              "label": "12",
+              "value": 16,
+              "role": "primary"
+            },
+            {
+              "label": "15",
+              "value": 24,
+              "role": "secondary"
+            },
+            {
+              "label": "18",
+              "value": 14,
+              "role": "primary"
+            },
+            {
+              "label": "21",
+              "value": 7,
+              "role": "primary"
+            }
+          ],
+          "max": 30
+        }
+      },
+      {
+        "id": "facade-exposure",
+        "label": "建筑环境 · 四朝向",
+        "question": "四个朝向的测点暴露时长怎样分布？",
+        "rationale": "真实方向保持北东南西顺序，单位为小时，比例不必凑成100%。",
+        "takeaway": "方向图表达环形域，不固定为风频；来源和半径尺度共同解释数值。",
+        "config": {
+          "meta": {
+            "title": "四向测点暴露",
+            "unit": "小时",
+            "source": "人工编制 · 用于规范迁移验证",
+            "status": "演示"
+          },
+          "items": [
+            {
+              "label": "北",
+              "value": 1.2,
+              "role": "primary"
+            },
+            {
+              "label": "东",
+              "value": 4.8,
+              "role": "primary"
+            },
+            {
+              "label": "南",
+              "value": 7.2,
+              "role": "secondary"
+            },
+            {
+              "label": "西",
+              "value": 5.5,
+              "role": "primary"
+            }
+          ],
+          "max": 8
+        }
+      }
+    ]
+  }
+}

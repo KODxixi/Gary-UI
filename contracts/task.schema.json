@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gary-ui:contracts:task:v2",
+  "title": "Gary-UI Co-design Task",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "skill",
+    "operation",
+    "mode",
+    "target",
+    "brief",
+    "applicationMode",
+    "visualDefaults",
+    "units",
+    "acceptance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 2
+    },
+    "skill": {
+      "type": "string",
+      "const": "gary-liquidglass-ui"
+    },
+    "operation": {
+      "type": "string",
+      "enum": ["create", "integrate", "audit", "govern"]
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["quick", "compare", "deep-review"]
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stack", "scope", "deliveryPath"],
+      "properties": {
+        "stack": {
+          "type": "string",
+          "enum": ["html", "react-shadcn", "other"]
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "deliveryPath": {
+          "type": ["string", "null"],
+          "maxLength": 1024
+        }
+      }
+    },
+    "brief": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "goal",
+        "audience",
+        "content",
+        "assets",
+        "interactions",
+        "constraints"
+      ],
+      "properties": {
+        "goal": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "audience": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "content": {
+          "type": "string",
+          "maxLength": 10000
+        },
+        "assets": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "string",
+            "maxLength": 1024
+          }
+        },
+        "interactions": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          }
+        }
+      }
+    },
+    "applicationMode": {
+      "type": "string",
+      "enum": ["board", "scroll-report", "web-ui"]
+    },
+    "visualDefaults": {
+      "$ref": "#/$defs/visual"
+    },
+    "units": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "pageMode",
+          "content",
+          "assets",
+          "visualOverrides",
+          "acceptance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+          },
+          "pageMode": {
+            "type": "string",
+            "enum": ["report-cover", "image-page", "data-page", "manual-toc"]
+          },
+          "content": {
+            "type": "string",
+            "maxLength": 10000
+          },
+          "assets": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          "visualOverrides": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "theme": {
+                "type": "string",
+                "enum": ["dark", "light"]
+              },
+              "material": {
+                "type": "string",
+                "enum": ["ultrathin", "regular", "thick", "solid-plate"]
+              },
+              "density": {
+                "type": "string",
+                "enum": ["spacious", "balanced", "compact"]
+              }
+            }
+          },
+          "acceptance": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["viewports", "keyboard", "browser", "visual", "technical"],
+      "properties": {
+        "viewports": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "maxLength": 100
+          }
+        },
+        "keyboard": {
+          "type": "boolean"
+        },
+        "browser": {
+          "type": "boolean"
+        },
+        "visual": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "technical": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "visual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["theme", "material", "density"],
+      "properties": {
+        "theme": {
+          "type": "string",
+          "enum": ["dark", "light"]
+        },
+        "material": {
+          "type": "string",
+          "enum": ["ultrathin", "regular", "thick", "solid-plate"]
+        },
+        "density": {
+          "type": "string",
+          "enum": ["spacious", "balanced", "compact"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "slug": "glass-card",
+  "name": "玻璃卡片",
+  "category": "surfaces",
+  "surfaceRecipe": {
+    "status": "approved",
+    "source": "spec/scene-recipes.json#/surfaceRecipes",
+    "attribute": "data-gary-surface",
+    "allowedValues": ["solid", "frosted", "optical"],
+    "labels": {
+      "solid": "实体底纹",
+      "frosted": "磨砂玻璃",
+      "optical": "超白/全透玻璃"
+    },
+    "implementation": "patterns/shared/material.js; patterns/shared/optical-glass.js; components/components.css",
+    "precedence": "Explicit data-gary-surface selects the approved surface before legacy automatic card routing; it does not change the task material enum",
+    "lightScopeSelector": "[data-gary-light-scope]",
+    "pointerPolicy": "spec/scene-recipes.json#/motion/pointerEffects",
+    "maxGlassLayers": 1,
+    "foregroundFilter": "none",
+    "tilt": false
+  },
+  "refractionRecipe": {
+    "reference": "Gary-UI original optical glass (MIT)",
+    "implementation": "patterns/shared/optical-glass.js; components/components.css",
+    "selector": "[data-gary-surface=\"optical\"], [data-gary-refraction]",
+    "usage": "Approved optical surface for short content, media and showcase. material.js routes explicit surfaces before legacy cards; optical-glass.js mounts backdrop optics. Solid data/long reading and frosted summaries/navigation/judgements retain their roles. Never nest glass surfaces.",
+    "optics": "A rounded-rectangle signed distance field generates one Canvas RG normal map for one SVG feDisplacementMap on the backdrop; static Gaussian frost; radius follows computed card geometry; neutral low-opacity plate; default public strength 180, adjustable 0-300; foreground content remains unfiltered",
+    "api": "window.GaryGlassSurface exposes mount(element), setStrength(value), strength getter and destroy(element); mounted cards use data-gary-refraction-state=svg with --gary-refraction-filter and an owned hidden .gary-refraction-filter SVG",
+    "fallback": "Non-Chromium or unsupported rendering, glass=fallback and glass=frosted use data-gary-refraction-state=fallback and preserve the existing CSS frosted material",
+    "motion": "Static optics follows the real backdrop without independent animation; reduced motion retains the complete static treatment; refractive surfaces suppress card contour fields and edge orbit",
+    "lifecycle": "Automatically mount existing and dynamically inserted matching cards, regenerate the normal map on resize, and release owned filters and state when cards are removed or destroyed; no network dependencies",
+    "baseline": "Preserve approved geometry, typography, source links, keyboard behavior and all other card styles"
+  },
+  "interactionRecipe": {
+    "pointerDefault": "off; root data-gary-pointer-effects=on requires explicit user opt-in; reduced motion takes priority",
+    "reference": "https://www.deepseek.com/",
+    "compositionReference": "COSMOS local mirror: calm center, generous separation, light display type, content-led media stages; no copied assets",
+    "implementation": "components/components.css; patterns/shared/web-bar.js",
+    "base": "neutral translucent plate, 12px backdrop blur, Gary 30px radius; dark and light share one recipe",
+    "action": "Only real links/buttons use data-gary-card=action for focus and pressed feedback. Decorative pointer light is opt-in; approved surface lighting shares one scoped coordinate system and never tilts content.",
+    "motion": "Press responds within 100-160ms; frequent UI transitions stay under 300ms and remain interruptible; bounce only follows real momentum. One 6s edge orbit per explicitly enabled entry; no idle loop. Reduced motion removes displacement, parallax and bounce while retaining gentle opacity/color feedback and visible focus",
+    "flow": "Do not add card contour fields; preserve the calm card surface and the single default dot-grid scene",
+    "reading": "Dense body, charts and evidence keep stable opaque plates; noninteractive cards never imply whole-card clickability"
+  },
+  "material": {
+    "default": "Thick",
+    "rules": [
+      "按 data-gary-surface 明确选择已批准的 solid、frosted、optical，用途见场景配方",
+      "密集数据、表格与长正文使用 solid；摘要、导航与判断使用 frosted；短内容、媒体与展示使用 optical",
+      "一层玻璃，不嵌套；前景文字与数据不加滤镜，不做 tilt",
+      "Liquid Glass 优先用于导航、控件和短暂功能层；图表、表格、长正文与密集证据使用稳定实体承载"
+    ]
+  },
+  "variants": [
+    {
+      "name": "static",
+      "selector": ".gary-glass-card"
+    },
+    {
+      "name": "interactive",
+      "selector": "[data-interactive=\"true\"]"
+    },
+    {
+      "name": "custom",
+      "selector": "[data-card-style=\"custom\"]"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": "[data-interactive=\"true\"]:hover"
+    },
+    {
+      "name": "disabled",
+      "selector": "[aria-disabled=\"true\"]"
+    }
+  ],
+  "accessibility": {
+    "role": "group, article, or region as content requires",
+    "requirements": [
+      "可交互整卡必须使用单一明确的链接或按钮",
+      "region 需要可访问名称",
+      "不可只靠悬停呈现关键信息",
+      "减弱透明度时提高不透明度并移除 backdrop-filter；增强对比度时使用近实底和明确边界",
+      "文字放大后内容不裁切，功能层尊重设备安全区"
+    ]
+  },
+  "cssClasses": [
+    ".gary-glass-card",
+    ".gary-glass-card__eyebrow",
+    ".gary-glass-card__title",
+    ".gary-glass-card__body"
+  ]
+}

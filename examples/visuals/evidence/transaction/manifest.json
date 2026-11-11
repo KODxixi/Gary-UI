@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "project": "gary-ui-transaction-acceptance",
+  "outputRoot": "outputs",
+  "visuals": [
+    {
+      "id": "guard",
+      "title": "失败产物保护",
+      "description": "候选验证后才替换",
+      "purpose": "simple-flow",
+      "tool": "mermaid",
+      "source": "source.mmd",
+      "scene": "reading",
+      "theme": "light",
+      "formats": [
+        "html",
+        "svg",
+        "png"
+      ],
+      "citation": {
+        "label": "Gary-UI 验收夹具",
+        "url": null,
+        "note": "仅用于事务测试"
+      }
+    }
+  ]
+}

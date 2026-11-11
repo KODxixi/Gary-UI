@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gary-ui:contracts:build-report:v1",
+  "title": "Gary-UI Target Production Build Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "targetStack",
+    "command",
+    "exitCode",
+    "cssAssets"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "targetStack": {
+      "type": "string",
+      "const": "react-shadcn"
+    },
+    "command": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "pattern": "^.{0,480}build.{0,480}$"
+    },
+    "exitCode": {
+      "type": "integer",
+      "const": 0
+    },
+    "cssAssets": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10000
+    }
+  }
+}

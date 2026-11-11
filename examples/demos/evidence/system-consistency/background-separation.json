@@ -1,0 +1,28 @@
+[
+  {
+    "width": 1440,
+    "pass": true,
+    "checks": [
+      "shared-wave-engine",
+      "independent-theme",
+      "sun-moon-target-icons",
+      "background-choice-preserved",
+      "return-to-dots",
+      "close-focus-return"
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "pass": true,
+    "checks": [
+      "shared-wave-engine",
+      "independent-theme",
+      "sun-moon-target-icons",
+      "background-choice-preserved",
+      "return-to-dots",
+      "close-focus-return"
+    ],
+    "errors": []
+  }
+]

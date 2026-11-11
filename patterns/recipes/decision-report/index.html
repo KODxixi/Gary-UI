@@ -1,0 +1,276 @@
+<!doctype html>
+<!-- dark-only recipe：本配方锁定 data-gary-theme="dark"（profile.json visualRoute.theme =
+     "dark"），未提供 light 分支；消费项目不得在 light 主题下复用本配方。 -->
+<html
+  lang="zh-CN"
+  data-gary-theme="dark"
+  data-gary-material="regular"
+  data-gary-density="balanced"
+  data-gary-application-mode="scroll-report"
+  data-gary-page-mode="data-page"
+>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gary-UI 建筑决策报告复用配方">
+  <title>Gary-UI · 决策报告配方</title>
+  <link rel="stylesheet" href="../../../tokens/base.css">
+  <link rel="stylesheet" href="./decision-report.css">
+</head>
+<body class="gary-ui" data-report-mode="reading">
+  <div class="gary-scene decision-report-scene">
+    <header
+      class="decision-topbar gary-web-bar gary-ultrathin"
+      data-gary-node-id="decision-report-navigation"
+      aria-label="报告导航"
+    >
+      <div class="decision-brand">
+        <span class="decision-brand-dot" aria-hidden="true"></span>
+        <strong>Gary-UI · 决策报告配方</strong>
+      </div>
+
+      <nav class="decision-chapter-nav" aria-label="示例章节">
+        <button class="is-active" type="button" data-page-target="0" aria-current="page">结构</button>
+        <button type="button" data-page-target="1">图证</button>
+        <button type="button" data-page-target="2">数据</button>
+      </nav>
+
+      <div class="decision-topbar-actions">
+        <button type="button" data-open-sources aria-expanded="false">来源</button>
+        <div class="decision-mode-switch" role="group" aria-label="查看方式">
+          <button class="is-active" type="button" data-report-mode-target="reading" aria-pressed="true">阅读</button>
+          <button type="button" data-report-mode-target="presentation" aria-pressed="false">演示</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="decision-report-deck" data-report-deck>
+      <article
+        class="decision-report-page is-active"
+        data-page-index="0"
+        data-gary-page-mode="data-page"
+        data-gary-node-id="decision-report-page-structure"
+      >
+        <section class="decision-primary">
+          <header class="decision-page-header">
+            <p class="decision-code">RECIPE · 01</p>
+            <h1>一页只回答一个决策问题</h1>
+            <p>左侧主要表达 · 右侧判断 · 底部结论</p>
+          </header>
+
+          <div
+            class="decision-visual decision-diagram"
+            data-gary-node-id="decision-report-primary-visual"
+            aria-label="问题、证据、判断、行动四步关系图"
+          >
+            <div class="decision-diagram-track">
+              <article class="decision-diagram-card gary-glass gary-regular">
+                <span>01</span>
+                <strong>具体问题</strong>
+                <p>明确本页要支持的决定。</p>
+              </article>
+              <i aria-hidden="true"></i>
+              <article class="decision-diagram-card gary-glass gary-regular">
+                <span>02</span>
+                <strong>主要证据</strong>
+                <p>图、表或空间分析成为主角。</p>
+              </article>
+              <i aria-hidden="true"></i>
+              <article class="decision-diagram-card gary-glass gary-regular">
+                <span>03</span>
+                <strong>一句判断</strong>
+                <p>不复述标题，不堆砌过程。</p>
+              </article>
+              <i aria-hidden="true"></i>
+              <article class="decision-diagram-card gary-glass gary-regular">
+                <span>04</span>
+                <strong>影响与行动</strong>
+                <p>说明设计、投资或操盘动作。</p>
+              </article>
+            </div>
+            <p class="decision-visual-note">关系图为版式示意，不代表项目结论或模拟数据。</p>
+          </div>
+        </section>
+
+        <aside
+          class="decision-card gary-glass gary-thick"
+          data-gary-node-id="decision-report-decision-card"
+          aria-labelledby="decision-question-01"
+        >
+          <p class="decision-kicker"><span aria-hidden="true"></span>本页判断</p>
+          <h2 id="decision-question-01">怎样让一页真正服务于决策？</h2>
+          <p class="decision-takeaway">把问题、证据、结论和动作收束在同一视野内，避免把工作过程误当成报告价值。</p>
+          <dl class="decision-facts">
+            <div class="gary-solid-plate"><dt>主要表达</dt><dd>图、表或分析图</dd></div>
+            <div class="gary-solid-plate"><dt>判断位置</dt><dd>右侧独立玻璃卡</dd></div>
+            <div class="gary-solid-plate"><dt>密集信息</dt><dd>只在 SolidPlate 中出现</dd></div>
+            <div class="gary-solid-plate"><dt>页面闸门</dt><dd>缺任一要素则不生成</dd></div>
+          </dl>
+          <div class="decision-impact">
+            <span>对输出的影响 / 下一步</span>
+            <p>先定义页面问题，再选择最能证明判断的视觉类型，最后才写说明文字。</p>
+          </div>
+        </aside>
+
+        <div
+          class="decision-conclusion gary-solid-plate"
+          data-gary-node-id="decision-report-conclusion"
+        >
+          <span>核心结论</span>
+          <strong>决策页不是卡片集合，而是一条能在同一视野内闭合的证据—判断—行动链。</strong>
+        </div>
+
+        <footer class="decision-page-foot">
+          <span>结构示例</span>
+          <span>来源：配方说明 · 非项目数据</span>
+          <span>01 / 03</span>
+        </footer>
+      </article>
+
+      <article
+        class="decision-report-page"
+        data-page-index="1"
+        data-gary-page-mode="image-page"
+        data-gary-node-id="decision-report-page-image"
+      >
+        <section class="decision-primary">
+          <header class="decision-page-header">
+            <p class="decision-code">RECIPE · 02</p>
+            <h1>让主图先完成证明</h1>
+            <p>原图、分析叠图或空间机制图优先</p>
+          </header>
+
+          <figure
+            class="decision-media gary-media-card gary-thick"
+            data-gary-node-id="decision-report-image-stage"
+          >
+            <img
+              class="gary-media-card__media"
+              src="../../../assets/backgrounds/gary-default-scene.png"
+              alt="Gary-UI 默认建筑场景，用于展示图像证据页构图"
+            >
+            <figcaption class="gary-media-card__caption">
+              <strong>图像证据区。</strong>
+              字幕只交代图像证明了什么、来源在哪里、有哪些使用边界。
+            </figcaption>
+          </figure>
+        </section>
+
+        <aside class="decision-card gary-glass gary-thick" aria-labelledby="decision-question-02">
+          <p class="decision-kicker"><span aria-hidden="true"></span>本页判断</p>
+          <h2 id="decision-question-02">什么时候应该以图为主，而不是继续写字？</h2>
+          <p class="decision-takeaway">当结论依赖区位、视线、界面、动线或空间关系时，主图必须占据页面最大面积。</p>
+          <dl class="decision-facts">
+            <div class="gary-solid-plate"><dt>图像角色</dt><dd>主要证据，不是装饰背景</dd></div>
+            <div class="gary-solid-plate"><dt>文字角色</dt><dd>解释判断与限制</dd></div>
+            <div class="gary-solid-plate"><dt>裁切原则</dt><dd>保留证据主体与标注安全区</dd></div>
+            <div class="gary-solid-plate"><dt>来源要求</dt><dd>原图位置可回溯</dd></div>
+          </dl>
+          <div class="decision-impact">
+            <span>对输出的影响 / 下一步</span>
+            <p>每张主图先写清“它证明什么”，无法回答则不进入正式报告。</p>
+          </div>
+        </aside>
+
+        <div class="decision-conclusion gary-solid-plate">
+          <span>核心结论</span>
+          <strong>图像页以证据图完成大部分表达，右侧文字只负责作出判断和界定边界。</strong>
+        </div>
+
+        <footer class="decision-page-foot">
+          <span>图证示例</span>
+          <span>来源：Gary-UI 默认场景资产</span>
+          <span>02 / 03</span>
+        </footer>
+      </article>
+
+      <article
+        class="decision-report-page"
+        data-page-index="2"
+        data-gary-page-mode="data-page"
+        data-gary-node-id="decision-report-page-data"
+      >
+        <section class="decision-primary">
+          <header class="decision-page-header">
+            <p class="decision-code">RECIPE · 03</p>
+            <h1>数据必须形成比较关系</h1>
+            <p>不展示无决策用途的指标堆叠</p>
+          </header>
+
+          <div class="decision-chart gary-glass gary-regular" aria-label="数据页表达原则示意图">
+            <header>
+              <div>
+                <p>表达优先级</p>
+                <h2>只保留能改变判断的比较维度</h2>
+              </div>
+              <span>示意 · 无项目数值</span>
+            </header>
+            <div class="decision-chart-rows">
+              <div><span>决策相关性</span><i style="--bar: 94%"></i><strong>主指标</strong></div>
+              <div><span>证据可追溯</span><i style="--bar: 84%"></i><strong>准入条件</strong></div>
+              <div><span>行动可转换</span><i style="--bar: 72%"></i><strong>输出要求</strong></div>
+              <div><span>装饰性信息</span><i style="--bar: 18%"></i><strong>删除</strong></div>
+            </div>
+            <p class="decision-visual-note">条形长度仅用于展示版式层级，不代表统计值。</p>
+          </div>
+        </section>
+
+        <aside class="decision-card gary-glass gary-thick" aria-labelledby="decision-question-03">
+          <p class="decision-kicker"><span aria-hidden="true"></span>本页判断</p>
+          <h2 id="decision-question-03">哪些数据有资格进入客户决策报告？</h2>
+          <p class="decision-takeaway">只有能改变选项、边界、优先级或下一步动作的数据，才占用正式页面。</p>
+          <dl class="decision-facts">
+            <div class="gary-solid-plate"><dt>比较对象</dt><dd>同口径、同时间、同地域</dd></div>
+            <div class="gary-solid-plate"><dt>来源位置</dt><dd>页码、单元格或时间码</dd></div>
+            <div class="gary-solid-plate"><dt>模型结果</dt><dd>明确为模拟或相对比较</dd></div>
+            <div class="gary-solid-plate"><dt>无效数据</dt><dd>转入证据工作包或删除</dd></div>
+          </dl>
+          <div class="decision-impact">
+            <span>对输出的影响 / 下一步</span>
+            <p>先写数据将改变什么决定，再决定图表类型；不能回答时不生成图表。</p>
+          </div>
+        </aside>
+
+        <div class="decision-conclusion gary-solid-plate">
+          <span>核心结论</span>
+          <strong>数据页的价值不在指标数量，而在比较关系是否足以改变决定。</strong>
+        </div>
+
+        <footer class="decision-page-foot">
+          <span>数据示例</span>
+          <span>来源：配方说明 · 非项目数据</span>
+          <span>03 / 03</span>
+        </footer>
+      </article>
+    </main>
+
+    <aside
+      class="decision-source-drawer gary-glass gary-thick"
+      data-source-drawer
+      data-gary-node-id="decision-report-source-drawer"
+      aria-hidden="true"
+      aria-labelledby="decision-source-title"
+    >
+      <header>
+        <div>
+          <p>Evidence drawer</p>
+          <h2 id="decision-source-title">来源索引</h2>
+        </div>
+        <button type="button" data-close-sources aria-label="关闭来源索引">×</button>
+      </header>
+      <div class="decision-source-list">
+        <article class="gary-solid-plate">
+          <strong>配方结构说明</strong>
+          <span>本页示例只说明布局与信息分工，不支持任何项目结论。</span>
+        </article>
+        <article class="gary-solid-plate">
+          <strong>Gary-UI 默认建筑场景</strong>
+          <span>assets/backgrounds/gary-default-scene.png</span>
+        </article>
+      </div>
+    </aside>
+  </div>
+
+  <script src="./decision-report.js"></script>
+</body>
+</html>

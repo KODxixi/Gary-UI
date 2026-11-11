@@ -1,0 +1,55 @@
+{
+  "slug": "table",
+  "name": "表格原语",
+  "category": "data-display",
+  "source": "adapters/react-shadcn/src/components/ui/table.tsx",
+  "material": {
+    "default": "Solid",
+    "rules": [
+      "表格本体使用 solid-plate 表面，不在 table 内再套玻璃",
+      "横向溢出由外层 overflow-x-auto 容器承接，固定列不裁切表头",
+      "表头使用 muted 文字与中等字重；行 hover 仅用 bg-muted/50 反馈",
+      "最后一行不显示底边框，表尾使用 bg-muted/50 实底条"
+    ]
+  },
+  "variants": [],
+  "slots": [
+    {"name": "table", "selector": "[data-slot='table']", "role": "数据表格本体，w-full caption-bottom text-sm"},
+    {"name": "header", "selector": "[data-slot='table-header']", "role": "表头分组，组内行带下边框"},
+    {"name": "body", "selector": "[data-slot='table-body']", "role": "数据行分组，最后一行无边框"},
+    {"name": "footer", "selector": "[data-slot='table-footer']", "role": "表尾汇总行，bg-muted/50 实底"},
+    {"name": "row", "selector": "[data-slot='table-row']", "role": "表格行，hover:bg-muted/50，selected 状态 bg-muted"},
+    {"name": "head", "selector": "[data-slot='table-head']", "role": "表头单元格，h-10 px-2，font-medium text-muted-foreground"},
+    {"name": "cell", "selector": "[data-slot='table-cell']", "role": "数据单元格，p-2 align-middle"},
+    {"name": "caption", "selector": "[data-slot='table-caption']", "role": "表题，mt-4 text-sm text-muted-foreground"}
+  ],
+  "states": [
+    {"name": "row-hover", "selector": "[data-slot='table-row']:hover"},
+    {"name": "selected", "selector": "[data-slot='table-row'][data-state='selected']"}
+  ],
+  "interaction": {
+    "pressResponseMs": {"min": 100, "max": 160},
+    "frequentUiMaxMs": 300,
+    "interruptible": true,
+    "reducedMotion": "保留行 hover 颜色反馈，移除 transition 位移"
+  },
+  "accessibility": {
+    "role": "native table with th in thead",
+    "requirements": [
+      "表头单元格置于 thead/th，数据单元格置于 tbody/td",
+      "可排序列使用 button 触发表头点击，并提供升/降序与未排序图标",
+      "空结果行使用 colSpan 覆盖全部列并水平居中",
+      "横向滚动区域可键盘聚焦，文字放大后表头与行不裁切"
+    ]
+  },
+  "cssClasses": [
+    "[data-slot='table']",
+    "[data-slot='table-header']",
+    "[data-slot='table-body']",
+    "[data-slot='table-footer']",
+    "[data-slot='table-row']",
+    "[data-slot='table-head']",
+    "[data-slot='table-cell']",
+    "[data-slot='table-caption']"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {"title":"华东交付证据体系","locale":"zh-CN","quality_profile":"showcase","animation":"none"},
+  "components": [
+    {"id":"regional-teams","type":"external","label":"区域团队","sublabel":"上海 江苏 浙江","pos":[60,100],"size":[170,88]},
+    {"id":"delivery-ledger","type":"backend","label":"交付台账","sublabel":"里程碑与验收单","pos":[360,100],"size":[170,88]},
+    {"id":"evidence-gate","type":"security","label":"证据复核","sublabel":"口径与责任确认","pos":[660,100],"size":[170,88]},
+    {"id":"approved-report","type":"frontend","label":"管理层报告","sublabel":"通过后统一发布","pos":[660,360],"size":[170,88]},
+    {"id":"version-archive","type":"database","label":"版本归档","sublabel":"源文件与导出同批次","pos":[360,360],"size":[170,88]},
+    {"id":"last-good","type":"database","label":"上一有效版本","sublabel":"失败时继续可用","pos":[60,360],"size":[170,88]}
+  ],
+  "connections": [
+    {"id":"record-evidence","from":"regional-teams","to":"delivery-ledger","label":"提交记录","variant":"emphasis"},
+    {"id":"check-evidence","from":"delivery-ledger","to":"evidence-gate","label":"申请复核"},
+    {"id":"release-report","from":"evidence-gate","to":"approved-report","label":"书面确认","variant":"security","labelDy":60},
+    {"id":"archive-batch","from":"approved-report","to":"version-archive","label":"同批归档"},
+    {"id":"retain-valid","from":"version-archive","to":"last-good","label":"保留历史","variant":"dashed"}
+  ],
+  "cards":[
+    {"dot":"cyan","title":"输入","items":["三地使用同一台账结构","业务数字为验收示例"]},
+    {"dot":"amber","title":"决策门","items":["江苏退款口径待书面确认","未确认不得统一发布"]},
+    {"dot":"emerald","title":"可追溯","items":["HTML 与导出同版本","失败不覆盖有效结果"]}
+  ]
+}

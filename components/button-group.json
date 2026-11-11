@@ -1,0 +1,52 @@
+{
+  "slug": "button-group",
+  "name": "按钮组",
+  "category": "actions",
+  "source": "adapters/react-shadcn/src/components/ui/button-group.tsx",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "wrapper 使用 bg-muted 聚簇外观，内部 Button 去除背景与阴影以贴合胶囊",
+      "支持 horizontal / vertical 方向与 gap 间距；分隔线与文字用于组内分区",
+      "同一组内只承载同级操作，按键可键盘聚焦"
+    ]
+  },
+  "variants": [
+    {
+      "name": "orientation",
+      "options": ["horizontal", "vertical"],
+      "selector": ".gary-button-group[data-orientation='horizontal'], .gary-button-group[data-orientation='vertical']",
+      "default": "horizontal"
+    },
+    {
+      "name": "gap",
+      "options": ["default", "sm", "lg"],
+      "selector": ".gary-button-group",
+      "default": "default"
+    }
+  ],
+  "sizes": [
+    {"name": "default", "gap": "4px"},
+    {"name": "sm", "gap": "2px"},
+    {"name": "lg", "gap": "8px"}
+  ],
+  "states": [
+    {"name": "hover", "selector": ":hover"},
+    {"name": "focus-visible", "selector": ":focus-visible"},
+    {"name": "disabled", "selector": ":disabled, [aria-disabled='true']"}
+  ],
+  "accessibility": {
+    "role": "group",
+    "requirements": [
+      "wrapper 使用 role=group 表达关联操作",
+      "分隔线 role=separator 并声明 aria-orientation",
+      "所有交互元素可键盘操作",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-button-group",
+    ".gary-button-group-separator",
+    ".gary-button-group-text"
+  ]
+}

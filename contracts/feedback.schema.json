@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gary-ui:contracts:feedback:v2",
+  "title": "Gary-UI Co-design Feedback",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "sessionId",
+    "proposalId",
+    "revision",
+    "action",
+    "selectedOptionId",
+    "controls",
+    "annotations",
+    "combinations",
+    "lockedDecisions",
+    "notes"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "sessionId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{7,63}$"
+    },
+    "proposalId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,79}$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "action": {
+      "type": "string",
+      "enum": ["iterate", "approve", "reject"]
+    },
+    "selectedOptionId": {
+      "type": ["string", "null"],
+      "maxLength": 64
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "theme": {
+          "type": ["string", "null"],
+          "enum": ["dark", "light", null]
+        },
+        "material": {
+          "type": ["string", "null"],
+          "enum": ["ultrathin", "regular", "thick", "solid-plate", null]
+        },
+        "density": {
+          "type": ["string", "null"],
+          "enum": ["spacious", "balanced", "compact", null]
+        },
+        "pageMode": {
+          "type": ["string", "null"],
+          "enum": ["report-cover", "image-page", "data-page", "manual-toc", null]
+        },
+        "layout": {
+          "type": ["string", "null"],
+          "maxLength": 64
+        }
+      }
+    },
+    "annotations": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["optionId", "nodeId", "intent", "priority", "note"],
+        "properties": {
+          "optionId": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+          },
+          "nodeId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+          },
+          "intent": {
+            "type": "string",
+            "enum": ["keep", "adjust", "delete", "question"]
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["must", "should", "could"]
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        }
+      }
+    },
+    "combinations": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["regionId", "fromOptionId", "note"],
+        "properties": {
+          "regionId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+          },
+          "fromOptionId": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          }
+        }
+      }
+    },
+    "lockedDecisions": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "value"],
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "maxLength": 10000
+    }
+  }
+}

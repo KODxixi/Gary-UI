@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "package": "boolbase",
+      "version": "1.0.0",
+      "copy": "licenses/third-party/upstream/boolbase-1.0.0-LICENSE",
+      "sourceUrl": "https://raw.githubusercontent.com/fb55/boolbase/54811f01c797a6bb1c263183ae90b7dd627e0638/LICENSE",
+      "sha256": "cdf4d87ae0a6c160227263bf4e39a0a10e30e89ae7256e0f7ac7bde0836552c6",
+      "note": "The installed release declares ISC but omits LICENSE; this is the original repository license at the pinned retrieval commit, not a claimed release-file match."
+    },
+    {
+      "package": "react-remove-scroll-bar",
+      "version": "2.3.8",
+      "copy": "licenses/third-party/upstream/react-remove-scroll-bar-2.3.8-LICENSE",
+      "sourceUrl": "https://raw.githubusercontent.com/theKashey/react-remove-scroll-bar/8ca9ba5ea52de03308fe8ced94f7b159a44d28ff/LICENSE",
+      "sha256": "a79aae0c0f21990d9d963bb3c5a79cdcea9a46f8523ba55c58d7fe776b6ebc84",
+      "note": "The installed release declares MIT but omits LICENSE; this is the original repository license at the pinned retrieval commit, not a claimed release-file match."
+    }
+  ]
+}

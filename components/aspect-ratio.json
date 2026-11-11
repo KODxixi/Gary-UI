@@ -1,0 +1,44 @@
+{
+  "slug": "aspect-ratio",
+  "name": "宽比容器",
+  "category": "layout",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/aspect-ratio)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "用 padding-top 或 aspect-ratio 属性维持比例；内容绝对定位填充"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-aspect-ratio"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-aspect-ratio"
+  ]
+}

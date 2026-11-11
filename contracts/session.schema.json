@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gary-ui:contracts:session:v3",
+  "title": "Gary-UI Co-design Session State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "sessionId",
+    "status",
+    "mode",
+    "taskHash",
+    "activeRevision",
+    "activeProposalId",
+    "lastEventSequence",
+    "lastEventHash",
+    "tokenHash",
+    "writerLease",
+    "createdAt",
+    "updatedAt",
+    "finalizedAt",
+    "closedAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "sessionId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{7,63}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "created",
+        "proposal_ready",
+        "awaiting_feedback",
+        "feedback_received",
+        "revising",
+        "approved",
+        "implementing",
+        "verified",
+        "closed",
+        "corrupt"
+      ]
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["quick", "compare", "deep-review"]
+    },
+    "taskHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "activeRevision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "activeProposalId": {
+      "type": ["string", "null"],
+      "maxLength": 80
+    },
+    "lastEventSequence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "lastEventHash": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "tokenHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "tokenGeneration": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "takeoverCredentialHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "takeoverCredentialGeneration": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "integrityVersion": {
+      "type": "integer",
+      "enum": [1, 2, 3]
+    },
+    "latestVerificationId": {
+      "type": ["string", "null"],
+      "pattern": "^vrf_[a-f0-9]{24}$"
+    },
+    "writerLease": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["ownerId", "leaseId", "acquiredAt", "expiresAt"],
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "leaseId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "credentialHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "acquiredAt": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 40
+        },
+        "expiresAt": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 40
+        }
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 40
+    },
+    "updatedAt": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 40
+    },
+    "finalizedAt": {
+      "type": ["string", "null"],
+      "maxLength": 40
+    },
+    "closedAt": {
+      "type": ["string", "null"],
+      "maxLength": 40
+    }
+  }
+}

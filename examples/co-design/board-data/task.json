@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 2,
+  "skill": "gary-liquidglass-ui",
+  "operation": "create",
+  "mode": "compare",
+  "target": {
+    "stack": "html",
+    "scope": "Board/Data Page 共同决策看板演示",
+    "deliveryPath": null
+  },
+  "brief": {
+    "goal": "让决策者在一个视野内比较项目健康度、证据与下一步动作，并通过真实 HTML 选择最合适的信息层级。",
+    "audience": "项目负责人、设计负责人和需要快速共同定稿的决策者",
+    "content": "六项关键指标、三条证据、风险与机会分组，以及明确的下一步行动。",
+    "assets": [
+      "/assets/backgrounds/gary-default-scene.png"
+    ],
+    "interactions": [
+      "按全部、风险、机会筛选指标",
+      "切换浅色与深色主题",
+      "点击 data-gary-node-id 元素添加批注"
+    ],
+    "constraints": [
+      "无永久侧边栏",
+      "顶部居中导航",
+      "一张页面只使用一个场景背景与一个全局遮罩",
+      "390px 不出现横向溢出"
+    ]
+  },
+  "applicationMode": "board",
+  "visualDefaults": {
+    "theme": "dark",
+    "material": "regular",
+    "density": "compact"
+  },
+  "units": [
+    {
+      "id": "decision-board",
+      "pageMode": "data-page",
+      "content": "项目健康度、证据、风险、机会和下一步行动",
+      "assets": [
+        "/assets/backgrounds/gary-default-scene.png"
+      ],
+      "visualOverrides": {},
+      "acceptance": [
+        "关键结论首屏可见",
+        "筛选控件可键盘操作",
+        "Regular、Thick 和 UltraThin 三种方向可比较"
+      ]
+    }
+  ],
+  "acceptance": {
+    "viewports": [
+      "1440x1000",
+      "390x844"
+    ],
+    "keyboard": true,
+    "browser": true,
+    "visual": [
+      "卡片使用真实 Gary 中性玻璃材质",
+      "无玻璃嵌套",
+      "默认建筑背景保持可辨识但不压过数据"
+    ],
+    "technical": [
+      "控制台无错误",
+      "不依赖外网",
+      "所有可批注区域具有稳定 data-gary-node-id"
+    ]
+  }
+}

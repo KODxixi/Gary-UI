@@ -1,0 +1,62 @@
+{
+  "slug": "form",
+  "name": "表单",
+  "category": "forms",
+  "source": "adapters/react-shadcn/src/components/ui/form.tsx",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "基于 react-hook-form，Form 即 FormProvider 透传",
+      "useFormField 通过本地 context 注入 name/id/error",
+      "错误消息使用 text-destructive，并同步 aria-invalid 与 aria-describedby"
+    ]
+  },
+  "variants": [
+    {
+      "name": "item",
+      "selector": ".gary-form-item, [data-slot='form-item']"
+    },
+    {
+      "name": "label",
+      "selector": ".gary-form-label, [data-slot='form-label']"
+    },
+    {
+      "name": "control",
+      "selector": "[data-slot='form-control']"
+    },
+    {
+      "name": "description",
+      "selector": ".gary-form-description, [data-slot='form-description']"
+    },
+    {
+      "name": "message",
+      "selector": ".gary-form-message, [data-slot='form-message']"
+    }
+  ],
+  "states": [
+    {
+      "name": "error",
+      "selector": "[data-error='true'], [aria-invalid='true']"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "native form controls wired via react-hook-form",
+    "requirements": [
+      "FormLabel 通过 htmlFor 关联控件 id",
+      "FormControl 用 Slot 合并 props 并设置 aria-describedby 指向 description 与 message",
+      "错误态同步 aria-invalid，错误文本设置 role 关联",
+      "不只靠颜色传达错误"
+    ]
+  },
+  "cssClasses": [
+    ".gary-form-item",
+    ".gary-form-label",
+    ".gary-form-control",
+    ".gary-form-description",
+    ".gary-form-message"
+  ]
+}

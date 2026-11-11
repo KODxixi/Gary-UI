@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-theme="dark" data-gary-density="balanced" data-gary-material="ultrathin" data-gary-application-mode="board" data-gary-page-mode="report-cover">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gary-UI · 组合预览</title>
+  <link rel="stylesheet" href="./preview.css">
+</head>
+<body class="gary-ui gary-scene" data-gary-scene-engine="dot-grid">
+  <nav class="gary-web-bar gary-glass gary-ultrathin starter-shell-bar" aria-label="组合预览导航">
+    <strong class="gary-web-bar__brand">Gary-UI</strong>
+    <div class="gary-web-bar__nav">
+      <a href="#content" aria-current="page" data-page-label>报告封面</a>
+      <a href="#context">设计依据</a>
+      <a href="#actions">下一步</a>
+    </div>
+    <div class="gary-web-bar__actions"><span class="gary-chip" data-shell-label>看板</span></div>
+  </nav>
+
+  <main class="starter-shell" id="content">
+    <header class="starter-shell-context gary-glass gary-regular" id="context" data-tunable-surface>
+      <div>
+        <p class="starter-eyebrow">COMPOSED STARTER</p>
+        <h1 class="gary-role-title"><span data-shell-label>看板</span> <span data-page-label>报告封面</span></h1>
+      </div>
+      <p>一个应用壳与一个页面主角，共享同一套 Gary tokens 和组件契约。</p>
+    </header>
+    <section class="starter-page-content" data-page-content></section>
+    <footer class="starter-shell-actions" id="actions">
+      <button class="gary-button gary-thick" data-variant="primary" type="button">开始替换真实内容</button>
+      <span>所有内容均由共享模式组合，未生成 12 份副本。</span>
+    </footer>
+  </main>
+
+  <template id="page-report-cover">
+    <article class="starter-conclusion gary-glass gary-thick" data-tunable-surface>
+      <p class="starter-eyebrow">PRIMARY CONCLUSION</p>
+      <h2>清晰的结论，先于华丽的玻璃。</h2>
+      <p>用一个主判断、一个证据摘要和一个下一步动作建立开场。</p>
+      <div><span class="gary-chip">结论优先</span><strong>87% 证据完整度</strong></div>
+    </article>
+  </template>
+
+  <template id="page-image-page">
+    <figure class="gary-media-card gary-glass gary-thick starter-media" data-tunable-surface>
+      <img class="gary-media-card__media" src="../../assets/backgrounds/gary-default-scene.png" alt="概念性建筑场景，用于展示证据图页面结构">
+      <figcaption class="gary-media-card__caption"><strong>证据图是主角。</strong>字幕板只补充一句判断，不在图片上叠加渐变文字。</figcaption>
+    </figure>
+  </template>
+
+  <template id="page-data-page">
+    <div class="starter-data-grid">
+      <article class="gary-metric-card gary-glass gary-thick" data-tunable-surface>
+        <p class="gary-metric-card__label">推荐方案</p>
+        <p class="gary-metric-card__value">8.4</p>
+        <div class="gary-metric-card__meta"><span>综合评分</span><strong>+1.2</strong></div>
+      </article>
+      <section class="gary-comparison-table gary-solid-plate">
+        <table>
+          <caption>方案比较</caption>
+          <thead><tr><th scope="col">方案</th><th scope="col">判断</th><th scope="col">评分</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">A</th><td data-label="判断">推荐</td><td data-label="评分" data-numeric="true" data-recommended="true">8.4</td></tr>
+            <tr><th scope="row">B</th><td data-label="判断">保守</td><td data-label="评分" data-numeric="true">7.2</td></tr>
+          </tbody>
+        </table>
+        <p class="gary-comparison-table__empty">暂无可比较数据。</p>
+      </section>
+    </div>
+  </template>
+
+  <template id="page-manual-toc">
+    <div class="starter-toc">
+      <nav class="starter-toc-nav gary-glass gary-regular" aria-label="手册章节" data-tunable-surface>
+        <a href="#chapter-1" aria-current="page">01 基础原则</a>
+        <a href="#chapter-2">02 组件契约</a>
+        <a href="#chapter-3">03 页面模式</a>
+      </nav>
+      <article class="starter-toc-content gary-solid-plate" id="chapter-1">
+        <p class="starter-eyebrow">CHAPTER 01</p>
+        <h2>先建立结构，再进入细节。</h2>
+        <p>长正文与证据密集区使用 SolidPlate，目录导航保持独立玻璃表面。</p>
+      </article>
+    </div>
+  </template>
+
+  <script src="../../patterns/shared/dot-grid.js"></script>
+  <script src="./preview.js"></script>
+  <script src="../../patterns/shared/material.js"></script>
+  <script src="../../patterns/shared/optical-glass.js"></script>
+</body>
+</html>

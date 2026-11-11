@@ -1,0 +1,56 @@
+{
+  "slug": "command",
+  "name": "命令面板",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/command)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "居中浮层，宽度 640px；输入框居顶；快捷键列用等宽字体右对齐",
+      "CommandDialog 把 Command 装进 Dialog（⌘K），去掉默认 padding 与关闭按钮，打开时输入框 autoFocus"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-command"
+    },
+    {
+      "name": "dialog",
+      "selector": ".gary-command__dialog"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-command",
+    ".gary-command__dialog",
+    ".gary-command__input",
+    ".gary-command__list",
+    ".gary-command__item",
+    ".gary-command__empty",
+    ".gary-command__group",
+    ".gary-command__shortcut"
+  ]
+}

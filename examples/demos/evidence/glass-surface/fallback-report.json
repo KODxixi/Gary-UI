@@ -1,0 +1,21 @@
+{
+  "generatedAt": "2026-09-07T10:44:51.756Z",
+  "results": [
+    {
+      "mode": "fallback",
+      "pass": true
+    },
+    {
+      "mode": "unsupported",
+      "pass": true
+    },
+    {
+      "mode": "offline",
+      "pass": true
+    },
+    {
+      "mode": "motion",
+      "pass": true
+    }
+  ]
+}
