@@ -1,0 +1,49 @@
+{
+  "slug": "alert-dialog",
+  "name": "警告对话框",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/alert-dialog)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "模态遮罩独占一层玻璃；确认/取消按钮组右对齐；危险操作使用 destructive 变体"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-alert-dialog"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-alert-dialog",
+    ".gary-alert-dialog__overlay",
+    ".gary-alert-dialog__content",
+    ".gary-alert-dialog__title",
+    ".gary-alert-dialog__description",
+    ".gary-alert-dialog__actions"
+  ]
+}

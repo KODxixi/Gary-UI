@@ -1,0 +1,48 @@
+{
+  "slug": "scroll-area",
+  "name": "滚动区域",
+  "category": "layout",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/scroll-area)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "细滚动条 8px；悬浮显示；与原生滚动条共存作为增强"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-scroll-area"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-scroll-area",
+    ".gary-scroll-area__viewport",
+    ".gary-scroll-area__scrollbar",
+    ".gary-scroll-area__thumb",
+    ".gary-scroll-area__corner"
+  ]
+}

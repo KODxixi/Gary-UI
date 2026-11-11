@@ -47,7 +47,7 @@
       "interactive": false,
       "guide": "Use for simple document-local flows and existing Mermaid sources. Use strict security mode; convert to Archify only when interaction or complex relationship validation is required."
     },
-    "lucide": {
+    "reicon": {
       "purposes": ["icons"],
       "source": ["json"],
       "outputs": ["html", "svg", "png", "pdf"],
@@ -65,6 +65,15 @@
     "outline": "markmap",
     "infographic": "antv-infographic",
     "simple-flow": "mermaid",
-    "icons": "lucide"
+    "icons": "reicon"
+  },
+  "standalone": {
+    "flow-diagram": {
+      "routed": false,
+      "entry": "scripts/flow_svg.py",
+      "spec": "spec/flow-diagram.json",
+      "gate": "scripts/check_flow_diagram.py",
+      "reason": "同角色同尺寸 + 固定基线节奏 + 正交零半径拐点；archify / mermaid 的自动布局会按文字撑框、按算法选拐点，只能视觉近似。"
+    }
   }
 }

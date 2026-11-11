@@ -268,12 +268,12 @@ body.application-mode {
 
 .dashboard-mode .mode-scene::after {
   background:
-    linear-gradient(90deg, rgba(8, 8, 10, .58), rgba(8, 8, 10, .42) 52%, rgba(8, 8, 10, .58)),
-    linear-gradient(180deg, rgba(8, 8, 10, .08), rgba(8, 8, 10, .28));
+    linear-gradient(90deg, rgb(8,8,8, .58), rgb(8,8,8, .42) 52%, rgb(8,8,8, .58)),
+    linear-gradient(180deg, rgb(8,8,8, .08), rgb(8,8,8, .28));
 }
 
 [data-gary-theme="light"] .dashboard-mode .mode-scene::after {
-  background: linear-gradient(180deg, rgba(248, 246, 241, .76), rgba(240, 237, 230, .84));
+  background: linear-gradient(180deg, rgb(246,246,246, .76), rgb(237,237,237, .84));
 }
 
 .dashboard-header {
@@ -675,12 +675,12 @@ body.is-presentation .report-section {
 
 .webui-mode .mode-scene::after {
   background:
-    linear-gradient(180deg, rgba(8, 8, 10, .45), rgba(8, 8, 10, .62)),
-    radial-gradient(circle at 62% 12%, transparent, rgba(8, 8, 10, .18) 58%);
+    linear-gradient(180deg, rgb(8,8,8, .45), rgb(8,8,8, .62)),
+    radial-gradient(circle at 62% 12%, transparent, rgb(8,8,8, .18) 58%);
 }
 
 [data-gary-theme="light"] .webui-mode .mode-scene::after {
-  background: linear-gradient(180deg, rgba(248, 246, 241, .74), rgba(240, 237, 230, .82));
+  background: linear-gradient(180deg, rgb(246,246,246, .74), rgb(237,237,237, .82));
 }
 
 .webui-header {

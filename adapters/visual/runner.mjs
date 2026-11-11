@@ -11,9 +11,9 @@ import { exportArtifact, findBrowser, inspectArtifact } from './lib/exporter.mjs
 import {
   buildEchartsHtml,
   buildInfographicHtml,
-  buildLucideHtml,
   buildMarkmapHtml,
   buildMermaidHtml,
+  buildReiconHtml,
   escapeHtml,
   escapeInlineJson,
   validateTextSource,
@@ -58,7 +58,7 @@ const DEFAULT_TOOLS = Object.freeze({
   outline: 'markmap',
   infographic: 'antv-infographic',
   'simple-flow': 'mermaid',
-  icons: 'lucide',
+  icons: 'reicon',
 });
 
 const TOOL_SUFFIXES = Object.freeze({
@@ -67,7 +67,7 @@ const TOOL_SUFFIXES = Object.freeze({
   markmap: new Set(['.md', '.markdown']),
   'antv-infographic': new Set(['.json']),
   mermaid: new Set(['.mmd', '.mermaid', '.md']),
-  lucide: new Set(['.json']),
+  reicon: new Set(['.json']),
 });
 
 const FORMATS = new Set(['html', 'svg', 'png', 'pdf']);
@@ -214,8 +214,8 @@ function validateJsonSource(sourcePath, tool) {
     if (!Array.isArray(source.table) || source.table.length < 2) throw new VisualError('ECharts source requires a data table fallback');
   } else if (tool === 'antv-infographic') {
     validateTextSource(source.syntax, tool);
-  } else if (tool === 'lucide') {
-    if (!Array.isArray(source.icons) || source.icons.length === 0) throw new VisualError('Lucide source requires icons');
+  } else if (tool === 'reicon') {
+    if (!Array.isArray(source.icons) || source.icons.length === 0) throw new VisualError('reicon source requires icons');
   }
   return source;
 }
@@ -224,7 +224,7 @@ function validateJsonSource(sourcePath, tool) {
 async function validateVisual(visual) {
   if (visual.tool === 'archify') {
     runArchify(['validate', archifyType(visual.purpose), visual.sourcePath, '--quality', visual.quality || 'standard', '--json']);
-  } else if (['echarts', 'antv-infographic', 'lucide'].includes(visual.tool)) {
+  } else if (['echarts', 'antv-infographic', 'reicon'].includes(visual.tool)) {
     validateJsonSource(visual.sourcePath, visual.tool);
   } else {
     validateTextSource(fs.readFileSync(visual.sourcePath, 'utf8'), visual.tool);
@@ -315,7 +315,7 @@ async function buildHtml(visual) {
   if (visual.tool === 'markmap') return buildMarkmapHtml(fs.readFileSync(visual.sourcePath, 'utf8'), visual);
   if (visual.tool === 'antv-infographic') return buildInfographicHtml(validateJsonSource(visual.sourcePath, visual.tool), visual);
   if (visual.tool === 'mermaid') return buildMermaidHtml(fs.readFileSync(visual.sourcePath, 'utf8'), visual);
-  if (visual.tool === 'lucide') return buildLucideHtml(validateJsonSource(visual.sourcePath, visual.tool), visual);
+  if (visual.tool === 'reicon') return await buildReiconHtml(validateJsonSource(visual.sourcePath, visual.tool), visual);
   throw new VisualError(`HTML builder is not available for ${visual.tool}`);
 }
 
@@ -684,9 +684,9 @@ export {
   buildIndex,
   buildEchartsHtml,
   buildInfographicHtml,
-  buildLucideHtml,
   buildMarkmapHtml,
   buildMermaidHtml,
+  buildReiconHtml,
   escapeInlineJson,
   validateTextSource,
   VisualError,

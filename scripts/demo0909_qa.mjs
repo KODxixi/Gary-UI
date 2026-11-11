@@ -179,7 +179,7 @@ try {
         for (const type of types) {
           const item = cases[type][index], label = `${width} ${value} ${type}/${item.id}`;
           const observed = await inspectCase(type, item, label);
-          check(`${label} opaque unfiltered data plate`, await page.locator(`#${type}`).evaluate(el => getComputedStyle(el).backdropFilter === 'none' && getComputedStyle(el).backgroundColor === (document.documentElement.dataset.garyTheme === 'dark' ? 'rgb(16, 16, 18)' : 'rgb(245, 245, 247)')));
+          check(`${label} opaque unfiltered data plate`, await page.locator(`#${type}`).evaluate(el => getComputedStyle(el).backdropFilter === 'none' && getComputedStyle(el).backgroundColor === (document.documentElement.dataset.garyTheme === 'dark' ? 'rgb(16,16,16)' : 'rgb(245,245,245)')));
           if (width !== 1440) continue;
           const pending = page.waitForEvent('download'); await page.locator(`[data-export-chart="${type}"]`).click();
           const download = await pending, filename = `gary-${type}-${item.id}-${value}.svg`;

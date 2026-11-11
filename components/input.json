@@ -1,0 +1,46 @@
+{
+  "slug": "input",
+  "name": "输入框",
+  "category": "forms",
+  "source": "adapters/react-shadcn/src/components/ui/input.tsx",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "输入槽保持中性玻璃与透明背景",
+      "高度 36px（h-9），focus 时用 ring 高亮而非加粗边框",
+      "错误态同步 aria-invalid，不单独依赖颜色"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-input, [data-slot='input']"
+    }
+  ],
+  "states": [
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    },
+    {
+      "name": "error",
+      "selector": "[aria-invalid='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "native text input",
+    "requirements": [
+      "通过 label 的 htmlFor 或 aria-label 关联名称",
+      "帮助或错误文本通过 aria-describedby 关联",
+      "错误态同步 aria-invalid",
+      "文字放大后内容不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-input"
+  ]
+}

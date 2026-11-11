@@ -1,0 +1,49 @@
+{
+  "slug": "menubar",
+  "name": "菜单栏",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/menubar)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "水平排列；与 dropdown-menu 共用浮层样式；Alt+First-Char 导航"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-menubar"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-menubar",
+    ".gary-menubar__menu",
+    ".gary-menubar__item",
+    ".gary-menubar__trigger",
+    ".gary-menubar__content",
+    ".gary-menubar__separator"
+  ]
+}

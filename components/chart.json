@@ -1,0 +1,98 @@
+{
+  "slug": "chart",
+  "name": "图表",
+  "category": "data-display",
+  "source": "adapters/react-shadcn/src/components/ui/chart.tsx",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "图表由 ChartContainer 包裹 recharts 图表，配置项通过 ChartConfig 以 --color-<key> CSS 变量注入容器",
+      "坐标轴刻度文字使用 muted-foreground，网格线使用 border/50，Tooltip 与图例使用背景卡片与描边层级",
+      "Tooltip 指示条/指示点颜色取 payload 序列色或 ChartConfig 对应 key 的 color",
+      "图表容器默认 16:9（aspect-video），通过 ResponsiveContainer 自适应宽度"
+    ]
+  },
+  "components": [
+    {
+      "name": "ChartContainer",
+      "dataSlot": "chart",
+      "props": ["config", "id", "children"],
+      "notes": "ResponsiveContainer 包裹；config 色值注入 --color-<key> 到容器 style；提供 useChart 上下文"
+    },
+    {
+      "name": "ChartTooltip",
+      "wraps": "recharts Tooltip",
+      "props": ["content", "cursor"],
+      "notes": "默认 content 为 <ChartTooltipContent />，cursor 默认 stroke=var(--border)"
+    },
+    {
+      "name": "ChartTooltipContent",
+      "props": [
+        "active",
+        "payload",
+        "label",
+        "labelFormatter",
+        "labelClassName",
+        "nameKey",
+        "hideLabel",
+        "hideIndicator",
+        "indicator",
+        "color",
+        "className"
+      ],
+      "indicator": ["line", "dot", "dashed"],
+      "notes": "按 ChartConfig 显示 label、色点与数值（数值 toLocaleString）"
+    },
+    {
+      "name": "ChartLegend",
+      "wraps": "recharts Legend",
+      "props": ["content", "verticalAlign"],
+      "notes": "默认 content 为 <ChartLegendContent />，verticalAlign 默认 top"
+    },
+    {
+      "name": "ChartLegendContent",
+      "props": ["payload", "verticalAlign", "nameKey", "hideIcon", "className"],
+      "notes": "按 payload/config 显示色点 + label，可选 ChartConfig.icon"
+    },
+    {
+      "name": "useChart",
+      "notes": "读取 ChartConfig 上下文，必须在 ChartContainer 内使用"
+    }
+  ],
+  "chartConfig": {
+    "type": "Record<string, { label?: string; color?: string; icon?: ComponentType; theme?: { light?: string; dark?: string } }>",
+    "colorVariable": "--color-<key>",
+    "resolveOrder": "config.color || config.theme.light"
+  },
+  "cssVariables": {
+    "--color-<key>": "序列主色，按 ChartConfig 的 key 注入"
+  },
+  "states": [
+    {"name": "active (tooltip)", "selector": "payload.length > 0 && active"},
+    {"name": "cursor", "selector": ".recharts-tooltip-cursor"},
+    {"name": "nestLabel", "selector": "单条 payload 且 indicator != dot 时标签与值上下排列"}
+  ],
+  "interaction": {
+    "frequentUiMaxMs": 300,
+    "reducedMotion": "图表无位移动画，仅透明度与颜色反馈"
+  },
+  "accessibility": {
+    "role": "data visualization",
+    "requirements": [
+      "坐标轴刻度文字使用 muted-foreground 保证对比度",
+      "Tooltip 与图例的色点需有对应文字 label，不单靠颜色区分",
+      "图表容器随宽度自适应，不裁切标签"
+    ]
+  },
+  "cssClasses": [
+    "[data-slot='chart']",
+    "[data-chart]",
+    ".recharts-tooltip-cursor",
+    ".recharts-surface"
+  ],
+  "dependencies": {
+    "runtime": ["recharts@^3.10.1", "react@^19", "clsx", "tailwind-merge"],
+    "peer": ["react@19.2.7", "react-dom@19.2.7", "tailwindcss@4.3.2"],
+    "optional": ["reicon-react（ChartConfig.icon 渲染用）"]
+  }
+}

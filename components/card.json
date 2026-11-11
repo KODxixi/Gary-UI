@@ -1,0 +1,87 @@
+{
+  "slug": "card",
+  "name": "卡片容器",
+  "category": "surfaces",
+  "source": "adapters/react-shadcn/src/components/ui/card.tsx",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "通用内容卡容器，提供 header/title/description/action/content/footer 的排版骨架",
+      "Regular 用 --gary-glass-regular + --gary-blur-regular；Thick 用 --gary-glass-thick + --gary-blur-thick",
+      "密集数据、表格与长正文改用 solid-plate，不在 card 内再套玻璃",
+      "不嵌套第二层玻璃；foreground 文字不加滤镜"
+    ]
+  },
+  "variants": [
+    {
+      "name": "regular",
+      "selector": ".gary-card--regular",
+      "cssVariables": {
+        "--gary-glass-fill": "var(--gary-glass-regular)",
+        "--gary-glass-blur": "var(--gary-blur-regular)"
+      }
+    },
+    {
+      "name": "thick",
+      "selector": ".gary-card--thick",
+      "cssVariables": {
+        "--gary-glass-fill": "var(--gary-glass-thick)",
+        "--gary-glass-blur": "var(--gary-blur-thick)"
+      }
+    },
+    {
+      "name": "size-default",
+      "selector": ".gary-card",
+      "layout": "gap:20px; padding:24px; border-radius:var(--gary-radius-card)"
+    },
+    {
+      "name": "size-sm",
+      "selector": ".gary-card[data-size='sm']",
+      "layout": "gap:16px; padding:20px; border-radius:calc(var(--gary-radius-card) * 0.82)"
+    }
+  ],
+  "slots": [
+    {"name": "header", "selector": "[data-slot='card-header']", "role": "区域头部，标题与操作位"},
+    {"name": "title", "selector": "[data-slot='card-title']", "role": "卡片标题，18px/700，紧凑尺寸下 16px"},
+    {"name": "description", "selector": "[data-slot='card-description']", "role": "描述文字，14px/1.7，最大 62ch"},
+    {"name": "action", "selector": "[data-slot='card-action']", "role": "右上角操作区"},
+    {"name": "content", "selector": "[data-slot='card-content']", "role": "正文内容区"},
+    {"name": "footer", "selector": ".gary-card-footer, [data-slot='card-footer']", "role": "底部实底条，圆角 16px，padding 12px"}
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ".gary-card[data-interactive='true']:hover"
+    },
+    {
+      "name": "focus-within",
+      "selector": ".gary-card:focus-within"
+    }
+  ],
+  "interaction": {
+    "pressResponseMs": {"min": 100, "max": 160},
+    "frequentUiMaxMs": 300,
+    "interruptible": true,
+    "reducedMotion": "保留透明度与颜色反馈，移除位移与阴影过渡"
+  },
+  "accessibility": {
+    "role": "group, article, or region as content requires",
+    "requirements": [
+      "卡片本身不承担点击行为；可点击区域必须是内部的 a 或 button",
+      "region 角色需要可访问名称（aria-label 或 aria-labelledby 指向 title）",
+      "减弱透明度时提高表面不透明度并移除 backdrop-filter",
+      "文字放大后 header/action/content/footer 不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-card",
+    ".gary-card--regular",
+    ".gary-card--thick",
+    ".gary-card-footer",
+    "[data-slot='card-header']",
+    "[data-slot='card-title']",
+    "[data-slot='card-description']",
+    "[data-slot='card-action']",
+    "[data-slot='card-content']"
+  ]
+}

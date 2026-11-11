@@ -1,0 +1,46 @@
+{
+  "slug": "collapsible",
+  "name": "可折叠",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/collapsible)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "与 accordion 区别：无分组、无互斥；单个元素独立展开/收起"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-collapsible"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-collapsible",
+    ".gary-collapsible__trigger",
+    ".gary-collapsible__content"
+  ]
+}

@@ -17,7 +17,7 @@ for(const width of [1440,768,390])for(const theme of ['dark','light']){
   await page.goto(url);await page.waitForFunction(()=>window.GaryBackgroundLab?.engine);
   assert.equal(await page.locator('[data-gary-refraction-state="svg"]').count(),3,'three real refractive surfaces');
   const options=await page.evaluate(()=>GaryBackgroundLab.engine.state.options);
-  assert.equal(options.horizonColor,theme==='dark'?'#455164':'#b8c1cb');assert.equal(options.amplitude,2);assert.equal(options.mouseInteraction,false);
+  assert.equal(options.horizonColor,theme==='dark'?'#505050':'#c0c0c0');assert.equal(options.amplitude,2);assert.equal(options.mouseInteraction,false);
   const current=await page.locator('.scene-entry').evaluateAll(els=>els.map(el=>({text:[...el.querySelectorAll('.eyebrow,.scene-entry__title,.scene-entry__body')].map(n=>n.textContent),box:el.getBoundingClientRect().toJSON()})));
   assert.deepEqual(current,baseline,'approved-baseline-drift: content and geometry');
   await page.screenshot({path:path.join(out,width+'-'+theme+'-after.png')});

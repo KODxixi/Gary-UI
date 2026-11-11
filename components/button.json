@@ -2,60 +2,83 @@
   "slug": "button",
   "name": "按钮",
   "category": "actions",
+  "source": "adapters/react-shadcn/src/components/ui/button.tsx",
   "material": {
     "default": "Regular",
     "rules": [
-      "工具操作默认圆形 Lucide 图标按钮，复用完整 Demo 的 44px 点击区和 1.6px 描边；不叠加旧版厚玻璃斜面",
-      "React 默认按钮与所有 icon 尺寸变体的实际点击区至少 44×44px；紧凑层级只调整内部图标与字号",
+      "工具操作默认圆形图标按钮（React 组件层图标来源 reicon-react；vanilla 静态层与 morph 仍取 Lucide 几何），复用完整 Demo 的 44px 点击区和 1.6px 描边；不叠加旧版厚玻璃斜面",
+      "React 默认按钮与所有 icon 尺寸变体的实际点击区至少 44×44px；xs/sm 紧凑层级只调整内部图标与字号",
       "导航、分段筛选和内容选择保留文字；必要的业务主操作可以保留清晰短标签",
       "每个决策区只保留一个主操作"
     ]
   },
   "variants": [
     {
+      "name": "default",
+      "selector": ".gary-button--default, .gary-button[data-variant='primary'], .gary-button[data-variant='default']",
+      "cssVariables": {
+        "--gary-glass-fill": "var(--gary-glass-thick)"
+      },
+      "fontWeight": "var(--gary-font-weight-bold)"
+    },
+    {
+      "name": "outline",
+      "selector": ".gary-button--outline, .gary-button[data-variant='outline']",
+      "cssVariables": {
+        "--gary-glass-fill": "transparent"
+      },
+      "border": "1px solid var(--gary-card-edge)"
+    },
+    {
+      "name": "secondary",
+      "selector": ".gary-button--secondary, .gary-button[data-variant='secondary']",
+      "cssVariables": {
+        "--gary-glass-fill": "var(--gary-glass-ultrathin)"
+      }
+    },
+    {
+      "name": "ghost",
+      "selector": ".gary-button--ghost, .gary-button[data-variant='quiet'], .gary-button[data-variant='ghost']",
+      "cssVariables": {
+        "--gary-glass-fill": "transparent"
+      }
+    },
+    {
+      "name": "destructive",
+      "selector": ".gary-button--destructive, .gary-button[data-variant='danger'], .gary-button[data-variant='destructive']",
+      "color": "var(--gary-state-critical)"
+    },
+    {
+      "name": "link",
+      "selector": ".gary-button--link, .gary-button[data-variant='link']",
+      "cssVariables": {
+        "--gary-glass-fill": "transparent"
+      },
+      "decoration": "underline"
+    },
+    {
       "name": "icon",
-      "selector": "[data-gary-icon]"
-    },
-    {
-      "name": "primary",
-      "selector": "[data-variant=\"primary\"]"
-    },
-    {
-      "name": "quiet",
-      "selector": "[data-variant=\"quiet\"]"
-    },
-    {
-      "name": "danger",
-      "selector": "[data-variant=\"danger\"]"
-    },
-    {
-      "name": "small|large",
-      "selector": "[data-size]"
+      "selector": "[data-gary-icon], .gary-icon-button, .gary-button[data-size='icon']"
     }
+  ],
+  "sizes": [
+    {"name": "xs", "height": "28px", "fontSize": "12px", "iconSize": "12px"},
+    {"name": "sm", "height": "36px", "fontSize": "13px", "iconSize": "14px"},
+    {"name": "default", "height": "44px", "fontSize": "14px", "iconSize": "16px"},
+    {"name": "lg", "height": "48px", "fontSize": "15px", "iconSize": "18px"},
+    {"name": "icon", "width": "44px", "height": "44px"},
+    {"name": "icon-xs", "width": "44px", "height": "44px", "iconSize": "12px"},
+    {"name": "icon-sm", "width": "44px", "height": "44px", "iconSize": "14px"},
+    {"name": "icon-lg", "width": "48px", "height": "48px"}
   ],
   "states": [
-    {
-      "name": "hover",
-      "selector": ":hover"
-    },
-    {
-      "name": "pressed",
-      "selector": ":active"
-    },
-    {
-      "name": "focus-visible",
-      "selector": ":focus-visible"
-    },
-    {
-      "name": "disabled|busy",
-      "selector": ":disabled, [aria-disabled=\"true\"], [aria-busy=\"true\"]"
-    }
+    {"name": "hover", "selector": ":hover"},
+    {"name": "pressed", "selector": ":active"},
+    {"name": "focus-visible", "selector": ":focus-visible"},
+    {"name": "disabled|busy", "selector": ":disabled, [aria-disabled='true'], [aria-busy='true']"}
   ],
   "interaction": {
-    "pressResponseMs": {
-      "min": 100,
-      "max": 160
-    },
+    "pressResponseMs": {"min": 100, "max": 160},
     "frequentUiMaxMs": 300,
     "hover": "@media (hover: hover) and (pointer: fine)",
     "interruptible": true,
@@ -75,6 +98,12 @@
   },
   "cssClasses": [
     ".gary-button",
+    ".gary-button--default",
+    ".gary-button--outline",
+    ".gary-button--secondary",
+    ".gary-button--ghost",
+    ".gary-button--destructive",
+    ".gary-button--link",
     ".gary-icon-button"
   ]
 }

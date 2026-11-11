@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EXCLUDED_PARTS = {'.git', 'node_modules', '__pycache__', '.pytest_cache', '.ruff_cache', '.last-good', '.failed', '.candidates', '_site', 'public-build', '.venv'}
-ROOT_DIRECTORIES = {'.github', 'adapters', 'assets', 'components', 'contracts', 'docs', 'examples', 'licenses', 'patterns', 'portal', 'runtime', 'scripts', 'session', 'spec', 'tokens'}
+ROOT_DIRECTORIES = {'.agent', '.github', 'adapters', 'agent', 'assets', 'components', 'contracts', 'docs', 'examples', 'licenses', 'patterns', 'portal', 'runtime', 'scripts', 'session', 'spec', 'tokens'}
 ROOT_FILES = {'.gitattributes', '.nojekyll', '.gitignore', 'AGENTS.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'DESIGN.md', 'LICENSE', 'PROJECT_STRUCTURE.md', 'README.md', 'SKILL.md', 'THIRD_PARTY_NOTICES.md', 'gary-ui.cmd', 'index.html', 'demo0909.html', 'library-consumption.json', 'metadata.json'}
 PUBLIC_GENERATED = (
     'examples/visuals/outputs/**/*',

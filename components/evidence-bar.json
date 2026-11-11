@@ -2,47 +2,85 @@
   "slug": "evidence-bar",
   "name": "证据条",
   "category": "evidence",
+  "source": "adapters/react-shadcn/src/components/ui/evidence-bar.tsx",
   "material": {
     "default": "SolidPlate",
     "rules": [
-      "关键结论旁直接显示来源与时间",
-      "适合嵌入玻璃卡，禁止再用玻璃材质"
+      "关键结论旁直接显示来源与时间，或显示证据完整度进度",
+      "适合嵌入玻璃卡，禁止再用玻璃材质",
+      "completeness 变体使用 progressbar 角色与 aria-valuenow"
     ]
   },
   "variants": [
     {
       "name": "source-and-time",
-      "selector": ".gary-evidence-bar"
+      "selector": ".gary-evidence-bar",
+      "role": "note",
+      "description": "显示来源链接与时间元数据"
     },
     {
-      "name": "with-link",
-      "selector": ".gary-evidence-bar a"
+      "name": "completeness",
+      "selector": ".gary-evidence-bar[data-variant='completeness'], .gary-evidence-bar[role='progressbar']",
+      "role": "progressbar",
+      "aria": "aria-valuemin=0; aria-valuemax=100; aria-valuenow=百分比",
+      "description": "显示证据完整度 0-100%，含 track 与 indicator"
     }
+  ],
+  "tones": [
+    {
+      "name": "neutral",
+      "selector": ".gary-evidence-bar--neutral"
+    },
+    {
+      "name": "success",
+      "selector": ".gary-evidence-bar--success, .gary-evidence-bar[data-state='verified']",
+      "color": "var(--gary-state-positive)"
+    },
+    {
+      "name": "warning",
+      "selector": ".gary-evidence-bar--warning, .gary-evidence-bar[data-state='stale']",
+      "color": "var(--gary-state-caution)"
+    },
+    {
+      "name": "critical",
+      "selector": ".gary-evidence-bar--critical, .gary-evidence-bar[data-state='missing']",
+      "color": "var(--gary-state-critical)"
+    }
+  ],
+  "sizes": [
+    {"name": "sm", "radius": "12px", "paddingX": "12px", "paddingY": "10px"},
+    {"name": "default", "radius": "16px", "paddingX": "16px", "paddingY": "14px"}
+  ],
+  "slots": [
+    {"name": "header", "selector": "[data-slot='evidence-bar-header']", "description": "label 与 value 的行容器"},
+    {"name": "label", "selector": "[data-slot='evidence-bar-label'], .gary-evidence-bar__label", "description": "左侧标签文字"},
+    {"name": "value", "selector": "[data-slot='evidence-bar-value']", "description": "右侧百分比数值，tabular-nums"},
+    {"name": "track", "selector": "[data-slot='evidence-bar-track']", "description": "进度条轨道，aria-hidden"},
+    {"name": "indicator", "selector": "[data-slot='evidence-bar-indicator']", "description": "进度条填充，width 内联为百分比"},
+    {"name": "detail", "selector": "[data-slot='evidence-bar-detail']", "description": "可选说明文字，opacity 65%"},
+    {"name": "source", "selector": ".gary-evidence-bar__source", "description": "source-and-time 变体的来源链接"},
+    {"name": "meta", "selector": ".gary-evidence-bar__meta", "description": "source-and-time 变体的时间元数据，等宽字体"}
   ],
   "states": [
-    {
-      "name": "verified",
-      "selector": "[data-state=\"verified\"]"
-    },
-    {
-      "name": "stale",
-      "selector": "[data-state=\"stale\"]"
-    },
-    {
-      "name": "missing",
-      "selector": "[data-state=\"missing\"]"
-    }
+    {"name": "verified", "selector": ".gary-evidence-bar[data-state='verified']"},
+    {"name": "stale", "selector": ".gary-evidence-bar[data-state='stale']"},
+    {"name": "missing", "selector": ".gary-evidence-bar[data-state='missing']"}
   ],
   "accessibility": {
-    "role": "note",
+    "role": "note 或 progressbar（按 variant）",
     "requirements": [
-      "来源链接文字必须描述目标",
-      "时间使用 time 元素与 datetime",
-      "过期或缺失状态必须有可读文字"
+      "source-and-time 变体：来源链接文字必须描述目标；时间使用 time 元素与 datetime",
+      "completeness 变体：必须设置 aria-valuenow，进度值不能只靠颜色",
+      "过期或缺失状态必须有可读文字，不能只靠颜色",
+      "文字缩放后标签与数值不裁切"
     ]
   },
   "cssClasses": [
     ".gary-evidence-bar",
+    ".gary-evidence-bar--neutral",
+    ".gary-evidence-bar--success",
+    ".gary-evidence-bar--warning",
+    ".gary-evidence-bar--critical",
     ".gary-evidence-bar__label",
     ".gary-evidence-bar__source",
     ".gary-evidence-bar__meta"

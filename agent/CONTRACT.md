@@ -53,19 +53,34 @@ node render.mjs <recipe> <content.json> [out.html]
 10. **不许折行**：短标签、说明、徽标、表头、按钮一律单行；写不下就**加宽容器或改短文案**，不许让它折成两行。
     验收：`node checks/no-wrap.cjs` 必须报「折行合计: 0」（桌面 1440/1024 生效；390 允许自然折行）。典型修法——右栏 280→300px、把「预览画板宽度」改「画板宽度」、把说明移进 title 提示。
 
+11. **卡片必须有圆角**：有填充、不贴边、独立成块的表面圆角 ≥8px（默认轴取 `--gary-radius-card`）；
+    页面/场景底、贴边 rail·band·抽屉、表格单元、图表标记、图标、`.gary-*` 组件不算卡片。
+    分不出层级时**宁可不要底**（留白 24/32px、字号、字重），不要方角色块。
+    `border-left` / `border-inline-start` ≥2px 且带色相算违规，状态行改用 `inset 2px 0 0` 且不加底。
+    全文与例外清单见 `DESIGN.md` §7「表面几何」。
+12. **同一结论只渲染一次**：去空白与 `&nbsp;` 后相同、≥20 字且含中文标点即判重复；标题与标签不算。
+    索引区必须显式写 `data-gary-index`，类名不作豁免。
+
+
+**单页模式（`--page`）覆盖与不覆盖**：覆盖方角卡片 / 内部编码 / 结论重复三条；
+**不覆盖**字号下限、两栏、彩字面量、token chroma、页面底色、契约类、外壳分隔线、企业面板 K 值——
+那八条只在母本根目录跑全量闸。交付页在仓库内时，直接跑全量闸（自动扫 `patterns/**` 与根目录页）。
+
 ## 4.1 闸门覆盖对照（谁真的会查）
 
 | 规则 | 闸门 |
 |---|---|
+| 11 卡片圆角 | `no_square_card`（全量）与 `--page`（单页）同一实现 `agent/checks/page_scan.py`：按元素类型与边缘角色分「卡片 / 非卡片」，解析 px·rem·em·var 的真实圆角值 |
+| 12 结论唯一 / 内部编码 | `report_text`（强制范围 `patterns/recipes/**`）与 `--page`；导航、代码块、标题、免责声明不计；索引区只豁免编码、不豁免重复 |
 | 1 标签对齐 | `checks/check-label-align.cjs`（Range 量真实文字左缘） |
 | 2 数字等宽 | 静态：`.num` 定义在 primitives，渲染器统一加（无独立闸门） |
-| 3 对比度 | `checks/audit.cjs`：CSS 合成法，含祖先 opacity 与渐变取平均色 |
-| 4 热区 ≥44 | `checks/audit.cjs`：elementFromPoint 实测命中区（按缺口取点） |
-| 5 动效 | `checks/audit.cjs`：禁 `transition:all`（有时长才判）、交互元素 ≤300ms、reduced-motion 下过渡 ≤0.02s |
-| 6 首帧主题 | `checks/audit.cjs`：预置 localStorage=light 后首帧必须为 light（渲染器已在 head 内联脚本定主题） |
-| 7 密度 | `checks/audit.cjs`：`data-density` 合法 + 四个间距变量存在 |
-| 8 滚动条 | `checks/audit.cjs`：track 必须透明 |
-| 9 禁假数据/CDN/emoji | `checks/audit.cjs`：禁跨源请求、禁 emoji、有 `.metric` 时必须出现「示意/示例」标注 |
+| 3 对比度 | `checks/audit.cjs`：CSS 合成法（半透明前景按合成底算；**祖先 opacity 与渐变底未覆盖**）。`checks/contrast.cjs` 是像素法实验版，**未接入闸门**，已知限制见文件头 |
+| 4 热区 ≥44 | **无闸门**（audit 只打印 smallTargets，不作为失败条件） |
+| 5 动效 | `checks/audit.cjs` 查 `transition: all`；时长/只动 transform 无自动闸门 |
+| 6 首帧主题 | 无自动闸门（渲染器写死 dark，脚本再覆盖） |
+| 7 密度 | 无自动闸门 |
+| 8 滚动条 | 无自动闸门 |
+| 9 禁假数据/CDN/emoji | **无闸门**（假数据、emoji、外部请求都只能靠 review） |
 | 10 不许折行 | `checks/no-wrap.cjs`（Range 数行盒，覆盖下限 20） |
 
 > 未覆盖项不要假装已验：交付说明里按上表如实标注。
@@ -102,8 +117,6 @@ node checks/audit.cjs                   # 对比度/溢出/报错
 例：`"workbench": { "shell":"workbench", "interactions":["theme","palette","gutters"], ... }`
 
 改完必须复验：`node checks/verify-interactions.cjs`（⌘K 能开、主题能切、分隔条能拖、零报错）。
-
-
 
 
 

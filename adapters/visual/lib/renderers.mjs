@@ -2,7 +2,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import * as lucide from 'lucide';
 import { Transformer } from 'markmap-lib';
 
 import { motion, palettes, policyMetadata, sceneRules, themes, typography } from './policy.mjs';
@@ -77,7 +76,7 @@ function commonCss(themeName, scene) {
     td:not(:first-child),th:not(:first-child){text-align:right}
     .icon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
     .icon-item{display:grid;place-items:center;gap:12px;min-height:180px;border:1px solid ${theme.border};border-radius:24px;background:${theme.surface}}
-    .icon-item svg{width:48px;height:48px;stroke:${palettes[themeName][0]};stroke-width:1.75}
+    .icon-item svg{width:48px;height:48px;color:${palettes[themeName][0]};stroke-width:1.75}
     .icon-item code{font-size:13px;color:${theme.secondary}}
     #infographic-target{width:100%;height:620px;min-height:560px}
     .antv-infographic{display:block;width:100%;height:auto!important;min-height:260px!important;max-height:620px}
@@ -216,25 +215,40 @@ export function buildMermaidHtml(source, visual) {
 }
 
 
-function attrsToText(attributes) {
-  return Object.entries(attributes)
-    .map(([name, value]) => `${name === 'className' ? 'class' : name}="${escapeHtml(value)}"`)
-    .join(' ');
+// reicon ships two weights only. Outline is the pinned board weight; switching to
+// 'Filled' is a one-constant change and needs its own visual review.
+const REICON_WEIGHT = 'Outline';
+const REICON_NAME = /^[A-Z][A-Za-z0-9]*$/;
+
+
+function reiconKebab(name) {
+  return name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
 
-function lucideSvg(name) {
-  const nodes = lucide[name];
-  if (!Array.isArray(nodes)) throw new Error(`Unknown Lucide icon: ${name}`);
-  const body = nodes.map(([tag, attributes]) => `<${tag} ${attrsToText(attributes)}></${tag}>`).join('');
-  const kebab = name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
-  return `<svg class="lucide lucide-${kebab}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="${escapeHtml(name)}" role="img">${body}</svg>`;
+async function reiconSvg(name) {
+  if (typeof name !== 'string' || !REICON_NAME.test(name)) throw new Error(`Invalid reicon icon name: ${name}`);
+  let module;
+  try {
+    module = await import(`reicon/icons/${name}`);
+  } catch {
+    throw new Error(`Unknown reicon icon: ${name}`);
+  }
+  const icon = module[name] || module.default;
+  if (typeof icon?.toSvg !== 'function') throw new Error(`Unknown reicon icon: ${name}`);
+  return icon.toSvg({
+    size: 24,
+    weight: REICON_WEIGHT,
+    className: `reicon-${reiconKebab(name)}`,
+    attrs: { role: 'img', 'aria-label': name },
+  });
 }
 
 
-export function buildLucideHtml(source, visual) {
-  if (!source || !Array.isArray(source.icons) || source.icons.length === 0) throw new Error('Lucide source requires icons');
-  const content = `<div class="icon-grid">${source.icons.map((name) => `<article class="icon-item">${lucideSvg(name)}<code>${escapeHtml(name)}</code></article>`).join('')}</div>`;
+export async function buildReiconHtml(source, visual) {
+  if (!source || !Array.isArray(source.icons) || source.icons.length === 0) throw new Error('reicon source requires icons');
+  const icons = await Promise.all(source.icons.map((name) => reiconSvg(name)));
+  const content = `<div class="icon-grid">${source.icons.map((name, index) => `<article class="icon-item">${icons[index]}<code>${escapeHtml(name)}</code></article>`).join('')}</div>`;
   return shell({
     title: source.title || visual.id,
     visual,

@@ -9,8 +9,8 @@ import { chromium } from '../adapters/visual/node_modules/playwright-core/index.
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = await mkdtemp(path.join(tmpdir(), 'gary-public-surfaces-'));
 const fixture = `<!doctype html><html><head><meta charset="utf-8"><style>
-*{box-sizing:border-box}body{margin:0;background:#192331;color:#fff;font:18px system-ui;min-height:1700px}
-.backdrop{position:absolute;inset:0 0 auto;height:640px;background:repeating-linear-gradient(32deg,#d6e8fb 0 14px,#20374f 14px 30px,#5a8cb2 30px 44px,#f1d69e 44px 56px)}
+*{box-sizing:border-box}body{margin:0;background:#222222;color:#fff;font:18px system-ui;min-height:1700px}
+.backdrop{position:absolute;inset:0 0 auto;height:640px;background:repeating-linear-gradient(32deg,#e6e6e6 0 14px,#343434 14px 30px,#848484 30px 44px,#d8d8d8 44px 56px)}
 .card{position:relative;left:80px;top:100px;width:430px;height:290px;padding:56px;border:1px solid #ffffff40;border-radius:36px;background:#ffffff12;backdrop-filter:blur(12px);box-shadow:inset 0 1px #ffffff88}
 [data-gary-refraction-state="svg"]{backdrop-filter:var(--gary-refraction-filter);background:#ffffff0a}
 .gary-refraction-filter{position:absolute;width:0;height:0;pointer-events:none}

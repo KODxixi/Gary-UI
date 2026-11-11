@@ -22,7 +22,8 @@ const { chromium } = (() => {
 const CHROME = process.env.GARY_CHROME !== undefined
   ? process.env.GARY_CHROME
   : "C:/Program Files/Google/Chrome/Application/chrome.exe";
-const BASE = process.env.GARY_BASE || "http://127.0.0.1:4173/agent/out";
+const { resolveBase } = require("./serve.cjs");
+let BASE = process.env.GARY_BASE || ""; // 未设置时由 resolveBase 自动起服务
 const PAGES = ["workbench", "dashboard", "report", "settings"];
 const VIEWS = [[1440, 900], [390, 844]];
 const THEMES = ["dark", "light"];
@@ -30,6 +31,7 @@ const MIN_TEXTS = 40;
 const MIN_COMBOS = 8;
 
 (async () => {
+  if (!BASE) BASE = (await resolveBase()).base;
   const browser = await chromium.launch({
     ...(CHROME ? { executablePath: CHROME } : {}),
     args: ["--no-sandbox", "--disable-gpu"],

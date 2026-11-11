@@ -20,5 +20,9 @@
   "include": [
     "src",
     "demo"
+  ],
+  "exclude": [
+    "**/*.stories.ts",
+    "**/*.stories.tsx"
   ]
 }

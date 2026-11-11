@@ -1,0 +1,142 @@
+/*
+ * Gary-UI layout primitives — patterns/shared/layout.css
+ *
+ * Algorithmic, browser-native layout (Every Layout approach): style the
+ * context, not the individual element. No media queries inside the
+ * primitives — density, wrapping and reflow emerge from the container.
+ *
+ * Usage: pair with tokens/base.css. Gaps and sizes reference the fluid
+ * scale (--gary-fluid-space-*) and text measure (--gary-text-measure) from
+ * tokens.json, so typography and layout stay proportional on any viewport.
+ *
+ * Primitives: stack · cluster · switcher · grid · sidebar · center · cover · frame · prose
+ * Override per-instance via data-l-* attributes or --l-* custom properties.
+ */
+
+/* ===== Stack — vertical rhythm via the adjacent-sibling combinator ===== */
+:where(.gary-l-stack) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+:where(.gary-l-stack) > * + * {
+  margin-block-start: var(--gary-fluid-space-sm, 1.19rem);
+}
+:where(.gary-l-stack)[data-l-space="xs"] > * + * { margin-block-start: var(--gary-fluid-space-xs, 0.69rem); }
+:where(.gary-l-stack)[data-l-space="md"] > * + * { margin-block-start: var(--gary-fluid-space-md, 1.42rem); }
+:where(.gary-l-stack)[data-l-space="lg"] > * + * { margin-block-start: var(--gary-fluid-space-lg, 2.13rem); }
+:where(.gary-l-stack)[data-l-space="xl"] > * + * { margin-block-start: var(--gary-fluid-space-xl, 2.81rem); }
+
+/* ===== Cluster — wrapping horizontal flow ===== */
+:where(.gary-l-cluster) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gary-fluid-space-sm, 1.19rem);
+}
+:where(.gary-l-cluster)[data-l-align="between"] { justify-content: space-between; }
+:where(.gary-l-cluster)[data-l-align="end"] { justify-content: flex-end; }
+:where(.gary-l-cluster)[data-l-space="md"] { gap: var(--gary-fluid-space-md, 1.42rem); }
+
+/* ===== Switcher — stack when narrow, row when wide (flex-basis threshold) ===== */
+:where(.gary-l-switcher) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gary-fluid-space-md, 1.42rem);
+  container-type: inline-size;
+}
+:where(.gary-l-switcher) > * {
+  flex-grow: 1;
+  flex-basis: calc((var(--l-switch, 30rem) - 100%) * 999);
+}
+
+/* ===== Grid — auto-fit with a floor; last row never collapses to one column ===== */
+:where(.gary-l-grid) {
+  display: grid;
+  gap: var(--gary-fluid-space-md, 1.42rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--l-grid-min, 16rem)), 1fr));
+  container-type: inline-size;
+}
+
+/* ===== Sidebar — primary content plus a shelf that demotes on narrow ===== */
+:where(.gary-l-sidebar) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gary-fluid-space-lg, 2.13rem);
+  container-type: inline-size;
+}
+:where(.gary-l-sidebar) > :first-child {
+  flex-basis: var(--l-sidebar, 20rem);
+  flex-grow: 1;
+}
+:where(.gary-l-sidebar) > :last-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-width: 50%;
+}
+
+/* ===== Center — measure-bounded, optionally centered text ===== */
+:where(.gary-l-center) {
+  box-sizing: content-box;
+  margin-inline: auto;
+  max-inline-size: var(--l-center, var(--gary-text-measure, 65ch));
+  container-type: inline-size;
+}
+:where(.gary-l-center)[data-l-center-text] { text-align: center; }
+
+/* ===== Cover — fill the viewport, keep the footer pinned ===== */
+:where(.gary-l-cover) {
+  min-block-size: var(--l-cover-min, 100svh);
+  display: flex;
+  flex-direction: column;
+  padding: var(--gary-fluid-space-xl, 2.81rem);
+  container-type: inline-size;
+}
+:where(.gary-l-cover) > :last-child { margin-block-start: auto; }
+
+/* ===== Frame — fixed aspect ratio for media ===== */
+:where(.gary-l-frame) {
+  aspect-ratio: var(--l-ratio, 16 / 9);
+  overflow: hidden;
+}
+:where(.gary-l-frame) > :where(img, video, iframe) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Prose — long-form reading: measure, rhythm, heading pairing ===== */
+:where(.gary-l-prose) {
+  max-inline-size: var(--gary-text-measure, 65ch);
+  font-size: var(--gary-fluid-type-0, 1rem);
+  line-height: var(--gary-line-height-body, 1.68);
+}
+:where(.gary-l-prose) > * + * { margin-block-start: 1em; }
+:where(.gary-l-prose) :where(h1, h2, h3, h4) {
+  font-family: var(--gary-font-display);
+  line-height: var(--gary-line-height-tight, 1.1);
+  text-wrap: balance;
+  margin-block-start: 1.6em;
+}
+:where(.gary-l-prose) h1 { font-size: var(--gary-fluid-type-4, 2.44rem); letter-spacing: var(--gary-tracking-display); }
+:where(.gary-l-prose) h2 { font-size: var(--gary-fluid-type-2, 1.42rem); letter-spacing: var(--gary-tracking-title); }
+:where(.gary-l-prose) h3 { font-size: var(--gary-fluid-type-1, 1.19rem); }
+:where(.gary-l-prose) :where(blockquote) {
+  margin-inline: 0;
+  padding-inline-start: 1em;
+  border-inline-start: 3px solid var(--gary-focus-ring);
+  color: var(--gary-text-secondary);
+}
+:where(.gary-l-prose) :where(code, kbd, samp) {
+  font-family: var(--gary-font-mono);
+  font-size: 0.9em;
+}
+:where(.gary-l-prose) :where(ul, ol) { padding-inline-start: 1.25em; }
+:where(.gary-l-prose) :where(figure) { margin-inline: 0; }
+:where(.gary-l-prose) :where(figcaption) {
+  margin-block-start: var(--gary-fluid-space-xs, 0.69rem);
+  font-size: var(--gary-fluid-type--1, 0.84rem);
+  color: var(--gary-text-secondary);
+}

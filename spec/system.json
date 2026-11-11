@@ -24,7 +24,14 @@
     "design": "DESIGN.md",
     "appleQuality": "DESIGN.md#11-apple-quality-layer",
     "collaboration": "docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md",
-    "runtimeProjection": "runtime/manifest.json"
+    "runtimeProjection": "runtime/manifest.json",
+    "enterpriseTokens": "spec/archos-enterprise.tokens.json",
+    "enterpriseSpec": "spec/ARCHOS-ENTERPRISE-TOKENS.md",
+    "diagramRecipes": "spec/diagram-recipes.json",
+    "diagramExpression": "docs/DIAGRAM_EXPRESSION.md",
+    "flowDiagram": "spec/flow-diagram.json",
+    "flowDiagramDoc": "docs/FLOW_DIAGRAM.md",
+    "flowDiagramGenerator": "scripts/flow_svg.py"
   },
   "visualAxes": {
     "applicationModes": [
@@ -260,7 +267,12 @@
     }
   },
   "visualToolchain": {
-    "commands": ["doctor", "validate", "render", "export"],
+    "commands": [
+      "doctor",
+      "validate",
+      "render",
+      "export"
+    ],
     "runtimeNetworkPolicy": "offline-no-cdn-no-auto-install-no-auto-update",
     "preserveNativeSource": true,
     "lastGoodProtection": true,
@@ -275,7 +287,7 @@
       "outline": "markmap",
       "infographic": "antv-infographic",
       "simple-flow": "mermaid",
-      "icons": "lucide"
+      "icons": "reicon"
     }
   }
 }

@@ -1,0 +1,5 @@
+{
+  "schema": "gary-ui.tints/1",
+  "note": "语义色块登记表。底色必须 K-only；只有这里登记的 tint 允许带色，且必须配 ink 且对比度 ≥4.5。",
+  "items": []
+}

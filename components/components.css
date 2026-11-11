@@ -109,7 +109,7 @@
 
 .gary-button[data-size="large"] {
   min-height: 52px;
-  padding-inline: var(--gary-space-8);
+  padding-inline: var(--gary-space-7);
   font-size: var(--gary-font-size-lead);
 }
 
@@ -203,6 +203,12 @@
   color: inherit;
   background: transparent;
   font: inherit;
+}
+
+/* Chrome renders closed-state select text via ::selectedcontent;
+   it does not inherit text-align from the select element. */
+select::selectedcontent {
+  text-align: center;
 }
 
 .gary-field > textarea {
@@ -371,10 +377,21 @@
 /* Glass and metric cards */
 .gary-glass-card,
 .gary-metric-card {
-  --gary-glass-fill: var(--gary-glass-thick);
-  --gary-glass-blur: var(--gary-blur-thick);
+  /* 2026-10-26：指标卡是「同一层的读数」，比判断卡更亮会抢层级，降一档到 regular */
+  --gary-glass-fill: var(--gary-glass-regular);
+  --gary-glass-blur: var(--gary-blur-regular);
   border-radius: var(--gary-radius-card);
   padding: var(--gary-density-surface-padding);
+}
+
+/*
+ * SolidPlate 作为独立表面时的几何。只给圆角，不给内边距 —— 内边距是使用方的排版决定。
+ * 2026-10-26 补：此前 .gary-solid-plate 只承载材质（背景/阴影），单独使用会渲染成直角大方块，
+ * 与 DESIGN.md §4「表面仍必须使用 .gary-solid-plate」的写法不一致。靠后定义的组件
+ * （evidence-bar 等）自有 border-radius，仍以它们为准。
+ */
+.gary-solid-plate {
+  border-radius: var(--gary-radius-card);
 }
 
 .gary-glass-card[data-card-style="custom"] {
@@ -998,26 +1015,26 @@ html body :is(.gary-solid-plate[data-gary-material="glass"],[data-material="soli
 /* Approved Visual Lab materials. Explicit surfaces never change legacy cards. */
 html body [data-gary-surface] { position:relative;isolation:isolate;min-width:0;overflow:hidden;border-radius:var(--gary-radius-card,30px);color:var(--demo-ink,var(--gary-text-primary)); }
 html body [data-gary-surface]::before,html body [data-gary-surface]::after { content:none; }
-html body [data-gary-surface="solid"] { background:var(--demo-panel,#101012);border:1px solid var(--demo-line,#ffffff16);box-shadow:0 2px 6px #0001;backdrop-filter:none;-webkit-backdrop-filter:none; }
-html body [data-gary-surface="frosted"] { background:rgba(18,20,24,.56);border:1px solid #ffffff24;box-shadow:inset 0 1px 0 #ffffff26,0 14px 30px #0003;backdrop-filter:blur(18px) saturate(.75);-webkit-backdrop-filter:blur(18px) saturate(.75); }
-html body [data-gary-surface="optical"][data-gary-material="glass"] { --gary-refraction-plate:rgba(10,14,20,.38);--gary-refraction-edge:rgba(255,255,255,.65);--gary-refraction-inner:rgba(255,255,255,.11);background:var(--gary-refraction-plate);box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner),0 5px 9px #0003,0 22px 44px #0002; }
+html body [data-gary-surface="solid"] { background:var(--demo-panel,var(--gary-solid-plate));border:1px solid var(--demo-line,var(--gary-border-shadow));box-shadow:var(--gary-shadow-contact);backdrop-filter:none;-webkit-backdrop-filter:none; }
+html body [data-gary-surface="frosted"] { background:color-mix(in srgb, var(--gary-solid-plate) 72%, transparent);border:1px solid var(--gary-card-edge);box-shadow:var(--gary-shadow-inset),var(--gary-shadow-environment);backdrop-filter:blur(18px) saturate(.75);-webkit-backdrop-filter:blur(18px) saturate(.75); }
+html body [data-gary-surface="optical"][data-gary-material="glass"] { --gary-refraction-plate:color-mix(in srgb, var(--gary-solid-plate) 46%, transparent);--gary-refraction-edge:oklch(1 0 0 / .65);--gary-refraction-inner:oklch(1 0 0 / .11);background:var(--gary-refraction-plate);box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner),0 5px 9px #0003,0 22px 44px #0002; }
 html body [data-gary-surface="optical"][data-gary-refraction-state="svg"] { backdrop-filter:var(--gary-refraction-filter) saturate(1.05);-webkit-backdrop-filter:var(--gary-refraction-filter) saturate(1.05); }
 html body [data-gary-surface="optical"][data-gary-material="glass"]::after { content:'';position:absolute;inset:0;z-index:3;border-radius:inherit;padding:1px;background:radial-gradient(180px circle at var(--gary-light-x,50%) var(--gary-light-y,0%),rgba(255,255,255,.85),transparent 85%);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;opacity:var(--gary-light-active,0);animation:none;transition:none; }
-html[data-gary-theme="light"] body [data-gary-surface="solid"] { background:var(--demo-panel,#f5f5f7);border-color:var(--demo-line,#00000014); }
-html[data-gary-theme="light"] body [data-gary-surface="frosted"] { background:rgba(255,255,255,.65);border-color:#ffffffa0;box-shadow:inset 0 1px 0 #ffffffe0,0 14px 30px #12202a16; }
-html[data-gary-theme="light"] body [data-gary-surface="optical"][data-gary-material="glass"] { --gary-refraction-plate:rgba(255,255,255,.54);--gary-refraction-edge:rgba(255,255,255,.95);--gary-refraction-inner:rgba(44,58,68,.17);box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner),0 5px 9px #12202a12,0 22px 44px #12202a16; }
+html[data-gary-theme="light"] body [data-gary-surface="solid"] { background:var(--demo-panel,var(--gary-solid-plate));border-color:var(--demo-line,var(--gary-border-shadow)); }
+html[data-gary-theme="light"] body [data-gary-surface="frosted"] { background:color-mix(in srgb, var(--gary-solid-plate) 66%, transparent);border-color:var(--gary-card-edge);box-shadow:var(--gary-shadow-inset),var(--gary-shadow-environment); }
+html[data-gary-theme="light"] body [data-gary-surface="optical"][data-gary-material="glass"] { --gary-refraction-plate:oklch(1 0 0 / .54);--gary-refraction-edge:oklch(1 0 0 / .95);--gary-refraction-inner:oklch(0 0 0 / .10);box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner),var(--gary-shadow-contact),var(--gary-shadow-environment); }
 [data-gary-light-scope] { position:relative;isolation:isolate; }
-.gary-surface-light { position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:calc(var(--gary-scene-light-active,0)*.42);background:radial-gradient(260px circle at var(--gary-scene-light-x,50%) var(--gary-scene-light-y,50%),rgba(210,227,250,.2),transparent 80%); }
-[data-gary-theme="light"] .gary-surface-light { background:radial-gradient(260px circle at var(--gary-scene-light-x,50%) var(--gary-scene-light-y,50%),rgba(74,99,135,.17),transparent 80%); }
+.gary-surface-light { position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:calc(var(--gary-scene-light-active,0)*.42);background:radial-gradient(260px circle at var(--gary-scene-light-x,50%) var(--gary-scene-light-y,50%),rgb(225,225,225,.2),transparent 80%); }
+[data-gary-theme="light"] .gary-surface-light { background:radial-gradient(260px circle at var(--gary-scene-light-x,50%) var(--gary-scene-light-y,50%),oklch(0 0 0 / .10),transparent 80%); }
 html:not([data-gary-pointer-effects="on"]) .gary-surface-light,html:not([data-gary-pointer-effects="on"]) body [data-gary-surface="optical"][data-gary-material="glass"]::after { opacity:0; }
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { html body [data-gary-surface="frosted"],html body [data-gary-surface="optical"][data-gary-material="glass"] { background:var(--demo-panel,#101012); }html[data-gary-theme="light"] body [data-gary-surface="frosted"],html[data-gary-theme="light"] body [data-gary-surface="optical"][data-gary-material="glass"] { background:var(--demo-panel,#f5f5f7); } }
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { html body [data-gary-surface="frosted"],html body [data-gary-surface="optical"][data-gary-material="glass"] { background:var(--demo-panel,var(--gary-solid-plate)); }html[data-gary-theme="light"] body [data-gary-surface="frosted"],html[data-gary-theme="light"] body [data-gary-surface="optical"][data-gary-material="glass"] { background:var(--demo-panel,var(--gary-solid-plate)); } }
 @media(prefers-reduced-motion:reduce),(hover:none),(pointer:coarse) { .gary-surface-light,html body [data-gary-surface="optical"][data-gary-material="glass"]::after { opacity:0; } }
 @media print { .gary-surface-light { display:none; }html body [data-gary-surface],html body [data-gary-surface="optical"][data-gary-material="glass"] { background:#fff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;color:#111!important; }html body [data-gary-surface]::after { display:none; } }
 
 /* Geometry follows DeepSeek's public header; brand, typography and material are Gary. */
 html body [data-gary-header] { position:fixed; top:max(8px,env(safe-area-inset-top,0px)); left:0; right:0; z-index:100; width:min(calc(100% - 144px),1140px); height:46px; min-height:46px; margin:0 auto; padding:4px 0; display:flex; align-items:center; justify-content:space-between; gap:20px; border:1px solid transparent; border-radius:999px; background:transparent; box-shadow:none; backdrop-filter:none; transform:none; transition:background-color var(--gary-duration-fast) var(--gary-ease-out),border-color var(--gary-duration-fast) var(--gary-ease-out),box-shadow var(--gary-duration-fast) var(--gary-ease-out); }
 html body [data-gary-header]::before,html body [data-gary-header]::after { display:none; }
-html body [data-gary-header].is-scrolled { width:min(calc(100% - 144px),980px); padding:4px 4px 4px 16px; background:rgba(18,18,18,.88); border-color:#ffffff20; backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); box-shadow:0 6px 24px #0000000a; }
+html body [data-gary-header].is-scrolled { width:min(calc(100% - 144px),980px); padding:4px 4px 4px 16px; background:color-mix(in srgb, var(--gary-solid-plate) 92%, transparent); border-color:var(--gary-border-highlight); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); box-shadow:0 6px 24px #0000000a; }
 html[data-gary-theme="light"] body [data-gary-header].is-scrolled { background:rgba(255,255,255,.90); border-color:#00000014; }
 html body [data-gary-header] :is(.demo-nav__brand,.topbar-leading) { display:flex; align-items:center; justify-content:center; gap:10px; min-width:0; height:36px; font-size:16px; font-weight:600; line-height:1; }
 html body [data-gary-header] :is(.demo-nav__links,.top-navigation) { align-items:center; justify-content:center; margin:0; gap:12px; padding:0; min-height:0; border:0; }
@@ -1042,8 +1059,8 @@ html body [data-gary-header] .gary-header-menu,html body [data-gary-header] .top
 @media(max-width:1100px) {
  html body [data-gary-header] :is(.demo-nav__links,.top-navigation) { display:none; }
  html body [data-gary-header] :is(.gary-header-menu,.topbar-menu-toggle) { display:inline-flex; }
- html body [data-gary-header] :is(.demo-nav__links,.top-navigation).is-open { display:flex; position:absolute; top:58px; left:0; right:0; width:100%; max-height:70vh; padding:16px; overflow:auto; flex-wrap:wrap; border:1px solid #ffffff20; border-radius:24px; background:#151515; color:#f5f5f7; }
- html[data-gary-theme="light"] body [data-gary-header] :is(.demo-nav__links,.top-navigation).is-open { background:#fff; color:#111; border-color:#0002; }
+ html body [data-gary-header] :is(.demo-nav__links,.top-navigation).is-open { display:flex; position:absolute; top:58px; left:0; right:0; width:100%; max-height:70vh; padding:16px; overflow:auto; flex-wrap:wrap; border:1px solid var(--gary-border-highlight); border-radius:var(--gary-radius-card); background:var(--gary-solid-plate); color:var(--gary-text-primary); }
+ html[data-gary-theme="light"] body [data-gary-header] :is(.demo-nav__links,.top-navigation).is-open { background:var(--gary-surface-page); color:var(--gary-text-primary); border-color:var(--gary-border-shadow); }
  html body [data-gary-header] .demo-nav__links a { flex:1 0 40%; justify-content:center; }
 }
 @media(max-width:767px) { html body [data-gary-header] { height:54px; min-height:54px; } html body [data-gary-header] :is(.button,.icon-button,.gary-header-menu,.topbar-menu-toggle,.display-summary,.top-nav-item) { height:44px; min-height:44px; } html body [data-gary-header] .icon-button { width:44px; } html body [data-gary-header],html body [data-gary-header].is-scrolled { width:calc(100% - 24px); } html body [data-gary-header] .demo-actions>.gary-role-annotation { display:none; } html body [data-gary-header] .demo-nav__brand { font-size:14px; } html body [data-gary-header] { gap:8px; } }
@@ -1138,9 +1155,139 @@ html .portal-shell :is(.gary-segmented, .gary-tab-bar) button::after { content: 
 .material-sample[data-material-card="thick"] { --gary-refraction-plate: color-mix(in srgb, var(--gary-surface-page) 38%, transparent); }
 
 /* Solid report framing: one static material texture; data plots stay untextured. */
-html body [data-gary-surface="solid"][data-gary-texture="flow"] { background:linear-gradient(135deg,#303030,#191919 65%,#222);border-color:#ffffff24;box-shadow:inset 0 1px 0 #ffffff0d,0 12px 30px #0002; }
+html body [data-gary-surface="solid"][data-gary-texture="flow"] { background:linear-gradient(135deg,var(--gary-card-plate),var(--gary-solid-plate) 65%,var(--gary-card-plate));border-color:var(--gary-border-highlight);box-shadow:var(--gary-shadow-inset),var(--gary-shadow-contact); }
 html body [data-gary-surface="solid"][data-gary-texture="flow"]::before { content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.6;background:#fff;mask-image:url("../assets/textures/b-ridge-current-10-200-10-105-055-v1.svg");mask-size:1920px 12288px;mask-repeat:no-repeat; }
 html body [data-gary-surface="solid"][data-gary-texture="flow"]>* { position:relative;z-index:1; }
-html[data-gary-theme="light"] body [data-gary-surface="solid"][data-gary-texture="flow"] { background:linear-gradient(135deg,#f5f5f5,#e8e8e8 65%,#f0f0f0);border-color:#00000014;box-shadow:inset 0 1px 0 #fff,0 12px 30px #00000008; }
+html[data-gary-theme="light"] body [data-gary-surface="solid"][data-gary-texture="flow"] { background:linear-gradient(135deg,var(--gary-card-plate),var(--gary-solid-plate) 65%,var(--gary-card-plate));border-color:var(--gary-border-shadow);box-shadow:var(--gary-shadow-inset),var(--gary-shadow-contact); }
 html[data-gary-theme="light"] body [data-gary-surface="solid"][data-gary-texture="flow"]::before { background:#000;opacity:.35; }
 @media print { html body [data-gary-surface="solid"][data-gary-texture="flow"]::before { display:none; } }
+
+
+/* ============================================================
+   Browser pseudo-element reset — prevents native chrome from
+   leaking into Gary's glass surface. These are the same class
+   of bug as select::selectedcontent: the browser renders the
+   closed/disabled state via a pseudo-element that does not
+   inherit text-align or background from the parent control.
+   ============================================================ */
+
+/* Number input: hide spinner arrows */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] { -moz-appearance: textfield; appearance: textfield; }
+
+/* Date/time input: style calendar picker indicator */
+input[type='date']::-webkit-calendar-picker-indicator,
+input[type='time']::-webkit-calendar-picker-indicator,
+input[type='datetime-local']::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+  cursor: pointer;
+}
+
+/* Search input: style cancel button */
+input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+input[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* Firefox button: remove inner focus outline */
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* IE/Edge: remove clear button and password reveal */
+input::-ms-clear,
+input::-ms-reveal {
+  display: none;
+}
+
+/* IE: remove default select arrow */
+select::-ms-expand {
+  display: none;
+}
+
+/* Textarea: style scrollbar */
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+textarea::-webkit-scrollbar-thumb {
+  background: var(--gary-text-tertiary);
+  border-radius: var(--gary-radius-pill);
+}
+textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Contract variants — 2026-10-26
+   components/*.json 声明了这些修饰类，CSS 此前没有实现，validate 一直红着。
+   补齐后闸才有意义；颜色只用 token 与状态色，不引入新色。
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Button */
+.gary-button--default { --gary-glass-fill: var(--gary-glass-thick); font-weight: var(--gary-font-weight-bold); }
+.gary-button--outline { --gary-glass-fill: transparent; border: 1px solid var(--gary-card-edge); }
+.gary-button--secondary { --gary-glass-fill: var(--gary-glass-ultrathin); }
+.gary-button--ghost { --gary-glass-fill: transparent; box-shadow: none; }
+.gary-button--destructive {
+  --gary-glass-fill: transparent;
+  color: var(--gary-state-critical);
+  border: 1px solid color-mix(in srgb, var(--gary-state-critical) 38%, var(--gary-card-edge));
+}
+.gary-button--link {
+  --gary-glass-fill: transparent;
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+/* Chip */
+.gary-chip--soft { background: color-mix(in srgb, var(--gary-text-secondary) 12%, transparent); }
+.gary-chip--solid { background: var(--gary-solid-plate); }
+.gary-chip--neutral { color: var(--gary-text-secondary); }
+.gary-chip--success {
+  color: var(--gary-state-positive);
+  border-color: color-mix(in srgb, var(--gary-state-positive) 34%, transparent);
+}
+.gary-chip--warning {
+  color: var(--gary-state-caution);
+  border-color: color-mix(in srgb, var(--gary-state-caution) 34%, transparent);
+}
+.gary-chip--critical {
+  color: var(--gary-state-critical);
+  border-color: color-mix(in srgb, var(--gary-state-critical) 38%, transparent);
+}
+
+/* Evidence bar tones：语义色只上文字与起首细边，不染色整块 */
+.gary-evidence-bar--neutral { color: var(--gary-text-secondary); }
+.gary-evidence-bar--success { color: var(--gary-state-positive); }
+.gary-evidence-bar--warning { color: var(--gary-state-caution); }
+.gary-evidence-bar--critical { color: var(--gary-state-critical); }
+.gary-evidence-bar--success,
+.gary-evidence-bar--warning,
+.gary-evidence-bar--critical { border-left: 2px solid currentColor; }
+
+/* Solid plate variants */
+.gary-solid-plate--default { background: var(--gary-solid-plate); }
+.gary-solid-plate--subtle { background: color-mix(in srgb, var(--gary-solid-plate) 60%, transparent); }
+.gary-solid-plate--inverse { background: var(--gary-text-primary); color: var(--gary-surface-page); }
+.gary-solid-plate__label {
+  margin: 0 0 var(--gary-space-1);
+  font-size: var(--gary-font-size-caption);
+  letter-spacing: var(--gary-tracking-label);
+  color: var(--gary-text-tertiary);
+}
+.gary-solid-plate__value {
+  margin: 0;
+  font-size: var(--gary-font-size-title);
+  font-weight: var(--gary-font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--gary-text-primary);
+}

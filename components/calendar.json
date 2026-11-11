@@ -1,0 +1,76 @@
+{
+  "slug": "calendar",
+  "name": "日历",
+  "category": "forms",
+  "source": "adapters/react-shadcn/src/components/ui/calendar.tsx",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "基于 react-day-picker v10 的 DayPicker，通过 classNames 注入样式，导航箭头用 components.Chevron 按 orientation 映射 reicon-react 图标（不再使用废弃的 caption/IconLeft/IconRight）",
+      "选中日用 primary 实底加圆形（bg-primary text-primary-foreground rounded-full）；今天用 accent 底（bg-accent text-accent-foreground）",
+      "外部月日期与禁用日用 muted 半透明弱化；悬停日用 accent 反馈",
+      "默认 props：showOutsideDays=true、mode=\"single\"，其余 props 透传 DayPicker"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-calendar"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ".gary-calendar__day_button:hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ".gary-calendar__day_button:focus-visible, :focus-visible"
+    },
+    {
+      "name": "selected",
+      "selector": ".gary-calendar__selected, [aria-selected='true']"
+    },
+    {
+      "name": "today",
+      "selector": ".gary-calendar__today"
+    },
+    {
+      "name": "outside",
+      "selector": ".gary-calendar__outside"
+    },
+    {
+      "name": "disabled",
+      "selector": ".gary-calendar__disabled, :disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作，方向键切换日期",
+      "状态变化同步 aria-selected / aria-disabled",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-calendar",
+    ".gary-calendar__months",
+    ".gary-calendar__month",
+    ".gary-calendar__month_caption",
+    ".gary-calendar__caption_label",
+    ".gary-calendar__nav",
+    ".gary-calendar__button_previous",
+    ".gary-calendar__button_next",
+    ".gary-calendar__weekdays",
+    ".gary-calendar__weekday",
+    ".gary-calendar__week",
+    ".gary-calendar__day",
+    ".gary-calendar__day_button",
+    ".gary-calendar__selected",
+    ".gary-calendar__today",
+    ".gary-calendar__outside",
+    ".gary-calendar__disabled",
+    ".gary-calendar__range_middle"
+  ]
+}

@@ -41,12 +41,40 @@
       "package": "playwright-core"
     },
     {
+      "adapter": "adapters/visual",
+      "package": "reicon"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "@hookform/resolvers"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "@tanstack/react-table"
+    },
+    {
       "adapter": "adapters/react-shadcn",
       "package": "class-variance-authority"
     },
     {
       "adapter": "adapters/react-shadcn",
       "package": "clsx"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "cmdk"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "embla-carousel-react"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "input-otp"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "next-themes"
     },
     {
       "adapter": "adapters/react-shadcn",
@@ -58,7 +86,31 @@
     },
     {
       "adapter": "adapters/react-shadcn",
+      "package": "react-day-picker"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
       "package": "react-dom"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "react-hook-form"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "react-resizable-panels"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "recharts"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "reicon-react"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "sonner"
     },
     {
       "adapter": "adapters/react-shadcn",
@@ -67,6 +119,14 @@
     {
       "adapter": "adapters/react-shadcn",
       "package": "tailwindcss"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "vaul"
+    },
+    {
+      "adapter": "adapters/react-shadcn",
+      "package": "zod"
     }
   ],
   "packages": [
@@ -281,6 +341,25 @@
       "licenseTextStatus": "full-text"
     },
     {
+      "package": "@date-fns/tz",
+      "version": "1.5.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/@date-fns/tz/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/@date-fns/tz/LICENSE.md"
+          ],
+          "copy": "licenses/third-party/@date-fns__tz@1.5.0/cc7267726f80-LICENSE.md",
+          "sha256": "cc7267726f809c066c35c81a17d7525bccf588ecc826b15ca65a15d34106c804",
+          "bytes": 1074
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
       "package": "@esbuild/win32-x64",
       "version": "0.25.9",
       "spdx": "MIT",
@@ -391,6 +470,25 @@
           "copy": "licenses/third-party/@gera2ld__jsx-dom@2.2.2/6595d9ee0cf2-LICENSE",
           "sha256": "6595d9ee0cf25c14d247e7d78f82f9e3b291bb6a2265e34cb084dc46bdab7cf4",
           "bytes": 1063
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "@hookform/resolvers",
+      "version": "5.9.1",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/@hookform/resolvers/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/@hookform/resolvers/LICENSE"
+          ],
+          "copy": "licenses/third-party/@hookform__resolvers@5.9.1/e8eeb472f0a5-LICENSE",
+          "sha256": "e8eeb472f0a5889c2c51625b86a3f9b8630680adb9f49a125352e2e426392780",
+          "bytes": 1080
         }
       ],
       "licenseTextStatus": "full-text"
@@ -1593,6 +1691,139 @@
       "licenseTextStatus": "full-text"
     },
     {
+      "package": "@reduxjs/toolkit",
+      "version": "2.12.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/@reduxjs/toolkit/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/@reduxjs/toolkit/LICENSE"
+          ],
+          "copy": "licenses/third-party/@reduxjs__toolkit@2.12.0/49784961ec6c-LICENSE",
+          "sha256": "49784961ec6c4941437b7a2c54d8977d0528076a9e7c73dd40f7d0942b8f106d",
+          "bytes": 1069
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "@standard-schema/spec",
+      "version": "1.1.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/@standard-schema/spec/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/@standard-schema/spec/LICENSE"
+          ],
+          "copy": "licenses/third-party/@standard-schema__spec@1.1.0/653b779005a3-LICENSE",
+          "sha256": "653b779005a3a4d64a7288c940f7b9a0e8f0b1e0375f6aa6af9473caf131e564",
+          "bytes": 1071
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "@standard-schema/utils",
+      "version": "0.3.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/@standard-schema/utils/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/@standard-schema/utils/LICENSE"
+          ],
+          "copy": "licenses/third-party/@standard-schema__utils@0.3.0/9cf216650731-LICENSE",
+          "sha256": "9cf2166507311f427e083ef7671da566949391cb745789abcff8bd43ac26d1f1",
+          "bytes": 1069
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "@tanstack/react-store",
+      "version": "0.11.1",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/@tanstack/react-table/node_modules/@tanstack/react-store/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/@tanstack/react-table/node_modules/@tanstack/react-store/LICENSE"
+          ],
+          "copy": "licenses/third-party/@tanstack__react-store@0.11.1/cb4a7917af22-LICENSE",
+          "sha256": "cb4a7917af22bd56340e877f10a5c5aa4fded7af2459162630ff7fcb48bb45c7",
+          "bytes": 1071
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "@tanstack/react-table",
+      "version": "9.2.4",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/@tanstack/react-table/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/@tanstack/react-table/LICENSE"
+          ],
+          "copy": "licenses/third-party/@tanstack__react-table@9.2.4/9db3f8ddd703-LICENSE",
+          "sha256": "9db3f8ddd7031ab264b99bec49c221155d0c8649b53dd4aa007f2041d36cdf5f",
+          "bytes": 1071
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "@tanstack/store",
+      "version": "0.11.1",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/@tanstack/store/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/@tanstack/store/LICENSE"
+          ],
+          "copy": "licenses/third-party/@tanstack__store@0.11.1/cb4a7917af22-LICENSE",
+          "sha256": "cb4a7917af22bd56340e877f10a5c5aa4fded7af2459162630ff7fcb48bb45c7",
+          "bytes": 1071
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "@tanstack/table-core",
+      "version": "9.2.4",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/@tanstack/table-core/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/@tanstack/table-core/LICENSE"
+          ],
+          "copy": "licenses/third-party/@tanstack__table-core@9.2.4/9db3f8ddd703-LICENSE",
+          "sha256": "9db3f8ddd7031ab264b99bec49c221155d0c8649b53dd4aa007f2041d36cdf5f",
+          "bytes": 1071
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
       "package": "@types/d3",
       "version": "7.4.3",
       "spdx": "MIT",
@@ -1616,11 +1847,13 @@
       "version": "3.2.2",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/@types/d3-array/package.json",
         "adapters/visual/node_modules/@types/d3-array/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/@types/d3-array/LICENSE",
             "adapters/visual/node_modules/@types/d3-array/LICENSE"
           ],
           "copy": "licenses/third-party/@types__d3-array@3.2.2/c2cfccb812fe-LICENSE",
@@ -1692,11 +1925,13 @@
       "version": "3.1.3",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/@types/d3-color/package.json",
         "adapters/visual/node_modules/@types/d3-color/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/@types/d3-color/LICENSE",
             "adapters/visual/node_modules/@types/d3-color/LICENSE"
           ],
           "copy": "licenses/third-party/@types__d3-color@3.1.3/c2cfccb812fe-LICENSE",
@@ -1806,11 +2041,13 @@
       "version": "3.0.2",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/@types/d3-ease/package.json",
         "adapters/visual/node_modules/@types/d3-ease/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/@types/d3-ease/LICENSE",
             "adapters/visual/node_modules/@types/d3-ease/LICENSE"
           ],
           "copy": "licenses/third-party/@types__d3-ease@3.0.2/c2cfccb812fe-LICENSE",
@@ -1920,11 +2157,13 @@
       "version": "3.0.4",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/@types/d3-interpolate/package.json",
         "adapters/visual/node_modules/@types/d3-interpolate/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/@types/d3-interpolate/LICENSE",
             "adapters/visual/node_modules/@types/d3-interpolate/LICENSE"
           ],
           "copy": "licenses/third-party/@types__d3-interpolate@3.0.4/c2cfccb812fe-LICENSE",
@@ -1939,11 +2178,13 @@
       "version": "3.1.1",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/@types/d3-path/package.json",
         "adapters/visual/node_modules/@types/d3-path/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/@types/d3-path/LICENSE",
             "adapters/visual/node_modules/@types/d3-path/LICENSE"
           ],
           "copy": "licenses/third-party/@types__d3-path@3.1.1/c2cfccb812fe-LICENSE",
@@ -2015,11 +2256,13 @@
       "version": "4.0.9",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/@types/d3-scale/package.json",
         "adapters/visual/node_modules/@types/d3-scale/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/@types/d3-scale/LICENSE",
             "adapters/visual/node_modules/@types/d3-scale/LICENSE"
           ],
           "copy": "licenses/third-party/@types__d3-scale@4.0.9/c2cfccb812fe-LICENSE",
@@ -2072,11 +2315,13 @@
       "version": "3.2.0",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/@types/d3-shape/package.json",
         "adapters/visual/node_modules/@types/d3-shape/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/@types/d3-shape/LICENSE",
             "adapters/visual/node_modules/@types/d3-shape/LICENSE"
           ],
           "copy": "licenses/third-party/@types__d3-shape@3.2.0/c2cfccb812fe-LICENSE",
@@ -2091,11 +2336,13 @@
       "version": "3.0.4",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/@types/d3-time/package.json",
         "adapters/visual/node_modules/@types/d3-time/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/@types/d3-time/LICENSE",
             "adapters/visual/node_modules/@types/d3-time/LICENSE"
           ],
           "copy": "licenses/third-party/@types__d3-time@3.0.4/c2cfccb812fe-LICENSE",
@@ -2129,11 +2376,13 @@
       "version": "3.0.2",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/@types/d3-timer/package.json",
         "adapters/visual/node_modules/@types/d3-timer/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/@types/d3-timer/LICENSE",
             "adapters/visual/node_modules/@types/d3-timer/LICENSE"
           ],
           "copy": "licenses/third-party/@types__d3-timer@3.0.2/c2cfccb812fe-LICENSE",
@@ -2258,6 +2507,25 @@
       "licenseTextStatus": "full-text"
     },
     {
+      "package": "@types/use-sync-external-store",
+      "version": "0.0.6",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/@types/use-sync-external-store/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/@types/use-sync-external-store/LICENSE"
+          ],
+          "copy": "licenses/third-party/@types__use-sync-external-store@0.0.6/c2cfccb812fe-LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
+          "bytes": 1141
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
       "package": "@upsetjs/venn.js",
       "version": "2.0.0",
       "spdx": "MIT",
@@ -2291,6 +2559,44 @@
           "copy": "licenses/third-party/@vscode__markdown-it-katex@1.1.2/f1b393753882-LICENSE",
           "sha256": "f1b3937538823b03c267678698df4c58366e5d075fbea734c26fd5e75a7ed4ef",
           "bytes": 3292
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "ajv",
+      "version": "8.20.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/ajv/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/ajv/LICENSE"
+          ],
+          "copy": "licenses/third-party/ajv@8.20.0/a05350a88e31-LICENSE",
+          "sha256": "a05350a88e318e4f5f2c2a1ff1e2e88daa4dd38e6e78b71cccae422bdc762cc3",
+          "bytes": 1090
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "ajv-formats",
+      "version": "2.1.1",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/ajv-formats/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/ajv-formats/LICENSE"
+          ],
+          "copy": "licenses/third-party/ajv-formats@2.1.1/9df3bb69929a-LICENSE",
+          "sha256": "9df3bb69929a3b650ed73b3bfa1756725aaff0ac296461605753547004eafeaf",
+          "bytes": 1074
         }
       ],
       "licenseTextStatus": "full-text"
@@ -2472,6 +2778,25 @@
           "copy": "licenses/third-party/clsx@2.1.1/9a9edad7baae-license",
           "sha256": "9a9edad7baae52622bddf3c15b2ef8a33d2c89f2d25408ad13e8a7481c6b0c97",
           "bytes": 1104
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "cmdk",
+      "version": "1.1.1",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/cmdk/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/cmdk/LICENSE.md"
+          ],
+          "copy": "licenses/third-party/cmdk@1.1.1/b5acfd21b3b6-LICENSE.md",
+          "sha256": "b5acfd21b3b61508365224c40ec1b03ec71091248baaf989d4be916551e7d532",
+          "bytes": 1069
         }
       ],
       "licenseTextStatus": "full-text"
@@ -2722,14 +3047,6 @@
       "files": [
         {
           "sources": [
-            "adapters/visual/node_modules/cytoscape/license-update.mjs"
-          ],
-          "copy": "licenses/third-party/cytoscape@3.34.2/4a5a644717fc-license-update.mjs",
-          "sha256": "4a5a644717fc90d678e8fbbc537a08452d0566726710eef47b196abd6363e635",
-          "bytes": 1416
-        },
-        {
-          "sources": [
             "adapters/visual/node_modules/cytoscape/LICENSE"
           ],
           "copy": "licenses/third-party/cytoscape@3.34.2/eb319c6e6f23-LICENSE",
@@ -2820,11 +3137,13 @@
       "version": "3.2.4",
       "spdx": "ISC",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/d3-array/package.json",
         "adapters/visual/node_modules/d3-array/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/d3-array/LICENSE",
             "adapters/visual/node_modules/d3-array/LICENSE"
           ],
           "copy": "licenses/third-party/d3-array@3.2.4/3e6849627f74-LICENSE",
@@ -2915,11 +3234,13 @@
       "version": "3.1.0",
       "spdx": "ISC",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/d3-color/package.json",
         "adapters/visual/node_modules/d3-color/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/d3-color/LICENSE",
             "adapters/visual/node_modules/d3-color/LICENSE"
           ],
           "copy": "licenses/third-party/d3-color@3.1.0/faa682e3e430-LICENSE",
@@ -3029,11 +3350,13 @@
       "version": "3.0.1",
       "spdx": "BSD-3-Clause",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/d3-ease/package.json",
         "adapters/visual/node_modules/d3-ease/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/d3-ease/LICENSE",
             "adapters/visual/node_modules/d3-ease/LICENSE"
           ],
           "copy": "licenses/third-party/d3-ease@3.0.1/b989d9085148-LICENSE",
@@ -3105,11 +3428,13 @@
       "version": "3.1.2",
       "spdx": "ISC",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/d3-format/package.json",
         "adapters/visual/node_modules/d3-format/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/d3-format/LICENSE",
             "adapters/visual/node_modules/d3-format/LICENSE"
           ],
           "copy": "licenses/third-party/d3-format@3.1.2/2a6d2d5f32ba-LICENSE",
@@ -3162,11 +3487,13 @@
       "version": "3.0.1",
       "spdx": "ISC",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/d3-interpolate/package.json",
         "adapters/visual/node_modules/d3-interpolate/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/d3-interpolate/LICENSE",
             "adapters/visual/node_modules/d3-interpolate/LICENSE"
           ],
           "copy": "licenses/third-party/d3-interpolate@3.0.1/e008c5e25a6b-LICENSE",
@@ -3219,11 +3546,13 @@
       "version": "3.1.0",
       "spdx": "ISC",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/d3-path/package.json",
         "adapters/visual/node_modules/d3-path/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/d3-path/LICENSE",
             "adapters/visual/node_modules/d3-path/LICENSE"
           ],
           "copy": "licenses/third-party/d3-path@3.1.0/a09b0d6d76e7-LICENSE",
@@ -3314,11 +3643,13 @@
       "version": "4.0.2",
       "spdx": "ISC",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/d3-scale/package.json",
         "adapters/visual/node_modules/d3-scale/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/d3-scale/LICENSE",
             "adapters/visual/node_modules/d3-scale/LICENSE"
           ],
           "copy": "licenses/third-party/d3-scale@4.0.2/e008c5e25a6b-LICENSE",
@@ -3390,11 +3721,13 @@
       "version": "3.2.0",
       "spdx": "ISC",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/d3-shape/package.json",
         "adapters/visual/node_modules/d3-shape/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/d3-shape/LICENSE",
             "adapters/visual/node_modules/d3-shape/LICENSE"
           ],
           "copy": "licenses/third-party/d3-shape@3.2.0/faa682e3e430-LICENSE",
@@ -3409,11 +3742,13 @@
       "version": "3.1.0",
       "spdx": "ISC",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/d3-time/package.json",
         "adapters/visual/node_modules/d3-time/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/d3-time/LICENSE",
             "adapters/visual/node_modules/d3-time/LICENSE"
           ],
           "copy": "licenses/third-party/d3-time@3.1.0/faa682e3e430-LICENSE",
@@ -3428,11 +3763,13 @@
       "version": "4.1.0",
       "spdx": "ISC",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/d3-time-format/package.json",
         "adapters/visual/node_modules/d3-time-format/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/d3-time-format/LICENSE",
             "adapters/visual/node_modules/d3-time-format/LICENSE"
           ],
           "copy": "licenses/third-party/d3-time-format@4.1.0/e008c5e25a6b-LICENSE",
@@ -3447,11 +3784,13 @@
       "version": "3.0.1",
       "spdx": "ISC",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/d3-timer/package.json",
         "adapters/visual/node_modules/d3-timer/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/d3-timer/LICENSE",
             "adapters/visual/node_modules/d3-timer/LICENSE"
           ],
           "copy": "licenses/third-party/d3-timer@3.0.1/e008c5e25a6b-LICENSE",
@@ -3538,6 +3877,25 @@
       "licenseTextStatus": "full-text"
     },
     {
+      "package": "date-fns",
+      "version": "4.4.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/date-fns/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/date-fns/LICENSE.md"
+          ],
+          "copy": "licenses/third-party/date-fns@4.4.0/8d3951c38967-LICENSE.md",
+          "sha256": "8d3951c38967b964b1fe259bfd200c2647cc04c858b55a4414e3122a60f1ef4b",
+          "bytes": 1117
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
       "package": "dayjs",
       "version": "1.11.23",
       "spdx": "MIT",
@@ -3552,6 +3910,25 @@
           "copy": "licenses/third-party/dayjs@1.11.23/5faab7526d05-LICENSE",
           "sha256": "5faab7526d055651be3aab769d58897be6bd91f3d39d137f25f12dba1b31d5dc",
           "bytes": 1072
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "decimal.js-light",
+      "version": "2.5.1",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/decimal.js-light/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/decimal.js-light/LICENCE.md"
+          ],
+          "copy": "licenses/third-party/decimal.js-light@2.5.1/fc0397fbd5c1-LICENCE.md",
+          "sha256": "fc0397fbd5c128bec7edef4e8d3f45e15db5fd043cdd0a2edfc4f14d47fbc3e4",
+          "bytes": 1110
         }
       ],
       "licenseTextStatus": "full-text"
@@ -3837,6 +4214,66 @@
       "licenseTextStatus": "full-text"
     },
     {
+      "package": "embla-carousel",
+      "version": "8.6.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/embla-carousel/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/embla-carousel/package.json"
+          ],
+          "copy": "licenses/third-party/embla-carousel@8.6.0/25a173f262ce-package.json",
+          "sha256": "25a173f262cefcb739f4b11268e866cff088976e0f0e79059f75811ddab8e77c",
+          "bytes": 1888,
+          "note": "Original package license declaration and available author metadata only; upstream full license text was not supplied"
+        }
+      ],
+      "licenseTextStatus": "declared-only"
+    },
+    {
+      "package": "embla-carousel-react",
+      "version": "8.6.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/embla-carousel-react/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/embla-carousel-react/package.json"
+          ],
+          "copy": "licenses/third-party/embla-carousel-react@8.6.0/c3b98c1f6ab7-package.json",
+          "sha256": "c3b98c1f6ab7f079cee036c666d9b9d761ab1ff2ca328e0d139b19bf89b014ee",
+          "bytes": 2176,
+          "note": "Original package license declaration and available author metadata only; upstream full license text was not supplied"
+        }
+      ],
+      "licenseTextStatus": "declared-only"
+    },
+    {
+      "package": "embla-carousel-reactive-utils",
+      "version": "8.6.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/embla-carousel-reactive-utils/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/embla-carousel-reactive-utils/package.json"
+          ],
+          "copy": "licenses/third-party/embla-carousel-reactive-utils@8.6.0/3fd96f05014a-package.json",
+          "sha256": "3fd96f05014a38ef57e5f4ad7c7081778769b0f6bfa85761d925a6de8af5c3ab",
+          "bytes": 2015,
+          "note": "Original package license declaration and available author metadata only; upstream full license text was not supplied"
+        }
+      ],
+      "licenseTextStatus": "declared-only"
+    },
+    {
       "package": "encoding-sniffer",
       "version": "0.2.1",
       "spdx": "MIT",
@@ -3942,11 +4379,13 @@
       "version": "1.52.0",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/es-toolkit/package.json",
         "adapters/visual/node_modules/es-toolkit/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/es-toolkit/NOTICE",
             "adapters/visual/node_modules/es-toolkit/NOTICE"
           ],
           "copy": "licenses/third-party/es-toolkit@1.52.0/11ee5e3bce9b-NOTICE",
@@ -3955,6 +4394,7 @@
         },
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/es-toolkit/LICENSE",
             "adapters/visual/node_modules/es-toolkit/LICENSE"
           ],
           "copy": "licenses/third-party/es-toolkit@1.52.0/51f3674294d9-LICENSE",
@@ -3988,11 +4428,13 @@
       "version": "5.0.4",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/eventemitter3/package.json",
         "adapters/visual/node_modules/eventemitter3/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/eventemitter3/LICENSE",
             "adapters/visual/node_modules/eventemitter3/LICENSE"
           ],
           "copy": "licenses/third-party/eventemitter3@5.0.4/3aecc12b1cb2-LICENSE",
@@ -4007,16 +4449,37 @@
       "version": "3.1.3",
       "spdx": "MIT",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/fast-deep-equal/package.json",
         "adapters/visual/node_modules/fast-deep-equal/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/fast-deep-equal/LICENSE",
             "adapters/visual/node_modules/fast-deep-equal/LICENSE"
           ],
           "copy": "licenses/third-party/fast-deep-equal@3.1.3/7bf9b2de73a6-LICENSE",
           "sha256": "7bf9b2de73a6b356761c948d0e9eeb4be6c1270bd04c79cd489c1e400ffdfc1a",
           "bytes": 1074
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "fast-uri",
+      "version": "3.1.8",
+      "spdx": "BSD-3-Clause",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/fast-uri/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/fast-uri/LICENSE"
+          ],
+          "copy": "licenses/third-party/fast-uri@3.1.8/b010b0dfdfdb-LICENSE",
+          "sha256": "b010b0dfdfdb23d7396e03b82cd4621fc9bb8f95d6b0aea70b9c24e12074c786",
+          "bytes": 1813
         }
       ],
       "licenseTextStatus": "full-text"
@@ -4232,6 +4695,25 @@
       "licenseTextStatus": "full-text"
     },
     {
+      "package": "immer",
+      "version": "11.1.18",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/immer/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/immer/LICENSE"
+          ],
+          "copy": "licenses/third-party/immer@11.1.18/99cf22f6960a-LICENSE",
+          "sha256": "99cf22f6960a6fe228ec84ea9aefb0d75b27999ece83a3a9801e1c2081fa270b",
+          "bytes": 1074
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
       "package": "import-meta-resolve",
       "version": "4.2.0",
       "spdx": "MIT",
@@ -4246,6 +4728,25 @@
           "copy": "licenses/third-party/import-meta-resolve@4.2.0/8770a1a4b69e-license",
           "sha256": "8770a1a4b69ee722636643e81340ce4a8f0b8415b1c568487edc9062338bfcc7",
           "bytes": 3493
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "input-otp",
+      "version": "1.5.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/input-otp/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/input-otp/LICENSE"
+          ],
+          "copy": "licenses/third-party/input-otp@1.5.0/079031192fea-LICENSE",
+          "sha256": "079031192fea535a245aa64a637d8433c406b82a14f91c3606b1d63e41c00152",
+          "bytes": 1071
         }
       ],
       "licenseTextStatus": "full-text"
@@ -4274,11 +4775,13 @@
       "version": "2.0.3",
       "spdx": "ISC",
       "packageSources": [
+        "adapters/react-shadcn/node_modules/internmap/package.json",
         "adapters/visual/node_modules/internmap/package.json"
       ],
       "files": [
         {
           "sources": [
+            "adapters/react-shadcn/node_modules/internmap/LICENSE",
             "adapters/visual/node_modules/internmap/LICENSE"
           ],
           "copy": "licenses/third-party/internmap@2.0.3/9ea8903938da-LICENSE",
@@ -4303,6 +4806,25 @@
           "copy": "licenses/third-party/is-any-array@3.0.0/22ecd753de08-LICENSE",
           "sha256": "22ecd753de087c4ab9db906a518daf58a2c2e8a8336cebc43649b5587d4c6650",
           "bytes": 1075
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "json-schema-traverse",
+      "version": "1.0.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/json-schema-traverse/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/json-schema-traverse/LICENSE"
+          ],
+          "copy": "licenses/third-party/json-schema-traverse@1.0.0/7bf9b2de73a6-LICENSE",
+          "sha256": "7bf9b2de73a6b356761c948d0e9eeb4be6c1270bd04c79cd489c1e400ffdfc1a",
+          "bytes": 1074
         }
       ],
       "licenseTextStatus": "full-text"
@@ -4468,22 +4990,6 @@
         "adapters/visual/node_modules/lucide/package.json"
       ],
       "files": [
-        {
-          "sources": [
-            "adapters/visual/node_modules/lucide/dist/esm/icons/copyright.mjs"
-          ],
-          "copy": "licenses/third-party/lucide@1.41.0/02d9fcef2eb3-copyright.mjs",
-          "sha256": "02d9fcef2eb3ee5a760d90aadce2ea91e1cdf2be079505883aa90b7e3833d968",
-          "bytes": 361
-        },
-        {
-          "sources": [
-            "adapters/visual/node_modules/lucide/dist/esm/icons/copyright.mjs.map"
-          ],
-          "copy": "licenses/third-party/lucide@1.41.0/9f1bac54aefd-copyright.mjs.map",
-          "sha256": "9f1bac54aefde95d0a8200b79001783296b16e0095bd87da794a86eb1bd3632f",
-          "bytes": 1385
-        },
         {
           "sources": [
             "adapters/visual/node_modules/lucide/LICENSE"
@@ -4839,6 +5345,25 @@
       "licenseTextStatus": "full-text"
     },
     {
+      "package": "next-themes",
+      "version": "0.4.6",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/next-themes/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/next-themes/license.md"
+          ],
+          "copy": "licenses/third-party/next-themes@0.4.6/b5acfd21b3b6-license.md",
+          "sha256": "b5acfd21b3b61508365224c40ec1b03ec71091248baaf989d4be916551e7d532",
+          "bytes": 1069
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
       "package": "npm2url",
       "version": "0.2.4",
       "spdx": "MIT",
@@ -5014,14 +5539,12 @@
       "version": "1.63.0",
       "spdx": "Apache-2.0",
       "packageSources": [
-        "adapters/visual/node_modules/playwright-core/package.json",
-        "adapters/visual/vendor/node/playwright-core/package.json"
+        "adapters/visual/node_modules/playwright-core/package.json"
       ],
       "files": [
         {
           "sources": [
-            "adapters/visual/node_modules/playwright-core/lib/utilsBundle.js.LICENSE",
-            "adapters/visual/vendor/node/playwright-core/lib/utilsBundle.js.LICENSE"
+            "adapters/visual/node_modules/playwright-core/lib/utilsBundle.js.LICENSE"
           ],
           "copy": "licenses/third-party/playwright-core@1.63.0/2495f30be296-utilsBundle.js.LICENSE",
           "sha256": "2495f30be29620d54b58339821eda0ebabdfb6ee9b09455f7285a06fd46fb9f3",
@@ -5029,8 +5552,7 @@
         },
         {
           "sources": [
-            "adapters/visual/node_modules/playwright-core/lib/serverRegistry.js.LICENSE",
-            "adapters/visual/vendor/node/playwright-core/lib/serverRegistry.js.LICENSE"
+            "adapters/visual/node_modules/playwright-core/lib/serverRegistry.js.LICENSE"
           ],
           "copy": "licenses/third-party/playwright-core@1.63.0/3098a6efcbc1-serverRegistry.js.LICENSE",
           "sha256": "3098a6efcbc11752cbdf6075fa65480f5470f78c8d981fab9c0796dc9a41cefe",
@@ -5038,8 +5560,7 @@
         },
         {
           "sources": [
-            "adapters/visual/node_modules/playwright-core/LICENSE",
-            "adapters/visual/vendor/node/playwright-core/LICENSE"
+            "adapters/visual/node_modules/playwright-core/LICENSE"
           ],
           "copy": "licenses/third-party/playwright-core@1.63.0/45873d00a0dd-LICENSE",
           "sha256": "45873d00a0dd243596deb4aa23b2493b3d1f0671921bf2538ea431d7380220eb",
@@ -5047,8 +5568,7 @@
         },
         {
           "sources": [
-            "adapters/visual/node_modules/playwright-core/NOTICE",
-            "adapters/visual/vendor/node/playwright-core/NOTICE"
+            "adapters/visual/node_modules/playwright-core/NOTICE"
           ],
           "copy": "licenses/third-party/playwright-core@1.63.0/6d602191187b-NOTICE",
           "sha256": "6d602191187b35b9b01d2cffa01c8469c2c8d9de8a96f1bf868e0f264f51c81d",
@@ -5056,8 +5576,7 @@
         },
         {
           "sources": [
-            "adapters/visual/node_modules/playwright-core/lib/webp_codec.LICENSE",
-            "adapters/visual/vendor/node/playwright-core/lib/webp_codec.LICENSE"
+            "adapters/visual/node_modules/playwright-core/lib/webp_codec.LICENSE"
           ],
           "copy": "licenses/third-party/playwright-core@1.63.0/995c7ee35ace-webp_codec.LICENSE",
           "sha256": "995c7ee35aceb7666829b7a501ca89c0864e12b493c1174b155774ab1e03d831",
@@ -5065,8 +5584,7 @@
         },
         {
           "sources": [
-            "adapters/visual/node_modules/playwright-core/ThirdPartyNotices.txt",
-            "adapters/visual/vendor/node/playwright-core/ThirdPartyNotices.txt"
+            "adapters/visual/node_modules/playwright-core/ThirdPartyNotices.txt"
           ],
           "copy": "licenses/third-party/playwright-core@1.63.0/a549d329bad8-ThirdPartyNotices.txt",
           "sha256": "a549d329bad8806fe279f0ecae0fc0270dec7e7c2dc8ec10f90e394f7c32b144",
@@ -5209,6 +5727,25 @@
       "licenseTextStatus": "full-text"
     },
     {
+      "package": "react-day-picker",
+      "version": "10.0.1",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/react-day-picker/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/react-day-picker/LICENSE"
+          ],
+          "copy": "licenses/third-party/react-day-picker@10.0.1/22cdffdf17a2-LICENSE",
+          "sha256": "22cdffdf17a2b6b4d2e1a8c93df0ad35535193b84e6d32ed4945373126f4f3e6",
+          "bytes": 1122
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
       "package": "react-dom",
       "version": "19.2.7",
       "spdx": "MIT",
@@ -5223,6 +5760,44 @@
           "copy": "licenses/third-party/react-dom@19.2.7/da6d3703ed11-LICENSE",
           "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
           "bytes": 1088
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "react-hook-form",
+      "version": "7.88.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/react-hook-form/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/react-hook-form/LICENSE"
+          ],
+          "copy": "licenses/third-party/react-hook-form@7.88.0/e8eeb472f0a5-LICENSE",
+          "sha256": "e8eeb472f0a5889c2c51625b86a3f9b8630680adb9f49a125352e2e426392780",
+          "bytes": 1080
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "react-redux",
+      "version": "9.3.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/react-redux/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/react-redux/LICENSE.md"
+          ],
+          "copy": "licenses/third-party/react-redux@9.3.0/f2da73c752c6-LICENSE.md",
+          "sha256": "f2da73c752c6b87624755edacf927cbd915fa76555d383e74494bad4a5155ab3",
+          "bytes": 1086
         }
       ],
       "licenseTextStatus": "full-text"
@@ -5268,6 +5843,25 @@
       "licenseTextStatus": "full-text"
     },
     {
+      "package": "react-resizable-panels",
+      "version": "4.12.4",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/react-resizable-panels/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/react-resizable-panels/LICENSE.md"
+          ],
+          "copy": "licenses/third-party/react-resizable-panels@4.12.4/a8f1e0280bf1-LICENSE.md",
+          "sha256": "a8f1e0280bf14adcf5d017547db85eb5c3bac0feb1690ca98650874002eaa8ea",
+          "bytes": 1079
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
       "package": "react-style-singleton",
       "version": "2.2.3",
       "spdx": "MIT",
@@ -5282,6 +5876,141 @@
           "copy": "licenses/third-party/react-style-singleton@2.2.3/30f0cfddf483-LICENSE",
           "sha256": "30f0cfddf483d1128e3610205020f2041a6c5e837aa999e0aa82e5576187d4a9",
           "bytes": 1071
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "recharts",
+      "version": "3.10.1",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/recharts/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/recharts/LICENSE"
+          ],
+          "copy": "licenses/third-party/recharts@3.10.1/2d3aa48a8d1d-LICENSE",
+          "sha256": "2d3aa48a8d1d3b93093680e8e68d3a64cfb590c3ade377ffcaefc69dac7c2ce5",
+          "bytes": 1084
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "redux",
+      "version": "5.0.1",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/redux/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/redux/LICENSE.md"
+          ],
+          "copy": "licenses/third-party/redux@5.0.1/f2da73c752c6-LICENSE.md",
+          "sha256": "f2da73c752c6b87624755edacf927cbd915fa76555d383e74494bad4a5155ab3",
+          "bytes": 1086
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "redux-thunk",
+      "version": "3.1.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/redux-thunk/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/redux-thunk/LICENSE.md"
+          ],
+          "copy": "licenses/third-party/redux-thunk@3.1.0/635da794c92d-LICENSE.md",
+          "sha256": "635da794c92d278f8355428be0f9922d643f556d4f75f33fe4aca6b98d27affe",
+          "bytes": 1107
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "reicon",
+      "version": "1.2.5",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/visual/node_modules/reicon/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/visual/node_modules/reicon/package.json"
+          ],
+          "copy": "licenses/third-party/reicon@1.2.5/c036f51d7691-package.json",
+          "sha256": "c036f51d7691acee7a6bf634f1d2b310acf93a21238bc6f396364c45c61628c1",
+          "bytes": 1516,
+          "note": "Original package license declaration and available author metadata only; upstream full license text was not supplied"
+        }
+      ],
+      "licenseTextStatus": "declared-only"
+    },
+    {
+      "package": "reicon-react",
+      "version": "1.2.6",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/reicon-react/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/reicon-react/package.json"
+          ],
+          "copy": "licenses/third-party/reicon-react@1.2.6/7f90bc056d46-package.json",
+          "sha256": "7f90bc056d4633535614bb9d840ddfc3b9c2941b83094f7fae68e5daac009169",
+          "bytes": 1275,
+          "note": "Original package license declaration and available author metadata only; upstream full license text was not supplied"
+        }
+      ],
+      "licenseTextStatus": "declared-only"
+    },
+    {
+      "package": "require-from-string",
+      "version": "2.0.2",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/require-from-string/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/require-from-string/license"
+          ],
+          "copy": "licenses/third-party/require-from-string@2.0.2/6ee0feb1f6ef-license",
+          "sha256": "6ee0feb1f6ef996ff5a68600f8cf98909cf412d39ef3cdceaefd87d636fa1b7f",
+          "bytes": 1128
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "reselect",
+      "version": "5.2.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/reselect/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/reselect/LICENSE"
+          ],
+          "copy": "licenses/third-party/reselect@5.2.0/e98047a5dee0-LICENSE",
+          "sha256": "e98047a5dee068b33f82e8c4b7a63037b5108c93393198efd4097753004af5dd",
+          "bytes": 1093
         }
       ],
       "licenseTextStatus": "full-text"
@@ -5401,6 +6130,25 @@
       "licenseTextStatus": "full-text"
     },
     {
+      "package": "sonner",
+      "version": "2.0.8",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/sonner/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/sonner/LICENSE.md"
+          ],
+          "copy": "licenses/third-party/sonner@2.0.8/da9201378c36-LICENSE.md",
+          "sha256": "da9201378c36ffd81f51ad0b305f3f0981e90bc558789210ad65d1161eec3b7d",
+          "bytes": 1070
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
       "package": "source-map-js",
       "version": "1.2.1",
       "spdx": "BSD-3-Clause",
@@ -5492,6 +6240,25 @@
           "copy": "licenses/third-party/tailwindcss@4.3.2/60e0b68c0f35-LICENSE",
           "sha256": "60e0b68c0f35c078eef3a5d29419d0b03ff84ec1df9c3f9d6e39a519a5ae7985",
           "bytes": 1071
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "tiny-invariant",
+      "version": "1.3.3",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/tiny-invariant/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/tiny-invariant/LICENSE"
+          ],
+          "copy": "licenses/third-party/tiny-invariant@1.3.3/b1c501095de7-LICENSE",
+          "sha256": "b1c501095de70182748cb8e8d97ac5577701a4ef3b755ba30d59fd87b24bdb0f",
+          "bytes": 1073
         }
       ],
       "licenseTextStatus": "full-text"
@@ -5699,6 +6466,25 @@
       "licenseTextStatus": "full-text"
     },
     {
+      "package": "use-sync-external-store",
+      "version": "1.7.0",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/use-sync-external-store/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/use-sync-external-store/LICENSE"
+          ],
+          "copy": "licenses/third-party/use-sync-external-store@1.7.0/da6d3703ed11-LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+          "bytes": 1088
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
       "package": "uuid",
       "version": "14.0.2",
       "spdx": "MIT",
@@ -5713,6 +6499,91 @@
           "copy": "licenses/third-party/uuid@14.0.2/beaa6b04fb82-LICENSE.md",
           "sha256": "beaa6b04fb82e41dd2ad679e19e27953afb5999b1abbb455b6564e78ebfeb332",
           "bytes": 1109
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "vaul",
+      "version": "1.1.2",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/vaul/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/vaul/LICENSE.md"
+          ],
+          "copy": "licenses/third-party/vaul@1.1.2/b09b9ccf866c-LICENSE.md",
+          "sha256": "b09b9ccf866cc09b502d9cf4679e2461beb1469709ea0c6a30009766e10b3acf",
+          "bytes": 1070
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "victory-vendor",
+      "version": "37.3.6",
+      "spdx": "MIT AND ISC",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/victory-vendor/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-path/LICENSE"
+          ],
+          "copy": "licenses/third-party/victory-vendor@37.3.6/0ab21426fad1-LICENSE",
+          "sha256": "0ab21426fad1e8b819ea8ab4c7faf5a24d4fca9c01572fe722490d600bba0d22",
+          "bytes": 731
+        },
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/internmap/LICENSE"
+          ],
+          "copy": "licenses/third-party/victory-vendor@37.3.6/9ea8903938da-LICENSE",
+          "sha256": "9ea8903938dab5f12c4572d60725069bec2d1b0dc3bcc210b09bae946a5ebb1f",
+          "bytes": 726
+        },
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-voronoi/LICENSE"
+          ],
+          "copy": "licenses/third-party/victory-vendor@37.3.6/ad6cf5764838-LICENSE",
+          "sha256": "ad6cf57648385d6c40a29f73c55e42922dd793823df5ea265ccd834873bf09b9",
+          "bytes": 2656
+        },
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-ease/LICENSE"
+          ],
+          "copy": "licenses/third-party/victory-vendor@37.3.6/b989d9085148-LICENSE",
+          "sha256": "b989d9085148d21ff64a75e14462aefa06b2589a55553b07b1460c70081c7d08",
+          "bytes": 1504
+        },
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-format/LICENSE",
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-interpolate/LICENSE",
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-scale/LICENSE",
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-shape/LICENSE",
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-time-format/LICENSE",
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-time/LICENSE",
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-timer/LICENSE"
+          ],
+          "copy": "licenses/third-party/victory-vendor@37.3.6/e008c5e25a6b-LICENSE",
+          "sha256": "e008c5e25a6be382593089c29bfabbc553c6378eee02895aec46ce396cc404ee",
+          "bytes": 731
+        },
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-array/LICENSE",
+            "adapters/react-shadcn/node_modules/victory-vendor/lib-vendor/d3-color/LICENSE"
+          ],
+          "copy": "licenses/third-party/victory-vendor@37.3.6/faa682e3e430-LICENSE",
+          "sha256": "faa682e3e430941f958d26180458f5934a62f58dac4d70ccdd15608c15d0f884",
+          "bytes": 731
         }
       ],
       "licenseTextStatus": "full-text"
@@ -5770,6 +6641,25 @@
           "copy": "licenses/third-party/yaml@2.9.0/5bba27375d93-LICENSE",
           "sha256": "5bba27375d93e9119f76c1015f7672cf9ad5f70952296e0842fb2243d6376869",
           "bytes": 738
+        }
+      ],
+      "licenseTextStatus": "full-text"
+    },
+    {
+      "package": "zod",
+      "version": "3.25.76",
+      "spdx": "MIT",
+      "packageSources": [
+        "adapters/react-shadcn/node_modules/zod/package.json"
+      ],
+      "files": [
+        {
+          "sources": [
+            "adapters/react-shadcn/node_modules/zod/LICENSE"
+          ],
+          "copy": "licenses/third-party/zod@3.25.76/3f1189b28e38-LICENSE",
+          "sha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+          "bytes": 1072
         }
       ],
       "licenseTextStatus": "full-text"
@@ -5899,7 +6789,12 @@
   "missingRequiredDependencies": [],
   "missingLicenseText": [
     "@antv/event-emitter@0.1.3",
-    "measury@0.1.5"
+    "embla-carousel@8.6.0",
+    "embla-carousel-react@8.6.0",
+    "embla-carousel-reactive-utils@8.6.0",
+    "measury@0.1.5",
+    "reicon@1.2.5",
+    "reicon-react@1.2.6"
   ],
   "licenseTextComplete": false
 }

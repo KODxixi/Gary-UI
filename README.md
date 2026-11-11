@@ -1,7 +1,7 @@
 <p align="center"><img src="patterns/shared/gary-architecture.svg" alt="Gary-UI" width="72"></p>
 
 <h1 align="center">Gary-UI</h1>
-<p align="center">为专注而设计。一个以完整情境讲解、可以复制和持续深化的 UI 设计系统。</p>
+<p align="center">Agent 自主驱动的液态玻璃 UI 系统。</p>
 <p align="center"><a href="https://kodxixi.github.io/Gary-UI/">打开完整 Demo</a> · <a href="https://kodxixi.github.io/Gary-UI/demo0909.html">图表与材质 Demo</a> · <a href="https://kodxixi.github.io/Gary-UI/portal/">探索设计系统</a> · <a href="#五分钟开始">复制与使用</a> · <a href="docs/ROADMAP.md">一起深化</a></p>
 
 [![三种材质：实体底纹、磨砂玻璃、超白/全透玻璃](docs/images/materials-demo.png)](https://kodxixi.github.io/Gary-UI/demo0909.html#materials)
@@ -33,7 +33,7 @@ README 以 [完整 Demo 首页](examples/demos/index.html) 的六种工作情境
 - **鼠标光影默认关闭。** 点阵位移、卡片高光、波面视差需在 `Background` 中手动开启；减弱动态优先。
 - **动效可以停下来。** 展示动效支持暂停、重播，页面不可见时停止渲染，减弱动态偏好下保留静态内容。
 - **`apple-design` 是 Apple 方法入口。** 先用它统一层级、功能玻璃、排版与运动逻辑，再用 Apple 官方 HIG 校验边界；图表、表格与正文保持稳定实体承载，并适配文字缩放、减弱透明度和增强对比度。
-- **规则能追溯到代码。** 15 个组件、3 类应用模式、4 类页面模式共享 Token、样式、状态和 Agent 契约。
+- **规则能追溯到代码。** 58 个 React 组件 + 65 个设计契约、3 类应用模式、4 类页面模式共享 Token、样式、状态和 Agent 契约。
 
 浏览 [Portal](https://kodxixi.github.io/Gary-UI/portal/) 查看排版、材质、组件、模板和制图；
 应用端的三列可折叠工作台变体见 [workbench](patterns/application-modes/workbench/index.html)，
@@ -74,17 +74,32 @@ python scripts/preview.py --port 4173
 3. 用 [模板组合器](https://kodxixi.github.io/Gary-UI/patterns/starting-points/) 生成更小的 HTML 起点，或直接沿用完整页的结构。
 4. 交付到其他目录时一起带走所引用的共享资源，并检查相对路径。单独下载一个 HTML **不会**自动包含整个页面的 CSS、脚本、图表和图片。
 
+### React / shadcn 项目
+
+Gary-UI 同时提供 React 19 + Tailwind CSS 4 执行层，59 个 shadcn/ui 组件自动消费 Gary token：
+
+```tsx
+import "@gary-ui/react-shadcn/styles.css"
+import { Button, Card, Dialog, DialogContent } from "@gary-ui/react-shadcn"
+```
+
+浮层动效用 Spring 物理（非 CSS transition）：`useSpringStyle(elRef, open, { response: 0.35, damping: 1.0 })`。详见 [adapters/react-shadcn/README.md](adapters/react-shadcn/README.md)。
+
+```bash
+cd adapters/react-shadcn
+npm install && npm run build
+```
+
 ### 让 Agent 使用
 
-让 Agent 先读取你克隆目录中的 [SKILL.md](SKILL.md)，再给出真实内容和目标。可以直接复制这段提示词：
+让 Agent 先读取你克隆目录中的 [AGENTS.md](AGENTS.md)（含外部 Agent 快速上手节），再给出真实内容和目标。可以直接复制这段提示词：
 
 ```text
-请读取当前 Gary-UI 仓库的 SKILL.md、DESIGN.md，并参考 examples/demos/ 中最接近的完整页面。
-为我的项目制作一个可运行的页面。先明确它属于阅读、分析还是展示情境，复用共享 Token 和组件。
-保持 Background 文字入口与圆形主题按钮独立，默认只使用一层点网格。
-优先完整读取已安装的 apple-design，还原 Apple 的层级、材质、排版与运动逻辑；正文和数据保持稳定。
-交付 HTML、所需资源和运行说明，实际验证深浅主题、手机布局、键盘操作及主要交互。
-需求明确就直接实施；只询问会改变结果的关键信息。
+请读取当前 Gary-UI 仓库的 AGENTS.md、DESIGN.md。
+设计系统真源在 tokens/tokens.json，React 执行层在 adapters/react-shadcn/。
+为我的项目制作页面。先明确它属于阅读、分析还是展示情境，复用共享 Token 和组件。
+浮层动效用 useSpringStyle，不要用 CSS transition。
+交付 HTML/React、所需资源和运行说明，实际验证深浅主题、手机布局、键盘操作及主要交互。
 ```
 
 高级 Session、受管运行投影和外部 Skill 自动发现属于可选集成。普通克隆与预览不依赖维护者的 `C:\AI` 环境。
@@ -93,12 +108,13 @@ python scripts/preview.py --port 4173
 
 | 内容 | 工具与入口 |
 | --- | --- |
-| 架构、流程、时序、数据流和生命周期 | [Archify](adapters/visual/ARCHIFY_SKILL.md) |
+| 架构、流程、时序、数据流和生命周期 | [Archify](adapters/visual/ARCHIFY_SKILL.md)；图示语法按[图示表达规范](docs/DIAGRAM_EXPRESSION.md)与[机器规则](spec/diagram-recipes.json) |
 | 定量分析图表 | 先按 [17 类图表规范](docs/CHART_EXPRESSION.md)选型；既有 ECharts 为常规路径，五种 [SVG 参考配方](patterns/shared/chart-recipes.js)按实际范围选用 |
 | Markdown 层级思维导图 | Markmap |
 | 精选信息图 | [AntV Infographic](adapters/visual/ANTV_SKILLS.md) |
 | 简单流程 | Mermaid |
-| 界面图标 | Lucide |
+| 界面图标（React 组件层）| reicon-react |
+| 图标机制（vanilla 静态层 / morph）| Lucide 几何 |
 
 [打开制图样例](https://kodxixi.github.io/Gary-UI/examples/demos/visuals/outputs/) 可查看实际 HTML、原生源和导出。适配器保留各工具的原生格式，失败不覆盖上一份有效结果。
 

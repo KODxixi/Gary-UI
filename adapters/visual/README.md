@@ -28,11 +28,11 @@ cd C:\AI\UI\gary-ui
 | outline | Markmap | Markdown |
 | infographic | AntV Infographic | JSON |
 | simple-flow | Mermaid | Mermaid text |
-| icons | Lucide | JSON icon list |
+| icons | Reicon | JSON icon list |
 
 工具选择规则与原生源要求也写入 `capabilities.json`。AntV 信息图的官方 Skill 负责内容理解、模板
 选择和语法生成；Gary 的固定本地适配器负责渲染与导出，具体治理边界见 `ANTV_SKILLS.md`。ECharts、
-Markmap、Mermaid 和 Lucide 不机械复制独立 Skill，而由能力清单中的 guide 提供确定性使用规则。
+Markmap、Mermaid 和 Reicon 不机械复制独立 Skill，而由能力清单中的 guide 提供确定性使用规则。
 
 输入以 `contracts/visual-manifest.schema.json` 为准。`outputRoot` 和 `source` 必须是清单目录内的
 相对路径；文本源拒绝脚本、事件属性和 Mermaid click 指令。输出先写候选文件，通过校验后才

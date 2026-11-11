@@ -2,17 +2,19 @@
   "slug": "field",
   "name": "输入字段",
   "category": "forms",
+  "source": "adapters/react-shadcn/src/components/ui/field.tsx",
   "material": {
     "default": "Regular",
     "rules": [
       "输入槽保持中性玻璃",
-      "密集表单的外层使用 SolidPlate"
+      "密集表单的外层使用 SolidPlate",
+      "独立受控字段，不依赖 react-hook-form，label/control/description/error 一体封装"
     ]
   },
   "variants": [
     {
       "name": "wrapper",
-      "selector": ".gary-field > input|textarea|select"
+      "selector": ".gary-field > input, .gary-field > textarea, .gary-field > select"
     },
     {
       "name": "direct-control",
@@ -30,11 +32,11 @@
     },
     {
       "name": "error",
-      "selector": "[aria-invalid=\"true\"]"
+      "selector": "[aria-invalid='true'], [data-error='true']"
     },
     {
       "name": "disabled",
-      "selector": ":disabled, [aria-disabled=\"true\"]"
+      "selector": ":disabled, [aria-disabled='true']"
     }
   ],
   "accessibility": {
@@ -42,7 +44,8 @@
     "requirements": [
       "每个控件关联可见 label",
       "帮助或错误文本通过 aria-describedby 关联",
-      "错误态同步 aria-invalid，不能只靠颜色"
+      "错误态同步 aria-invalid，不能只靠颜色",
+      "错误消息通过 role=alert 播报"
     ]
   },
   "cssClasses": [

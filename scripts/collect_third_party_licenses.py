@@ -20,6 +20,13 @@ NOTICE_NAME = re.compile(
     r"|\.(?:license|notice)$",
     re.IGNORECASE,
 )
+# Icon collections ship glyph modules literally named `Copyright.js` / `copyright.mjs`
+# (reicon, lucide). Matching those would record an icon as a license text and mark a
+# package "full-text" while it ships no license at all — fabricated compliance, which
+# this collector must never produce. Only non-code notice files count.
+CODE_SUFFIXES = {
+    ".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".mts", ".cts", ".map", ".wasm",
+}
 
 
 def relative(path: Path) -> str:
@@ -49,7 +56,7 @@ def notices(directory: Path) -> list[Path]:
         parts = path.relative_to(directory).parts
         if any(part in {"node_modules", ".git"} for part in parts):
             continue
-        if path.is_file() and NOTICE_NAME.search(path.name):
+        if path.is_file() and path.suffix.lower() not in CODE_SUFFIXES and NOTICE_NAME.search(path.name):
             # Only copyright/license text is collected, never binary artifacts.
             content = path.read_bytes()
             if b"\x00" in content:

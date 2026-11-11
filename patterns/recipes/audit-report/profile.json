@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "gary-ui.audit-report",
+  "version": "1.0.0",
+  "status": "canonical-recipe",
+  "visualRoute": {
+    "schemaVersion": 1,
+    "application": "scroll-report",
+    "page": "data-page",
+    "theme": "dark",
+    "material": "regular",
+    "density": "compact"
+  },
+  "composition": {
+    "reportMaxWidth": 1240,
+    "columns": 3,
+    "columnTemplate": "1fr 1.34fr .94fr",
+    "columnGapToken": "--gary-density-layout-gap",
+    "surfacePaddingToken": "--gary-density-surface-padding",
+    "narrowBreakpointPx": 880,
+    "equalRowHeightPx": [
+      40,
+      48
+    ]
+  },
+  "materials": {
+    "panels": "glass-card/regular",
+    "prose": "paper",
+    "metaCard": "glass-card/regular"
+  },
+  "compositionRules": [
+    "panels-equal-height",
+    "band-shares-board-tracks",
+    "footer-same-line",
+    "one-rhythm-per-column",
+    "font-floor=--gary-font-size-micro"
+  ],
+  "checks": [
+    "agent/checks/invariants.py"
+  ],
+  "sampleData": {
+    "projectData": false,
+    "source": "kanban-audit-2026-10-26"
+  }
+}

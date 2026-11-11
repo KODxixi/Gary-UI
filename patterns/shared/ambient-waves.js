@@ -16,7 +16,7 @@
     speed: .1, amplitude: 2, waveScale: 1.35, waveRatio: .6, swell: 3,
     turbulence: 35, tilt: 1.12, zoom: 1, height: 10, fogDepth: 20,
     brightness: 1.1, opacity: .47, parallaxStrength: .85, grainIntensity: .01,
-    horizonColor: '#455164', waveColor: '#8193ab', crestColor: '#dbe4ef',
+    horizonColor: '#505050', waveColor: '#919191', crestColor: '#e3e3e3',
     mouseInteraction: false, grain: true, detail: 'medium'
   });
   const colorKeys = ['horizonColor', 'waveColor', 'crestColor'];

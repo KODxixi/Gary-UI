@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "name": "gary-ui diagram expression recipes",
+  "status": "active",
+  "scope": "关系型图示（结构 / 过程 / 状态）。不覆盖数据图表（spec/chart-recipes.json 未覆盖时按 docs/CHART_EXPRESSION.md 与引擎各自真源）与简单文档流程（Mermaid）。",
+  "authorities": {
+    "reading": "docs/DIAGRAM_EXPRESSION.md",
+    "engineRouting": "adapters/visual/capabilities.json",
+    "scenePreset": "adapters/visual/theme-map.json",
+    "colors": "docs/CHART_COLOR.md",
+    "surface": "spec/scene-recipes.json"
+  },
+  "references": {
+    "human": "docs/DIAGRAM_EXPRESSION.md",
+    "implementation": "docs/DIAGRAM_EXPRESSION.md#附录-a最小实现",
+    "referenceCase": "examples/visuals/diagram-spec/reference.html",
+    "referenceCaseNotes": "examples/visuals/diagram-spec/README.md"
+  },
+  "purposes": {
+    "architecture": { "asserts": "structure", "engine": "archify" },
+    "workflow": { "asserts": "process", "engine": "archify" },
+    "sequence": { "asserts": "process", "engine": "archify" },
+    "data-flow": { "asserts": "process", "engine": "archify" },
+    "lifecycle": { "asserts": "state", "engine": "archify" }
+  },
+  "readingLayers": [
+    { "id": "claim", "owns": "这张图断言什么", "requirement": "标题给主题或问题；不把未验证的结论写成标题", "order": 1 },
+    { "id": "mainpath", "owns": "读者该沿哪条线读", "requirement": "恰有一条主路径；分支从主路径节点离开，不并列成第二条主干", "order": 2 },
+    { "id": "boundary", "owns": "哪里成立、哪里不成立", "requirement": "边界承载状态命题并带陈述式标签；分组框不算边界", "order": 3 },
+    { "id": "node", "owns": "对象是什么", "requirement": "节点名写事实身份（模块、文件、接口、端口）；状态另置于标签或状态位", "order": 4 },
+    { "id": "relation", "owns": "对象之间是否已成立", "requirement": "线型承担成立性，不承担美观；每条虚线必须能说出它为什么不是实线", "order": 5 },
+    { "id": "evidence", "owns": "凭什么这么说", "requirement": "关系标签或节点细节可回指文件、接口、命令或契约字段；给不出就标未知", "order": 6 },
+    { "id": "verdict", "owns": "读完之后改什么决定", "requirement": "结论卡片与图同源，每条可回指图中的节点或关系；不得超出图中证据", "order": 7 }
+  ],
+  "edgeSemantics": {
+    "solid": "已成立的关系（现有调用、现有数据流）",
+    "dashed": "未成立的关系：规划、外部、待接入、已废弃",
+    "emphasis": "主路径和本轮目标态；一张图内不超过总关系数的一半",
+    "security": "跨越信任边界的关系（身份、审批、出网）",
+    "unlabeled": "仅当两端 sublabel 已完全蕴含语义时允许，并须在交付说明里写出省略理由"
+  },
+  "nodeStates": {
+    "connected": { "zh": "已接通", "means": "有执行器实现 + 输入验证 + 真实成功证据", "requiredEvidence": true },
+    "not-connected": { "zh": "未接通", "means": "已登记但无可调用能力", "requiredEvidence": true },
+    "model-only": { "zh": "仅模型通道", "means": "只能生成文本，不能执行工具", "requiredEvidence": false },
+    "planned": { "zh": "拟接入", "means": "位置已定、契约已确认、尚未落地", "requiredEvidence": false },
+    "unknown": { "zh": "未知", "means": "当前无法判定", "requiredEvidence": false, "note": "不得省略；留空会造成读图者默认它已成立" }
+  },
+  "stateVocabularyClosed": true,
+  "boundaryKinds": {
+    "capability": "能力边界：某种能力在这里已经具备，之外没有",
+    "status": "状态边界：一侧齐备、一侧缺口",
+    "trust": "信任边界：身份、审批、凭据的权威所在",
+    "scope": "作用域边界：个人 / 项目 / 组织的作用范围"
+  },
+  "escapeRule": {
+    "rule": "跨越边界的连接必须显式绕行，不得直穿边界框",
+    "why": "绕行长度是「尚未纳入该边界」的视觉证据；把外部组件画在边界内等于替它背书",
+    "repair": "绕出后仍指向原节点，不用第二条边界或新分组掩饰"
+  },
+  "colorRoles": {
+    "rule": "页面底锁定无彩；虚线分块、卡片、连线用分类色，靠强度分层，颜色只承担类别",
+    "background": "页面底纯 K 中性，chroma = 0；文字一律不上色",
+    "blocks": "虚线分块 = 作用域块：描边取块身份色 46%、块内填充 5%、标签取同族色；它比卡片更弱，读作容器而非对象",
+    "cards": "分类色取 spec/chart-recipes.json 的 themes.dark.category1..8，按职责分组，同类对象同色（约 20% 混合）",
+    "edges": "连线与箭头取目标节点的分组色（最实的一层）；箭头用 context-stroke 跟线；线型（实/虚）仍承担成立性",
+    "intensityOrder": ["blocks < cards < edges"],
+    "gaps": "缺口、风险与未成立一律由线型和状态词表达，不用红色语义",
+    "source": "docs/CHART_COLOR.md · spec/chart-recipes.json · tokens/base.css"
+  },
+  "engineColorConstraint": {
+    "engine": "archify",
+    "fact": "visual_preset 自带语义色板（前端青 / 后端绿 / 数据库紫 / 安全玫红 / 消息总线橙 / 蓝强调），不读 Gary token；theme-map.json 对 archify 只生效 fontFamily",
+    "affectedScope": "纯 K 灰阶作用域（企业面板 / ArchOS 工作台，--gary-* chroma 全为 0）",
+    "required": "该作用域以手写 SVG 表达同一套语法：底取 tokens/base.css 灰阶；虚线分块/卡片/连线取 chart-recipes 的 themes.dark.category1..8，按 blocks<cards<edges 的强度分层（箭头 context-stroke），文字保持中性；缺口与未成立仍由线型与状态词承载",
+    "forbidden": "用 archify preset 的语义色冒充分类色；后处理替换颜色（会破坏交付回执的确定性）",
+    "recheck": "引擎支持 palette 覆盖后重新评估"
+  },
+  "scenePreset": {
+    "reading": "classic",
+    "analysis": "signal-flow",
+    "showcase": "blueprint"
+  },
+  "failureConditions": [
+    "边界只当分组框使用，读者读不出「这里已具备 / 这里缺口」",
+    "用颜色表达成败、成熟度或风险等级",
+    "把状态词写进节点名，与事实身份混写",
+    "用了虚线但线型含义未声明，或同图内虚线含义不一致",
+    "关系标签无法回指文件、接口、命令或契约字段",
+    "结论卡片出现图中没有的节点或关系",
+    "主路径分叉成多条并列主干，读者需要自己选读序",
+    "已登记但未接通的能力被画成已具备",
+    "外部运行时被画在它尚未纳入的边界之内"
+  ],
+  "verification": {
+    "sequence": ["manifest validate", "adapter render", "export", "browser containment"],
+    "failClosed": "任一环节未 pass 仍可作草稿，但不得称为定稿或已交付",
+    "note": "图示走 visual adapter，不加载页面 CSS，因此不适用 gary-css-loaded 检查；适用的是 archify validate 与 adapter render 回执。"
+  }
+}

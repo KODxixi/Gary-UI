@@ -13,7 +13,7 @@
 
 [完整 Demo](examples/demos/index.html) 是 Portal、组件、模板和制图目录的视觉基线。新增场景应解释它如何使用这套设计，而不是另起一套默认风格。
 
-- 工具操作以 44px 圆形 Lucide 图标为主，配可访问名称；导航和筛选保留有意义的文字。
+- 工具操作以 44px 圆形图标为主（React 组件层图标来源 reicon-react；vanilla 静态层与 morph 仍取 Lucide 几何），配可访问名称；导航和筛选保留有意义的文字。
 - 顶栏 `Background` 是纯文字入口，只打开共享背景功能卡；旁边的圆形深浅按钮独立切换主题。不要把二者合并为“显示设置”，或恢复右下角浮动入口。
 - 默认页面只保留一套点网格，不叠加线网、装饰等高线或重复背景层。用户主动选择的背景实验保持显式可控。
 - 卡片、排版和材质优先使用共享实现。阅读页保证正文稳定，分析页让数据与判断可核对，展示页的动效有暂停、重播及结束状态。
@@ -49,6 +49,7 @@ node scripts/public_smoke.mjs
 | 导航、手机布局、主题传递与 Background | `node scripts/portal_acceptance_qa.mjs` |
 | 可复制模板及其实际生成的 HTML | `node scripts/starter_generated_qa.mjs` |
 | 六个完整 Demo 的核心交互 | `node scripts/demo_interaction_qa.mjs` |
+| 母库自洽不变量（token 色度 / 页面底色 / 契约类 / 双闸） | `python -B agent/checks/invariants.py` |
 | 规范、结构和契约 | `python -B scripts/validate_v2.py` |
 | Python 行为与投影回归 | `python -B -m pytest scripts/tests -q -p no:cacheprovider` |
 | 制图适配器行为 | `npm --prefix adapters/visual test` |

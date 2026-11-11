@@ -11,7 +11,7 @@ window.GARY_PROJECT_DATA = Object.freeze({
     { id:"GD-104", title:"验收证据自动归档", owner:"林岚", status:"doing", risk:"medium", region:"shanghai", due:"09-09", detail:"把浏览器截图、导出校验与生成回执关联到同一版本。" },
     { id:"GD-108", title:"江苏数据口径复核", owner:"周野", status:"blocked", risk:"high", region:"jiangsu", due:"09-06", detail:"缺少合作方对退款口径的书面确认，阻断管理层数据发布。" },
     { id:"GD-112", title:"浙江培训材料定稿", owner:"许澄", status:"todo", risk:"low", region:"zhejiang", due:"09-12", detail:"补充长中文流程说明与无障碍键盘操作章节。" },
-    { id:"GD-097", title:"离线制图链路验收", owner:"顾言", status:"done", risk:"low", region:"shanghai", due:"08-29", detail:"ECharts、Markmap、Mermaid、Archify、Infographic 与 Lucide 均从本地加载。" },
+    { id:"GD-097", title:"离线制图链路验收", owner:"顾言", status:"done", risk:"low", region:"shanghai", due:"08-29", detail:"ECharts、Markmap、Mermaid、Archify、Infographic 与 Reicon 均从本地加载。" },
     { id:"GD-101", title:"导出一致性修复", owner:"顾言", status:"doing", risk:"medium", region:"jiangsu", due:"09-08", detail:"候选版本通过真实渲染后再整体替换 HTML、源文件、SVG、PNG 与回执。" },
     { id:"GD-114", title:"客户知识库迁移", owner:"沈桥", status:"todo", risk:"medium", region:"zhejiang", due:"09-15", detail:"迁移 42 篇操作说明，并保持原始来源和章节锚点。" }
   ],

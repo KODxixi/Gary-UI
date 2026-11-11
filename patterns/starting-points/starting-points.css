@@ -195,3 +195,20 @@
     min-height: 560px;
   }
 }
+
+/* 配方入口（2026-10-26）：配方不是第三种模式，只固定版式与材质分工 */
+.starter-recipes { margin-top: 28px; }
+.starter-recipes__head { margin-bottom: 14px; }
+.starter-recipes__title { margin: 4px 0 6px; font-size: 1.375rem; font-weight: var(--gary-font-weight-medium);
+                          line-height: 1.3; letter-spacing: var(--gary-tracking-title, 0); }
+.starter-recipes__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.starter-recipe { display: flex; flex-direction: column; gap: 6px; text-decoration: none;
+                  color: inherit; transition: border-color var(--gary-duration-respond) var(--gary-ease-out); }
+.starter-recipe:hover { border-color: var(--gary-border-highlight); }
+.starter-recipe__meta { font-size: var(--gary-font-size-micro); letter-spacing: .08em;
+                        text-transform: uppercase; color: var(--gary-text-tertiary); }
+.starter-recipe h3 { margin: 0; font-size: var(--gary-font-size-label); font-weight: var(--gary-font-weight-medium); }
+.starter-recipe p { margin: 0; font-size: var(--gary-font-size-caption); line-height: 1.55; color: var(--gary-text-secondary); }
+.starter-recipe__tags { margin-top: auto; padding-top: 8px; font-size: var(--gary-font-size-micro);
+                        color: var(--gary-text-tertiary); font-variant-numeric: tabular-nums; }
+@media (max-width: 880px) { .starter-recipes__grid { grid-template-columns: minmax(0, 1fr); } }

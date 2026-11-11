@@ -4,12 +4,12 @@
   --portal-sidebar-width: 248px;
   --portal-topbar-height: 84px;
   --portal-content-width: 1440px;
-  --portal-active-fill: var(--gary-glass-regular, rgba(24, 24, 28, 0.28));
+  --portal-active-fill: var(--gary-glass-regular, rgb(24,24,24, 0.28));
   --portal-active-blur: 30px;
   --portal-active-shadow:
     var(--gary-shadow-contact, 0 1px 2px rgba(0, 0, 0, 0.34)),
     var(--gary-shadow-environment, 0 24px 64px rgba(0, 0, 0, 0.24));
-  --portal-plate: var(--gary-solid-plate, rgba(13, 13, 16, 0.78));
+  --portal-plate: var(--gary-solid-plate, rgb(13,13,13, 0.78));
   --portal-track: rgba(255, 255, 255, 0.07);
   --portal-control: rgba(255, 255, 255, 0.08);
   --portal-control-hover: rgba(255, 255, 255, 0.13);
@@ -39,7 +39,7 @@
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --portal-plate: var(--gary-solid-plate, rgba(248, 248, 249, 0.88));
+  --portal-plate: var(--gary-solid-plate, rgb(248,248,248, 0.88));
   --portal-track: rgba(0, 0, 0, 0.055);
   --portal-control: rgba(255, 255, 255, 0.38);
   --portal-control-hover: rgba(255, 255, 255, 0.58);
@@ -48,9 +48,9 @@
   --portal-scene-b: #ffffff;
   --portal-scene-c: #ffffff;
   --portal-mask-fill: transparent;
-  --portal-text: var(--gary-text-primary, rgba(20, 20, 22, 0.94));
-  --portal-text-secondary: var(--gary-text-secondary, rgba(20, 20, 22, 0.64));
-  --portal-text-tertiary: rgba(20, 20, 22, 0.46);
+  --portal-text: var(--gary-text-primary, rgb(20,20,20, 0.94));
+  --portal-text-secondary: var(--gary-text-secondary, rgb(20,20,20, 0.64));
+  --portal-text-tertiary: rgb(20,20,20, 0.46);
   --portal-edge: var(--gary-border-highlight, rgba(255, 255, 255, 0.48));
   --portal-edge-shadow: var(--gary-border-shadow, rgba(0, 0, 0, 0.12));
 }
@@ -61,17 +61,17 @@
 }
 
 :root[data-material="regular"] {
-  --portal-active-fill: var(--gary-glass-regular, rgba(24, 24, 28, 0.28));
+  --portal-active-fill: var(--gary-glass-regular, rgb(24,24,24, 0.28));
   --portal-active-blur: 30px;
 }
 
 :root[data-material="thick"] {
-  --portal-active-fill: var(--gary-glass-thick, rgba(20, 20, 24, 0.42));
+  --portal-active-fill: var(--gary-glass-thick, rgb(20,20,20, 0.42));
   --portal-active-blur: 32px;
 }
 
 :root[data-material="solid-plate"] {
-  --portal-active-fill: var(--gary-solid-plate, rgba(13, 13, 16, 0.88));
+  --portal-active-fill: var(--gary-solid-plate, rgb(13,13,13, 0.88));
   --portal-active-blur: 0px;
   --portal-active-shadow: var(--gary-shadow-contact, 0 1px 2px rgba(0, 0, 0, 0.28));
 }
@@ -89,7 +89,7 @@
 }
 
 :root[data-theme="light"][data-material="solid-plate"] {
-  --portal-active-fill: var(--gary-solid-plate, rgba(250, 250, 251, 0.94));
+  --portal-active-fill: var(--gary-solid-plate, rgb(250,250,250, 0.94));
 }
 
 * {
@@ -2992,7 +2992,7 @@ a:focus-visible {
   gap: 1px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--gary-radius-pill);
-  background: rgba(8, 12, 18, 0.28);
+  background: rgb(12,12,12, 0.28);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -3043,8 +3043,8 @@ summary.top-nav-item::after {
 .top-nav-item.is-active,
 .top-nav-item[aria-current="page"],
 .top-nav-details[open] > summary {
-  color: #111318;
-  background: rgba(250, 250, 248, 0.94);
+  color: #131313;
+  background: rgb(250,250,250, 0.94);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.72),
     0 6px 18px rgba(0, 0, 0, 0.18);
@@ -3122,7 +3122,7 @@ summary.top-nav-item::after {
   list-style: none;
   color: var(--portal-text-secondary);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(8, 12, 18, 0.24);
+  background: rgb(12,12,12, 0.24);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   cursor: pointer;
@@ -3973,11 +3973,11 @@ summary.top-nav-item::after {
 }
 
 :root[data-theme="light"] {
-  --portal-plate: rgba(246, 242, 235, 0.90);
-  --portal-track: rgba(83, 72, 60, 0.055);
-  --portal-control: rgba(255, 252, 246, 0.34);
-  --portal-control-hover: rgba(255, 252, 246, 0.52);
-  --portal-selection: rgba(255, 252, 246, 0.68);
+  --portal-plate: rgb(242,242,242, 0.90);
+  --portal-track: rgb(73,73,73, 0.055);
+  --portal-control: rgb(252,252,252, 0.34);
+  --portal-control-hover: rgb(252,252,252, 0.52);
+  --portal-selection: rgb(252,252,252, 0.68);
   --portal-scene-a: #ffffff;
   --portal-scene-b: #ffffff;
   --portal-scene-c: #ffffff;
@@ -3991,8 +3991,8 @@ summary.top-nav-item::after {
 :root[data-theme="light"] .review-coverage:not([data-gary-material="glass"]) {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.70),
-    0 2px 5px rgba(85, 74, 62, 0.09),
-    0 22px 60px rgba(85, 74, 62, 0.09);
+    0 2px 5px rgb(75,75,75, 0.09),
+    0 22px 60px rgb(75,75,75, 0.09);
 }
 
 @media (max-width: 1320px) {
@@ -4150,7 +4150,7 @@ html body .portal-topbar[data-gary-header] {
   z-index: -1;
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: inherit;
-  background: rgba(9, 13, 19, 0.70);
+  background: rgb(13,13,13, 0.70);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 16px 44px rgba(0, 0, 0, 0.22);
@@ -4202,7 +4202,7 @@ html body .portal-topbar[data-gary-header] {
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--gary-radius-pill);
   color: var(--portal-text-secondary);
-  background: rgba(8, 12, 18, 0.24);
+  background: rgb(12,12,12, 0.24);
   cursor: pointer;
   transition:
     color var(--portal-fast) var(--portal-ease),
@@ -4271,7 +4271,7 @@ html body .portal-topbar[data-gary-header] :is(
     border-radius: 24px;
     flex-direction: column;
     align-items: stretch;
-    background: rgba(9, 13, 19, 0.92);
+    background: rgb(13,13,13, 0.92);
     box-shadow: 0 28px 64px rgba(0, 0, 0, 0.36);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
@@ -4364,7 +4364,7 @@ html body .portal-topbar[data-gary-header] :is(
   .portal-topbar::before,
   .top-nav-popover,
   .display-popover {
-    background: #0e1117;
+    background: var(--gary-surface-page);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
@@ -4375,7 +4375,7 @@ html body .portal-topbar[data-gary-header] :is(
   html[data-gary-theme="light"] .portal-topbar::before,
   html[data-gary-theme="light"] .top-nav-popover,
   html[data-gary-theme="light"] .display-popover {
-    background: #f7f4ee;
+    background: var(--gary-surface-page);
   }
 }
 
@@ -4419,8 +4419,8 @@ html body .topbar-menu-toggle.gary-icon-button { display: none; }
 @media (max-width: 1100px) { html body .topbar-menu-toggle.gary-icon-button { display: inline-flex; } }
 
 /* Portal reuses the Demo Background card; theme stays a separate header action. */
-body:has(.portal-shell) { --demo-bg:#000; --demo-panel:#101012; --demo-raised:#19191c; --demo-ink:#f5f5f7; --demo-muted:#a1a1a9; --demo-line:#ffffff16; }
-html[data-gary-theme="light"] body:has(.portal-shell) { --demo-bg:#fff; --demo-panel:#f5f5f7; --demo-raised:#fff; --demo-ink:#1d1d1f; --demo-muted:#68686f; --demo-line:#00000014; }
+body:has(.portal-shell) { --demo-bg:#000; --demo-panel:#101010; --demo-raised:#191919; --demo-ink:#f5f5f5; --demo-muted:#a2a2a2; --demo-line:#ffffff16; }
+html[data-gary-theme="light"] body:has(.portal-shell) { --demo-bg:#fff; --demo-panel:#f5f5f5; --demo-raised:#fff; --demo-ink:#1d1d1d; --demo-muted:#696969; --demo-line:#00000014; }
 body:has(.portal-shell) .gary-background-lab .button { display:inline-flex;align-items:center;justify-content:center;min-height:44px;gap:8px;padding:8px 18px;border:1px solid var(--demo-line);border-radius:99px;background:var(--demo-raised);color:var(--demo-ink);font:inherit;font-size:.8125rem;cursor:pointer; }
 body:has(.portal-shell) .gary-background-lab { z-index:110; max-height:calc(100dvh - 160px); }
 body:has(.portal-shell) .gary-background-lab [hidden] { display:none!important; }

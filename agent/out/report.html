@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark" data-density="compact">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>材质层收敛 · 报告</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../primitives.css?v=g6">
+<script>/* 首帧前定主题，避免闪白/闪黑 */(function(){try{var t=localStorage.getItem("gary.theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;}}catch(e){}})();</script>
+<style>
+  html,body{overflow:hidden}
+  body{display:flex;flex-direction:column;height:100%}
+  .topbar{display:flex;align-items:center;gap:12px;height:28px;flex:none;padding:6px 16px 0;border-bottom:1px solid var(--line2)}
+  .brand{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600}
+  .mark{width:15px;height:15px;border-radius:4px;display:grid;place-items:center;background:var(--ink);color:var(--bg);font-size:9px;font-weight:700}
+  .brand small{font-weight:400;color:var(--dim);font-size:11.5px;margin-left:2px}
+  .topbar__right{margin-left:auto;display:flex;gap:6px;align-items:center}
+  .topbar .chip{height:20px;padding:0 8px;font-size:11px}
+  .topbar .iconbtn{width:22px;height:22px;font-size:10px}
+  .wrap{flex:1;min-height:0;overflow:auto;padding:6px 24px 24px}
+  .stack{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  .sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:4px}
+  .sec-head__row{display:flex;align-items:center;gap:12px}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);padding:12px 18px 6px}
+  .kpi{padding:14px 0;border-right:1px solid var(--line2)}
+  .kpi:last-child{border-right:0}
+  .kpi .metric{margin-top:6px}
+  .panel{padding:22px 24px 18px}
+  .main{display:flex;flex-direction:column}
+  .canvas{flex:1;min-height:180px;margin:14px 24px 0;border-radius:var(--r-panel);background:var(--win2);
+    border:1px solid var(--line2);position:relative;display:grid;place-items:center;overflow:hidden}
+  .canvas__badge{position:absolute;top:10px;right:12px;color:var(--dim)}
+  .canvas__inner{width:min(460px,78%)}
+  .pcard{border:1px solid var(--hair);border-radius:18px;padding:16px;margin-top:8px;
+    background:var(--raised);box-shadow:inset 0 1px 0 var(--hair),0 16px 40px #000000a6}
+  html[data-theme="light"] .pcard{background:#fff;box-shadow:inset 0 1px 0 #fff,0 16px 40px #00000012}
+  .pcard__row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .pcard__t{font-size:14px;font-weight:600;letter-spacing:-.015em;margin-bottom:3px}
+  .pcard__foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+  .composer{padding:10px 24px 16px}
+  .composer__foot{margin-top:6px}
+  .cols > .side--right{width:300px;flex:none;overflow:auto}
+  .panel__head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+  .chart{width:100%;height:180px;display:block}
+  .axis{display:flex;justify-content:space-between;margin-top:8px}
+  .table{width:100%;border-collapse:collapse}
+  .table th{text-align:left;font-weight:500;color:var(--dim);font-size:11px;padding:6px 0;border-bottom:1px solid var(--line)}
+  .table td{padding:8px 0;border-bottom:1px solid var(--line2);font-size:12.5px}
+  .table th.num,.table td.num{text-align:right;font-variant-numeric:tabular-nums}
+  /* report */
+  .article{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:minmax(0,720px) 240px;gap:56px;align-items:start}
+  .cover .display--xl{margin:14px 0 16px}
+  .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:18px 0 0}
+  .meta dd{margin:4px 0 0}
+  .chapter{margin:0 0 34px}
+  .chapter .h2{margin:6px 0 12px}
+  .chapter .body{margin:0 0 12px;max-width:70ch}
+  .toc{position:sticky;top:8px}
+  .toc a{display:block;padding:8px 10px;border-radius:10px;color:var(--muted);text-decoration:none;font-size:12.5px}
+  .toc a:hover{background:var(--line2);color:var(--ink)}
+  /* settings / workbench 两栏 */
+  .cols{display:flex;gap:var(--gap);height:100%;padding:6px 16px 16px}
+  .side{width:236px;flex:none;padding:22px 14px 14px}
+  .item{position:relative}
+  .item::after{content:""/*noop*/}
+  .main{flex:1;min-width:0;overflow:auto;padding:22px 24px 20px}
+  .group{margin-bottom:12px}
+  .group .row + .row{border-top:0}
+  @media (max-width:900px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .article{grid-template-columns:minmax(0,1fr);gap:20px}
+    .toc{display:none}
+    .cols{flex-direction:column;height:auto}
+    .side{width:auto}
+  }
+  .topbar__btn, .topbar .iconbtn{position:relative}
+  .topbar__btn::after, .topbar .iconbtn::after{content:"";position:absolute;inset:-11px -8px;border-radius:8px}
+  .topbar__btn{appearance:none;border:1px solid var(--line);background:transparent;color:var(--muted);
+    height:22px;padding:0 8px;border-radius:6px;font:inherit;font-size:11px;cursor:pointer}
+  .topbar__btn:hover{background:var(--line2);color:var(--ink)}
+  .cols:has(> .gutter){gap:0}
+  .gutter{flex:0 0 var(--gap);position:relative;cursor:col-resize;touch-action:none;border:0;background:transparent;padding:0}
+  .gutter::before{content:"";position:absolute;top:50%;left:50%;width:4px;height:72px;border-radius:99px;
+    background:var(--ink);opacity:0;transform:translate(-50%,-50%) scaleY(.4);
+    transition:opacity .16s ease,transform .26s var(--ease, cubic-bezier(.22,.61,.36,1))}
+  .gutter:hover::before,.gutter:focus-visible::before{opacity:.42;transform:translate(-50%,-50%) scaleY(1)}
+  .gutter[data-drag="1"]::before{opacity:.85;background:var(--accent)}
+  body[data-resizing],body[data-resizing] *{cursor:col-resize!important;user-select:none!important}
+  @media (max-width:900px){.gutter{display:none}}
+
+  @media print{
+    .topbar,.gutter,.scrim,.palette{display:none!important}
+    html,body{background:#fff!important;color:#000!important}
+    .wrap{overflow:visible;padding:0}
+    .article{display:block}
+    .toc{display:none}
+    .chapter,.panel,.cover{break-inside:avoid}
+    .body,.chapter p{color:#000!important}
+  }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand"><span class="mark">G</span>Gary<small>材质层收敛 · 报告</small></div>
+  <div class="topbar__right"><span class="chip"><i class="dot dot--live"></i>就绪</span>
+  <button class="topbar__btn" id="cmdBtn" aria-keyshortcuts="Control+K Meta+K">⌘K</button>
+  <button class="topbar__btn" id="themeBtn" aria-label="切换主题">亮</button></div>
+</header>
+<div class="wrap"><div class="article"><div>
+    <header class="cover">
+      <p class="eyebrow">Gary 设计系统 · 内部研究报告</p>
+      <h1 class="display display--xl">材质层收敛</h1>
+      <p class="sub">把组件库里的材质声明压到十二个可组合表面。这份报告只记三件事：删掉了什么、剩下了什么、以及还没做好的那部分。</p>
+      <hr class="hr">
+      <dl class="meta"><div><dt class="eyebrow">作者</dt><dd class="body">系统组</dd></div><div><dt class="eyebrow">日期</dt><dd class="body">2026-10-25</dd></div><div><dt class="eyebrow">版本</dt><dd class="body">v1.0 · 定稿</dd></div><div><dt class="eyebrow">篇幅</dt><dd class="body">约 6 分钟</dd></div></dl>
+    </header>
+
+    <section class="chapter" id="c0">
+      <p class="eyebrow">01 · 问题</p>
+      <h2 class="h2">契约比用法多</h2>
+      <p class="body">把组件库里的材质声明逐条列出来，会得到六十多条。它们分布在弹层、卡片、输入框、徽标和一批一次性包装上。真正被页面用到的组合不到三分之一，其余是历史叠加：每加一个组件，就顺手加一层新底色、一道新描边。</p><p class="body">后果不是丑，是说不清。同一个次级面板，在三个页面里有三种底色，切换明暗之后的偏差各不相同。</p>
+    </section>
+    <section class="chapter" id="c1">
+      <p class="eyebrow">02 · 方法</p>
+      <h2 class="h2">先砍层级，再谈排印</h2>
+      <p class="body">第一步是删掉“看起来差不多”的层级：九档灰度收敛到四档，五档描边收敛到一档发丝线，四套投影收敛到一套。</p><p class="body">第二步才是排印。字号与字重决定层级，颜色只负责区分状态——这条顺序反了，页面就会靠加装饰来找层次。</p>
+    </section>
+    <section class="chapter" id="c2">
+      <p class="eyebrow">03 · 结果</p>
+      <h2 class="h2">五个表面的实测对比度</h2>
+      <p class="body">按实际合成底色逐条测量，正文最低 5.16，大字最低 4.79，均高于 AA 门槛。半透明文字先与自身背景合成再计算，避免高估。</p>
+    </section>
+
+    <section class="surface panel">
+      <div class="panel__head">
+        <p class="eyebrow">表面与对比度</p>
+        <span class="small">按实际合成底色计算</span>
+      </div>
+      <table class="table">
+        <thead><tr><th class="">表面</th><th class="">用途</th><th class="num">正文字号</th><th class="num">对比度</th></tr></thead>
+        <tbody><tr><td class="">底</td><td class="">页面背景</td><td class="num">—</td><td class="num">21.0</td></tr><tr><td class="">板</td><td class="">主面板</td><td class="num">13.5</td><td class="num">16.4</td></tr><tr><td class="">抬升</td><td class="">选中/浮起</td><td class="num">12.5</td><td class="num">12.1</td></tr><tr><td class="">凹槽</td><td class="">画布/输入</td><td class="num">13.5</td><td class="num">17.2</td></tr><tr><td class="">浮层</td><td class="">命令面板</td><td class="num">14</td><td class="num">14.8</td></tr></tbody>
+      </table>
+    </section></div><nav class="toc"><p class="eyebrow">目录</p><a href="#c0">01 · 问题 · 契约比用法多</a><a href="#c1">02 · 方法 · 先砍层级，再谈排印</a><a href="#c2">03 · 结果 · 五个表面的实测对比度</a></nav></div></div>
+
+<div class="scrim" id="scrim"></div>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="命令">
+  <input id="palInput" type="text" placeholder="搜索…" role="combobox" aria-expanded="true" aria-controls="plist" autocomplete="off">
+  <div class="plist" id="plist" role="listbox"></div>
+</div>
+<script>window.__GARY_CMDS__ = [{k:"跳到 · 契约比用法多",tag:"章节",fn:function(){(function(){var e=document.getElementById('c0');if(e)e.scrollIntoView({behavior:'smooth'})})()}},{k:"跳到 · 先砍层级，再谈排印",tag:"章节",fn:function(){(function(){var e=document.getElementById('c1');if(e)e.scrollIntoView({behavior:'smooth'})})()}},{k:"跳到 · 五个表面的实测对比度",tag:"章节",fn:function(){(function(){var e=document.getElementById('c2');if(e)e.scrollIntoView({behavior:'smooth'})})()}},{k:"切换主题",tag:"视图",fn:function(){(function(){var b=document.getElementById('themeBtn');if(b)b.click()})()}},{k:"打印 / 存为 PDF",tag:"导出",fn:function(){(function(){window.print()})()}}]</script><script>
+(function(){
+  var cmds = window.__GARY_CMDS__ || [];
+  var i;
+  function syncThemeBtn(){ var b = document.getElementById('themeBtn'); if (b) b.textContent = document.documentElement.dataset.theme === 'dark' ? '亮' : '暗'; }
+  syncThemeBtn();
+
+  /* 主题 */
+  var themeBtn = document.getElementById('themeBtn');
+  if (themeBtn) themeBtn.addEventListener('click', function(){
+    var root = document.documentElement;
+    var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    themeBtn.textContent = next === 'dark' ? '亮' : '暗';
+    try { localStorage.setItem('gary.theme', next); } catch(e){}
+  });
+  try { var saved = localStorage.getItem('gary.theme'); if (saved === 'light') { document.documentElement.dataset.theme = 'light'; if (themeBtn) themeBtn.textContent = '暗'; } } catch(e){}
+
+  /* 命令面板 */
+  var pal = document.getElementById('palette'), scrim = document.getElementById('scrim');
+  if (pal) {
+    var input = document.getElementById('palInput'), list = document.getElementById('plist'), idx = 0, items = [];
+    function paint(q){
+      items = cmds.filter(function(c){ return c.k.toLowerCase().indexOf(q.toLowerCase()) > -1; });
+      idx = 0; list.innerHTML = '';
+      if (!items.length) { list.innerHTML = '<div class="pitem" style="color:var(--dim)">没有匹配</div>'; return; }
+      items.forEach(function(c, n){
+        var d = document.createElement('div');
+        d.className = 'pitem'; d.setAttribute('role','option');
+        d.setAttribute('aria-selected', String(n === idx));
+        var s = document.createElement('span'); s.textContent = c.k;
+        var t = document.createElement('span'); t.className = 'tag'; t.textContent = c.tag || '';
+        d.appendChild(s); d.appendChild(t);
+        d.addEventListener('click', function(){ close(); c.fn(); });
+        list.appendChild(d);
+      });
+    }
+    function open(){ pal.classList.add('on'); scrim.classList.add('on'); input.value=''; paint(''); setTimeout(function(){input.focus();},20); }
+    function close(){ pal.classList.remove('on'); scrim.classList.remove('on'); }
+    window.__garyOpenPalette = open;
+    input.addEventListener('input', function(e){ paint(e.target.value); });
+    scrim.addEventListener('click', close);
+    document.addEventListener('keydown', function(e){
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); open(); return; }
+      if (!pal.classList.contains('on')) return;
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault(); if (!items.length) return;
+        idx = (idx + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+        [].forEach.call(list.children, function(el, n){ el.setAttribute('aria-selected', String(n === idx)); });
+        return;
+      }
+      if (e.key === 'Enter' && items[idx]) { e.preventDefault(); var c = items[idx]; close(); c.fn(); }
+    });
+    var openBtn = document.getElementById('cmdBtn');
+    if (openBtn) openBtn.addEventListener('click', open);
+  }
+
+  /* 拖拽分隔条 */
+  var gutters = document.querySelectorAll('.gutter');
+  [].forEach.call(gutters, function(g){
+    var side = g.dataset.side;
+    var target = side === 'left' ? document.getElementById('sidePane')
+               : side === 'right' ? document.getElementById('mainPane') : null;
+    if (!target) return;
+    var min = side === 'left' ? 180 : 320, max = side === 'left' ? 380 : 1100;
+    var startX = 0, startW = 0, live = false;
+    g.addEventListener('pointerdown', function(e){
+      e.preventDefault(); g.setPointerCapture(e.pointerId);
+      g.dataset.drag = '1'; document.body.dataset.resizing = '1';
+      startX = e.clientX; startW = target.getBoundingClientRect().width; live = true;
+    });
+    g.addEventListener('pointermove', function(e){
+      if (!live) return;
+      var d = side === 'left' ? e.clientX - startX : startX - e.clientX;
+      target.style.width = Math.max(min, Math.min(max, Math.round(startW + d))) + 'px';
+      target.style.flex = 'none';
+    });
+    function end(e){ if (!live) return; live = false; g.dataset.drag='0'; delete document.body.dataset.resizing;
+      try { g.releasePointerCapture(e.pointerId); } catch(err){} }
+    g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
+    g.addEventListener('keydown', function(e){
+      var dir = e.key === 'ArrowLeft' ? -16 : e.key === 'ArrowRight' ? 16 : 0;
+      if (!dir) return; e.preventDefault();
+      var cur = target.getBoundingClientRect().width;
+      target.style.width = Math.max(min, Math.min(max, cur + (side === 'left' ? dir : -dir))) + 'px';
+      target.style.flex = 'none';
+    });
+  });
+})();
+</script>
+</body>
+</html>

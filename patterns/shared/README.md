@@ -3,7 +3,8 @@
 - `material.js`：共享卡片交互和材质挂载；优先处理 `data-gary-surface="solid|frosted|optical"`，在 `data-gary-light-scope` 内使用同坐标光影；不创建装饰线网或等高线。
 - `dot-grid.js`：唯一默认点阵，响应主题与视口；鼠标效果默认关闭，显式开启后响应指针，减弱动态优先。
 - `web-bar.js`：滚动顶栏、圆形菜单、键盘与焦点行为。
-- `icons.js` / `icons-entry.mjs`：固定 Lucide 图标子集，使用 `GaryIcons.set(button, icon, label)` 更新状态。
+- `morph-icons.js` / `morph-icons-entry.mjs`：**默认图标机制**（Gary-UI × morphicons 1.7.1，vender 于 `vendor/morphicons/`）。兼容原 `data-gary-icon` / `GaryIcons.set` 契约，并升级为 morph 引擎：任意描边图标 morph 到任意描边图标，旋转由 Procrustes 数学涌现，spring 物理驱动，零依赖、全离线。声明式 morph：`data-gary-icon="menu" data-gary-icon-to="x" data-gary-icon-toggle`；命令式：`GaryIcons.morphTo(el, name)`；受控：`GaryIcons.seek(el, name, t)`；减弱动态活策略：`GaryIcons.policy(el, "user"|"never"|"always")`（默认 `user`）。示例见 [examples/morph-icons](../../examples/morph-icons/index.html)。同目录 `icons.js` / `icons-entry.mjs` 为静态 Lucide 子集，保留作兼容回退，新页面请用 `morph-icons.js`。React 组件层图标来源为 reicon-react；vanilla 静态层与 morph 机制仍取 Lucide 几何。
+- `layout.css`：**排版原语**（Every Layout 算法化布局 + 文章排版）。stack / cluster / switcher / grid / sidebar / center / cover / frame / prose 九个原语，不依赖媒体查询，间距引用 fluid 刻度（`--gary-fluid-space-*`）、文章行宽引用 `--gary-text-measure`（65ch）。网页/落地页/多栏排版一律优先用它，禁止手写零散 margin/flex 拼装。示例见 [examples/typography-demo](../../examples/typography-demo/index.html)。
 - `optical-glass.js`：Gary 原创边缘法线折射，前景内容保持稳定。
 - `gradient-waves.js`：Background 入口使用的最初 WebGL 动态海浪；`ambient-waves.js` 是独立 Canvas 实现，不替代该入口。
 - `ambient-waves.js`：Gary 原创 Canvas 环境波面，主动选择后才运行；独立 API 的 `mouseInteraction` 也默认 false，须同时满足根鼠标开关与非减弱动态。

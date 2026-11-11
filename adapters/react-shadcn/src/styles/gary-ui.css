@@ -46,10 +46,39 @@
   --accent: var(--gary-glass-thick);
   --accent-foreground: var(--gary-text-primary);
   --destructive: var(--gary-state-critical);
+  --destructive-foreground: var(--gary-text-primary);
   --border: var(--gary-border-shadow);
   --input: var(--gary-border-shadow);
   --ring: var(--gary-focus-ring);
   --radius: var(--gary-radius-control);
+}
+
+/*
+ * Light theme opt-in. Default mode stays dark (:root). Toggle by adding the
+ * `.light` class (mirrors shadcn's `.dark` convention). The --gary-* source
+ * variables flip in tokens/base.css; this block keeps the semantic layer
+ * explicit so bg-background / text-foreground read as intentional.
+ */
+.light {
+  --background: var(--gary-surface-page);
+  --foreground: var(--gary-text-primary);
+  --card: var(--gary-solid-plate);
+  --card-foreground: var(--gary-text-primary);
+  --popover: var(--gary-solid-plate);
+  --popover-foreground: var(--gary-text-primary);
+  --primary: var(--gary-text-primary);
+  --primary-foreground: var(--gary-surface-page);
+  --secondary: var(--gary-surface-sunken);
+  --secondary-foreground: var(--gary-text-primary);
+  --muted: var(--gary-surface-sunken);
+  --muted-foreground: var(--gary-text-secondary);
+  --accent: var(--gary-glass-thick);
+  --accent-foreground: var(--gary-text-primary);
+  --destructive: var(--gary-state-critical);
+  --destructive-foreground: var(--gary-text-primary);
+  --border: var(--gary-border-shadow);
+  --input: var(--gary-border-shadow);
+  --ring: var(--gary-focus-ring);
 }
 
 [data-gary-ui-root] {
@@ -159,7 +188,12 @@
 
 @supports not (backdrop-filter: blur(1px)) {
   .gary-card,
-  .gary-button { background: var(--gary-solid-plate); }
+  .gary-button,
+  .gary-popover__content,
+  .gary-sheet__content,
+  .gary-dropdown-menu__content,
+  .gary-tooltip__content,
+  .gary-hover-card__content { background: var(--gary-solid-plate); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -208,4 +242,127 @@
 
 @media (max-width: 640px) {
   [data-gary-ui-root] :is(input, textarea, select) { font-size: 1rem; }
+}
+
+/* ============================================================
+ * Hand-written: material hierarchy, elevation mapping, motion
+ * ========================================================== */
+
+/* Spring motion parameters (B4). */
+:root {
+  --gary-spring-response-base: 0.35s;
+  --gary-spring-response-fast: 0.2s;
+  --gary-spring-response-slow: 0.5s;
+  --gary-spring-damping-critical: 1.0;
+  --gary-spring-damping-momentum: 0.8;
+}
+
+/* Elevation -> material mapping (C1).
+ * box-shadow follows --gary-elevation-N; glass blur/fill is chosen by band:
+ *   0/1 ultrathin(16px), 2/3 regular(24px), 4/5 thick(32px).
+ * Use either the class or the declarative data-gary-elevation="N". */
+.gary-elevation-0,
+[data-gary-elevation="0"] {
+  box-shadow: var(--gary-elevation-0);
+  --gary-glass-fill: var(--gary-glass-ultrathin);
+  --gary-glass-blur: var(--gary-blur-ultrathin);
+}
+
+.gary-elevation-1,
+[data-gary-elevation="1"] {
+  box-shadow: var(--gary-elevation-1);
+  --gary-glass-fill: var(--gary-glass-ultrathin);
+  --gary-glass-blur: var(--gary-blur-ultrathin);
+}
+
+.gary-elevation-2,
+[data-gary-elevation="2"] {
+  box-shadow: var(--gary-elevation-2);
+  --gary-glass-fill: var(--gary-glass-regular);
+  --gary-glass-blur: var(--gary-blur-regular);
+}
+
+.gary-elevation-3,
+[data-gary-elevation="3"] {
+  box-shadow: var(--gary-elevation-3);
+  --gary-glass-fill: var(--gary-glass-regular);
+  --gary-glass-blur: var(--gary-blur-regular);
+}
+
+.gary-elevation-4,
+[data-gary-elevation="4"] {
+  box-shadow: var(--gary-elevation-4);
+  --gary-glass-fill: var(--gary-glass-thick);
+  --gary-glass-blur: var(--gary-blur-thick);
+}
+
+.gary-elevation-5,
+[data-gary-elevation="5"] {
+  box-shadow: var(--gary-elevation-5);
+  --gary-glass-fill: var(--gary-glass-thick);
+  --gary-glass-blur: var(--gary-blur-thick);
+}
+
+/* Context-aware card shadow (C2).
+ * text  : card floats over body copy -> deeper drop shadow.
+ * plain : card floats over a flat surface -> light contact only. */
+.gary-card[data-surface="text"] {
+  box-shadow:
+    var(--gary-shadow-inset),
+    var(--gary-shadow-contact),
+    var(--gary-shadow-environment),
+    0 12px 40px rgba(0, 0, 0, .35);
+}
+
+.gary-card[data-surface="plain"] {
+  box-shadow:
+    var(--gary-shadow-inset),
+    var(--gary-shadow-contact),
+    0 4px 12px rgba(0, 0, 0, .10);
+}
+
+/* Scroll edge fade (C3): fades content top/bottom instead of hairline rules. */
+.gary-scroll-edge {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+}
+
+/* Materialize entrance (C4). For dialog / popover / sheet entry.
+ * The existing prefers-reduced-motion block already neutralizes animation
+ * on [data-gary-ui-root] *, so this respects reduced motion for free. */
+@keyframes gary-materialize {
+  from {
+    filter: blur(0);
+    transform: scale(.96);
+    opacity: 0;
+  }
+  to {
+    filter: blur(var(--gary-blur-regular));
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.gary-materialize {
+  animation: gary-materialize 300ms var(--gary-ease-out) both;
+}
+
+/* ============================================================
+ * P3 performance (D1 / D2)
+ * ========================================================== */
+
+/* D1: skip-rendering for long list surfaces. The 400px intrinsic height is
+ * a layout-jump guard, not a visual value. */
+.gary-scroll-area,
+.gary-table,
+.gary-sidebar-nav {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
+
+/* D2: hint the compositor for spring-animated overlay surfaces. */
+.gary-dialog__content,
+.gary-popover__content,
+.gary-sheet__content {
+  will-change: transform, opacity;
 }

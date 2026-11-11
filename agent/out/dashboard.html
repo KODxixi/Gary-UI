@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark" data-density="compact">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>经营看板</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../primitives.css?v=g6">
+<script>/* 首帧前定主题，避免闪白/闪黑 */(function(){try{var t=localStorage.getItem("gary.theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;}}catch(e){}})();</script>
+<style>
+  html,body{overflow:hidden}
+  body{display:flex;flex-direction:column;height:100%}
+  .topbar{display:flex;align-items:center;gap:12px;height:28px;flex:none;padding:6px 16px 0;border-bottom:1px solid var(--line2)}
+  .brand{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600}
+  .mark{width:15px;height:15px;border-radius:4px;display:grid;place-items:center;background:var(--ink);color:var(--bg);font-size:9px;font-weight:700}
+  .brand small{font-weight:400;color:var(--dim);font-size:11.5px;margin-left:2px}
+  .topbar__right{margin-left:auto;display:flex;gap:6px;align-items:center}
+  .topbar .chip{height:20px;padding:0 8px;font-size:11px}
+  .topbar .iconbtn{width:22px;height:22px;font-size:10px}
+  .wrap{flex:1;min-height:0;overflow:auto;padding:6px 24px 24px}
+  .stack{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  .sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:4px}
+  .sec-head__row{display:flex;align-items:center;gap:12px}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);padding:12px 18px 6px}
+  .kpi{padding:14px 0;border-right:1px solid var(--line2)}
+  .kpi:last-child{border-right:0}
+  .kpi .metric{margin-top:6px}
+  .panel{padding:22px 24px 18px}
+  .main{display:flex;flex-direction:column}
+  .canvas{flex:1;min-height:180px;margin:14px 24px 0;border-radius:var(--r-panel);background:var(--win2);
+    border:1px solid var(--line2);position:relative;display:grid;place-items:center;overflow:hidden}
+  .canvas__badge{position:absolute;top:10px;right:12px;color:var(--dim)}
+  .canvas__inner{width:min(460px,78%)}
+  .pcard{border:1px solid var(--hair);border-radius:18px;padding:16px;margin-top:8px;
+    background:var(--raised);box-shadow:inset 0 1px 0 var(--hair),0 16px 40px #000000a6}
+  html[data-theme="light"] .pcard{background:#fff;box-shadow:inset 0 1px 0 #fff,0 16px 40px #00000012}
+  .pcard__row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .pcard__t{font-size:14px;font-weight:600;letter-spacing:-.015em;margin-bottom:3px}
+  .pcard__foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+  .composer{padding:10px 24px 16px}
+  .composer__foot{margin-top:6px}
+  .cols > .side--right{width:300px;flex:none;overflow:auto}
+  .panel__head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+  .chart{width:100%;height:180px;display:block}
+  .axis{display:flex;justify-content:space-between;margin-top:8px}
+  .table{width:100%;border-collapse:collapse}
+  .table th{text-align:left;font-weight:500;color:var(--dim);font-size:11px;padding:6px 0;border-bottom:1px solid var(--line)}
+  .table td{padding:8px 0;border-bottom:1px solid var(--line2);font-size:12.5px}
+  .table th.num,.table td.num{text-align:right;font-variant-numeric:tabular-nums}
+  /* report */
+  .article{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:minmax(0,720px) 240px;gap:56px;align-items:start}
+  .cover .display--xl{margin:14px 0 16px}
+  .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:18px 0 0}
+  .meta dd{margin:4px 0 0}
+  .chapter{margin:0 0 34px}
+  .chapter .h2{margin:6px 0 12px}
+  .chapter .body{margin:0 0 12px;max-width:70ch}
+  .toc{position:sticky;top:8px}
+  .toc a{display:block;padding:8px 10px;border-radius:10px;color:var(--muted);text-decoration:none;font-size:12.5px}
+  .toc a:hover{background:var(--line2);color:var(--ink)}
+  /* settings / workbench 两栏 */
+  .cols{display:flex;gap:var(--gap);height:100%;padding:6px 16px 16px}
+  .side{width:236px;flex:none;padding:22px 14px 14px}
+  .item{position:relative}
+  .item::after{content:""/*noop*/}
+  .main{flex:1;min-width:0;overflow:auto;padding:22px 24px 20px}
+  .group{margin-bottom:12px}
+  .group .row + .row{border-top:0}
+  @media (max-width:900px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .article{grid-template-columns:minmax(0,1fr);gap:20px}
+    .toc{display:none}
+    .cols{flex-direction:column;height:auto}
+    .side{width:auto}
+  }
+  .topbar__btn, .topbar .iconbtn{position:relative}
+  .topbar__btn::after, .topbar .iconbtn::after{content:"";position:absolute;inset:-11px -8px;border-radius:8px}
+  .topbar__btn{appearance:none;border:1px solid var(--line);background:transparent;color:var(--muted);
+    height:22px;padding:0 8px;border-radius:6px;font:inherit;font-size:11px;cursor:pointer}
+  .topbar__btn:hover{background:var(--line2);color:var(--ink)}
+  .cols:has(> .gutter){gap:0}
+  .gutter{flex:0 0 var(--gap);position:relative;cursor:col-resize;touch-action:none;border:0;background:transparent;padding:0}
+  .gutter::before{content:"";position:absolute;top:50%;left:50%;width:4px;height:72px;border-radius:99px;
+    background:var(--ink);opacity:0;transform:translate(-50%,-50%) scaleY(.4);
+    transition:opacity .16s ease,transform .26s var(--ease, cubic-bezier(.22,.61,.36,1))}
+  .gutter:hover::before,.gutter:focus-visible::before{opacity:.42;transform:translate(-50%,-50%) scaleY(1)}
+  .gutter[data-drag="1"]::before{opacity:.85;background:var(--accent)}
+  body[data-resizing],body[data-resizing] *{cursor:col-resize!important;user-select:none!important}
+  @media (max-width:900px){.gutter{display:none}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand"><span class="mark">G</span>Gary<small>经营看板</small></div>
+  <div class="topbar__right"><span class="chip"><i class="dot dot--live"></i>就绪</span>
+  <button class="topbar__btn" id="cmdBtn" aria-keyshortcuts="Control+K Meta+K">⌘K</button>
+  <button class="topbar__btn" id="themeBtn" aria-label="切换主题">亮</button></div>
+</header>
+<div class="wrap"><div class="stack">
+    <header class="sec-head">
+      <p class="eyebrow">经营 · 概览</p>
+      <div class="sec-head__row">
+        <h1 class="display">本周经营</h1>
+        <span class="badge badge--accent">示意数据</span>
+      </div>
+      <p class="sub">数值由下方明细行汇总得出，用于检验版式与对比度，不代表真实业务口径。</p>
+    </header>
+
+    <div class="kpis surface">
+      
+        <div class="kpi">
+          <p class="eyebrow">成交额</p>
+          <p class="metric">86.4<small>万</small></p>
+          <p class="small">较上期 +1.2%</p>
+        </div>
+        <div class="kpi">
+          <p class="eyebrow">订单</p>
+          <p class="metric">1,284<small>单</small></p>
+          <p class="small">较上期 +0.9%</p>
+        </div>
+        <div class="kpi">
+          <p class="eyebrow">客单价</p>
+          <p class="metric">673<small>元</small></p>
+          <p class="small">额 ÷ 单</p>
+        </div>
+        <div class="kpi">
+          <p class="eyebrow">转化率</p>
+          <p class="metric">3.4<small>%</small></p>
+          <p class="small">按订单加权</p>
+        </div>
+    </div>
+
+    <section class="surface panel">
+      <div class="panel__head">
+        <p class="eyebrow">成交额趋势</p>
+        <span class="small">最近 7 天 · 示意</span>
+      </div>
+      <svg class="chart" viewBox="0 0 1000 260" preserveAspectRatio="none" role="img" aria-label="成交额趋势">
+        <path d="M8.0 252.0 L172.0 179.7 L336.0 211.3 L500.0 107.4 L664.0 130.0 L828.0 44.1 L992.0 8.0 L992 260 L8 260 Z" fill="var(--accent-soft)"></path>
+        <path d="M8.0 252.0 L172.0 179.7 L336.0 211.3 L500.0 107.4 L664.0 130.0 L828.0 44.1 L992.0 8.0" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"></path>
+      </svg>
+      <div class="axis"><span class="small">周一</span><span class="small">周二</span><span class="small">周三</span><span class="small">周四</span><span class="small">周五</span><span class="small">周六</span><span class="small">周日</span></div>
+    </section>
+
+    <section class="surface panel">
+      <div class="panel__head">
+        <p class="eyebrow">渠道明细</p>
+        <span class="small">五行合计即上方指标</span>
+      </div>
+      <table class="table">
+        <thead><tr><th class="">渠道</th><th class="num">成交额 · 万</th><th class="num">订单</th><th class="num">转化</th><th class="num">环比</th></tr></thead>
+        <tbody><tr><td class="">自然搜索</td><td class="num">21.4</td><td class="num">312</td><td class="num">3.4%</td><td class="num">+2.1%</td></tr><tr><td class="">内容推荐</td><td class="num">18.6</td><td class="num">268</td><td class="num">3.9%</td><td class="num">+4.6%</td></tr><tr><td class="">私域复购</td><td class="num">15.2</td><td class="num">208</td><td class="num">5.2%</td><td class="num">+1.4%</td></tr><tr><td class="">付费投放</td><td class="num">22.8</td><td class="num">434</td><td class="num">2.6%</td><td class="num">−2.4%</td></tr><tr><td class="">合作分销</td><td class="num">8.4</td><td class="num">62</td><td class="num">1.8%</td><td class="num">+0.6%</td></tr></tbody>
+      </table>
+    </section></div></div>
+
+<div class="scrim" id="scrim"></div>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="命令">
+  <input id="palInput" type="text" placeholder="搜索…" role="combobox" aria-expanded="true" aria-controls="plist" autocomplete="off">
+  <div class="plist" id="plist" role="listbox"></div>
+</div>
+<script>window.__GARY_CMDS__ = [{k:"切换主题",tag:"视图",fn:function(){(function(){var b=document.getElementById('themeBtn');if(b)b.click()})()}}]</script><script>
+(function(){
+  var cmds = window.__GARY_CMDS__ || [];
+  var i;
+  function syncThemeBtn(){ var b = document.getElementById('themeBtn'); if (b) b.textContent = document.documentElement.dataset.theme === 'dark' ? '亮' : '暗'; }
+  syncThemeBtn();
+
+  /* 主题 */
+  var themeBtn = document.getElementById('themeBtn');
+  if (themeBtn) themeBtn.addEventListener('click', function(){
+    var root = document.documentElement;
+    var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    themeBtn.textContent = next === 'dark' ? '亮' : '暗';
+    try { localStorage.setItem('gary.theme', next); } catch(e){}
+  });
+  try { var saved = localStorage.getItem('gary.theme'); if (saved === 'light') { document.documentElement.dataset.theme = 'light'; if (themeBtn) themeBtn.textContent = '暗'; } } catch(e){}
+
+  /* 命令面板 */
+  var pal = document.getElementById('palette'), scrim = document.getElementById('scrim');
+  if (pal) {
+    var input = document.getElementById('palInput'), list = document.getElementById('plist'), idx = 0, items = [];
+    function paint(q){
+      items = cmds.filter(function(c){ return c.k.toLowerCase().indexOf(q.toLowerCase()) > -1; });
+      idx = 0; list.innerHTML = '';
+      if (!items.length) { list.innerHTML = '<div class="pitem" style="color:var(--dim)">没有匹配</div>'; return; }
+      items.forEach(function(c, n){
+        var d = document.createElement('div');
+        d.className = 'pitem'; d.setAttribute('role','option');
+        d.setAttribute('aria-selected', String(n === idx));
+        var s = document.createElement('span'); s.textContent = c.k;
+        var t = document.createElement('span'); t.className = 'tag'; t.textContent = c.tag || '';
+        d.appendChild(s); d.appendChild(t);
+        d.addEventListener('click', function(){ close(); c.fn(); });
+        list.appendChild(d);
+      });
+    }
+    function open(){ pal.classList.add('on'); scrim.classList.add('on'); input.value=''; paint(''); setTimeout(function(){input.focus();},20); }
+    function close(){ pal.classList.remove('on'); scrim.classList.remove('on'); }
+    window.__garyOpenPalette = open;
+    input.addEventListener('input', function(e){ paint(e.target.value); });
+    scrim.addEventListener('click', close);
+    document.addEventListener('keydown', function(e){
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); open(); return; }
+      if (!pal.classList.contains('on')) return;
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault(); if (!items.length) return;
+        idx = (idx + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+        [].forEach.call(list.children, function(el, n){ el.setAttribute('aria-selected', String(n === idx)); });
+        return;
+      }
+      if (e.key === 'Enter' && items[idx]) { e.preventDefault(); var c = items[idx]; close(); c.fn(); }
+    });
+    var openBtn = document.getElementById('cmdBtn');
+    if (openBtn) openBtn.addEventListener('click', open);
+  }
+
+  /* 拖拽分隔条 */
+  var gutters = document.querySelectorAll('.gutter');
+  [].forEach.call(gutters, function(g){
+    var side = g.dataset.side;
+    var target = side === 'left' ? document.getElementById('sidePane')
+               : side === 'right' ? document.getElementById('mainPane') : null;
+    if (!target) return;
+    var min = side === 'left' ? 180 : 320, max = side === 'left' ? 380 : 1100;
+    var startX = 0, startW = 0, live = false;
+    g.addEventListener('pointerdown', function(e){
+      e.preventDefault(); g.setPointerCapture(e.pointerId);
+      g.dataset.drag = '1'; document.body.dataset.resizing = '1';
+      startX = e.clientX; startW = target.getBoundingClientRect().width; live = true;
+    });
+    g.addEventListener('pointermove', function(e){
+      if (!live) return;
+      var d = side === 'left' ? e.clientX - startX : startX - e.clientX;
+      target.style.width = Math.max(min, Math.min(max, Math.round(startW + d))) + 'px';
+      target.style.flex = 'none';
+    });
+    function end(e){ if (!live) return; live = false; g.dataset.drag='0'; delete document.body.dataset.resizing;
+      try { g.releasePointerCapture(e.pointerId); } catch(err){} }
+    g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
+    g.addEventListener('keydown', function(e){
+      var dir = e.key === 'ArrowLeft' ? -16 : e.key === 'ArrowRight' ? 16 : 0;
+      if (!dir) return; e.preventDefault();
+      var cur = target.getBoundingClientRect().width;
+      target.style.width = Math.max(min, Math.min(max, cur + (side === 'left' ? dir : -dir))) + 'px';
+      target.style.flex = 'none';
+    });
+  });
+})();
+</script>
+</body>
+</html>

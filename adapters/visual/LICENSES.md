@@ -11,8 +11,24 @@ Versions are locked in `toolchain.lock.json` and `package-lock.json`.
 | AntV Infographic | 0.2.20 | MIT | https://github.com/antvis/Infographic |
 | Mermaid | 11.17.2 | MIT | https://mermaid.js.org/ |
 | Lucide | 1.41.0 | ISC | https://lucide.dev/ |
+| reicon | 1.2.5 | MIT | https://github.com/dqev/reicon |
+| Solar Icons (upstream base set of reicon) | — | CC BY 4.0 | https://solar-icons.vercel.app/ · https://github.com/saoudi-h/solar-icons |
+| Zappicon (upstream base set of reicon) | — | Zappicon License | https://zappicon.com/license |
 | Playwright Core | 1.63.0 | Apache-2.0 | https://playwright.dev/ |
 | esbuild (build only) | 0.25.9 | MIT | https://esbuild.github.io/ |
+
+`reicon` itself is MIT, but its npm package ships **no LICENSE text**: `package.json` does
+not list one in `files[]` and none is present in the published tree. It is therefore recorded
+as `declared-only` in [`manifest.json`](../../licenses/third-party/manifest.json), with
+`licenseTextComplete` false. reicon's base elements come from Solar Icons (**CC BY 4.0**,
+attribution mandatory) and Zappicon (whose own terms restrict redistribution and inclusion in
+another icon library). reicon's own "no attribution required" statement does not waive the
+upstream attribution obligation.
+
+`Lucide` remains an installed dependency of this adapter: the vanilla static icon layer
+(`patterns/shared/*-entry.mjs`) still takes its geometry from
+`adapters/visual/node_modules/lucide`. The React component layer and the adapter's icon board
+now source icons from reicon instead.
 
 Original license and copyright texts, including dependency notices, are collected
 under [`licenses/third-party/`](../../licenses/third-party/). The

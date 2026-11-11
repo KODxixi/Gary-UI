@@ -1,0 +1,295 @@
+{
+  "schemaVersion": "2.0",
+  "name": "flow-diagram",
+  "displayName": "Gary-UI 流程图规范",
+  "status": "canonical",
+  "scope": "过程型流程图（workflow / sequence / data-flow）：一组动作按先后穿过若干阶段",
+  "provenance": {
+    "method": "逆向测量 Arize Phoenix 空状态图（620×290 手写 SVG），取真实属性而非目测",
+    "source": "http://127.0.0.1:6006/evaluators 页面内联 SVG 的 outerHTML",
+    "measuredOn": "2026-10-28",
+    "note": "该图是手写绝对坐标 SVG，不是自动布局引擎产物。本标准固化的是它的几何与配色关系，不是它的坐标。"
+  },
+  "authority": {
+    "relation": "本文件是 DIAGRAM_EXPRESSION.md 在「过程型图」上的具体化，不替代它",
+    "inherits": [
+      "docs/DIAGRAM_EXPRESSION.md §2 七层阅读结构",
+      "docs/DIAGRAM_EXPRESSION.md §3.4 节点只写事实"
+    ],
+    "overrides": {
+      "§3.5 线型语义": "过程型图里虚线 = 非主路径（辅助输入 / 异步回报 / 跨相位引用），不是「未成立」。见 §5。",
+      "§4 连线取目标色": "过程型图连线一律中性灰，颜色不进入边。见 §4。",
+      "§4 卡片填充 20%": "过程型图卡片只染描边，填充只用灰阶/玻璃（独立图页 gray100；报告页 --gary-card-surface-top），不掺角色色。见 §4。"
+    },
+    "whyOverride": [
+      "过程图的读者问的是「下一步是谁」，不是「这一侧成立吗」。虚线表示成立性在这里会让读者把辅助输入读成缺口。",
+      "角色色已经用在节点描边，边再上色会出现两条彩色线交叠、读者分不清哪条是主路径。中性灰把唯一带彩的判断留给节点。",
+      "填充掺色会让相邻卡片在缩略图里糊成一片；描边染色在 8px 高度下仍然可分。"
+    ]
+  },
+  "geometry": {
+    "unit": "px",
+    "strokeWidth": {
+      "primary": 2,
+      "secondary": 1,
+      "edge": 2,
+      "edgeDashed": 1.5
+    },
+    "corners": {
+      "card": 8,
+      "container": 8,
+      "subframe": 4,
+      "item": 4,
+      "capsule": "h/2",
+      "rule": "圆角只有三档：8（卡片/容器）、4（内嵌子帧/条目）、h/2（胶囊）。不要出现 6、10、12 这类中间值。"
+    },
+    "typeScale": {
+      "cardTitle": {
+        "size": 14,
+        "weight": 600
+      },
+      "cardSub": {
+        "size": 11,
+        "weight": 400,
+        "color": "text700"
+      },
+      "capsuleText": {
+        "size": 12,
+        "weight": 500
+      },
+      "itemText": {
+        "size": 11,
+        "weight": 400
+      },
+      "rule": "字号只有三档 14 / 12 / 11。没有 13、没有 10。",
+      "floor": {
+        "rule": "SVG 内文字不受页面 13px 下限约束——它是图形标记，随图缩放着看；但同一页里的 HTML 文案必须 ≥13px。这条与母本 font_floor 的边界要明说，否则会为了过闸把图里的字放大到破坏比例。",
+        "why": "Phoenix 原图 11px 副标题在 620×290 画布上是对的；改成 13px 会让副标题挤爆卡片。"
+      }
+    },
+    "rhythm": {
+      "titleBaselineOffset": 28,
+      "subBaselineOffset": 48,
+      "itemTextOffset": 19,
+      "rule": "标题基线 = 框顶 +28；副标题 = 框顶 +48（与标题相距 20）；条目文字 = 框顶 + 0.68h。所有卡片共用同一节奏，不按框高居中。"
+    },
+    "nodeSizes": {
+      "card": {
+        "w": 120,
+        "h": 70,
+        "reportWidth": "120–260（整图统一，按最长标签自适应）"
+      },
+      "container": {
+        "w": 160,
+        "h": 200
+      },
+      "subframe": {
+        "w": 130,
+        "h": 140
+      },
+      "item": {
+        "w": 110,
+        "h": 28
+      },
+      "capsule": {
+        "h": 36,
+        "reportHeight": 54
+      },
+      "rule": "同角色的框同尺寸。报告页卡片宽度按整图最长标签统一自适应 120–260，不按单个标签撑宽；长标签 14px 放不下退 12px，仍放不下才截断。"
+    }
+  },
+  "roles": {
+    "rule": "颜色只承担「这是什么角色」，一图最多四色；同类对象必须同色，不按出现顺序轮转。",
+    "palette": {
+      "input": {
+        "stroke": "#e67e22",
+        "reads": "数据源 / 输入 / 外料"
+      },
+      "process": {
+        "stroke": "#2196f3",
+        "strokeAlt": "#1976d2",
+        "reads": "处理 / 任务 / 模型调用"
+      },
+      "decision": {
+        "stroke": "#9c27b0",
+        "strokeAlt": "#7b1fa2",
+        "reads": "判定 / 评估 / 评分"
+      },
+      "result": {
+        "stroke": "#ffbf00",
+        "reads": "结果 / 结论 / 产出"
+      }
+    },
+    "strokeAlt": "同族深一档（#1976d2 之于 #2196f3）用于「同一角色的下一个环节」：主环节用亮档、其纯产物用深档，读者能看出层级又不引入第二种色相。",
+    "filledSurface": {
+      "card": "gray100（报告页玻璃：--gary-card-surface-top）",
+      "subframe": "gray75",
+      "item": "gray200",
+      "capsule": "gray100（报告页玻璃：--gary-card-surface-top）",
+      "rule": "填充一律灰阶，角色色只在 stroke 上。这是本标准的定义性特征，改它会立刻失去辨识度。"
+    }
+  },
+  "neutralRamp": {
+    "note": "dark 主题实测值（Phoenix --global-color-gray-*）",
+    "gray75": "#0e0e0e",
+    "gray100": "#1d1d1d",
+    "gray200": "#303030",
+    "gray300": "#4b4b4b",
+    "gray400": "#6a6a6a",
+    "gray500": "#8d8d8d",
+    "gray600": "#b0b0b0",
+    "gray700": "#d0d0d0",
+    "text900": "rgba(255,255,255,0.9)",
+    "text700": "rgba(255,255,255,0.7)",
+    "text500": "rgba(255,255,255,0.5)",
+    "pageBackground": "#0e0e0e",
+    "rule": "页面底 = gray75、卡片 = gray100（报告页玻璃 --gary-card-surface-top）、条目 = gray200。文字只有三档 900/700/500。"
+  },
+  "edges": {
+    "solid": {
+      "stroke": "gray500",
+      "width": 2,
+      "reads": "主路径：因果先后、已成立的数据流"
+    },
+    "dashed": {
+      "stroke": "gray400",
+      "width": 1.5,
+      "dasharray": "4 3",
+      "reads": "非主路径：辅助输入、异步回报、跨相位引用"
+    },
+    "endpoint": {
+      "shape": "waterdrop",
+      "markerWidth": 13,
+      "markerHeight": 13,
+      "markerUnits": "userSpaceOnUse",
+      "refX": 11.2,
+      "refY": 6,
+      "path": "M7.28 3.29 A3.3 3.3 0 1 0 7.28 8.71 L11.2 6 Z",
+      "rule": "实线 / 虚线 / 主路径 / 旁支各一套 marker id：形状同一，fill 分别取主路径亮白、旁支灰、虚线与独立图页的灰；不能复用同一条实线 marker 给虚线和旁支。markerUnits 固定 userSpaceOnUse；refX = 11.2（箭尖贴住框边），refY = 6（中线）。这两个关系不能各改一个——改一个水滴就会浮离线端或压进框里。",
+      "why": "三类形状都试过：三角（尖角）→ 圆角三角 → 水滴。水滴识别度最高，尾部的圆弧还能把线条「收」进去，比三角更干净，比圆点更有方向。"
+    },
+    "routing": {
+      "kind": "polyline",
+      "corner": 0,
+      "rule": "正交折线、直角拐点、半径 0。禁止贝塞尔曲线——弧线在密集图里无法读出「从哪个边进出」。"
+    },
+    "crossBoundary": "跨分块必须绕行（继承 DIAGRAM_EXPRESSION §6）。实测参照物：Phoenix 原图的两条虚线从 Example 子帧内 reference/metadata 条目的右边缘 (155,164) / (155,199) 出发，水平穿出容器边界 (x=180) 后，在容器外绕行到 Evaluator。即「源节点在框内」是允许的，不允许的是**斜穿**——穿越必须垂直于边框、出口之后立即在框外走。"
+  },
+  "layers": {
+    "rule": "五层靠「有没有描边 → 描边是虚是实 → 描边多宽 → 填充多深」区分，不靠阴影不靠模糊。分块(1px虚) 与 子帧(1px实) 是两种不同的层，不能混用：分块切割图面表达阶段，子帧只在分块内部再分一组。",
+    "list": [
+      {
+        "name": "分块",
+        "draw": "1px 虚线 stroke(角色色 50% 不透明) + 不填充",
+        "reads": "阶段 / 作用域"
+      },
+      {
+        "name": "子帧",
+        "draw": "1px 实线 stroke(角色色 50% 不透明) + gray75 填充 + rx4",
+        "reads": "分块里的一个实例组"
+      },
+      {
+        "name": "卡片",
+        "draw": "2px 实线 stroke(角色色) + gray100 填充（报告页玻璃 --gary-card-surface-top）+ rx8",
+        "reads": "一个对象 / 一次动作"
+      },
+      {
+        "name": "条目",
+        "draw": "无描边 + gray200 填充 + rx4",
+        "reads": "卡片或子帧内部的成员"
+      },
+      {
+        "name": "胶囊",
+        "draw": "2px 实线 stroke(角色色) + gray100 填充（报告页玻璃 --gary-card-surface-top）+ rx=h/2",
+        "reads": "端点：输入/输出/结果，不参与流程推进"
+      }
+    ]
+  },
+  "forbidden": [
+    "给卡片填充上色（角色色进 fill）",
+    "给连线用角色色",
+    "用贝塞尔曲线连边",
+    "同一图出现两色以上的中性灰阶体系（例如再加一套 #2a2a2a）",
+    "字号出现 13 / 10 / 9",
+    "圆角出现 6 / 10 / 12",
+    "给框加投影或发光（独立图页禁止；报告页玻璃卡只允许一层柔和落影，不做发光 / 内高光）",
+    "用颜色表达「好坏 / 成熟度 / 风险」（沿用 DIAGRAM_EXPRESSION §4）",
+    "两个同级框重叠（子帧含于容器、条目含于子帧是允许的）",
+    "图元超出 viewBox 或贴边被裁"
+  ],
+  "verification": {
+    "machineCheck": "scripts/check_flow_diagram.py <svg|html>  （样式 7 + 几何 3）",
+    "generator": "scripts/flow_svg.py --input <json> [--palette gary --tokens]  （FlowGraph：固定尺寸网格 + 正交 A* 路由）",
+    "mustPass": [
+      "stroke 颜色 ⊆ {角色色 4 组} ∪ {gray400, gray500}（gary 变体为 --gary-category-1..4 或对应字面值）",
+      "fill 颜色 ⊆ {gray75, gray100, gray200, none}（gary 变体为 --gary-surface-page / --gary-solid-plate / --gary-surface-sunken / --gary-card-surface-top）",
+      "rx ∈ {4, 8} 或 = h/2",
+      "font-size ∈ {11, 12, 14}",
+      "非 dashed 边 stroke-width = 2；dashed = 1.5 且带 dasharray",
+      "存在 <marker>；实线 / 虚线 / 主路径 / 旁支各一套 marker id（形状同一，fill 不同）",
+      "每条 line / polyline 必须有 marker-end（端点水滴不能漏）",
+      "任意两个 rect 不得重叠（包含关系除外：子帧/条目必须在容器或卡片内）",
+      "所有图元必须落在 viewBox 内（留白 ≥0，端点水滴可贴边）",
+      "辅助线从**源节点边缘**出发；垂直穿出所属分块后必须在分块外绕行，不得从分块内部斜穿"
+    ],
+    "knownGaps": "通用自动布局引擎（Mermaid / Graphviz）无法满足「同角色同尺寸 + 固定基线节奏」，只能近似。要严格合规可手写绝对坐标，或用 scripts/flow_svg.py 的 FlowGraph（固定尺寸网格 + 正交 A* 路由）——后者只解决坐标，不替人判断虚线语义。另：本闸只判「可被机检的样式与几何」，不判「虚线语义是否成立」——一条虚线读起来对不对，仍需人读一遍。"
+  },
+  "paletteVariants": {
+    "rule": "色板是独立轴，几何与线型不变。选哪个变体由「这张图嵌在哪」决定，不按个人喜好。两个变体都不合规时以结构为准，另行登记。",
+    "phoenix": {
+      "when": "独立图页 / 工具界面 / 深色看板（无 Gary-UI 页面语境）",
+      "colors": {
+        "input": "#e67e22",
+        "process": "#2196f3",
+        "process2": "#1976d2",
+        "decision": "#9c27b0",
+        "decide2": "#7b1fa2",
+        "result": "#ffbf00"
+      },
+      "why": "实测自 Phoenix 原图，Material 500/700 档。高饱和在近黑底上对比强，4 色即可撑起角色分工。"
+    },
+    "gary": {
+      "when": "嵌在 Gary-UI 报告页 / 企业面板页内，需要跟 tokens 同源",
+      "colors": {
+        "input": "category2 #d5af59",
+        "process": "category1 #82acec",
+        "process2": "category1 深一档（数值未定；gary 变体目前只提供四基色，alt 暂不使用）",
+        "decision": "category4 #be9bda",
+        "decide2": "category4 深一档（同上）",
+        "result": "category3 #78c9ac"
+      },
+      "tokens": {
+        "input": "--gary-category-2",
+        "process": "--gary-category-1",
+        "decision": "--gary-category-4",
+        "result": "--gary-category-3",
+        "note": "tokens/tokens.json 新增 4 个 category 变量；dark/light 值同步 spec/chart-recipes.json → themes.*.category1..4"
+      },
+      "why": "母本 category1..8 是灰调，与暗底页面共存。饱和度低一档，在报告页里不会抢数据图的注意力。"
+    },
+    "conflict": {
+      "fact": "Phoenix 变体不是 Gary-UI token；嵌页验收用 skill 目录的 verify_preview_page.py（不在母本仓），它判宿主变量 0、hex 0、token 可解析、HTML 文案 ≥13px。母本 invariants.py --page 只判方角卡片 / 内部编码 / 结论重复。",
+      "resolution": [
+        "嵌进 Gary-UI 页面 → 必须用 gary 变体，且不得出现字面色值（走 token）。",
+        "独立工具页 / 深色看板 → 允许 phoenix 变体，但该页不受母本页面闸管辖，须在交付说明里写明「独立图页，非 Gary-UI 页面」。"
+      ]
+    }
+  },
+  "presentationVariants": {
+    "rule": "呈现层是独立轴：几何、线型、色板不变，只改页面上的容器与文字层级。独立图页用默认；报告页用 reportPage。",
+    "reportPage": {
+      "when": "嵌进 Gary-UI 报告页 / 企业面板页 / 要当页面主角的图",
+      "stage": "1px 中性实线（--gary-text-tertiary），24% 不透明，无填充；阶段标题 14/500，letter-spacing .12em，--gary-text-tertiary",
+      "edges": "主路径用 --gary-text-primary；旁支 52% 不透明；虚线只给非主路径。主路径由 edges[].emphasis='main' 指定。",
+      "cards": "玻璃填充 --gary-card-surface-top（半透明）+ 一层柔和落影（dy 6 / blur 12 / 35%）；不做发光 / 内高光。端点水滴 13×13。",
+      "cardWidth": "整图自适应 120–260px，按最长标题/副标题统一；14px 放不下退 12px，仍放不下才截断；禁止按字符数截断。",
+      "node": "每个节点必须有 sub 摘要；报告页还必须有 detail 详情。点击节点在该节点弹出玻璃详情卡（foreignObject），Esc / 点空白 / 关闭按钮收起。",
+      "type": "阶段标题 14/500 + .12em；胶囊标题 14/500 + 摘要 11/400（h=54）；卡片标题 14/600（长标签退 12/600）；副标题 11/400。",
+      "dots": "每条 line/polyline 必须带 marker-end；端点水滴 13×13、refX 11.2、refY 6；主路径亮白、旁支灰。",
+      "chrome": "无眉标、无四色图例；标题下一句副标题；底部一行 key：实线 = 主路径 · 虚线 = 辅助 / 异步 · 描边色 = 角色",
+      "layout": "页面垂直居中；六个阶段块顶部对齐；首尾块可以短一截，不强行补空行。窄预览窗用 min-width=0.85×图宽，宁可横向滚动也不压字号",
+      "why": "阶段框退成中性后，虚线只表示非主路径，不再和分块边框打架；主路径亮、旁支暗，读者先看流程再看角色。",
+      "entry": "scripts/flow_svg.py --report"
+    }
+  }
+}

@@ -74,7 +74,7 @@ def test_default_tool_routing_is_deterministic() -> None:
     assert choose_default_tool("outline") == "markmap"
     assert choose_default_tool("infographic") == "antv-infographic"
     assert choose_default_tool("simple-flow") == "mermaid"
-    assert choose_default_tool("icons") == "lucide"
+    assert choose_default_tool("icons") == "reicon"
 
 
 def test_existing_native_source_format_wins_when_compatible() -> None:
@@ -182,6 +182,7 @@ def test_visual_runtime_inventory_is_pinned_and_complete() -> None:
         "markmap-view": "0.18.12",
         "mermaid": "11.17.2",
         "playwright-core": "1.63.0",
+        "reicon": "1.2.5",
     }
     assert lock["buildPackages"] == {"esbuild": "0.25.9"}
 
@@ -196,5 +197,5 @@ def test_visual_runtime_inventory_is_pinned_and_complete() -> None:
         "markmap",
         "antv-infographic",
         "mermaid",
-        "lucide",
+        "reicon",
     }

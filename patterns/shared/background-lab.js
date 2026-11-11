@@ -12,7 +12,7 @@
   panel.innerHTML=`<header><div><p class="eyebrow">SCENE STUDIO</p><h2 id="background-lab-title">让背景有呼吸</h2></div><button class="button" data-background-close aria-label="关闭背景实验室">关闭</button></header>
     <p class="gary-background-intro">在真实页面上调节 不改变全局默认</p>
     <div class="gary-wave-switches"><label><input type="checkbox" name="pointerEffects"> 鼠标光影（默认关闭）</label></div>
-    <div class="gary-background-choice"><label>背景<select name="background"><option value="dot-grid">点状网格 默认</option><option value="gradient-waves">动态海浪（原版引擎）</option><option value="aurora-bloom">极光薄雾</option><option value="prism-veil">棱镜幕帘</option><option value="mercury-orbit">银色轨道</option></select></label><label>配色<select name="preset"><option value="gary">Gary 柔光</option><option value="silver" selected>银色三浪</option><option value="original">原版紫粉</option><option value="custom" disabled>自定义</option></select></label></div>
+    <div class="gary-background-choice"><label>背景<select name="background"><option value="dot-grid">点状网格 默认</option><option value="aurora-bloom">极光薄雾</option><option value="prism-veil">棱镜幕帘</option><option value="mercury-orbit">银色轨道</option></select></label><label>配色<select name="preset"><option value="gary">Gary 柔光</option><option value="silver" selected>银色三浪</option><option value="original">原版紫粉</option><option value="custom" disabled>自定义</option></select></label></div>
     <p data-waves-status role="status" aria-live="polite">当前使用默认点状网格</p>
     <section class="gary-local-media" aria-label="自定义背景素材">
       <label class="gary-media-file">本地照片或视频<input data-media-file type="file" accept="image/png,image/jpeg,image/webp,image/avif,video/mp4,video/webm,video/ogg"></label>
@@ -111,8 +111,8 @@
     const light=root.dataset.garyTheme==='light';
     const calm={...GaryGradientWaves.defaults,mouseInteraction:pointerEnabled(),speed:.15,amplitude:2.5,grain:false,opacity:light?.32:.42,parallaxStrength:.2,detail:innerWidth<600?'low':'medium'};
     if(name==='original')return {...GaryGradientWaves.defaults,mouseInteraction:pointerEnabled(),opacity:light?.35:.6,detail:calm.detail};
-    if(name==='silver')return {...recipe('gary'),speed:.1,amplitude:2,waveScale:1.35,waveRatio:.6,tilt:1.12,zoom:1,height:10,fogDepth:20,brightness:1.1,opacity:light?.32:.47,parallaxStrength:.85,grain:true,grainIntensity:.01,horizonColor:light?'#b8c1cb':'#455164',waveColor:light?'#627389':'#8193ab',crestColor:light?'#c1cad6':'#dbe4ef'};
-    return {...calm,amplitude:2.6,waveRatio:1,swell:0,turbulence:50,tilt:1.23,zoom:1.4,height:11,detail:'medium',opacity:light?.32:.6,parallaxStrength:0,grain:true,grainIntensity:.02,horizonColor:light?'#bec6ef':'#282d60',waveColor:light?'#8799d8':'#6976ad',crestColor:light?'#d1daf5':'#c1cce6'};
+    if(name==='silver')return {...recipe('gary'),speed:.1,amplitude:2,waveScale:1.35,waveRatio:.6,tilt:1.12,zoom:1,height:10,fogDepth:20,brightness:1.1,opacity:light?.32:.47,parallaxStrength:.85,grain:true,grainIntensity:.01,horizonColor:light?'#c0c0c0':'#505050',waveColor:light?'#717171':'#919191',crestColor:light?'#c9c9c9':'#e3e3e3'};
+    return {...calm,amplitude:2.6,waveRatio:1,swell:0,turbulence:50,tilt:1.23,zoom:1.4,height:11,detail:'medium',opacity:light?.32:.6,parallaxStrength:0,grain:true,grainIntensity:.02,horizonColor:light?'#c7c7c7':'#303030',waveColor:light?'#9a9a9a':'#777777',crestColor:light?'#dadada':'#cccccc'};
   }
   function fields(){
     if(q('[name="speed"]'))return;
@@ -135,16 +135,10 @@
       const output=input.parentElement.querySelector('output');if(output)output.textContent=String(value);
     }
   }
-  function ensureEngine(){
-    if(window.GaryGradientWaves)return Promise.resolve();
-    if(!loading)loading=new Promise((resolve,reject)=>{
-      const script=document.createElement('script');script.src=new URL('gradient-waves.js',base);
-      script.onload=resolve;script.onerror=()=>{loading=null;script.remove();reject(Error('本地波浪脚本加载失败 当前网格保持不变'));};document.head.append(script);
-    });return loading;
-  }
+  function ensureEngine(){return Promise.reject(Error('动态海浪引擎不在公开包'));}
   async function select(background,fromMedia=false){
     if(!fromMedia)mediaTicket++;
-    const supported=['dot-grid','gradient-waves','custom-media',...CSS_BACKGROUNDS];
+    const supported=['dot-grid','custom-media',...CSS_BACKGROUNDS];
     if(!supported.includes(background))background='dot-grid';
     const token=++request;engine?.destroy();engine=null;
     scene.dataset.garyBackground='dot-grid';syncAmbientMotion();q('[name="background"]').value=background;
@@ -181,7 +175,7 @@
   q('[data-waves-pause]').addEventListener('click',()=>{if(['paused','complete'].includes(engine?.state.status))engine.play();else engine?.pause();syncStatus();});
   q('[data-waves-replay]').addEventListener('click',()=>engine?.replay());
   q('[data-waves-reset]').addEventListener('click',()=>{preset='silver';q('[name="preset"]').value=preset;options=recipe(preset);paintFields();engine?.update(options);});
-  q('[data-waves-retry]').addEventListener('click',()=>select('gradient-waves'));
+  q('[data-waves-retry]').addEventListener('click',()=>select('dot-grid'));
   function download(url,name){const a=document.createElement('a');a.href=url;a.download=name;a.click();}
   q('[data-waves-export]').addEventListener('click',()=>{
     const config={schemaVersion:1,engine:'gradient-waves',implementation:'gary-webgl-gradient-waves-1',theme:root.dataset.garyTheme,preset,options,playback:{mode:'continuous',durationSeconds:null,reducedMotion:'static'},globalDefaultChanged:false};
@@ -194,6 +188,6 @@
   window.GaryBackgroundLab={get engine(){return engine;},select};
   syncPointerEffects();
   const requestedBackground=new URLSearchParams(location.search).get('background');
-  select(['gradient-waves',...CSS_BACKGROUNDS].includes(requestedBackground)?requestedBackground:'dot-grid');
+  select([...CSS_BACKGROUNDS].includes(requestedBackground)?requestedBackground:'dot-grid');
   if(new URLSearchParams(location.search).get('customize')==='1')open.click();
 })();

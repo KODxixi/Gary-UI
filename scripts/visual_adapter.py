@@ -25,7 +25,7 @@ DEFAULT_TOOLS = {
     "outline": "markmap",
     "infographic": "antv-infographic",
     "simple-flow": "mermaid",
-    "icons": "lucide",
+    "icons": "reicon",
 }
 
 TOOL_SUFFIXES = {
@@ -34,7 +34,7 @@ TOOL_SUFFIXES = {
     "markmap": {".md", ".markdown"},
     "antv-infographic": {".json"},
     "mermaid": {".mmd", ".mermaid", ".md"},
-    "lucide": {".json"},
+    "reicon": {".json"},
 }
 
 TOOL_PURPOSES = {
@@ -43,7 +43,7 @@ TOOL_PURPOSES = {
     "markmap": {"outline"},
     "antv-infographic": {"infographic"},
     "mermaid": {"simple-flow"},
-    "lucide": {"icons"},
+    "reicon": {"icons"},
 }
 
 SCENES = {"reading", "analysis", "showcase"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"collapsible.d.ts","sourceRoot":"","sources":["../../../src/components/ui/collapsible.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAC9B,OAAO,KAAK,oBAAoB,MAAM,6BAA6B,CAAA;AAEnE,QAAA,MAAM,WAAW,8GAA4B,CAAA;AAC7C,QAAA,MAAM,kBAAkB,wHAA0C,CAAA;AAClE,QAAA,MAAM,kBAAkB,qHAA0C,CAAA;AAElE,OAAO,EAAE,WAAW,EAAE,kBAAkB,EAAE,kBAAkB,EAAE,CAAA"}

@@ -2,39 +2,65 @@
   "slug": "chip",
   "name": "标签胶囊",
   "category": "status-and-filter",
+  "source": "adapters/react-shadcn/src/components/ui/chip.tsx",
   "material": {
     "default": "SolidPlate",
     "rules": [
       "用于短标签、筛选或状态",
-      "语义色只作用于文字，不给玻璃染色"
+      "语义色只作用于文字与边框，不给玻璃染色",
+      "soft 变体用半透明底；solid 变体用实底"
     ]
   },
   "variants": [
     {
-      "name": "neutral",
-      "selector": ".gary-chip"
+      "name": "soft",
+      "selector": ".gary-chip--soft",
+      "background": "color-mix(in srgb, var(--gary-text-secondary) 12%, transparent)"
     },
     {
-      "name": "positive|caution|critical",
-      "selector": "[data-tone]"
-    },
-    {
-      "name": "selectable",
-      "selector": "button.gary-chip"
+      "name": "solid",
+      "selector": ".gary-chip--solid",
+      "background": "var(--gary-solid-plate)"
     }
+  ],
+  "tones": [
+    {
+      "name": "neutral",
+      "selector": ".gary-chip--neutral",
+      "color": "var(--gary-text-secondary)"
+    },
+    {
+      "name": "success",
+      "selector": ".gary-chip--success, .gary-chip[data-tone='positive']",
+      "color": "var(--gary-state-positive)"
+    },
+    {
+      "name": "warning",
+      "selector": ".gary-chip--warning, .gary-chip[data-tone='caution']",
+      "color": "var(--gary-state-caution)"
+    },
+    {
+      "name": "critical",
+      "selector": ".gary-chip--critical, .gary-chip[data-tone='critical']",
+      "color": "var(--gary-state-critical)"
+    }
+  ],
+  "sizes": [
+    {"name": "sm", "height": "24px", "fontSize": "11px", "paddingX": "8px"},
+    {"name": "default", "height": "28px", "fontSize": "12px", "paddingX": "10px"}
   ],
   "states": [
     {
       "name": "selected",
-      "selector": "[aria-pressed=\"true\"], [aria-selected=\"true\"]"
+      "selector": ".gary-chip:is([aria-pressed='true'], [aria-selected='true']), .gary-chip[aria-checked='true']"
     },
     {
       "name": "focus-visible",
-      "selector": ":focus-visible"
+      "selector": ".gary-chip:focus-visible"
     },
     {
       "name": "disabled",
-      "selector": ":disabled, [aria-disabled=\"true\"]"
+      "selector": ".gary-chip:is(:disabled, [aria-disabled='true'])"
     }
   ],
   "accessibility": {
@@ -46,6 +72,12 @@
     ]
   },
   "cssClasses": [
-    ".gary-chip"
+    ".gary-chip",
+    ".gary-chip--soft",
+    ".gary-chip--solid",
+    ".gary-chip--neutral",
+    ".gary-chip--success",
+    ".gary-chip--warning",
+    ".gary-chip--critical"
   ]
 }

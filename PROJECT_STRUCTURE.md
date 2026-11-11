@@ -9,6 +9,7 @@ gary-ui/
 ├─ metadata.json / library-consumption.json
 ├─ gary-ui.cmd
 ├─ spec/system.json / scene-recipes.json
+├─ spec/ARCHOS-ENTERPRISE-TOKENS.md + archos-enterprise.tokens.json   企业面板 token 规范
 ├─ contracts/
 │  ├─ task.schema.json / invocation.schema.json
 │  ├─ session.schema.json / proposal.schema.json
@@ -20,7 +21,7 @@ gary-ui/
 │  └─ recipes/decision-report/       已确认的建筑决策报告复用配方
 ├─ adapters/react-shadcn/
 ├─ adapters/visual/                 固定版本本地制图适配层与 Archify 副本
-├─ examples/visuals/                原生源、清单与可复用生成物
+├─ examples/visuals/                原生源、清单与可复用生成物（diagram-spec/ 为图示规范参考实现）
 ├─ examples/demos/                  六个完整情境页面、打印 PDF 与公开证据
 ├─ session/                         任务级共创 UI
 ├─ portal/                          全局治理 UI
@@ -60,7 +61,7 @@ gary-ui/
 
 ## 权威层级
 
-1. `spec/system.json`：版本、模式与协作策略。
+1. `spec/system.json`：版本、模式与协作策略（`authorities.enterpriseTokens` 指向企业面板 token 规范）。
 2. `tokens/tokens.json`、`components/*.json`：视觉值与组件 API。
 3. `contracts/*.schema.json`：Task、Visual、Session、Feedback、Evidence 与命令结构。
 4. `DESIGN.md`：视觉和协作不可破坏约束。

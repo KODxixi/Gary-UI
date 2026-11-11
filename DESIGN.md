@@ -45,7 +45,7 @@ SolidPlate Surface。同一区域只选一种主材质，禁止 glass-in-glass�
 分隔线和透明度差分组。
 
 Portal 与起手模板默认使用 `patterns/shared/dot-grid.js` 的本地 Canvas 点阵（旧 assets 入口仅转发）：深色页面底色是
-纯黑 `#000000`，浅色是纯白 `#ffffff`，鼠标仅对附近点作有限位移与亮度反馈。
+纯黑 `#000000`，浅色是纯白 `#ffffff`，鼠标仅对附近点作有限位移与亮度反馈。表面 token 必须与页面底色一致（`--gary-surface-page` 深色 = `#000000`）：用「近黑」或带色度的灰代替纯黑，视为契约缺陷（2026-10-26 修正）。
 默认背景只绘制点，不叠加线网、卡片等高线或第二套点阵。实体底纹仅按 [材质规范](docs/VISUAL_EXPRESSION.md#实体底纹与章节子卡) 显式裁切到实体外卡，不改变页面背景。Canvas 成功后隐藏 CSS 点阵；嵌入页保留独立的不透明页面底色。
 `prefers-reduced-motion` 下直接绘制完整静态点阵。Canvas 不可用时由 CSS 点阵接管，不回退到图片。
 默认不挂载照片或插图；只有用户明确提供或选择背景时，才允许覆盖 Scene。
@@ -63,7 +63,50 @@ Portal 与起手模板默认使用 `patterns/shared/dot-grid.js` 的本地 Canva
 玻璃保持 K-only 中性；状态色只用于文本、图标、焦点和小标记。短信息卡默认玻璃，
 SolidPlate 不作为整页通用黑底。
 
+**K-only 是硬约束，不是形容词**：表面 token（page / sunken / glass ×3 / solid-plate / card-plate / action-fill）
+的 chroma 必须为 0。带 chroma 的表面在低亮度下会整片偏蓝，与中性卡并排立刻露馅（2026-10-26 修正）。
+
+**SolidPlate 自带几何**：`.gary-solid-plate` 单独使用时也必须呈圆角（`--gary-radius-card`），
+变体为 `--default` / `--subtle` / `--inverse`，内部标题与数值用 `__label` / `__value`。
+材质类不再只给背景不给形状。
+
 ## 4. Token 层
+
+### K-only 底色（硬规则，2026-10-26）
+
+**中性面必须纯 K；有意为之的语义色块走单独的 tint 通道。** 这两件事别混：
+「脏灰 / 脏黑」（往 `#141414` 里掺一点蓝或棕，想调中性却调歪了）必须禁；
+「明确要一块带色的面」（图表分块、品牌强调块、图片蒙层）不该被同一条规则误伤。
+
+- 范围按 token 角色，不按名字枚举：所有 `*surface*`、`*glass*`、`*plate*`、`*card-surface*`、`*scene*`、
+  线类（`*border*`、`*hairline*`、`*line*`、`*edge*`）以及阴影色，取值只能是 `oklch(L 0 H)` 或 R=G=B 的 hex。
+- 深色页面底是纯黑 `#000000` / `oklch(0 0 0)`，浅色页面底是纯白；表面只能靠明度分层，不得靠色相。
+- **严禁任何带色相的深色或灰色作底**：暖调（`#141414` 里掺一点棕）、冷调（掺一点蓝）都算违规，
+  低亮度下会整片偏色，与中性卡并排立刻露馅。
+- 唯一允许带色相的是**前景语义色**：状态色（positive / caution / critical）与图表语义色（`spec/chart-recipes.json`）。
+  它们只作文字、图标、圆点、细边，不铺大面积底。
+- 企业面板层（§4 上一节）同样适用：`#141414` / `#1c1c1c` / `#262626` / `#333333` 的 R=G=B，强调与状态色不进底色。
+- **语义色块通道（2026-10-27 明确）**：需要带色底的场景用 `--gary-tint-*` 命名，且必须
+  ① 在 `spec/tints.json` 里登记 `bg` / `ink` / `contrast`；② 配一个 `--gary-tint-*-ink` 前景 token；
+  ③ `contrast ≥ 4.5`。没有登记、没有配墨、对比度不够的带色底一律算违规。
+  默认仍然是 K：tint 是例外，不是日常；一整页里带色块不应超过两处，其余靠明度分层。
+- 机器守：`agent/checks/invariants.py` 的 `token_chroma`（全部非状态 token）与 `enterprise_k_only`
+  （`spec/archos-enterprise.tokens.json` 的表面 / 线 / 墨 / 强调边）必须同时绿。
+
+
+### 企业面板层（ArchOS / GarchOS，2026-10-26）
+
+企业面板（工作台、管理台、抽屉、列表）另有一套已定稿的 token，权威是
+[spec/ARCHOS-ENTERPRISE-TOKENS.md](spec/ARCHOS-ENTERPRISE-TOKENS.md)（机器可读
+[spec/archos-enterprise.tokens.json](spec/archos-enterprise.tokens.json)，已在
+`spec/system.json.authorities.enterpriseTokens` 登记）。
+
+- 它是**一层**，不是新主题轴：不改 `data-gary-theme/density/material` 的枚举，也不新增视觉轴。
+- 该层底色 `#141414`（暖深黑），强调色亮灰 `#cfd0d3`，选中 `#2a2a2a` + `#6a6b70`；表面平底 + 1px 发丝边，不用玻璃与渐变。
+- 边界：报告、展示与 HTML 共创产物继续用本文件默认的纯黑 + 玻璃；工具型工作台用企业面板层。
+  两套不混用同一页面，也不互相覆盖 token 名。
+- 取值纪律：27 个色值全部来自 `apps/archos-console/src/tokens.css` 与 `三风格对比.html` theme A，
+  不新增颜色；加 token 前先回答「哪个组件状态会用到它」。
 
 - 机器真相源：`tokens/tokens.json`；唯一 CSS 入口：`tokens/base.css`。
 - 主题：`data-gary-theme="dark|light"`。
@@ -72,8 +115,9 @@ SolidPlate 不作为整页通用黑底。
   `.gary-regular`、`.gary-thick` 或 `.gary-solid-plate`。
   - 根标记仍遵循 invocation schema。元素级 `data-gary-material="glass"` 是新增的中性卡片配方，
     使用同一 token 与 components CSS；不改变根主材质枚举。密集正文与图表不套用互动卡片配方。
-- 圆角：工具操作为 44 × 44px 圆形；其余 control 18px / card 30px / panel 36px / pill 999px。
-- 完整 Demo 是 Portal、组件、模板和制图目录的视觉基线。工具操作优先使用 `data-gary-icon` 与共享 Lucide 图标，1.6px 描边；使用 `aria-label` 和悬停标题表达动作，状态切换保留图标。导航、分段筛选、内容选择保留文字。
+- 圆角：工具操作为 44 × 44px 圆形；其余 control 18px / panel 36px / pill 999px；
+  card 圆角随尺寸变化（见 §7），仍有 14–28px 的上下限。
+- 完整 Demo 是 Portal、组件、模板和制图目录的视觉基线。工具操作优先使用 `data-gary-icon` 与共享图标（React 组件层图标来源 reicon-react；vanilla 静态层与 morph 仍取 Lucide 几何），1.6px 描边；使用 `aria-label` 和悬停标题表达动作，状态切换保留图标。导航、分段筛选、内容选择保留文字。
 - 普通卡片接入共享 `patterns/shared/material.js` 和原创 `patterns/shared/optical-glass.js`，复用 30px 光学边缘；实底信息板不施加折射，禁止在样例容器外再套玻璃卡片。受再分发限制的旧移植仅保留在维护者本地，不作为公开实现入口。
 - 按压反馈使用 100–160ms；UI 状态转场不超过 300ms。600ms 舒展和悬停边缘单次 6s
   仅属于明确启用的展示配方，不能阻塞输入。
@@ -92,7 +136,10 @@ Token 变更必须保持暗色、亮色与无 backdrop-filter 降级可用。
 ## 6. 排版
 
 - 中英混排采用本地字体级联：Latin/英文优先 Helvetica Neue / Helvetica / Arial，中文优先 Microsoft YaHei UI / Microsoft YaHei / 微软雅黑；富文本允许 100–900 数值字重并按本机可用字重回退。
-- 正式字号 caption 13 / label 14 / body 16 / lead 18 / title 20–28 / display 32–72px。
+- 正式字号 caption 13 / label 14 / body 16 / lead 18 / title 20–28 / display 32–72px；
+  高密度报告的栏头与次级数字可用 micro 12px（`--gary-font-size-micro`），正文不得低于 caption。
+- **例外只对 16:9 演示与打印配方**：`profile.json` 声明 `presentationAspectRatio: "16:9"` 的页面，
+  页脚、来源与图注允许 9–11px（投影与纸张的观看距离不同于连续阅读）。阅读型页面不适用。
 - 字重（token 名 = 值，按值升序）：regular 400 / medium-light 500 / medium 600 /
   extra-semibold 620 / semibold 650 / semibold-strong 660 / semibold-extra 670 /
   bold-light 680 / bold-strong 700 / bold 720 / heavy 740 / black 760 /
@@ -107,13 +154,174 @@ Token 变更必须保持暗色、亮色与无 backdrop-filter 降级可用。
 - 大字展示标题必须单行且不带标点，中文不超过 12 字；超长时先改写短标题，完整语义移入副标题或正文，不用 `<br>` 硬换行。
 - 章节标题可自然换行；标题依靠字号、字重和留白，数值用等宽数字。
 
+### 富文本层级（2026-10-26）
+
+长正文与说明块统一走 `.gary-prose`，不允许在富文本里临时写字号、字重或颜色。四级，只有四级：
+
+| 层级 | 角色 | 字号 / 行高 | 字重 | 颜色 | 用途 |
+|---|---|---|---|---|---|
+| 主判断 | `.gary-prose__lede` | 18 / 1.68 | 500 | text-primary | 一段话讲完结论，一页只有一条 |
+| 小标题 | `h3` / `h4` | 16 / 1.4 | 600 | text-primary | 分组，不承担观点 |
+| 正文 | `p` | 16 / 1.68 | 400 | text-secondary | 依据与解释，每段 ≤72 中文字符 |
+| 注脚 | `small` / `.gary-prose__note` | 13 / 1.55 | 400 | text-tertiary | 来源、口径、时间 |
+
+规则：
+
+- **一页一个主判断**，出现在第一屏，不藏在第三段。
+- **主次靠三件事**：字号档位、字重档位、颜色三级；不靠加粗堆砌，不用第二个强调色。
+- 富文本里**禁止**：行内 `!important`、临时 hex 色、`<br>` 排版、以 `<b>` 代替小标题。
+- 列表用于并列（同一层级 ≥3 项）；单个结论不用列表包装。
+- 引用与代码块用 `.gary-prose q` / `.gary-prose pre`，颜色只用 text-secondary / sunken 表面。
+
 ## 7. 几何与动效
 
-内外圆角同心；主卡基准圆角为 30px，内部卡使用 16–20px；均衡密度以 8px 为组件节奏，
+### 密度与栏数（2026-10-26）
+
+高密度报告与面板**默认三栏竖排**：左「风险 / 待处理」、中「已处理 / 证据」、右「待办 / 改动」。**禁止只做两栏**——
+两栏在同等信息量下会把每列拉到 700px 以上，扫描路径变长，且必然出现大片竖向空白。
+单列表格不属于两栏，可作为更高密度的替代；两栏只在窄屏（<880px）由三栏塌缩时出现。
+
+判定顺序：先算一条判定占多少高度（40–48px 为健康值），再决定栏数；信息量撑不满三栏时，用验收线、改动清单等
+真实内容补齐，不要靠留白凑版面。
+
+### 分块对齐（2026-10-26）
+
+同一版面里的块必须共用一套对齐关系，不能各写各的：
+
+1. **等高**：并排的面板用 `align-items: stretch` + 内部 `display:flex; flex-direction:column`，顶边与底边同时对齐。
+   行数少的块把富余摊成**均匀行距**（`justify-content: space-between`），不要在面板底部堆一块空白。
+2. **共用列轨道**：面板下方的次级区块（富文本带、结论条）复用上方同一套 `grid-template-columns` 与 `gap`，
+   于是右侧小卡自动落在最右栏的左右边缘上，不需要二次对宽度。
+3. **内容左缘一致**：面板内边距 18px 时，正文块的左内边距取 19px（含 1px 边框），文字与栏头落在同一条竖线上。
+4. **页脚同高**：各栏末尾的说明行统一 13px、落在同一 y 上；没有说明的栏留同高留白，不要用别的内容顶替。
+5. **一行一个节奏**：同一栏内行距恒定；跨栏允许不同（8 条与 4 条的信息量不同），但同一栏内不得出现两三种间距。
+6. **内边距 ≥ 圆角的一半**：32px 圆角配 10px 内边距时圆弧会切掉栏头，实测内边距 <14px 必然出问题。
+7. **几何由组件承载**：面板用 `.gary-glass-card` 拿圆角、内边距与分层描边，页面只写排版，
+   不自己写 `border` / `box-shadow` / `border-radius` —— 手写会把共享材质的四边描边和三层阴影压掉。
+8. **玻璃与实板分工**：报告的三栏允许全部是 `GlassCard`（判断与状态用玻璃），
+   长正文、参数表、来源条留纸面或 `SolidPlate`；不把连续阅读的正文套进玻璃。
+
+内外圆角同心；主卡圆角随卡片尺寸变化——`r = clamp(14px, 4% × 卡片宽度, 28px)`，与
+`--gary-radius-card: clamp(14px, 6cqi, 28px)` 上下限一致（无脚本时按视口 6cqi 兜底，有脚本时按卡片宽度 4%）。
+在根或容器加 `data-gary-radius="auto"` 并加载 `patterns/shared/radius.js` 即可，元素级可用
+`data-gary-radius-min/max/ratio` 覆盖；小卡不再被套上大圆角，宽卡也不会显得生硬。内部卡使用 16–20px；均衡密度以 8px 为组件节奏，
 并按 8 / 16 / 24px 组织留白。自定义主卡使用 70% 表面透明度与 8% 层级对比。
 hover 只在精确指针设备使用轻微位移或阴影，active 在 100–160ms 内回应。UI 运动不超过
 300ms，必须从当前画面值继续并允许立即打断；只有真实动量交互可以 bounce。键盘焦点必须清晰，
 动效只表达状态变化。`prefers-reduced-motion` 下取消位移、弹性与视差，保留轻柔透明度或颜色反馈。
+
+### 工业界面品味（2026-10-26，`data-gary-taste="industrial"`）
+
+对象是数据密集、工具型、高频使用的工作台，不是营销页。默认的玻璃味（GlassCard + 分层阴影 + 光学边缘）
+只在报告与展示页成立；工具型界面切到这个轴，规则如下。
+
+**三条硬约束**
+
+1. **底色不带色相**：`--gary-surface-*`、`--gary-hairline-*`、`--gary-text-*`、`--gary-accent-neutral`
+   的 chroma 恒为 0（`oklch(L 0 0)`），暖调、冷调都算违规。带色相的深色/灰色不得用作底。
+2. **分层靠明度，不靠装饰**：`page → card(0.145) → raised(0.195) → overlay(0.175)` 四档明度 + 1px 发丝边；
+   不叠投影、不叠毛玻璃、不叠渐变。唯一的阴影给抽屉与浮层（`.gary-overlay`）。
+3. **交互只改底色**：hover 提亮一档、active 再提一档，不改位移、不改尺寸、不发光；
+   键盘焦点用亮灰描边 `--gary-accent-neutral`，不用彩色环。
+
+**刻度**
+
+| 项 | 工业轴取值 | token |
+|---|---|---|
+| 圆角 | 控件 8 / 卡片 12 / 面板 16 / 胶囊 999 | `--gary-radius-control/card/panel/pill` |
+| 字号 | 26 标题 / 17 小节 / 13 正文 / 11 数据 / 10 极弱 | `title-micro-data-nano` 五档 |
+| 间距 | 4 的倍数，卡片与列表 gap 6 | `--gary-space-*`、`--gary-grid-gap` |
+| 动效 | 120–180ms，ease-out，只在状态变化时 | `--gary-duration-press/ui` |
+| 栅格 | `repeat(auto-fill, minmax(150px, 1fr))`，不写死列数 | — |
+
+**文字五级**：`text-strong`（标题/姓名）→ `text-body`（正文）→ `text-meta`（meta 值）→
+`text-caption`（说明）→ `text-faint`（占位/工号）。层级只靠明度，不换色相；正文不小于 13px，
+数据格不小于 11px，工号与时间戳可用 10px（仅限这两类，不用于说明文字）。
+
+**状态与选中**：空闲绿 / 已排挡金 / 停用红，只落在边框、小圆点与数字上，不铺底、不做彩虹色。
+选中态 = `--gary-selected-fill` 中性深灰底 + `--gary-selected-edge` 亮灰描边，不用暖棕、不用品牌大色块。
+空态、加载态、错误态都要有文案，不许留空白。
+
+**零死按钮**：看着像能点的必须真有反应；hover / active / focus 三态齐全；动效尊重 `prefers-reduced-motion`。
+
+**反 slop 红线**：渐变背景（抽屉封面除外）、毛玻璃铺满、发光边框、彩色大 hero、
+超过一个强调色、按钮全胶囊、装饰性图标、为动而动的动效 —— 一律不做。
+
+参考实现：`patterns/industrial/index.html`（排班工作台：左侧 232px 导航 + 状态筛选 + 12 张成员卡 +
+抽屉改状态 + 今日变更记录；12 个交互全部实测可用，390px 无横向溢出）。
+
+**已知坑**：底色来自主题变量的元素不要常驻 `transition`。切换 `data-gary-theme` 时
+Chromium 会把旧底色卡住（实测从深色切浅色后卡片仍停在 `oklch(0.145 0 0)`）。
+过渡只挂在 `:hover / :active / :focus-visible / [aria-selected] / [aria-pressed]` 上。
+
+### 报告排版：同一结论只渲染一次（硬规则，2026-10-27）
+
+一条结论在页面上只出现一次。多组件共用同一个结论字段时，只渲染一次，其余组件引用它的编号或标题。
+
+判据（机器闸同口径）：正文里两段文本在**去空白、去 `&nbsp;` 实体**后完全相同、长度 ≥20 字、且含中文标点
+（。，；：、）→ 判为重复。标题、跑马头、标签不算结论（无标点或不足 20 字）。
+改写（同义不同字）不判重复——这是精度限制，靠人工核。
+
+典型违规：水印大字、正文、右侧卡、核心判断卡各渲染一次同一句话。
+
+**强制范围**：`patterns/recipes/**`（报告页）与任何用 `--page` 显式送审的页面。目录页与演示页天然会重复标签，不强制。
+免责声明（含「免责 / 示意 / 不代表 / 数据来源」）与标题、跑马头不计入。
+不计入：导航目录（`<nav>`）、代码块、标题与跑马头、免责/示意类声明（含「免责 / 示意 / 不代表 / 数据来源」）。
+判据会把全角统一成半角、抹掉零宽字符后比对；同一段之内重复出现也判。
+
+### 报告正文用语：内部编码不许出现在正文（硬规则，2026-10-27）
+
+工程的编号系统（`SC1` / `SC2` / `AD3` / `SRC-MKT-01` / 章节 id / 来源登记号）是给索引用的，不是给读者看的。
+
+1. **正文只写中文人话**：读者读到的是「需求结构与画像」，不是「SC2·02」；来源写「2021 年 4984 户问卷」，
+   不是「SRC-MKT-01」。编号留在索引抽屉里，正文不出现。
+2. **索引区**：页面可留一个溯源区，承载它的容器必须显式写 `data-gary-index`（写在 `body`/`html` 上无效）
+   （`<div data-gary-index>` 即可，类名叫什么都行）。这是唯一豁免方式：正文挂个 `internal-*` 类名不算，
+   嵌套几层也不影响判定。代码块 `<pre>` / `<code>` 同样豁免。
+3. **一处定义**：编号到人话的对照只维护一张表（放抽屉里或附录），正文各章引用中文名，不各写一套别名。
+4. 机器闸：`agent/checks/invariants.py` 的 `check_internal_codes`（`--page` 与 `report_text` 都会跑）。
+
+### 表面几何：卡片必须有圆角（硬规则，2026-10-27）
+
+**禁止方角卡片。宁可不要衬底，也不要一块方角色块。**
+
+1. **什么算卡片**：有背景填充、**不贴页面边缘**、独立成块的表面（判断卡、分块、提示条、徽章区）。
+   这类块圆角 ≥ 8px；默认轴用 `--gary-radius-card`（`clamp(14px, 6cqi, 28px)`），
+   工业轴按 8 / 12 / 16 取。控件圆角是 `--gary-radius-control`（18px），不属本条。
+2. **什么不算卡片**（不参与本条）：页面与场景底（`html` / `body` / `.pattern-scene` / 带 `data-gary-scene` 的底）、
+   贴边块（侧栏 rail、全宽 band、右滑抽屉、进度条与轨道、分隔线、点阵与网格）、
+   表格单元与表格行（靠 1px 分隔线分区）、图表标记（柱、线、点的几何由数据决定）、图标字形、
+   `.gary-*` 组件（几何由组件层提供，只有组件自己在同一条规则里把圆角压到 <8px 才算违规）。
+3. **圆角值必须成立**：px / rem / em 换算后取**最小角**判；`0%` 等于 0；`50%` 以上视为胶囊/圆形；
+   `var(--gary-radius-*)` 必须能在 `tokens/base.css` 解析出 ≥8px，解析不出按缺陷报；
+   页面里用 `var(--gary-*)` 却没引 `tokens/base.css`（也没内联定义）同样判缺陷——变量没装载，圆角实际是 0。
+4. **宁可没有底**：分不出层级时不要加底、不要加线，改用留白（24/32px）、字号或字重分节。
+5. **禁止彩色左边条**：`border-left` / `border-inline-start` ≥2px 且**带色相**才算违规
+   （中性发丝线可用）；状态判定行用 `box-shadow: inset 2px 0 0` 且该行不加底。
+6. 机器闸：`agent/checks/page_scan.py`（`no_square_card` 与 `--page` 共用），按上表分「卡片 / 非卡片」判，
+   不按类名关键词猜；`--all` 才扫历史演示页。
+
+### 报告正文用语：内部编码不许出现在正文（硬规则，2026-10-27）
+
+工程的编号系统（`SC1` / `SC2` / `AD3` / `SRC-MKT-01` / 章节 id / 来源登记号）是给索引用的，不是给读者看的。
+
+1. **正文只写中文人话**：读者读到的是「需求结构与画像」，不是「SC2·02」；来源写「2021 年 4984 户问卷」，
+   不是「SRC-MKT-01」。编号留在索引抽屉里，正文不出现。
+2. **索引区**：页面可留一个溯源区，承载它的容器必须显式写 `data-gary-index`（写在 `body`/`html` 上无效）
+   （`<div data-gary-index>` 即可，类名叫什么都行）。这是唯一豁免方式：正文挂个 `internal-*` 类名不算，
+   嵌套几层也不影响判定。代码块 `<pre>` / `<code>` 同样豁免。
+3. **一处定义**：编号到人话的对照只维护一张表（放抽屉里或附录），正文各章引用中文名，不各写一套别名。
+4. 机器闸：`agent/checks/invariants.py` 的 `check_internal_codes`（`--page` 与 `report_text` 都会跑）。
+
+### 外壳不加分隔线（硬规则，2026-10-26）
+
+侧栏与主工作区之间**不画竖线**：不写 `border-right`、不加 1px 分隔、不用阴影当分隔。
+两者靠**表面明度差**过渡——深色层 `#141414` 页面 → `#1c1c1c` 卡片 / 侧栏（Δ8），浅色层同理。
+
+- 适用范围：Gary-UI 自己的版式（`patterns/application-modes`、`patterns/industrial`、`portal`、`session`）
+  与 DSH 外壳是同一条规则；DSH 侧的具体坑位见 `C:\GarchOS\ArchOS\AGENTS.md`「外壳规则」。
+- 侧栏内部的分组线、导航项之间的线不在禁止之列——禁的是「侧栏 ↔ 工作区」这条外框线。
+- 靠线分不开时不要加线，改明度：把侧栏或工作区抬一档（`#141414 ↔ #1c1c1c`），或把内容内缩 24px。
 
 ### 参考提炼与 Gary 落地
 
@@ -135,7 +343,7 @@ hover 只在精确指针设备使用轻微位移或阴影，active 在 100–160
 
 鼠标驱动的点阵位移、卡片光泽与波面视差默认关闭；通过 Background 的“鼠标光影”显式开启，刷新不自动恢复。根属性 `data-gary-pointer-effects="on"` 控制共享实现，减弱动态优先。点击、键盘焦点和图表读数提示保持可用。
 
-分析图表与表格以[图表表达规范](docs/CHART_EXPRESSION.md)和[机器规则](spec/chart-recipes.json)为准：17 类选型、7 种标注，明确问题、数据前提、尺度、语义色、文字层次与来源。标注绑定对象与依据，推导判断随数据重算或失效；不能把行业字段、固定编号或原图颜色当作通用规则。[demo0909](demo0909.html)用跨领域输入验证五种[共享 SVG 参考配方](patterns/shared/chart-recipes.js)，不代表全部类型自动实现；其余走既有工具，正式适配器与导出契约不变。参数的自动消费与作者审查边界见规范的调用说明。
+分析图表与表格以[图表表达规范](docs/CHART_EXPRESSION.md)和[机器规则](spec/chart-recipes.json)为准：17 类选型、7 种标注，明确问题、数据前提、尺度、语义色、文字层次与来源。标注绑定对象与依据，推导判断随数据重算或失效；不能把行业字段、固定编号或原图颜色当作通用规则。[demo0909](demo0909.html)用跨领域输入验证五种[共享 SVG 参考配方](patterns/shared/chart-recipes.js)，不代表全部类型自动实现；其余走既有工具，正式适配器与导出契约不变。参数的自动消费与作者审查边界见规范的调用说明。图示（架构 / 流程 / 时序 / 状态）另按[图示表达规范](docs/DIAGRAM_EXPRESSION.md)与[机器规则](spec/diagram-recipes.json)：边界承载状态命题、节点只写事实身份、线型承担成立性、跨边界连接必须绕行；缺口与风险不用颜色表达。
 
 材质按[玻璃表达规则](docs/VISUAL_EXPRESSION.md)选择。三种材质已批准：Solid 用于密集数据与长正文，Frosted 用于摘要与导航，Optical 用于短内容与展示，数据与文字不加滤镜。图与数值表同源，手机先重排／分图、表格转带字段名的逐行布局；必要的复杂图可有提示地局部横向阅读，页面本身不横溢。联动光影由 Background 主动开启，刷新恢复关闭。
 
@@ -197,9 +405,13 @@ Gary-UI 使用两级模式。一级决定页面壳、导航、滚动和交互密
 - 来源抽屉只展示本报告实际引用的来源；项目数据、证据准入和业务渲染仍由消费项目负责。
 - 机器参数以 `patterns/recipes/decision-report/profile.json` 为准；示例不含项目数据。
 
+所有 `patterns/recipes/*` 配方都必须带 `profile.json`（写明 3 × 4 组合、列模板、材质分工与检查入口），
+示例不含项目数据。配方在 `patterns/starting-points/index.html` 的「配方」区块登记，登记只加版式入口，
+不新增视觉轴、不生成 token 副本。
+
 ## 9. 扩展边界
 
-- 图标可用 Lucide 或系统图标，但继续消费 Gary tokens。
+- 图标可用 reicon-react（React 组件层）或系统图标；vanilla 静态层与 morph 仍取 Lucide 几何。无论哪层都继续消费 Gary tokens。
 - 图表库保持中立；Gary-UI 规定容器和证据表达，不绑定具体库。
 - Dialog 使用成熟可访问 primitive，再以 Thick/SolidPlate 呈现。
 - 通用数据表使用原生 table + SolidPlate；比较任务才用 ComparisonTable。
@@ -207,6 +419,8 @@ Gary-UI 使用两级模式。一级决定页面壳、导航、滚动和交互密
 
 ## 10. 验收门槛
 
+- `python -B agent/checks/invariants.py` 通过（母库自洽：中性 token 色度为 0、页面底色深黑浅白、
+  契约类存在、两个验收器同时为绿）。这一条优先于任何单页视觉检查。
 - `python -B scripts/validate_v2.py` 通过。
 - 桌面与 390px 无溢出、裁切或玻璃嵌套。
 - 主题、材质、导航、筛选和页面模式可操作。

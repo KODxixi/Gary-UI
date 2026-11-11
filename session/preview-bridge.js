@@ -66,7 +66,7 @@
         cursor: crosshair;
       }
       .gary-codesign-highlight {
-        outline: 3px solid var(--gary-focus-ring, #2e8dff) !important;
+        outline: 3px solid var(--gary-focus-ring, #818181) !important;
         outline-offset: 4px !important;
       }
       @media (prefers-reduced-motion: reduce) {

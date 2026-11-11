@@ -1,0 +1,106 @@
+<!doctype html><html lang="zh-CN" data-gary-theme="dark" data-gary-density="compact" data-gary-material="regular" data-gary-radius="auto" data-gary-application-mode="scroll-report" data-gary-page-mode="data-page">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Gary-UI · 审计报告（三栏）</title>
+<link rel="stylesheet" href="../../patterns.css">
+<style>
+  /* 场景由 .pattern-scene 绘制：body 不能有底色，否则负 z-index 的点阵被整块盖掉 */
+  body { margin: 0; color: var(--gary-text-primary);
+         font-family: var(--gary-font-sans); font-size: var(--gary-font-size-caption); line-height: 1.45; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 13px 16px 20px; position: relative; }
+  .bar { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; padding-bottom: 8px;
+         border-bottom: 1px solid var(--gary-border-shadow); }
+  .bar h1 { margin: 0; font-size: 1.25rem; font-weight: var(--gary-font-weight-medium); }
+  .bar .meta { font-size: var(--gary-font-size-micro); color: var(--gary-text-tertiary); }
+  .facts { display: flex; flex-wrap: wrap; gap: 13px; margin: 10px 0 12px;
+           font-size: var(--gary-font-size-micro); color: var(--gary-text-secondary); }
+  .facts b { color: var(--gary-text-primary); font-weight: var(--gary-font-weight-medium);
+             font-variant-numeric: tabular-nums; margin-right: 3px; }
+
+  .board { display: grid; grid-template-columns: 1fr 1.34fr 0.94fr; align-items: stretch;
+           gap: var(--gary-density-layout-gap); }
+  /* 面板圆角按自身宽度算（container-type 让 6cqi 落到面板而不是视口） */
+  .board > .col { display: flex; flex-direction: column; container-type: inline-size; min-width: 0; }
+  .board > .col > .note { margin-top: auto; }
+  /* 中栏行数少：富余摊成均匀行距，不在面板底部堆空白 */
+  .c-done > ul { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: space-between; }
+
+  h2 { margin: 0 0 8px; padding-bottom: 5px; font-size: var(--gary-font-size-micro); letter-spacing: .1em;
+       font-weight: var(--gary-font-weight-medium-light); color: var(--gary-text-tertiary);
+       display: flex; justify-content: space-between;
+       border-bottom: 1px solid var(--gary-border-shadow); }
+  h2.sub { margin-top: 14px; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { padding: 4px 0; border-bottom: 1px solid color-mix(in srgb, var(--gary-border-shadow) 55%, transparent); }
+  li span { font-size: var(--gary-font-size-caption); font-weight: var(--gary-font-weight-medium-light); }
+  li em { float: right; margin-left: 8px; font-style: normal; font-size: var(--gary-font-size-micro);
+          color: var(--gary-text-tertiary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  li i { display: block; font-style: normal; font-size: var(--gary-font-size-micro);
+         color: var(--gary-text-secondary); margin-top: 2px; }
+
+  .c-risk .risk-list li { box-shadow: inset 2px 0 0 color-mix(in srgb, var(--gary-state-caution) 50%, transparent);
+                          padding-left: 9px; }
+  .c-risk .risk-list li em { color: var(--gary-state-caution); }
+  .note { margin: 10px 0 0; font-size: var(--gary-font-size-caption); line-height: 1.55; color: var(--gary-text-tertiary); }
+  .note code { color: var(--gary-text-secondary); }
+  .tight li { padding: 4px 0; }
+
+  .prose-band { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--gary-border-shadow);
+                display: grid; grid-template-columns: 1fr 1.34fr .94fr; gap: var(--gary-density-layout-gap);
+                align-items: start; }
+  .prose-band .gary-prose { max-width: none; grid-column: span 2;
+                            padding: 0 calc(var(--gary-density-surface-padding) + 1px); }
+  .prose-band .meta-col { align-self: start; }
+  .prose-band .meta-col h2 { font-size: var(--gary-font-size-micro); }
+  .prose-band .meta-col ul { margin: 0; }
+  .prose-band .meta-col li { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0;
+                             font-size: var(--gary-font-size-micro); color: var(--gary-text-secondary);
+                             border-bottom: 1px solid color-mix(in srgb, var(--gary-border-shadow) 55%, transparent); }
+  .prose-band .meta-col li:last-child { border-bottom: 0; }
+  .prose-band .meta-col em { font-style: normal; color: var(--gary-text-tertiary);
+                             font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .prose-band .gary-prose__lede { margin-bottom: 8px; }
+  .prose-band .gary-prose p { margin: 0 0 6px; }
+  .prose-band .gary-prose small { display: block; }
+
+  @media (max-width: 880px) {
+    .board, .prose-band { grid-template-columns: 1fr; }
+    .prose-band .gary-prose { grid-column: 1; padding: 0; }
+  }
+</style></head><body class="gary-ui">
+<div class="pattern-scene" data-gary-scene-engine="dot-grid" aria-hidden="true"></div>
+<div class="wrap">
+<div class="bar"><h1>母库体检</h1><span class="meta">2026-10-26 · 15 条判定</span></div>
+<div class="facts"><span><b>3136</b>受管文件</span><span><b>151 MB</b>体积</span><span><b>41</b>顶层目录</span><span><b>115</b>技能</span><span><b>2271</b>比对文件</span><span><b>0</b>投影差异</span><span><b>0</b>审计阻断</span></div>
+<div class="board">
+  <section class="col c-risk gary-glass gary-glass-card" data-gary-material="glass"><h2>风险<span>4</span></h2><ul class="risk-list"><li><span>工作台混进了资产库</span><em>32%</em><i>一次性产物占体积三分之一；技能库 103MB 含 22MB 模板与重复音频</i></li><li><span>技能是扁平命名空间</span><em>115</em><i>review 家族 6 个成员描述互斥待确认</i></li><li><span>语义投影删除缺口</span><em>L5-3</em><i>文本索引无孤儿清理，超 3000 文件跳过治理态</i></li><li><span>跨会话入口靠自觉</span><em>1 跳</em><i>事实入口没有写进运行时第一行</i></li></ul>
+    <h2 class="sub">验收线<span>3</span></h2><ul class="tight"><li><span>审计 audit.py</span><em>0 阻断</em></li><li><span>投影 deploy.py verify</span><em>2271 · 零差异</em></li><li><span>规则 rules-lint</span><em>11 / 11</em></li></ul>
+    <p class="note">判据：<code>audit.py</code>、<code>deploy.py verify</code>、<code>invariants.py</code>，均为实测。</p>
+  </section>
+  <section class="col c-done gary-glass gary-glass-card" data-gary-material="glass"><h2>已修<span>8</span></h2><ul><li><span>顶层索引覆盖不住顶层目录</span><em>41/41</em><i>补登记表：归口、文件数、职责，待归位项如实标注</i></li><li><span>投影一致性没有机器守</span><em>2271</em><i>健康总闸一个退出码，首跑抓到达包 3 处残留</i></li><li><span>注册表登记了不等于能用</span><em>0</em><i>审计按登记解释器校验，负向测试通过</i></li><li><span>表面 token 色度</span><em>8</em><i>chroma 归零，页面底改纯黑</i></li><li><span>材质类不带几何</span><em>1</em><i>solid-plate 补圆角，不再是直角大方块</i></li><li><span>圆角与尺寸无关</span><em>14–28</em><i>按宽度 4% 计算，新增 radius.js</i></li><li><span>两个验收器互相矛盾</span><em>22</em><i>15 组件判据改为集合包含，首次双绿</i></li><li><span>字面色度 226 处</span><em>226</em><i>按等亮度换中性灰，状态色保留</i></li></ul>
+    <p class="note">8 项均已复验，数字取自 audit 与 verify 的实际输出。</p>
+  </section>
+  <section class="col c-side gary-glass gary-glass-card" data-gary-material="glass"><h2>待办<span>3</span></h2><ul><li><span>工作台搬出资产库</span><em>本周</em><i>未归位项目定归属，重复资产转仓库外</i></li><li><span>技能加第二维</span><em>本周</em><i>按类出二级索引，家族写清不接管什么</i></li><li><span>漂移在提交时被挡</span><em>长期</em><i>健康结论接 CI，不只每日任务报</i></li></ul>
+    <h2 class="sub">本轮改动<span>8</span></h2><ul class="tight"><li><span>tokens.json / base.css</span><em>表面</em></li><li><span>components.css</span><em>材质 · 22 变体</em></li><li><span>patterns.css</span><em>排版</em></li><li><span>radius.js</span><em>新增</em></li><li><span>portal/app.css</span><em>Portal</em></li><li><span>session/app.css</span><em>会话壳</em></li><li><span>agent/primitives.css</span><em>agent</em></li><li><span>invariants.py</span><em>新增</em></li></ul>
+  </section>
+</div>
+
+<section class="prose-band">
+  <div class="gary-prose">
+    <p class="gary-prose__lede">母库自洽：六条不变量全绿，22 项既有失败清零。</p>
+    <p>表面 token 色度归零、页面底色回到纯黑与纯白、材质类补上几何，验收层两个验收器不再互相矛盾。</p>
+    <p>还剩三件事没做：工作台未搬出资产库、技能仍是扁平命名空间、语义投影的删除缺口只到治理态。</p>
+    <small>来源：<code>audit.py --json</code>、<code>deploy.py verify</code>、<code>agent/checks/invariants.py</code>；复核 <time datetime="2026-10-26T02:40+08:00">02:40</time>，2026-10-26。</small>
+  </div>
+  <aside class="meta-col gary-glass gary-glass-card" data-gary-material="glass"><h2>口径</h2><ul>
+    <li><span>审计</span><em>0 阻断 / 2 提醒</em></li>
+    <li><span>投影比对</span><em>2271 项</em></li>
+    <li><span>规则检查</span><em>11 / 11</em></li>
+    <li><span>不变量</span><em>6 / 6</em></li>
+  </ul></aside>
+</section>
+</div>
+<script src="../../../patterns/shared/radius.js"></script>
+<script src="../../../patterns/shared/dot-grid.js"></script>
+<script src="../../../patterns/shared/material.js"></script>
+<script src="../../../patterns/shared/optical-glass.js"></script>
+</body>
+</html>

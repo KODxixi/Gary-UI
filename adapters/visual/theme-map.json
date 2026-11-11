@@ -7,7 +7,7 @@
     "showcase": {"surface": "controlled-glass", "surfaceAlpha": 0.86, "archifyPreset": "blueprint", "motion": "finite"}
   },
   "themes": {
-    "dark": {"background": "#000000", "surface": "#111214", "text": "#f2f4f7", "muted": "#b7bdc8", "accent": "#74a7ff", "border": "#32363d", "grid": "#292d34"},
+    "dark": {"background": "#141414", "surface": "#1c1c1c", "text": "#f7f7f7", "muted": "#9d9ea2", "accent": "#cfd0d3", "border": "#333333", "grid": "#262626"},
     "light": {"background": "#ffffff", "surface": "#f6f2eb", "text": "#221e1b", "muted": "#675f58", "accent": "#245fbd", "border": "#c9c1b8", "grid": "#d8d0c7"}
   }
 }

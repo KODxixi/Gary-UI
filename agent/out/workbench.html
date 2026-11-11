@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark" data-density="compact">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>工作台</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../primitives.css?v=g6">
+<script>/* 首帧前定主题，避免闪白/闪黑 */(function(){try{var t=localStorage.getItem("gary.theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;}}catch(e){}})();</script>
+<style>
+  html,body{overflow:hidden}
+  body{display:flex;flex-direction:column;height:100%}
+  .topbar{display:flex;align-items:center;gap:12px;height:28px;flex:none;padding:6px 16px 0;border-bottom:1px solid var(--line2)}
+  .brand{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600}
+  .mark{width:15px;height:15px;border-radius:4px;display:grid;place-items:center;background:var(--ink);color:var(--bg);font-size:9px;font-weight:700}
+  .brand small{font-weight:400;color:var(--dim);font-size:11.5px;margin-left:2px}
+  .topbar__right{margin-left:auto;display:flex;gap:6px;align-items:center}
+  .topbar .chip{height:20px;padding:0 8px;font-size:11px}
+  .topbar .iconbtn{width:22px;height:22px;font-size:10px}
+  .wrap{flex:1;min-height:0;overflow:auto;padding:6px 24px 24px}
+  .stack{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  .sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:4px}
+  .sec-head__row{display:flex;align-items:center;gap:12px}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);padding:12px 18px 6px}
+  .kpi{padding:14px 0;border-right:1px solid var(--line2)}
+  .kpi:last-child{border-right:0}
+  .kpi .metric{margin-top:6px}
+  .panel{padding:22px 24px 18px}
+  .main{display:flex;flex-direction:column}
+  .canvas{flex:1;min-height:180px;margin:14px 24px 0;border-radius:var(--r-panel);background:var(--win2);
+    border:1px solid var(--line2);position:relative;display:grid;place-items:center;overflow:hidden}
+  .canvas__badge{position:absolute;top:10px;right:12px;color:var(--dim)}
+  .canvas__inner{width:min(460px,78%)}
+  .pcard{border:1px solid var(--hair);border-radius:18px;padding:16px;margin-top:8px;
+    background:var(--raised);box-shadow:inset 0 1px 0 var(--hair),0 16px 40px #000000a6}
+  html[data-theme="light"] .pcard{background:#fff;box-shadow:inset 0 1px 0 #fff,0 16px 40px #00000012}
+  .pcard__row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .pcard__t{font-size:14px;font-weight:600;letter-spacing:-.015em;margin-bottom:3px}
+  .pcard__foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+  .composer{padding:10px 24px 16px}
+  .composer__foot{margin-top:6px}
+  .cols > .side--right{width:300px;flex:none;overflow:auto}
+  .panel__head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+  .chart{width:100%;height:180px;display:block}
+  .axis{display:flex;justify-content:space-between;margin-top:8px}
+  .table{width:100%;border-collapse:collapse}
+  .table th{text-align:left;font-weight:500;color:var(--dim);font-size:11px;padding:6px 0;border-bottom:1px solid var(--line)}
+  .table td{padding:8px 0;border-bottom:1px solid var(--line2);font-size:12.5px}
+  .table th.num,.table td.num{text-align:right;font-variant-numeric:tabular-nums}
+  /* report */
+  .article{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:minmax(0,720px) 240px;gap:56px;align-items:start}
+  .cover .display--xl{margin:14px 0 16px}
+  .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:18px 0 0}
+  .meta dd{margin:4px 0 0}
+  .chapter{margin:0 0 34px}
+  .chapter .h2{margin:6px 0 12px}
+  .chapter .body{margin:0 0 12px;max-width:70ch}
+  .toc{position:sticky;top:8px}
+  .toc a{display:block;padding:8px 10px;border-radius:10px;color:var(--muted);text-decoration:none;font-size:12.5px}
+  .toc a:hover{background:var(--line2);color:var(--ink)}
+  /* settings / workbench 两栏 */
+  .cols{display:flex;gap:var(--gap);height:100%;padding:6px 16px 16px}
+  .side{width:236px;flex:none;padding:22px 14px 14px}
+  .item{position:relative}
+  .item::after{content:""/*noop*/}
+  .main{flex:1;min-width:0;overflow:auto;padding:22px 24px 20px}
+  .group{margin-bottom:12px}
+  .group .row + .row{border-top:0}
+  @media (max-width:900px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .article{grid-template-columns:minmax(0,1fr);gap:20px}
+    .toc{display:none}
+    .cols{flex-direction:column;height:auto}
+    .side{width:auto}
+  }
+  .topbar__btn, .topbar .iconbtn{position:relative}
+  .topbar__btn::after, .topbar .iconbtn::after{content:"";position:absolute;inset:-11px -8px;border-radius:8px}
+  .topbar__btn{appearance:none;border:1px solid var(--line);background:transparent;color:var(--muted);
+    height:22px;padding:0 8px;border-radius:6px;font:inherit;font-size:11px;cursor:pointer}
+  .topbar__btn:hover{background:var(--line2);color:var(--ink)}
+  .cols:has(> .gutter){gap:0}
+  .gutter{flex:0 0 var(--gap);position:relative;cursor:col-resize;touch-action:none;border:0;background:transparent;padding:0}
+  .gutter::before{content:"";position:absolute;top:50%;left:50%;width:4px;height:72px;border-radius:99px;
+    background:var(--ink);opacity:0;transform:translate(-50%,-50%) scaleY(.4);
+    transition:opacity .16s ease,transform .26s var(--ease, cubic-bezier(.22,.61,.36,1))}
+  .gutter:hover::before,.gutter:focus-visible::before{opacity:.42;transform:translate(-50%,-50%) scaleY(1)}
+  .gutter[data-drag="1"]::before{opacity:.85;background:var(--accent)}
+  body[data-resizing],body[data-resizing] *{cursor:col-resize!important;user-select:none!important}
+  @media (max-width:900px){.gutter{display:none}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand"><span class="mark">G</span>Gary<small>工作台</small></div>
+  <div class="topbar__right"><span class="chip"><i class="dot dot--live"></i>就绪</span>
+  <button class="topbar__btn" id="cmdBtn" aria-keyshortcuts="Control+K Meta+K">⌘K</button>
+  <button class="topbar__btn" id="themeBtn" aria-label="切换主题">亮</button></div>
+</header>
+<div class="cols"><aside class="surface side" id="sidePane"><p class="eyebrow eyebrow--indent">任务</p><button class="item" aria-current="true"><span class="item__dot"></span><span class="item__body"><span class="item__title">材质层收敛</span><span class="item__meta">把契约压到 12 个表面</span></span></button><button class="item" ><span class="item__dot"></span><span class="item__body"><span class="item__title">描边灰度</span><span class="item__meta">1px 细线的三档语义</span></span></button><button class="item" ><span class="item__dot"></span><span class="item__body"><span class="item__title">暗色正文对比度</span><span class="item__meta">合成底色后仍 ≥ 4.5:1</span></span></button><button class="item" ><span class="item__dot"></span><span class="item__body"><span class="item__title">面板折叠过渡</span><span class="item__meta">不跳动是底线</span></span></button></aside><div class="gutter" data-side="left" role="separator" aria-orientation="vertical" tabindex="0" aria-label="调整侧栏宽度"></div><main class="surface main" id="mainPane">
+    <header class="sec-head">
+      <p class="eyebrow">玻璃重构 / 01</p>
+      <div class="sec-head__row">
+        <h1 class="display">材质层收敛</h1>
+        
+      </div>
+      <p class="sub">把 65 个契约压到 12 个可组合表面：先砍材质层级，再谈排印。</p>
+    </header>
+
+    <div class="canvas">
+      <span class="small canvas__badge">预览</span>
+      <div class="canvas__inner">
+        <span class="small">产物预览 · 不含数据</span>
+        <div class="pcard">
+          <div class="pcard__row">
+            <div><div class="pcard__t">材质层级</div><div class="small">底 / 板 / 浮 · 单光源 135°</div></div>
+            <span class="badge badge--accent">3 层</span>
+          </div>
+          <div class="pcard__foot"><span class="small">顶部 1px 高光 · 底部暗边</span><button class="btn btn--primary">应用</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="composer">
+      <div class="field">
+        <textarea rows="1" placeholder="描述要改的地方 — 回车运行，Shift + 回车换行" aria-label="指令"></textarea>
+        <button class="send" aria-label="运行">
+          <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 12.5V3.5M8 3.5L4 7.5M8 3.5l4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="composer__foot"><span class="small">模型 · 默认 · 未运行</span></div>
+    </div></main><div class="gutter" data-side="right" role="separator" aria-orientation="vertical" tabindex="0" aria-label="调整参数栏宽度"></div><aside class="surface side side--right" id="rightPane">
+    <section class="group" id="g0">
+      <p class="eyebrow">参数</p>
+      
+        <div class="row">
+          <div><div class="row__k">尺寸</div><div class="row__h">预览画板宽度</div></div>
+          <div class="seg"><button aria-pressed="false">1024</button><button aria-pressed="true">1440</button><button aria-pressed="false">390</button></div>
+        </div>
+        <div class="row">
+          <div><div class="row__k">密度</div><div class="row__h">紧凑会收紧行距</div></div>
+          <button class="sw" aria-pressed="true" aria-label="密度"><i></i></button>
+        </div>
+        <div class="row">
+          <div><div class="row__k">外观</div><div class="row__h">明暗共用一套材质</div></div>
+          <div class="seg"><button aria-pressed="true">暗</button><button aria-pressed="false">亮</button></div>
+        </div>
+    </section></aside></div>
+
+<div class="scrim" id="scrim"></div>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="命令">
+  <input id="palInput" type="text" placeholder="搜索…" role="combobox" aria-expanded="true" aria-controls="plist" autocomplete="off">
+  <div class="plist" id="plist" role="listbox"></div>
+</div>
+<script>window.__GARY_CMDS__ = [{k:"切换主题",tag:"视图",fn:function(){(function(){var b=document.getElementById('themeBtn');if(b)b.click()})()}}]</script><script>
+(function(){
+  var cmds = window.__GARY_CMDS__ || [];
+  var i;
+  function syncThemeBtn(){ var b = document.getElementById('themeBtn'); if (b) b.textContent = document.documentElement.dataset.theme === 'dark' ? '亮' : '暗'; }
+  syncThemeBtn();
+
+  /* 主题 */
+  var themeBtn = document.getElementById('themeBtn');
+  if (themeBtn) themeBtn.addEventListener('click', function(){
+    var root = document.documentElement;
+    var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    themeBtn.textContent = next === 'dark' ? '亮' : '暗';
+    try { localStorage.setItem('gary.theme', next); } catch(e){}
+  });
+  try { var saved = localStorage.getItem('gary.theme'); if (saved === 'light') { document.documentElement.dataset.theme = 'light'; if (themeBtn) themeBtn.textContent = '暗'; } } catch(e){}
+
+  /* 命令面板 */
+  var pal = document.getElementById('palette'), scrim = document.getElementById('scrim');
+  if (pal) {
+    var input = document.getElementById('palInput'), list = document.getElementById('plist'), idx = 0, items = [];
+    function paint(q){
+      items = cmds.filter(function(c){ return c.k.toLowerCase().indexOf(q.toLowerCase()) > -1; });
+      idx = 0; list.innerHTML = '';
+      if (!items.length) { list.innerHTML = '<div class="pitem" style="color:var(--dim)">没有匹配</div>'; return; }
+      items.forEach(function(c, n){
+        var d = document.createElement('div');
+        d.className = 'pitem'; d.setAttribute('role','option');
+        d.setAttribute('aria-selected', String(n === idx));
+        var s = document.createElement('span'); s.textContent = c.k;
+        var t = document.createElement('span'); t.className = 'tag'; t.textContent = c.tag || '';
+        d.appendChild(s); d.appendChild(t);
+        d.addEventListener('click', function(){ close(); c.fn(); });
+        list.appendChild(d);
+      });
+    }
+    function open(){ pal.classList.add('on'); scrim.classList.add('on'); input.value=''; paint(''); setTimeout(function(){input.focus();},20); }
+    function close(){ pal.classList.remove('on'); scrim.classList.remove('on'); }
+    window.__garyOpenPalette = open;
+    input.addEventListener('input', function(e){ paint(e.target.value); });
+    scrim.addEventListener('click', close);
+    document.addEventListener('keydown', function(e){
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); open(); return; }
+      if (!pal.classList.contains('on')) return;
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault(); if (!items.length) return;
+        idx = (idx + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+        [].forEach.call(list.children, function(el, n){ el.setAttribute('aria-selected', String(n === idx)); });
+        return;
+      }
+      if (e.key === 'Enter' && items[idx]) { e.preventDefault(); var c = items[idx]; close(); c.fn(); }
+    });
+    var openBtn = document.getElementById('cmdBtn');
+    if (openBtn) openBtn.addEventListener('click', open);
+  }
+
+  /* 拖拽分隔条 */
+  var gutters = document.querySelectorAll('.gutter');
+  [].forEach.call(gutters, function(g){
+    var side = g.dataset.side;
+    var target = side === 'left' ? document.getElementById('sidePane')
+               : side === 'right' ? document.getElementById('mainPane') : null;
+    if (!target) return;
+    var min = side === 'left' ? 180 : 320, max = side === 'left' ? 380 : 1100;
+    var startX = 0, startW = 0, live = false;
+    g.addEventListener('pointerdown', function(e){
+      e.preventDefault(); g.setPointerCapture(e.pointerId);
+      g.dataset.drag = '1'; document.body.dataset.resizing = '1';
+      startX = e.clientX; startW = target.getBoundingClientRect().width; live = true;
+    });
+    g.addEventListener('pointermove', function(e){
+      if (!live) return;
+      var d = side === 'left' ? e.clientX - startX : startX - e.clientX;
+      target.style.width = Math.max(min, Math.min(max, Math.round(startW + d))) + 'px';
+      target.style.flex = 'none';
+    });
+    function end(e){ if (!live) return; live = false; g.dataset.drag='0'; delete document.body.dataset.resizing;
+      try { g.releasePointerCapture(e.pointerId); } catch(err){} }
+    g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
+    g.addEventListener('keydown', function(e){
+      var dir = e.key === 'ArrowLeft' ? -16 : e.key === 'ArrowRight' ? 16 : 0;
+      if (!dir) return; e.preventDefault();
+      var cur = target.getBoundingClientRect().width;
+      target.style.width = Math.max(min, Math.min(max, cur + (side === 'left' ? dir : -dir))) + 'px';
+      target.style.flex = 'none';
+    });
+  });
+})();
+</script>
+</body>
+</html>

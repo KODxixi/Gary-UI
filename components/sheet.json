@@ -1,0 +1,70 @@
+{
+  "slug": "sheet",
+  "name": "侧边面板",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/sheet)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "与 dialog 区别：从边缘滑入而非居中；模态遮罩 bg-black/80",
+      "四边滑入：top/bottom 为全宽横条（rounded-b/t），left/right 为 3/4 宽 max-w-sm 竖条",
+      "内置 X 关闭按钮（data-slot=sheet-close）；Esc 关闭；焦点陷阱",
+      "Header/Footer 与 dialog 对齐，Footer 自动贴底"
+    ]
+  },
+  "variants": [
+    {
+      "name": "right",
+      "selector": ".gary-sheet__content[data-side='right']",
+      "layout": "inset-y-0 right-0 h-full w-3/4 max-w-sm border-l"
+    },
+    {
+      "name": "left",
+      "selector": ".gary-sheet__content[data-side='left']",
+      "layout": "inset-y-0 left-0 h-full w-3/4 max-w-sm border-r"
+    },
+    {
+      "name": "top",
+      "selector": ".gary-sheet__content[data-side='top']",
+      "layout": "inset-x-0 top-0 border-b rounded-b-xl"
+    },
+    {
+      "name": "bottom",
+      "selector": ".gary-sheet__content[data-side='bottom']",
+      "layout": "inset-x-0 bottom-0 border-t rounded-t-xl"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "Dialog / Overlay（Radix Dialog 语义）",
+    "requirements": [
+      "所有交互元素可键盘操作，Esc 关闭",
+      "打开时焦点进入面板，关闭后焦点归还触发器",
+      "状态变化同步 aria 属性，不只靠颜色传达信息",
+      "关闭按钮可键盘操作，文字放大后标签不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-sheet",
+    ".gary-sheet__overlay",
+    ".gary-sheet__content",
+    ".gary-sheet__header",
+    ".gary-sheet__title",
+    ".gary-sheet__description",
+    ".gary-sheet__footer",
+    ".gary-sheet__close"
+  ]
+}

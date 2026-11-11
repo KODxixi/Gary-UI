@@ -1,0 +1,64 @@
+{
+  "slug": "date-picker",
+  "name": "日期选择器",
+  "category": "forms",
+  "source": "adapters/react-shadcn/src/components/ui/date-picker.tsx",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "触发按钮为 outline 风格按钮，左侧带日历图标；已选显示日期，未选显示占位文案「选择日期」",
+      "PopoverContent 内嵌 Calendar；单选选定后自动关闭，范围选完起止后自动关闭",
+      "DatePickerWithRange 使用 mode=\"range\" 并双月展示（numberOfMonths=2），标签显示起止区间",
+      "复用 .gary-calendar 的全部日历样式与状态"
+    ]
+  },
+  "variants": [
+    {
+      "name": "single",
+      "selector": "[data-slot='date-picker-single']",
+      "description": "DatePicker：单日选择，value/onChange 为 Date | undefined"
+    },
+    {
+      "name": "range",
+      "selector": "[data-slot='date-picker-range']",
+      "description": "DatePickerWithRange：日期范围，value/onChange 为 DateRange | undefined"
+    }
+  ],
+  "states": [
+    {
+      "name": "closed-empty",
+      "selector": ".gary-button--outline:has(span)"
+    },
+    {
+      "name": "open",
+      "selector": "[data-state='open']"
+    },
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    }
+  ],
+  "accessibility": {
+    "role": "button trigger + dialog popover",
+    "requirements": [
+      "触发按钮为原生 button，可键盘聚焦与触发",
+      "Popover 打开后日历获得焦点（autoFocus）",
+      "已选日期对屏幕阅读器可读，不只靠图标",
+      "文字放大后标签不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-date-picker",
+    ".gary-date-picker__trigger",
+    ".gary-popover__content",
+    ".gary-calendar",
+    ".gary-calendar__selected",
+    ".gary-calendar__today",
+    ".gary-calendar__outside",
+    ".gary-calendar__disabled"
+  ]
+}

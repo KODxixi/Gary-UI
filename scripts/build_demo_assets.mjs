@@ -21,4 +21,5 @@ fs.writeFileSync(path.join(demos,'visuals/visuals.json'),JSON.stringify(manifest
 fs.writeFileSync(path.join(demos,'shared/chart-policy.js'),'/* Generated from Gary scene recipes and theme-map. */\nwindow.GARY_DEMO_CHART_POLICY = '+JSON.stringify({themes:themes.themes,palettes:recipes.colors.chartCategory,fontFamily:themes.fontFamily})+';\n');
 await build({entryPoints:[path.join(demos,'shared/icons-entry.mjs')],outfile:path.join(demos,'shared/icons.js'),bundle:true,minify:true,format:'iife',legalComments:'eof'});
 await build({entryPoints:[path.join(root,'patterns/shared/icons-entry.mjs')],outfile:path.join(root,'patterns/shared/icons.js'),bundle:true,minify:true,format:'iife',legalComments:'eof'});
-console.log(JSON.stringify({status:'pass',sources:5,visuals:10,icons:'lucide 1.41.0',network:false}));
+await build({entryPoints:[path.join(root,'patterns/shared/morph-icons-entry.mjs')],outfile:path.join(root,'patterns/shared/morph-icons.js'),bundle:true,minify:true,format:'iife',legalComments:'eof'});
+console.log(JSON.stringify({status:'pass',sources:5,visuals:10,icons:'lucide 1.41.0 + morphicons 1.7.1',network:false}));

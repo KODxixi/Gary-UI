@@ -1,0 +1,53 @@
+{
+  "slug": "data-table",
+  "name": "数据表格",
+  "category": "data-display",
+  "source": "adapters/react-shadcn/src/components/ui/data-table.tsx",
+  "material": {
+    "default": "Solid",
+    "rules": [
+      "基于 @tanstack/react-table 的泛型通用表格，复用 table 原语、button 与 input",
+      "顶部 toolbar 由全局搜索 input 与自定义 actions 插槽组成",
+      "点击可列表头排序，图标依次为未排序 ArrowUpDown、升序 ArrowUp、降序 ArrowDown",
+      "底部分页展示总条数与页码，提供上一页/下一页按钮"
+    ]
+  },
+  "variants": [],
+  "slots": [
+    {"name": "root", "selector": "[data-slot='data-table']", "role": "泛型数据表格根容器，w-full space-y-4"},
+    {"name": "toolbar", "selector": "[data-slot='data-table'] > div:first-child", "role": "顶部工具条：搜索 input + 自定义 actions 插槽"},
+    {"name": "search", "selector": "[data-slot='data-table'] input[data-slot='input']", "role": "全局过滤输入框，前置 Search 图标"},
+    {"name": "pagination", "selector": "[data-slot='data-table'] > div:last-child", "role": "底部分页：总条数 + 上一页/页码/下一页"}
+  ],
+  "states": [
+    {"name": "sort-asc", "selector": "[data-slot='data-table'] [data-slot='table-row']", "note": "升序由表头 ArrowUp 图标指示"},
+    {"name": "sort-desc", "selector": "[data-slot='data-table'] [data-slot='table-row']", "note": "降序由表头 ArrowDown 图标指示"},
+    {"name": "disabled", "selector": "button:disabled", "note": "翻页按钮在无前后页时禁用"}
+  ],
+  "interaction": {
+    "pressResponseMs": {"min": 100, "max": 160},
+    "frequentUiMaxMs": 300,
+    "interruptible": true,
+    "reducedMotion": "保留行 hover 与排序图标颜色反馈，移除 transition 位移"
+  },
+  "accessibility": {
+    "role": "generic data grid built on native table semantics",
+    "requirements": [
+      "可排序表头是真实 button，点击循环 升序→降序→未排序",
+      "搜索框带占位说明并可键盘输入，实时全局过滤",
+      "翻页按钮在不可用状态下 disabled 并同步视觉",
+      "空数据展示居中提示行；异步/加载态由调用方补充 aria-busy"
+    ]
+  },
+  "dependencies": {
+    "runtime": ["@tanstack/react-table", "reicon-react"],
+    "internal": ["./button", "./input", "./table", "../../lib/utils"]
+  },
+  "exports": {
+    "component": ["DataTable"],
+    "props": ["columns", "data", "searchKey", "filterPlaceholder", "toolbar", "pagination"]
+  },
+  "cssClasses": [
+    "[data-slot='data-table']"
+  ]
+}

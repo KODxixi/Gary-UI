@@ -2,6 +2,7 @@
   "slug": "solid-plate",
   "name": "实心信息板",
   "category": "surfaces",
+  "source": "adapters/react-shadcn/src/components/ui/solid-plate.tsx",
   "material": {
     "default": "SolidPlate",
     "rules": [
@@ -12,23 +13,67 @@
   },
   "variants": [
     {
-      "name": "block",
-      "selector": ".gary-solid-plate"
+      "name": "default",
+      "selector": ".gary-solid-plate--default",
+      "background": "var(--gary-solid-plate)"
+    },
+    {
+      "name": "subtle",
+      "selector": ".gary-solid-plate--subtle",
+      "background": "color-mix(in srgb, var(--gary-solid-plate) 60%, transparent)"
+    },
+    {
+      "name": "inverse",
+      "selector": ".gary-solid-plate--inverse",
+      "background": "var(--gary-text-primary)",
+      "color": "var(--gary-surface-page)"
     },
     {
       "name": "nested-data",
       "selector": ".gary-glass-card .gary-solid-plate"
     }
   ],
-  "states": [
+  "densities": [
     {
-      "name": "default",
-      "selector": ".gary-solid-plate"
+      "name": "compact",
+      "selector": ".gary-solid-plate[data-density='compact'], .gary-solid-plate--compact",
+      "gap": "6px",
+      "radius": "12px",
+      "paddingX": "12px",
+      "paddingY": "10px"
     },
     {
-      "name": "disabled",
-      "selector": "[aria-disabled=\"true\"]"
+      "name": "default",
+      "selector": ".gary-solid-plate[data-density='default'], .gary-solid-plate--default-density",
+      "gap": "8px",
+      "radius": "16px",
+      "paddingX": "16px",
+      "paddingY": "14px"
+    },
+    {
+      "name": "spacious",
+      "selector": ".gary-solid-plate[data-density='spacious'], .gary-solid-plate--spacious",
+      "gap": "10px",
+      "radius": "18px",
+      "paddingX": "20px",
+      "paddingY": "18px"
     }
+  ],
+  "slots": [
+    {
+      "name": "label",
+      "selector": "[data-slot='solid-plate-label'], .gary-solid-plate__label",
+      "description": "辅助标签，12px，font-weight 500，opacity 65%"
+    },
+    {
+      "name": "value",
+      "selector": "[data-slot='solid-plate-value'], .gary-solid-plate__value",
+      "description": "数值或关键信息，16px，font-weight 700，tabular-nums"
+    }
+  ],
+  "states": [
+    {"name": "default", "selector": ".gary-solid-plate"},
+    {"name": "disabled", "selector": ".gary-solid-plate[aria-disabled='true']"}
   ],
   "accessibility": {
     "role": "semantic content element",
@@ -41,6 +86,11 @@
     ]
   },
   "cssClasses": [
-    ".gary-solid-plate"
+    ".gary-solid-plate",
+    ".gary-solid-plate--default",
+    ".gary-solid-plate--subtle",
+    ".gary-solid-plate--inverse",
+    ".gary-solid-plate__label",
+    ".gary-solid-plate__value"
   ]
 }

@@ -22,7 +22,7 @@
           "title": {"type": "string", "maxLength": 240},
           "description": {"type": "string", "maxLength": 1000},
           "purpose": {"enum": ["architecture", "workflow", "sequence", "data-flow", "lifecycle", "quantitative", "outline", "infographic", "simple-flow", "icons"]},
-          "tool": {"enum": ["archify", "echarts", "markmap", "antv-infographic", "mermaid", "lucide"]},
+          "tool": {"enum": ["archify", "echarts", "markmap", "antv-infographic", "mermaid", "reicon"]},
           "source": {"type": "string", "minLength": 1, "maxLength": 1024},
           "scene": {"enum": ["reading", "analysis", "showcase"]},
           "theme": {"enum": ["dark", "light"]},

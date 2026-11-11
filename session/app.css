@@ -8,7 +8,7 @@
   --session-well: rgba(255, 255, 255, 0.055);
   --session-well-hover: rgba(255, 255, 255, 0.095);
   --session-strong: rgba(255, 255, 255, 0.16);
-  --session-scene-mask: rgba(5, 7, 8, 0.55);
+  --session-scene-mask: oklch(0 0 0 / 0.55);
   --session-positive: var(--gary-state-positive);
   --session-caution: var(--gary-state-caution);
   --session-critical: var(--gary-state-critical);
@@ -20,7 +20,7 @@
   --session-well: rgba(255, 255, 255, 0.34);
   --session-well-hover: rgba(255, 255, 255, 0.58);
   --session-strong: rgba(255, 255, 255, 0.68);
-  --session-scene-mask: rgba(235, 232, 225, 0.32);
+  --session-scene-mask: oklch(1 0 0 / 0.32);
 }
 
 * {
@@ -111,7 +111,7 @@ iframe:focus-visible {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% -10%, rgba(150, 210, 218, 0.14), transparent 42%),
+    radial-gradient(circle at 50% -10%, oklch(1 0 0 / 0.10), transparent 42%),
     linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.28));
 }
 

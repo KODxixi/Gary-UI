@@ -9,7 +9,7 @@ Gary-UI 希望成为可复制、可运行、能持续深化的 UI 设计系统�
 | 六个完整情境页面 | [Demo 首页](../examples/demos/index.html)：业务分析、知识阅读、项目看板、管理层大屏、长篇报告与方案汇报。使用固定示例数据。 |
 | 统一视觉与交互 | [Portal](../portal/index.html)、[设计规范](../DESIGN.md)、共享 Token、圆形工具图标与光学卡片；默认单一点网格，`Background` 文字入口与主题按钮分离。 |
 | 可复制 HTML 起点 | [模板组合](../patterns/starting-points/index.html) 提供应用模式、页面、主题和材质选择。复制的骨架仍依赖项目资源服务，不等于离线单文件应用。 |
-| 本地制图与导出 | [Visual Adapter](../adapters/visual/README.md) 路由 Archify、ECharts、Markmap、AntV Infographic、Mermaid 与 Lucide，保留原生源及受支持的导出格式。它不是通用拖拽编辑器。 |
+| 本地制图与导出 | [Visual Adapter](../adapters/visual/README.md) 路由 Archify、ECharts、Markmap、AntV Infographic、Mermaid 与 reicon，保留原生源及受支持的导出格式。它不是通用拖拽编辑器。 |
 | Agent 协作契约 | [协作白皮书](GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md) 与 [SKILL](../SKILL.md) 支持直接实施及按需 Session；专项 Skill 接入与引擎能力分别记录。 |
 | 可追踪验收 | [公开版验收](PUBLIC_RELEASE.md) 记录真实页面、菜单、主题、复制 HTML 的检查和中间失败。历史通过仅对应记录中的版本与范围。 |
 

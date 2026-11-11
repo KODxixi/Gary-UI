@@ -1,0 +1,48 @@
+{
+  "slug": "context-menu",
+  "name": "右键菜单",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/context-menu)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "菜单与 dropdown-menu 共用样式；由右键或 Shift+F10 触发"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-context-menu"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-context-menu",
+    ".gary-context-menu__item",
+    ".gary-context-menu__separator",
+    ".gary-context-menu__shortcut",
+    ".gary-context-menu__sub-trigger"
+  ]
+}

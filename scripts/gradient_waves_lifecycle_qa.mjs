@@ -26,13 +26,13 @@ await check('gary-palette-with-user-wave-parameters',async(page)=>{
   await page.goto(url);await ready(page);
   await page.locator('[data-background-open]').click();await page.locator('[name="preset"]').selectOption('gary');await page.locator('[data-background-close]').click();
   const options=await page.evaluate(()=>GaryBackgroundLab.engine.state.options);
-  assert.deepEqual(options,{horizonColor:'#282d60',waveColor:'#6976ad',crestColor:'#c1cce6',speed:.15,amplitude:2.6,waveScale:.6,waveRatio:1,swell:0,turbulence:50,tilt:1.23,zoom:1.4,height:11,fogDepth:15,detail:'medium',brightness:1,opacity:.6,mouseInteraction:false,parallaxStrength:0,grain:true,grainIntensity:.02});
+  assert.deepEqual(options,{horizonColor:'#303030',waveColor:'#777777',crestColor:'#cccccc',speed:.15,amplitude:2.6,waveScale:.6,waveRatio:1,swell:0,turbulence:50,tilt:1.23,zoom:1.4,height:11,fogDepth:15,detail:'medium',brightness:1,opacity:.6,mouseInteraction:false,parallaxStrength:0,grain:true,grainIntensity:.02});
   await page.mouse.move(50,50);await page.waitForTimeout(150);
   assert.deepEqual(await page.evaluate(()=>GaryBackgroundLab.engine.state.mouse),[.5,.5]);
 });
 await check('silver-three-waves-exact-options',async(page)=>{
   await page.goto(url);await ready(page);
-  const expected={horizonColor:'#455164',waveColor:'#8193ab',crestColor:'#dbe4ef',speed:.1,amplitude:2,waveScale:1.35,waveRatio:.6,swell:0,turbulence:50,tilt:1.12,zoom:1,height:10,fogDepth:20,detail:'medium',brightness:1.1,opacity:.47,mouseInteraction:false,parallaxStrength:.85,grain:true,grainIntensity:.01};
+  const expected={horizonColor:'#505050',waveColor:'#919191',crestColor:'#e3e3e3',speed:.1,amplitude:2,waveScale:1.35,waveRatio:.6,swell:0,turbulence:50,tilt:1.12,zoom:1,height:10,fogDepth:20,detail:'medium',brightness:1.1,opacity:.47,mouseInteraction:false,parallaxStrength:.85,grain:true,grainIntensity:.01};
   assert.deepEqual(await page.evaluate(()=>GaryBackgroundLab.engine.state.options),expected);
   await page.locator('[data-background-open]').click();
   await page.locator('[name="amplitude"]').fill('5');await page.locator('[name="amplitude"]').dispatchEvent('input');
@@ -62,7 +62,7 @@ await check('continuous-play-pause-theme-export',async(page)=>{
   const configPath=path.join(out,'silver-three-waves.json');await (await configPromise).saveAs(configPath);
   assert.deepEqual(JSON.parse(fs.readFileSync(configPath,'utf8')).playback,{mode:'continuous',durationSeconds:null,reducedMotion:'static'});
   await page.locator('[data-background-close]').click();await page.locator('[data-theme-toggle]').click();
-  assert.equal((await page.evaluate(()=>GaryBackgroundLab.engine.state)).options.horizonColor,'#b8c1cb');
+  assert.equal((await page.evaluate(()=>GaryBackgroundLab.engine.state)).options.horizonColor,'#c0c0c0');
   await page.locator('[data-background-open]').click();
   const downloadPromise=page.waitForEvent('download');await page.locator('[data-waves-png]').click();
   await (await downloadPromise).saveAs(path.join(out,'standalone-background.png'));
@@ -95,7 +95,7 @@ await check('unsupported-webgl-and-invalid-options',async(page)=>{
   await page.goto(url);await page.waitForFunction(()=>GaryBackgroundLab?.engine?.state.status==='fallback');
   assert.equal(await page.locator('.gary-dot-grid-canvas').isVisible(),true);
   const normalized=await page.evaluate(()=>GaryGradientWaves.normalize({speed:Infinity,opacity:99,horizonColor:'url(evil)',detail:'ultra',mouseInteraction:'true',__proto__:{test:1}}));
-  assert.equal(normalized.speed,.4);assert.equal(normalized.opacity,1);assert.equal(normalized.horizonColor,'#5227ff');assert.equal(normalized.detail,'medium');assert.equal(normalized.test,undefined);
+  assert.equal(normalized.speed,.4);assert.equal(normalized.opacity,1);assert.equal(normalized.horizonColor,'#404040');assert.equal(normalized.detail,'medium');assert.equal(normalized.test,undefined);
 });
 await check('missing-local-script-keeps-grid-and-recovers',async(page,context)=>{
   await context.route('**/patterns/shared/gradient-waves.js',r=>r.abort());

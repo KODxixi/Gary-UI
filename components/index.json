@@ -1,91 +1,336 @@
-﻿{
-    "schemaVersion":  1,
-    "library":  "gary-ui",
-    "contractRequiredFields":  [
-                                   "slug",
-                                   "name",
-                                   "category",
-                                   "material",
-                                   "variants",
-                                   "states",
-                                   "accessibility",
-                                   "cssClasses"
-                               ],
-    "components":  [
-                       {
-                           "slug":  "button",
-                           "file":  "button.json",
-                           "cssClass":  ".gary-button"
-                       },
-                       {
-                           "slug":  "segmented",
-                           "file":  "segmented.json",
-                           "cssClass":  ".gary-segmented"
-                       },
-                       {
-                           "slug":  "field",
-                           "file":  "field.json",
-                           "cssClass":  ".gary-field"
-                       },
-                       {
-                           "slug":  "tab-bar",
-                           "file":  "tab-bar.json",
-                           "cssClass":  ".gary-tab-bar"
-                       },
-                       {
-                           "slug":  "web-bar",
-                           "file":  "web-bar.json",
-                           "cssClass":  ".gary-web-bar"
-                       },
-                       {
-                           "slug":  "glass-card",
-                           "file":  "glass-card.json",
-                           "cssClass":  ".gary-glass-card"
-                       },
-                       {
-                           "slug":  "solid-plate",
-                           "file":  "solid-plate.json",
-                           "cssClass":  ".gary-solid-plate"
-                       },
-                       {
-                           "slug":  "metric-card",
-                           "file":  "metric-card.json",
-                           "cssClass":  ".gary-metric-card"
-                       },
-                       {
-                           "slug":  "comparison-table",
-                           "file":  "comparison-table.json",
-                           "cssClass":  ".gary-comparison-table"
-                       },
-                       {
-                           "slug":  "decision-grid",
-                           "file":  "decision-grid.json",
-                           "cssClass":  ".gary-decision-grid"
-                       },
-                       {
-                           "slug":  "media-card",
-                           "file":  "media-card.json",
-                           "cssClass":  ".gary-media-card"
-                       },
-                       {
-                           "slug":  "profile-card",
-                           "file":  "profile-card.json",
-                           "cssClass":  ".gary-profile-card"
-                       },
-                       {
-                           "slug":  "scene",
-                           "file":  "scene.json",
-                           "cssClass":  ".gary-scene"
-                       },
-                       {
-                           "slug":  "chip",
-                           "file":  "chip.json",
-                           "cssClass":  ".gary-chip"
-                       },
-                       {
-                           "slug":  "evidence-bar",
-                           "file":  "evidence-bar.json",
-                           "cssClass":  ".gary-evidence-bar"
-                       }
-                   ]
+{
+    "schemaVersion": 1,
+    "library": "gary-ui",
+    "contractRequiredFields": [
+        "slug",
+        "name",
+        "category",
+        "material",
+        "variants",
+        "states",
+        "accessibility",
+        "cssClasses"
+    ],
+    "components": [
+        {
+            "slug": "accordion",
+            "file": "accordion.json",
+            "cssClass": ".gary-accordion"
+        },
+        {
+            "slug": "alert-dialog",
+            "file": "alert-dialog.json",
+            "cssClass": ".gary-alert-dialog"
+        },
+        {
+            "slug": "alert",
+            "file": "alert.json",
+            "cssClass": ".gary-alert"
+        },
+        {
+            "slug": "aspect-ratio",
+            "file": "aspect-ratio.json",
+            "cssClass": ".gary-aspect-ratio"
+        },
+        {
+            "slug": "avatar",
+            "file": "avatar.json",
+            "cssClass": ".gary-avatar"
+        },
+        {
+            "slug": "breadcrumb",
+            "file": "breadcrumb.json",
+            "cssClass": ".gary-breadcrumb"
+        },
+        {
+            "slug": "button",
+            "file": "button.json",
+            "cssClass": ".gary-button"
+        },
+        {
+            "slug": "calendar",
+            "file": "calendar.json",
+            "cssClass": ".gary-calendar"
+        },
+        {
+            "slug": "card",
+            "file": "card.json",
+            "cssClass": ".gary-card"
+        },
+        {
+            "slug": "carousel",
+            "file": "carousel.json",
+            "cssClass": ".gary-carousel"
+        },
+        {
+            "slug": "checkbox",
+            "file": "checkbox.json",
+            "cssClass": ".gary-checkbox"
+        },
+        {
+            "slug": "chip",
+            "file": "chip.json",
+            "cssClass": ".gary-chip"
+        },
+        {
+            "slug": "collapsible",
+            "file": "collapsible.json",
+            "cssClass": ".gary-collapsible"
+        },
+        {
+            "slug": "command",
+            "file": "command.json",
+            "cssClass": ".gary-command"
+        },
+        {
+            "slug": "comparison-table",
+            "file": "comparison-table.json",
+            "cssClass": ".gary-comparison-table"
+        },
+        {
+            "slug": "context-menu",
+            "file": "context-menu.json",
+            "cssClass": ".gary-context-menu"
+        },
+        {
+            "slug": "decision-grid",
+            "file": "decision-grid.json",
+            "cssClass": ".gary-decision-grid"
+        },
+        {
+            "slug": "dialog",
+            "file": "dialog.json",
+            "cssClass": ".gary-dialog"
+        },
+        {
+            "slug": "drawer",
+            "file": "drawer.json",
+            "cssClass": ".gary-drawer"
+        },
+        {
+            "slug": "dropdown-menu",
+            "file": "dropdown-menu.json",
+            "cssClass": ".gary-dropdown-menu"
+        },
+        {
+            "slug": "empty-state",
+            "file": "empty-state.json",
+            "cssClass": ".gary-empty-state"
+        },
+        {
+            "slug": "evidence-bar",
+            "file": "evidence-bar.json",
+            "cssClass": ".gary-evidence-bar"
+        },
+        {
+            "slug": "field",
+            "file": "field.json",
+            "cssClass": ".gary-field"
+        },
+        {
+            "slug": "glass-card",
+            "file": "glass-card.json",
+            "cssClass": ".gary-glass-card"
+        },
+        {
+            "slug": "hover-card",
+            "file": "hover-card.json",
+            "cssClass": ".gary-hover-card"
+        },
+        {
+            "slug": "input-otp",
+            "file": "input-otp.json",
+            "cssClass": ".gary-input-otp"
+        },
+        {
+            "slug": "kbd",
+            "file": "kbd.json",
+            "cssClass": ".gary-kbd"
+        },
+        {
+            "slug": "media-card",
+            "file": "media-card.json",
+            "cssClass": ".gary-media-card"
+        },
+        {
+            "slug": "menubar",
+            "file": "menubar.json",
+            "cssClass": ".gary-menubar"
+        },
+        {
+            "slug": "metric-card",
+            "file": "metric-card.json",
+            "cssClass": ".gary-metric-card"
+        },
+        {
+            "slug": "navigation-menu",
+            "file": "navigation-menu.json",
+            "cssClass": ".gary-navigation-menu"
+        },
+        {
+            "slug": "pagination",
+            "file": "pagination.json",
+            "cssClass": ".gary-pagination"
+        },
+        {
+            "slug": "popover",
+            "file": "popover.json",
+            "cssClass": ".gary-popover"
+        },
+        {
+            "slug": "profile-card",
+            "file": "profile-card.json",
+            "cssClass": ".gary-profile-card"
+        },
+        {
+            "slug": "radio-group",
+            "file": "radio-group.json",
+            "cssClass": ".gary-radio-group"
+        },
+        {
+            "slug": "resizable",
+            "file": "resizable.json",
+            "cssClass": ".gary-resizable"
+        },
+        {
+            "slug": "scene",
+            "file": "scene.json",
+            "cssClass": ".gary-scene"
+        },
+        {
+            "slug": "scroll-area",
+            "file": "scroll-area.json",
+            "cssClass": ".gary-scroll-area"
+        },
+        {
+            "slug": "segmented",
+            "file": "segmented.json",
+            "cssClass": ".gary-segmented"
+        },
+        {
+            "slug": "select",
+            "file": "select.json",
+            "cssClass": ".gary-select"
+        },
+        {
+            "slug": "separator",
+            "file": "separator.json",
+            "cssClass": ".gary-separator"
+        },
+        {
+            "slug": "sheet",
+            "file": "sheet.json",
+            "cssClass": ".gary-sheet"
+        },
+        {
+            "slug": "sidebar",
+            "file": "sidebar.json",
+            "cssClass": ".gary-sidebar"
+        },
+        {
+            "slug": "skeleton",
+            "file": "skeleton.json",
+            "cssClass": ".gary-skeleton"
+        },
+        {
+            "slug": "slider",
+            "file": "slider.json",
+            "cssClass": ".gary-slider"
+        },
+        {
+            "slug": "solid-plate",
+            "file": "solid-plate.json",
+            "cssClass": ".gary-solid-plate"
+        },
+        {
+            "slug": "sonner",
+            "file": "sonner.json",
+            "cssClass": ".gary-sonner"
+        },
+        {
+            "slug": "spinner",
+            "file": "spinner.json",
+            "cssClass": ".gary-spinner"
+        },
+        {
+            "slug": "switch",
+            "file": "switch.json",
+            "cssClass": ".gary-switch"
+        },
+        {
+            "slug": "tab-bar",
+            "file": "tab-bar.json",
+            "cssClass": ".gary-tab-bar"
+        },
+        {
+            "slug": "toggle-group",
+            "file": "toggle-group.json",
+            "cssClass": ".gary-toggle-group"
+        },
+        {
+            "slug": "toggle",
+            "file": "toggle.json",
+            "cssClass": ".gary-toggle"
+        },
+        {
+            "slug": "tooltip",
+            "file": "tooltip.json",
+            "cssClass": ".gary-tooltip"
+        },
+        {
+            "slug": "web-bar",
+            "file": "web-bar.json",
+            "cssClass": ".gary-web-bar"
+        },
+        {
+            "slug": "input",
+            "file": "input.json",
+            "cssClass": ".gary-input"
+        },
+        {
+            "slug": "label",
+            "file": "label.json",
+            "cssClass": ".gary-label"
+        },
+        {
+            "slug": "form",
+            "file": "form.json",
+            "cssClass": ".gary-form"
+        },
+        {
+            "slug": "input-group",
+            "file": "input-group.json",
+            "cssClass": ".gary-input-group"
+        },
+        {
+            "slug": "chart",
+            "file": "chart.json",
+            "cssClass": ".gary-chart"
+        },
+        {
+            "slug": "table",
+            "file": "table.json",
+            "cssClass": ".gary-table"
+        },
+        {
+            "slug": "data-table",
+            "file": "data-table.json",
+            "cssClass": ".gary-data-table"
+        },
+        {
+            "slug": "typography",
+            "file": "typography.json",
+            "cssClass": ".gary-typography"
+        },
+        {
+            "slug": "button-group",
+            "file": "button-group.json",
+            "cssClass": ".gary-button-group"
+        },
+        {
+            "slug": "date-picker",
+            "file": "date-picker.json",
+            "cssClass": ".gary-date-picker"
+        }
+    ]
 }

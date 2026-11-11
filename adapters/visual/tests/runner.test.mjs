@@ -8,9 +8,9 @@ import { exportArtifact } from '../lib/exporter.mjs';
 import {
   buildEchartsHtml,
   buildInfographicHtml,
-  buildLucideHtml,
   buildMarkmapHtml,
   buildMermaidHtml,
+  buildReiconHtml,
   escapeInlineJson,
   inspectPackages,
   promoteCandidate,
@@ -72,7 +72,7 @@ test('Markmap and Mermaid outputs preserve their native source in the page', asy
 });
 
 
-test('AntV Infographic uses the pinned local browser runtime and Lucide icon sheet contains real SVG', async () => {
+test('AntV Infographic uses the pinned local browser runtime and reicon icon sheet contains real SVG', async () => {
   const visual = {
     id: 'summary',
     scene: 'showcase',
@@ -86,15 +86,15 @@ test('AntV Infographic uses the pinned local browser runtime and Lucide icon she
     },
     visual,
   );
-  const icons = buildLucideHtml(
-    { title: '图标', icons: ['FileText', 'Workflow', 'Download'] },
+  const icons = await buildReiconHtml(
+    { title: '图标', icons: ['FileText', 'DiagramTree', 'Download'] },
     { ...visual, id: 'icons' },
   );
   assert.match(infographic, /AntVInfographic\.Infographic/);
   assert.match(infographic, /明确目标/);
   assert.doesNotMatch(infographic, /<script[^>]+src=/);
   assert.doesNotMatch(infographic, /https?:\/\/[^"']+\.js/);
-  assert.match(icons, /lucide-file-text/);
+  assert.match(icons, /reicon-file-text/);
   assert.match(icons, /aria-label="FileText"/);
 });
 
@@ -162,15 +162,15 @@ test('SVG export inlines computed presentation styles', async () => {
 });
 
 
-test('Lucide SVG export contains the complete named icon board', async () => {
+test('reicon SVG export contains the complete named icon board', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'gary-visual-icon-board-'));
   const html = path.join(root, 'icons.html');
   const target = path.join(root, 'icons.svg');
   fs.writeFileSync(
     html,
-    buildLucideHtml(
-      { title: '图标板', icons: ['FileText', 'Workflow', 'Download'] },
-      { id: 'icons', tool: 'lucide', scene: 'analysis', theme: 'dark', citation: { label: 'fixture' } },
+    await buildReiconHtml(
+      { title: '图标板', icons: ['FileText', 'DiagramTree', 'Download'] },
+      { id: 'icons', tool: 'reicon', scene: 'analysis', theme: 'dark', citation: { label: 'fixture' } },
     ),
   );
 
@@ -179,7 +179,7 @@ test('Lucide SVG export contains the complete named icon board', async () => {
   const exported = fs.readFileSync(target, 'utf8');
   assert.equal((exported.match(/data-gary-icon=/g) || []).length, 3);
   assert.match(exported, />FileText</);
-  assert.match(exported, />Workflow</);
+  assert.match(exported, />DiagramTree</);
   assert.match(exported, />Download</);
 });
 

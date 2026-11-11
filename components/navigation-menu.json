@@ -1,0 +1,49 @@
+{
+  "slug": "navigation-menu",
+  "name": "导航菜单",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/navigation-menu)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "水平导航；展开内容用 Mega Menu 卡片；当前项用下划线"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-navigation-menu"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-navigation-menu",
+    ".gary-navigation-menu__list",
+    ".gary-navigation-menu__item",
+    ".gary-navigation-menu__trigger",
+    ".gary-navigation-menu__content",
+    ".gary-navigation-menu__link"
+  ]
+}

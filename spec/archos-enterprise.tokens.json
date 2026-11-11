@@ -1,0 +1,525 @@
+{
+  "schema": "gary-ui.archos-enterprise.tokens/1.2",
+  "version": "1.5.0",
+  "supersedes": "1.4.0",
+  "updated": "2026-10-26",
+  "scope": "ArchOS / GarchOS 企业面板（工作台、管理台、抽屉、列表）。不含 DSH 原生聊天 chrome。",
+  "status": "design-system-only：只定义 token 与规则，不改运行时 CSS、不部署。",
+  "provenance": {
+    "console.tokens.css": {
+      "path": "C:\\GarchOS\\apps\\archos-console\\src\\tokens.css",
+      "sha256": "2e60175369d7d893a94225727ae33446381d7524aec43a4c294f2ad287698b64"
+    },
+    "dsh.tokens.css": {
+      "path": "C:\\GarchOS\\apps\\archos-dsh\\ui\\shell\\src\\client\\tokens.css",
+      "sha256": "b9bd28f1ba7e69b4dec7ffb1b6ddf85ef581f440c25ba53d67fa9e50ed0aba9f"
+    },
+    "三风格对比.html": {
+      "path": "C:\\GarchOS\\ArchOS\\三风格对比.html",
+      "sha256": "d5e8365bd1db8044f6ceea485b55ac64c2e620fde166bd5d2be6b5149483c468"
+    },
+    "老版console设计规范.md": {
+      "path": "C:\\GarchOS\\ArchOS\\老版console设计规范.md",
+      "sha256": "877220e98084aebd598b5b38bfe6c4d1bdc8b45c1cb53a8c79811ad636966ec8"
+    },
+    "Gary-UI工业UI品味准则.md": {
+      "path": "C:\\GarchOS\\ArchOS\\Gary-UI工业UI品味准则.md",
+      "sha256": "404cde137658c419683ee1098c3d691ea4bd061bb7b1673e837ddaf4641f31e3"
+    }
+  },
+  "rules": [
+    "每个 token 必须至少被一个组件状态引用",
+    "相邻灰阶明度差 < 8 的两档合并（这是本轮削档的判据）",
+    "同值不同名合并（焦点 = 强调色；控件边界 = accent-edge）",
+    "状态色只保留一套语义",
+    "状态不铺底：中性底 + 状态边 + 状态字",
+    "零渐变、零毛玻璃、零发光",
+    "刻度只留会被用到的档：字号 6 / 圆角 4 / 间距 6 / 时长 2",
+    "灰阶总数上限 11 个值"
+  ],
+  "color": {
+    "surface": [
+      [
+        "--gary-surface-page",
+        "#141414",
+        "页面底 / 导航底（用 1px 线分隔，不再给导航单独底色）",
+        "--archos-bg"
+      ],
+      [
+        "--gary-surface-card",
+        "#1c1c1c",
+        "卡片 / 列表 / 面板 / 抽屉（一档表面）",
+        "--archos-surface"
+      ],
+      [
+        "--gary-surface-hover",
+        "#262626",
+        "悬停 / 按下（唯一抬升档）",
+        "--archos-surface-raised"
+      ]
+    ],
+    "line": [
+      [
+        "--gary-line",
+        "#333333",
+        "1px 分隔线（装饰，不承担控件边界）",
+        "--archos-border"
+      ]
+    ],
+    "ink": [
+      [
+        "--gary-text-strong",
+        "#f7f7f7",
+        "标题 / 姓名 / 选中项"
+      ],
+      [
+        "--gary-text-body",
+        "#c3c4c7",
+        "正文（默认文字色）"
+      ],
+      [
+        "--gary-text-meta",
+        "#9d9ea2",
+        "说明 / 时间戳"
+      ],
+      [
+        "--gary-text-faint",
+        "#7c7d81",
+        "占位 / 禁用"
+      ]
+    ],
+    "accent": [
+      [
+        "--gary-accent",
+        "#cfd0d3",
+        "唯一强调色；同时是键盘焦点环"
+      ],
+      [
+        "--gary-accent-edge",
+        "#6a6b70",
+        "选中描边 / 控件边界 / 强调边"
+      ],
+      [
+        "--gary-wash",
+        "#2a2a2a",
+        "选中底 / 头像底"
+      ]
+    ],
+    "alias": [
+      [
+        "--gary-on-accent",
+        "#141414",
+        "亮灰填充上的文字 = 页面底"
+      ],
+      [
+        "--gary-focus",
+        "#cfd0d3",
+        "焦点环 = 强调色"
+      ]
+    ],
+    "status": [
+      [
+        "--gary-state-idle",
+        "#5aa87f",
+        "空闲",
+        "--archos-status-idle"
+      ],
+      [
+        "--gary-state-idle-text",
+        "#a8d8c2",
+        "空闲文字",
+        "--archos-status-idle-text"
+      ],
+      [
+        "--gary-state-scheduled",
+        "#d9a04b",
+        "已排挡",
+        "--archos-status-scheduled"
+      ],
+      [
+        "--gary-state-scheduled-text",
+        "#e8c992",
+        "已排挡文字",
+        "--archos-status-scheduled-text"
+      ],
+      [
+        "--gary-state-inactive",
+        "#c05a6a",
+        "停用",
+        "--archos-status-inactive"
+      ],
+      [
+        "--gary-state-inactive-text",
+        "#e5aeb8",
+        "停用文字",
+        "--archos-status-inactive-text"
+      ],
+      [
+        "--gary-state-running",
+        "#f59e0b",
+        "运行中",
+        "--archos-status-running"
+      ]
+    ]
+  },
+  "removed": [
+    {
+      "token": "--gary-surface-rail",
+      "value": "#1a1a1a",
+      "replacement": "--gary-surface-page",
+      "why": "导航与页面只差 6 级明度，肉眼不分；用 1px 线分隔即可"
+    },
+    {
+      "token": "--gary-surface-card",
+      "value": "#191919",
+      "replacement": "#1c1c1c（同名替换）",
+      "why": "卡片与浮层原本分两档，差 3 级；合并成一档表面"
+    },
+    {
+      "token": "--gary-line",
+      "value": "#232323",
+      "replacement": "--gary-line #333333",
+      "why": "与 #333 差 16 级但都在低端；只留一档可见分隔线"
+    },
+    {
+      "token": "--gary-text-primary",
+      "value": "#ececec",
+      "replacement": "--gary-text-strong / --gary-text-body",
+      "why": "#f7f7f7 与 #ececec 只差 11 级，四级文字足够"
+    },
+    {
+      "token": "--gary-chip",
+      "value": "#303030",
+      "replacement": "--gary-surface-hover",
+      "why": "chip 底用抬升档，不再单独取色"
+    },
+    {
+      "token": "--gary-avatar",
+      "value": "#4d5563",
+      "replacement": "--gary-wash",
+      "why": "slate 带冷调，头像底改用中性选中底"
+    },
+    {
+      "token": "--gary-avatar-text",
+      "value": "#f2f3f5",
+      "replacement": "--gary-text-strong",
+      "why": "与 #f7f7f7 只差 5 级"
+    },
+    {
+      "token": "--gary-cover-top",
+      "value": "#333230",
+      "replacement": "--gary-surface-hover",
+      "why": "抽屉封面渐变是全系统唯一的色相底，直接删掉"
+    },
+    {
+      "token": "--gary-cover-bottom",
+      "value": "#1d1d1d",
+      "replacement": "--gary-surface-card",
+      "why": "与卡片差 1 级，无信息"
+    }
+  ],
+  "contrast": {
+    "on_card_1c1c1c": {
+      "#f7f7f7": 15.91,
+      "#c3c4c7": 9.77,
+      "#9d9ea2": 6.37,
+      "#7c7d81": 4.14,
+      "#cfd0d3": 11.05
+    },
+    "accent_on_page": 11.94,
+    "accent_edge_on_card": 3.21,
+    "line_on_card": 1.35,
+    "status_on_card": {
+      "#5aa87f": 5.96,
+      "#a8d8c2": 10.77,
+      "#d9a04b": 7.37,
+      "#e8c992": 10.71,
+      "#c05a6a": 3.99,
+      "#e5aeb8": 8.99,
+      "#f59e0b": 7.94
+    },
+    "note": "faint #7c7d81 = 4.14:1，仅占位与禁用；#333333 分隔线 1.35:1 只做装饰，控件边界改用 #6a6b70（3.21:1）。"
+  },
+  "type": [
+    {
+      "role": "h1",
+      "px": 26,
+      "lineHeight": 1.25,
+      "weight": 500,
+      "use": "视图标题",
+      "alias": "--archos-font-title"
+    },
+    {
+      "role": "h2",
+      "px": 17,
+      "lineHeight": 1.35,
+      "weight": 500,
+      "use": "区块 / 面板标题",
+      "alias": "--archos-font-xl"
+    },
+    {
+      "role": "body",
+      "px": 14,
+      "lineHeight": 1.5,
+      "weight": 400,
+      "use": "正文；强调用同字号 600",
+      "alias": "--archos-font-lg"
+    },
+    {
+      "role": "dense",
+      "px": 13,
+      "lineHeight": 1.5,
+      "weight": 400,
+      "use": "表格正文 / 密集列表",
+      "alias": "--archos-font-md"
+    },
+    {
+      "role": "meta",
+      "px": 12,
+      "lineHeight": 1.45,
+      "weight": 400,
+      "use": "meta 值 / 时间戳",
+      "alias": "--archos-font-sm"
+    },
+    {
+      "role": "micro",
+      "px": 11,
+      "lineHeight": 1.4,
+      "weight": 400,
+      "use": "说明 / 页脚 / 图注",
+      "alias": "--archos-font-xs"
+    }
+  ],
+  "radius": [
+    {
+      "token": "--gary-radius-control",
+      "px": 8,
+      "alias": "--archos-radius-sm",
+      "use": "按钮、输入、分段控件"
+    },
+    {
+      "token": "--gary-radius-card",
+      "px": 12,
+      "alias": "--archos-radius-md",
+      "use": "卡片、列表、成员卡"
+    },
+    {
+      "token": "--gary-radius-panel",
+      "px": 16,
+      "alias": "--archos-radius-lg",
+      "use": "面板、抽屉、浮层"
+    },
+    {
+      "token": "--gary-radius-pill",
+      "px": 999,
+      "alias": "--archos-radius-pill",
+      "use": "胶囊 / 头像"
+    }
+  ],
+  "space": [
+    {
+      "px": 4,
+      "alias": "--archos-space-1",
+      "use": "图标与文字"
+    },
+    {
+      "px": 8,
+      "alias": "--archos-space-2",
+      "use": "组件内节奏"
+    },
+    {
+      "px": 12,
+      "alias": "--archos-space-3",
+      "use": "卡片内边距"
+    },
+    {
+      "px": 16,
+      "alias": "--archos-space-4",
+      "use": "区块间距"
+    },
+    {
+      "px": 24,
+      "alias": "--archos-space-6",
+      "use": "面板内边距"
+    },
+    {
+      "px": 32,
+      "alias": "--archos-space-8",
+      "use": "页面与章节间距"
+    }
+  ],
+  "grid": {
+    "base": 8,
+    "allowed": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      36
+    ],
+    "sideRail": 232,
+    "sideRailCollapsed": 60,
+    "contentMax": 1440,
+    "contentMaxWide": 1600,
+    "gutter": {
+      "desktop": 36,
+      "tablet": 24,
+      "mobile": 16
+    },
+    "dataGridGap": 6,
+    "cardMinWidth": 150
+  },
+  "motion": {
+    "durations": [
+      {
+        "token": "--gary-duration-press",
+        "value": "120ms",
+        "use": "按下 / 激活",
+        "alias": "--archos-motion-press"
+      },
+      {
+        "token": "--gary-duration-ui",
+        "value": "160ms",
+        "use": "悬停、展开、抽屉、toast",
+        "alias": "--archos-motion-ui"
+      }
+    ],
+    "easing": {
+      "token": "--gary-ease-out",
+      "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+      "alias": "--archos-ease",
+      "note": "标准减速，禁回弹"
+    },
+    "reducedMotion": "0ms，全部瞬切"
+  },
+  "states": {
+    "component": [
+      {
+        "name": "hover",
+        "label": "悬停",
+        "spec": "底 #1c1c1c → #262626，边 #333333 → #6a6b70",
+        "note": "只换底色与边，不位移不缩放"
+      },
+      {
+        "name": "active",
+        "label": "按下",
+        "spec": "底 #262626，边 #6a6b70，120ms",
+        "note": "立即响应，不做回弹"
+      },
+      {
+        "name": "focus",
+        "label": "键盘焦点",
+        "spec": "2px #cfd0d3 描边 + 2px 偏移",
+        "note": "仅 :focus-visible；#cfd0d3 在 #1c1c1c 上 11.05:1"
+      },
+      {
+        "name": "selected",
+        "label": "选中",
+        "spec": "底 #2a2a2a，边 #6a6b70，字 #f7f7f7",
+        "note": "选中与焦点叠加：内选中、外焦点"
+      },
+      {
+        "name": "disabled",
+        "label": "禁用",
+        "spec": "底 #1c1c1c，字 #7c7d81，opacity .55",
+        "note": "保留 aria-disabled，不再有 hover"
+      },
+      {
+        "name": "empty-row",
+        "label": "空行",
+        "spec": "1px dashed #333333 + 17/500 一句人话 + 主操作",
+        "note": "表体为空时占位，不留白屏"
+      }
+    ],
+    "page": [
+      {
+        "name": "empty",
+        "label": "空态",
+        "spec": "一句人话 + 一个主操作",
+        "note": "不画插画、不用大图标"
+      },
+      {
+        "name": "loading",
+        "label": "加载",
+        "spec": "骨架条 #262626，1.2s 静态呼吸",
+        "note": "超 400ms 才出现"
+      },
+      {
+        "name": "error",
+        "label": "错误",
+        "spec": "中性底 + 1px #c05a6a 边 + #c05a6a 字 + 重试",
+        "note": "贴在出错位置，不用全局 toast 代替"
+      }
+    ]
+  },
+  "redline": [
+    "一个表面只有一个强调色 #cfd0d3；不引入第二个品牌色",
+    "全系统零渐变（原抽屉封面渐变已删除）",
+    "不用毛玻璃、不用发光、不叠阴影（浮层一处柔阴影除外）",
+    "状态色只落在边框、圆点、小标签与数字上，不铺底",
+    "状态色语义固定：空闲 #5aa87f / 已排挡 #d9a04b / 停用 #c05a6a / 运行中 #f59e0b",
+    "选中不用暖棕也不用冷蓝：只用地板色 #2a2a2a + #6a6b70",
+    "灰阶只有 11 个值；再加一档前先证明它和相邻档能看出差别",
+    "圆角只用 8/12/16/999；动效 ≤160ms 且尊重 reduced-motion"
+  ],
+  "diff": [
+    {
+      "item": "强调色",
+      "old": "#d8b98e 暖 tan",
+      "new": "#cfd0d3 亮灰",
+      "why": "owner 指定"
+    },
+    {
+      "item": "选中态",
+      "old": "冷蓝 #3b4b6e/#5c7ab8/#eaf0ff",
+      "new": "#2a2a2d + #6a6b70 + #f7f7f7",
+      "why": "冷蓝与暖棕都被否"
+    },
+    {
+      "item": "表面档位",
+      "old": "7 档（#141414…#333）",
+      "new": "3 档（#141414 / #1c1c1c / #262626）",
+      "why": "相邻档只差 1–3 级，看不出区别"
+    },
+    {
+      "item": "文字等级",
+      "old": "5 级",
+      "new": "4 级",
+      "why": "#f7f7f7 与 #ececec 视觉重复"
+    },
+    {
+      "item": "分隔线",
+      "old": "2 档（#232323 / #333333）",
+      "new": "1 档 #333333 + 控件边用 #6a6b70",
+      "why": "低端两档灰无意义"
+    },
+    {
+      "item": "身份色",
+      "old": "头像 slate / chip / 封面渐变 6 值",
+      "new": "复用选中底、抬升底、分隔线",
+      "why": "去掉唯一的色相底与装饰渐变"
+    },
+    {
+      "item": "字号 / 圆角 / 间距 / 时长",
+      "old": "8 / 6 / 8 / 4",
+      "new": "6 / 4 / 6 / 2",
+      "why": "只留会被用到的档"
+    }
+  ],
+  "history": [
+    {
+      "version": "v1.3",
+      "change": "选中底 #2a2a2a → #2a2a2a：去掉最后 3 个单位的蓝偏，底层值 100% R=G=B；墨与强调保留 theme A 既有的 ≤6 微调（前景，不作底）。"
+    },
+    {
+      "version": "v1.4",
+      "change": "选中底 #2a2a2a → #2a2a2d：与运行时 tokens.css / ArchOS/AGENTS.md 登记处统一（Gary 2026-10-26 拍板）。"
+    },
+    {
+      "version": "v1.5",
+      "change": "选中底回到 #2a2a2a：v1.4 为对齐运行时改回 #2a2a2d，但后者 B 通道 +3，违反「底必须纯 K」硬规则与被 enterprise_k_only 闸拦红；运行时与登记处应以本规范为准改，而不是反过来。"
+    }
+  ]
+}

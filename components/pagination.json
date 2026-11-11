@@ -1,0 +1,50 @@
+{
+  "slug": "pagination",
+  "name": "分页",
+  "category": "layout",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/pagination)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "当前页用 primary 实底；不可用页禁用态；左右箭头用 reicon-react chevron"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-pagination"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-pagination",
+    ".gary-pagination__list",
+    ".gary-pagination__item",
+    ".gary-pagination__link",
+    ".gary-pagination__ellipsis",
+    ".gary-pagination__prev",
+    ".gary-pagination__next"
+  ]
+}

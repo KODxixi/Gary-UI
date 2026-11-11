@@ -1,0 +1,21 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import * as React from "react";
+import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
+import { cva } from "class-variance-authority";
+import { ChevronDown } from "reicon-react";
+import { cn } from "../../lib/utils";
+const NavigationMenu = React.forwardRef(({ className, children, ...props }, ref) => (_jsxs(NavigationMenuPrimitive.Root, { ref: ref, "data-slot": "navigation-menu", className: cn("gary-navigation-menu relative z-10 flex max-w-max flex-1 items-center justify-center", className), ...props, children: [children, _jsx(NavigationMenuViewport, {})] })));
+NavigationMenu.displayName = "NavigationMenu";
+const NavigationMenuList = React.forwardRef(({ className, ...props }, ref) => (_jsx(NavigationMenuPrimitive.List, { ref: ref, "data-slot": "navigation-menu-list", className: cn("group flex flex-1 list-none items-center justify-center gap-1", className), ...props })));
+NavigationMenuList.displayName = "NavigationMenuList";
+const NavigationMenuItem = NavigationMenuPrimitive.Item;
+const navigationMenuTriggerStyle = cva("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent focus:bg-accent focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/50");
+const NavigationMenuTrigger = React.forwardRef(({ className, children, ...props }, ref) => (_jsxs(NavigationMenuPrimitive.Trigger, { ref: ref, "data-slot": "navigation-menu-trigger", className: cn(navigationMenuTriggerStyle(), "group", className), ...props, children: [children, _jsx(ChevronDown, { className: "relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180", "aria-hidden": "true" })] })));
+NavigationMenuTrigger.displayName = "NavigationMenuTrigger";
+const NavigationMenuContent = React.forwardRef(({ className, ...props }, ref) => (_jsx(NavigationMenuPrimitive.Content, { ref: ref, "data-slot": "navigation-menu-content", className: cn("left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out md:absolute md:w-auto", className), ...props })));
+NavigationMenuContent.displayName = "NavigationMenuContent";
+const NavigationMenuLink = NavigationMenuPrimitive.Link;
+const NavigationMenuViewport = React.forwardRef(({ className, ...props }, ref) => (_jsx("div", { className: cn("absolute left-0 top-full flex justify-center"), children: _jsx(NavigationMenuPrimitive.Viewport, { ref: ref, "data-slot": "navigation-menu-viewport", className: cn("origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-xl border bg-background shadow-xl md:w-[var(--radix-navigation-menu-viewport-width)]", className), ...props }) })));
+NavigationMenuViewport.displayName = "NavigationMenuViewport";
+export { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink, NavigationMenuViewport, navigationMenuTriggerStyle };
+//# sourceMappingURL=navigation-menu.js.map

@@ -2,13 +2,13 @@
   "title": "Gary-UI 固定操作图标",
   "icons": [
     "FileText",
-    "ChartNoAxesCombined",
-    "Workflow",
-    "Network",
-    "PanelTopOpen",
+    "ChartBarTrendUp",
+    "DiagramTree",
+    "Sitemap",
+    "SidebarTop",
     "Play",
     "Pause",
-    "RotateCcw",
+    "ArrowRotate",
     "Download",
     "Accessibility"
   ]

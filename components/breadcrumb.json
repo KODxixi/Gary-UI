@@ -1,0 +1,48 @@
+{
+  "slug": "breadcrumb",
+  "name": "面包屑",
+  "category": "layout",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/breadcrumb)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "当前页用 span 标记为 aria-current=page；分隔符用 reicon-react chevron"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-breadcrumb"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-breadcrumb",
+    ".gary-breadcrumb__item",
+    ".gary-breadcrumb__link",
+    ".gary-breadcrumb__separator",
+    ".gary-breadcrumb__page"
+  ]
+}

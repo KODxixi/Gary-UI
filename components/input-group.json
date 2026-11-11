@@ -1,0 +1,62 @@
+{
+  "slug": "input-group",
+  "name": "输入框组",
+  "category": "forms",
+  "source": "adapters/react-shadcn/src/components/ui/input-group.tsx",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "外层承担边框与 focus ring，中间 input 去边框后自然撑满",
+      "前后置槽位（图标/按钮/文字）通过 data-placement 定位",
+      "按钮槽复用 Button 的 sm 尺寸与 44px 点击区规范"
+    ]
+  },
+  "variants": [
+    {
+      "name": "start-addon",
+      "selector": ".gary-input-group [data-placement='start'], [data-slot='input-group-left']"
+    },
+    {
+      "name": "end-addon",
+      "selector": ".gary-input-group [data-placement='end'], [data-slot='input-group-right']"
+    },
+    {
+      "name": "button-addon",
+      "selector": "[data-slot='input-group-button']"
+    },
+    {
+      "name": "text-addon",
+      "selector": "[data-slot='input-group-text']"
+    }
+  ],
+  "states": [
+    {
+      "name": "focus-within",
+      "selector": ":focus-within"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    },
+    {
+      "name": "error",
+      "selector": "[aria-invalid='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "native form control wrapped in a presentational group",
+    "requirements": [
+      "外层 div 为 presentational，焦点与键盘操作落在内部原生 input",
+      "前后置图标若承担功能必须有 aria-label",
+      "错误态同步 aria-invalid 到内部控件"
+    ]
+  },
+  "cssClasses": [
+    ".gary-input-group",
+    ".gary-input-group-left",
+    ".gary-input-group-right",
+    ".gary-input-group-addon",
+    ".gary-input-group-button",
+    ".gary-input-group-text"
+  ]
+}

@@ -1,9 +1,12 @@
 ---
 name: gary-liquidglass-ui
-description: 使用 Gary-UI 设计、实现或审查 Liquid Glass 界面。默认在当前对话中澄清关键问题并直接实施；以本 SKILL.md 所在的完整仓库为资源根。只有用户明确要求且已配置本地 Session 集成时，才升级为受监控的 HTML 共创 Session。
+description: 使用 Gary-UI 设计、实现或审查 Liquid Glass 界面。默认在当前对话中澄清关键问题并直接实施；以本 SKILL.md 所在的完整仓库为资源根。只有用户明确要求且已配置本地 Session 集成时，才升级为受监控的 HTML 共创 Session。用户说「Gary-UI流程图」时，直接按 docs/FLOW_DIAGRAM.md 执行。
 ---
 
-# Gary-UI 2.0
+# Gary-UI
+
+> 版式红线（卡片圆角、外壳分隔线、结论唯一、内部编码）以 `DESIGN.md` §7 为准，
+> 机器闸 `python -B agent/checks/invariants.py`；本文旧表述与之冲突时以后者为准。 2.0
 
 Gary-UI 是内容可读性优先的 Liquid Glass Design System，也提供可选的 Agent–User HTML 共创集成。
 已安装的 `apple-design` 是还原 Apple 设计逻辑的首要方法入口：功能玻璃克制使用、输入即时反馈、运动可中断、排版随字号适配；
@@ -27,7 +30,9 @@ Gary-UI 是内容可读性优先的 Liquid Glass Design System，也提供可选
 2. 读 `contracts/task.schema.json`，把完整任务归一化为 Task v2。
 3. 读 `contracts/invocation.schema.json`，为每个 Proposal option 生成完整 Visual Route。
 4. 涉及报告、图表或图示时，读 `spec/scene-recipes.json`、
-   `contracts/visual-manifest.schema.json` 与 `adapters/visual/capabilities.json`。
+   `contracts/visual-manifest.schema.json` 与 `adapters/visual/capabilities.json`；
+   图示（架构 / 工作流 / 时序 / 数据流 / 生命周期）另读 `spec/diagram-recipes.json` 与
+   `docs/DIAGRAM_EXPRESSION.md`，边界命题、状态词与线型语义以该文件为准。
    涉及 AntV 信息图时再读 `adapters/visual/ANTV_SKILLS.md`，按其中规则发现官方 Skill。
 5. 只有决定升级 Session 后，才读 Session、Proposal、Feedback、Approval、Evidence 与 Command Result Schema。
 6. 读 `DESIGN.md`、`tokens/tokens.json` 和目标 `components/<slug>.json`。
@@ -37,6 +42,12 @@ Gary-UI 是内容可读性优先的 Liquid Glass Design System，也提供可选
 10. 优化图表／分析图／表格时，先读 `docs/CHART_EXPRESSION.md` 和 `spec/chart-recipes.json`：按 17 类规则选型，按 7 种标注语法绑定对象、文字、证据身份与依据，图表、表格、判断和导出保持同源。`patterns/shared/chart-recipes.js` 只实现 `combo / waterfall / donut / radar / rose` 五种 SVG 参考及对应数据表，不是新适配器引擎，也不提供完整七种标注的通用渲染器；其余类型复用既有工具。`demo0909.html` 与 `examples/demo0909/cases.json` 用于跨领域验证，不能只替换标题而保留旧判断与几何。最小 API、自动读取的 geometry／字体／笔画／填充和仍须审查的 spacing／对比度等范围见该规范，不把配置字段存在当作已自动执行。
 11. 图表颜色读 `docs/CHART_COLOR.md`，角色与主题值以 `spec/chart-recipes.json` 的 `colorSystem`、`themes` 为准；颜色语义由当前任务定义，不按图型或数组次序随意分配。玻璃与图表共存时读 `docs/VISUAL_EXPRESSION.md`。实体底纹、磨砂玻璃、超白/全透玻璃由 `data-gary-surface="solid|frosted|optical"` 按内容密度调用，不改变既有 Visual Route 的 material 枚举；不复制原参考的行业字段、编号或状态判断。`data-gary-light-scope` 连接背景与清透边缘；鼠标点阵、高光、波面视差默认关闭，根属性 `data-gary-pointer-effects="on"` 只能由 Background 中的明确开启动作设置，减弱动态仍优先。
 12. 涉及 Apple 风格的材质、运动、手势、动态排版或辅助功能升级时，优先完整读取已安装的 `apple-design` 作为设计逻辑入口，再用 Apple 官方 HIG 校验边界；实现沿用本仓库已确认的点阵、三材质、图表与 Background 契约。不要复制 Apple 字体、素材或原生组件。
+
+### Gary-UI 流程图（触发语）
+
+用户说「Gary-UI流程图」时，不重新选型，直接读 `docs/FLOW_DIAGRAM.md` + `spec/flow-diagram.json`；
+报告页用 `scripts/flow_svg.py --report`（03 定稿：中性阶段框、玻璃卡、每个节点名称+摘要+点击详情、端点水滴 13×13、卡片宽度自适应 120–260、主路径提亮、无图例、居中），
+闸 `scripts/check_flow_diagram.py`；不要用 archify / mermaid 重排坐标。
 
 ## 默认协作行为
 
@@ -242,17 +253,64 @@ finalize 后状态进入 implementing，不能 reopen。
 - 一张页面只有一个 Scene 和一个全局遮罩；禁止 glass-in-glass。
 - 默认 Scene 是纯黑/纯白底上的唯一点网格；禁止默认叠加线网、卡片等高线或 CSS/Canvas 双重点阵；显式实体底纹只在 Solid 内按 `docs/VISUAL_EXPRESSION.md` 裁切，不应用于页面 Scene。不主动加照片或图片，除非用户明确定制。
 - 完整 Demo 是 Portal、组件、模板与制图目录的视觉基线。普通卡片复用 `patterns/shared/material.js` / `patterns/shared/optical-glass.js`；实底证据板不折射。公开包使用原创光学实现，受再分发限制的旧移植仅保留在维护者本地。
-- 工具操作以圆形 Lucide 图标为主，复用 `patterns/shared/icons.js` 的 `data-gary-icon` / `GaryIcons.set`，默认 44px 点击区、1.6px 描边和可访问名称；导航、分段筛选、内容选择保留文字。
+- 工具操作以圆形图标为主，走默认图标机制 `patterns/shared/morph-icons.js`（React 组件层图标来源 reicon-react；vanilla 静态层与 morph 仍取 Lucide 几何 + morphicons morph 引擎；兼容 `data-gary-icon` / `GaryIcons.set`，新增 `data-gary-icon-to` + `data-gary-icon-toggle` 状态 morph 与 `GaryIcons.morphTo / seek / policy`），默认 44px 点击区、1.6px 描边和可访问名称；导航、分段筛选、内容选择保留文字。静态回退保留 `patterns/shared/icons.js`。
 - 玻璃保持 K-only 中性；状态色只用于小面积反馈。
 - UltraThin、Regular、Thick、SolidPlate 分工明确；正文和表格优先 SolidPlate。
 - 根节点用 `data-gary-material` 声明主材质，表面仍需对应 `gary-*` 类真正应用。
-- 圆角遵循同心关系；控件、主卡、面板基准为 18、30、36px；30px 是已批准旧基线。
+- 圆角遵循同心关系；控件固定 18px，卡片与面板圆角默认跟随**卡片自身宽度**缩放、恒为方形角。推荐机制：元素加 `data-gary-radius="card|panel"` 并引入 `patterns/shared/adaptive-radius.js`（ResizeObserver 计算 `clamp(min, ratio×width, max)` 写入 `--gary-radius`，card 6%/14–32、panel 5%/18–44）；无 JS 时回退到 tokens 的 cqi 圆角（跟随布局列宽，仍为方形角）：`--gary-radius-card: clamp(14px, 6cqi, 32px)`、`--gary-radius-panel: clamp(18px, 5cqi, 44px)`；胶囊 999px。`layout.css` 的 sidebar/grid/switcher/center/cover 原语已建立容器语义。禁止把固定圆角硬塞给不同尺寸卡片，禁止 `border-radius: %`（各轴百分比在宽扁元素上产生椭圆角）。
 - 使用非对称边缘光、接触影和环境影。
 - 中文正文行高默认 1.68，不为“高级感”牺牲可读性。
 - 大字展示标题单行、无标点、中文最多 12 字；超长时改写短标题，完整语义放入副标题或正文，不使用 `<br>` 强制换行。
 - 按压必须在 100–160ms 内回应，UI 转场不超过 300ms；运动可从当前状态打断和反向，bounce 只用于真实动量。600ms 舒展与悬停边缘单次 6s 仅属于明确启用的展示配方，不能阻塞输入。hover 动效仅对精确指针生效，指针联动仍由 Background 明确开启。接入前读取 `patterns/shared/README.md`，复用现有实现。
 - `prefers-reduced-motion` 保留轻柔透明度或颜色反馈；`prefers-reduced-transparency` 使用更实的表面；`prefers-contrast: more` 使用清晰边界。功能层尊重安全区，文字缩放后不裁切。
 - 交付前在真实浏览器验证桌面、390px、键盘焦点与关键交互。
+
+## 设计铁律（Apple HIG × Google M3 共识）
+
+这是两个最高权威源在同一问题上给出的**相同答案**，不是风格偏好，而是数十亿设备验证的规则。
+完整对标（每个维度的 Apple / Google 做法、数值、差异与落地）见 `examples/design-canon/index.html`；
+下列铁律任何一条被违反都按 fail-closed 处理。
+
+1. **清晰第一**：先可用、可懂，再谈好看；内容是主角，chrome（界面外壳）让位。
+2. **层级靠结构**：字重 / 间距 / 光影，不靠颜色堆砌与装饰。
+3. **克制字重做层级**：正文 400、标题 600–700；大字重表达，小字重易读。
+4. **字体族 ≤ 2**（一标题一正文）；数字一律 tabular-nums。
+5. **对齐到基准网格**（Apple 8pt / Google 4dp）；同级元素对齐同一列、同一基线。
+6. **正文左对齐**、行宽 65–75ch、行距 1.5–1.7；段落间距 > 行间距。
+7. **每视图主按钮 1 个**；主次靠 filled→tonal→outlined→text，不靠 size；点击区 ≥44。
+8. **一卡一主题**；圆角随卡片尺寸、恒为方形角；不过度用卡。
+9. **颜色语义化角色**、中性色分层、算法保证对比（正文 ≥4.5:1）；强调色克制。
+10. **动效只服务反馈 / 层级 / 状态**：语义化时长，全程支持 reduced motion。
+
+## 审美与排版 pre-flight（网页/落地页/文章/多栏排版类任务必查）
+
+审美决策以 **tokens 值**为准，不写形容词（"高级感"不是决策，"oklch(0.145 0.012 255)" 才是）。开工前对照以下清单，交付前逐项自检；任何一条被违反都按 fail-closed 处理。
+
+**配色**
+- 中性色必须带 accent 色相微 tint（chroma 0.005–0.015，tokens 已内置 `--gary-surface-page`/`--gary-text-*`/`--gary-glass-*` 等 oklch 值）；禁止引入与 accent 无关的纯灰 ramp（`#808080`、`rgb(128 128 128)`、无 tint 的 `rgba(255,255,255,…)` 大规模铺面）。
+- 强调色同属一个色相体系（当前 accent 蓝 255）；禁止 AI 俗套 violet→blue 渐变、紫蓝双色渐变主视觉。
+- 深色模式必须同时设计并验证（tokens 双模式已内置）；阴影在深色下优先用亮面/边框而非重影。
+
+**字体**
+- 标题（`h1/h2`、`.gary-role-title`/`.gary-role-section-title`）使用 `--gary-font-display`（Space Grotesk 变量字 + Helvetica/YaHei 回退）；正文使用 `--gary-font-sans`。禁止单字体族通吃标题与正文。
+- 数据与数字必须 `font-variant-numeric: tabular-nums`（`.gary-role-metric` 已内置）；禁止数字在行间跳动。
+- 正文行宽默认 `--gary-text-measure`（65ch），连续正文不撑满全宽；正文行高 1.68、`text-wrap: pretty`。
+
+**尺寸与层级**
+- 圆角跟随卡片自身宽度、恒为方形角：卡片加 `data-gary-radius="card"`（大面板 `panel`）并引入 `adaptive-radius.js`；无 JS 时回退 cqi（随布局列宽）。控件固定 `--gary-radius-control`（18px）；完整示例见 `examples/showcase`。禁止把 30px 一类固定值套到所有卡片（"blobby"）、一处 `--radius` 通吃、或 `%` 圆角（椭圆角）。
+- elevation 按层级取 token（`--gary-elevation-0…5`），同一层级的表面必须共享同组阴影+边框；禁止一档阴影打天下。
+- 卡片网格只在条目真为同级时使用；有主次的场景用 `patterns/shared/layout.css` 的 sidebar/switcher/cover 等原语构建层级（一宽两窄、三分之二/三分之一），禁止三张等宽卡片当默认布局。
+
+**动效**
+- 三组时长语义，禁止统一动画曲线：响应点击/悬停 100–150ms ease-out（`--gary-duration-respond`）、元素进入 200–250ms ease-out（`--gary-duration-enter`）、元素离开 120–180ms ease-in（`--gary-duration-exit`，`--gary-ease-in`）。退出必须比进入快。
+- 动效可从当前状态打断并反向；bounce 只用于真实动量。
+
+**图标**
+- 图标统一 `--gary-icon-stroke`（1.6）与 `--gary-icon-size-*`；禁止 sparkles/rockets/lightning 等装饰性情绪图标（唯一例外：品牌标记）。页面出现 "seamlessly"、"unleash" 等营销空话词时改稿。
+
+**排版原语优先**
+- 多栏/分层/卡片布局优先使用 `patterns/shared/layout.css`（stack/cluster/switcher/grid/sidebar/center/cover/frame/prose）；禁止手写零散 `margin`/`flex` 拼装。
+- 流体尺寸（字号、间距、卡片宽度）使用 `--gary-fluid-type-*`/`--gary-fluid-space-*` clamp 刻度；禁止固定像素字号在窄屏溢出。
 
 ## 场景配方与制图路由
 
@@ -267,7 +325,7 @@ title、section-title、body、label、annotation、metric；正文默认 16px /
 - Markdown 大纲、研究提纲、知识层级 → Markmap（Markdown）；保留 Markdown 原生源，不承载复杂关系。
 - 步骤、定性对比、结构与摘要信息图 → AntV Infographic（JSON）；完整成品读取官方 `infographic-creator`，仅语法读取官方 `infographic-syntax-creator` 及其指定引用。
 - Markdown 内简单流程或已有 Mermaid 源 → Mermaid（`.mmd` / Markdown）；复杂交互与关系校验显式转 Archify 并核对语义。
-- 界面操作与通用节点图标 → Lucide（JSON icon list）；必须有可访问名称，导出完整图标板或逐枚命名文件。
+- 界面操作与通用节点图标 → reicon（JSON icon list）；必须有可访问名称，导出完整图标板或逐枚命名文件。
 
 用户已有原生格式优先保留，但不得用思维导图承载复杂关系、用装饰形状替代定量刻度。Task v2
 无需扩展 schema：把 `visuals.json` 作为既有 `brief.assets` 或 `units[].assets` 的本地资源引用。

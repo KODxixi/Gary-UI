@@ -12,9 +12,9 @@
   --decision-primary-width: 840px;
   --decision-card-width: 460px;
   --decision-nav-height: 58px;
-  --decision-accent: #77d7ee;
-  --decision-warning: #e6b96c;
-  --decision-stage: rgba(16, 16, 17, 0.30);
+  --decision-accent: #c4c4c4;
+  --decision-warning: #bdbdbd;
+  --decision-stage: rgb(16,16,16, 0.30);
 }
 
 * {
@@ -51,7 +51,7 @@ button {
   background-image:
     var(--decision-report-texture-image),
     var(--gary-scene-image),
-    radial-gradient(circle at 18% 8%, #3d4143 0, #202224 32%, #101112 68%, #080809 100%);
+    radial-gradient(circle at 18% 8%, #404040 0, #222222 32%, #111111 68%, #080808 100%);
   background-position: 50% 0, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat;
   background-size: max(100%, 120rem) 12288px, cover, cover;
@@ -59,7 +59,7 @@ button {
 
 .decision-report-scene::before {
   background:
-    linear-gradient(180deg, rgba(7, 7, 8, 0.56), rgba(7, 7, 8, 0.76)),
+    linear-gradient(180deg, rgb(7,7,7, 0.56), rgb(7,7,7, 0.76)),
     var(--gary-scene-mask);
 }
 

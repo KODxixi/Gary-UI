@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Design Canon · 对标 Apple × Google</title>
+<link rel="stylesheet" href="../../tokens/base.css" />
+<style>
+  :root{
+    --apple-blue:#0071e3;
+    --g-blue:#4285f4; --g-red:#ea4335; --g-yellow:#fbbc04; --g-green:#34a853;
+    --canon-ink: var(--gary-text-primary);
+    --canon-muted: var(--gary-text-secondary);
+    --canon-faint: var(--gary-text-tertiary);
+    --canon-line: color-mix(in oklch, var(--gary-text-primary) 10%, transparent);
+    --canon-card: linear-gradient(180deg, var(--gary-card-surface-top), var(--gary-card-surface-bottom));
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 50% -200px, color-mix(in oklch, var(--gary-focus-ring) 12%, transparent), transparent 70%),
+      var(--gary-surface-page);
+    color:var(--canon-ink);
+    font-family:var(--gary-font-sans);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in oklch, var(--gary-surface-page) 72%, transparent);
+    -webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);
+    border-bottom:1px solid var(--canon-line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--gary-font-display);font-weight:600;letter-spacing:-.01em;text-decoration:none;color:var(--canon-ink)}
+  .brand .mark{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,var(--gary-focus-ring),#7cc0ff);display:grid;place-items:center;color:#fff;font-size:13px;font-weight:700}
+  .nav-links{display:flex;gap:2px;overflow-x:auto}
+  .nav-links a{
+    flex:none;font-size:13px;color:var(--canon-muted);text-decoration:none;
+    padding:6px 10px;border-radius:8px;white-space:nowrap;
+  }
+  .nav-links a:hover{color:var(--canon-ink);background:color-mix(in oklch,var(--gary-text-primary) 7%,transparent)}
+  @media(max-width:920px){.nav-links{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:clamp(72px,12vw,132px) 0 40px;text-align:center}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--gary-focus-ring);
+    padding:6px 14px;border:1px solid color-mix(in oklch,var(--gary-focus-ring) 35%,transparent);
+    border-radius:999px;background:color-mix(in oklch,var(--gary-focus-ring) 9%,transparent);
+  }
+  .hero h1{
+    font-family:var(--gary-font-display);
+    font-size:clamp(2.6rem,7vw,5.2rem);
+    line-height:1.02;letter-spacing:-.03em;font-weight:700;
+    margin:28px 0 0;
+  }
+  .hero h1 .dim-text{color:var(--canon-muted)}
+  .hero p.sub{
+    max-width:640px;margin:26px auto 0;
+    font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.6;color:var(--canon-muted);
+  }
+  .hero-badges{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:36px}
+  .hbadge{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:10px 18px;border-radius:999px;border:1px solid var(--canon-line);
+    background:color-mix(in oklch,var(--gary-text-primary) 5%,transparent);
+    font-size:14px;font-weight:500;color:var(--canon-ink);
+  }
+  .hbadge .dots{display:inline-flex;gap:4px}
+  .hbadge .dots i{width:8px;height:8px;border-radius:50%;display:block}
+  .hbadge .apple-dot{width:9px;height:9px;border-radius:50%;background:var(--apple-blue)}
+
+  .thesis{
+    margin:clamp(48px,8vw,88px) auto 0;max-width:820px;text-align:center;
+    padding:28px 0;border-top:1px solid var(--canon-line);border-bottom:1px solid var(--canon-line);
+  }
+  .thesis p{margin:0;font-family:var(--gary-font-display);font-size:clamp(1.25rem,2.6vw,1.7rem);line-height:1.4;letter-spacing:-.015em;font-weight:500}
+  .thesis b{color:var(--gary-focus-ring);font-weight:700}
+
+  /* ---------- dimension sections ---------- */
+  .dim{padding:clamp(56px,9vw,104px) 0 0;scroll-margin-top:72px}
+  .dim-head{margin-bottom:32px}
+  .dim-no{
+    font-family:var(--gary-font-mono);font-size:13px;letter-spacing:.12em;
+    color:var(--gary-focus-ring);font-weight:600;
+  }
+  .dim-head h2{
+    font-family:var(--gary-font-display);
+    font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.08;letter-spacing:-.02em;font-weight:700;
+    margin:12px 0 10px;
+  }
+  .dim-head .lede{max-width:640px;margin:0;color:var(--canon-muted);font-size:1.05rem;line-height:1.6}
+
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.compare{grid-template-columns:1fr}}
+
+  .src{
+    border-radius:var(--gary-radius-card);
+    border:1px solid var(--canon-line);
+    background:var(--canon-card);
+    padding:26px;
+    box-shadow:var(--gary-elevation-1);
+  }
+  .src.google{border-radius:24px}
+  .src-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .src-name{font-family:var(--gary-font-display);font-weight:700;font-size:1.06rem;letter-spacing:-.01em;line-height:1}
+  .src-system{font-size:12px;color:var(--canon-faint);margin-top:4px;letter-spacing:.02em}
+  .src ul{list-style:none;margin:0;padding:0;display:grid;gap:13px}
+  .src li{position:relative;padding-left:22px;font-size:14.5px;line-height:1.55;color:var(--canon-ink)}
+  .src li::before{content:"";position:absolute;left:2px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--canon-faint)}
+  .src.apple li::before{background:var(--apple-blue)}
+  .src.google li::before{background:var(--g-blue)}
+  .src li b{font-weight:600}
+  .val{
+    font-family:var(--gary-font-mono);font-size:.85em;
+    padding:1px 7px;border-radius:6px;
+    background:color-mix(in oklch,var(--gary-text-primary) 9%,transparent);
+    color:var(--gary-text-primary);white-space:nowrap;
+  }
+  .src.apple .val{background:color-mix(in oklch,var(--apple-blue) 18%,transparent)}
+  .src.google .val{background:color-mix(in oklch,var(--g-blue) 18%,transparent)}
+
+  /* google 4 dots */
+  .g4{display:inline-flex;gap:4px;width:26px}
+  .g4 i{width:7px;height:7px;border-radius:50%;display:block}
+  .g4 i:nth-child(1){background:var(--g-blue)}
+  .g4 i:nth-child(2){background:var(--g-red)}
+  .g4 i:nth-child(3){background:var(--g-yellow)}
+  .g4 i:nth-child(4){background:var(--g-green)}
+  .apple-dot-sm{width:14px;height:14px;border-radius:50%;background:var(--apple-blue)}
+
+  /* consensus */
+  .consensus{
+    margin-top:20px;
+    border-radius:var(--gary-radius-card);
+    border:1px solid color-mix(in oklch,var(--gary-focus-ring) 30%,transparent);
+    background:
+      linear-gradient(135deg, color-mix(in oklch,var(--gary-focus-ring) 13%,transparent), color-mix(in oklch,var(--gary-focus-ring) 4%,transparent));
+    padding:24px 26px;
+  }
+  .consensus .ctitle{
+    display:flex;align-items:center;gap:9px;
+    font-family:var(--gary-font-display);font-weight:700;font-size:.95rem;letter-spacing:0;
+    color:var(--gary-focus-ring);margin-bottom:14px;
+  }
+  .consensus .ctitle .eq{
+    width:22px;height:22px;border-radius:7px;display:grid;place-items:center;
+    background:var(--gary-focus-ring);color:#fff;font-weight:700;font-size:14px;
+  }
+  .consensus ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+  .consensus li{position:relative;padding-left:28px;font-size:15px;line-height:1.55;font-weight:500}
+  .consensus li::before{
+    content:"";position:absolute;left:0;top:3px;width:18px;height:18px;border-radius:50%;
+    background:var(--gary-focus-ring);
+    -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/12px no-repeat;
+    mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/12px no-repeat;
+  }
+
+  /* landing */
+  .landing{
+    margin-top:14px;
+    border-radius:var(--gary-radius-card);
+    border:1px solid var(--canon-line);
+    background:color-mix(in oklch,var(--gary-text-primary) 4%,transparent);
+    padding:22px 26px;
+  }
+  .landing .ltitle{
+    display:flex;align-items:center;gap:10px;margin-bottom:14px;
+    font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--canon-muted);
+  }
+  .landing .ltitle .gmark{
+    width:20px;height:20px;border-radius:6px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--gary-focus-ring),#7cc0ff);color:#fff;font-size:11px;font-weight:700;
+  }
+  .landing ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;grid-template-columns:1fr 1fr}
+  @media(max-width:680px){.landing ul{grid-template-columns:1fr}}
+  .landing li{position:relative;padding-left:24px;font-size:14px;line-height:1.5;color:var(--canon-muted)}
+  .landing li::before{
+    content:"";position:absolute;left:0;top:2px;width:16px;height:16px;border-radius:50%;
+    background:color-mix(in oklch,var(--gary-focus-ring) 22%,transparent);
+    -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232e8dff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/11px no-repeat;
+    mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232e8dff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/11px no-repeat;
+  }
+  .landing li code{font-family:var(--gary-font-mono);font-size:.85em;color:var(--canon-ink)}
+
+  /* mini visual samples */
+  .sample{margin-top:16px;border-radius:14px;border:1px solid var(--canon-line);padding:16px;background:color-mix(in oklch,#000 18%,transparent)}
+  .sample .cap{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--canon-faint);margin-bottom:10px}
+  .btn-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .mbtn{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;border-radius:999px;padding:9px 18px;border:1px solid transparent;cursor:default}
+  .mbtn.filled{background:var(--gary-focus-ring);color:#fff}
+  .mbtn.tonal{background:color-mix(in oklch,var(--gary-focus-ring) 18%,transparent);color:var(--gary-text-primary)}
+  .mbtn.outlined{border-color:var(--canon-line);color:var(--canon-ink);background:transparent}
+  .mbtn.text{color:var(--gary-focus-ring);background:transparent}
+  .mbtn.danger{background:color-mix(in oklch,var(--gary-state-critical) 16%,transparent);color:var(--gary-state-critical)}
+  .type-demo{display:grid;gap:2px}
+  .type-demo .t-display{font-family:var(--gary-font-display);font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1}
+  .type-demo .t-title{font-family:var(--gary-font-display);font-size:18px;font-weight:600;letter-spacing:-.01em}
+  .type-demo .t-body{font-size:14px;color:var(--canon-muted)}
+  .type-demo .t-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gary-focus-ring)}
+
+  /* radius demo */
+  .radius-demo{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+  .rcard{background:linear-gradient(180deg,var(--gary-card-surface-top),var(--gary-card-surface-bottom));border:1px solid var(--canon-line);display:grid;place-items:center;font-family:var(--gary-font-mono);font-size:11px;color:var(--canon-muted)}
+  .rcard.big{width:150px;height:104px;border-radius:30px}
+  .rcard.mid{width:110px;height:76px;border-radius:22px}
+  .rcard.sm{width:76px;height:52px;border-radius:15px}
+
+  /* footer */
+  .footer{margin-top:clamp(80px,12vw,140px);border-top:1px solid var(--canon-line);padding:48px 0 64px}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+  @media(max-width:720px){.footer-grid{grid-template-columns:1fr}}
+  .footer h4{font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--canon-faint);margin:0 0 14px;font-weight:600}
+  .footer a{display:block;color:var(--canon-muted);text-decoration:none;font-size:14px;margin-bottom:10px}
+  .footer a:hover{color:var(--canon-ink)}
+  .footer p{color:var(--canon-muted);font-size:14px;line-height:1.6;margin:0 0 14px}
+  .footer .fine{color:var(--canon-faint);font-size:12.5px;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="gary-ui">
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><span class="mark">G</span> Design Canon</a>
+      <nav class="nav-links">
+        <a href="#d01">原则</a><a href="#d02">排版</a><a href="#d03">富文本</a>
+        <a href="#d04">布局</a><a href="#d05">对齐</a><a href="#d06">卡片</a>
+        <a href="#d07">按钮</a><a href="#d08">图标</a><a href="#d09">配色</a><a href="#d10">动效</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero wrap" id="top">
+    <span class="eyebrow">Gary-UI · 设计对标权威源</span>
+    <h1>向两个最成熟的<br><span class="dim-text">设计体系学到底</span></h1>
+    <p class="sub">Apple Human Interface Guidelines 与 Google Material Design 3，各自在数十亿设备上被反复验证。把它们的规则、数值和共识提炼成可执行的设计规范——这就是 Gary-UI 的审美基线。</p>
+    <div class="hero-badges">
+      <span class="hbadge"><span class="apple-dot"></span> Apple · Human Interface Guidelines</span>
+      <span class="hbadge"><span class="dots"><i style="background:var(--g-blue)"></i><i style="background:var(--g-red)"></i><i style="background:var(--g-yellow)"></i><i style="background:var(--g-green)"></i></span> Google · Material Design 3</span>
+    </div>
+
+    <div class="thesis">
+      <p>当两套体系在同一件事上<b>给出相同答案</b>，那不是风格选择，而是经过十亿级验证的<b>设计铁律</b>。</p>
+    </div>
+  </section>
+
+  <main class="wrap">
+
+  <!-- 01 PRINCIPLES -->
+  <section class="dim" id="d01">
+    <div class="dim-head">
+      <div class="dim-no">01 / PRINCIPLES</div>
+      <h2>设计原则</h2>
+      <p class="lede">所有具体规则都从顶层原则推导。先定审美哲学，再谈字号像素。</p>
+    </div>
+    <div class="compare">
+      <div class="src apple">
+        <div class="src-head"><span class="apple-dot-sm"></span><div><div class="src-name">Apple</div><div class="src-system">Human Interface Guidelines</div></div></div>
+        <ul>
+          <li><b>Clarity · 清晰</b>：文字在每种字号下都清晰可读，控件明确</li>
+          <li><b>Deference · 顺从</b>：内容是主角，界面让位、不抢戏</li>
+          <li><b>Depth · 纵深</b>：层级通过层次与运动传达（Liquid Glass 用材质折射）</li>
+          <li>整个 app 保持<b>一致的设计语言</b>，靠熟悉感降低学习成本</li>
+        </ul>
+      </div>
+      <div class="src google">
+        <div class="src-head"><span class="g4"><i></i><i></i><i></i><i></i></span><div><div class="src-name">Google</div><div class="src-system">Material Design 3 · Expressive</div></div></div>
+        <ul>
+          <li><b>Bold · 大胆</b>：醒目、有主见的视觉表达</li>
+          <li><b>Expressive · 表现力</b>：用颜色、字体、形状表达品牌个性</li>
+          <li><b>Adaptive · 自适应</b>：一套设计覆盖所有设备与尺寸</li>
+          <li>Material 是受物理启发的<b>数字材质</b>：有厚度、光影、触摸反馈</li>
+        </ul>
+      </div>
+    </div>
+    <div class="consensus">
+      <div class="ctitle"><span class="eq">=</span> 两者共识 · 铁律</div>
+      <ul>
+        <li>清晰永远第一：先保证可用、可懂，再谈好看</li>
+        <li>内容是主角，chrome（界面外壳）让位，一切为阅读与操作服务</li>
+        <li>层级靠结构——字重、间距、光影，而不是靠装饰与颜色堆砌</li>
+      </ul>
+    </div>
+    <div class="landing">
+      <div class="ltitle"><span class="gmark">G</span> Gary-UI 落地</div>
+      <ul>
+        <li>每屏开工先问：<code>这一屏要让用户做什么？</code></li>
+        <li>层级只用字重 / 间距 / 纵深表达，禁止颜色堆砌</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 02 TYPOGRAPHY -->
+  <section class="dim" id="d02">
+    <div class="dim-head">
+      <div class="dim-no">02 / TYPOGRAPHY</div>
+      <h2>排版</h2>
+      <p class="lede">排版是层级与信息密度的第一工具。高手靠一套克制的字重做全部层级，新手靠颜色和字体。</p>
+    </div>
+    <div class="compare">
+      <div class="src apple">
+        <div class="src-head"><span class="apple-dot-sm"></span><div><div class="src-name">Apple</div><div class="src-system">Typography</div></div></div>
+        <ul>
+          <li>系统字体 <b>SF Pro</b>（Sans）/ <b>New York</b>（Serif）</li>
+          <li>iOS 正文 <span class="val">17pt</span>（最小 <span class="val">11pt</span>）；macOS <span class="val">13pt</span>（最小 <span class="val">10pt</span>）</li>
+          <li>避免 Light / Thin；正文用 <b>Regular</b>，强调用 <b>Medium / Semibold</b></li>
+          <li>大字用 Display、小字用 Text（<b>optical size</b> 自动切换）</li>
+          <li>支持 <b>Dynamic Type</b>，字号随用户系统设置缩放</li>
+        </ul>
+      </div>
+      <div class="src google">
+        <div class="src-head"><span class="g4"><i></i><i></i><i></i><i></i></span><div><div class="src-name">Google</div><div class="src-system">Typography</div></div></div>
+        <ul>
+          <li><b>Roboto</b>（可换 Roboto Flex 可变字体）</li>
+          <li><b>15 baseline + 15 emphasized</b> 样式；emphasized 字重更高</li>
+          <li>五角色：<b>Display / Headline / Title / Body / Label</b></li>
+          <li><b>brand</b> 字族管大字（表达）、<b>plain</b> 字族管小字（易读）</li>
+          <li>Display L <span class="val">57/64</span> · Headline L <span class="val">32/40</span> · Title L <span class="val">22/28</span> · Body L <span class="val">16/24</span> · Label L <span class="val">14/20</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sample">
+      <div class="cap">层级示范</div>
+      <div class="type-demo">
+        <div class="t-label">LABEL · 标签</div>
+        <div class="t-display">Display 标题</div>
+        <div class="t-title">Title 次级标题</div>
+        <div class="t-body">Body 正文：清晰、克制、可长时间阅读。所有数字默认 tabular-nums 对齐：0123456789。</div>
+      </div>
+    </div>
+    <div class="consensus">
+      <div class="ctitle"><span class="eq">=</span> 两者共识 · 铁律</div>
+      <ul>
+        <li>一套克制字重做全部层级：正文 <span class="val">400</span>，标题 <span class="val">600–700</span>；大字重表达、小字重易读</li>
+        <li>大标题对比度 ≥ <span class="val">3:1</span>，正文 ≥ <span class="val">4.5:1</span>；数字一律 tabular-nums</li>
+        <li>字体族 ≤ 2：一个标题、一个正文，不堆字体</li>
+      </ul>
+    </div>
+    <div class="landing">
+      <div class="ltitle"><span class="gmark">G</span> Gary-UI 落地</div>
+      <ul>
+        <li>双字族：<code>Space Grotesk 标题 / 系统正文</code></li>
+        <li>fluid type scale（视口 390→1440 连续缩放）</li>
+        <li>中文行高按 Medium 语言，比拉丁高约 <code>7%</code></li>
+        <li>大标题负字距 <code>-0.025em</code>，标签正字距 <code>0.01em</code></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 03 RICH TEXT -->
+  <section class="dim" id="d03">
+    <div class="dim-head">
+      <div class="dim-no">03 / RICH TEXT</div>
+      <h2>富文本与内容样式</h2>
+      <p class="lede">标题、正文、引用、列表、代码、链接——这些富文本元素必须语义化、有统一节奏，长文才能舒服地读下去。</p>
+    </div>
+    <div class="compare">
+      <div class="src apple">
+        <div class="src-head"><span class="apple-dot-sm"></span><div><div class="src-name">Apple</div><div class="src-system">Content &amp; Text styles</div></div></div>
+        <ul>
+          <li>文本样式<b>语义化</b>：标题 / 正文 / 引用 / 代码 / 列表各司其职</li>
+          <li>长段落控制行宽、留足行距，避免一行拉太长</li>
+          <li>链接与强调克制，避免满屏高亮、满屏加粗</li>
+          <li>标题与正文之间留白，形成可扫读的节奏</li>
+        </ul>
+      </div>
+      <div class="src google">
+        <div class="src-head"><span class="g4"><i></i><i></i><i></i><i></i></span><div><div class="src-name">Google</div><div class="src-system">Editorial treatments</div></div></div>
+        <ul>
+          <li><b>Body</b> 管长文、<b>Label</b> 管标签，角色不混用</li>
+          <li>长文本限制 measure，左对齐为主（不居中长文）</li>
+          <li>列表与段落节奏统一，间距符合基准网格</li>
+          <li>用列表与短段落代替大段密文，提高可扫描性</li>
+        </ul>
+      </div>
+    </div>
+    <div class="consensus">
+      <div class="ctitle"><span class="eq">=</span> 两者共识 · 铁律</div>
+      <ul>
+        <li>富文本元素语义化、全 app 一套样式，不随手写</li>
+        <li>行宽 <span class="val">65–75ch</span>，正文行距 <span class="val">1.5–1.7</span></li>
+        <li>段落间距 &gt; 行间距，用垂直留白制造阅读节奏</li>
+      </ul>
+    </div>
+    <div class="landing">
+      <div class="ltitle"><span class="gmark">G</span> Gary-UI 落地</div>
+      <ul>
+        <li><code>prose</code> 原语：measure / 垂直节奏 / 标题配对</li>
+        <li>blockquote / code / list 统一语义样式</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 04 LAYOUT -->
+  <section class="dim" id="d04">
+    <div class="dim-head">
+      <div class="dim-no">04 / LAYOUT</div>
+      <h2>布局</h2>
+      <p class="lede">布局靠统一基准单位与内容驱动的自适应，而不是为每种屏幕写死一套。</p>
+    </div>
+    <div class="compare">
+      <div class="src apple">
+        <div class="src-head"><span class="apple-dot-sm"></span><div><div class="src-name">Apple</div><div class="src-system">Layout</div></div></div>
+        <ul>
+          <li><b>Auto Layout / SwiftUI</b>：约束驱动，而非绝对坐标</li>
+          <li><b>安全区 + 布局指南</b>（safe area / layout margins），内容不贴边</li>
+          <li>内容填满屏幕，重要内容优先、放在前</li>
+          <li>用 <b>size classes</b> 适配横竖屏与设备，一套布局自适应</li>
+        </ul>
+      </div>
+      <div class="src google">
+        <div class="src-head"><span class="g4"><i></i><i></i><i></i><i></i></span><div><div class="src-name">Google</div><div class="src-system">Responsive layout</div></div></div>
+        <ul>
+          <li><b>4dp 基准网格</b>：所有尺寸是 4 的倍数</li>
+          <li>spacing：<span class="val">4/8/12/16/24/32/40/48/56/64/80</span></li>
+          <li>断点：Compact <span class="val">&lt;600</span> · Medium <span class="val">600–840</span> · Expanded <span class="val">840–1200</span> · Large <span class="val">1200–1600</span></li>
+          <li>pane 布局：<b>list-detail / supporting / feed</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="consensus">
+      <div class="ctitle"><span class="eq">=</span> 两者共识 · 铁律</div>
+      <ul>
+        <li>统一基准单位：Apple 用 8pt grid、Google 用 4dp grid，间距不成倍数即错</li>
+        <li>边距 / 安全区，内容永不贴边；内容驱动断点，一套布局自适应</li>
+      </ul>
+    </div>
+    <div class="landing">
+      <div class="ltitle"><span class="gmark">G</span> Gary-UI 落地</div>
+      <ul>
+        <li>布局原语：<code>stack/cluster/switcher/grid/sidebar/center/cover</code></li>
+        <li>fluid space scale，容器驱动（无媒体查询）</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 05 ALIGNMENT -->
+  <section class="dim" id="d05">
+    <div class="dim-head">
+      <div class="dim-no">05 / ALIGNMENT</div>
+      <h2>对齐关系</h2>
+      <p class="lede">对齐是"高级感"最隐蔽的来源。同级元素对齐到同一列、同一基线，界面立刻整洁。</p>
+    </div>
+    <div class="compare">
+      <div class="src apple">
+        <div class="src-head"><span class="apple-dot-sm"></span><div><div class="src-name">Apple</div><div class="src-system">Alignment</div></div></div>
+        <ul>
+          <li>所有元素<b>互相对齐</b>：整洁、可浏览、有秩序</li>
+          <li>用<b>缩进</b>表达层级（indentation = hierarchy）</li>
+          <li>非对称图标做 <b>optical 对齐</b>：加内边距让视觉居中</li>
+          <li>文字与图标<b>基线对齐</b>，不悬空</li>
+        </ul>
+      </div>
+      <div class="src google">
+        <div class="src-head"><span class="g4"><i></i><i></i><i></i><i></i></span><div><div class="src-name">Google</div><div class="src-system">Alignment</div></div></div>
+        <ul>
+          <li>所有元素对齐到 <b>4dp 网格</b></li>
+          <li>同列内容左对齐，数值列右对齐</li>
+          <li>关键内容对齐到同一基线，避免视觉参差</li>
+        </ul>
+      </div>
+    </div>
+    <div class="consensus">
+      <div class="ctitle"><span class="eq">=</span> 两者共识 · 铁律</div>
+      <ul>
+        <li>正文左对齐为主，避免居中长段落；同级元素对齐到同一列 / 基线</li>
+        <li>图标做 optical 居中、数字做 tabular-nums 对齐，"看着齐"才是真的齐</li>
+      </ul>
+    </div>
+    <div class="landing">
+      <div class="ltitle"><span class="gmark">G</span> Gary-UI 落地</div>
+      <ul>
+        <li>统一对齐网格，禁止元素随意偏移</li>
+        <li>非对称图标 optical 居中，数字默认 tabular-nums</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 06 CARDS -->
+  <section class="dim" id="d06">
+    <div class="dim-head">
+      <div class="dim-no">06 / CARDS</div>
+      <h2>卡片</h2>
+      <p class="lede">卡片承载"单一主题"的内容与动作。它是分组工具，但绝不能滥用——留白和分隔线更简单时就不该用卡。</p>
+    </div>
+    <div class="compare">
+      <div class="src apple">
+        <div class="src-head"><span class="apple-dot-sm"></span><div><div class="src-name">Apple</div><div class="src-system">Containers &amp; grouping</div></div></div>
+        <ul>
+          <li>用<b>背景形状 / 材质 / 分隔线</b>对相关项分组</li>
+          <li>内容与控件分离，卡片内层级清晰</li>
+          <li>圆角用 <b>continuous corner</b>（同心连续圆角）</li>
+        </ul>
+      </div>
+      <div class="src google">
+        <div class="src-head"><span class="g4"><i></i><i></i><i></i><i></i></span><div><div class="src-name">Google</div><div class="src-system">Cards</div></div></div>
+        <ul>
+          <li>三变体：<b>Elevated</b>（阴影）/ <b>Filled</b>（填充）/ <b>Outlined</b>（描边）</li>
+          <li>一卡一主题，易扫描，可作详情入口</li>
+          <li>以 grid / list / carousel 成组出现</li>
+          <li>留白 / 标题 / 分隔线更简单时，<b>不要硬塞卡片</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sample">
+      <div class="cap">圆角跟随卡片尺寸 · 恒为方形角</div>
+      <div class="radius-demo">
+        <div class="rcard big">30px · 大卡</div>
+        <div class="rcard mid">22px · 中卡</div>
+        <div class="rcard sm">15px · 小卡</div>
+      </div>
+    </div>
+    <div class="consensus">
+      <div class="ctitle"><span class="eq">=</span> 两者共识 · 铁律</div>
+      <ul>
+        <li>一卡一主题，卡内层级清晰；三种强调：填充 / 描边 / 抬高</li>
+        <li>圆角跟随卡片尺寸（大卡大圆角、小卡小圆角），且四角恒为方形角</li>
+        <li>不过度用卡：分组更简单的方案（留白 / 分隔线）优先</li>
+      </ul>
+    </div>
+    <div class="landing">
+      <div class="ltitle"><span class="gmark">G</span> Gary-UI 落地</div>
+      <ul>
+        <li>卡片表面渐变 + edge + inset 高光，三档 elevation</li>
+        <li><code>adaptive-radius.js</code>：按元素自身宽度算圆角，恒方形</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 07 BUTTONS -->
+  <section class="dim" id="d07">
+    <div class="dim-head">
+      <div class="dim-no">07 / BUTTONS</div>
+      <h2>按钮</h2>
+      <p class="lede">按钮承载动作。每一视图只突出一个主按钮，其余靠样式降权；区分主次靠 style，绝不用 size。</p>
+    </div>
+    <div class="compare">
+      <div class="src apple">
+        <div class="src-head"><span class="apple-dot-sm"></span><div><div class="src-name">Apple</div><div class="src-system">Buttons</div></div></div>
+        <ul>
+          <li>点击区 ≥ <span class="val">44×44pt</span>（visionOS <span class="val">60×60</span>）</li>
+          <li>自定义按钮<b>必须有 press state</b>，否则显得无响应</li>
+          <li>用 <b>style 而非 size</b> 区分主次；同组选项同尺寸</li>
+          <li>突出按钮每视图 <b>1–2 个</b>，多了增加认知负担</li>
+          <li>Role：Normal / Primary / Cancel / <b>Destructive</b>（系统红，且不可做主按钮）</li>
+          <li>标签动词开头、简短：Add to Cart；打开新窗口加 <b>省略号…</b></li>
+        </ul>
+      </div>
+      <div class="src google">
+        <div class="src-head"><span class="g4"><i></i><i></i><i></i><i></i></span><div><div class="src-name">Google</div><div class="src-system">Buttons</div></div></div>
+        <ul>
+          <li>五种：<b>elevated / filled / tonal / outlined / text</b></li>
+          <li><b>filled</b> 给最重要动作，其余逐级降权</li>
+          <li>不要堆满按钮，次要动作收进 menu / chips / link</li>
+          <li>宽度适应标签、不窄于文字；高度 <span class="val">40dp</span>（触控 <span class="val">48dp</span>）</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sample">
+      <div class="cap">按钮层级（由强到弱）</div>
+      <div class="btn-row">
+        <span class="mbtn filled">Primary</span>
+        <span class="mbtn tonal">Secondary</span>
+        <span class="mbtn outlined">Outlined</span>
+        <span class="mbtn text">Text</span>
+        <span class="mbtn danger">Delete</span>
+      </div>
+    </div>
+    <div class="consensus">
+      <div class="ctitle"><span class="eq">=</span> 两者共识 · 铁律</div>
+      <ul>
+        <li>每视图主按钮 1 个（最突出）；主次靠 filled→tonal→outlined→text，不靠 size</li>
+        <li>点击区 ≥ 44，必须有 hover / press 状态；destructive 用红且不可做主按钮</li>
+      </ul>
+    </div>
+    <div class="landing">
+      <div class="ltitle"><span class="gmark">G</span> Gary-UI 落地</div>
+      <ul>
+        <li>primary / secondary / ghost 三档，语义化 role</li>
+        <li>点击区 <code>44px</code>，标签动词开头、短</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 08 ICONS -->
+  <section class="dim" id="d08">
+    <div class="dim-head">
+      <div class="dim-no">08 / ICONS</div>
+      <h2>图标</h2>
+      <p class="lede">图标是"单个概念"的视觉速记。一套图标必须在风格、线宽、细节上完全统一，且与相邻文字线宽一致。</p>
+    </div>
+    <div class="compare">
+      <div class="src apple">
+        <div class="src-head"><span class="apple-dot-sm"></span><div><div class="src-name">Apple</div><div class="src-system">SF Symbols</div></div></div>
+        <ul>
+          <li><b>SF Symbols（glyph）</b>，与文字同字重</li>
+          <li>极简、用通用隐喻，细节可辨</li>
+          <li>全套图标在大小 / 细节 / 线宽 / 透视上统一</li>
+          <li>非对称图标 optical 对齐；选中态交给系统</li>
+        </ul>
+      </div>
+      <div class="src google">
+        <div class="src-head"><span class="g4"><i></i><i></i><i></i><i></i></span><div><div class="src-name">Google</div><div class="src-system">Material Symbols</div></div></div>
+        <ul>
+          <li><b>Material Symbols</b>：outlined / rounded / sharp 三种风格</li>
+          <li>四轴可变：<b>fill / weight / grade / optical size</b></li>
+          <li>状态用 fill、强调用 weight，不换图标</li>
+        </ul>
+      </div>
+    </div>
+    <div class="consensus">
+      <div class="ctitle"><span class="eq">=</span> 两者共识 · 铁律</div>
+      <ul>
+        <li>单一风格 / 线宽；图标与相邻文字线宽一致，视觉才是一套</li>
+        <li>状态变化用 fill / weight 表达，不换图标；非对称图标 optical 对齐</li>
+      </ul>
+    </div>
+    <div class="landing">
+      <div class="ltitle"><span class="gmark">G</span> Gary-UI 落地</div>
+      <ul>
+        <li><code>morph-icons</code>（morph 状态切换）为默认图标机制</li>
+        <li>统一线宽，图标与文字同字重</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 09 COLOR -->
+  <section class="dim" id="d09">
+    <div class="dim-head">
+      <div class="dim-no">09 / COLOR</div>
+      <h2>配色</h2>
+      <p class="lede">颜色用语义化角色而非写死色值：中性色分层、算法保证对比、深浅一套语义，强调色克制使用。</p>
+    </div>
+    <div class="compare">
+      <div class="src apple">
+        <div class="src-head"><span class="apple-dot-sm"></span><div><div class="src-name">Apple</div><div class="src-system">Color</div></div></div>
+        <ul>
+          <li><b>system colors</b> 语义化（systemBlue / systemRed…）</li>
+          <li>背景三级：<b>primary / secondary / tertiary</b>，分层承载内容</li>
+          <li>浅色 / 深色自适应，同一套语义颜色</li>
+          <li>品牌 / 强调色克制使用，不铺满屏幕</li>
+        </ul>
+      </div>
+      <div class="src google">
+        <div class="src-head"><span class="g4"><i></i><i></i><i></i><i></i></span><div><div class="src-name">Google</div><div class="src-system">Color system</div></div></div>
+        <ul>
+          <li><b>26+ color roles</b>：primary / secondary / tertiary / error / surface…</li>
+          <li>tonal palettes 算法生成，深 surface 自动配浅 text</li>
+          <li><b>Dynamic color</b>：从壁纸 / 内容生成可达配色</li>
+          <li>三级 contrast（standard / medium / high），内置深色主题</li>
+        </ul>
+      </div>
+    </div>
+    <div class="consensus">
+      <div class="ctitle"><span class="eq">=</span> 两者共识 · 铁律</div>
+      <ul>
+        <li>颜色语义化角色，不直接写死色值；中性色分层（page / surface / card / plate）</li>
+        <li>算法保证对比（正文 ≥ 4.5:1）；深浅一套语义，强调色克制</li>
+      </ul>
+    </div>
+    <div class="landing">
+      <div class="ltitle"><span class="gmark">G</span> Gary-UI 落地</div>
+      <ul>
+        <li><code>tinted neutrals</code>：oklch 带 255 蓝相，中性色不死黑</li>
+        <li>语义化 color roles，双模式，对比度自动达标</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 10 MOTION -->
+  <section class="dim" id="d10">
+    <div class="dim-head">
+      <div class="dim-no">10 / MOTION</div>
+      <h2>动效</h2>
+      <p class="lede">动效只为反馈、层级与状态服务，绝不炫技。时长语义化，全程尊重 reduced motion。</p>
+    </div>
+    <div class="compare">
+      <div class="src apple">
+        <div class="src-head"><span class="apple-dot-sm"></span><div><div class="src-name">Apple</div><div class="src-system">Motion</div></div></div>
+        <ul>
+          <li>动效服务层级与状态，不为炫技、不分散注意</li>
+          <li>物理感、自然（spring 弹性），符合真实世界</li>
+          <li>必须尊重 <b>reduced motion</b>，用户可关闭</li>
+        </ul>
+      </div>
+      <div class="src google">
+        <div class="src-head"><span class="g4"><i></i><i></i><i></i><i></i></span><div><div class="src-name">Google</div><div class="src-system">Motion</div></div></div>
+        <ul>
+          <li>motion tokens：duration + easing，统一调用</li>
+          <li>标准 / 强调 / 退出三模式，时长分级</li>
+          <li>过渡清晰表达层级变化与空间关系</li>
+        </ul>
+      </div>
+    </div>
+    <div class="consensus">
+      <div class="ctitle"><span class="eq">=</span> 两者共识 · 铁律</div>
+      <ul>
+        <li>克制、目的明确：每段动效都要回答"它在传达什么"</li>
+        <li>语义化时长：反馈 <span class="val">~120ms</span> / 进入 <span class="val">~240ms</span> / 退出 <span class="val">~150ms</span></li>
+        <li>全程支持 reduced motion</li>
+      </ul>
+    </div>
+    <div class="landing">
+      <div class="ltitle"><span class="gmark">G</span> Gary-UI 落地</div>
+      <ul>
+        <li>三档 motion 语义 + 统一 easing（out / in）</li>
+        <li>reduced motion 活策略，默认短时长、不炫技</li>
+      </ul>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div>
+        <a class="brand" href="#top" style="margin-bottom:16px"><span class="mark">G</span> Design Canon</a>
+        <p>Gary-UI 设计对标权威源。本页内容全部提炼自 Apple HIG 与 Google Material Design 3 官方文档，规则与数值可追溯。</p>
+        <p class="fine">两个体系的共识 = 十亿级设备验证的设计铁律。审美不是玄学，是可执行的规则。</p>
+      </div>
+      <div>
+        <h4>Apple</h4>
+        <a href="https://developer.apple.com/design/human-interface-guidelines/" target="_blank" rel="noopener">Human Interface Guidelines</a>
+        <a href="https://developer.apple.com/design/human-interface-guidelines/typography" target="_blank" rel="noopener">Typography</a>
+        <a href="https://developer.apple.com/design/human-interface-guidelines/sf-symbols" target="_blank" rel="noopener">SF Symbols</a>
+      </div>
+      <div>
+        <h4>Google</h4>
+        <a href="https://m3.material.io/" target="_blank" rel="noopener">Material Design 3</a>
+        <a href="https://m3.material.io/styles/typography/overview" target="_blank" rel="noopener">Typography</a>
+        <a href="https://m3.material.io/styles/color/overview" target="_blank" rel="noopener">Color</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{
+  "title": "Hermes 一次会话执行流",
+  "subtitle": "从一条消息到记忆沉淀。六个阶段，十六个节点。",
+  "stages": [
+    {"id": "input", "title": "输入", "role": "input"},
+    {"id": "understand", "title": "理解", "role": "process"},
+    {"id": "execute", "title": "执行", "role": "process"},
+    {"id": "judge", "title": "判定", "role": "decision"},
+    {"id": "deliver", "title": "产出", "role": "result"},
+    {"id": "settle", "title": "收尾", "role": "process"}
+  ],
+  "nodes": [
+    {"id": "sys", "role": "input", "kind": "capsule", "title": "系统提示", "sub": "策略 + 工具白名单", "detail": "把系统级约束、工具权限和本轮策略压成一段不可改写的提示，后续节点只读不写。", "stage": 0, "row": 0},
+    {"id": "user", "role": "input", "kind": "capsule", "title": "用户消息", "sub": "本轮唯一原始输入", "detail": "用户本轮的唯一原始输入；不在这里做解释，原文进入意图路由。", "stage": 0, "row": 1},
+    {"id": "context", "role": "process", "title": "上下文装配", "sub": "提示 + 记忆", "detail": "把系统提示、会话历史与记忆检索结果拼成模型可用的上下文；超出预算时按优先级截断。", "stage": 1, "row": 0},
+    {"id": "intent", "role": "process", "title": "意图路由", "sub": "分类 + 计划", "detail": "判断请求类型并生成执行计划；决定走工具、本地模型还是直接回答。", "stage": 1, "row": 1},
+    {"id": "recall", "role": "process", "title": "记忆检索", "sub": "向量 + 全文", "detail": "按语义与关键词召回历史事实和偏好；返回带来源的片段，不直接改写。", "stage": 1, "row": 2},
+    {"id": "local", "role": "process", "title": "本地模型", "sub": "小模型力工", "detail": "把格式整理、字段抽取等机械活交给本地小模型；失败时回退到主模型。", "stage": 2, "row": 0},
+    {"id": "tool", "role": "process", "title": "工具调用", "sub": "API / MCP", "detail": "通过 API / MCP 调用外部工具；记录入参、出参和耗时，供校验节点核对。", "stage": 2, "row": 1},
+    {"id": "sandbox", "role": "process", "title": "沙箱执行", "sub": "代码 / 文件", "detail": "在隔离环境执行代码或文件操作；产物落到临时目录，不碰真实工程。", "stage": 2, "row": 2},
+    {"id": "score", "role": "decision", "title": "置信度评分", "sub": "0–1", "detail": "给校验结果打 0–1 置信度；低于阈值进入重试或人工确认。", "stage": 3, "row": 0},
+    {"id": "verify", "role": "decision", "title": "结果校验", "sub": "结构 + 事实", "detail": "检查结构、事实与引用是否成立；不通过则带着原因进入重试。", "stage": 3, "row": 1},
+    {"id": "retry", "role": "decision", "title": "失败重试", "sub": "退避 / 换路", "detail": "按退避策略换路重试；同一错误连续两次则停止并上报。", "stage": 3, "row": 2},
+    {"id": "archive", "role": "result", "kind": "capsule", "title": "会话归档", "sub": "会话 ID + 时间线", "detail": "把本轮会话、工具回执和产物索引落盘；保留可追溯的会话 ID。", "stage": 4, "row": 0},
+    {"id": "compose", "role": "result", "title": "回复编排", "sub": "结论前置", "detail": "把结论前置，组织正文、引用和待确认项；不在这一步新增事实。", "stage": 4, "row": 1},
+    {"id": "lesson", "role": "result", "kind": "capsule", "title": "交付归档", "sub": "产物 + 变更单", "detail": "把交付物、变更单和经验归档；供下一次会话检索。", "stage": 4, "row": 2},
+    {"id": "memory", "role": "process", "kind": "capsule", "title": "记忆写入", "sub": "偏好 + 事实", "detail": "把稳定偏好和事实写入长期记忆；只写经校验的内容。", "stage": 5, "row": 0},
+    {"id": "answer", "role": "result", "kind": "capsule", "title": "最终答复", "sub": "Markdown + 引用", "detail": "最终交付给用户的答复；包含结论、依据和可执行下一步。", "stage": 5, "row": 1}
+  ],
+  "edges": [
+    {"from": "user", "to": "intent", "kind": "solid", "emphasis": "main"},
+    {"from": "intent", "to": "tool", "kind": "solid", "emphasis": "main"},
+    {"from": "tool", "to": "verify", "kind": "solid", "emphasis": "main"},
+    {"from": "verify", "to": "compose", "kind": "solid", "emphasis": "main"},
+    {"from": "compose", "to": "answer", "kind": "solid", "emphasis": "main"},
+
+    {"from": "sys", "to": "intent", "kind": "solid", "emphasis": "side"},
+    {"from": "context", "to": "local", "kind": "solid", "emphasis": "side"},
+    {"from": "recall", "to": "context", "kind": "solid", "emphasis": "side", "from_offset": -14},
+    {"from": "recall", "to": "intent", "kind": "dashed", "emphasis": "side", "from_offset": 14},
+    {"from": "intent", "to": "local", "kind": "solid", "emphasis": "side"},
+    {"from": "local", "to": "verify", "kind": "solid", "emphasis": "side", "to_offset": -14},
+    {"from": "sandbox", "to": "verify", "kind": "solid", "emphasis": "side", "to_offset": 14},
+    {"from": "verify", "to": "score", "kind": "solid", "emphasis": "side", "from_offset": -14},
+    {"from": "score", "to": "compose", "kind": "solid", "emphasis": "side", "to_offset": -14},
+    {"from": "verify", "to": "retry", "kind": "dashed", "emphasis": "side", "from_offset": 14},
+    {"from": "retry", "to": "tool", "kind": "dashed", "emphasis": "side", "to_offset": 14},
+    {"from": "compose", "to": "archive", "kind": "solid", "emphasis": "side"},
+    {"from": "compose", "to": "lesson", "kind": "solid", "emphasis": "side", "from_offset": 14},
+    {"from": "archive", "to": "memory", "kind": "dashed", "emphasis": "side"}
+  ]
+}

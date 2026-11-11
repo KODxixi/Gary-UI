@@ -1,0 +1,56 @@
+{
+  "slug": "select",
+  "name": "选择器",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/select)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "trigger 用 field 样式；浮层用 Regular 玻璃；选项高 36px；键盘上下导航；不使用原生 select"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-select"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-select",
+    ".gary-select__trigger",
+    ".gary-select__value",
+    ".gary-select__icon",
+    ".gary-select__content",
+    ".gary-select__scroll-up-button",
+    ".gary-select__scroll-down-button",
+    ".gary-select__viewport",
+    ".gary-select__group",
+    ".gary-select__label",
+    ".gary-select__item",
+    ".gary-select__item-indicator",
+    ".gary-select__separator"
+  ]
+}

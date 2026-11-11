@@ -1,0 +1,47 @@
+{
+  "slug": "tooltip",
+  "name": "工具提示",
+  "category": "overlay",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/tooltip)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "延迟 200ms；Thick 玻璃小浮层；文字 12px；不遮挡 trigger"
+    ]
+  },
+  "variants": [
+    {
+      "name": "default",
+      "selector": ".gary-tooltip"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-tooltip",
+    ".gary-tooltip__trigger",
+    ".gary-tooltip__content",
+    ".gary-tooltip__arrow"
+  ]
+}

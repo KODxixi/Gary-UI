@@ -118,15 +118,15 @@
     },
     {
       "id": "icons",
-      "title": "Lucide 操作图标",
+      "title": "Reicon 操作图标",
       "description": "固定名称、24px viewBox、1.75 线宽与可访问名称。",
       "purpose": "icons",
-      "tool": "lucide",
+      "tool": "reicon",
       "source": "sources/icons.json",
       "scene": "analysis",
       "theme": "dark",
       "formats": ["html", "svg", "png"],
-      "citation": {"label": "Lucide 图标集", "url": "https://lucide.dev/", "note": "ISC 许可，名称来自锁定版本"}
+      "citation": {"label": "reicon 图标集", "url": "https://reicon.dev/", "note": "MIT 许可，名称来自锁定版本 reicon@1.2.5"}
     }
   ]
 }

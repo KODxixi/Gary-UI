@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-ui data-gary-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Morph Icons · Gary-UI × morphicons</title>
+  <link rel="stylesheet" href="../../tokens/base.css">
+  <style>
+    :root { --page-pad: clamp(20px, 5vw, 56px); }
+    body {
+      margin: 0; min-height: 100vh; color: var(--gary-text, #e8eaed);
+      background: var(--gary-bg, #0b0d10); font-family: var(--gary-font, ui-sans-serif, system-ui, "PingFang SC", "Microsoft YaHei", sans-serif);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 var(--page-pad); }
+    header.nav { display: flex; align-items: center; gap: 16px; padding: 20px var(--page-pad); }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: .02em; text-decoration: none; }
+    .brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%;
+      background: linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.14); font-size: 14px; }
+    .nav .spacer { flex: 1; }
+    .hero { padding: 48px 0 20px; }
+    .eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; opacity: .55; margin: 0 0 10px; }
+    h1 { font-size: clamp(30px, 4.5vw, 46px); line-height: 1.12; margin: 0 0 14px; letter-spacing: -.01em; }
+    .lead { opacity: .72; max-width: 640px; line-height: 1.68; margin: 0; }
+    section { padding: 34px 0 6px; }
+    .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; }
+    .sec-head h2 { font-size: 18px; margin: 0; }
+    .sec-head .tag { font-size: 12px; opacity: .5; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+    .card { border-radius: 18px; padding: 18px 14px; text-align: center;
+      background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.09);
+      backdrop-filter: blur(14px); }
+    .card .name { display: block; margin-top: 12px; font-size: 12.5px; opacity: .62; }
+    .gary-icon-button {
+      width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06); color: inherit; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; padding: 0;
+      transition: background .18s ease, border-color .18s ease, transform .12s ease;
+    }
+    .gary-icon-button:hover { background: rgba(255,255,255,.12); }
+    .gary-icon-button:active { transform: scale(.94); }
+    .gary-icon-button:focus-visible { outline: 2px solid var(--gary-accent, #7aa2ff); outline-offset: 2px; }
+    .gary-icon { width: 22px; height: 22px; }
+    .gary-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .pill { border: 1px solid rgba(255,255,255,.16); border-radius: 999px; padding: 8px 16px; font-size: 13px;
+      background: rgba(255,255,255,.05); color: inherit; cursor: pointer; }
+    .pill.is-active { background: var(--gary-accent, #7aa2ff); border-color: transparent; color: #0b0d10; font-weight: 600; }
+    .scrub { display: flex; align-items: center; gap: 14px; }
+    input[type=range] { flex: 1; accent-color: var(--gary-accent, #7aa2ff); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; opacity: .6; }
+    .note { font-size: 12.5px; opacity: .55; line-height: 1.6; margin-top: 10px; }
+    footer { padding: 44px var(--page-pad) 60px; opacity: .5; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">G</span>Gary-UI</a>
+    <span class="mono">patterns/shared/morph-icons.js</span>
+    <span class="spacer"></span>
+    <button class="gary-icon-button" type="button" data-gary-icon="sun" data-gary-icon-to="moon" data-gary-icon-toggle aria-label="切换深浅主题"></button>
+  </header>
+
+  <main class="shell">
+    <div class="hero">
+      <p class="eyebrow">GARY-UI / ICON SYSTEM</p>
+      <h1>图标开始 morph。</h1>
+      <p class="lead">morphicons 已成为 Gary-UI 的默认图标机制：任意描边图标 morph 到任意描边图标，旋转由数学涌现（2D Procrustes + 极坐标插值），spring 物理驱动，零运行时依赖、全离线。下方按钮点击即切换状态，点击区 44px、描边 1.6px、可访问名称不变。</p>
+    </div>
+
+    <section aria-labelledby="toggle-title">
+      <div class="sec-head"><h2 id="toggle-title">经典状态对</h2><span class="tag">data-gary-icon + data-gary-icon-to + data-gary-icon-toggle</span></div>
+      <div class="grid">
+        <div class="card"><button class="gary-icon-button" type="button" data-gary-icon="menu" data-gary-icon-to="x" data-gary-icon-toggle aria-label="展开收起菜单"></button><span class="name">menu ↔ x</span></div>
+        <div class="card"><button class="gary-icon-button" type="button" data-gary-icon="play" data-gary-icon-to="pause" data-gary-icon-toggle aria-label="播放暂停"></button><span class="name">play ↔ pause</span></div>
+        <div class="card"><button class="gary-icon-button" type="button" data-gary-icon="sun" data-gary-icon-to="moon" data-gary-icon-toggle aria-label="昼夜切换"></button><span class="name">sun ↔ moon</span></div>
+        <div class="card"><button class="gary-icon-button" type="button" data-gary-icon="chevron-down" data-gary-icon-to="chevron-up" data-gary-icon-toggle aria-label="展开收起"></button><span class="name">chevron-down ↔ up</span></div>
+        <div class="card"><button class="gary-icon-button" type="button" data-gary-icon="arrow-right" data-gary-icon-to="arrow-down" data-gary-icon-toggle aria-label="方向切换"></button><span class="name">arrow-right → down</span></div>
+        <div class="card"><button class="gary-icon-button" type="button" data-gary-icon="plus" data-gary-icon-to="x" data-gary-icon-toggle aria-label="添加关闭"></button><span class="name">plus ↔ x</span></div>
+        <div class="card"><button class="gary-icon-button" type="button" data-gary-icon="volume-2" data-gary-icon-to="volume-x" data-gary-icon-toggle aria-label="声音开关"></button><span class="name">volume-2 ↔ volume-x</span></div>
+        <div class="card"><button class="gary-icon-button" type="button" data-gary-icon="maximize" data-gary-icon-to="minimize-2" data-gary-icon-toggle aria-label="全屏切换"></button><span class="name">maximize ↔ minimize-2</span></div>
+      </div>
+      <p class="note">arrow-right → arrow-down 的 90° 旋转无需任何声明——Procrustes 在闭式解中检测到全等旋转，系统直接选择纯旋转路径；menu → x 的三条线以最小旋转折叠成对角。</p>
+    </section>
+
+    <section aria-labelledby="imperative-title">
+      <div class="sec-head"><h2 id="imperative-title">命令式</h2><span class="tag">GaryIcons.morphTo(el, name) · 任意两图标</span></div>
+      <div class="row">
+        <button class="gary-icon-button" type="button" id="wander" data-gary-icon="star" aria-label="随机变换图标"></button>
+        <span class="mono" id="wander-name">star</span>
+      </div>
+      <p class="note">无需预注册状态对：点击下面的“随机变换”，star、bell、calendar、heart、settings、camera、search、message-square、send、external-link 任意两两 morph；动画可被下一次点击打断并保留速度，连点不跳变。</p>
+      <div class="row" style="margin-top:10px">
+        <button class="pill" type="button" id="wander-btn">随机变换</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="controlled-title">
+      <div class="sec-head"><h2 id="controlled-title">受控 scrub</h2><span class="tag">GaryIcons.seek(el, name, progress) · 不启动调度器</span></div>
+      <div class="card" style="max-width:520px;text-align:left">
+        <div class="row">
+          <button class="gary-icon-button" type="button" id="scrub-icon" data-gary-icon="arrow-right" aria-label="拖动滑块预览 morph"></button>
+          <input type="range" id="scrub" min="0" max="100" value="0" aria-label="morph 进度">
+          <span class="mono" id="scrub-val">arrow-right → arrow-down · t=0.00</span>
+        </div>
+      </div>
+      <p class="note">拖动滑块在 arrow-right 与 arrow-down 之间精确 scrub：t=0 完整源形状，t=0.5 旋转到 45°，t=1 完整目标——旋转角度线性插值，中间形状由极坐标插值保持“看着像箭头”而不是收缩畸变。</p>
+    </section>
+
+    <section aria-labelledby="static-title">
+      <div class="sec-head"><h2 id="static-title">静态兼容</h2><span class="tag">原有 data-gary-icon 用法不变</span></div>
+      <div class="row">
+        <button class="gary-icon-button" type="button" data-gary-icon="arrow-up-right" aria-label="打开"></button>
+        <button class="gary-icon-button" type="button" data-gary-icon="copy" aria-label="复制"></button>
+        <button class="gary-icon-button" type="button" data-gary-icon="download" aria-label="下载"></button>
+        <button class="gary-icon-button" type="button" data-gary-icon="check" aria-label="完成"></button>
+        <button class="gary-icon-button" type="button" data-gary-icon="sliders" aria-label="筛选"></button>
+        <button class="gary-icon-button" type="button" data-gary-icon="rotate-ccw" aria-label="重置"></button>
+        <button class="gary-icon-button" type="button" data-gary-icon="save" aria-label="保存"></button>
+        <button class="gary-icon-button" type="button" data-gary-icon="filter-x" aria-label="清除筛选"></button>
+      </div>
+    </section>
+
+    <section aria-labelledby="policy-title">
+      <div class="sec-head"><h2 id="policy-title">减弱动态策略</h2><span class="tag">data-gary-icon-reduced-motion</span></div>
+      <div class="row">
+        <button class="gary-icon-button" type="button" id="policy-icon" data-gary-icon="menu" data-gary-icon-to="x" data-gary-icon-toggle data-gary-icon-reduced-motion="user" aria-label="测试减弱动态策略"></button>
+        <span class="mono" id="policy-val">reducedMotion = user（跟随系统）</span>
+      </div>
+      <div class="row" style="margin-top:10px" role="group" aria-label="减弱动态策略">
+        <button class="pill" type="button" data-policy="never">never · 始终动画</button>
+        <button class="pill is-active" type="button" data-policy="user">user · 跟随系统（默认）</button>
+        <button class="pill" type="button" data-policy="always">always · 始终直切</button>
+      </div>
+      <p class="note">morph 是短促的微交互，默认策略 user：系统开启“减弱动态”时自动降级为直切（零帧），其余情况正常 spring。</p>
+    </section>
+  </main>
+
+  <footer>Gary-UI × morphicons 1.7.1 · MIT · 图标数据来自 Lucide（ISC）</footer>
+
+  <script src="../../patterns/shared/morph-icons.js"></script>
+  <script>
+    // 命令式演示：随机 morph
+    const pool = ['star', 'bell', 'calendar', 'heart', 'settings', 'camera', 'search', 'message-square', 'send', 'external-link'];
+    const wander = document.getElementById('wander');
+    const wanderName = document.getElementById('wander-name');
+    document.getElementById('wander-btn').addEventListener('click', () => {
+      let next;
+      do { next = pool[Math.floor(Math.random() * pool.length)]; } while (next === wander.dataset.garyIcon);
+      GaryIcons.morphTo(wander, next);
+      wanderName.textContent = next;
+    });
+
+    // 受控 scrub
+    const scrubIcon = document.getElementById('scrub-icon');
+    const scrubVal = document.getElementById('scrub-val');
+    const scrub = document.getElementById('scrub');
+    scrub.addEventListener('input', () => {
+      const t = scrub.value / 100;
+      GaryIcons.seek(scrubIcon, t > 0.5 ? 'arrow-down' : 'arrow-right', t > 0.5 ? (t - 0.5) * 2 : t * 2);
+      scrubVal.textContent = `arrow-right → arrow-down · t=${t.toFixed(2)}`;
+    });
+    scrubIcon.addEventListener('click', () => {
+      scrub.value = scrub.value >= 50 ? 0 : 100;
+      scrub.dispatchEvent(new Event('input'));
+    });
+
+    // 减弱动态策略
+    const policyIcon = document.getElementById('policy-icon');
+    const policyVal = document.getElementById('policy-val');
+    document.querySelectorAll('[data-policy]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-policy]').forEach((b) => b.classList.toggle('is-active', b === btn));
+        GaryIcons.policy(policyIcon, btn.dataset.policy);
+        policyVal.textContent = `reducedMotion = ${btn.dataset.policy}`;
+      });
+    });
+
+    // 主题切换按钮（演示数据属性 toggle 与主题联动）
+    const themeBtn = document.querySelector('header [data-gary-icon-toggle]');
+    themeBtn.addEventListener('click', () => {
+      const light = document.documentElement.dataset.garyTheme === 'light';
+      document.documentElement.dataset.garyTheme = light ? 'dark' : 'light';
+      themeBtn.setAttribute('aria-label', light ? '切换深浅主题' : '切换深浅主题');
+    });
+  </script>
+</body>
+</html>

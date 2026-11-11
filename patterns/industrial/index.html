@@ -1,0 +1,356 @@
+<!doctype html><html lang="zh-CN" data-gary-theme="dark" data-gary-density="compact" data-gary-material="solid-plate" data-gary-taste="industrial" data-gary-application-mode="web-ui" data-gary-page-mode="data-page">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Gary-UI · 工业工作台（排班）</title>
+<link rel="stylesheet" href="../patterns.css">
+<style>
+  :root {
+    --t-h1: 1.625rem;      /* 26 */
+    --t-h2: 1.0625rem;     /* 17 */
+    --t-body: var(--gary-font-size-caption);   /* 13 */
+    --t-meta: var(--gary-font-size-data);      /* 11 */
+    --t-nano: var(--gary-font-size-nano);      /* 10 */
+  }
+  html, body { height: 100%; }
+  body { margin: 0; background-color: var(--gary-surface-page); color: var(--gary-text-body);
+         font-family: var(--gary-font-sans); font-size: var(--t-body); line-height: 1.5; }
+  .ind-shell { display: grid; grid-template-columns: 232px minmax(0, 1fr); min-height: 100vh; }
+
+  /* 左侧导航：中性深灰，选中态亮灰描边 */
+  /* 外壳不加分隔线：侧栏与工作区靠明度差（#141414 → #1c1c1c），不画竖线 */
+  .ind-rail { background-color: var(--gary-surface-card);
+              padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; }
+  .ind-brand { display: flex; align-items: center; gap: 8px; padding: 4px 8px 14px;
+               font-size: var(--t-h2); font-weight: var(--gary-font-weight-medium); color: var(--gary-text-strong); }
+  .ind-brand span { font-size: var(--t-meta); color: var(--gary-text-caption); font-weight: 400; }
+  .ind-nav { display: flex; flex-direction: column; gap: 2px; }
+  .ind-nav button { appearance: none; text-align: left; font: inherit; cursor: pointer;
+                    background-color: transparent; color: var(--gary-text-meta);
+                    border: 1px solid transparent; border-radius: var(--gary-radius-control);
+                    padding: 8px 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .ind-nav button:hover { background-color: var(--gary-surface-raised); color: var(--gary-text-body); }
+  .ind-nav button[aria-current="page"] { background-color: var(--gary-selected-fill); color: var(--gary-text-strong);
+                    border-color: var(--gary-selected-edge); }
+  .ind-nav b { font-size: var(--t-nano); font-variant-numeric: tabular-nums; color: var(--gary-text-caption); font-weight: 400; }
+  .ind-rail__foot { margin-top: auto; padding: 10px 10px 4px; font-size: var(--t-nano);
+                    color: var(--gary-text-faint); border-top: 1px solid var(--gary-hairline-soft); }
+
+  .ind-main { min-width: 0; padding: 16px 20px 28px; display: flex; flex-direction: column; gap: 12px; }
+  .ind-bar { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .ind-bar h1 { margin: 0; font-size: var(--t-h1); line-height: 1.2; color: var(--gary-text-strong);
+                font-weight: var(--gary-font-weight-medium); }
+  .ind-bar .meta { font-size: var(--t-meta); color: var(--gary-text-caption); }
+  .ind-tools { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .ind-seg { display: inline-flex; background-color: var(--gary-surface-card); border: 1px solid var(--gary-hairline-soft);
+             border-radius: var(--gary-radius-control); padding: 2px; gap: 2px; }
+  .ind-seg button { appearance: none; font: inherit; cursor: pointer; border: 1px solid transparent;
+                    background-color: transparent; color: var(--gary-text-meta);
+                    border-radius: calc(var(--gary-radius-control) - 2px); padding: 5px 10px;
+                    font-size: var(--t-meta); }
+  .ind-seg button:hover { background-color: var(--gary-surface-raised); }
+  .ind-seg button[aria-pressed="true"] { background-color: var(--gary-selected-fill); color: var(--gary-text-strong);
+                    border-color: var(--gary-selected-edge); }
+  .ind-btn { appearance: none; font: inherit; cursor: pointer; padding: 6px 12px; font-size: var(--t-meta);
+             border-radius: var(--gary-radius-control); border: 1px solid var(--gary-hairline);
+             background-color: var(--gary-surface-card); color: var(--gary-text-body); }
+  .ind-btn:hover { background-color: var(--gary-surface-raised); border-color: var(--gary-hairline-strong); }
+
+  .ind-facts { display: flex; flex-wrap: wrap; gap: 18px; padding: 8px 0 10px;
+               border-top: 1px solid var(--gary-hairline-soft); border-bottom: 1px solid var(--gary-hairline-soft); }
+  .ind-facts div { display: flex; align-items: baseline; gap: 6px; font-size: var(--t-meta); color: var(--gary-text-caption); }
+  .ind-facts b { font-size: var(--t-h2); color: var(--gary-text-strong); font-weight: var(--gary-font-weight-medium);
+                 font-variant-numeric: tabular-nums; }
+
+  .ind-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--gary-grid-gap); }
+  .ind-card { text-align: left; font: inherit; cursor: pointer; appearance: none;
+              background-color: var(--gary-surface-card); color: var(--gary-text-body);
+              border: 1px solid var(--gary-hairline-soft); border-radius: var(--gary-radius-card);
+              padding: 10px 11px; display: grid; gap: 2px; }
+  .ind-card:hover { background-color: var(--gary-surface-raised); border-color: var(--gary-hairline); }
+  .ind-card:active { background-color: var(--gary-surface-overlay); }
+  .ind-card .who { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .ind-card .who span { font-size: var(--t-body); color: var(--gary-text-strong); font-weight: var(--gary-font-weight-medium); }
+  .ind-card .who em { font-style: normal; font-size: var(--t-nano); color: var(--gary-text-faint);
+                      font-variant-numeric: tabular-nums; }
+  .ind-card .role { font-size: var(--t-meta); color: var(--gary-text-meta); }
+  .ind-card .stat { margin-top: 6px; display: flex; align-items: center; gap: 6px;
+                    font-size: var(--t-nano); color: var(--gary-text-caption); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gary-text-caption); flex: none; }
+  .ind-card.is-state-idle .dot { background: var(--gary-state-positive); }
+  .ind-card.is-state-busy .dot { background: var(--gary-state-caution); }
+  .ind-card.is-state-off .dot { background: var(--gary-state-critical); }
+  .ind-card.is-state-off { opacity: 0.72; }
+  .ind-card.is-state-idle { border-color: color-mix(in srgb, var(--gary-state-positive) 40%, transparent); }
+  .ind-card.is-state-busy { border-color: color-mix(in srgb, var(--gary-state-caution) 45%, transparent); }
+  .ind-card.is-state-off { border-color: color-mix(in srgb, var(--gary-state-critical) 45%, transparent); }
+
+  .ind-table { width: 100%; border-collapse: collapse; font-size: var(--t-body); }
+  .ind-table th, .ind-table td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--gary-hairline-soft); }
+  .ind-table th { font-size: var(--t-nano); letter-spacing: .08em; text-transform: uppercase;
+                  color: var(--gary-text-caption); font-weight: 400; }
+  .ind-table td { color: var(--gary-text-body); }
+  .ind-table td.num { font-variant-numeric: tabular-nums; color: var(--gary-text-meta); }
+  .ind-table tbody tr:hover { background-color: var(--gary-surface-raised); }
+
+  .ind-log h2 { margin: 0 0 4px; font-size: var(--t-nano); letter-spacing: .08em;
+                text-transform: uppercase; color: var(--gary-text-caption); font-weight: 400; }
+  .ind-log ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--gary-hairline-soft); }
+  .ind-log li { display: grid; grid-template-columns: 56px 92px minmax(0,1fr) 72px; gap: 10px;
+                padding: 7px 0; border-bottom: 1px solid var(--gary-hairline-soft);
+                font-size: var(--t-meta); color: var(--gary-text-meta); }
+  .ind-log li time { color: var(--gary-text-caption); font-variant-numeric: tabular-nums; }
+  .ind-log li b { font-weight: 400; color: var(--gary-text-body); }
+  .ind-log li span { color: var(--gary-text-body); }
+  .ind-log li em { font-style: normal; text-align: right; color: var(--gary-text-faint);
+                   font-variant-numeric: tabular-nums; }
+
+  .ind-empty { border: 1px dashed var(--gary-hairline); border-radius: var(--gary-radius-card);
+               padding: 28px 20px; display: grid; gap: 6px; justify-items: start; }
+  .ind-empty h2 { margin: 0; font-size: var(--t-h2); color: var(--gary-text-strong); font-weight: var(--gary-font-weight-medium); }
+  .ind-empty p { margin: 0; font-size: var(--t-body); color: var(--gary-text-meta); max-width: 46ch; }
+
+  /* 抽屉：唯一允许阴影的地方 */
+  .ind-scrim { position: fixed; inset: 0; background: oklch(0 0 0 / 0.5); opacity: 0; pointer-events: none;
+               transition: opacity var(--gary-duration-ui) var(--gary-ease-out); }
+  .ind-scrim[data-open="true"] { opacity: 1; pointer-events: auto; }
+  .ind-drawer { position: fixed; top: 0; right: 0; height: 100%; width: min(380px, 92vw);
+                background-color: var(--gary-surface-overlay); border-left: 1px solid var(--gary-hairline);
+                box-shadow: 0 24px 64px oklch(0 0 0 / 0.55); padding: 16px 18px;
+                display: flex; flex-direction: column; gap: 12px;
+                transform: translateX(100%); transition: transform var(--gary-duration-ui) var(--gary-ease-out); }
+  .ind-drawer[data-open="true"] { transform: translateX(0); }
+  .ind-drawer h2 { margin: 0; font-size: var(--t-h2); color: var(--gary-text-strong); font-weight: var(--gary-font-weight-medium); }
+  .ind-drawer dl { margin: 0; display: grid; grid-template-columns: 72px minmax(0,1fr); gap: 6px 10px; font-size: var(--t-meta); }
+  .ind-drawer dt { color: var(--gary-text-caption); }
+  .ind-drawer dd { margin: 0; color: var(--gary-text-body); font-variant-numeric: tabular-nums; }
+  .ind-drawer .acts { margin-top: auto; display: flex; gap: 8px; }
+
+  .ind-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+               background-color: var(--gary-surface-overlay); border: 1px solid var(--gary-hairline);
+               color: var(--gary-text-body); font-size: var(--t-meta); padding: 8px 14px;
+               border-radius: var(--gary-radius-control); opacity: 0; pointer-events: none;
+               transition: opacity var(--gary-duration-ui) var(--gary-ease-out); }
+  .ind-toast[data-open="true"] { opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ind-scrim, .ind-drawer, .ind-toast { transition-duration: 0ms; }
+  }
+  @media (max-width: 880px) {
+    .ind-shell { grid-template-columns: minmax(0, 1fr); }
+    .ind-rail { flex-direction: row; align-items: center; overflow-x: auto; border-right: 0;
+                border-bottom: 1px solid var(--gary-hairline-soft); }
+    .ind-brand { padding: 0 10px 0 2px; }
+    .ind-nav { flex-direction: row; }
+    .ind-rail__foot { display: none; }
+  }
+</style></head>
+<body class="gary-ui">
+<div class="ind-shell">
+  <aside class="ind-rail">
+    <div class="ind-brand">ArchOS <span>排班</span></div>
+    <nav class="ind-nav" aria-label="主视图">
+      <button type="button" data-view="schedule" aria-current="page">排班<b>12</b></button>
+      <button type="button" data-view="roster">人员<b>12</b></button>
+      <button type="button" data-view="report">日报<b>—</b></button>
+    </nav>
+    <div class="ind-rail__foot">只读快照 · 10-26 04:20</div>
+  </aside>
+
+  <main class="ind-main">
+    <header class="ind-bar">
+      <h1>今日排班</h1>
+      <span class="meta">B1 施工区 · 12 人 · 数据来自排班表</span>
+      <div class="ind-tools">
+        <div class="ind-seg" role="group" aria-label="按状态筛选">
+          <button type="button" data-filter="all" aria-pressed="true">全部</button>
+          <button type="button" data-filter="idle" aria-pressed="false">空闲</button>
+          <button type="button" data-filter="busy" aria-pressed="false">已排挡</button>
+          <button type="button" data-filter="off" aria-pressed="false">停用</button>
+        </div>
+        <button class="ind-btn" type="button" id="refresh">刷新</button>
+      </div>
+    </header>
+    <div class="ind-facts" id="facts"></div>
+    <section id="view" aria-live="polite"></section>
+    <section class="ind-log" aria-labelledby="log-title">
+      <h2 id="log-title">今日变更</h2>
+      <ul id="log-list"></ul>
+    </section>
+  </main>
+</div>
+
+<div class="ind-scrim" id="scrim" data-open="false"></div>
+<aside class="ind-drawer gary-overlay" id="drawer" data-open="false" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">
+    <h2 id="drawer-title">—</h2>
+    <button class="ind-btn" type="button" id="drawer-close">关闭</button>
+  </div>
+  <dl id="drawer-body"></dl>
+  <div class="acts">
+    <button class="ind-btn" type="button" id="act-idle">设为空闲</button>
+    <button class="ind-btn" type="button" id="act-off">标记停用</button>
+  </div>
+</aside>
+<div class="ind-toast" id="toast" role="status" aria-live="polite" data-open="false"></div>
+
+<script>
+(() => {
+  'use strict';
+  const STATE_LABEL = { idle: '空闲', busy: '已排挡', off: '停用' };
+  const people = [
+    { id: 'E-0142', name: '王岩', role: '施工图', state: 'busy', hours: 38, zone: 'B1' },
+    { id: 'E-0187', name: '李昊', role: '结构', state: 'idle', hours: 0, zone: 'B1' },
+    { id: 'E-0203', name: '陈默', role: '机电', state: 'busy', hours: 41, zone: 'B2' },
+    { id: 'E-0221', name: '周琳', role: '室内', state: 'off', hours: 12, zone: 'B2' },
+    { id: 'E-0256', name: '赵一鸣', role: '施工图', state: 'idle', hours: 0, zone: 'B1' },
+    { id: 'E-0274', name: '孙可', role: '景观', state: 'busy', hours: 36, zone: 'C1' },
+    { id: 'E-0290', name: '吴桐', role: '结构', state: 'idle', hours: 0, zone: 'C1' },
+    { id: 'E-0311', name: '郑野', role: '机电', state: 'busy', hours: 44, zone: 'C2' },
+    { id: 'E-0338', name: '冯楠', role: '室内', state: 'idle', hours: 4, zone: 'C2' },
+    { id: 'E-0352', name: '何川', role: '施工图', state: 'off', hours: 0, zone: 'D1' },
+    { id: 'E-0377', name: '许安', role: '景观', state: 'busy', hours: 30, zone: 'D1' },
+    { id: 'E-0390', name: '邓知', role: '结构', state: 'idle', hours: 0, zone: 'D2' }
+  ];
+
+  const log = [
+    { t: '08:12', who: '陈默', what: '从 B1 调到 B2，接机电验收', by: '排班' },
+    { t: '09:40', who: '周琳', what: '提交请假，卡片转为停用', by: '本人' },
+    { t: '11:05', who: '赵一鸣', what: '空闲转已排挡，进入施工图组', by: '排班' },
+    { t: '13:28', who: '何川', what: '停用原因：外派支援 C 区', by: '主管' }
+  ];
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const view = $('#view'), facts = $('#facts');
+  const drawer = $('#drawer'), scrim = $('#scrim'), toast = $('#toast');
+  let filter = 'all', current = null, lastFocus = null, toastTimer = 0;
+
+  const count = (k) => people.filter(p => p.state === k).length;
+
+  function renderFacts() {
+    facts.innerHTML = [
+      ['在岗', count('busy')], ['空闲', count('idle')], ['停用', count('off')],
+      ['工时合计', people.reduce((n, p) => n + p.hours, 0) + ' h'],
+      ['覆盖区域', new Set(people.map(p => p.zone)).size]
+    ].map(([k, v]) => `<div><b>${v}</b>${k}</div>`).join('');
+  }
+
+  function card(p) {
+    return `<button class="ind-card is-state-${p.state}" type="button" data-id="${p.id}">
+      <span class="who"><span>${p.name}</span><em>${p.id}</em></span>
+      <span class="role">${p.role} · ${p.zone}</span>
+      <span class="stat"><i class="dot"></i>${STATE_LABEL[p.state]}${p.hours ? ` · ${p.hours}h` : ''}</span>
+    </button>`;
+  }
+
+  function renderSchedule() {
+    const list = filter === 'all' ? people : people.filter(p => p.state === filter);
+    if (!list.length) {
+      view.innerHTML = `<div class="ind-empty"><h2>这个状态下没有人</h2>
+        <p>筛选条件：${STATE_LABEL[filter]}。换一个状态，或回到「全部」查看 12 人。</p>
+        <button class="ind-btn" type="button" data-reset>回到全部</button></div>`;
+      return;
+    }
+    view.innerHTML = `<div class="ind-grid">${list.map(card).join('')}</div>`;
+  }
+
+  function renderRoster() {
+    view.innerHTML = `<table class="ind-table"><thead><tr>
+      <th>姓名</th><th>工号</th><th>专业</th><th>区域</th><th>状态</th><th>工时</th></tr></thead><tbody>
+      ${people.map(p => `<tr data-id="${p.id}" tabindex="0"><td>${p.name}</td><td class="num">${p.id}</td>
+        <td>${p.role}</td><td class="num">${p.zone}</td><td>${STATE_LABEL[p.state]}</td>
+        <td class="num">${p.hours} h</td></tr>`).join('')}
+      </tbody></table>`;
+  }
+
+  function renderReport() {
+    view.innerHTML = `<div class="ind-empty"><h2>今天的日报还没生成</h2>
+      <p>日报按 18:00 的排班快照生成，包含在岗人数、工时合计与停用原因。</p>
+      <button class="ind-btn" type="button" data-report>按当前数据生成</button></div>`;
+  }
+
+  let activeView = 'schedule';
+  function renderLog() {
+    document.querySelector('#log-list').innerHTML = log.map(r =>
+      `<li><time>${r.t}</time><b>${r.who}</b><span>${r.what}</span><em>${r.by}</em></li>`).join('');
+  }
+
+  function render() {
+    renderFacts();
+    renderLog();
+    if (activeView === 'schedule') renderSchedule();
+    else if (activeView === 'roster') renderRoster();
+    else renderReport();
+  }
+
+  function openDrawer(id) {
+    const p = people.find(x => x.id === id);
+    if (!p) return;
+    current = p; lastFocus = document.activeElement;
+    $('#drawer-title').textContent = p.name;
+    $('#drawer-body').innerHTML = [
+      ['工号', p.id], ['专业', p.role], ['区域', p.zone],
+      ['状态', STATE_LABEL[p.state]], ['本周工时', p.hours + ' h']
+    ].map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+    drawer.dataset.open = 'true'; drawer.setAttribute('aria-hidden', 'false');
+    scrim.dataset.open = 'true';
+    $('#drawer-close').focus();
+  }
+
+  function closeDrawer() {
+    drawer.dataset.open = 'false'; drawer.setAttribute('aria-hidden', 'true');
+    scrim.dataset.open = 'false';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  function say(text) {
+    toast.textContent = text; toast.dataset.open = 'true';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.dataset.open = 'false'; }, 2200);
+  }
+
+  function setState(id, state) {
+    const p = people.find(x => x.id === id);
+    if (!p) return;
+    p.state = state;
+    render();
+    if (p.id === (current && current.id)) openDrawer(p.id);
+    say(`${p.name} 已改为${STATE_LABEL[state]}`);
+  }
+
+  document.addEventListener('click', (e) => {
+    const nav = e.target.closest('[data-view]');
+    if (nav) {
+      activeView = nav.dataset.view;
+      document.querySelectorAll('[data-view]').forEach(b => {
+        if (b === nav) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+      });
+      render(); return;
+    }
+    const seg = e.target.closest('[data-filter]');
+    if (seg) {
+      filter = seg.dataset.filter;
+      document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b === seg)));
+      render(); return;
+    }
+    const cardEl = e.target.closest('[data-id]');
+    if (cardEl) { openDrawer(cardEl.dataset.id); return; }
+    if (e.target.closest('[data-reset]')) { filter = 'all';
+      document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === 'all')));
+      render(); return; }
+    if (e.target.closest('[data-report]')) { say('日报已生成：12 人 · 189 h'); return; }
+    if (e.target.closest('#refresh')) { say('已刷新：数据未变化'); return; }
+    if (e.target.closest('#drawer-close') || e.target.closest('#scrim')) { closeDrawer(); return; }
+    if (e.target.closest('#act-idle') && current) { setState(current.id, 'idle'); return; }
+    if (e.target.closest('#act-off') && current) { setState(current.id, 'off'); return; }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.dataset.open === 'true') closeDrawer();
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('tr[data-id]')) {
+      e.preventDefault(); openDrawer(e.target.dataset.id);
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

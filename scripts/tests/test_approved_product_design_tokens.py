@@ -22,12 +22,16 @@ class ApprovedProductDesignTokenTests(unittest.TestCase):
         self.assertEqual(
             self.tokens["--gary-density-layout-gap"]["balanced"], "8px"
         )
-        self.assertEqual(self.tokens["--gary-radius-card"]["value"], "30px")
+        # 2026-10-26：圆角统一到随尺寸变化的 clamp，与 DESIGN §7 的 4% × 宽度 / 28 上限一致；
+        # 原来守卫写的是固定 30px，而 token 早已是 clamp(…, 32px)，守卫先于实现过期。
+        self.assertEqual(
+            self.tokens["--gary-radius-card"]["value"], "clamp(14px, 6cqi, 28px)"
+        )
 
         self.assertIn('--gary-font-sans: "Helvetica Neue", Helvetica, Arial', self.base_css)
         self.assertIn('"Microsoft YaHei UI", "Microsoft YaHei", "微软雅黑"', self.base_css)
         self.assertIn("--gary-density-layout-gap: 8px", self.base_css)
-        self.assertIn("--gary-radius-card: 30px", self.base_css)
+        self.assertIn("--gary-radius-card: clamp(14px, 6cqi, 28px)", self.base_css)
 
     def test_custom_card_tokens_and_component_variant_are_canonical(self):
         self.assertEqual(self.tokens["--gary-card-opacity"]["value"], "70%")

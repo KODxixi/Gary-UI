@@ -1,0 +1,49 @@
+{
+  "slug": "toggle-group",
+  "name": "开关组",
+  "category": "actions",
+  "source": "shadcn/ui (https://ui.shadcn.com/docs/components/toggle-group)",
+  "material": {
+    "default": "Regular",
+    "rules": [
+      "多个 toggle 排列；single 互斥；multiple 多选"
+    ]
+  },
+  "variants": [
+    {
+      "name": "single",
+      "selector": ".gary-toggle-group--single"
+    },
+    {
+      "name": "multiple",
+      "selector": ".gary-toggle-group--multiple"
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "selector": ":hover"
+    },
+    {
+      "name": "focus-visible",
+      "selector": ":focus-visible"
+    },
+    {
+      "name": "disabled",
+      "selector": ":disabled, [aria-disabled='true']"
+    }
+  ],
+  "accessibility": {
+    "role": "按组件语义使用对应 ARIA role",
+    "requirements": [
+      "所有交互元素可键盘操作",
+      "状态变化同步 aria 属性",
+      "不只靠颜色传达信息",
+      "文字放大后不裁切"
+    ]
+  },
+  "cssClasses": [
+    ".gary-toggle-group",
+    ".gary-toggle-group__item"
+  ]
+}

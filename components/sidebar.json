@@ -1,0 +1,121 @@
+{
+  "slug": "sidebar",
+  "name": "侧边栏",
+  "category": "navigation",
+  "source": "adapters/react-shadcn/src/components/ui/sidebar.tsx",
+  "material": {
+    "default": "Surface",
+    "rules": [
+      "桌面端固定左侧，展开宽 var(--sidebar-width)=16rem(w-64)，收起为图标宽 var(--sidebar-width-icon)=4rem(w-16)",
+      "移动端 <768px 不内联渲染，改用 Sheet + SheetContent side=\"left\" 抽屉，宽 var(--sidebar-width-mobile)=18rem",
+      "桌面端收起切换走 CSS width 过渡（ease-linear），移动端开关走 Sheet 抽屉动画",
+      "SidebarInset 作为右侧主内容区，inset 变体下与侧栏之间留 4 单位间距并圆角",
+      "仅渲染 data-slot/data-sidebar 钩子，背景映射到 bg-card，主内容区 bg-background，悬停/选中用 bg-muted"
+    ]
+  },
+  "variants": [
+    {
+      "name": "sidebar",
+      "selector": "[data-sidebar=sidebar][data-variant=sidebar], [data-variant=sidebar]",
+      "cssVariables": {
+        "--sidebar-width": "16rem",
+        "--sidebar-width-icon": "4rem",
+        "--sidebar-width-mobile": "18rem"
+      }
+    },
+    {
+      "name": "floating",
+      "selector": "[data-sidebar=sidebar][data-variant=floating]",
+      "border": "1px solid var(--gary-card-edge)",
+      "radius": "var(--gary-radius-card)"
+    },
+    {
+      "name": "inset",
+      "selector": "[data-variant=inset], [data-slot=sidebar-inset]"
+    },
+    {
+      "name": "collapsible=offcanvas",
+      "selector": "[data-collapsible=offcanvas]",
+      "cssClasses": [
+        "group-data-[collapsible=offcanvas]:w-0",
+        "group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
+      ]
+    },
+    {
+      "name": "collapsible=icon",
+      "selector": "[data-collapsible=icon]",
+      "cssVariables": {
+        "--sidebar-width": "var(--sidebar-width-icon)"
+      }
+    },
+    {
+      "name": "menu-default",
+      "selector": "[data-sidebar=menu-button]:not([data-variant=outline])",
+      "cssVariables": {
+        "--gary-glass-fill": "transparent"
+      }
+    },
+    {
+      "name": "menu-outline",
+      "selector": "[data-sidebar=menu-button][data-variant=outline]",
+      "border": "1px solid var(--gary-card-edge)"
+    }
+  ],
+  "sizes": [
+    {"name": "expanded", "width": "16rem", "cssVariable": "--sidebar-width"},
+    {"name": "icon", "width": "4rem", "cssVariable": "--sidebar-width-icon"},
+    {"name": "mobile", "width": "18rem", "cssVariable": "--sidebar-width-mobile"},
+    {"name": "menu-default", "height": "32px", "fontSize": "14px"},
+    {"name": "menu-sm", "height": "28px", "fontSize": "12px"},
+    {"name": "menu-lg", "height": "32px", "fontSize": "14px"},
+    {"name": "trigger", "width": "28px", "height": "28px"}
+  ],
+  "states": [
+    {"name": "expanded", "selector": "[data-state=expanded]"},
+    {"name": "collapsed", "selector": "[data-state=collapsed]"},
+    {"name": "active", "selector": "[data-active=true]"},
+    {"name": "open-group", "selector": "[data-state=open]"},
+    {"name": "hover", "selector": ":hover, [data-sidebar=menu-button]:hover"},
+    {"name": "focus-visible", "selector": ":focus-visible"},
+    {"name": "disabled|busy", "selector": ":disabled, [aria-disabled='true'], [aria-busy='true']"}
+  ],
+  "interaction": {
+    "toggleShortcut": "mod+b (Meta/Ctrl + B)",
+    "transition": "width / left / right / padding ease-linear",
+    "mobileDrawer": "Sheet side=left, openMobile state",
+    "frequentUiMaxMs": 300,
+    "hover": "@media (hover: hover) and (pointer: fine)",
+    "interruptible": true,
+    "reducedMotion": "keep opacity and color feedback; remove width transition"
+  },
+  "accessibility": {
+    "role": "navigation aside; menu item uses button or anchor via asChild",
+    "requirements": [
+      "SidebarTrigger 带 sr-only Toggle Sidebar 文本与可点击图标区",
+      "SidebarRail 用 tabIndex=-1 并标注 aria-label=Toggle Sidebar",
+      "收起为图标态时菜单按钮通过 Tooltip side=right 暴露标签",
+      "选中态用 data-active=true 表达，不依赖颜色单独传达",
+      "useSidebar 必须在 SidebarProvider 内使用，否则抛错",
+      "快捷键 mod+b 在桌面端切换宽度，在移动端切换抽屉"
+    ]
+  },
+  "cssClasses": [
+    "[data-slot=sidebar-trigger]",
+    "[data-slot=sidebar-inset]",
+    "[data-sidebar=sidebar]",
+    "[data-sidebar=header]",
+    "[data-sidebar=content]",
+    "[data-sidebar=footer]",
+    "[data-sidebar=group]",
+    "[data-sidebar=group-label]",
+    "[data-sidebar=group-content]",
+    "[data-sidebar=menu]",
+    "[data-sidebar=menu-item]",
+    "[data-sidebar=menu-button]",
+    "[data-sidebar=menu-badge]",
+    "[data-sidebar=menu-skeleton]",
+    "[data-sidebar=separator]",
+    "[data-sidebar=rail]",
+    "[data-sidebar=trigger]"
+  ]
+}

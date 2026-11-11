@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN" data-gary-ui data-gary-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>排版与审美样板 · Gary-UI 1.5</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='7' fill='%230b0d10'/%3E%3Cpath d='M7 6h10M7 12h10M7 18h6' stroke='%23e8eaed' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../tokens/base.css">
+  <link rel="stylesheet" href="../../patterns/shared/layout.css">
+  <style>
+    body { margin: 0; min-height: 100vh; background: var(--gary-surface-page); color: var(--gary-text-primary); }
+    ::selection { background: color-mix(in oklch, var(--gary-focus-ring) 26%, transparent); }
+    html { scrollbar-color: color-mix(in oklch, var(--gary-text-tertiary) 45%, transparent) transparent; }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-thumb { background: color-mix(in oklch, var(--gary-text-tertiary) 38%, transparent); border-radius: 999px; border: 3px solid var(--gary-surface-page); }
+    ::-webkit-scrollbar-thumb:hover { background: color-mix(in oklch, var(--gary-text-secondary) 55%, transparent); }
+    :focus-visible { outline: 2px solid var(--gary-focus-ring); outline-offset: 2px; }
+
+    .page { min-height: 100vh; }
+    .nav { display: flex; align-items: center; gap: 12px; padding: 18px 24px; border-bottom: 1px solid color-mix(in oklch, var(--gary-border-highlight) 60%, transparent); position: sticky; top: 0; z-index: var(--gary-z-nav); background: color-mix(in oklch, var(--gary-surface-page) 82%, transparent); backdrop-filter: blur(18px); }
+    .nav .brand { font-weight: 700; font-size: 15px; letter-spacing: .02em; display: inline-flex; align-items: center; }
+    .nav .brand-mark { width: 30px; height: 30px; border-radius: 50%; display: inline-grid; place-items: center; background: linear-gradient(180deg, color-mix(in oklch, var(--gary-action-fill) 90%, var(--gary-text-primary)), var(--gary-action-fill)); border: 1px solid var(--gary-action-border); box-shadow: inset 0 1px 0 color-mix(in oklch, var(--gary-text-primary) 16%, transparent); font-size: 13px; margin-right: 8px; }
+    .nav .crumbs { margin-inline-start: auto; color: var(--gary-text-secondary); font-size: 13px; display: inline-flex; align-items: center; gap: 8px; }
+    .nav .crumbs::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--gary-focus-ring); }
+
+    .hero { padding: clamp(3rem, 9vw, 7rem) 24px 3rem; }
+    .hero .kicker { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--gary-text-secondary); margin-bottom: 18px; }
+    .hero h1 { margin: 0 0 20px; font-family: var(--gary-font-display); font-size: var(--gary-fluid-type-6, 4rem); font-weight: 600; line-height: var(--gary-text-display-leading, 1.05); letter-spacing: -0.035em; font-optical-sizing: auto; text-wrap: balance; }
+    .hero .lede { color: var(--gary-text-secondary); font-size: var(--gary-fluid-type-1, 1.19rem); line-height: 1.68; max-inline-size: 46ch; text-wrap: pretty; }
+
+    .section { padding: 3.5rem 24px 4rem; border-top: 1px solid color-mix(in oklch, var(--gary-border-highlight) 60%, transparent); }
+    .section-head { margin-bottom: 2.5rem; }
+    .section-head h2 { margin: 0 0 10px; font-family: var(--gary-font-display); font-size: var(--gary-fluid-type-3, 1.7rem); letter-spacing: -0.02em; }
+    .section-head p { margin: 0; color: var(--gary-text-secondary); line-height: 1.6; max-inline-size: 60ch; }
+
+    .card { border-radius: var(--gary-radius-card); background: linear-gradient(180deg, var(--gary-card-surface-top), var(--gary-card-surface-bottom)); border: 1px solid var(--gary-card-edge); padding: 24px; box-shadow: var(--gary-elevation-1), inset 0 1px 0 color-mix(in oklch, var(--gary-text-primary) 7%, transparent); transition: transform var(--gary-duration-respond) var(--gary-ease-out), box-shadow var(--gary-duration-respond) var(--gary-ease-out), border-color var(--gary-duration-respond) var(--gary-ease-out); }
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover { transform: translateY(-2px); box-shadow: var(--gary-elevation-2), inset 0 1px 0 color-mix(in oklch, var(--gary-text-primary) 9%, transparent); border-color: color-mix(in oklch, var(--gary-border-highlight) 70%, var(--gary-card-edge)); }
+    }
+    .card h3 { margin: 0 0 10px; font-family: var(--gary-font-display); font-size: var(--gary-fluid-type-1, 1.19rem); letter-spacing: -0.01em; }
+    .card p { margin: 0; color: var(--gary-text-secondary); line-height: 1.6; }
+
+    .metric-strip { display: flex; flex-wrap: wrap; gap: 28px; }
+    .metric { display: grid; gap: 2px; }
+    .metric .value { font-size: var(--gary-fluid-type-5, 2.43rem); font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.04em; line-height: 1; }
+    .metric .unit { font-size: .42em; font-weight: 500; color: var(--gary-text-secondary); }
+    .metric .label { font-size: 12px; color: var(--gary-text-tertiary); }
+
+    table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    thead th { padding: 14px 16px; border-bottom: 1px solid color-mix(in oklch, var(--gary-card-edge) 80%, var(--gary-border-highlight)); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+    td { padding: 14px 16px; border-bottom: 1px solid color-mix(in oklch, var(--gary-card-edge) 55%, transparent); font-size: 14px; transition: background-color var(--gary-duration-respond) var(--gary-ease-out); }
+    tbody tr:last-child td { border-bottom: 0; }
+    @media (hover: hover) and (pointer: fine) {
+      tbody tr:hover td { background: color-mix(in oklch, var(--gary-text-primary) 3%, transparent); }
+    }
+    th { color: var(--gary-text-secondary); font-weight: 600; }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    .gary-l-prose li + li { margin-block-start: .35em; }
+    .gary-l-prose blockquote { position: relative; padding-inline-start: 1.1em; }
+    .gary-l-prose blockquote p { font-size: var(--gary-fluid-type-1, 1.19rem); line-height: 1.55; color: var(--gary-text-primary); }
+
+    footer { padding: 2.5rem 24px 3rem; color: var(--gary-text-tertiary); font-size: 13px; border-top: 1px solid color-mix(in oklch, var(--gary-border-highlight) 60%, transparent); }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page" data-gary-scene="reading">
+    <nav class="nav" aria-label="顶栏">
+      <span class="brand"><span class="brand-mark">G</span>Gary-UI</span>
+      <span class="crumbs">排版样板 · tokens 1.5 · layout primitives</span>
+    </nav>
+
+    <header class="hero gary-l-center" data-l-center="46ch">
+      <div class="gary-l-stack" data-l-space="xs">
+        <p class="kicker">Design system / Typography &amp; Layout</p>
+        <h1>让排版替你说话</h1>
+        <p class="lede">流体字阶、算法化布局原语与带色相的中性色——排版不再靠临场发挥，而是从 tokens 里长出来。行宽 65ch，标题与正文分工，数字对齐不再跳动。</p>
+      </div>
+    </header>
+
+    <section class="section" aria-labelledby="t-prose">
+      <div class="section-head gary-l-center"><div class="gary-l-stack"><h2 id="t-prose">长文排版</h2><p>Utopia 流体刻度与 prose 原语：标题用 display 字族，正文限 65ch，段间距由相邻兄弟选择器生成，不产生首尾多余留白。</p></div></div>
+      <div class="gary-l-center">
+        <article class="gary-l-prose">
+          <h2>为什么排版先于装饰</h2>
+          <p>读者对"设计感"的感知，多半来自看不见的决策：中性色是否带一丝强调色相、标题与正文是否分工、数字是否对齐、行宽是否可读。这些决策写成数值进 tokens，比一句"要有高级感"可靠得多。</p>
+          <p>流体刻度用 clamp() 表达：在 390px 到 1440px 之间，字号与间距按同一比例连续缩放，不依赖离散断点。窄屏不溢出、宽屏不空旷，是同一个系统。</p>
+          <h3>层级来自字重与字距，不来自堆字体</h3>
+          <p>同一显示字族内，用字重、字距与行高建立层级；正文保持 1.68 行高，不为"高级感"牺牲可读性。强调的内容用 blockquote 承载，而不是随手换一种字体。</p>
+          <blockquote><p>把可表达的决策写成数值；写不出数值的决策，还没做完。</p></blockquote>
+          <ul>
+            <li>中性色偏 accent 色相，chroma 0.005–0.015</li>
+            <li>标题 Space Grotesk，正文系统无衬线</li>
+            <li>圆角随元素尺寸分档：18 / 30 / 36 / 999</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="t-hierarchy">
+      <div class="section-head gary-l-center"><div class="gary-l-stack"><h2 id="t-hierarchy">主次分明的卡片</h2><p>有主次的场景不用三张等宽卡片：sidebar 原语让主内容占三分之二，侧栏承载次要信息；同级条目才用 grid。</p></div></div>
+      <div class="gary-l-sidebar gary-l-center" data-l-center="88ch" style="max-inline-size:88ch">
+        <div class="card">
+          <h3>主内容卡 · 宽 2/3</h3>
+          <p>真正重要的信息占据更多版面。主卡承载结论与证据，窄屏时自动折到上一行，优先级不丢失。</p>
+          <div class="metric-strip" style="margin-top:20px">
+            <div class="metric"><span class="value">94<span class="unit">%</span></span><span class="label">任务完成率</span></div>
+            <div class="metric"><span class="value">1.8<span class="unit">s</span></span><span class="label">感知延迟</span></div>
+            <div class="metric"><span class="value">12<span class="unit">k</span></span><span class="label">活跃会话</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>侧栏 · 1/3</h3>
+          <p>补充说明、相关链接与操作入口放在这里。窄屏（小于侧栏阈值）时自动堆叠到主卡下方。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="t-data">
+      <div class="section-head gary-l-center"><div class="gary-l-stack"><h2 id="t-data">数据对齐</h2><p>数字一律 tabular-nums，同一列按小数点对齐；正文字号 14px 起步，可读性优先。</p></div></div>
+      <div class="gary-l-center" data-l-center="72ch">
+        <div class="card" style="padding:0;overflow:hidden">
+          <table style="table-layout:fixed">
+            <colgroup><col style="width:38%"><col style="width:22%"><col style="width:22%"><col style="width:18%"></colgroup>
+            <thead><tr><th>渠道</th><th>访问</th><th>转化率</th><th>状态</th></tr></thead>
+            <tbody>
+              <tr><td>有机搜索</td><td class="num">1,284,509</td><td class="num">4.21%</td><td>增长</td></tr>
+              <tr><td>直接访问</td><td class="num">842,310</td><td class="num">3.87%</td><td>稳定</td></tr>
+              <tr><td>推荐来源</td><td class="num">412,988</td><td class="num">5.02%</td><td>增长</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer class="gary-l-center" data-l-center="65ch">
+      Gary-UI 1.4 · oklch tinted neutrals · Space Grotesk (OFL) · layout.css primitives
+    </footer>
+  </div>
+</body>
+</html>

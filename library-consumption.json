@@ -2,34 +2,83 @@
   "schemaVersion": 3,
   "library": "gary-ui",
   "canonical": true,
-  "readOrder": ["SKILL.md", "spec/system.json", "contracts/invocation.schema.json", "README.md"],
+  "readOrder": [
+    "SKILL.md",
+    "spec/system.json",
+    "contracts/invocation.schema.json",
+    "README.md"
+  ],
   "routes": {
     "visual": {
       "when": "visual command or visual route",
-      "read": ["spec/scene-recipes.json", "contracts/visual-manifest.schema.json", "adapters/visual/capabilities.json", "adapters/visual/README.md"]
+      "read": [
+        "spec/scene-recipes.json",
+        "contracts/visual-manifest.schema.json",
+        "adapters/visual/capabilities.json",
+        "adapters/visual/README.md"
+      ]
     },
     "chart": {
       "when": "chart expression or quantitative visual",
-      "read": ["docs/CHART_EXPRESSION.md", "docs/CHART_COLOR.md", "spec/chart-recipes.json"]
+      "read": [
+        "docs/CHART_EXPRESSION.md",
+        "docs/CHART_COLOR.md",
+        "spec/chart-recipes.json"
+      ]
+    },
+    "diagram": {
+      "when": "architecture, workflow, sequence, data-flow or lifecycle diagram",
+      "read": [
+        "docs/DIAGRAM_EXPRESSION.md",
+        "spec/diagram-recipes.json",
+        "adapters/visual/theme-map.json",
+        "adapters/visual/ARCHIFY_SKILL.md"
+      ]
     },
     "session": {
       "when": "user explicitly requests monitored co-design",
-      "read": ["contracts/task.schema.json", "contracts/session.schema.json", "contracts/proposal.schema.json", "contracts/feedback.schema.json", "contracts/approval.schema.json", "contracts/evidence.schema.json", "docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md"],
+      "read": [
+        "contracts/task.schema.json",
+        "contracts/session.schema.json",
+        "contracts/proposal.schema.json",
+        "contracts/feedback.schema.json",
+        "contracts/approval.schema.json",
+        "contracts/evidence.schema.json",
+        "docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md"
+      ],
       "activation": "optional-escalation",
       "defaultFor": [],
       "requiresUserConsent": true
     },
     "react": {
       "when": "React adapter is requested",
-      "read": ["adapters/react-shadcn/README.md", "adapters/react-shadcn/registry.json"]
+      "read": [
+        "adapters/react-shadcn/README.md",
+        "adapters/react-shadcn/registry.json"
+      ]
     },
     "component": {
       "when": "a component is requested",
-      "read": ["components/index.json", "components/<slug>.json"]
+      "read": [
+        "components/index.json",
+        "components/<slug>.json"
+      ]
     },
     "runtime": {
       "when": "consumer runtime projection is requested",
-      "read": ["runtime/manifest.json"]
+      "read": [
+        "runtime/manifest.json"
+      ]
+    },
+    "flowDiagram": {
+      "when": "process-type flowchart: a sequence of actions crossing stages",
+      "trigger": "Gary-UI流程图",
+      "read": [
+        "docs/FLOW_DIAGRAM.md",
+        "spec/flow-diagram.json",
+        "scripts/check_flow_diagram.py",
+        "scripts/flow_svg.py"
+      ]
     }
   },
   "session": {
@@ -49,7 +98,11 @@
     "visualManifest": "contracts/visual-manifest.schema.json",
     "componentIndex": "components/index.json"
   },
-  "surfaces": {"session": "--surface session", "portal": "--surface portal", "combined": false},
+  "surfaces": {
+    "session": "--surface session",
+    "portal": "--surface portal",
+    "combined": false
+  },
   "protectedResources": {
     "artifactUrlContainsToken": false,
     "evidenceUrlContainsToken": false,
@@ -61,6 +114,15 @@
     "consumerRuntimeReadOnly": true,
     "syncReceiptPersistence": "none"
   },
-  "notRuntimeAuthority": ["portal/", "decisions/", "provenance/", "scripts/tests/"],
-  "neverAuthoritative": ["screenshots", "runtime copies", "legacy Apple-UI skill"]
+  "notRuntimeAuthority": [
+    "portal/",
+    "decisions/",
+    "provenance/",
+    "scripts/tests/"
+  ],
+  "neverAuthoritative": [
+    "screenshots",
+    "runtime copies",
+    "legacy Apple-UI skill"
+  ]
 }
