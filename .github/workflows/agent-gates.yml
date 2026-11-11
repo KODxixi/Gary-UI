@@ -28,8 +28,11 @@ jobs:
       - name: Install Playwright Chromium (from the locked playwright-core)
         working-directory: adapters/visual
         run: |
-          # 用已安装的 playwright-core 自带 CLI，避免 npx 动态拉取任意版本
-          node node_modules/playwright-core/cli.js install --with-deps chromium
+          # 用已安装的 playwright-core 自带 CLI，避免 npx 动态拉取任意版本。
+          # 不加 --with-deps：apt 在 runner 上会因镜像/DNS 抖动整段失败，
+          # ubuntu-latest 自带 chromium 所需系统库；真缺库再补 apt。
+          node node_modules/playwright-core/cli.js install chromium \
+            || node node_modules/playwright-core/cli.js install chromium
 
       - name: Render pages from recipes
         run: node agent/render.mjs
