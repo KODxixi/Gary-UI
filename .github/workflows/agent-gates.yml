@@ -5,7 +5,7 @@ on:
     paths: ["agent/**", ".github/workflows/agent-gates.yml"]
   push:
     branches: [main]
-    paths: ["agent/**"]
+    paths: ["agent/**", ".github/workflows/agent-gates.yml"]
 
 permissions:
   contents: read
