@@ -56,7 +56,7 @@ h1 { max-width: 920px; margin: 0; font-size: clamp(42px, 8vw, 104px); line-heigh
 h2 { margin: 0; font-size: clamp(26px, 4vw, 54px); line-height: 1.12; letter-spacing: var(--gary-tracking-title); }
 p { line-height: var(--gary-line-height-body); }
 .lede { max-width: 740px; margin: 22px 0 0; color: var(--gary-text-secondary); font-size: clamp(17px, 2vw, 23px); }
-.pattern-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; margin-top: 18px; }
+.pattern-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
 .pattern-card { padding: 24px; border-radius: var(--gary-radius-card); }
 .span-4 { grid-column: span 4; }
 .span-5 { grid-column: span 5; }
@@ -83,7 +83,7 @@ p { line-height: var(--gary-line-height-body); }
 .toc-nav, .toc-content { padding: 24px; border-radius: var(--gary-radius-card); }
 .toc-nav a { display: block; padding: 12px 0; color: var(--gary-text-secondary); text-decoration: none; border-bottom: 1px solid var(--gary-border-shadow); }
 .toc-nav a:first-of-type { color: var(--gary-text-primary); }
-.chapter { display: grid; grid-template-columns: 68px 1fr auto; gap: 18px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--gary-border-shadow); }
+.chapter { display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 18px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--gary-border-shadow); }
 .chapter span { color: var(--gary-text-tertiary); font-family: var(--gary-font-mono); }
 .chapter p { margin: 4px 0 0; color: var(--gary-text-secondary); }
 @media (max-width: 760px) {
@@ -91,10 +91,10 @@ p { line-height: var(--gary-line-height-body); }
   .pattern-bar { top: 8px; }
   .pattern-hero { min-height: 68vh; padding: 30px 22px; }
   .span-4, .span-5, .span-7, .span-8 { grid-column: 1 / -1; }
-  .toc { grid-template-columns: 1fr; }
+  .toc { grid-template-columns: minmax(0, 1fr); }
   .toc-nav { display: flex; gap: 16px; overflow-x: auto; }
   .toc-nav a { min-width: max-content; }
-  .chapter { grid-template-columns: 44px 1fr; }
+  .chapter { grid-template-columns: 44px minmax(0, 1fr); }
   .chapter .gary-chip { grid-column: 2; width: fit-content; }
 }
 
@@ -194,6 +194,8 @@ p { line-height: var(--gary-line-height-body); }
   --gary-text-tertiary: oklch(0.97 0 255 / 0.48);
   --gary-surface-sunken: oklch(0.20 0 255);
 }
+/* 岛本体就是代码底：内部 pre 不再自带更亮的沉底色（双主题一致） */
+.gary-island-dark pre { background: transparent; }
 
 /* ═══════════════════════════════════════════════════════════════
    默认档：左流式叙述 + 右 stage 工作台（.gary-split-workspace）
@@ -229,6 +231,11 @@ p { line-height: var(--gary-line-height-body); }
   border: 1px solid var(--gary-card-edge);
   box-shadow: 0 4px 24px -2px rgba(20, 20, 20, 0.06);
 }
+/* 浅色下卡边界加强：描边走 token，阴影在此补一档环境光（深色值不动） */
+[data-gary-theme="light"] .gary-stage-card,
+.light .gary-stage-card {
+  box-shadow: 0 4px 24px -2px rgba(20, 20, 20, 0.06), 0 6px 28px -6px rgba(0, 0, 0, 0.10);
+}
 .gary-stage-header {
   display: flex;
   align-items: center;
@@ -237,12 +244,11 @@ p { line-height: var(--gary-line-height-body); }
   margin-bottom: var(--gary-space-3);
 }
 .gary-stage-viewport {
+  /* 非卡片：无圆角无底色无描边，指标直接排在 stage 面上（卡片不套卡片） */
   flex: 1;
   min-height: 0;
-  border-radius: 14px;
   overflow: auto;
   color: var(--gary-text-primary);
-  background: var(--gary-surface-page);
 }
 .gary-stage-footer {
   margin-top: var(--gary-space-3);

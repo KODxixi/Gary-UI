@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repository": "KODxixi/Gary-UI",
-  "files": 1311,
+  "files": 1312,
   "entries": [
     {
       "path": ".agent/maintainer.md",
@@ -993,7 +993,7 @@
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.d.ts",
-      "sha256": "62d69c26c6ccaa752bf08c3fa32ef596b2002076c51c01c93b9308ec9fac6519"
+      "sha256": "8992f84f1a6d3fa707dd0b2b88a60499288e0a472fc15a17e633d3b804f50cc0"
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.d.ts.map",
@@ -1001,11 +1001,11 @@
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.js",
-      "sha256": "020ffa0b9bbfd0aaf5ca37abb8d2d899c6dd1b6d35e9f5386a2c2f62b87e7f52"
+      "sha256": "58d06ae5ad3739baedd61f8f05c8c1acc315ed04d9c429dbc4cc076c8727e50b"
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.js.map",
-      "sha256": "c10b02a7c5355f9c4741d762622d953b7bb1ad4371f02a2f24c708f44b21a61e"
+      "sha256": "64ae13cf5052151bb8ab2ede096ce275d446f2c58273cfd3bf3fe7ba779f01e4"
     },
     {
       "path": "adapters/react-shadcn/dist/lib/use-gesture-value.d.ts",
@@ -1089,7 +1089,7 @@
     },
     {
       "path": "adapters/react-shadcn/dist/styles/gary-ui.css",
-      "sha256": "c7df3b55932605f1cc054cffb2e63488b7d0dc3379cf18e9b5d406c4c3de1ba2"
+      "sha256": "96ecdfe89af6eb6ced3487ee2a7424af89ef2d67bb2ae5b9a9f0774f9a5beaa9"
     },
     {
       "path": "adapters/react-shadcn/eslint-rules/no-hardcoded-colors.js",
@@ -1377,7 +1377,7 @@
     },
     {
       "path": "adapters/react-shadcn/src/lib/tokens.ts",
-      "sha256": "31bd9ed15a4c6024b1a9bac046a10303851fd53a50571f655dacce956c64d1da"
+      "sha256": "bc172b5ab2dcfb66890b28fd5c33ab481bd047c40082dd2dd467d8f9a7b6a13f"
     },
     {
       "path": "adapters/react-shadcn/src/lib/use-gesture-value.ts",
@@ -2774,6 +2774,10 @@
     {
       "path": "examples/showcase/verify-mobile.png",
       "sha256": "aceead8a70348aa78174eae404a88391b8af959b4e10141a2dc37fbe9f306449"
+    },
+    {
+      "path": "examples/tonal-default.html",
+      "sha256": "56eb769086f2c370b20c8fdfd57a5b47ed8f722aa85e296b7a10745923f22486"
     },
     {
       "path": "examples/typography-demo/index.html",
@@ -4541,7 +4545,7 @@
     },
     {
       "path": "patterns/patterns.css",
-      "sha256": "d2f89a4fc0dbb4a5a0821e7eeee35dedc32fe467eaa14ace3b111c59113fed82"
+      "sha256": "2762f053236bc2cd9fdccf190441a5fcf489b80d2146e26d3514a40d40e8ab85"
     },
     {
       "path": "patterns/recipes/audit-report/README.md",
@@ -5241,11 +5245,11 @@
     },
     {
       "path": "tokens/base.css",
-      "sha256": "b62de748730b84a632f37cd31c68b49749a030bf3a29f6756d3c680b82b79812"
+      "sha256": "7c4aac0cf953bd568dba9baedc9318f4bc87033bffae7631ff44ce0c8e3f3e15"
     },
     {
       "path": "tokens/tokens.json",
-      "sha256": "34e97fdefe6dfb39e588fc413fd0b44da882b1cb9189280b3bd117e320faa727"
+      "sha256": "40cb184a4ebca6c10142fd9e8946a0f3fd825331229c5a878cec16ee225b9188"
     }
   ],
   "note": "Public source snapshot only; no parent repository history, machine receipts or restricted component ports."

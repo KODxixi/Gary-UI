@@ -263,7 +263,7 @@
   --gary-category-2: #89600a;
   --gary-category-3: #22765d;
   --gary-category-4: #795098;
-  --gary-shadow-contact: 0 2px 5px rgba(0, 0, 0, 0.14);
+  --gary-shadow-contact: 0 2px 5px rgba(0, 0, 0, 0.14), 0 6px 28px -6px rgba(0, 0, 0, 0.10);
   --gary-shadow-environment: 0 28px 72px rgba(0, 0, 0, 0.14);
   --gary-shadow-inset: inset 0 1px 1px rgba(255, 255, 255, 0.44), inset 0 -1px 1px rgba(68, 68, 68, 0.10), inset 0 0 28px rgba(255, 255, 255, 0.08);
   --gary-glass-sheen-opacity: 0.18;
@@ -279,7 +279,7 @@
   --gary-refraction-plate: rgba(255,255,255,.08);
   --gary-refraction-edge: rgba(255,255,255,.94);
   --gary-refraction-inner: rgba(0,0,0,.10);
-  --gary-card-edge: rgba(0,0,0,.10);
+  --gary-card-edge: rgba(0,0,0,.14);
   --gary-card-shine: rgba(255,255,255,.85);
   --gary-card-orbit: rgba(70,70,70,.45);
   --gary-surface-card: oklch(1 0 0);
