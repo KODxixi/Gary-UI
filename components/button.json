@@ -46,7 +46,7 @@
     {
       "name": "destructive",
       "selector": ".gary-button--destructive, .gary-button[data-variant='danger'], .gary-button[data-variant='destructive']",
-      "color": "var(--gary-state-critical)"
+      "color": "var(--gary-state-negative)"
     },
     {
       "name": "link",

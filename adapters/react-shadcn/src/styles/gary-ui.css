@@ -20,7 +20,7 @@
   --color-primary-foreground: var(--gary-surface-page);
   --color-secondary: var(--gary-surface-sunken);
   --color-secondary-foreground: var(--gary-text-primary);
-  --color-destructive: var(--gary-state-critical);
+  --color-destructive: var(--gary-state-negative);
   --color-border: var(--gary-border-shadow);
   --color-input: var(--gary-border-shadow);
   --color-ring: var(--gary-focus-ring);
@@ -45,7 +45,7 @@
   --muted-foreground: var(--gary-text-secondary);
   --accent: var(--gary-glass-thick);
   --accent-foreground: var(--gary-text-primary);
-  --destructive: var(--gary-state-critical);
+  --destructive: var(--gary-state-negative);
   --destructive-foreground: var(--gary-text-primary);
   --border: var(--gary-border-shadow);
   --input: var(--gary-border-shadow);
@@ -74,7 +74,7 @@
   --muted-foreground: var(--gary-text-secondary);
   --accent: var(--gary-glass-thick);
   --accent-foreground: var(--gary-text-primary);
-  --destructive: var(--gary-state-critical);
+  --destructive: var(--gary-state-negative);
   --destructive-foreground: var(--gary-text-primary);
   --border: var(--gary-border-shadow);
   --input: var(--gary-border-shadow);
@@ -141,7 +141,7 @@
 .gary-button--primary { --gary-glass-fill: var(--gary-glass-thick); }
 .gary-button--secondary, .gary-button--outline { --gary-glass-fill: var(--gary-glass-regular); }
 .gary-button--ghost, .gary-button--link { --gary-glass-fill: var(--gary-glass-ultrathin); box-shadow: var(--gary-shadow-inset); }
-.gary-button--destructive { color: var(--gary-state-critical); }
+.gary-button--destructive { color: var(--gary-state-negative); }
 
 .gary-card-footer {
   color: var(--gary-text-secondary);
@@ -167,8 +167,8 @@
   background: var(--gary-glass-ultrathin);
 }
 .gary-chip--success { color: var(--gary-state-positive); }
-.gary-chip--warning { color: var(--gary-state-caution); }
-.gary-chip--critical { color: var(--gary-state-critical); }
+.gary-chip--warning { color: var(--gary-state-warning); }
+.gary-chip--critical { color: var(--gary-state-negative); }
 
 .gary-evidence-bar {
   color: var(--gary-text-primary);
@@ -189,8 +189,8 @@
   background: var(--gary-text-primary);
 }
 .gary-evidence-bar--success [data-slot="evidence-bar-indicator"] { background: var(--gary-state-positive); }
-.gary-evidence-bar--warning [data-slot="evidence-bar-indicator"] { background: var(--gary-state-caution); }
-.gary-evidence-bar--critical [data-slot="evidence-bar-indicator"] { background: var(--gary-state-critical); }
+.gary-evidence-bar--warning [data-slot="evidence-bar-indicator"] { background: var(--gary-state-warning); }
+.gary-evidence-bar--critical [data-slot="evidence-bar-indicator"] { background: var(--gary-state-negative); }
 
 @supports not (backdrop-filter: blur(1px)) {
   .gary-card,

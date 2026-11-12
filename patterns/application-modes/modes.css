@@ -476,7 +476,7 @@ body.application-mode {
 }
 
 .status-mark[data-state="risk"] {
-  color: var(--gary-state-caution);
+  color: var(--gary-state-warning);
 }
 
 .status-mark[data-state="steady"] {

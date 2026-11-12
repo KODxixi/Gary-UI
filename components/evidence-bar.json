@@ -39,12 +39,12 @@
     {
       "name": "warning",
       "selector": ".gary-evidence-bar--warning, .gary-evidence-bar[data-state='stale']",
-      "color": "var(--gary-state-caution)"
+      "color": "var(--gary-state-warning)"
     },
     {
       "name": "critical",
       "selector": ".gary-evidence-bar--critical, .gary-evidence-bar[data-state='missing']",
-      "color": "var(--gary-state-critical)"
+      "color": "var(--gary-state-negative)"
     }
   ],
   "sizes": [

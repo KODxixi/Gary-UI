@@ -37,12 +37,12 @@
     {
       "name": "warning",
       "selector": ".gary-chip--warning, .gary-chip[data-tone='caution']",
-      "color": "var(--gary-state-caution)"
+      "color": "var(--gary-state-warning)"
     },
     {
       "name": "critical",
       "selector": ".gary-chip--critical, .gary-chip[data-tone='critical']",
-      "color": "var(--gary-state-critical)"
+      "color": "var(--gary-state-negative)"
     }
   ],
   "sizes": [

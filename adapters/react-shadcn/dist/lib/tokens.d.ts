@@ -116,38 +116,43 @@ export declare const garyTokens: {
     };
     readonly "--gary-state-positive": {
         readonly type: "color";
-        readonly dark: "#30d158";
-        readonly light: "#248a3d";
+        readonly dark: "oklch(0.74 0.14 150)";
+        readonly light: "oklch(0.5 0.13 150)";
     };
-    readonly "--gary-state-caution": {
+    readonly "--gary-state-negative": {
         readonly type: "color";
-        readonly dark: "#ffd60a";
-        readonly light: "#9a6700";
+        readonly dark: "oklch(0.72 0.15 25)";
+        readonly light: "oklch(0.52 0.15 25)";
     };
-    readonly "--gary-state-critical": {
+    readonly "--gary-state-warning": {
         readonly type: "color";
-        readonly dark: "#ff453a";
-        readonly light: "#d70015";
+        readonly dark: "oklch(0.78 0.14 75)";
+        readonly light: "oklch(0.52 0.13 75)";
+    };
+    readonly "--gary-state-info": {
+        readonly type: "color";
+        readonly dark: "oklch(0.68 0.1 240)";
+        readonly light: "oklch(0.47 0.1 240)";
     };
     readonly "--gary-category-1": {
         readonly type: "color";
-        readonly dark: "#82acec";
-        readonly light: "#386aa9";
+        readonly dark: "oklch(0.75 0.13 245)";
+        readonly light: "oklch(0.5 0.13 245)";
     };
     readonly "--gary-category-2": {
         readonly type: "color";
-        readonly dark: "#d5af59";
-        readonly light: "#89600a";
+        readonly dark: "oklch(0.74 0.14 150)";
+        readonly light: "oklch(0.5 0.13 150)";
     };
     readonly "--gary-category-3": {
         readonly type: "color";
-        readonly dark: "#78c9ac";
-        readonly light: "#22765d";
+        readonly dark: "oklch(0.78 0.14 75)";
+        readonly light: "oklch(0.52 0.13 75)";
     };
     readonly "--gary-category-4": {
         readonly type: "color";
-        readonly dark: "#be9bda";
-        readonly light: "#795098";
+        readonly dark: "oklch(0.73 0.14 300)";
+        readonly light: "oklch(0.52 0.14 300)";
     };
     readonly "--gary-shadow-contact": {
         readonly type: "shadow";
@@ -897,6 +902,11 @@ export declare const garyTokens: {
         readonly type: "color";
         readonly dark: "oklch(0.55 0 0)";
         readonly light: "oklch(0.68 0 0)";
+    };
+    readonly "--gary-accent": {
+        readonly type: "color";
+        readonly dark: "oklch(0.75 0.13 245)";
+        readonly light: "oklch(0.5 0.13 245)";
     };
     readonly "--gary-accent-neutral": {
         readonly type: "color";

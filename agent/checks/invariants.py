@@ -2,11 +2,12 @@
 """Gary-UI 不变量闸 — 母库自洽，而不是某个页面好看。
 
 判据（每条都能在 CI 里红）：
-1. 中性 token 的 chroma 必须为 0（K-only 是契约，不是形容词）；状态色与焦点色除外。
+1. 中性 token 的 chroma 必须为 0（K-only 是契约，不是形容词）；语义色层（category / state /
+   accent，不含 accent-neutral）相反：必须真有颜色，chroma 落在 [0.05, 0.22]，写成灰的假语义色报错。
    颜色解析按 sRGB 通道差判定，不按 oklch 字符串形状判定；无法解析的颜色语法直接报错。
 2. 页面底色 token：tonal 阶梯 page 档（dark L0.18 / light L0.98），K-only（DESIGN §2，M3 tonal 修订）。
 3. 契约声明的 CSS 类必须在样式表里存在（先剥注释再匹配，避免注释里提到类名就算数）。
-4. 样式与脚本里不允许出现带色度的字面色值；状态色白名单从 tokens.json 动态生成。
+4. 样式与脚本里不允许出现带色度的字面色值；语义色白名单从 tokens.json 动态生成（hex 与 oklch 原串）。
 5. 高密度版面禁止两栏：解析 grid-template-columns 的真实轨道数，展开 repeat(n, …)。
 6. 有 Scene 的页面，body 不得写不透明底色（负 z-index 点阵会被整块盖掉）。
 7. 配方页面的字号不得低于 micro 档（0.75rem / 12px），不允许出现 10.5px 这类字面量。
@@ -31,6 +32,11 @@ CSS_FILES = [ROOT / "tokens" / "base.css", ROOT / "components" / "components.css
 STATE_PREFIXES = ("--gary-state-", "--gary-category-")
 TINT_PREFIX = "--gary-tint-"
 EXEMPT = {"--gary-focus-ring"}
+# 语义色层（2026-11-12 分层管色）：允许色相，但必须真有颜色
+SEMANTIC_PREFIXES = ("--gary-category-", "--gary-state-", "--gary-accent")
+SEMANTIC_EXCLUDE = {"--gary-accent-neutral"}   # 「无强调」缺省，必须保持中性
+SEMANTIC_CHROMA_MIN = 0.05   # 写成灰 = 假语义色，报错
+SEMANTIC_CHROMA_MAX = 0.22   # 过饱和同样不允许
 COMPONENTS = [
     "button", "segmented", "field", "tab-bar", "web-bar", "glass-card", "solid-plate",
     "metric-card", "comparison-table", "decision-grid", "media-card", "profile-card",
@@ -181,6 +187,41 @@ def is_chromatic(value: str, oklch_tol: float = OKLCH_CHROMA_TOLERANCE):
     return (max(r, g, b) - min(r, g, b)) > CHROMA_TOLERANCE
 
 
+def _rgb_to_oklch_chroma(r: float, g: float, b: float):
+    """sRGB 0-255 → OKLab chroma（hex/rgb 值也要能算 chroma，语义层判定用）。"""
+    import math
+
+    def lin(c):
+        c = c / 255
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+
+    r_, g_, b_ = lin(r), lin(g), lin(b)
+    l = 0.4122214708 * r_ + 0.5363325363 * g_ + 0.0514459929 * b_
+    m = 0.2119034982 * r_ + 0.6806995451 * g_ + 0.1073969566 * b_
+    s = 0.0883024619 * r_ + 0.2817188376 * g_ + 0.6299787005 * b_
+    l_, m_, s_ = (max(v, 0.0) ** (1 / 3) for v in (l, m, s))
+    a = 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_
+    b2 = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_
+    return math.sqrt(a * a + b2 * b2)
+
+
+def chroma_of(value: str):
+    """返回颜色的 OKLCH chroma；无法解析返回 None。oklch 直取 C，hex/rgb/hsl 换算。"""
+    r, g, b, hint = parse_color(value)
+    if hint is not None:
+        return hint
+    if r is None or g is None or b is None:
+        return None
+    return _rgb_to_oklch_chroma(r, g, b)
+
+
+def is_semantic_token(name: str) -> bool:
+    """语义色层：category / state / accent。accent-neutral 除外——它是「无强调」缺省，必须中性。"""
+    if name in SEMANTIC_EXCLUDE:
+        return False
+    return name.startswith(SEMANTIC_PREFIXES)
+
+
 def token_value(spec):
     """token 可能是 {type,value} 或 {type,dark,light}；统一取出所有字符串值。"""
     if not isinstance(spec, dict):
@@ -194,38 +235,65 @@ def token_value(spec):
 
 
 def allowed_colors():
-    """状态色与焦点环的白名单从 tokens.json 动态生成，避免双写。"""
+    """语义色与焦点环的白名单从 tokens.json 动态生成，避免双写。
+
+    hex 收 6 位小写（兼容 8 位带透明度写法）；oklch 等函数色收原串精确匹配
+    （base.css 等生成物由 tokens.json 逐字写出，原串必然一致）。
+    """
     data = json.loads(TOKENS.read_text(encoding="utf-8-sig"))["tokens"]
     allow = set()
     for name, spec in data.items():
-        if not (name.startswith(STATE_PREFIXES) or name in EXEMPT):
+        if not (is_semantic_token(name) or name in EXEMPT):
             continue
         for _, value in token_value(spec):
-            if value.startswith("#"):
-                allow.add(value[1:].lower()[:6])
+            for raw in COLOR_RE.findall(value):
+                if raw.startswith("#"):
+                    allow.add(raw[1:].lower()[:6])
+                else:
+                    allow.add(raw)
     return allow
 
 
 # ---------------------------------------------------------------- 判据
 
-def check_token_chroma():
-    """token 值可能是颜色、阴影、渐变或角度：抽出其中每个颜色分别判定。"""
-    data = json.loads(TOKENS.read_text(encoding="utf-8-sig"))["tokens"]
+def check_token_chroma(data=None):
+    """token 值可能是颜色、阴影、渐变或角度：抽出其中每个颜色分别判定。
+
+    分层管色（2026-11-12）：
+    - 语义层（--gary-category-* / --gary-state-* / --gary-accent，不含 accent-neutral）
+      必须真有颜色：chroma 落在 [SEMANTIC_CHROMA_MIN, SEMANTIC_CHROMA_MAX]。
+      写成灰的假语义色（当年为过闸而降饱和的产物）与过饱和的都报错。
+    - 其余 token（表面 / 文字 / 边界 / 阴影）维持 K-only：chroma ≤ 阈值。
+    data 可注入（负例自检用）；缺省读 tokens.json。
+    """
+    if data is None:
+        data = json.loads(TOKENS.read_text(encoding="utf-8-sig"))["tokens"]
     problems = []
     for name, spec in data.items():
-        if name.startswith(STATE_PREFIXES) or name in EXEMPT or name.startswith(TINT_PREFIX):
+        if name in EXEMPT or name.startswith(TINT_PREFIX):
             continue
+        semantic = is_semantic_token(name)
         for theme, value in token_value(spec):
             colors = COLOR_RE.findall(value)
             if not colors:
                 continue
             for raw in colors:
-                tol = SURFACE_CHROMA_TOLERANCE if name.startswith("--gary-surface-") else OKLCH_CHROMA_TOLERANCE
-                verdict = is_chromatic(raw, tol)
-                if verdict is None:
-                    problems.append(f"{name} [{theme}] 颜色语法无法解析: {raw}")
-                elif verdict:
-                    problems.append(f"{name} [{theme}] 带色度: {raw}（{value[:40]}）")
+                if semantic:
+                    c = chroma_of(raw)
+                    if c is None:
+                        problems.append(f"{name} [{theme}] 语义色无法解析: {raw}")
+                    elif not (SEMANTIC_CHROMA_MIN <= c <= SEMANTIC_CHROMA_MAX):
+                        problems.append(
+                            f"{name} [{theme}] 语义色 chroma {c:.3f} 不在 "
+                            f"[{SEMANTIC_CHROMA_MIN}, {SEMANTIC_CHROMA_MAX}]: {raw}"
+                            "（写成灰的假语义色 / 过饱和，都算违规）")
+                else:
+                    tol = SURFACE_CHROMA_TOLERANCE if name.startswith("--gary-surface-") else OKLCH_CHROMA_TOLERANCE
+                    verdict = is_chromatic(raw, tol)
+                    if verdict is None:
+                        problems.append(f"{name} [{theme}] 颜色语法无法解析: {raw}")
+                    elif verdict:
+                        problems.append(f"{name} [{theme}] 带色度: {raw}（{value[:40]}）")
     return problems
 
 
@@ -283,6 +351,8 @@ def check_no_chromatic_literals():
                 raw = match.group(0)
                 if raw.startswith("#") and raw[1:].lower()[:6] in allow:
                     continue
+                if not raw.startswith("#") and raw in allow:
+                    continue   # tokens.json 语义色原串（oklch 字面，生成物逐字一致）
                 if raw.lower().startswith("color("):
                     space = raw[6:].strip().split()[0].lower() if len(raw) > 6 else ""
                     if space not in CSS_COLOR_SPACES:

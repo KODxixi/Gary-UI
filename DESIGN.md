@@ -99,7 +99,8 @@ Portal 与起手模板默认使用 `patterns/shared/dot-grid.js` 的本地 Canva
 - 深色页面底是中性灰 `oklch(0.18 0 255)`（≈ `#121212`），浅色页面底是 `oklch(0.98 0 255)`（≈ `#f8f8f8`）；表面只能靠明度分层，不得靠色相。
 - **严禁任何带色相的深色或灰色作底**：暖调（`#141414` 里掺一点棕）、冷调（掺一点蓝）都算违规，
   低亮度下会整片偏色，与中性卡并排立刻露馅。
-- 唯一允许带色相的是**前景语义色**：状态色（positive / caution / critical）与图表语义色（`spec/chart-recipes.json`）。
+- 唯一允许带色相的是**前景语义色**：状态色（positive / negative / warning / info）、`--gary-accent`
+  与图表分类色（`--gary-category-1..4`，见下节「颜色规则」）。
   它们只作文字、图标、圆点、细边，不铺大面积底。
 - 企业面板层（§4 上一节）同样适用：`#141414` / `#1c1c1c` / `#262626` / `#333333` 的 R=G=B，强调与状态色不进底色。
 - **语义色块通道（2026-10-27 明确）**：需要带色底的场景用 `--gary-tint-*` 命名，且必须
@@ -108,6 +109,32 @@ Portal 与起手模板默认使用 `patterns/shared/dot-grid.js` 的本地 Canva
   默认仍然是 K：tint 是例外，不是日常；一整页里带色块不应超过两处，其余靠明度分层。
 - 机器守：`agent/checks/invariants.py` 的 `token_chroma`（全部非状态 token）与 `enterprise_k_only`
   （`spec/archos-enterprise.tokens.json` 的表面 / 线 / 墨 / 强调边）必须同时绿。
+
+
+### 颜色规则（语义色层，2026-11-12）
+
+中性面继续 K-only（见上节）；颜色只活在一个明确的语义层里。六条：
+
+1. **中性面、文字、边界 chroma≈0**：分层靠明度，K-only 硬规则不变。`--gary-text-*` 永远不加色相——
+   文字要彩色时换用语义 token，不是改文字 token 本身。
+2. **颜色只有五个语义槽**：`--gary-accent`（主强调）/ `--gary-state-positive` / `--gary-state-negative` /
+   `--gary-state-warning` / `--gary-state-info`，不许自己造第六个。`--gary-accent-neutral` 是「无强调」
+   缺省，保持中性。语义 token 必须真有颜色：chroma 落在 0.05–0.22，写成灰的假语义色算违规
+   （机器闸 `token_chroma` 抓）。
+3. **一页最多同时用 3 个色相**：语义状态色（positive / negative / warning）是功能信号，像红绿灯，
+   不计入配额；accent 与图表分类色计入。
+4. **图表必须用颜色，不许靠明度差**：分类用 `--gary-category-1..4`（指向 accent / positive / warning /
+   紫），正负对比用 positive / negative，趋势上的关键点用 accent，警戒线用 warning 虚线。
+   图表里不写裸 hex，只用 token。
+5. **文字着色只表语义，不做装饰**：结论句、关键数字、正/负/警示状态、表头标签、正文里的强调词，
+   可以用语义色着色；正文主体段落保持中性（否则像霓虹灯）。一句话：颜色指代语义。
+6. **状态标记用 emoji + 文字，功能图标用线性 SVG，同区不混用**：状态行用 emoji（⚠️ 风险 / ✅ 通过 /
+   ▲ 高于 / ▼ 低于 / ● 中性点），每个 emoji 旁必须有文字标签——emoji 不单独承载信息（无障碍）；
+   操作、导航、指标类图标用内联 SVG 线性图标（Lucide 几何、1.5px stroke、`currentColor`），不用 emoji。
+   同一行 / 同一区块内不混用两套。emoji 只在深色页底上直接用；浅色卡片内刺眼时只保留符号类（▲▼●）。
+
+机器闸：`agent/checks/invariants.py` 的 `token_chroma`（语义层 chroma ∈ [0.05, 0.22]，中性层 ≤ 阈值）
+与 `no_chromatic`（字面色值只允许 tokens.json 语义色白名单）。
 
 
 ### 企业面板层（ArchOS / GarchOS，2026-10-26）

@@ -75,12 +75,12 @@
                     font-size: var(--t-nano); color: var(--gary-text-caption); }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gary-text-caption); flex: none; }
   .ind-card.is-state-idle .dot { background: var(--gary-state-positive); }
-  .ind-card.is-state-busy .dot { background: var(--gary-state-caution); }
-  .ind-card.is-state-off .dot { background: var(--gary-state-critical); }
+  .ind-card.is-state-busy .dot { background: var(--gary-state-warning); }
+  .ind-card.is-state-off .dot { background: var(--gary-state-negative); }
   .ind-card.is-state-off { opacity: 0.72; }
   .ind-card.is-state-idle { border-color: color-mix(in srgb, var(--gary-state-positive) 40%, transparent); }
-  .ind-card.is-state-busy { border-color: color-mix(in srgb, var(--gary-state-caution) 45%, transparent); }
-  .ind-card.is-state-off { border-color: color-mix(in srgb, var(--gary-state-critical) 45%, transparent); }
+  .ind-card.is-state-busy { border-color: color-mix(in srgb, var(--gary-state-warning) 45%, transparent); }
+  .ind-card.is-state-off { border-color: color-mix(in srgb, var(--gary-state-negative) 45%, transparent); }
 
   .ind-table { width: 100%; border-collapse: collapse; font-size: var(--t-body); }
   .ind-table th, .ind-table td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--gary-hairline-soft); }

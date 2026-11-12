@@ -2541,7 +2541,7 @@ kbd {
 
 .review-handoff[data-state="pending"],
 .review-handoff[data-state="saving"] {
-  border-color: color-mix(in srgb, var(--gary-state-caution) 38%, var(--portal-border));
+  border-color: color-mix(in srgb, var(--gary-state-warning) 38%, var(--portal-border));
 }
 
 .review-handoff[data-state="applied"] {
@@ -2551,7 +2551,7 @@ kbd {
 
 .review-handoff[data-state="error"],
 .review-handoff[data-state="unavailable"] {
-  border-color: color-mix(in srgb, var(--gary-state-critical) 42%, var(--portal-border));
+  border-color: color-mix(in srgb, var(--gary-state-negative) 42%, var(--portal-border));
 }
 
 .review-coverage dl {

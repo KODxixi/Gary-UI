@@ -10,8 +10,8 @@
   --session-strong: rgba(255, 255, 255, 0.16);
   --session-scene-mask: oklch(0 0 0 / 0.55);
   --session-positive: var(--gary-state-positive);
-  --session-caution: var(--gary-state-caution);
-  --session-critical: var(--gary-state-critical);
+  --session-caution: var(--gary-state-warning);
+  --session-critical: var(--gary-state-negative);
   --session-topbar-height: 78px;
 }
 

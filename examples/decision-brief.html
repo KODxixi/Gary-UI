@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>良渚新城 47 号宅地 · 投拓决策书</title>
+<link rel="stylesheet" href="../tokens/base.css">
+<link rel="stylesheet" href="../patterns/patterns.css">
+<link rel="stylesheet" href="../components/components.css">
+<script>
+(function () {
+  var t = new URLSearchParams(location.search).get("theme");
+  if (t === "light") {
+    document.documentElement.dataset.garyTheme = "light";
+    document.documentElement.classList.add("light");
+  }
+})();
+</script>
+<style>
+  /* ═══ 决策书 · 语义色只落在数据上，面全部中性 ═══ */
+  .c-accent { color: var(--gary-accent); }
+  .c-pos    { color: var(--gary-state-positive); }
+  .c-neg    { color: var(--gary-state-negative); }
+  .c-warn   { color: var(--gary-state-warning); }
+
+  /* 浅色卡片内不直接用彩色 emoji（DESIGN.md 颜色规则 6）：只留文字与符号 */
+  [data-gary-theme="light"] .emo, .light .emo { display: none; }
+
+  .icon { width: 16px; height: 16px; flex: none; vertical-align: -3px; }
+
+  /* ── 页头 ── */
+  .mast { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding: 10px 4px 22px; }
+  .mast-eyebrow { margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--gary-text-tertiary); }
+  .mast h1 { margin: 0; font-size: 30px; line-height: 1.15; letter-spacing: .01em; }
+  .mast-side { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+  .mast-line { margin: 0; font-size: 13px; color: var(--gary-text-secondary); display: flex; align-items: center; gap: 7px; }
+  .mast-line .icon { color: var(--gary-text-tertiary); }
+
+  /* ── 结论位 ── */
+  .verdict { padding: 26px 30px 22px; }
+  .verdict-grid { display: grid; grid-template-columns: minmax(0, 57fr) minmax(0, 43fr); gap: 34px; }
+  .v-eyebrow { margin: 0 0 8px; font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--gary-text-tertiary); }
+  .verdict-word { margin: 0; font-size: 46px; font-weight: 800; line-height: 1.05; letter-spacing: .02em; }
+  .verdict-why { margin: 14px 0 0; max-width: 46ch; font-size: 14.5px; line-height: 1.75; color: var(--gary-text-secondary); }
+  .verdict-why strong { font-weight: 700; }
+  .verdict-number { margin: 0; font-size: 54px; font-weight: 800; line-height: 1; letter-spacing: .01em; }
+  .verdict-number small { font-size: 15px; font-weight: 600; color: var(--gary-text-secondary); margin-left: 4px; }
+  .bid-scale { position: relative; height: 46px; margin-top: 18px; }
+  .bid-scale::before { content: ""; position: absolute; top: 7px; left: 2px; right: 2px; border-top: 2px solid var(--gary-border-shadow); }
+  .scale-tick { position: absolute; top: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 12px; color: var(--gary-text-secondary); }
+  .scale-tick .scale-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gary-text-tertiary); }
+  .scale-tick--start { left: 2px; align-items: flex-start; }
+  .scale-tick--mid { left: 54.8%; transform: translateX(-50%); color: var(--gary-accent); font-weight: 700; }
+  .scale-tick--mid .scale-dot { width: 12px; height: 12px; background: var(--gary-accent); }
+  .scale-tick--end { right: 2px; align-items: flex-end; }
+  .bid-facts { margin: 10px 0 0; font-size: 12.5px; color: var(--gary-text-tertiary); }
+  .bid-exit { margin: 12px 0 0; }
+
+  .metric-strip { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--gary-border-shadow); }
+  .metric + .metric { padding-left: 18px; border-left: 1px solid var(--gary-border-shadow); }
+  .m-label { margin: 0; font-size: 12px; color: var(--gary-text-tertiary); }
+  .m-val { margin: 5px 0 0; font-size: 23px; font-weight: 750; line-height: 1.1; }
+  .m-val small { font-size: 12px; font-weight: 600; color: var(--gary-text-secondary); }
+  .m-note { margin: 5px 0 0; font-size: 12px; line-height: 1.5; color: var(--gary-text-tertiary); }
+
+  /* ── 主区：左论据 / 右工作台 ── */
+  .worksplit { display: grid; grid-template-columns: minmax(0, 53fr) minmax(380px, 47fr); gap: 28px; align-items: start; margin-top: 28px; }
+  .stream { min-width: 0; }
+  .stream h2 { margin: 4px 0 0; font-size: 20px; letter-spacing: .02em; }
+  .stream .sub { margin: 6px 0 0; font-size: 13px; color: var(--gary-text-tertiary); }
+  .arg { padding: 18px 0 4px; }
+  .arg + .arg { border-top: 1px solid var(--gary-border-shadow); }
+  .arg h3 { margin: 0; font-size: 15.5px; display: flex; align-items: center; gap: 9px; }
+  .arg p { margin: 8px 0 0; font-size: 14px; line-height: 1.75; color: var(--gary-text-secondary); }
+  .arg p strong { font-weight: 700; }
+  .arg-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .arg-dot--accent { background: var(--gary-accent); }
+  .arg-dot--pos { background: var(--gary-state-positive); }
+  .arg-dot--warn { background: var(--gary-state-warning); }
+
+  .dtable-wrap { margin-top: 26px; }
+  .dtable-wrap h3 { margin: 0 0 4px; font-size: 15.5px; }
+  .dtable { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  .dtable th { padding: 8px 10px 7px 0; border-bottom: 1px solid var(--gary-border-shadow); text-align: left; font-size: 12px; font-weight: 700; color: var(--gary-text-tertiary); letter-spacing: .04em; }
+  .dtable td { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--gary-border-shadow); font-size: 13.5px; vertical-align: top; }
+  .dtable th:not(:first-child), .dtable td:not(:first-child) { text-align: right; }
+  .cell-val { display: block; font-weight: 650; }
+  .cell-note { display: block; margin-top: 3px; font-size: 12px; color: var(--gary-text-tertiary); }
+  .drow-self td { padding-top: 12px; }
+  .drow-self .cell-val { font-weight: 800; }
+  .drow-avg td { color: var(--gary-text-secondary); border-bottom: 0; }
+  .dtable-note { margin: 10px 0 0; font-size: 12px; color: var(--gary-text-tertiary); }
+
+  /* ── 右栏 ── */
+  .rail { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+  .rail .gary-stage-card { padding: 20px 24px 18px; }
+  .rail h3 { margin: 0; font-size: 15.5px; }
+  .rail .sub { margin: 5px 0 0; font-size: 12.5px; color: var(--gary-text-tertiary); }
+
+  .gate { padding: 13px 0 11px; }
+  .gate + .gate { border-top: 1px solid var(--gary-border-shadow); }
+  .gate-head { display: flex; align-items: baseline; gap: 10px; }
+  .gate-pass { font-size: 13px; font-weight: 700; color: var(--gary-state-positive); flex: none; }
+  .gate-name { font-size: 13.5px; color: var(--gary-text-secondary); }
+  .gate-val { margin-left: auto; font-size: 21px; font-weight: 800; }
+  .gate-note { margin: 4px 0 0 0; font-size: 12px; color: var(--gary-text-tertiary); }
+  .gate-sum { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--gary-border-shadow); font-size: 12.5px; line-height: 1.6; color: var(--gary-text-secondary); }
+
+  /* 敏感性柱图 */
+  .chart-plot { position: relative; height: 236px; margin-top: 16px; border-bottom: 1px solid var(--gary-border-shadow); display: flex; align-items: flex-end; justify-content: space-between; gap: 6px; }
+  .chart-floor { position: absolute; left: 0; right: 0; bottom: 44.4%; border-top: 2px dashed var(--gary-state-warning); }
+  .chart-floor span { position: absolute; right: 0; top: -17px; font-size: 12px; font-weight: 700; color: var(--gary-state-warning); background: var(--gary-surface-stage); padding: 0 0 0 6px; }
+  .chart-group { flex: 1; display: flex; justify-content: center; gap: 5px; min-width: 0; }
+  .chart-col { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+  .chart-num { font-size: 12px; color: var(--gary-text-secondary); margin-bottom: 4px; }
+  .chart-bar { width: 24px; border-radius: 5px 5px 0 0; }
+  .chart-bar--base { background: var(--gary-accent); }
+  .chart-bar--stress { background: var(--gary-state-negative); }
+  .chart-group--oor { opacity: .48; }
+  .chart-group--oor .chart-bar { background: repeating-linear-gradient(45deg, var(--gary-state-negative) 0 4px, transparent 4px 8px); }
+  .chart-x { display: flex; justify-content: space-between; gap: 6px; margin-top: 8px; }
+  .chart-x span { flex: 1; text-align: center; font-size: 12px; color: var(--gary-text-secondary); line-height: 1.45; }
+  .chart-x .x-sub { display: block; color: var(--gary-text-tertiary); }
+  .chart-x .x-now { color: var(--gary-accent); font-weight: 700; }
+  .chart-x .x-no { color: var(--gary-state-negative); font-weight: 700; }
+  .chart-legend { display: flex; gap: 18px; margin-top: 12px; font-size: 12.5px; color: var(--gary-text-secondary); }
+  .chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .chart-note { margin: 12px 0 0; font-size: 12px; color: var(--gary-text-tertiary); line-height: 1.6; }
+
+  /* 货值去向 */
+  .flow-track { display: flex; height: 18px; margin-top: 16px; border-radius: 9px; overflow: hidden; }
+  .flow-strip { height: 100%; min-width: 2px; }
+  .flow-strip--cat1 { background: var(--gary-category-1); }
+  .flow-strip--cat2 { background: var(--gary-category-2); }
+  .flow-strip--cat3 { background: var(--gary-category-3); }
+  .flow-strip--cat4 { background: var(--gary-category-4); }
+  .flow-strip--neu { background: color-mix(in srgb, var(--gary-text-secondary) 42%, transparent); }
+  .flow-rows { margin-top: 14px; }
+  .flow-row { display: flex; align-items: center; gap: 9px; padding: 7px 0; }
+  .flow-row + .flow-row { border-top: 1px solid var(--gary-border-shadow); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+  .legend-dot--cat1 { background: var(--gary-category-1); }
+  .legend-dot--cat2 { background: var(--gary-category-2); }
+  .legend-dot--cat3 { background: var(--gary-category-3); }
+  .legend-dot--cat4 { background: var(--gary-category-4); }
+  .legend-dot--neu { background: color-mix(in srgb, var(--gary-text-secondary) 42%, transparent); }
+  .flow-name { font-size: 13px; color: var(--gary-text-secondary); }
+  .flow-val { margin-left: auto; text-align: right; }
+  .flow-val b { display: block; font-size: 14px; font-weight: 700; }
+  .flow-val span { display: block; font-size: 12px; color: var(--gary-text-tertiary); }
+
+  /* ── 依据层：细分隔 + 色点，不做卡片墙 ── */
+  .basis { margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--gary-border-shadow); }
+  .basis h2 { margin: 0; font-size: 20px; }
+  .basis .sub { margin: 6px 0 0; font-size: 13px; color: var(--gary-text-tertiary); }
+  .basis-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; margin-top: 18px; }
+  .basis-col h3 { margin: 0 0 4px; font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--gary-text-tertiary); }
+  .basis-item { padding: 11px 0 10px; }
+  .basis-item + .basis-item { border-top: 1px solid var(--gary-border-shadow); }
+  .basis-item dt { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 650; }
+  .basis-item dd { margin: 5px 0 0; font-size: 12.5px; line-height: 1.65; color: var(--gary-text-secondary); }
+  .basis-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .basis-dot--accent { background: var(--gary-accent); }
+  .basis-dot--neu { background: var(--gary-text-tertiary); }
+  .risk-item dt { color: var(--gary-state-warning); }
+  .risk-item .emo { font-style: normal; }
+
+  .island { margin-top: 26px; padding: 16px 20px 14px; }
+  .island-head { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 650; color: var(--gary-text-secondary); }
+  .island-head .icon { color: var(--gary-text-tertiary); }
+  .island-head span { margin-left: auto; font-size: 12px; font-weight: 400; color: var(--gary-text-tertiary); }
+  .island pre { margin: 10px 0 0; padding: 0; font-family: var(--gary-font-mono); font-size: 12.5px; line-height: 1.7; overflow: auto; }
+
+  /* ── 收束 ── */
+  .colophon { display: flex; justify-content: space-between; gap: 20px; margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--gary-border-shadow); font-size: 12px; color: var(--gary-text-tertiary); }
+
+  @media (max-width: 980px) {
+    .mast { flex-direction: column; align-items: flex-start; }
+    .mast-side { align-items: flex-start; }
+    .verdict-grid, .worksplit, .basis-grid { grid-template-columns: minmax(0, 1fr); }
+    .metric-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .metric:nth-child(4) { padding-left: 0; border-left: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="pattern-scene" aria-hidden="true"></div>
+<div class="pattern-page">
+
+  <header class="mast">
+    <div>
+      <p class="mast-eyebrow">投拓决策书 · 土地竞买 · 杭州</p>
+      <h1>良渚新城 47 号宅地</h1>
+      <p class="mast-line">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        用地 38,420 ㎡ · 容积率 2.2 · 计容建面 84,524 ㎡ · 限高 60 m
+      </p>
+    </div>
+    <div class="mast-side">
+      <p class="mast-line">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+        投决会 2026-11-18
+      </p>
+      <p class="mast-line">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        挂牌截止 2026-11-24
+      </p>
+    </div>
+  </header>
+
+  <!-- 结论位：整页唯一的裁决 -->
+  <section class="verdict gary-stage-card" aria-label="投决结论">
+    <div class="verdict-grid">
+      <div>
+        <p class="v-eyebrow">投决结论</p>
+        <p class="verdict-word c-pos">建议参拍</p>
+        <p class="verdict-why">报价止于 <strong class="c-accent">17,000 元/㎡</strong> 这一档。再高一档到 <strong class="c-neg">17,800</strong>，住宅售价只要下行 5%，净利率就从 <strong class="c-warn">8.3%</strong> 落到 <strong class="c-neg">6.5%</strong>，低于公司 <strong class="c-warn">8%</strong> 的底线。</p>
+      </div>
+      <div>
+        <p class="v-eyebrow">报价上限 · 楼面价</p>
+        <p class="verdict-number c-accent">17,000<small>元/㎡</small></p>
+        <div class="bid-scale" role="img" aria-label="竞价区间：14,600 起拍，17,000 报价上限，18,980 封顶转摇号">
+          <span class="scale-tick scale-tick--start"><i class="scale-dot"></i>14,600 起拍</span>
+          <span class="scale-tick scale-tick--mid"><i class="scale-dot"></i>17,000 报价上限</span>
+          <span class="scale-tick scale-tick--end"><i class="scale-dot"></i>18,980 封顶转摇号</span>
+        </div>
+        <p class="bid-facts">起拍总价 12.34 亿 · 上限总价 14.37 亿（溢价率 16.4%）· 保证金 2.47 亿</p>
+        <p class="bid-exit"><span class="gary-chip" data-tone="critical">越过上限 · 退出，不追价</span></p>
+      </div>
+    </div>
+    <div class="metric-strip">
+      <div class="metric"><p class="m-label">总货值</p><p class="m-val">29.20<small>亿</small></p><p class="m-note">住宅 27.98 + 车位 1.22</p></div>
+      <div class="metric"><p class="m-label">净利润</p><p class="m-val">3.26<small>亿</small></p><p class="m-note">净利率 11.2%</p></div>
+      <div class="metric"><p class="m-label">全投资 IRR</p><p class="m-val">14.6<small>%</small></p><p class="m-note">门槛 12%</p></div>
+      <div class="metric"><p class="m-label">地货比</p><p class="m-val">49.3<small>%</small></p><p class="m-note">片区四盘 43.9%–49.3%</p></div>
+      <div class="metric"><p class="m-label">售罄周期</p><p class="m-val">13.5<small>个月</small></p><p class="m-note">648 套 · 月均 48 套</p></div>
+      <div class="metric"><p class="m-label">压力净利率</p><p class="m-val c-warn">8.3<small>%</small></p><p class="m-note">售价 −5% · 底线 8%</p></div>
+    </div>
+  </section>
+
+  <main class="worksplit">
+    <!-- 左：论据链 -->
+    <div class="stream">
+      <h2>论据</h2>
+      <p class="sub">上限是怎么定下来的</p>
+
+      <article class="arg">
+        <h3><i class="arg-dot arg-dot--accent"></i>上限由压力情景反推</h3>
+        <p>住宅售价下行 5% 后净利率仍不低于 8%，对应最高楼面价 <strong class="c-accent">17,143 元/㎡</strong>，向下取整为 <strong class="c-accent">17,000</strong>。</p>
+      </article>
+      <article class="arg">
+        <h3><i class="arg-dot arg-dot--pos"></i>售价与流速都取在片区均值以下</h3>
+        <p>测算售价 <strong class="c-accent">34,500 元/㎡</strong>，比四个在售盘的备案均价均值低 1.1%；月均去化取 48 套，低于四盘均值 49.5 套。</p>
+      </article>
+      <article class="arg">
+        <h3><i class="arg-dot arg-dot--warn"></i>地价已顶到片区最高一档</h3>
+        <p>上限对应的地货比与望樾府持平。望樾府库存去化周期 <strong class="c-warn">11.4 个月</strong>，是四盘里最慢的一个，所以不再往上报。</p>
+      </article>
+
+      <div class="dtable-wrap">
+        <h3>片区在售四盘对照</h3>
+        <table class="dtable">
+          <thead>
+            <tr><th scope="col">项目</th><th scope="col">楼面价</th><th scope="col">备案均价</th><th scope="col">地货比</th><th scope="col">月均去化</th></tr>
+          </thead>
+          <tbody>
+            <tr class="drow-self">
+              <td>本地块 · 上限报价</td>
+              <td><span class="cell-val c-accent">17,000</span><span class="cell-note">▲ 高于均值 800</span></td>
+              <td><span class="cell-val">34,500</span><span class="cell-note">▼ 低于均值 375</span></td>
+              <td><span class="cell-val">49.3%</span><span class="cell-note">与望樾府持平</span></td>
+              <td><span class="cell-val">48 套</span><span class="cell-note">▼ 低于均值 1.5 套</span></td>
+            </tr>
+            <tr><td>望樾府</td><td>18,200</td><td>36,900</td><td>49.3%</td><td><span class="cell-val">31 套</span><span class="cell-note">▼ 四盘最慢</span></td></tr>
+            <tr><td>澜庭序</td><td>16,400</td><td>34,200</td><td>48.0%</td><td>58 套</td></tr>
+            <tr><td>云栖玖章</td><td>15,900</td><td>35,800</td><td>44.4%</td><td>46 套</td></tr>
+            <tr><td>和樾里</td><td>14,300</td><td>32,600</td><td>43.9%</td><td>63 套</td></tr>
+            <tr class="drow-avg"><td>四盘均值</td><td>16,200</td><td>34,875</td><td>—</td><td>49.5 套</td></tr>
+          </tbody>
+        </table>
+        <p class="dtable-note">价格单位元/㎡。本地块一行为测算取值，其余为成交与备案实际值。</p>
+      </div>
+    </div>
+
+    <!-- 右：门槛与图表 -->
+    <div class="rail">
+      <section class="gary-stage-card" aria-label="投决门槛">
+        <h3>投决门槛</h3>
+        <p class="sub">四道全过才允许上会</p>
+        <div class="gate">
+          <div class="gate-head"><span class="gate-pass"><span class="emo">✅</span> 通过</span><span class="gate-name">基准净利率</span><span class="gate-val c-pos">11.2%</span></div>
+          <p class="gate-note">门槛 ≥ 10% · 余量 1.2 个百分点</p>
+        </div>
+        <div class="gate">
+          <div class="gate-head"><span class="gate-pass"><span class="emo">✅</span> 通过</span><span class="gate-name">压力净利率</span><span class="gate-val c-warn">8.3%</span></div>
+          <p class="gate-note">门槛 ≥ 8% · 余量 0.3 个百分点</p>
+        </div>
+        <div class="gate">
+          <div class="gate-head"><span class="gate-pass"><span class="emo">✅</span> 通过</span><span class="gate-name">全投资 IRR</span><span class="gate-val c-pos">14.6%</span></div>
+          <p class="gate-note">门槛 ≥ 12% · 余量 2.6 个百分点</p>
+        </div>
+        <div class="gate">
+          <div class="gate-head"><span class="gate-pass"><span class="emo">✅</span> 通过</span><span class="gate-name">地货比</span><span class="gate-val c-pos">49.3%</span></div>
+          <p class="gate-note">门槛 ≤ 50% · 余量 0.7 个百分点</p>
+        </div>
+        <p class="gate-sum">四项通过，其中两项余量不足 1 个百分点，上限没有上浮空间。</p>
+      </section>
+
+      <section class="gary-stage-card" aria-label="楼面价敏感性">
+        <h3>楼面价每高一档，净利率降 1.8 个百分点</h3>
+        <p class="sub">每档 800 元/㎡，净利润减少 0.52 亿 · 纵轴为净利率 %</p>
+        <div class="chart-plot" role="img" aria-label="楼面价与净利率敏感性柱图：基准售价与售价下调 5% 两组柱，警戒线为底线 8%；17,800 起两档越过报价上限">
+          <div class="chart-floor"><span>底线 8%</span></div>
+          <div class="chart-group">
+            <div class="chart-col"><span class="chart-num">16.5</span><div class="chart-bar chart-bar--base" style="height:91.7%"></div></div>
+            <div class="chart-col"><span class="chart-num">14.0</span><div class="chart-bar chart-bar--stress" style="height:77.8%"></div></div>
+          </div>
+          <div class="chart-group">
+            <div class="chart-col"><span class="chart-num">14.8</span><div class="chart-bar chart-bar--base" style="height:82.2%"></div></div>
+            <div class="chart-col"><span class="chart-num">12.1</span><div class="chart-bar chart-bar--stress" style="height:67.2%"></div></div>
+          </div>
+          <div class="chart-group">
+            <div class="chart-col"><span class="chart-num">13.0</span><div class="chart-bar chart-bar--base" style="height:72.2%"></div></div>
+            <div class="chart-col"><span class="chart-num">10.2</span><div class="chart-bar chart-bar--stress" style="height:56.7%"></div></div>
+          </div>
+          <div class="chart-group">
+            <div class="chart-col"><span class="chart-num">11.2</span><div class="chart-bar chart-bar--base" style="height:62.2%"></div></div>
+            <div class="chart-col"><span class="chart-num">8.3</span><div class="chart-bar chart-bar--stress" style="height:46.1%"></div></div>
+          </div>
+          <div class="chart-group chart-group--oor">
+            <div class="chart-col"><span class="chart-num">9.4</span><div class="chart-bar chart-bar--base" style="height:52.2%"></div></div>
+            <div class="chart-col"><span class="chart-num">6.5</span><div class="chart-bar chart-bar--stress" style="height:36.1%"></div></div>
+          </div>
+          <div class="chart-group chart-group--oor">
+            <div class="chart-col"><span class="chart-num">7.6</span><div class="chart-bar chart-bar--base" style="height:42.2%"></div></div>
+            <div class="chart-col"><span class="chart-num">4.6</span><div class="chart-bar chart-bar--stress" style="height:25.6%"></div></div>
+          </div>
+        </div>
+        <div class="chart-x">
+          <span>14,600<span class="x-sub">起拍</span></span>
+          <span>15,400</span>
+          <span>16,200</span>
+          <span><span class="x-now">17,000</span><span class="x-sub x-now">报价上限</span></span>
+          <span><span class="x-no">17,800</span><span class="x-sub x-no">不可报价</span></span>
+          <span><span class="x-no">18,600</span><span class="x-sub x-no">不可报价</span></span>
+        </div>
+        <div class="chart-legend">
+          <span><i style="background:var(--gary-accent)"></i>基准售价</span>
+          <span><i style="background:var(--gary-state-negative)"></i>售价 −5%</span>
+        </div>
+        <p class="chart-note">虚线为底线 8%；17,800 起的两档已越过报价上限，不在可报价范围内。</p>
+      </section>
+
+      <section class="gary-stage-card" aria-label="货值去向">
+        <h3>29.20 亿货值的去向</h3>
+        <p class="sub">亿元 · 占货值</p>
+        <div class="flow-track" role="img" aria-label="货值构成横条：土地款及契税 50.7%，建安及配套 17.9%，流转税及土增税 9.3%，费用 7.2%，所得税 3.7%，净利润 11.2%">
+          <i class="flow-strip flow-strip--cat1" style="width:50.7%"></i>
+          <i class="flow-strip flow-strip--cat3" style="width:17.9%"></i>
+          <i class="flow-strip flow-strip--cat4" style="width:9.3%"></i>
+          <i class="flow-strip flow-strip--neu" style="width:7.2%"></i>
+          <i class="flow-strip flow-strip--neu" style="width:3.7%"></i>
+          <i class="flow-strip flow-strip--cat2" style="width:11.2%"></i>
+        </div>
+        <div class="flow-rows">
+          <div class="flow-row"><i class="legend-dot legend-dot--cat1"></i><span class="flow-name">土地款及契税</span><span class="flow-val"><b>14.80 亿</b><span>50.7%</span></span></div>
+          <div class="flow-row"><i class="legend-dot legend-dot--cat3"></i><span class="flow-name">建安及配套</span><span class="flow-val"><b>5.24 亿</b><span>17.9%</span></span></div>
+          <div class="flow-row"><i class="legend-dot legend-dot--cat4"></i><span class="flow-name">流转税及土增税</span><span class="flow-val"><b>2.72 亿</b><span>9.3%</span></span></div>
+          <div class="flow-row"><i class="legend-dot legend-dot--neu"></i><span class="flow-name">管理、营销与财务费用</span><span class="flow-val"><b>2.09 亿</b><span>7.2%</span></span></div>
+          <div class="flow-row"><i class="legend-dot legend-dot--neu"></i><span class="flow-name">所得税</span><span class="flow-val"><b>1.09 亿</b><span>3.7%</span></span></div>
+          <div class="flow-row"><i class="legend-dot legend-dot--cat2"></i><span class="flow-name">净利润</span><span class="flow-val"><b>3.26 亿</b><span>11.2%</span></span></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- 依据层：细分隔 + 色点，与前两层同节奏 -->
+  <section class="basis">
+    <h2>依据</h2>
+    <p class="sub">口径、来源与风险</p>
+    <div class="basis-grid">
+      <div class="basis-col">
+        <h3>数据口径</h3>
+        <dl>
+          <div class="basis-item"><dt><i class="basis-dot basis-dot--accent"></i>货值</dt><dd>可售住宅 81,100 ㎡ × 34,500 元/㎡，加车位 760 个 × 16 万元，含税。</dd></div>
+          <div class="basis-item"><dt><i class="basis-dot basis-dot--accent"></i>净利率</dt><dd>净利润 ÷ 含税货值，所得税率 25%。</dd></div>
+          <div class="basis-item"><dt><i class="basis-dot basis-dot--accent"></i>压力情景</dt><dd>住宅售价下调 5%，车位价与成本不变，联动税费抵减 0.14 亿。</dd></div>
+          <div class="basis-item"><dt><i class="basis-dot basis-dot--accent"></i>内部收益率</dt><dd>全投资、税后口径，不含融资杠杆，开发周期 30 个月。</dd></div>
+        </dl>
+      </div>
+      <div class="basis-col">
+        <h3>数据来源</h3>
+        <dl>
+          <div class="basis-item"><dt><i class="basis-dot basis-dot--neu"></i>出让条件</dt><dd>市规划和自然资源局挂牌出让公告，2026-10-25 发布。</dd></div>
+          <div class="basis-item"><dt><i class="basis-dot basis-dot--neu"></i>备案价与去化</dt><dd>市住建部门商品房备案公示，统计期 2026-05 至 2026-10。</dd></div>
+          <div class="basis-item"><dt><i class="basis-dot basis-dot--neu"></i>建安成本</dt><dd>集团成本库同城三个高层住宅项目结算均值，6,200 元/计容㎡。</dd></div>
+          <div class="basis-item"><dt><i class="basis-dot basis-dot--neu"></i>竞品楼面价</dt><dd>各宗地成交公告，成交时间 2024-09 至 2026-03。</dd></div>
+        </dl>
+      </div>
+      <div class="basis-col">
+        <h3>风险提示</h3>
+        <dl>
+          <div class="basis-item risk-item"><dt><span class="emo">⚠️</span> 竞得概率偏低</dt><dd>上限离封顶价还有 1,980 元/㎡；片区近 12 个月成交 3 宗宅地，2 宗触顶摇号。</dd></div>
+          <div class="basis-item risk-item"><dt><span class="emo">⚠️</span> 流速下滑</dt><dd>月均去化降到 36 套时，售罄周期拉长到 18 个月，财务费用增加约 0.31 亿，净利率降 0.8 个百分点。</dd></div>
+          <div class="basis-item risk-item"><dt><span class="emo">⚠️</span> 备案价核定</dt><dd>核定价低于 32,775 元/㎡ 时压力情景成为现实，须重新上会。</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="island gary-island-dark">
+      <div class="island-head">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+        测算入参与输出
+        <span>第 3 版 · 2026-11-10</span>
+      </div>
+      <pre><code>$ landcalc run --parcel liangzhu-47 --floor-price 17000 --scenario base,stress
+inputs  site_area_sqm 38420    far 2.2              saleable_sqm 81100
+        price_per_sqm 34500     build_cost_per_sqm 6200
+outputs gdv_yi 29.20           total_cost_yi 24.85   net_profit_yi 3.26
+        net_margin 0.112       stress_margin 0.083   max_floor_price 17143
+# total_cost_yi 不含所得税；stress_margin 为 price -5%；max_floor_price 取整 17000</code></pre>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <span>编制 投资拓展部 · 复核 成本管理部、营销管理部</span>
+    <span>测算结果不构成报价承诺，以投决会决议为准</span>
+  </footer>
+
+</div>
+</body>
+</html>
