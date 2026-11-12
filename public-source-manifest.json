@@ -21,7 +21,7 @@
     },
     {
       "path": ".github/workflows/agent-gates.yml",
-      "sha256": "32b6987b075840dd80b31700188a1425fce693cf7d3523126ee7c5107595510c"
+      "sha256": "445f6616d225cb8dc8d12c0fe333db2ac4c562c1e59a87353a934ccc1ce24164"
     },
     {
       "path": ".gitignore",
@@ -33,7 +33,7 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "422e8f1a33b93521b20414661ef0dbbb9d43993144de3194405bd8a2a5957e70"
+      "sha256": "f6d4f8d21bbbc2eac18beee0470ced29a1e311d02a9bc3a81c26e60fc56f2d4a"
     },
     {
       "path": "CHANGELOG.md",
@@ -1089,7 +1089,7 @@
     },
     {
       "path": "adapters/react-shadcn/dist/styles/gary-ui.css",
-      "sha256": "3e290ec206f52c54fa8e7fb049ab8d8177c3c920af068f5994865d3b6aec5894"
+      "sha256": "1a6eefeef2e4a510774ca132657fef2cd24662a4279bc9ccce66a4a04b7be3f9"
     },
     {
       "path": "adapters/react-shadcn/eslint-rules/no-hardcoded-colors.js",
@@ -1377,7 +1377,7 @@
     },
     {
       "path": "adapters/react-shadcn/src/lib/tokens.ts",
-      "sha256": "772fc5b1da490ca940f39b936cd9b87a8428845f395aab0eb69234b37b917b05"
+      "sha256": "d0e8200d14076328b9b8d865f0ae7a2aacdefe0ad4aa908af8453a49cb91327e"
     },
     {
       "path": "adapters/react-shadcn/src/lib/use-gesture-value.ts",
@@ -4497,7 +4497,7 @@
     },
     {
       "path": "patterns/application-modes/modes.css",
-      "sha256": "0e6b8cd79710ce0f3da11b1def72d6f23c9244427b067f94206660c3643dc76a"
+      "sha256": "63af68d00b520ee7e9eb87b27a4a4349b49dace6e336ede024f51a140c47d7cf"
     },
     {
       "path": "patterns/application-modes/modes.js",
@@ -4821,7 +4821,7 @@
     },
     {
       "path": "portal/app.css",
-      "sha256": "0cd6736e1e6185f6653c3b439adb765f7bb69a1db285ae0d845117266d89305a"
+      "sha256": "315ead5811ff18069fdbb4b37062cb97b175f2b1fbc5ce181982b8385daf007f"
     },
     {
       "path": "portal/app.js",
@@ -5169,7 +5169,7 @@
     },
     {
       "path": "scripts/validate.py",
-      "sha256": "849bbf421486b1fc4f8adfb637e3fcd9f0dcd9cd44324c009cbf13b2b20dfbdf"
+      "sha256": "7059450c9c5ad312eb429d65add04035f5b365ceaeb318451e4d3600bf5af8bb"
     },
     {
       "path": "scripts/validate_v2.py",
@@ -5241,11 +5241,11 @@
     },
     {
       "path": "tokens/base.css",
-      "sha256": "fdc285422cb9a93c581458a4a7f36117ccb907c436eb5fbbfeccc2cca917150e"
+      "sha256": "863f380d3e684d95032f8eb6d5d4afece3d4ff8a51ef85399b1dc1f8a6c95228"
     },
     {
       "path": "tokens/tokens.json",
-      "sha256": "9651fcbd9b10cb8f40921d3d44836fe1b55061b6549ed947bd9e6693702c984b"
+      "sha256": "ad05b86b2165aaeb108c5f402d6162dd0f9c68f79a4e22ec92da3f52a35c788b"
     }
   ],
   "note": "Public source snapshot only; no parent repository history, machine receipts or restricted component ports."

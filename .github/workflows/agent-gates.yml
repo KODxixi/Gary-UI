@@ -2,10 +2,9 @@
 
 on:
   pull_request:
-    paths: ["agent/**", ".github/workflows/agent-gates.yml"]
   push:
     branches: [main]
-    paths: ["agent/**", ".github/workflows/agent-gates.yml"]
+  workflow_dispatch:
 
 permissions:
   contents: read
