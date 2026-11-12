@@ -9,7 +9,7 @@ Gary-UI 服务于高信息密度中文报告、分析界面与工具产品。判
 ### 1.1 默认审美：Tonal Surface（2026-11-12）
 
 - 默认表面是 **Material 3 Tonal Surface**：层级靠明度阶梯建立。深色主题从页底向上逐档提亮
-  （page → card → raised），浅色主题用微冷灰衬底 + 纯白浮岛。
+  （page → card → raised），浅色主题用 L0.98 中性灰衬底 + 白色浮岛。
 - 卡片配方：**不透明 tonal 填充 + 1px 中性描边 + 微阴影**。不用半透明底、不用背景模糊、
   不用光学边缘。
 - 玻璃（`.gary-glass*` / backdrop-filter / 光学边缘）是 **opt-in 材质**：只有用户明确点名
@@ -61,7 +61,7 @@ SolidPlate Surface。同一区域只选一种主材质，禁止 glass-in-glass�
 分隔线和透明度差分组。
 
 Portal 与起手模板默认使用 `patterns/shared/dot-grid.js` 的本地 Canvas 点阵（旧 assets 入口仅转发）：深色页面底色是
-纯黑 `#000000`，浅色是纯白 `#ffffff`，鼠标仅对附近点作有限位移与亮度反馈。表面 token 必须与页面底色一致（`--gary-surface-page` 深色 = `#000000`）：用「近黑」或带色度的灰代替纯黑，视为契约缺陷（2026-10-26 修正）。
+中性灰 L0.18（`oklch(0.18 0 255)` ≈ `#121212`），浅色是 L0.98（`oklch(0.98 0 255)` ≈ `#f8f8f8`），鼠标仅对附近点作有限位移与亮度反馈。表面 token 必须与页面底色一致（`--gary-surface-page` 深色 = `oklch(0.18 0 255)`）：用纯黑/纯白或带色度的灰代替该中性灰，视为契约缺陷（2026-11-12 随 tonal 默认修正）。
 默认背景只绘制点，不叠加线网、卡片等高线或第二套点阵。实体底纹仅按 [材质规范](docs/VISUAL_EXPRESSION.md#实体底纹与章节子卡) 显式裁切到实体外卡，不改变页面背景。Canvas 成功后隐藏 CSS 点阵；嵌入页保留独立的不透明页面底色。
 `prefers-reduced-motion` 下直接绘制完整静态点阵。Canvas 不可用时由 CSS 点阵接管，不回退到图片。
 默认不挂载照片或插图；只有用户明确提供或选择背景时，才允许覆盖 Scene。
@@ -96,7 +96,7 @@ Portal 与起手模板默认使用 `patterns/shared/dot-grid.js` 的本地 Canva
 
 - 范围按 token 角色，不按名字枚举：所有 `*surface*`、`*glass*`、`*plate*`、`*card-surface*`、`*scene*`、
   线类（`*border*`、`*hairline*`、`*line*`、`*edge*`）以及阴影色，取值只能是 `oklch(L 0 H)` 或 R=G=B 的 hex。
-- 深色页面底是纯黑 `#000000` / `oklch(0 0 0)`，浅色页面底是纯白；表面只能靠明度分层，不得靠色相。
+- 深色页面底是中性灰 `oklch(0.18 0 255)`（≈ `#121212`），浅色页面底是 `oklch(0.98 0 255)`（≈ `#f8f8f8`）；表面只能靠明度分层，不得靠色相。
 - **严禁任何带色相的深色或灰色作底**：暖调（`#141414` 里掺一点棕）、冷调（掺一点蓝）都算违规，
   低亮度下会整片偏色，与中性卡并排立刻露馅。
 - 唯一允许带色相的是**前景语义色**：状态色（positive / caution / critical）与图表语义色（`spec/chart-recipes.json`）。
@@ -119,7 +119,7 @@ Portal 与起手模板默认使用 `patterns/shared/dot-grid.js` 的本地 Canva
 
 - 它是**一层**，不是新主题轴：不改 `data-gary-theme/density/material` 的枚举，也不新增视觉轴。
 - 该层底色 `#141414`（暖深黑），强调色亮灰 `#cfd0d3`，选中 `#2a2a2a` + `#6a6b70`；表面平底 + 1px 发丝边，不用玻璃与渐变。
-- 边界：报告、展示与 HTML 共创产物继续用本文件默认的纯黑 + tonal 表面（玻璃 opt-in，见 §1.1）；
+- 边界：报告、展示与 HTML 共创产物继续用本文件默认的中性灰 tonal 表面（深色 L0.18 / 浅色 L0.98，玻璃 opt-in，见 §1.1）；
   工具型工作台用企业面板层。
   两套不混用同一页面，也不互相覆盖 token 名。
 - 取值纪律：27 个色值全部来自 `apps/archos-console/src/tokens.css` 与 `三风格对比.html` theme A，

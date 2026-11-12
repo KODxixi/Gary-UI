@@ -19,7 +19,7 @@ description: 使用 Gary-UI 设计、实现或审查 Liquid Glass 界面（默�
 
 | token | 用途 | 什么场景用 |
 |---|---|---|
-| `--gary-surface-page` | 页面底 | 深色纯黑 / 浅色纯白，唯一页面底色 |
+| `--gary-surface-page` | 页面底 | 深色 L0.18（≈ #121212）/ 浅色 L0.98（≈ #f8f8f8）中性灰，唯一页面底色 |
 | `--gary-surface-card` | 卡片面 | tonal 卡片的不透明填充 |
 | `--gary-hairline` | 描边 | 卡片 1px 中性描边、发丝分隔线 |
 | `--gary-text-primary` | 主文字 | 标题、结论、关键数值 |
@@ -59,7 +59,7 @@ description: 使用 Gary-UI 设计、实现或审查 Liquid Glass 界面（默�
 > 机器闸 `python -B agent/checks/invariants.py`；本文旧表述与之冲突时以后者为准。
 
 Gary-UI 是内容可读性优先的设计系统，默认审美为 **Material 3 Tonal Surface**：卡片用不透明
-tonal 填充 + 1px 中性描边 + 微阴影，靠明度阶梯分层（深色向上提亮 / 浅色微冷灰衬底 + 纯白浮岛）；
+tonal 填充 + 1px 中性描边 + 微阴影，靠明度阶梯分层（深色向上提亮 / 浅色 L0.98 中性灰衬底 + 白色浮岛）；
 玻璃（`.gary-glass*` / backdrop-filter / 光学边缘）是 opt-in 材质，只有用户点名「玻璃卡片 /
 液态玻璃 / 毛玻璃」时才使用。系统也提供可选的 Agent–User HTML 共创集成。
 已安装的 `apple-design` 是还原 Apple 设计逻辑的首要方法入口：功能玻璃克制使用、输入即时反馈、运动可中断、排版随字号适配；
@@ -285,7 +285,7 @@ finalize 后状态进入 implementing，不能 reopen。
 ## 不可破坏的视觉约束
 
 - **默认表面是 Tonal（Material 3 Tonal Surface）**：卡片用不透明 tonal 填充 + 1px 中性描边 +
-  微阴影，靠明度阶梯（深色向上提亮 / 浅色微冷灰衬底 + 纯白浮岛）分层，不默认套 `.gary-glass-card`。
+  微阴影，靠明度阶梯（深色向上提亮 / 浅色 L0.98 中性灰衬底 + 白色浮岛）分层，不默认套 `.gary-glass-card`。
   **红线：未收到用户点名玻璃（玻璃卡片 / 液态玻璃 / 毛玻璃），不得使用 `.gary-glass*` /
   backdrop-filter / 光学边缘。**
 - **主题对等**：亮暗两主题都是一等公民——表面、文字、描边 token 必须双主题都有取值且对比达标；
@@ -297,7 +297,7 @@ finalize 后状态进入 implementing，不能 reopen。
 - **非标字重**：新页面只主动选择 400 / 500 / 600 / 700（展示标题可用 400）；
   300 / 800 / 900 等非标字重按违规处理，富文本编辑态除外。拦：靠堆字重做层级。
 - 一张页面只有一个 Scene 和一个全局遮罩；禁止 glass-in-glass。
-- 默认 Scene 是纯黑/纯白底上的唯一点网格；禁止默认叠加线网、卡片等高线或 CSS/Canvas 双重点阵；显式实体底纹只在 Solid 内按 `docs/VISUAL_EXPRESSION.md` 裁切，不应用于页面 Scene。不主动加照片或图片，除非用户明确定制。
+- 默认 Scene 是中性灰页底（深色 L0.18 / 浅色 L0.98）上的唯一点网格；禁止默认叠加线网、卡片等高线或 CSS/Canvas 双重点阵；显式实体底纹只在 Solid 内按 `docs/VISUAL_EXPRESSION.md` 裁切，不应用于页面 Scene。不主动加照片或图片，除非用户明确定制。
 - 完整 Demo 是 Portal、组件、模板与制图目录的视觉基线。普通卡片默认 tonal 实底；用户点名玻璃时才复用 `patterns/shared/material.js` / `patterns/shared/optical-glass.js`；实底证据板不折射。公开包使用原创光学实现，受再分发限制的旧移植仅保留在维护者本地。
 - 工具操作以圆形图标为主，走默认图标机制 `patterns/shared/morph-icons.js`（React 组件层图标来源 reicon-react；vanilla 静态层与 morph 仍取 Lucide 几何 + morphicons morph 引擎；兼容 `data-gary-icon` / `GaryIcons.set`，新增 `data-gary-icon-to` + `data-gary-icon-toggle` 状态 morph 与 `GaryIcons.morphTo / seek / policy`），默认 44px 点击区、1.6px 描边和可访问名称；导航、分段筛选、内容选择保留文字。静态回退保留 `patterns/shared/icons.js`。
 - 玻璃保持 K-only 中性；状态色只用于小面积反馈。
