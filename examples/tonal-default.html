@@ -25,6 +25,9 @@
   .metrics-panel { padding: var(--gary-space-5); display: grid; gap: var(--gary-space-5); }
   .metrics-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gary-space-4); }
   .metric-block { display: grid; gap: 6px; }
+  /* 指标单位统一同行：数字略缩 + nowrap，三块基线对齐（tabular-nums 由 .gary-role-metric 提供） */
+  .metric-block .gary-role-metric { flex-wrap: nowrap; font-size: clamp(1.75rem, 3vw, 2.75rem); }
+  .metric-block .gary-role-metric small { white-space: nowrap; }
   .metric-label { font-size: var(--gary-font-size-caption); color: var(--gary-text-tertiary); }
   .metric-delta { font-size: var(--gary-font-size-micro); font-variant-numeric: tabular-nums; }
   .metric-delta[data-trend="up"] { color: var(--gary-state-positive); }
@@ -50,9 +53,9 @@
   .trend-bar-zone { height: 232px; width: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; }
   .trend-bar { width: 56px; flex-shrink: 0; border-radius: var(--gary-radius-pill); background: var(--gary-text-faint); }
   .trend-col[data-current="true"] .trend-bar { background: var(--gary-category-1); }
-  .trend-value { font-size: var(--gary-font-size-micro); font-variant-numeric: tabular-nums; color: var(--gary-text-secondary); }
+  .trend-value { font-size: var(--gary-font-size-caption); font-variant-numeric: tabular-nums; color: var(--gary-text-secondary); }
   .trend-col[data-current="true"] .trend-value { color: var(--gary-text-primary); font-weight: var(--gary-font-weight-medium); }
-  .trend-week { font-size: var(--gary-font-size-micro); font-variant-numeric: tabular-nums; color: var(--gary-text-tertiary); }
+  .trend-week { font-size: var(--gary-font-size-caption); font-variant-numeric: tabular-nums; color: var(--gary-text-secondary); }
 
   .stage-title { display: grid; gap: 2px; }
   .stage-title strong { font-size: var(--gary-font-size-body); font-weight: var(--gary-font-weight-medium); color: var(--gary-text-primary); }
