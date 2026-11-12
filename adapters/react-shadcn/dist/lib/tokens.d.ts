@@ -22,7 +22,7 @@ export declare const garyTokens: {
     readonly "--gary-text-tertiary": {
         readonly type: "color";
         readonly dark: "oklch(0.97 0 255 / 0.48)";
-        readonly light: "oklch(0.26 0 255 / 0.63)";
+        readonly light: "oklch(0.24 0 255 / 0.63)";
     };
     readonly "--gary-on-surface": {
         readonly type: "color";
@@ -891,7 +891,7 @@ export declare const garyTokens: {
     readonly "--gary-text-caption": {
         readonly type: "color";
         readonly dark: "oklch(0.66 0 0)";
-        readonly light: "oklch(0.56 0 0)";
+        readonly light: "oklch(0.53 0 0)";
     };
     readonly "--gary-text-faint": {
         readonly type: "color";

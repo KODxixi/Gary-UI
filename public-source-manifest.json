@@ -993,7 +993,7 @@
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.d.ts",
-      "sha256": "09fa4480e0b87b3f1987aee5b85f87e238d89f9b60103c9115d484b0a54c2613"
+      "sha256": "62d69c26c6ccaa752bf08c3fa32ef596b2002076c51c01c93b9308ec9fac6519"
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.d.ts.map",
@@ -1001,7 +1001,7 @@
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.js",
-      "sha256": "1411da788169d48f50ab921749fa63e26ce1becaa431c52ae2235dbb995ccb3a"
+      "sha256": "020ffa0b9bbfd0aaf5ca37abb8d2d899c6dd1b6d35e9f5386a2c2f62b87e7f52"
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.js.map",
@@ -1089,7 +1089,7 @@
     },
     {
       "path": "adapters/react-shadcn/dist/styles/gary-ui.css",
-      "sha256": "d43ec90fede30f360fafe94574a60315ce86eec1f3108b382d3540e4be40694e"
+      "sha256": "c7df3b55932605f1cc054cffb2e63488b7d0dc3379cf18e9b5d406c4c3de1ba2"
     },
     {
       "path": "adapters/react-shadcn/eslint-rules/no-hardcoded-colors.js",
@@ -1113,11 +1113,11 @@
     },
     {
       "path": "adapters/react-shadcn/scripts/contrast-audit-report.md",
-      "sha256": "546dbc1fcbc0e3a5f271cf800bf27309666b4855c861178a9c2eed4b622145e3"
+      "sha256": "07f244153d89394e0e6ecc7d42aef4b4d001d7ad025031f9624a241c3b0a95b7"
     },
     {
       "path": "adapters/react-shadcn/scripts/contrast-audit.mjs",
-      "sha256": "5824902d4aebe9e2793d7b219b9c1fa191b5d7e9e1400bfe77b1e0ba6ae67304"
+      "sha256": "acbf0857716f85c5847f96350c99c9c8e3dcf91d84b0e6eefbf4a74b72757ce5"
     },
     {
       "path": "adapters/react-shadcn/scripts/generate-tokens.mjs",
@@ -1377,7 +1377,7 @@
     },
     {
       "path": "adapters/react-shadcn/src/lib/tokens.ts",
-      "sha256": "d0e8200d14076328b9b8d865f0ae7a2aacdefe0ad4aa908af8453a49cb91327e"
+      "sha256": "31bd9ed15a4c6024b1a9bac046a10303851fd53a50571f655dacce956c64d1da"
     },
     {
       "path": "adapters/react-shadcn/src/lib/use-gesture-value.ts",
@@ -5241,11 +5241,11 @@
     },
     {
       "path": "tokens/base.css",
-      "sha256": "863f380d3e684d95032f8eb6d5d4afece3d4ff8a51ef85399b1dc1f8a6c95228"
+      "sha256": "b62de748730b84a632f37cd31c68b49749a030bf3a29f6756d3c680b82b79812"
     },
     {
       "path": "tokens/tokens.json",
-      "sha256": "ad05b86b2165aaeb108c5f402d6162dd0f9c68f79a4e22ec92da3f52a35c788b"
+      "sha256": "34e97fdefe6dfb39e588fc413fd0b44da882b1cb9189280b3bd117e320faa727"
     }
   ],
   "note": "Public source snapshot only; no parent repository history, machine receipts or restricted component ports."
