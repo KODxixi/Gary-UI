@@ -56,7 +56,7 @@
   --gary-glass-contrast: 1.04;
   --gary-glass-saturate: 108%;
   --gary-radius-control: 18px;
-  --gary-radius-card: clamp(14px, 6cqi, 28px);
+  --gary-radius-card: 10px;
   --gary-radius-panel: clamp(18px, 5cqi, 44px);
   --gary-radius-pill: 999px;
   --gary-space-1: 4px;

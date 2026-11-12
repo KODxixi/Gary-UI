@@ -44,7 +44,7 @@ export const garyTokens = {
   "--gary-glass-contrast": {"type":"number","dark":"1.04","light":"1.03"},
   "--gary-glass-saturate": {"type":"percentage","dark":"108%","light":"106%"},
   "--gary-radius-control": {"type":"dimension","value":"18px"},
-  "--gary-radius-card": {"type":"dimension","value":"clamp(14px, 6cqi, 28px)"},
+  "--gary-radius-card": {"type":"dimension","value":"10px"},
   "--gary-radius-panel": {"type":"dimension","value":"clamp(18px, 5cqi, 44px)"},
   "--gary-radius-pill": {"type":"dimension","value":"999px"},
   "--gary-space-1": {"type":"dimension","value":"4px"},

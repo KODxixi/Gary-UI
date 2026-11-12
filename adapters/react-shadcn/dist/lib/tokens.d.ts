@@ -203,7 +203,7 @@ export declare const garyTokens: {
     };
     readonly "--gary-radius-card": {
         readonly type: "dimension";
-        readonly value: "clamp(14px, 6cqi, 28px)";
+        readonly value: "10px";
     };
     readonly "--gary-radius-panel": {
         readonly type: "dimension";
