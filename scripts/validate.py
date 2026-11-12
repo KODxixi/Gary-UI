@@ -59,6 +59,13 @@ REQUIRED = [
     "adapters/react-shadcn/README.md",
     "assets/backgrounds/gary-default-scene.png",
 ]
+# 母本专属产物：公开导出（build_public.py EXCLUDED）有意排除。
+# 缺失时跳过检查并在结果里记 skipped；存在时仍严格校验。
+MOTHER_ONLY = {
+    "provenance/source-manifest.json",
+    "provenance/coverage.json",
+    "assets/backgrounds/gary-default-scene.png",
+}
 REMOTE = re.compile(r"https?://|//(?:unpkg|cdn|esm\.sh|jsdelivr)", re.I)
 DEFAULT_BACKGROUND_SHA256 = "476d559ad52be6c801cda1954b602153e205dcb7b6a834622aca51bfc9683812"
 PORTAL_MARKERS = {
@@ -221,9 +228,14 @@ class Links(HTMLParser):
 
 def main():
     issues = []
+    skipped = []
     for rel in REQUIRED:
-        if not (ROOT / rel).is_file():
-            issues.append(f"缺必需文件: {rel}")
+        if (ROOT / rel).is_file():
+            continue
+        if rel in MOTHER_ONLY:
+            skipped.append(rel)
+            continue
+        issues.append(f"缺必需文件: {rel}")
 
     background = ROOT / "assets" / "backgrounds" / "gary-default-scene.png"
     if background.exists():
@@ -521,6 +533,13 @@ def main():
                     continue
                 target = (path.parent / parsed.path).resolve()
                 if parsed.path and not target.exists():
+                    rel_target = (
+                        target.relative_to(ROOT).as_posix()
+                        if target.is_relative_to(ROOT) else None
+                    )
+                    if rel_target in MOTHER_ONLY:
+                        skipped.append(f"{rel} -> {link}")
+                        continue
                     issues.append(f"HTML 引用失效: {rel} -> {link}")
 
     design_path = ROOT / "DESIGN.md"
@@ -776,6 +795,7 @@ def main():
             .get("const")
         ),
         "issues": issues,
+        "skipped": skipped,
         "status": "pass" if not issues else "fail",
     }
     print(json.dumps(result, ensure_ascii=False, indent=2))

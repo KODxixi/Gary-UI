@@ -1953,7 +1953,7 @@
     },
     {
       "path": "components/components.css",
-      "sha256": "22147c70e6df495fead237d9330a94abf94335edd0796d0d5e93e4009fca9745"
+      "sha256": "76cb4cf8c21849be2913edc7bf22027740abeea0d4585c842f007a339bb556ca"
     },
     {
       "path": "components/context-menu.json",
@@ -2253,15 +2253,15 @@
     },
     {
       "path": "examples/co-design/board-data/rev1/a-decision-field/index.html",
-      "sha256": "bc56f1dc5824b44f4a5b80801708e3dc850e55b2cbebda08bf48ed5917066bab"
+      "sha256": "0b1f2933ec51826b998ae17185c55d5ea01054bff0e2dd1055cc6e50ea85d050"
     },
     {
       "path": "examples/co-design/board-data/rev1/b-evidence-ledger/index.html",
-      "sha256": "2d51e15c9ff2545f46c7f508619c7d12fc9e0c56aa47e7d15fb9370dbe163ee5"
+      "sha256": "66050afe068f2b895cee0d0c759f2659727cda9c85238c200ea91241c8b94b37"
     },
     {
       "path": "examples/co-design/board-data/rev1/c-spatial-signal/index.html",
-      "sha256": "33afb1d09490575c0a53ece6161b483b764abb5569e90e5c8336eb536d9eeaf9"
+      "sha256": "676a6d7e4c69166092f040a8140fb762d185045a858916260ff1330e62f5b940"
     },
     {
       "path": "examples/co-design/board-data/rev1/proposal.json",
@@ -2269,15 +2269,15 @@
     },
     {
       "path": "examples/co-design/board-data/rev2/a-refined-decision/index.html",
-      "sha256": "a011385cfa0513a116bbc8a094e43d074e75c843579991d09a1ff1bff97c945c"
+      "sha256": "3a033e982a8e632b12313d8011ac2b7e413f23b64708dcae2a0be88f2ddcac8a"
     },
     {
       "path": "examples/co-design/board-data/rev2/b-evidence-hybrid/index.html",
-      "sha256": "4b2169b75570bd3b21cd7587d34aeb878a0f2d390ad4267dedb592ad850bbc1d"
+      "sha256": "778e60ddef2f53213583ac8434c402c2be103bdf105a0c2de568a91fbb0b2f65"
     },
     {
       "path": "examples/co-design/board-data/rev2/c-minimal-focus/index.html",
-      "sha256": "71ceaa8d49850a651447f82db7bd60ac5bfd6c0a9d693a7fe2a668576490b485"
+      "sha256": "254b329a9821035c22c62303218d0c0cfd39175f2ee455684a7dd7de44f4e57c"
     },
     {
       "path": "examples/co-design/board-data/rev2/proposal.json",
@@ -2297,15 +2297,15 @@
     },
     {
       "path": "examples/co-design/scroll-report-image/rev1/a-cinematic-sequence/index.html",
-      "sha256": "3d4e939bdb8430bdcaad09aaa2c6def09697611a138e24caa09fd762520e1039"
+      "sha256": "d0e64a5711cc43a10f1a60f056eb7e36f7b6183b572443426c42ecbe8f9e7ca5"
     },
     {
       "path": "examples/co-design/scroll-report-image/rev1/b-editorial-evidence/index.html",
-      "sha256": "65906152d8a6bad716771c7645f7dcb0dc179055d28be99215f4c86b39290f44"
+      "sha256": "cb022391672c8af1cc633b072d8f5b7796ccf73b44cf0623d0274f24c7cf6680"
     },
     {
       "path": "examples/co-design/scroll-report-image/rev1/c-orbital-chapters/index.html",
-      "sha256": "895056ee95081b12ead2faf4bf5b14f1d9a288e178203e96551856a6b8219709"
+      "sha256": "19b553ea19f620db503ca00a6ef346b2fe35b5475391a556a4faf4cbf968c9da"
     },
     {
       "path": "examples/co-design/scroll-report-image/rev1/proposal.json",
@@ -2697,7 +2697,7 @@
     },
     {
       "path": "examples/design-canon/index.html",
-      "sha256": "35dbbfba334166d88cad71c4219b88c1f68b4920840e4a9af58a7e1f601e426a"
+      "sha256": "afac36aa9b6ada1525076c5018cec1736cbad62d8e25f98232db44b81834d4ee"
     },
     {
       "path": "examples/flow/compare/01-current.html",
@@ -5169,11 +5169,11 @@
     },
     {
       "path": "scripts/validate.py",
-      "sha256": "9b1a9704bf9cc1c7cf014b8058d78b73b168e4a37fda786731dcba0a6fb662a6"
+      "sha256": "849bbf421486b1fc4f8adfb637e3fcd9f0dcd9cd44324c009cbf13b2b20dfbdf"
     },
     {
       "path": "scripts/validate_v2.py",
-      "sha256": "81bd956d06c24302ee8f25b188d1cc09f7a893b40631c3fcdd1aa72dc88393a8"
+      "sha256": "20bc22411ef2059e3b6c2864b7a0fbd7f0c4831c8265f67f5218e0718b4c96e0"
     },
     {
       "path": "scripts/visual_adapter.py",
