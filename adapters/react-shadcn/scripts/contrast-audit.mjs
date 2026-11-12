@@ -42,6 +42,13 @@ const THRESHOLDS = {
   "AAA normal": 7.0,
   "AAA large": 4.5,
 };
+// Decorative-exempt text tokens: lowest emphasis layer, carries no essential
+// information (DESIGN.md positioning). Deliberately kept low-contrast to
+// preserve the three-level hierarchy. NOT gated, but still measured and
+// reported below — the check is never deleted. Everything else (primary /
+// secondary / tertiary / caption / meta / body / strong, and any future
+// --gary-text-* color token) IS gated: any AA-normal failure -> exit 1.
+const EXEMPT_TEXT_TOKENS = new Set(["--gary-text-faint"]);
 
 /* ---------- color parsing ---------- */
 
@@ -212,10 +219,12 @@ function main() {
   lines.append(
     `源：\`tokens/tokens.json\` ｜ 文本 token：\`--gary-text-*\` ｜ 背景：surface-page / solid-plate / surface-sunken / glass-ultrathin·regular·thick。`,
     "半透明 token 先在 `--gary-surface-page` 上做 alpha 合成再测亮度，比值为用户实际看到的颜色。\n",
-    "阈值：AA 正文 ≥ 4.5，AA 大字 ≥ 3.0，AAA 正文 ≥ 7.0，AAA 大字 ≥ 4.5。\n"
+    "阈值：AA 正文 ≥ 4.5，AA 大字 ≥ 3.0，AAA 正文 ≥ 7.0，AAA 大字 ≥ 4.5。\n",
+    "门禁：非豁免 `--gary-text-*` 在任一背景上低于 AA 正文 4.5 即 exit 1；`--gary-text-faint` 为装饰豁免（见文末）。\n"
   );
 
   const failures = [];
+  const exemptFailures = [];
 
   for (const mode of MODES) {
     const rows = auditMode(tokens, mode);
@@ -227,15 +236,15 @@ function main() {
         `| \`${r.textName}\` | \`${r.bgName}\` | ${r.ratio.toFixed(2)} | ${passFail(r.cells["AA normal"])} | ${passFail(r.cells["AA large"])} | ${passFail(r.cells["AAA normal"])} | ${passFail(r.cells["AAA large"])} |`
       );
       if (r.cells["AA normal"] === "Fail") {
-        failures.push({ mode, ...r });
+        (EXEMPT_TEXT_TOKENS.has(r.textName) ? exemptFailures : failures).push({ mode, ...r });
       }
     }
     lines.append("");
   }
 
-  lines.append("## 不达标项（未过 AA 正文 4.5:1）\n");
+  lines.append("## 门禁未达标项（非豁免 token，未过 AA 正文 4.5:1 → exit 1）\n");
   if (failures.length === 0) {
-    lines.append("无 — 所有组合均通过 AA 正文门槛。\n");
+    lines.append("无 — 所有非豁免组合均通过 AA 正文门槛。\n");
   } else {
     lines.append("| 模式 | 文本 | 背景 | 比值 |");
     lines.append("| --- | --- | --- | ---: |");
@@ -245,8 +254,34 @@ function main() {
     lines.append("");
   }
 
+  lines.append("## 装饰豁免项（设计决定，不计入门禁）\n");
+  lines.append(
+    "`--gary-text-faint` 是装饰性最低强调层，不承载必要信息（DESIGN.md 三级层次定位）。",
+    "设计决定：保持低对比以维持三级层次，不调亮、不删除检查，仅豁免 AA 正文门禁。实测如下：\n"
+  );
+  if (exemptFailures.length === 0) {
+    lines.append("本轮无豁免项低于 AA 正文。\n");
+  } else {
+    lines.append("| 模式 | 文本 | 背景 | 比值 |");
+    lines.append("| --- | --- | --- | ---: |");
+    for (const f of exemptFailures) {
+      lines.append(`| ${f.mode} | \`${f.textName}\` | \`${f.bgName}\` | ${f.ratio.toFixed(2)} |`);
+    }
+    lines.append("");
+  }
+
   writeFileSync(REPORT, lines.join("\n"), "utf8");
-  console.log(`contrast-audit: wrote ${REPORT} (${failures.length} AA-normal failures)`);
+  if (failures.length > 0) {
+    console.error(`contrast-audit: GATE FAILED — ${failures.length} non-exempt AA-normal failures:`);
+    for (const f of failures) {
+      console.error(`  ${f.mode}  ${f.textName} on ${f.bgName}: ${f.ratio.toFixed(2)} < 4.5`);
+    }
+    process.exitCode = 1;
+  } else {
+    console.log(
+      `contrast-audit: wrote ${REPORT} (gate pass; ${exemptFailures.length} exempt AA-normal failures)`
+    );
+  }
 }
 
 main();
