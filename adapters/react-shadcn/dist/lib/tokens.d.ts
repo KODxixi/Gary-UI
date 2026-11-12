@@ -1,68 +1,113 @@
 export declare const garyTokens: {
     readonly "--gary-action-fill": {
         readonly type: "color";
-        readonly dark: "oklch(0.2 0.014 255)";
-        readonly light: "oklch(0.995 0.003 255)";
+        readonly dark: "oklch(0.2 0 255)";
+        readonly light: "oklch(0.995 0 255)";
     };
     readonly "--gary-action-border": {
         readonly type: "color";
-        readonly dark: "oklch(0.97 0.005 255 / 0.09)";
-        readonly light: "oklch(0.26 0.01 255 / 0.08)";
+        readonly dark: "oklch(0.97 0 255 / 0.09)";
+        readonly light: "oklch(0.26 0 255 / 0.08)";
     };
     readonly "--gary-text-primary": {
         readonly type: "color";
-        readonly dark: "oklch(0.97 0.005 255 / 0.94)";
-        readonly light: "oklch(0.26 0.012 255 / 0.94)";
+        readonly dark: "oklch(0.97 0 255 / 0.94)";
+        readonly light: "oklch(0.26 0 255 / 0.94)";
     };
     readonly "--gary-text-secondary": {
         readonly type: "color";
-        readonly dark: "oklch(0.97 0.005 255 / 0.68)";
-        readonly light: "oklch(0.26 0.012 255 / 0.70)";
+        readonly dark: "oklch(0.97 0 255 / 0.68)";
+        readonly light: "oklch(0.26 0 255 / 0.70)";
     };
     readonly "--gary-text-tertiary": {
         readonly type: "color";
-        readonly dark: "oklch(0.97 0.005 255 / 0.48)";
-        readonly light: "oklch(0.26 0.012 255 / 0.66)";
+        readonly dark: "oklch(0.97 0 255 / 0.48)";
+        readonly light: "oklch(0.26 0 255 / 0.63)";
+    };
+    readonly "--gary-on-surface": {
+        readonly type: "color";
+        readonly dark: "var(--gary-text-strong)";
+        readonly light: "var(--gary-text-strong)";
+    };
+    readonly "--gary-on-surface-variant": {
+        readonly type: "color";
+        readonly dark: "var(--gary-text-secondary)";
+        readonly light: "var(--gary-text-secondary)";
+    };
+    readonly "--gary-on-surface-muted": {
+        readonly type: "color";
+        readonly dark: "var(--gary-text-tertiary)";
+        readonly light: "var(--gary-text-tertiary)";
+    };
+    readonly "--gary-outline-variant": {
+        readonly type: "color";
+        readonly dark: "var(--gary-hairline)";
+        readonly light: "var(--gary-hairline)";
+    };
+    readonly "--gary-outline-strong": {
+        readonly type: "color";
+        readonly dark: "var(--gary-hairline-strong)";
+        readonly light: "var(--gary-hairline-strong)";
     };
     readonly "--gary-surface-page": {
         readonly type: "color";
-        readonly dark: "oklch(0.145 0.012 255)";
-        readonly light: "oklch(0.99 0.003 255)";
+        readonly dark: "oklch(0.18 0 255)";
+        readonly light: "oklch(0.98 0 255)";
     };
     readonly "--gary-surface-sunken": {
         readonly type: "color";
-        readonly dark: "oklch(0.1 0.008 255 / 0.34)";
-        readonly light: "oklch(0.31 0.014 255 / 0.08)";
+        readonly dark: "oklch(0.20 0 255)";
+        readonly light: "oklch(0.96 0 255)";
+    };
+    readonly "--gary-surface-rail": {
+        readonly type: "color";
+        readonly dark: "var(--gary-surface-sunken)";
+        readonly light: "var(--gary-surface-sunken)";
+    };
+    readonly "--gary-surface-stage": {
+        readonly type: "color";
+        readonly dark: "oklch(0.23 0 255)";
+        readonly light: "oklch(1 0 255)";
+    };
+    readonly "--gary-surface-float": {
+        readonly type: "color";
+        readonly dark: "oklch(0.28 0 255)";
+        readonly light: "oklch(1 0 255)";
+    };
+    readonly "--gary-surface-code": {
+        readonly type: "color";
+        readonly dark: "oklch(0.15 0 255)";
+        readonly light: "oklch(0.18 0 255)";
     };
     readonly "--gary-glass-ultrathin": {
         readonly type: "color";
-        readonly dark: "oklch(0.16 0.011 255 / 0.18)";
-        readonly light: "oklch(0.98 0.004 255 / 0.22)";
+        readonly dark: "oklch(0.16 0 255 / 0.18)";
+        readonly light: "oklch(0.98 0 255 / 0.22)";
     };
     readonly "--gary-glass-regular": {
         readonly type: "color";
-        readonly dark: "oklch(0.16 0.011 255 / 0.3)";
-        readonly light: "oklch(0.98 0.004 255 / 0.34)";
+        readonly dark: "oklch(0.16 0 255 / 0.3)";
+        readonly light: "oklch(0.98 0 255 / 0.34)";
     };
     readonly "--gary-glass-thick": {
         readonly type: "color";
-        readonly dark: "oklch(0.17 0.012 255 / 0.42)";
-        readonly light: "oklch(0.98 0.004 255 / 0.48)";
+        readonly dark: "oklch(0.17 0 255 / 0.42)";
+        readonly light: "oklch(0.98 0 255 / 0.48)";
     };
     readonly "--gary-solid-plate": {
         readonly type: "color";
-        readonly dark: "oklch(0.17 0.012 255 / 0.86)";
-        readonly light: "oklch(0.97 0.004 255 / 0.88)";
+        readonly dark: "oklch(0.17 0 255 / 0.86)";
+        readonly light: "oklch(0.97 0 255 / 0.88)";
     };
     readonly "--gary-border-highlight": {
         readonly type: "color";
-        readonly dark: "oklch(0.97 0.005 255 / 0.18)";
+        readonly dark: "oklch(0.97 0 255 / 0.18)";
         readonly light: "rgba(255, 255, 255, 0.74)";
     };
     readonly "--gary-border-shadow": {
         readonly type: "color";
-        readonly dark: "oklch(0.02 0.002 255 / 0.42)";
-        readonly light: "oklch(0.27 0.01 255 / 0.16)";
+        readonly dark: "oklch(0.02 0 255 / 0.42)";
+        readonly light: "oklch(0.27 0 255 / 0.16)";
     };
     readonly "--gary-focus-ring": {
         readonly type: "color";
@@ -84,6 +129,26 @@ export declare const garyTokens: {
         readonly dark: "#ff453a";
         readonly light: "#d70015";
     };
+    readonly "--gary-category-1": {
+        readonly type: "color";
+        readonly dark: "#82acec";
+        readonly light: "#386aa9";
+    };
+    readonly "--gary-category-2": {
+        readonly type: "color";
+        readonly dark: "#d5af59";
+        readonly light: "#89600a";
+    };
+    readonly "--gary-category-3": {
+        readonly type: "color";
+        readonly dark: "#78c9ac";
+        readonly light: "#22765d";
+    };
+    readonly "--gary-category-4": {
+        readonly type: "color";
+        readonly dark: "#be9bda";
+        readonly light: "#795098";
+    };
     readonly "--gary-shadow-contact": {
         readonly type: "shadow";
         readonly dark: "0 2px 5px rgba(0, 0, 0, 0.46)";
@@ -97,7 +162,7 @@ export declare const garyTokens: {
     readonly "--gary-shadow-inset": {
         readonly type: "shadow";
         readonly dark: "inset 0 1px 1px rgba(255, 255, 255, 0.24), inset 0 -1px 1px rgba(0, 0, 0, 0.30), inset 0 0 30px rgba(255, 255, 255, 0.05)";
-        readonly light: "inset 0 1px 1px rgba(255, 255, 255, 0.44), inset 0 -1px 1px rgba(77, 67, 58, 0.10), inset 0 0 28px rgba(255, 255, 255, 0.08)";
+        readonly light: "inset 0 1px 1px rgba(255, 255, 255, 0.44), inset 0 -1px 1px rgba(68, 68, 68, 0.10), inset 0 0 28px rgba(255, 255, 255, 0.08)";
     };
     readonly "--gary-glass-frost": {
         readonly type: "gradient";
@@ -106,11 +171,6 @@ export declare const garyTokens: {
     readonly "--gary-glass-highlight-angle": {
         readonly type: "angle";
         readonly value: "135deg";
-    };
-    readonly "--gary-glass-specular-opacity": {
-        readonly type: "number";
-        readonly dark: "0.18";
-        readonly light: "0.22";
     };
     readonly "--gary-glass-sheen-opacity": {
         readonly type: "number";
@@ -132,17 +192,13 @@ export declare const garyTokens: {
         readonly dark: "108%";
         readonly light: "106%";
     };
-    readonly "--gary-glass-edge-width": {
-        readonly type: "dimension";
-        readonly value: "1px";
-    };
     readonly "--gary-radius-control": {
         readonly type: "dimension";
         readonly value: "18px";
     };
     readonly "--gary-radius-card": {
         readonly type: "dimension";
-        readonly value: "clamp(14px, 6cqi, 32px)";
+        readonly value: "clamp(14px, 6cqi, 28px)";
     };
     readonly "--gary-radius-panel": {
         readonly type: "dimension";
@@ -298,11 +354,11 @@ export declare const garyTokens: {
     };
     readonly "--gary-font-weight-semibold": {
         readonly type: "number";
-        readonly value: "650";
+        readonly value: "600";
     };
     readonly "--gary-font-weight-bold": {
         readonly type: "number";
-        readonly value: "720";
+        readonly value: "700";
     };
     readonly "--gary-font-weight-medium-light": {
         readonly type: "number";
@@ -310,19 +366,19 @@ export declare const garyTokens: {
     };
     readonly "--gary-font-weight-extra-semibold": {
         readonly type: "number";
-        readonly value: "620";
+        readonly value: "600";
     };
     readonly "--gary-font-weight-semibold-strong": {
         readonly type: "number";
-        readonly value: "660";
+        readonly value: "600";
     };
     readonly "--gary-font-weight-semibold-extra": {
         readonly type: "number";
-        readonly value: "670";
+        readonly value: "600";
     };
     readonly "--gary-font-weight-bold-light": {
         readonly type: "number";
-        readonly value: "680";
+        readonly value: "700";
     };
     readonly "--gary-font-weight-bold-strong": {
         readonly type: "number";
@@ -330,15 +386,15 @@ export declare const garyTokens: {
     };
     readonly "--gary-font-weight-heavy": {
         readonly type: "number";
-        readonly value: "740";
+        readonly value: "700";
     };
     readonly "--gary-font-weight-black": {
         readonly type: "number";
-        readonly value: "760";
+        readonly value: "700";
     };
     readonly "--gary-font-weight-extra-black": {
         readonly type: "number";
-        readonly value: "790";
+        readonly value: "700";
     };
     readonly "--gary-line-height-tight": {
         readonly type: "number";
@@ -384,13 +440,13 @@ export declare const garyTokens: {
     };
     readonly "--gary-scene-dot-color": {
         readonly type: "color";
-        readonly dark: "oklch(0.97 0.005 255 / 0.16)";
-        readonly light: "oklch(0.22 0.008 255 / 0.14)";
+        readonly dark: "oklch(0.97 0 255 / 0.16)";
+        readonly light: "oklch(0.22 0 255 / 0.14)";
     };
     readonly "--gary-scene-dot-active": {
         readonly type: "color";
-        readonly dark: "oklch(0.97 0.005 255 / 0.72)";
-        readonly light: "oklch(0.22 0.008 255 / 0.58)";
+        readonly dark: "oklch(0.97 0 255 / 0.72)";
+        readonly light: "oklch(0.22 0 255 / 0.58)";
     };
     readonly "--gary-scene-grid-size": {
         readonly type: "dimension";
@@ -398,18 +454,18 @@ export declare const garyTokens: {
     };
     readonly "--gary-card-plate": {
         readonly type: "color";
-        readonly dark: "oklch(0.21 0.014 255 / 0.52)";
-        readonly light: "oklch(0.97 0.004 255 / 0.6)";
+        readonly dark: "oklch(0.21 0 255 / 0.52)";
+        readonly light: "oklch(0.97 0 255 / 0.6)";
     };
     readonly "--gary-card-surface-top": {
         readonly type: "color";
-        readonly dark: "oklch(0.24 0.016 255 / 0.66)";
-        readonly light: "oklch(0.999 0.002 255 / 0.9)";
+        readonly dark: "oklch(0.24 0 255 / 0.66)";
+        readonly light: "oklch(0.999 0 255 / 0.9)";
     };
     readonly "--gary-card-surface-bottom": {
         readonly type: "color";
-        readonly dark: "oklch(0.17 0.011 255 / 0.6)";
-        readonly light: "oklch(0.945 0.006 255 / 0.92)";
+        readonly dark: "oklch(0.17 0 255 / 0.6)";
+        readonly light: "oklch(0.945 0 255 / 0.92)";
     };
     readonly "--gary-refraction-plate": {
         readonly type: "color";
@@ -782,6 +838,96 @@ export declare const garyTokens: {
     readonly "--gary-fluid-space-3xl": {
         readonly type: "dimension";
         readonly value: "clamp(6.312rem, 5.140rem + 4.810vw, 9.469rem)";
+    };
+    readonly "--gary-font-size-micro": {
+        readonly type: "dimension";
+        readonly value: "0.75rem";
+    };
+    readonly "--gary-surface-card": {
+        readonly type: "color";
+        readonly dark: "oklch(0.145 0 0)";
+        readonly light: "oklch(1 0 0)";
+    };
+    readonly "--gary-surface-raised": {
+        readonly type: "color";
+        readonly dark: "oklch(0.195 0 0)";
+        readonly light: "oklch(0.965 0 0)";
+    };
+    readonly "--gary-surface-overlay": {
+        readonly type: "color";
+        readonly dark: "oklch(0.175 0 0)";
+        readonly light: "oklch(0.99 0 0)";
+    };
+    readonly "--gary-hairline-soft": {
+        readonly type: "color";
+        readonly dark: "oklch(0.245 0 0)";
+        readonly light: "oklch(0.9 0 0)";
+    };
+    readonly "--gary-hairline": {
+        readonly type: "color";
+        readonly dark: "oklch(0.285 0 0)";
+        readonly light: "oklch(0.85 0 0)";
+    };
+    readonly "--gary-hairline-strong": {
+        readonly type: "color";
+        readonly dark: "oklch(0.365 0 0)";
+        readonly light: "oklch(0.75 0 0)";
+    };
+    readonly "--gary-text-strong": {
+        readonly type: "color";
+        readonly dark: "oklch(0.98 0 0)";
+        readonly light: "oklch(0.22 0 0)";
+    };
+    readonly "--gary-text-body": {
+        readonly type: "color";
+        readonly dark: "oklch(0.92 0 0)";
+        readonly light: "oklch(0.3 0 0)";
+    };
+    readonly "--gary-text-meta": {
+        readonly type: "color";
+        readonly dark: "oklch(0.78 0 0)";
+        readonly light: "oklch(0.45 0 0)";
+    };
+    readonly "--gary-text-caption": {
+        readonly type: "color";
+        readonly dark: "oklch(0.66 0 0)";
+        readonly light: "oklch(0.56 0 0)";
+    };
+    readonly "--gary-text-faint": {
+        readonly type: "color";
+        readonly dark: "oklch(0.55 0 0)";
+        readonly light: "oklch(0.68 0 0)";
+    };
+    readonly "--gary-accent-neutral": {
+        readonly type: "color";
+        readonly dark: "oklch(0.86 0 0)";
+        readonly light: "oklch(0.24 0 0)";
+    };
+    readonly "--gary-selected-fill": {
+        readonly type: "color";
+        readonly dark: "oklch(0.2 0 0)";
+        readonly light: "oklch(0.93 0 0)";
+    };
+    readonly "--gary-selected-edge": {
+        readonly type: "color";
+        readonly dark: "oklch(0.62 0 0)";
+        readonly light: "oklch(0.4 0 0)";
+    };
+    readonly "--gary-grid-gap": {
+        readonly type: "dimension";
+        readonly value: "6px";
+    };
+    readonly "--gary-font-size-data": {
+        readonly type: "dimension";
+        readonly value: "0.6875rem";
+    };
+    readonly "--gary-font-size-nano": {
+        readonly type: "dimension";
+        readonly value: "0.625rem";
+    };
+    readonly "--gary-duration-ui": {
+        readonly type: "duration";
+        readonly value: "160ms";
     };
 };
 export type GaryTokenName = keyof typeof garyTokens;
