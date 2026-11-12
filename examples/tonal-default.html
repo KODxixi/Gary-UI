@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>青澜府 · 周度去化监测 — Gary-UI Tonal 默认档</title>
+<link rel="stylesheet" href="../tokens/base.css">
+<link rel="stylesheet" href="../patterns/patterns.css">
+<link rel="stylesheet" href="../components/components.css">
+<style>
+  /* 页面级排版补充（全部走 token，不引入新材质） */
+  .page { width: min(1280px, calc(100% - 48px)); margin: 0 auto; padding: 44px 0 64px; }
+  .page-title {
+    margin: 0 0 var(--gary-space-2);
+    font-family: var(--gary-font-display);
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: var(--gary-font-weight-bold);
+    line-height: 1.15;
+    letter-spacing: var(--gary-tracking-display);
+    color: var(--gary-text-primary);
+  }
+  .page-meta { margin: 0 0 var(--gary-space-6); font-size: var(--gary-font-size-caption); color: var(--gary-text-tertiary); }
+
+  /* stage viewport 内的指标面板 */
+  .metrics-panel { padding: var(--gary-space-5); display: grid; gap: var(--gary-space-5); }
+  .metrics-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gary-space-4); }
+  .metric-block { display: grid; gap: 6px; }
+  .metric-label { font-size: var(--gary-font-size-caption); color: var(--gary-text-tertiary); }
+  .metric-delta { font-size: var(--gary-font-size-micro); font-variant-numeric: tabular-nums; }
+  .metric-delta[data-trend="up"] { color: var(--gary-state-positive); }
+  .metric-delta[data-trend="down"] { color: var(--gary-state-critical); }
+  .metric-delta[data-trend="flat"] { color: var(--gary-text-tertiary); }
+
+  .bar-list { display: grid; gap: var(--gary-space-3); }
+  .bar-row { display: grid; grid-template-columns: 7.5em minmax(0, 1fr) 3.5em; align-items: center; gap: var(--gary-space-3); font-size: var(--gary-font-size-caption); }
+  .bar-row .bar-name { color: var(--gary-text-secondary); }
+  .bar-row .bar-value { text-align: right; font-variant-numeric: tabular-nums; color: var(--gary-text-primary); }
+  .bar-track { height: 8px; border-radius: var(--gary-radius-pill); background: var(--gary-surface-sunken); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: var(--gary-radius-pill); background: var(--gary-category-1); }
+  .bar-fill[data-cat="2"] { background: var(--gary-category-2); }
+  .bar-fill[data-cat="3"] { background: var(--gary-category-3); }
+  .bar-fill[data-cat="4"] { background: var(--gary-category-4); }
+
+  .source-section { display: grid; gap: var(--gary-space-3); }
+  .source-title { margin: 0; font-size: var(--gary-font-size-caption); font-weight: var(--gary-font-weight-medium); color: var(--gary-text-secondary); }
+
+  /* 近四周认购走势：竖向柱，风格与上方进度条同源（pill 填充 + token 色），非卡片 */
+  .trend-chart { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gary-space-3); }
+  .trend-col { display: grid; justify-items: center; gap: 6px; }
+  .trend-bar-zone { height: 232px; width: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; }
+  .trend-bar { width: 56px; flex-shrink: 0; border-radius: var(--gary-radius-pill); background: var(--gary-text-faint); }
+  .trend-col[data-current="true"] .trend-bar { background: var(--gary-category-1); }
+  .trend-value { font-size: var(--gary-font-size-micro); font-variant-numeric: tabular-nums; color: var(--gary-text-secondary); }
+  .trend-col[data-current="true"] .trend-value { color: var(--gary-text-primary); font-weight: var(--gary-font-weight-medium); }
+  .trend-week { font-size: var(--gary-font-size-micro); font-variant-numeric: tabular-nums; color: var(--gary-text-tertiary); }
+
+  .stage-title { display: grid; gap: 2px; }
+  .stage-title strong { font-size: var(--gary-font-size-body); font-weight: var(--gary-font-weight-medium); color: var(--gary-text-primary); }
+  .stage-title span { font-size: var(--gary-font-size-micro); color: var(--gary-text-tertiary); }
+
+  /* 底部主题沙箱对照 */
+  .sandbox-section { margin-top: var(--gary-space-8, 56px); }
+  .sandbox-section > h2 {
+    margin: 0 0 var(--gary-space-4);
+    font-size: var(--gary-font-size-body);
+    font-weight: var(--gary-font-weight-medium);
+    color: var(--gary-text-primary);
+  }
+  .sandbox-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gary-space-4); }
+  .sandbox {
+    padding: var(--gary-space-4);
+    border-radius: var(--gary-radius-card);
+    background: var(--gary-surface-page);
+    border: 1px solid var(--gary-border-shadow);
+    color: var(--gary-text-primary);
+  }
+  .sandbox > p { margin: 0 0 var(--gary-space-3); font-size: var(--gary-font-size-micro); color: var(--gary-text-tertiary); }
+  .sandbox-card { padding: var(--gary-space-4); }
+  .sandbox-card h3 { margin: 0 0 var(--gary-space-2); font-size: var(--gary-font-size-body); font-weight: var(--gary-font-weight-medium); color: var(--gary-text-primary); }
+  .sandbox-card p { margin: 0; font-size: var(--gary-font-size-caption); line-height: 1.6; color: var(--gary-text-secondary); }
+  .sandbox-card p + p { margin-top: var(--gary-space-2); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <p class="eyebrow">Gary-UI · Tonal 默认档</p>
+  <h1 class="page-title">青澜府 · 周度去化监测</h1>
+  <p class="page-meta">2026 年第 45 周（11.02–11.08）· 数据来源：住建备案公示与案场日报</p>
+
+  <div class="gary-split-workspace">
+
+    <!-- 左：流式叙述 -->
+    <div class="gary-narrative-stream gary-prose">
+      <p class="gary-prose__lede">本周项目认购 38 套、签约 31 套，环比上升 12%；110㎡ 三房户型贡献过半货值，去化结构继续向改善客群集中。</p>
+
+      <h3>本周结论</h3>
+      <p>案场到访 214 组，有效带看 96 组，<strong>认购转化率 17.8%</strong>，高于片区竞品均值（11.2%）。价格方面，成交均价 21,460 元/㎡，与上周基本持平；折扣口径未放开，成交以<em>标准价 + 98 折</em>为主。</p>
+      <p>库存结构出现一个信号：90㎡ 以下小户型去化率已连续三周低于 40%，若下月仍无起色，建议在渠道端把佣金权重从通用点位切到小户型专项。</p>
+
+      <h3>竞品备案价对比</h3>
+      <table class="table">
+        <thead>
+          <tr><th>项目</th><th>备案均价</th><th>本周去化</th><th>库存</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>青澜府（本项目）</td><td>21,460</td><td>38 套</td><td>412 套</td></tr>
+          <tr><td>云璟台</td><td>22,100</td><td>21 套</td><td>287 套</td></tr>
+          <tr><td>汀兰院</td><td>19,880</td><td>26 套</td><td>503 套</td></tr>
+          <tr><td>望云赋</td><td>23,650</td><td>9 套</td><td>168 套</td></tr>
+        </tbody>
+      </table>
+
+      <h3>取数口径</h3>
+      <p>指标台的数据由以下脚本每日 06:00 拉取，口径与案场日报保持一致：</p>
+      <div class="gary-island-dark">
+        <pre><code>$ python fetch.py --project qinglanfu \
+    --source fangguan \
+    --metrics visits,deals,signed,avg_price \
+    --since 2026-11-02
+
+# 输出示例
+{"visits": 214, "deals": 38, "signed": 31,
+ "avg_price": 21460, "inventory": 412}</code></pre>
+      </div>
+      <small>注：备案价取自住建部门主动公开口径，与营销口径的「表价」存在差异，对比时以同口径为准。</small>
+    </div>
+
+    <!-- 右：stage 工作台 -->
+    <section class="gary-stage-card">
+      <header class="gary-stage-header">
+        <div class="stage-title">
+          <strong>去化指标台</strong>
+          <span>周视图 · 自动刷新于 06:00</span>
+        </div>
+        <div class="gary-segmented" role="group" aria-label="统计周期">
+          <button type="button" aria-pressed="true">周</button>
+          <button type="button" aria-pressed="false">月</button>
+          <button type="button" aria-pressed="false">季</button>
+        </div>
+      </header>
+
+      <div class="gary-stage-viewport">
+        <div class="metrics-panel">
+          <div class="metrics-grid">
+            <div class="metric-block">
+              <span class="metric-label">本周认购</span>
+              <div class="gary-role-metric">38<small>套</small></div>
+              <span class="metric-delta" data-trend="up">▲ 12% 环比</span>
+            </div>
+            <div class="metric-block">
+              <span class="metric-label">成交均价</span>
+              <div class="gary-role-metric">21,460<small>元/㎡</small></div>
+              <span class="metric-delta" data-trend="flat">— 持平</span>
+            </div>
+            <div class="metric-block">
+              <span class="metric-label">认购转化率</span>
+              <div class="gary-role-metric">17.8<small>%</small></div>
+              <span class="metric-delta" data-trend="up">▲ 2.4pt</span>
+            </div>
+          </div>
+
+          <div class="bar-list">
+            <div class="bar-row">
+              <span class="bar-name">110㎡ 三房</span>
+              <div class="bar-track"><div class="bar-fill" style="width: 82%"></div></div>
+              <span class="bar-value">82%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-name">140㎡ 四房</span>
+              <div class="bar-track"><div class="bar-fill" data-cat="3" style="width: 61%"></div></div>
+              <span class="bar-value">61%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-name">89㎡ 两房</span>
+              <div class="bar-track"><div class="bar-fill" data-cat="2" style="width: 37%"></div></div>
+              <span class="bar-value">37%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-name">75㎡ 一房</span>
+              <div class="bar-track"><div class="bar-fill" data-cat="4" style="width: 18%"></div></div>
+              <span class="bar-value">18%</span>
+            </div>
+          </div>
+
+          <div class="source-section">
+            <p class="source-title">本周新增认购来源构成（38 套）</p>
+            <div class="bar-list">
+              <div class="bar-row">
+                <span class="bar-name">自然到访</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 37%"></div></div>
+                <span class="bar-value">14 套</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-name">渠道分销</span>
+                <div class="bar-track"><div class="bar-fill" data-cat="2" style="width: 29%"></div></div>
+                <span class="bar-value">11 套</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-name">老带新</span>
+                <div class="bar-track"><div class="bar-fill" data-cat="3" style="width: 24%"></div></div>
+                <span class="bar-value">9 套</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-name">线上留电</span>
+                <div class="bar-track"><div class="bar-fill" data-cat="4" style="width: 10%"></div></div>
+                <span class="bar-value">4 套</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="source-section">
+            <p class="source-title">近四周认购走势（套）</p>
+            <div class="trend-chart" role="img" aria-label="近四周认购走势：第42周26套，第43周31套，第44周35套，第45周38套">
+              <div class="trend-col">
+                <div class="trend-bar-zone"><span class="trend-value">26</span><div class="trend-bar" style="height: 147px"></div></div>
+                <span class="trend-week">W42</span>
+              </div>
+              <div class="trend-col">
+                <div class="trend-bar-zone"><span class="trend-value">31</span><div class="trend-bar" style="height: 174px"></div></div>
+                <span class="trend-week">W43</span>
+              </div>
+              <div class="trend-col">
+                <div class="trend-bar-zone"><span class="trend-value">35</span><div class="trend-bar" style="height: 197px"></div></div>
+                <span class="trend-week">W44</span>
+              </div>
+              <div class="trend-col" data-current="true">
+                <div class="trend-bar-zone"><span class="trend-value">38</span><div class="trend-bar" style="height: 214px"></div></div>
+                <span class="trend-week">W45</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="gary-stage-footer">数据截至 2026-11-08 24:00 · 指标口径见左侧「取数口径」</footer>
+    </section>
+  </div>
+
+  <!-- 主题沙箱对照：同一份标记，仅 data-gary-theme 不同 -->
+  <div class="sandbox-section">
+    <h2>主题沙箱对照</h2>
+    <div class="sandbox-row">
+      <div class="sandbox" data-gary-theme="light">
+        <p>data-gary-theme="light"</p>
+        <div class="sandbox-card" data-gary-card>
+          <h3>浅色沙箱</h3>
+          <p>卡片、文字与表面色在此容器内按浅色主题重新解析。</p>
+          <p>外层页面仍保持深色默认档，互不窜色。</p>
+        </div>
+      </div>
+      <div class="sandbox" data-gary-theme="dark">
+        <p>data-gary-theme="dark"</p>
+        <div class="sandbox-card" data-gary-card>
+          <h3>深色沙箱</h3>
+          <p>卡片、文字与表面色在此容器内按深色主题解析。</p>
+          <p>与页面默认档一致，作为上方浅色沙箱的对照。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
