@@ -4,7 +4,7 @@
 判据（每条都能在 CI 里红）：
 1. 中性 token 的 chroma 必须为 0（K-only 是契约，不是形容词）；状态色与焦点色除外。
    颜色解析按 sRGB 通道差判定，不按 oklch 字符串形状判定；无法解析的颜色语法直接报错。
-2. 页面底色 token：深色纯黑、浅色纯白（DESIGN §2）。
+2. 页面底色 token：tonal 阶梯 page 档（dark L0.18 / light L0.98），K-only（DESIGN §2，M3 tonal 修订）。
 3. 契约声明的 CSS 类必须在样式表里存在（先剥注释再匹配，避免注释里提到类名就算数）。
 4. 样式与脚本里不允许出现带色度的字面色值；状态色白名单从 tokens.json 动态生成。
 5. 高密度版面禁止两栏：解析 grid-template-columns 的真实轨道数，展开 repeat(n, …)。
@@ -54,6 +54,8 @@ COLOR_RE = re.compile(
 COMMENT_RE = re.compile(r"/\*.*?\*/", re.S)
 HTML_COMMENT_RE = re.compile(r"<!--.*?-->", re.S)
 CHROMA_TOLERANCE = 2  # sRGB 0-255 通道差在 2 以内视为中性
+OKLCH_CHROMA_TOLERANCE = 0.015   # oklch C 阈值：tonal 冷灰 ≤0.015（原 0.0005）
+SURFACE_CHROMA_TOLERANCE = 0.012  # surface 类 token 更严：≤0.012
 CSS_COLOR_SPACES = {"srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb",
                     "rec2020", "xyz", "xyz-d50", "xyz-d65"}
 
@@ -169,11 +171,11 @@ def parse_color(value: str):
     return (None,) * 4
 
 
-def is_chromatic(value: str):
-    """True / False / None(无法解析)。"""
+def is_chromatic(value: str, oklch_tol: float = OKLCH_CHROMA_TOLERANCE):
+    """True / False / None(无法解析)。oklch 阈值可注入：surface 类 token 用更严的 0.012。"""
     r, g, b, chroma = parse_color(value)
     if chroma is not None:
-        return chroma > 0.0005
+        return chroma > oklch_tol
     if r is None:
         return None
     return (max(r, g, b) - min(r, g, b)) > CHROMA_TOLERANCE
@@ -218,7 +220,8 @@ def check_token_chroma():
             if not colors:
                 continue
             for raw in colors:
-                verdict = is_chromatic(raw)
+                tol = SURFACE_CHROMA_TOLERANCE if name.startswith("--gary-surface-") else OKLCH_CHROMA_TOLERANCE
+                verdict = is_chromatic(raw, tol)
                 if verdict is None:
                     problems.append(f"{name} [{theme}] 颜色语法无法解析: {raw}")
                 elif verdict:
@@ -227,16 +230,17 @@ def check_token_chroma():
 
 
 def check_page_color():
+    """页面底色 = tonal 阶梯 page 档（dark L0.18 / light L0.98），K-only（DESIGN §2，M3 tonal 修订）。"""
     data = json.loads(TOKENS.read_text(encoding="utf-8-sig"))["tokens"]
     page = data.get("--gary-surface-page", {})
     problems = []
-    for theme, expect in (("dark", (0, 0, 0)), ("light", (255, 255, 255))):
+    for theme, expect in (("dark", (18, 18, 18)), ("light", (248, 248, 248))):
         value = page.get(theme, "")
         rgb = parse_color(value)[:3]
         if rgb[0] is None:
             problems.append(f"{theme} 页面底色无法解析: {value}")
         elif rgb != expect:
-            problems.append(f"{theme} 页面底色不是{'纯黑' if theme == 'dark' else '纯白'}: {value}")
+            problems.append(f"{theme} 页面底色偏离 tonal 阶梯 page 档（期望 rgb{expect}）: {value}")
     return problems
 
 
@@ -642,7 +646,7 @@ def check_page(path):
     if not problems:
         print(f"page checks: ok  {target.name}")
         return 0
-    print(f"page checks: {len(problems)} 处（方角卡片 / 内部编码 / 结论重复）")
+    print(f"page checks: {len(problems)} 处（方角卡片 / 内部编码 / 结论重复 / 盒溢出）")
     for item in problems:
         print("  -", item)
     return 1
@@ -671,6 +675,80 @@ def check_tint_contract():
             problems.append(f"{name} 缺少配对前景 token {ink}")
         if float(item.get("contrast", 0)) < 4.5:
             problems.append(f"{name} 与 {ink} 的对比度 {item.get('contrast')} < 4.5")
+    return problems
+
+
+def check_theme_parity():
+    """主题敏感 token（键名含 surface / text / on-surface / outline / hairline）
+    在 dark 与 light 两个主题块里键集必须一致，缺一个就报错并列名；
+    值一律从 tokens.json 读，不硬编码 hex。"""
+    data = json.loads(TOKENS.read_text(encoding="utf-8-sig"))["tokens"]
+    problems = []
+    for name in sorted(data):
+        if not re.search(r"surface|text|on-surface|outline|hairline", name, re.I):
+            continue
+        spec = data[name]
+        if not isinstance(spec, dict):
+            problems.append(f"{name} 不是 token 对象")
+            continue
+        has_dark = isinstance(spec.get("dark"), str)
+        has_light = isinstance(spec.get("light"), str)
+        if has_dark != has_light:
+            missing = "light" if has_dark else "dark"
+            problems.append(
+                f"{name} 只在 {'dark' if has_dark else 'light'} 块有值，缺 {missing}"
+                "（主题敏感 token 必须双主题显式）"
+            )
+    return problems
+
+
+CARD_CLASS_NAMES = {"gary-card", "gary-glass-card"}
+_VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+              "link", "meta", "source", "track", "wbr"}
+
+
+def check_card_nesting():
+    """.gary-card / .gary-glass-card 不许嵌套（含隔层嵌套）——卡片套卡片是版式违规。"""
+    from html.parser import HTMLParser
+
+    class _Nest(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.stack: list[tuple[str, str | None]] = []
+            self.hits: list[str] = []
+
+        def handle_starttag(self, tag, attrs):
+            classes = set((dict(attrs).get("class") or "").split())
+            card = next(iter(sorted(classes & CARD_CLASS_NAMES)), None)
+            if card:
+                outer = next((c for _, c in reversed(self.stack) if c), None)
+                if outer:
+                    self.hits.append(f"{card} 嵌在 {outer} 里")
+            self.stack.append((tag, card))
+            if tag in _VOID_TAGS:
+                self._pop(tag)
+
+        def handle_startendtag(self, tag, attrs):
+            self.handle_starttag(tag, attrs)
+            if tag not in _VOID_TAGS:
+                self._pop(tag)
+
+        def handle_endtag(self, tag):
+            self._pop(tag)
+
+        def _pop(self, tag):
+            for i in range(len(self.stack) - 1, -1, -1):
+                if self.stack[i][0] == tag:
+                    del self.stack[i]
+                    break
+
+    problems = []
+    for path in _html_targets():
+        nest = _Nest()
+        nest.feed(path.read_text(encoding="utf-8", errors="replace"))
+        nest.close()
+        for hit in nest.hits:
+            problems.append(f"{path.name}: {hit}（卡片不套卡片）")
     return problems
 
 
@@ -709,6 +787,8 @@ CHECKS = (
     ("no_square_card", check_no_square_card),
     ("report_text", check_report_text),
     ("tint_contract", check_tint_contract),
+    ("theme_parity", check_theme_parity),
+    ("card_nesting", check_card_nesting),
 )
 
 

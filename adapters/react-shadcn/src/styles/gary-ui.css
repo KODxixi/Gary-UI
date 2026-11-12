@@ -93,7 +93,14 @@
 }
 
 .gary-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   border-radius: var(--gary-radius-card);
+  color: var(--gary-text-primary);
+  background: var(--gary-surface-stage);
+  border: 1px solid var(--gary-card-edge);
+  box-shadow: 0 4px 24px -2px rgba(20, 20, 20, 0.06);
 }
 
 .gary-card--regular {
@@ -106,7 +113,6 @@
   --gary-glass-blur: var(--gary-blur-thick);
 }
 
-.gary-card,
 .gary-button {
   position: relative;
   isolation: isolate;

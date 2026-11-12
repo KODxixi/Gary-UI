@@ -175,3 +175,81 @@ p { line-height: var(--gary-line-height-body); }
 }
 .gary-prose pre { margin: var(--gary-space-3) 0; padding: var(--gary-space-3) var(--gary-space-4); overflow: auto; }
 .gary-prose :not(pre) > code { padding: .1em .35em; }
+
+/* ═══════════════════════════════════════════════════════════════
+   .gary-island-dark — 常驻深色代码岛
+   浅色主题下代码块仍保持深底：底色用 --gary-surface-code（双主题
+   都是深底）；浅色主题下局部重声明文字/沉底变量，内部 pre/code
+   不受外层 [data-gary-theme="light"] 窜色，不用 !important。
+   ═══════════════════════════════════════════════════════════════ */
+.gary-island-dark {
+  background: var(--gary-surface-code);
+  color: var(--gary-text-primary);
+  border-radius: var(--gary-radius-card);
+}
+[data-gary-theme="light"] .gary-island-dark,
+.light .gary-island-dark {
+  --gary-text-primary: oklch(0.97 0 255 / 0.94);
+  --gary-text-secondary: oklch(0.97 0 255 / 0.68);
+  --gary-text-tertiary: oklch(0.97 0 255 / 0.48);
+  --gary-surface-sunken: oklch(0.20 0 255);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   默认档：左流式叙述 + 右 stage 工作台（.gary-split-workspace）
+   stage 卡与 tonal 默认卡片同源：不透明 tonal 填充 + 1px 中性描边
+   + 微阴影。viewport 支持元素级主题沙箱：单独挂
+   data-gary-theme="light"/"dark"，内部 --gary-surface-page 与文字
+   色按该元素重新解析（base.css 主题块是属性选择器，天然支持）。
+   ═══════════════════════════════════════════════════════════════ */
+.gary-split-workspace {
+  display: grid;
+  grid-template-columns: minmax(340px, 42fr) minmax(440px, 58fr);
+  gap: var(--gary-space-6);
+  align-items: stretch;
+}
+.gary-narrative-stream {
+  min-width: 0;
+  max-width: 76ch;
+}
+.gary-narrative-stream > * + * { margin-top: var(--gary-space-4); }
+.gary-narrative-stream h2,
+.gary-narrative-stream h3 { margin-top: var(--gary-space-6); }
+.gary-narrative-stream h2:first-child,
+.gary-narrative-stream h3:first-child { margin-top: 0; }
+
+.gary-stage-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 16px 22px;
+  border-radius: 24px;
+  color: var(--gary-text-primary);
+  background: var(--gary-surface-stage);
+  border: 1px solid var(--gary-card-edge);
+  box-shadow: 0 4px 24px -2px rgba(20, 20, 20, 0.06);
+}
+.gary-stage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gary-space-3);
+  margin-bottom: var(--gary-space-3);
+}
+.gary-stage-viewport {
+  flex: 1;
+  min-height: 0;
+  border-radius: 14px;
+  overflow: auto;
+  color: var(--gary-text-primary);
+  background: var(--gary-surface-page);
+}
+.gary-stage-footer {
+  margin-top: var(--gary-space-3);
+  text-align: center;
+  font-size: var(--gary-font-size-micro);
+  color: var(--gary-text-tertiary);
+}
+@media (max-width: 900px) {
+  .gary-split-workspace { grid-template-columns: minmax(0, 1fr); }
+}
