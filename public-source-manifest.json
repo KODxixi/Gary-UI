@@ -993,19 +993,19 @@
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.d.ts",
-      "sha256": "21203ba8fed87010cd3db05d7fb08cee0e081a74dad593d0721be0a2f83196bc"
+      "sha256": "09fa4480e0b87b3f1987aee5b85f87e238d89f9b60103c9115d484b0a54c2613"
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.d.ts.map",
-      "sha256": "995dc9d48105ba7032c33a7a0888e2e20e98173a4187fdc0da541a5205d80934"
+      "sha256": "76b2f9ab7fc8a03723f4981c31095d1d83650d6796ce1e701828665198910a95"
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.js",
-      "sha256": "49c1d3b67fdf0f001d5190d001530a0fef3306a430becf852016865b0cbcada3"
+      "sha256": "1411da788169d48f50ab921749fa63e26ce1becaa431c52ae2235dbb995ccb3a"
     },
     {
       "path": "adapters/react-shadcn/dist/lib/tokens.js.map",
-      "sha256": "2b78ab2cac57871b2329dc4fe8a233a04a8c4583188e119d1cc2a352ffca4d34"
+      "sha256": "c10b02a7c5355f9c4741d762622d953b7bb1ad4371f02a2f24c708f44b21a61e"
     },
     {
       "path": "adapters/react-shadcn/dist/lib/use-gesture-value.d.ts",
@@ -1089,7 +1089,7 @@
     },
     {
       "path": "adapters/react-shadcn/dist/styles/gary-ui.css",
-      "sha256": "1a6eefeef2e4a510774ca132657fef2cd24662a4279bc9ccce66a4a04b7be3f9"
+      "sha256": "d43ec90fede30f360fafe94574a60315ce86eec1f3108b382d3540e4be40694e"
     },
     {
       "path": "adapters/react-shadcn/eslint-rules/no-hardcoded-colors.js",
@@ -1113,7 +1113,7 @@
     },
     {
       "path": "adapters/react-shadcn/scripts/contrast-audit-report.md",
-      "sha256": "8a9ec79b598edf95ad68aa9cd62fd4ecdea058de6cf3b12feba354cbba3d7ced"
+      "sha256": "546dbc1fcbc0e3a5f271cf800bf27309666b4855c861178a9c2eed4b622145e3"
     },
     {
       "path": "adapters/react-shadcn/scripts/contrast-audit.mjs",

@@ -383,10 +383,21 @@ select::selectedcontent {
 /* Glass and metric cards */
 .gary-glass-card,
 .gary-metric-card {
-  --gary-glass-fill: var(--gary-glass-thick);
-  --gary-glass-blur: var(--gary-blur-thick);
+  /* 2026-10-26：指标卡是「同一层的读数」，比判断卡更亮会抢层级，降一档到 regular */
+  --gary-glass-fill: var(--gary-glass-regular);
+  --gary-glass-blur: var(--gary-blur-regular);
   border-radius: var(--gary-radius-card);
   padding: var(--gary-density-surface-padding);
+}
+
+/*
+ * SolidPlate 作为独立表面时的几何。只给圆角，不给内边距 —— 内边距是使用方的排版决定。
+ * 2026-10-26 补：此前 .gary-solid-plate 只承载材质（背景/阴影），单独使用会渲染成直角大方块，
+ * 与 DESIGN.md §4「表面仍必须使用 .gary-solid-plate」的写法不一致。靠后定义的组件
+ * （evidence-bar 等）自有 border-radius，仍以它们为准。
+ */
+.gary-solid-plate {
+  border-radius: var(--gary-radius-card);
 }
 
 .gary-glass-card[data-card-style="custom"] {
@@ -909,7 +920,7 @@ button.gary-chip {
   }
 
   .gary-decision-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .gary-profile-card {
@@ -1010,26 +1021,26 @@ html body :is(.gary-solid-plate[data-gary-material="glass"],[data-material="soli
 /* Approved Visual Lab materials. Explicit surfaces never change legacy cards. */
 html body [data-gary-surface] { position:relative;isolation:isolate;min-width:0;overflow:hidden;border-radius:var(--gary-radius-card,30px);color:var(--demo-ink,var(--gary-text-primary)); }
 html body [data-gary-surface]::before,html body [data-gary-surface]::after { content:none; }
-html body [data-gary-surface="solid"] { background:var(--demo-panel,#101012);border:1px solid var(--demo-line,#ffffff16);box-shadow:0 2px 6px #0001;backdrop-filter:none;-webkit-backdrop-filter:none; }
-html body [data-gary-surface="frosted"] { background:rgba(18,20,24,.56);border:1px solid #ffffff24;box-shadow:inset 0 1px 0 #ffffff26,0 14px 30px #0003;backdrop-filter:blur(18px) saturate(.75);-webkit-backdrop-filter:blur(18px) saturate(.75); }
-html body [data-gary-surface="optical"][data-gary-material="glass"] { --gary-refraction-plate:rgba(10,14,20,.38);--gary-refraction-edge:rgba(255,255,255,.65);--gary-refraction-inner:rgba(255,255,255,.11);background:var(--gary-refraction-plate);box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner),0 5px 9px #0003,0 22px 44px #0002; }
+html body [data-gary-surface="solid"] { background:var(--demo-panel,var(--gary-solid-plate));border:1px solid var(--demo-line,var(--gary-border-shadow));box-shadow:var(--gary-shadow-contact);backdrop-filter:none;-webkit-backdrop-filter:none; }
+html body [data-gary-surface="frosted"] { background:color-mix(in srgb, var(--gary-solid-plate) 72%, transparent);border:1px solid var(--gary-card-edge);box-shadow:var(--gary-shadow-inset),var(--gary-shadow-environment);backdrop-filter:blur(18px) saturate(.75);-webkit-backdrop-filter:blur(18px) saturate(.75); }
+html body [data-gary-surface="optical"][data-gary-material="glass"] { --gary-refraction-plate:color-mix(in srgb, var(--gary-solid-plate) 46%, transparent);--gary-refraction-edge:oklch(1 0 0 / .65);--gary-refraction-inner:oklch(1 0 0 / .11);background:var(--gary-refraction-plate);box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner),0 5px 9px #0003,0 22px 44px #0002; }
 html body [data-gary-surface="optical"][data-gary-refraction-state="svg"] { backdrop-filter:var(--gary-refraction-filter) saturate(1.05);-webkit-backdrop-filter:var(--gary-refraction-filter) saturate(1.05); }
 html body [data-gary-surface="optical"][data-gary-material="glass"]::after { content:'';position:absolute;inset:0;z-index:3;border-radius:inherit;padding:1px;background:radial-gradient(180px circle at var(--gary-light-x,50%) var(--gary-light-y,0%),rgba(255,255,255,.85),transparent 85%);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;opacity:var(--gary-light-active,0);animation:none;transition:none; }
-html[data-gary-theme="light"] body [data-gary-surface="solid"] { background:var(--demo-panel,#f5f5f7);border-color:var(--demo-line,#00000014); }
-html[data-gary-theme="light"] body [data-gary-surface="frosted"] { background:rgba(255,255,255,.65);border-color:#ffffffa0;box-shadow:inset 0 1px 0 #ffffffe0,0 14px 30px #12202a16; }
-html[data-gary-theme="light"] body [data-gary-surface="optical"][data-gary-material="glass"] { --gary-refraction-plate:rgba(255,255,255,.54);--gary-refraction-edge:rgba(255,255,255,.95);--gary-refraction-inner:rgba(44,58,68,.17);box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner),0 5px 9px #12202a12,0 22px 44px #12202a16; }
+html[data-gary-theme="light"] body [data-gary-surface="solid"] { background:var(--demo-panel,var(--gary-solid-plate));border-color:var(--demo-line,var(--gary-border-shadow)); }
+html[data-gary-theme="light"] body [data-gary-surface="frosted"] { background:color-mix(in srgb, var(--gary-solid-plate) 66%, transparent);border-color:var(--gary-card-edge);box-shadow:var(--gary-shadow-inset),var(--gary-shadow-environment); }
+html[data-gary-theme="light"] body [data-gary-surface="optical"][data-gary-material="glass"] { --gary-refraction-plate:oklch(1 0 0 / .54);--gary-refraction-edge:oklch(1 0 0 / .95);--gary-refraction-inner:oklch(0 0 0 / .10);box-shadow:inset 1px 1px 1px var(--gary-refraction-edge),inset -1px -1px 1px var(--gary-refraction-inner),var(--gary-shadow-contact),var(--gary-shadow-environment); }
 [data-gary-light-scope] { position:relative;isolation:isolate; }
-.gary-surface-light { position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:calc(var(--gary-scene-light-active,0)*.42);background:radial-gradient(260px circle at var(--gary-scene-light-x,50%) var(--gary-scene-light-y,50%),rgba(210,227,250,.2),transparent 80%); }
-[data-gary-theme="light"] .gary-surface-light { background:radial-gradient(260px circle at var(--gary-scene-light-x,50%) var(--gary-scene-light-y,50%),rgba(74,99,135,.17),transparent 80%); }
+.gary-surface-light { position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:calc(var(--gary-scene-light-active,0)*.42);background:radial-gradient(260px circle at var(--gary-scene-light-x,50%) var(--gary-scene-light-y,50%),rgb(225,225,225,.2),transparent 80%); }
+[data-gary-theme="light"] .gary-surface-light { background:radial-gradient(260px circle at var(--gary-scene-light-x,50%) var(--gary-scene-light-y,50%),oklch(0 0 0 / .10),transparent 80%); }
 html:not([data-gary-pointer-effects="on"]) .gary-surface-light,html:not([data-gary-pointer-effects="on"]) body [data-gary-surface="optical"][data-gary-material="glass"]::after { opacity:0; }
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { html body [data-gary-surface="frosted"],html body [data-gary-surface="optical"][data-gary-material="glass"] { background:var(--demo-panel,#101012); }html[data-gary-theme="light"] body [data-gary-surface="frosted"],html[data-gary-theme="light"] body [data-gary-surface="optical"][data-gary-material="glass"] { background:var(--demo-panel,#f5f5f7); } }
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { html body [data-gary-surface="frosted"],html body [data-gary-surface="optical"][data-gary-material="glass"] { background:var(--demo-panel,var(--gary-solid-plate)); }html[data-gary-theme="light"] body [data-gary-surface="frosted"],html[data-gary-theme="light"] body [data-gary-surface="optical"][data-gary-material="glass"] { background:var(--demo-panel,var(--gary-solid-plate)); } }
 @media(prefers-reduced-motion:reduce),(hover:none),(pointer:coarse) { .gary-surface-light,html body [data-gary-surface="optical"][data-gary-material="glass"]::after { opacity:0; } }
 @media print { .gary-surface-light { display:none; }html body [data-gary-surface],html body [data-gary-surface="optical"][data-gary-material="glass"] { background:#fff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;color:#111!important; }html body [data-gary-surface]::after { display:none; } }
 
 /* Geometry follows DeepSeek's public header; brand, typography and material are Gary. */
 html body [data-gary-header] { position:fixed; top:max(8px,env(safe-area-inset-top,0px)); left:0; right:0; z-index:100; width:min(calc(100% - 144px),1140px); height:46px; min-height:46px; margin:0 auto; padding:4px 0; display:flex; align-items:center; justify-content:space-between; gap:20px; border:1px solid transparent; border-radius:999px; background:transparent; box-shadow:none; backdrop-filter:none; transform:none; transition:background-color var(--gary-duration-fast) var(--gary-ease-out),border-color var(--gary-duration-fast) var(--gary-ease-out),box-shadow var(--gary-duration-fast) var(--gary-ease-out); }
 html body [data-gary-header]::before,html body [data-gary-header]::after { display:none; }
-html body [data-gary-header].is-scrolled { width:min(calc(100% - 144px),980px); padding:4px 4px 4px 16px; background:rgba(18,18,18,.88); border-color:#ffffff20; backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); box-shadow:0 6px 24px #0000000a; }
+html body [data-gary-header].is-scrolled { width:min(calc(100% - 144px),980px); padding:4px 4px 4px 16px; background:color-mix(in srgb, var(--gary-solid-plate) 92%, transparent); border-color:var(--gary-border-highlight); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); box-shadow:0 6px 24px #0000000a; }
 html[data-gary-theme="light"] body [data-gary-header].is-scrolled { background:rgba(255,255,255,.90); border-color:#00000014; }
 html body [data-gary-header] :is(.demo-nav__brand,.topbar-leading) { display:flex; align-items:center; justify-content:center; gap:10px; min-width:0; height:36px; font-size:16px; font-weight:600; line-height:1; }
 html body [data-gary-header] :is(.demo-nav__links,.top-navigation) { align-items:center; justify-content:center; margin:0; gap:12px; padding:0; min-height:0; border:0; }
@@ -1054,8 +1065,8 @@ html body [data-gary-header] .gary-header-menu,html body [data-gary-header] .top
 @media(max-width:1100px) {
  html body [data-gary-header] :is(.demo-nav__links,.top-navigation) { display:none; }
  html body [data-gary-header] :is(.gary-header-menu,.topbar-menu-toggle) { display:inline-flex; }
- html body [data-gary-header] :is(.demo-nav__links,.top-navigation).is-open { display:flex; position:absolute; top:58px; left:0; right:0; width:100%; max-height:70vh; padding:16px; overflow:auto; flex-wrap:wrap; border:1px solid #ffffff20; border-radius:24px; background:#151515; color:#f5f5f7; }
- html[data-gary-theme="light"] body [data-gary-header] :is(.demo-nav__links,.top-navigation).is-open { background:#fff; color:#111; border-color:#0002; }
+ html body [data-gary-header] :is(.demo-nav__links,.top-navigation).is-open { display:flex; position:absolute; top:58px; left:0; right:0; width:100%; max-height:70vh; padding:16px; overflow:auto; flex-wrap:wrap; border:1px solid var(--gary-border-highlight); border-radius:var(--gary-radius-card); background:var(--gary-solid-plate); color:var(--gary-text-primary); }
+ html[data-gary-theme="light"] body [data-gary-header] :is(.demo-nav__links,.top-navigation).is-open { background:var(--gary-surface-page); color:var(--gary-text-primary); border-color:var(--gary-border-shadow); }
  html body [data-gary-header] .demo-nav__links a { flex:1 0 40%; justify-content:center; }
 }
 @media(max-width:767px) { html body [data-gary-header] { height:54px; min-height:54px; } html body [data-gary-header] :is(.button,.icon-button,.gary-header-menu,.topbar-menu-toggle,.display-summary,.top-nav-item) { height:44px; min-height:44px; } html body [data-gary-header] .icon-button { width:44px; } html body [data-gary-header],html body [data-gary-header].is-scrolled { width:calc(100% - 24px); } html body [data-gary-header] .demo-actions>.gary-role-annotation { display:none; } html body [data-gary-header] .demo-nav__brand { font-size:14px; } html body [data-gary-header] { gap:8px; } }
@@ -1150,10 +1161,10 @@ html .portal-shell :is(.gary-segmented, .gary-tab-bar) button::after { content: 
 .material-sample[data-material-card="thick"] { --gary-refraction-plate: color-mix(in srgb, var(--gary-surface-page) 38%, transparent); }
 
 /* Solid report framing: one static material texture; data plots stay untextured. */
-html body [data-gary-surface="solid"][data-gary-texture="flow"] { background:linear-gradient(135deg,#303030,#191919 65%,#222);border-color:#ffffff24;box-shadow:inset 0 1px 0 #ffffff0d,0 12px 30px #0002; }
+html body [data-gary-surface="solid"][data-gary-texture="flow"] { background:linear-gradient(135deg,var(--gary-card-plate),var(--gary-solid-plate) 65%,var(--gary-card-plate));border-color:var(--gary-border-highlight);box-shadow:var(--gary-shadow-inset),var(--gary-shadow-contact); }
 html body [data-gary-surface="solid"][data-gary-texture="flow"]::before { content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.6;background:#fff;mask-image:url("../../../../assets/textures/b-ridge-current-10-200-10-105-055-v1.svg");mask-size:1920px 12288px;mask-repeat:no-repeat; }
 html body [data-gary-surface="solid"][data-gary-texture="flow"]>* { position:relative;z-index:1; }
-html[data-gary-theme="light"] body [data-gary-surface="solid"][data-gary-texture="flow"] { background:linear-gradient(135deg,#f5f5f5,#e8e8e8 65%,#f0f0f0);border-color:#00000014;box-shadow:inset 0 1px 0 #fff,0 12px 30px #00000008; }
+html[data-gary-theme="light"] body [data-gary-surface="solid"][data-gary-texture="flow"] { background:linear-gradient(135deg,var(--gary-card-plate),var(--gary-solid-plate) 65%,var(--gary-card-plate));border-color:var(--gary-border-shadow);box-shadow:var(--gary-shadow-inset),var(--gary-shadow-contact); }
 html[data-gary-theme="light"] body [data-gary-surface="solid"][data-gary-texture="flow"]::before { background:#000;opacity:.35; }
 @media print { html body [data-gary-surface="solid"][data-gary-texture="flow"]::before { display:none; } }
 
@@ -1219,6 +1230,74 @@ textarea::-webkit-scrollbar-track {
   background: transparent;
 }
 
+
+/* ═══════════════════════════════════════════════════════════════
+   Contract variants — 2026-10-26
+   components/*.json 声明了这些修饰类，CSS 此前没有实现，validate 一直红着。
+   补齐后闸才有意义；颜色只用 token 与状态色，不引入新色。
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Button */
+.gary-button--default { --gary-glass-fill: var(--gary-glass-thick); font-weight: var(--gary-font-weight-bold); }
+.gary-button--outline { --gary-glass-fill: transparent; border: 1px solid var(--gary-card-edge); }
+.gary-button--secondary { --gary-glass-fill: var(--gary-glass-ultrathin); }
+.gary-button--ghost { --gary-glass-fill: transparent; box-shadow: none; }
+.gary-button--destructive {
+  --gary-glass-fill: transparent;
+  color: var(--gary-state-critical);
+  border: 1px solid color-mix(in srgb, var(--gary-state-critical) 38%, var(--gary-card-edge));
+}
+.gary-button--link {
+  --gary-glass-fill: transparent;
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+/* Chip */
+.gary-chip--soft { background: color-mix(in srgb, var(--gary-text-secondary) 12%, transparent); }
+.gary-chip--solid { background: var(--gary-solid-plate); }
+.gary-chip--neutral { color: var(--gary-text-secondary); }
+.gary-chip--success {
+  color: var(--gary-state-positive);
+  border-color: color-mix(in srgb, var(--gary-state-positive) 34%, transparent);
+}
+.gary-chip--warning {
+  color: var(--gary-state-caution);
+  border-color: color-mix(in srgb, var(--gary-state-caution) 34%, transparent);
+}
+.gary-chip--critical {
+  color: var(--gary-state-critical);
+  border-color: color-mix(in srgb, var(--gary-state-critical) 38%, transparent);
+}
+
+/* Evidence bar tones：语义色只上文字与起首细边，不染色整块 */
+.gary-evidence-bar--neutral { color: var(--gary-text-secondary); }
+.gary-evidence-bar--success { color: var(--gary-state-positive); }
+.gary-evidence-bar--warning { color: var(--gary-state-caution); }
+.gary-evidence-bar--critical { color: var(--gary-state-critical); }
+.gary-evidence-bar--success,
+.gary-evidence-bar--warning,
+.gary-evidence-bar--critical { border-left: 2px solid currentColor; }
+
+/* Solid plate variants */
+.gary-solid-plate--default { background: var(--gary-solid-plate); }
+.gary-solid-plate--subtle { background: color-mix(in srgb, var(--gary-solid-plate) 60%, transparent); }
+.gary-solid-plate--inverse { background: var(--gary-text-primary); color: var(--gary-surface-page); }
+.gary-solid-plate__label {
+  margin: 0 0 var(--gary-space-1);
+  font-size: var(--gary-font-size-caption);
+  letter-spacing: var(--gary-tracking-label);
+  color: var(--gary-text-tertiary);
+}
+.gary-solid-plate__value {
+  margin: 0;
+  font-size: var(--gary-font-size-title);
+  font-weight: var(--gary-font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--gary-text-primary);
+}
+
 /*
  * Gary UI runtime projection.
  * Machine authority: ./tokens.json
@@ -1233,36 +1312,47 @@ textarea::-webkit-scrollbar-track {
 :root,
 [data-gary-theme="dark"] {
   color-scheme: dark;
-  --gary-action-fill: oklch(0.2 0.014 255);
-  --gary-action-border: oklch(0.97 0.005 255 / 0.09);
-  --gary-text-primary: oklch(0.97 0.005 255 / 0.94);
-  --gary-text-secondary: oklch(0.97 0.005 255 / 0.68);
-  --gary-text-tertiary: oklch(0.97 0.005 255 / 0.48);
-  --gary-surface-page: oklch(0.145 0.012 255);
-  --gary-surface-sunken: oklch(0.1 0.008 255 / 0.34);
-  --gary-glass-ultrathin: oklch(0.16 0.011 255 / 0.18);
-  --gary-glass-regular: oklch(0.16 0.011 255 / 0.3);
-  --gary-glass-thick: oklch(0.17 0.012 255 / 0.42);
-  --gary-solid-plate: oklch(0.17 0.012 255 / 0.86);
-  --gary-border-highlight: oklch(0.97 0.005 255 / 0.18);
-  --gary-border-shadow: oklch(0.02 0.002 255 / 0.42);
+  --gary-action-fill: oklch(0.2 0 255);
+  --gary-action-border: oklch(0.97 0 255 / 0.09);
+  --gary-text-primary: oklch(0.97 0 255 / 0.94);
+  --gary-text-secondary: oklch(0.97 0 255 / 0.68);
+  --gary-text-tertiary: oklch(0.97 0 255 / 0.48);
+  --gary-on-surface: var(--gary-text-strong);
+  --gary-on-surface-variant: var(--gary-text-secondary);
+  --gary-on-surface-muted: var(--gary-text-tertiary);
+  --gary-outline-variant: var(--gary-hairline);
+  --gary-outline-strong: var(--gary-hairline-strong);
+  --gary-surface-page: oklch(0.18 0 255);
+  --gary-surface-sunken: oklch(0.20 0 255);
+  --gary-surface-rail: var(--gary-surface-sunken);
+  --gary-surface-stage: oklch(0.23 0 255);
+  --gary-surface-float: oklch(0.28 0 255);
+  --gary-surface-code: oklch(0.15 0 255);
+  --gary-glass-ultrathin: oklch(0.16 0 255 / 0.18);
+  --gary-glass-regular: oklch(0.16 0 255 / 0.3);
+  --gary-glass-thick: oklch(0.17 0 255 / 0.42);
+  --gary-solid-plate: oklch(0.17 0 255 / 0.86);
+  --gary-border-highlight: oklch(0.97 0 255 / 0.18);
+  --gary-border-shadow: oklch(0.02 0 255 / 0.42);
   --gary-focus-ring: #2e8dff;
   --gary-state-positive: #30d158;
   --gary-state-caution: #ffd60a;
   --gary-state-critical: #ff453a;
+  --gary-category-1: #82acec;
+  --gary-category-2: #d5af59;
+  --gary-category-3: #78c9ac;
+  --gary-category-4: #be9bda;
   --gary-shadow-contact: 0 2px 5px rgba(0, 0, 0, 0.46);
   --gary-shadow-environment: 0 28px 72px rgba(0, 0, 0, 0.38);
   --gary-shadow-inset: inset 0 1px 1px rgba(255, 255, 255, 0.24), inset 0 -1px 1px rgba(0, 0, 0, 0.30), inset 0 0 30px rgba(255, 255, 255, 0.05);
   --gary-glass-frost: repeating-radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.04) 0 0.6px, transparent 0.7px 3.6px), repeating-radial-gradient(circle at 78% 64%, rgba(0, 0, 0, 0.018) 0 0.55px, transparent 0.65px 3.2px);
   --gary-glass-highlight-angle: 135deg;
-  --gary-glass-specular-opacity: 0.18;
   --gary-glass-sheen-opacity: 0.14;
   --gary-glass-brightness: 0.80;
   --gary-glass-contrast: 1.04;
   --gary-glass-saturate: 108%;
-  --gary-glass-edge-width: 1px;
   --gary-radius-control: 18px;
-  --gary-radius-card: clamp(14px, 6cqi, 32px);
+  --gary-radius-card: clamp(14px, 6cqi, 28px);
   --gary-radius-panel: clamp(18px, 5cqi, 44px);
   --gary-radius-pill: 999px;
   --gary-space-1: 4px;
@@ -1299,17 +1389,17 @@ textarea::-webkit-scrollbar-track {
   --gary-font-size-display: min(clamp(1.75rem, 5vw, 4.5rem), 7vw);
   --gary-font-weight-regular: 400;
   --gary-font-weight-medium: 600;
-  --gary-font-weight-semibold: 650;
-  --gary-font-weight-bold: 720;
+  --gary-font-weight-semibold: 600;
+  --gary-font-weight-bold: 700;
   --gary-font-weight-medium-light: 500;
-  --gary-font-weight-extra-semibold: 620;
-  --gary-font-weight-semibold-strong: 660;
-  --gary-font-weight-semibold-extra: 670;
-  --gary-font-weight-bold-light: 680;
+  --gary-font-weight-extra-semibold: 600;
+  --gary-font-weight-semibold-strong: 600;
+  --gary-font-weight-semibold-extra: 600;
+  --gary-font-weight-bold-light: 700;
   --gary-font-weight-bold-strong: 700;
-  --gary-font-weight-heavy: 740;
-  --gary-font-weight-black: 760;
-  --gary-font-weight-extra-black: 790;
+  --gary-font-weight-heavy: 700;
+  --gary-font-weight-black: 700;
+  --gary-font-weight-extra-black: 700;
   --gary-line-height-tight: 1.1;
   --gary-line-height-body: 1.68;
   --gary-tracking-display: -0.025em;
@@ -1320,12 +1410,12 @@ textarea::-webkit-scrollbar-track {
   --gary-control-height: 44px;
   --gary-scene-mask: rgba(0, 0, 0, 0);
   --gary-scene-image: none;
-  --gary-scene-dot-color: oklch(0.97 0.005 255 / 0.16);
-  --gary-scene-dot-active: oklch(0.97 0.005 255 / 0.72);
+  --gary-scene-dot-color: oklch(0.97 0 255 / 0.16);
+  --gary-scene-dot-active: oklch(0.97 0 255 / 0.72);
   --gary-scene-grid-size: 28px;
-  --gary-card-plate: oklch(0.21 0.014 255 / 0.52);
-  --gary-card-surface-top: oklch(0.24 0.016 255 / 0.66);
-  --gary-card-surface-bottom: oklch(0.17 0.011 255 / 0.6);
+  --gary-card-plate: oklch(0.21 0 255 / 0.52);
+  --gary-card-surface-top: oklch(0.24 0 255 / 0.66);
+  --gary-card-surface-bottom: oklch(0.17 0 255 / 0.6);
   --gary-refraction-plate: rgba(255,255,255,.025);
   --gary-refraction-edge: rgba(255,255,255,.48);
   --gary-refraction-inner: rgba(255,255,255,.13);
@@ -1417,47 +1507,92 @@ textarea::-webkit-scrollbar-track {
   --gary-fluid-space-xl: clamp(2.812rem, 2.290rem + 2.143vw, 4.219rem);
   --gary-fluid-space-2xl: clamp(4.250rem, 3.461rem + 3.238vw, 6.375rem);
   --gary-fluid-space-3xl: clamp(6.312rem, 5.140rem + 4.810vw, 9.469rem);
+  --gary-font-size-micro: 0.75rem;
+  --gary-surface-card: oklch(0.145 0 0);
+  --gary-surface-raised: oklch(0.195 0 0);
+  --gary-surface-overlay: oklch(0.175 0 0);
+  --gary-hairline-soft: oklch(0.245 0 0);
+  --gary-hairline: oklch(0.285 0 0);
+  --gary-hairline-strong: oklch(0.365 0 0);
+  --gary-text-strong: oklch(0.98 0 0);
+  --gary-text-body: oklch(0.92 0 0);
+  --gary-text-meta: oklch(0.78 0 0);
+  --gary-text-caption: oklch(0.66 0 0);
+  --gary-text-faint: oklch(0.55 0 0);
+  --gary-accent-neutral: oklch(0.86 0 0);
+  --gary-selected-fill: oklch(0.2 0 0);
+  --gary-selected-edge: oklch(0.62 0 0);
+  --gary-grid-gap: 6px;
+  --gary-font-size-data: 0.6875rem;
+  --gary-font-size-nano: 0.625rem;
+  --gary-duration-ui: 160ms;
 }
 .light,
 [data-gary-theme="light"] {
   color-scheme: light;
-  --gary-action-fill: oklch(0.995 0.003 255);
-  --gary-action-border: oklch(0.26 0.01 255 / 0.08);
-  --gary-text-primary: oklch(0.26 0.012 255 / 0.94);
-  --gary-text-secondary: oklch(0.26 0.012 255 / 0.70);
-  --gary-text-tertiary: oklch(0.26 0.012 255 / 0.66);
-  --gary-surface-page: oklch(0.99 0.003 255);
-  --gary-surface-sunken: oklch(0.31 0.014 255 / 0.08);
-  --gary-glass-ultrathin: oklch(0.98 0.004 255 / 0.22);
-  --gary-glass-regular: oklch(0.98 0.004 255 / 0.34);
-  --gary-glass-thick: oklch(0.98 0.004 255 / 0.48);
-  --gary-solid-plate: oklch(0.97 0.004 255 / 0.88);
+  --gary-action-fill: oklch(0.995 0 255);
+  --gary-action-border: oklch(0.26 0 255 / 0.08);
+  --gary-text-primary: oklch(0.26 0 255 / 0.94);
+  --gary-text-secondary: oklch(0.26 0 255 / 0.70);
+  --gary-text-tertiary: oklch(0.26 0 255 / 0.63);
+  --gary-on-surface: var(--gary-text-strong);
+  --gary-on-surface-variant: var(--gary-text-secondary);
+  --gary-on-surface-muted: var(--gary-text-tertiary);
+  --gary-outline-variant: var(--gary-hairline);
+  --gary-outline-strong: var(--gary-hairline-strong);
+  --gary-surface-page: oklch(0.98 0 255);
+  --gary-surface-sunken: oklch(0.96 0 255);
+  --gary-surface-rail: var(--gary-surface-sunken);
+  --gary-surface-stage: oklch(1 0 255);
+  --gary-surface-float: oklch(1 0 255);
+  --gary-surface-code: oklch(0.18 0 255);
+  --gary-glass-ultrathin: oklch(0.98 0 255 / 0.22);
+  --gary-glass-regular: oklch(0.98 0 255 / 0.34);
+  --gary-glass-thick: oklch(0.98 0 255 / 0.48);
+  --gary-solid-plate: oklch(0.97 0 255 / 0.88);
   --gary-border-highlight: rgba(255, 255, 255, 0.74);
-  --gary-border-shadow: oklch(0.27 0.01 255 / 0.16);
+  --gary-border-shadow: oklch(0.27 0 255 / 0.16);
   --gary-focus-ring: #007aff;
   --gary-state-positive: #248a3d;
   --gary-state-caution: #9a6700;
   --gary-state-critical: #d70015;
+  --gary-category-1: #386aa9;
+  --gary-category-2: #89600a;
+  --gary-category-3: #22765d;
+  --gary-category-4: #795098;
   --gary-shadow-contact: 0 2px 5px rgba(0, 0, 0, 0.14);
   --gary-shadow-environment: 0 28px 72px rgba(0, 0, 0, 0.14);
-  --gary-shadow-inset: inset 0 1px 1px rgba(255, 255, 255, 0.44), inset 0 -1px 1px rgba(77, 67, 58, 0.10), inset 0 0 28px rgba(255, 255, 255, 0.08);
-  --gary-glass-specular-opacity: 0.22;
+  --gary-shadow-inset: inset 0 1px 1px rgba(255, 255, 255, 0.44), inset 0 -1px 1px rgba(68, 68, 68, 0.10), inset 0 0 28px rgba(255, 255, 255, 0.08);
   --gary-glass-sheen-opacity: 0.18;
   --gary-glass-brightness: 1.03;
   --gary-glass-contrast: 1.03;
   --gary-glass-saturate: 106%;
   --gary-scene-mask: rgba(255, 255, 255, 0);
-  --gary-scene-dot-color: oklch(0.22 0.008 255 / 0.14);
-  --gary-scene-dot-active: oklch(0.22 0.008 255 / 0.58);
-  --gary-card-plate: oklch(0.97 0.004 255 / 0.6);
-  --gary-card-surface-top: oklch(0.999 0.002 255 / 0.9);
-  --gary-card-surface-bottom: oklch(0.945 0.006 255 / 0.92);
+  --gary-scene-dot-color: oklch(0.22 0 255 / 0.14);
+  --gary-scene-dot-active: oklch(0.22 0 255 / 0.58);
+  --gary-card-plate: oklch(0.97 0 255 / 0.6);
+  --gary-card-surface-top: oklch(0.999 0 255 / 0.9);
+  --gary-card-surface-bottom: oklch(0.945 0 255 / 0.92);
   --gary-refraction-plate: rgba(255,255,255,.08);
   --gary-refraction-edge: rgba(255,255,255,.94);
   --gary-refraction-inner: rgba(0,0,0,.10);
   --gary-card-edge: rgba(0,0,0,.10);
   --gary-card-shine: rgba(255,255,255,.85);
   --gary-card-orbit: rgba(70,70,70,.45);
+  --gary-surface-card: oklch(1 0 0);
+  --gary-surface-raised: oklch(0.965 0 0);
+  --gary-surface-overlay: oklch(0.99 0 0);
+  --gary-hairline-soft: oklch(0.9 0 0);
+  --gary-hairline: oklch(0.85 0 0);
+  --gary-hairline-strong: oklch(0.75 0 0);
+  --gary-text-strong: oklch(0.22 0 0);
+  --gary-text-body: oklch(0.3 0 0);
+  --gary-text-meta: oklch(0.45 0 0);
+  --gary-text-caption: oklch(0.56 0 0);
+  --gary-text-faint: oklch(0.68 0 0);
+  --gary-accent-neutral: oklch(0.24 0 0);
+  --gary-selected-fill: oklch(0.93 0 0);
+  --gary-selected-edge: oklch(0.4 0 0);
 }
 [data-gary-density="spacious"] {
   --gary-density-surface-padding: 32px;
@@ -1476,32 +1611,32 @@ textarea::-webkit-scrollbar-track {
 @media (prefers-contrast: more) {
   :root,
   [data-gary-theme="dark"] {
-    --gary-text-secondary: oklch(0.97 0.005 255 / 0.84);
-    --gary-text-tertiary: oklch(0.97 0.005 255 / 0.68);
-    --gary-border-highlight: oklch(0.97 0.005 255 / 0.48);
+    --gary-text-secondary: oklch(0.97 0 255 / 0.84);
+    --gary-text-tertiary: oklch(0.97 0 255 / 0.68);
+    --gary-border-highlight: oklch(0.97 0 255 / 0.48);
   }
 
   .light,
   [data-gary-theme="light"] {
-    --gary-text-secondary: oklch(0.26 0.012 255 / 0.82);
-    --gary-text-tertiary: oklch(0.26 0.012 255 / 0.66);
-    --gary-border-shadow: oklch(0.26 0.012 255 / 0.48);
+    --gary-text-secondary: oklch(0.26 0 255 / 0.82);
+    --gary-text-tertiary: oklch(0.26 0 255 / 0.66);
+    --gary-border-shadow: oklch(0.26 0 255 / 0.48);
   }
 }
 
 @media (prefers-reduced-transparency: reduce) {
   :root,
   [data-gary-theme="dark"] {
-    --gary-glass-ultrathin: oklch(0.15 0.011 255 / 0.94);
-    --gary-glass-regular: oklch(0.15 0.011 255 / 0.96);
-    --gary-glass-thick: oklch(0.15 0.011 255 / 0.98);
+    --gary-glass-ultrathin: oklch(0.15 0 255 / 0.94);
+    --gary-glass-regular: oklch(0.15 0 255 / 0.96);
+    --gary-glass-thick: oklch(0.15 0 255 / 0.98);
   }
 
   .light,
   [data-gary-theme="light"] {
-    --gary-glass-ultrathin: oklch(0.98 0.004 255 / 0.94);
-    --gary-glass-regular: oklch(0.98 0.004 255 / 0.96);
-    --gary-glass-thick: oklch(0.98 0.004 255 / 0.98);
+    --gary-glass-ultrathin: oklch(0.98 0 255 / 0.94);
+    --gary-glass-regular: oklch(0.98 0 255 / 0.96);
+    --gary-glass-thick: oklch(0.98 0 255 / 0.98);
   }
 }
 
@@ -1550,7 +1685,7 @@ textarea::-webkit-scrollbar-track {
 }
 [data-gary-card="metric"] { display: grid; align-content: space-between; min-height: 180px; padding: 24px; }
 [data-gary-card="comparison"] { display: grid; grid-template-columns: minmax(9rem, .75fr) repeat(2, minmax(12rem, 1fr)); gap: 1px; overflow-x: auto; }
-[data-gary-card="judgement"] { display: grid; gap: 12px; padding: 28px; border-left: 4px solid var(--gary-focus-ring); }
+[data-gary-card="judgement"] { display: grid; gap: 12px; padding: 28px; border-top: 2px solid var(--gary-focus-ring); }
 [data-gary-card="media"] { display: grid; grid-template-rows: minmax(200px, 1fr) auto; overflow: hidden; }
 [data-gary-card="media"] :where(img, iframe, svg) { width: 100%; min-height: 200px; object-fit: cover; }
 [data-gary-scene="reading"] { --gary-density-layout-gap: 24px; --gary-density-section-gap: 48px; }
@@ -1620,6 +1755,7 @@ textarea::-webkit-scrollbar-track {
     var(--gary-border-shadow)
     var(--gary-border-highlight);
   box-shadow:
+    inset 0 0 0 1px var(--gary-card-edge),
     var(--gary-shadow-inset),
     var(--gary-shadow-contact),
     var(--gary-shadow-environment);
@@ -1629,46 +1765,6 @@ textarea::-webkit-scrollbar-track {
   backdrop-filter:
     blur(var(--gary-glass-blur)) saturate(var(--gary-glass-saturate))
     brightness(var(--gary-glass-brightness)) contrast(var(--gary-glass-contrast));
-}
-
-:where(
-  .gary-glass,
-  .gary-button,
-  .gary-segmented,
-  .gary-field,
-  .gary-tab-bar,
-  .gary-web-bar,
-  .gary-glass-card,
-  .gary-metric-card,
-  .gary-comparison-table,
-  .gary-media-card,
-  .gary-profile-card
-)::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  padding: var(--gary-glass-edge-width);
-  border-radius: inherit;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      var(--gary-glass-highlight-angle),
-      rgba(255, 255, 255, 0.18) 0%,
-      rgba(255, 255, 255, 0.04) 24%,
-      rgba(0, 0, 0, 0.04) 54%,
-      rgba(0, 0, 0, 0.08) 100%
-    );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  mix-blend-mode: screen;
-  opacity: var(--gary-glass-specular-opacity);
 }
 
 :where(
@@ -1762,6 +1858,93 @@ button svg,summary svg,[data-icon],.gary-brand-icon { display:block; flex-shrink
 [data-icon] { display:inline-flex; align-items:center; justify-content:center; line-height:0; }
 .gary-rich-text { font-weight:var(--gary-rich-text-weight,400); }
 [data-gary-font-weight="200"] { font-weight:200; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+ * 工业界面品味（2026-10-26）：`data-gary-taste="industrial"`
+ *
+ * 三条硬约束，来自《Gary-UI 工业 UI 设计与交互品味准则》：
+ * 1. 底色不带色相：表面与墨色 token 的 chroma 恒为 0，不用带色相的黑度/灰度作底。
+ * 2. 分层靠明度不靠装饰：page → card → raised → overlay 四档明度 + 1px 发丝边；
+ *    不叠投影、不叠毛玻璃、不叠渐变。
+ * 3. hover / active 只改底色，不改位移与尺寸。
+ *
+ * 这个轴只在工具型、数据密集的工作台启用；报告与展示页保持默认的玻璃味。
+ * ──────────────────────────────────────────────────────────────────────────── */
+[data-gary-taste="industrial"] {
+  --gary-radius-control: 8px;
+  --gary-radius-card: 12px;
+  --gary-radius-panel: 16px;
+  --gary-duration-enter: var(--gary-duration-ui);
+  --gary-duration-exit: var(--gary-duration-press);
+  /* 组件用三级文字别名，页面可再用 body / faint 两级 */
+  --gary-text-primary: var(--gary-text-strong);
+  --gary-text-secondary: var(--gary-text-meta);
+  --gary-text-tertiary: var(--gary-text-caption);
+}
+
+/* 表面：平底 + 发丝边。玻璃、实板、指标卡、卡片统一走这一层 */
+[data-gary-taste="industrial"] :is(.gary-glass, .gary-glass-card, .gary-metric-card,
+  .gary-solid-plate, .gary-media-card, .gary-profile-card, .gary-comparison-table,
+  .gary-decision-grid, [data-gary-card], .gary-field, .gary-segmented, .gary-tab-bar) {
+  background-color: var(--gary-surface-card);
+  background-image: none;
+  border: 1px solid var(--gary-hairline-soft);
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background-blend-mode: normal;
+}
+
+/* 抬升一档：悬停只提亮底色，不做位移 */
+[data-gary-taste="industrial"] :is([data-gary-card], .gary-glass-card, .gary-metric-card):hover {
+  transform: none;
+  background-color: var(--gary-surface-raised);
+  border-color: var(--gary-hairline);
+  box-shadow: none;
+}
+[data-gary-taste="industrial"] :is([data-gary-card], .gary-glass-card, .gary-metric-card):active {
+  transform: none;
+  background-color: var(--gary-surface-overlay);
+}
+
+/* 选中态 = 亮灰描边 + 中性深灰底（不用暖棕、不用品牌大色块铺底） */
+[data-gary-taste="industrial"] :is([aria-selected="true"], [aria-pressed="true"], .is-selected) {
+  background-color: var(--gary-selected-fill);
+  border-color: var(--gary-selected-edge);
+  color: var(--gary-text-strong);
+}
+
+/* 焦点：亮灰描边，不靠彩色环 */
+[data-gary-taste="industrial"] :is(button, a, [tabindex], input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--gary-accent-neutral);
+  outline-offset: 2px;
+}
+
+/* 唯一允许的阴影：浮层与抽屉 */
+[data-gary-taste="industrial"] .gary-overlay {
+  background-color: var(--gary-surface-overlay);
+  border: 1px solid var(--gary-hairline);
+  box-shadow: 0 24px 64px oklch(0 0 0 / 0.55);
+  border-radius: var(--gary-radius-panel);
+}
+
+/* 状态色只落在边框、小标签与数字上，绝不铺底 */
+[data-gary-taste="industrial"] .is-state-idle { border-color: color-mix(in srgb, var(--gary-state-positive) 50%, transparent); }
+[data-gary-taste="industrial"] .is-state-busy { border-color: color-mix(in srgb, var(--gary-state-caution) 60%, transparent); }
+[data-gary-taste="industrial"] .is-state-off { border-color: color-mix(in srgb, var(--gary-state-critical) 55%, transparent); opacity: 0.72; }
+
+/* 动效只在状态变化时出现，120–180ms，reduced-motion 全瞬切 */
+/* 过渡只挂在交互态上：底色来自主题变量的元素若常驻 transition，
+ * 切换 data-gary-theme 时 Chromium 会把旧值卡住（实测），工业界面本来也不做主题动画。 */
+[data-gary-taste="industrial"] :is(button, a, [data-gary-card], .gary-glass-card, tr, td, th):is(:hover, :active, :focus-visible, [aria-selected="true"], [aria-pressed="true"]) {
+  transition: background-color var(--gary-duration-ui) var(--gary-ease-out),
+              border-color var(--gary-duration-ui) var(--gary-ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-gary-taste="industrial"] :is(button, a, [data-gary-card], .gary-glass-card, tr, td, th) {
+    transition-duration: 0ms !important;
+  }
+}
 
 
 /*
@@ -1858,7 +2041,14 @@ button svg,summary svg,[data-icon],.gary-brand-icon { display:block; flex-shrink
 }
 
 .gary-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   border-radius: var(--gary-radius-card);
+  color: var(--gary-text-primary);
+  background: var(--gary-surface-stage);
+  border: 1px solid var(--gary-card-edge);
+  box-shadow: 0 4px 24px -2px rgba(20, 20, 20, 0.06);
 }
 
 .gary-card--regular {
@@ -1871,7 +2061,6 @@ button svg,summary svg,[data-icon],.gary-brand-icon { display:block; flex-shrink
   --gary-glass-blur: var(--gary-blur-thick);
 }
 
-.gary-card,
 .gary-button {
   position: relative;
   isolation: isolate;
