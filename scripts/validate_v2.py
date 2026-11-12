@@ -451,6 +451,10 @@ def main() -> int:
     if kernel.returncode != 0:
         for issue in kernel_result.get("issues", ["旧 Kernel 校验失败"]):
             issues.append(f"Kernel: {issue}")
+    # 母本专属产物（provenance / 默认场景背景）在公开切片里被有意排除：
+    # kernel 跳过了这些检查，这里打一行 SKIP，让公开仓跑闸的人看得见。
+    if kernel_result.get("skipped"):
+        print("SKIP provenance (public slice)")
 
     result = {
         "root": str(ROOT),
