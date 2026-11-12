@@ -1,6 +1,6 @@
 # Gary-UI
 
-> **Agent 自主驱动的液态玻璃 UI 系统。**
+> **Agent 自主驱动的 UI 系统：默认 Tonal Surface，液态玻璃为 opt-in 材质。**
 
 设计系统真源在 token，React/shadcn 是执行层，60 个组件自动消费 Gary token。
 

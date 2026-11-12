@@ -20,8 +20,17 @@
   --gary-text-primary: oklch(0.97 0 255 / 0.94);
   --gary-text-secondary: oklch(0.97 0 255 / 0.68);
   --gary-text-tertiary: oklch(0.97 0 255 / 0.48);
-  --gary-surface-page: oklch(0 0 0);
-  --gary-surface-sunken: oklch(0.1 0 255 / 0.34);
+  --gary-on-surface: var(--gary-text-strong);
+  --gary-on-surface-variant: var(--gary-text-secondary);
+  --gary-on-surface-muted: var(--gary-text-tertiary);
+  --gary-outline-variant: var(--gary-hairline);
+  --gary-outline-strong: var(--gary-hairline-strong);
+  --gary-surface-page: oklch(0.18 0 255);
+  --gary-surface-sunken: oklch(0.20 0 255);
+  --gary-surface-rail: var(--gary-surface-sunken);
+  --gary-surface-stage: oklch(0.23 0 255);
+  --gary-surface-float: oklch(0.28 0 255);
+  --gary-surface-code: oklch(0.15 0 255);
   --gary-glass-ultrathin: oklch(0.16 0 255 / 0.18);
   --gary-glass-regular: oklch(0.16 0 255 / 0.3);
   --gary-glass-thick: oklch(0.17 0 255 / 0.42);
@@ -85,17 +94,17 @@
   --gary-font-size-display: min(clamp(1.75rem, 5vw, 4.5rem), 7vw);
   --gary-font-weight-regular: 400;
   --gary-font-weight-medium: 600;
-  --gary-font-weight-semibold: 650;
-  --gary-font-weight-bold: 720;
+  --gary-font-weight-semibold: 600;
+  --gary-font-weight-bold: 700;
   --gary-font-weight-medium-light: 500;
-  --gary-font-weight-extra-semibold: 620;
-  --gary-font-weight-semibold-strong: 660;
-  --gary-font-weight-semibold-extra: 670;
-  --gary-font-weight-bold-light: 680;
+  --gary-font-weight-extra-semibold: 600;
+  --gary-font-weight-semibold-strong: 600;
+  --gary-font-weight-semibold-extra: 600;
+  --gary-font-weight-bold-light: 700;
   --gary-font-weight-bold-strong: 700;
-  --gary-font-weight-heavy: 740;
-  --gary-font-weight-black: 760;
-  --gary-font-weight-extra-black: 790;
+  --gary-font-weight-heavy: 700;
+  --gary-font-weight-black: 700;
+  --gary-font-weight-extra-black: 700;
   --gary-line-height-tight: 1.1;
   --gary-line-height-body: 1.68;
   --gary-tracking-display: -0.025em;
@@ -230,9 +239,18 @@
   --gary-action-border: oklch(0.26 0 255 / 0.08);
   --gary-text-primary: oklch(0.26 0 255 / 0.94);
   --gary-text-secondary: oklch(0.26 0 255 / 0.70);
-  --gary-text-tertiary: oklch(0.26 0 255 / 0.66);
-  --gary-surface-page: oklch(1 0 0);
-  --gary-surface-sunken: oklch(0.31 0 255 / 0.08);
+  --gary-text-tertiary: oklch(0.26 0 255 / 0.63);
+  --gary-on-surface: var(--gary-text-strong);
+  --gary-on-surface-variant: var(--gary-text-secondary);
+  --gary-on-surface-muted: var(--gary-text-tertiary);
+  --gary-outline-variant: var(--gary-hairline);
+  --gary-outline-strong: var(--gary-hairline-strong);
+  --gary-surface-page: oklch(0.98 0 255);
+  --gary-surface-sunken: oklch(0.96 0 255);
+  --gary-surface-rail: var(--gary-surface-sunken);
+  --gary-surface-stage: oklch(1 0 255);
+  --gary-surface-float: oklch(1 0 255);
+  --gary-surface-code: oklch(0.18 0 255);
   --gary-glass-ultrathin: oklch(0.98 0 255 / 0.22);
   --gary-glass-regular: oklch(0.98 0 255 / 0.34);
   --gary-glass-thick: oklch(0.98 0 255 / 0.48);
@@ -443,6 +461,7 @@
     var(--gary-border-shadow)
     var(--gary-border-highlight);
   box-shadow:
+    inset 0 0 0 1px var(--gary-card-edge),
     var(--gary-shadow-inset),
     var(--gary-shadow-contact),
     var(--gary-shadow-environment);
@@ -452,46 +471,6 @@
   backdrop-filter:
     blur(var(--gary-glass-blur)) saturate(var(--gary-glass-saturate))
     brightness(var(--gary-glass-brightness)) contrast(var(--gary-glass-contrast));
-}
-
-:where(
-  .gary-glass,
-  .gary-button,
-  .gary-segmented,
-  .gary-field,
-  .gary-tab-bar,
-  .gary-web-bar,
-  .gary-glass-card,
-  .gary-metric-card,
-  .gary-comparison-table,
-  .gary-media-card,
-  .gary-profile-card
-)::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  padding: var(--gary-glass-edge-width);
-  border-radius: inherit;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      var(--gary-glass-highlight-angle),
-      rgba(255, 255, 255, 0.18) 0%,
-      rgba(255, 255, 255, 0.04) 24%,
-      rgba(0, 0, 0, 0.04) 54%,
-      rgba(0, 0, 0, 0.08) 100%
-    );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  mix-blend-mode: screen;
-  opacity: var(--gary-glass-specular-opacity);
 }
 
 :where(

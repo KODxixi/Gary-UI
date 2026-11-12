@@ -214,7 +214,7 @@ button {
   display: -webkit-box;
   overflow: hidden;
   font-size: clamp(32px, 3vw, 52px);
-  font-weight: 790;
+  font-weight: var(--gary-font-weight-bold);
   letter-spacing: -0.045em;
   line-height: 1.12;
   text-overflow: ellipsis;
@@ -436,7 +436,7 @@ button {
 .decision-card h2 {
   margin: 0;
   font-size: clamp(21px, 1.8vw, 29px);
-  font-weight: 760;
+  font-weight: var(--gary-font-weight-bold);
   line-height: 1.38;
 }
 

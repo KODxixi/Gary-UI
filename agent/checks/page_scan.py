@@ -542,20 +542,169 @@ def radius_index(texts: list[str]) -> dict[str, str]:
     return index
 
 
+# ---------------------------------------------------------------- 盒模型硬约束（check_box_overflow）
+
+VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+             "link", "meta", "source", "track", "wbr"}
+HEIGHT_PX_RE = re.compile(r"(?<![-\w])height\s*:\s*([0-9.]+)px", re.I)
+OVERFLOW_HIDDEN_RE = re.compile(r"overflow\s*:\s*hidden", re.I)
+GRID_COLS_RE = re.compile(r"grid-template-columns\s*:\s*([^;]+)", re.I)
+BARE_FR_RE = re.compile(r"^\d+(?:\.\d+)?fr$", re.I)
+
+
+def _expand_repeat(value: str) -> str:
+    """repeat(n, X) 展开成 n 个 X；auto-fit / auto-fill 原样保留。"""
+    def expand(m):
+        n = m.group(1).strip()
+        return m.group(0) if not n.isdigit() else " ".join([m.group(2)] * int(n))
+    return re.sub(r"repeat\(\s*([^,]+)\s*,\s*(.+?)\s*\)", expand, value)
+
+
+def _bare_fr_tracks(value: str) -> list[str]:
+    """grid-template-columns 顶层的裸 fr 轨道（minmax()/repeat() 括号内不算）。"""
+    depth, buf, tracks = 0, "", []
+    for ch in _expand_repeat(value).strip():
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth = max(0, depth - 1)
+        if ch.isspace() and depth == 0:
+            if buf:
+                tracks.append(buf)
+                buf = ""
+        else:
+            buf += ch
+    if buf:
+        tracks.append(buf)
+    return [t for t in tracks if BARE_FR_RE.match(t)]
+
+
+class _BoxTextParser(HTMLParser):
+    """记录每个带行内 style 的元素是否内含文本（含后代文本）。"""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.frames: list[dict] = []
+        self.results: list[dict] = []
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        self.frames.append({"tag": tag, "style": a.get("style") or "",
+                            "classes": set((a.get("class") or "").split()), "text": False})
+        if tag in VOID_TAGS:
+            self._close(tag)
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if tag not in VOID_TAGS:
+            self._close(tag)
+
+    def handle_endtag(self, tag):
+        self._close(tag)
+
+    def _close(self, tag):
+        for i in range(len(self.frames) - 1, -1, -1):
+            if self.frames[i]["tag"] == tag:
+                closed = self.frames.pop(i)
+                if closed["style"]:
+                    self.results.append(closed)
+                break
+
+    def handle_data(self, data):
+        if data.strip():
+            for frame in self.frames:
+                frame["text"] = True
+
+
+def box_overflow_problems(path: Path, tokens: dict[str, str]) -> list[str]:
+    """盒模型硬约束（只报不修）：
+    ① 固定 height(px) + overflow:hidden 且内含文本的容器（文本会被硬裁切）；
+    ② grid-template-columns 出现裸 1fr / Nfr（没有 minmax(0, …)，宽内容会撑爆轨道）。
+    覆盖行内 style、页面 <style>、外链 CSS 及其 @import；② 同样约束
+    .gary-split-workspace / .gary-stage-* 等新 pattern 类。"""
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    page = Page()
+    page.feed(raw)
+    page.close()
+    rel = path.name
+    problems: list[str] = []
+
+    css_texts = list(page.css)
+    seen: set[Path] = set()
+    queue = [(path.parent / h).resolve() for h in page.links if not h.startswith(("http", "//"))]
+    while queue:
+        css_path = queue.pop()
+        if css_path in seen or not css_path.exists() or len(seen) > 8:
+            continue
+        seen.add(css_path)
+        text = css_path.read_text(encoding="utf-8", errors="replace")
+        css_texts.append(text)
+        for imp in re.findall(r'@import\s+(?:url\()?["\']?([^"\')\s]+)', text):
+            queue.append((css_path.parent / imp).resolve())
+
+    clip_classes: set[str] = set()
+    for css_text in css_texts:
+        text = re.sub(r"/\*.*?\*/", " ", css_text, flags=re.S)
+        for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", text):
+            selector, decl = m.group(1).strip(), m.group(2)
+            if selector.startswith("@"):
+                continue
+            for gm in GRID_COLS_RE.finditer(decl):
+                bare = _bare_fr_tracks(gm.group(1))
+                if bare:
+                    problems.append(
+                        f"{rel}: {selector[:60]} grid-template-columns 裸 fr（{', '.join(bare[:3])}）"
+                        "—— 用 minmax(0, Nfr) 防溢出"
+                    )
+            if HEIGHT_PX_RE.search(decl) and OVERFLOW_HIDDEN_RE.search(decl):
+                clip_classes |= set(re.findall(r"\.([\w-]+)", selector))
+
+    boxes = _BoxTextParser()
+    boxes.feed(raw)
+    boxes.close()
+    for frame in boxes.results:
+        if not frame["text"]:
+            continue
+        style = frame["style"]
+        if HEIGHT_PX_RE.search(style) and OVERFLOW_HIDDEN_RE.search(style):
+            problems.append(f"{rel}: 行内固定 height + overflow:hidden 且内含文本（文本会被硬裁切）")
+            continue
+        gm = re.search(r"grid-template-columns\s*:\s*([^;]+)", style, re.I)
+        if gm:
+            bare = _bare_fr_tracks(gm.group(1))
+            if bare:
+                problems.append(f"{rel}: 行内 grid-template-columns 裸 fr（{', '.join(bare[:3])}）")
+        if frame["classes"] & clip_classes:
+            problems.append(
+                f"{rel}: 类 {sorted(frame['classes'] & clip_classes)[0]} 固定高度 + overflow:hidden 且内含文本（文本会被硬裁切）"
+            )
+    return problems
+
+
 def scan_file(path: Path, tokens: dict[str, str]) -> list[str]:
-    """几何 + 文本一次跑完（--page 用）。"""
-    return geometry_problems(path, tokens) + text_problems(path, tokens)
+    """几何 + 文本 + 盒模型一次跑完（--page 用）。"""
+    return geometry_problems(path, tokens) + text_problems(path, tokens) + box_overflow_problems(path, tokens)
 
 
 def main(argv: list[str]) -> int:
-    if len(argv) < 2:
-        print("用法: python agent/checks/page_scan.py <html> [--repo <gary-ui 根>]")
+    args = argv[1:]
+    if "--page" in args:
+        idx = args.index("--page")
+        if idx + 1 >= len(args) or args[idx + 1].startswith("-"):
+            print("用法: python agent/checks/page_scan.py --page <html> [--repo <gary-ui 根>]")
+            return 2
+        target = Path(args[idx + 1]).resolve()
+        rest = args[:idx] + args[idx + 2:]
+    elif args and not args[0].startswith("--"):
+        target = Path(args[0]).resolve()
+        rest = args[1:]
+    else:
+        print("用法: python agent/checks/page_scan.py <html> | --page <html> [--repo <gary-ui 根>]")
         return 2
-    target = Path(argv[1]).resolve()
     if not target.exists():
         print(f"找不到文件：{target}")
         return 2
-    repo = Path(argv[argv.index("--repo") + 1]).resolve() if "--repo" in argv else target.parent
+    repo = Path(rest[rest.index("--repo") + 1]).resolve() if "--repo" in rest else target.parent
     problems = scan_file(target, _tokens(repo))
     if not problems:
         print(f"page checks: ok  {target.name}")

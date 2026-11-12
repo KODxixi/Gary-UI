@@ -1,14 +1,67 @@
 ---
 name: gary-liquidglass-ui
-description: 使用 Gary-UI 设计、实现或审查 Liquid Glass 界面。默认在当前对话中澄清关键问题并直接实施；以本 SKILL.md 所在的完整仓库为资源根。只有用户明确要求且已配置本地 Session 集成时，才升级为受监控的 HTML 共创 Session。用户说「Gary-UI流程图」时，直接按 docs/FLOW_DIAGRAM.md 执行。
+description: 使用 Gary-UI 设计、实现或审查 Liquid Glass 界面（默认表面为 Material 3 Tonal Surface，玻璃仅用户点名时使用）。默认在当前对话中澄清关键问题并直接实施；以本 SKILL.md 所在的完整仓库为资源根。只有用户明确要求且已配置本地 Session 集成时，才升级为受监控的 HTML 共创 Session。用户说「Gary-UI流程图」时，直接按 docs/FLOW_DIAGRAM.md 执行。
 ---
 
 # Gary-UI
 
-> 版式红线（卡片圆角、外壳分隔线、结论唯一、内部编码）以 `DESIGN.md` §7 为准，
-> 机器闸 `python -B agent/checks/invariants.py`；本文旧表述与之冲突时以后者为准。 2.0
+## 默认档：开工三层（必读，背下来）
 
-Gary-UI 是内容可读性优先的 Liquid Glass Design System，也提供可选的 Agent–User HTML 共创集成。
+### 第一层：4 条硬红线
+
+1. 默认表面 = **Tonal Surface**（不透明填充 + 1px 中性描边 + 微阴影）；**玻璃未点名禁用**
+   （点名 = 用户说出「玻璃卡片 / 液态玻璃 / 毛玻璃」）。
+2. 卡片不嵌套；方角卡片禁用（圆角 ≥8px）；容器 `height: auto` + `overflow: visible`，不裁字。
+3. 颜色只用 token，不写 hex；主次靠明度阶梯与文字三级，不靠装饰。
+4. Grid 用 `minmax(0, 1fr)`，不写裸 `1fr`。
+
+### 第二层：12 个核心 token（全部真实存在于 `tokens/tokens.json`）
+
+| token | 用途 | 什么场景用 |
+|---|---|---|
+| `--gary-surface-page` | 页面底 | 深色 L0.18（≈ #121212）/ 浅色 L0.98（≈ #f8f8f8）中性灰，唯一页面底色 |
+| `--gary-surface-card` | 卡片面 | tonal 卡片的不透明填充 |
+| `--gary-hairline` | 描边 | 卡片 1px 中性描边、发丝分隔线 |
+| `--gary-text-primary` | 主文字 | 标题、结论、关键数值 |
+| `--gary-text-secondary` | 次文字 | 正文、说明 |
+| `--gary-text-tertiary` | 辅助文字 | 注脚、来源、时间戳 |
+| `--gary-accent-neutral` | 主强调 | 焦点描边、选中边（中性亮灰，K-only） |
+| `--gary-radius-card` | 圆角-卡 | 卡片圆角 `clamp(14px, 6cqi, 28px)` |
+| `--gary-radius-panel` | 圆角-面板 | 大面板圆角 `clamp(18px, 5cqi, 44px)` |
+| `--gary-elevation-1` | 阴影-卡 | 卡片微阴影（接触影） |
+| `--gary-space-1` | 间距-基 | 4px 基准间距，`--gary-space-*` 刻度的单位 |
+| `--gary-font-size-body` | 正文字号 | 正文 16px（1rem），行高 1.68 |
+
+### 第三层：可复制的骨架（默认布局，原文即规范）
+
+```html
+<div class="gary-split-workspace">
+  <div class="gary-narrative-stream">
+    <h1>…</h1>
+    <p>…</p>                                    <!-- 正文直接铺，不包卡片 -->
+    <pre class="gary-island-dark">…</pre>        <!-- 代码岛：浅色主题下仍深底 -->
+  </div>
+  <section class="gary-stage-card">
+    <header class="gary-stage-header">…</header>
+    <div class="gary-stage-viewport" data-gary-theme="light">…</div>
+    <footer class="gary-stage-footer">…</footer>
+  </section>
+</div>
+```
+
+左栏 `minmax(340px, 42fr)` 无框流式叙述；右栏 `minmax(440px, 58fr)` 单一大圆角工作台；
+`.gary-stage-viewport` 可单独挂 `data-gary-theme` 形成主题沙箱（深色外壳里嵌白底报告不窜色）。
+
+需要细节时查 `DESIGN.md`（§1.1 表面、§7 版式红线）与 `components/<slug>.json`；
+全量开工流程见文末附录「必读顺序（全量）」。
+
+> 版式红线（卡片圆角、外壳分隔线、结论唯一、内部编码）以 `DESIGN.md` §7 为准，
+> 机器闸 `python -B agent/checks/invariants.py`；本文旧表述与之冲突时以后者为准。
+
+Gary-UI 是内容可读性优先的设计系统，默认审美为 **Material 3 Tonal Surface**：卡片用不透明
+tonal 填充 + 1px 中性描边 + 微阴影，靠明度阶梯分层（深色向上提亮 / 浅色 L0.98 中性灰衬底 + 白色浮岛）；
+玻璃（`.gary-glass*` / backdrop-filter / 光学边缘）是 opt-in 材质，只有用户点名「玻璃卡片 /
+液态玻璃 / 毛玻璃」时才使用。系统也提供可选的 Agent–User HTML 共创集成。
 已安装的 `apple-design` 是还原 Apple 设计逻辑的首要方法入口：功能玻璃克制使用、输入即时反馈、运动可中断、排版随字号适配；
 它不替代 Gary 已批准的材质、图表、点阵和组件语言。
 公开仓库为 [KODxixi/Gary-UI](https://github.com/KODxixi/Gary-UI)。下文所有项目相对路径均从
@@ -24,29 +77,10 @@ Gary-UI 是内容可读性优先的 Liquid Glass Design System，也提供可选
 - 直接对话设计与静态 Demo 不需要 Session 服务、模型凭据或外部专项 Skill。
   Archify、AntV 等专项 Skill 的发现、锁定版本与缺失状态分别见下文接入指南。
 
-## 必读顺序
-
-1. 读 `spec/system.json` 与 `docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md`。
-2. 读 `contracts/task.schema.json`，把完整任务归一化为 Task v2。
-3. 读 `contracts/invocation.schema.json`，为每个 Proposal option 生成完整 Visual Route。
-4. 涉及报告、图表或图示时，读 `spec/scene-recipes.json`、
-   `contracts/visual-manifest.schema.json` 与 `adapters/visual/capabilities.json`；
-   图示（架构 / 工作流 / 时序 / 数据流 / 生命周期）另读 `spec/diagram-recipes.json` 与
-   `docs/DIAGRAM_EXPRESSION.md`，边界命题、状态词与线型语义以该文件为准。
-   涉及 AntV 信息图时再读 `adapters/visual/ANTV_SKILLS.md`，按其中规则发现官方 Skill。
-5. 只有决定升级 Session 后，才读 Session、Proposal、Feedback、Approval、Evidence 与 Command Result Schema。
-6. 读 `DESIGN.md`、`tokens/tokens.json` 和目标 `components/<slug>.json`。
-7. HTML 项目只引入 `tokens/base.css`；需要骨架时使用 `patterns/starting-points/`。
-8. React/shadcn 项目再读 `adapters/react-shadcn/README.md`。
-9. 需要数值更新、案例横向浏览或展示动效时，读 `docs/INTERACTION_RECIPES.md`，复用共享配方；倾斜和分段标题仍是实验，须有当前任务的用户选择后才采用。不要引入 React Bits 受限组件代码。
-10. 优化图表／分析图／表格时，先读 `docs/CHART_EXPRESSION.md` 和 `spec/chart-recipes.json`：按 17 类规则选型，按 7 种标注语法绑定对象、文字、证据身份与依据，图表、表格、判断和导出保持同源。`patterns/shared/chart-recipes.js` 只实现 `combo / waterfall / donut / radar / rose` 五种 SVG 参考及对应数据表，不是新适配器引擎，也不提供完整七种标注的通用渲染器；其余类型复用既有工具。`demo0909.html` 与 `examples/demo0909/cases.json` 用于跨领域验证，不能只替换标题而保留旧判断与几何。最小 API、自动读取的 geometry／字体／笔画／填充和仍须审查的 spacing／对比度等范围见该规范，不把配置字段存在当作已自动执行。
-11. 图表颜色读 `docs/CHART_COLOR.md`，角色与主题值以 `spec/chart-recipes.json` 的 `colorSystem`、`themes` 为准；颜色语义由当前任务定义，不按图型或数组次序随意分配。玻璃与图表共存时读 `docs/VISUAL_EXPRESSION.md`。实体底纹、磨砂玻璃、超白/全透玻璃由 `data-gary-surface="solid|frosted|optical"` 按内容密度调用，不改变既有 Visual Route 的 material 枚举；不复制原参考的行业字段、编号或状态判断。`data-gary-light-scope` 连接背景与清透边缘；鼠标点阵、高光、波面视差默认关闭，根属性 `data-gary-pointer-effects="on"` 只能由 Background 中的明确开启动作设置，减弱动态仍优先。
-12. 涉及 Apple 风格的材质、运动、手势、动态排版或辅助功能升级时，优先完整读取已安装的 `apple-design` 作为设计逻辑入口，再用 Apple 官方 HIG 校验边界；实现沿用本仓库已确认的点阵、三材质、图表与 Background 契约。不要复制 Apple 字体、素材或原生组件。
-
-### Gary-UI 流程图（触发语）
+## Gary-UI 流程图（触发语）
 
 用户说「Gary-UI流程图」时，不重新选型，直接读 `docs/FLOW_DIAGRAM.md` + `spec/flow-diagram.json`；
-报告页用 `scripts/flow_svg.py --report`（03 定稿：中性阶段框、玻璃卡、每个节点名称+摘要+点击详情、端点水滴 13×13、卡片宽度自适应 120–260、主路径提亮、无图例、居中），
+报告页用 `scripts/flow_svg.py --report`（03 定稿：中性阶段框、玻璃卡（渲染器既有定稿，不改变页面默认 tonal 表面）、每个节点名称+摘要+点击详情、端点水滴 13×13、卡片宽度自适应 120–260、主路径提亮、无图例、居中），
 闸 `scripts/check_flow_diagram.py`；不要用 archify / mermaid 重排坐标。
 
 ## 默认协作行为
@@ -250,9 +284,21 @@ finalize 后状态进入 implementing，不能 reopen。
 
 ## 不可破坏的视觉约束
 
+- **默认表面是 Tonal（Material 3 Tonal Surface）**：卡片用不透明 tonal 填充 + 1px 中性描边 +
+  微阴影，靠明度阶梯（深色向上提亮 / 浅色 L0.98 中性灰衬底 + 白色浮岛）分层，不默认套 `.gary-glass-card`。
+  **红线：未收到用户点名玻璃（玻璃卡片 / 液态玻璃 / 毛玻璃），不得使用 `.gary-glass*` /
+  backdrop-filter / 光学边缘。**
+- **主题对等**：亮暗两主题都是一等公民——表面、文字、描边 token 必须双主题都有取值且对比达标；
+  只在单一主题下「能看」的配色按违规处理。拦：只做深色、浅色随手糊、主题切换后窜色。
+- **盒模型溢出**：内容容器 `height: auto` + `overflow: visible`，禁止固定高度裁字、
+  禁止 `overflow: hidden` 吞掉文字缩放后的内容。拦：卡片裁字、长内容被截断。
+- **卡片嵌套**：卡片不套卡片；卡片内部分层用留白、发丝线或字号，不再包一层带底色的块。
+  拦：card-in-card、双层描边与双层阴影叠加。
+- **非标字重**：新页面只主动选择 400 / 500 / 600 / 700（展示标题可用 400）；
+  300 / 800 / 900 等非标字重按违规处理，富文本编辑态除外。拦：靠堆字重做层级。
 - 一张页面只有一个 Scene 和一个全局遮罩；禁止 glass-in-glass。
-- 默认 Scene 是纯黑/纯白底上的唯一点网格；禁止默认叠加线网、卡片等高线或 CSS/Canvas 双重点阵；显式实体底纹只在 Solid 内按 `docs/VISUAL_EXPRESSION.md` 裁切，不应用于页面 Scene。不主动加照片或图片，除非用户明确定制。
-- 完整 Demo 是 Portal、组件、模板与制图目录的视觉基线。普通卡片复用 `patterns/shared/material.js` / `patterns/shared/optical-glass.js`；实底证据板不折射。公开包使用原创光学实现，受再分发限制的旧移植仅保留在维护者本地。
+- 默认 Scene 是中性灰页底（深色 L0.18 / 浅色 L0.98）上的唯一点网格；禁止默认叠加线网、卡片等高线或 CSS/Canvas 双重点阵；显式实体底纹只在 Solid 内按 `docs/VISUAL_EXPRESSION.md` 裁切，不应用于页面 Scene。不主动加照片或图片，除非用户明确定制。
+- 完整 Demo 是 Portal、组件、模板与制图目录的视觉基线。普通卡片默认 tonal 实底；用户点名玻璃时才复用 `patterns/shared/material.js` / `patterns/shared/optical-glass.js`；实底证据板不折射。公开包使用原创光学实现，受再分发限制的旧移植仅保留在维护者本地。
 - 工具操作以圆形图标为主，走默认图标机制 `patterns/shared/morph-icons.js`（React 组件层图标来源 reicon-react；vanilla 静态层与 morph 仍取 Lucide 几何 + morphicons morph 引擎；兼容 `data-gary-icon` / `GaryIcons.set`，新增 `data-gary-icon-to` + `data-gary-icon-toggle` 状态 morph 与 `GaryIcons.morphTo / seek / policy`），默认 44px 点击区、1.6px 描边和可访问名称；导航、分段筛选、内容选择保留文字。静态回退保留 `patterns/shared/icons.js`。
 - 玻璃保持 K-only 中性；状态色只用于小面积反馈。
 - UltraThin、Regular、Thick、SolidPlate 分工明确；正文和表格优先 SolidPlate。
@@ -314,8 +360,8 @@ finalize 后状态进入 implementing，不能 reopen。
 
 ## 场景配方与制图路由
 
-先判定内容目的，再选场景和引擎。阅读场景使用稳定正文底板与独立玻璃导航；分析场景以图表
-主区、判断区和证据区组织；展示场景才允许更强玻璃、背景与有限演示动效。六种文本角色仅为
+先判定内容目的，再选场景和引擎。阅读场景使用稳定正文底板与独立导航（默认 tonal）；分析场景以图表
+主区、判断区和证据区组织；展示场景在用户点名玻璃时才允许更强玻璃、背景与有限演示动效。六种文本角色仅为
 title、section-title、body、label、annotation、metric；正文默认 16px / 1.68，连续正文不强制装卡。
 
 确定性默认路由：
@@ -412,3 +458,24 @@ receiptId、最终 Visual Route、approvalId、checks、acceptanceCoverage、art
 - Task Session 不得直接改源码；在已启用维护者治理集成的环境中，全局默认变化走 Portal 治理。
   公共 checkout 的源码变更遵循其项目授权与贡献流程，不要求启动未配置的本机服务。
 - runtime 只读，不保存虚构的同步回执；所有源修改写入当前安装明确指定的源码 checkout。
+
+## 附录：必读顺序（全量）
+
+默认档三层（文件开头）足够开工；以下全量顺序在需要细节、走完整协作或 Session 流程时使用。
+
+1. 读 `spec/system.json` 与 `docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md`。
+2. 读 `contracts/task.schema.json`，把完整任务归一化为 Task v2。
+3. 读 `contracts/invocation.schema.json`，为每个 Proposal option 生成完整 Visual Route。
+4. 涉及报告、图表或图示时，读 `spec/scene-recipes.json`、
+   `contracts/visual-manifest.schema.json` 与 `adapters/visual/capabilities.json`；
+   图示（架构 / 工作流 / 时序 / 数据流 / 生命周期）另读 `spec/diagram-recipes.json` 与
+   `docs/DIAGRAM_EXPRESSION.md`，边界命题、状态词与线型语义以该文件为准。
+   涉及 AntV 信息图时再读 `adapters/visual/ANTV_SKILLS.md`，按其中规则发现官方 Skill。
+5. 只有决定升级 Session 后，才读 Session、Proposal、Feedback、Approval、Evidence 与 Command Result Schema。
+6. 读 `DESIGN.md`、`tokens/tokens.json` 和目标 `components/<slug>.json`。
+7. HTML 项目只引入 `tokens/base.css`；需要骨架时使用 `patterns/starting-points/`。
+8. React/shadcn 项目再读 `adapters/react-shadcn/README.md`。
+9. 需要数值更新、案例横向浏览或展示动效时，读 `docs/INTERACTION_RECIPES.md`，复用共享配方；倾斜和分段标题仍是实验，须有当前任务的用户选择后才采用。不要引入 React Bits 受限组件代码。
+10. 优化图表／分析图／表格时，先读 `docs/CHART_EXPRESSION.md` 和 `spec/chart-recipes.json`：按 17 类规则选型，按 7 种标注语法绑定对象、文字、证据身份与依据，图表、表格、判断和导出保持同源。`patterns/shared/chart-recipes.js` 只实现 `combo / waterfall / donut / radar / rose` 五种 SVG 参考及对应数据表，不是新适配器引擎，也不提供完整七种标注的通用渲染器；其余类型复用既有工具。`demo0909.html` 与 `examples/demo0909/cases.json` 用于跨领域验证，不能只替换标题而保留旧判断与几何。最小 API、自动读取的 geometry／字体／笔画／填充和仍须审查的 spacing／对比度等范围见该规范，不把配置字段存在当作已自动执行。
+11. 图表颜色读 `docs/CHART_COLOR.md`，角色与主题值以 `spec/chart-recipes.json` 的 `colorSystem`、`themes` 为准；颜色语义由当前任务定义，不按图型或数组次序随意分配。玻璃与图表共存时读 `docs/VISUAL_EXPRESSION.md`。实体底纹、磨砂玻璃、超白/全透玻璃由 `data-gary-surface="solid|frosted|optical"` 按内容密度调用（玻璃类表面均 opt-in：仅用户点名玻璃时使用，默认走 tonal 实底），不改变既有 Visual Route 的 material 枚举；不复制原参考的行业字段、编号或状态判断。`data-gary-light-scope` 连接背景与清透边缘；鼠标点阵、高光、波面视差默认关闭，根属性 `data-gary-pointer-effects="on"` 只能由 Background 中的明确开启动作设置，减弱动态仍优先。
+12. 涉及 Apple 风格的材质、运动、手势、动态排版或辅助功能升级时，优先完整读取已安装的 `apple-design` 作为设计逻辑入口，再用 Apple 官方 HIG 校验边界；实现沿用本仓库已确认的点阵、三材质、图表与 Background 契约。不要复制 Apple 字体、素材或原生组件。

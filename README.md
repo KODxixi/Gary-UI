@@ -1,12 +1,12 @@
 <p align="center"><img src="patterns/shared/gary-architecture.svg" alt="Gary-UI" width="72"></p>
 
 <h1 align="center">Gary-UI</h1>
-<p align="center">Agent 自主驱动的液态玻璃 UI 系统。</p>
+<p align="center">Agent 自主驱动的 UI 系统：默认 Tonal Surface，液态玻璃为 opt-in 材质。</p>
 <p align="center"><a href="https://kodxixi.github.io/Gary-UI/">打开完整 Demo</a> · <a href="https://kodxixi.github.io/Gary-UI/demo0909.html">图表与材质 Demo</a> · <a href="https://kodxixi.github.io/Gary-UI/portal/">探索设计系统</a> · <a href="#五分钟开始">复制与使用</a> · <a href="docs/ROADMAP.md">一起深化</a></p>
 
 [![三种材质：实体底纹、磨砂玻璃、超白/全透玻璃](docs/images/materials-demo.png)](https://kodxixi.github.io/Gary-UI/demo0909.html#materials)
 
-Gary-UI 把排版、卡片、图标、图表与动效放进真实页面里：先体验它们如何一起工作，再把同一套规则带回自己的项目。默认纯黑 / 纯白、单一点网格、中文阅读尺度和克制的玻璃材质。面向人的设计说明与面向 Agent 的契约放在同一份源码中。
+Gary-UI 把排版、卡片、图标、图表与动效放进真实页面里：先体验它们如何一起工作，再把同一套规则带回自己的项目。默认中性灰 tonal 表面（深色 L0.18 / 浅色 L0.98）、单一点网格、中文阅读尺度；液态玻璃为点名启用的 opt-in 材质。面向人的设计说明与面向 Agent 的契约放在同一份源码中。
 
 原创代码采用 [MIT](LICENSE)。这是持续演进的设计系统；欢迎 Fork、修改、做成自己的页面，也欢迎把具体场景和改进带回来。
 

@@ -21,7 +21,7 @@
     },
     {
       "path": ".github/workflows/agent-gates.yml",
-      "sha256": "f09169e87a96b7defdb2b5bf26f3bf9d79bb3f30b1bf4945ccbc27b2f32be0dd"
+      "sha256": "32b6987b075840dd80b31700188a1425fce693cf7d3523126ee7c5107595510c"
     },
     {
       "path": ".gitignore",
@@ -33,7 +33,7 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "3465f44b09755dcb26ac18d217928e347cfe3676e37ef9eff734e17e3c40a01c"
+      "sha256": "422e8f1a33b93521b20414661ef0dbbb9d43993144de3194405bd8a2a5957e70"
     },
     {
       "path": "CHANGELOG.md",
@@ -45,7 +45,7 @@
     },
     {
       "path": "DESIGN.md",
-      "sha256": "f4b4808322d13ff9d0d14034ec4395cdc0630a5d3cd65422fcefae82207ca829"
+      "sha256": "8167b1200058c0f0db2238ba6306c72b0f6280cfc5e013c6ed97861e0fa2eaa2"
     },
     {
       "path": "LICENSE",
@@ -57,11 +57,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "1e767c2f4bfc021e86eae5c06dd78876cc4df65fcfbd0d55dad329eee9300f65"
+      "sha256": "d40a7f1680c832021e20f76d47f06766f2ffbba112ece33ff0288e1b9d154d06"
     },
     {
       "path": "SKILL.md",
-      "sha256": "a7edc6ee179b86ecce61061002e3abd06b3a9a93d8524504e1a8c5c0fc1d4598"
+      "sha256": "382c7a8b75f18741e1712a6d1cb25d5c4966b2415d7ff36556f36b4fce8848d2"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -1377,7 +1377,7 @@
     },
     {
       "path": "adapters/react-shadcn/src/lib/tokens.ts",
-      "sha256": "d6cff3b7af407d061b0f6b6147d9f3a0872b13014468dc83cc75fd180808bbae"
+      "sha256": "772fc5b1da490ca940f39b936cd9b87a8428845f395aab0eb69234b37b917b05"
     },
     {
       "path": "adapters/react-shadcn/src/lib/use-gesture-value.ts",
@@ -1405,7 +1405,7 @@
     },
     {
       "path": "adapters/react-shadcn/src/styles/gary-ui.css",
-      "sha256": "caf76316b1bfafa4904ba4f318e634e68e6be697828dc40d2f5763902c39d828"
+      "sha256": "d580695609fa6956163712b8970ce301f0ecad36011775c152a5a7629ef24794"
     },
     {
       "path": "adapters/react-shadcn/tsconfig.build.json",
@@ -1789,7 +1789,7 @@
     },
     {
       "path": "agent/CONTRACT.md",
-      "sha256": "7f3d7084a575b7e19e5103eec72fa236d1b7544255abfacdb3b67dcf92799f66"
+      "sha256": "e312d4557288d243f9d8cb3b28b8b902b044eea46d0c300602ee8362dd32d61c"
     },
     {
       "path": "agent/checks/audit.cjs",
@@ -1809,7 +1809,7 @@
     },
     {
       "path": "agent/checks/invariants.py",
-      "sha256": "dee472f307612d1051874b18d5bd87689164b5f6e475d08a6de58d5974c1c7f0"
+      "sha256": "29f72b0e8e347742cbae4ba30b460621c24ed6d5cc1f1a170f9cc1ec30fa1e89"
     },
     {
       "path": "agent/checks/no-wrap.cjs",
@@ -1817,7 +1817,7 @@
     },
     {
       "path": "agent/checks/page_scan.py",
-      "sha256": "ce5f0422b62b8ef850dfe24624405085b7496c67edef8ceef9a28c7005414f99"
+      "sha256": "fbe80d2d6320f5e02f6933cbd937167820f71391fda133eb521f12ee79cb529f"
     },
     {
       "path": "agent/checks/serve.cjs",
@@ -4541,7 +4541,7 @@
     },
     {
       "path": "patterns/patterns.css",
-      "sha256": "864422ff79b3744d51dec5b6386e205ca3bbe2c587aa04b69db26ac89008becf"
+      "sha256": "d2f89a4fc0dbb4a5a0821e7eeee35dedc32fe467eaa14ace3b111c59113fed82"
     },
     {
       "path": "patterns/recipes/audit-report/README.md",
@@ -4569,7 +4569,7 @@
     },
     {
       "path": "patterns/recipes/decision-report/decision-report.css",
-      "sha256": "b23ff1235e6dc7845c2667f02067295fcee437195f1c0a2ded1577561eaf41c9"
+      "sha256": "1e4f0bd1bd6e37ca659e3fa8b6c938ab689116774e8cf3b69bf0fcb9d1c346b0"
     },
     {
       "path": "patterns/recipes/decision-report/decision-report.js",
@@ -4853,7 +4853,7 @@
     },
     {
       "path": "scripts/build_public.py",
-      "sha256": "12216f2546ff06e2cff59787650779d47e07aa90855a3d4757a6a2919a2baeea"
+      "sha256": "ceba0b71157934d993b2499fa0362741f6296e96ed6928ab838ab3b51bd3548a"
     },
     {
       "path": "scripts/build_site.py",
@@ -5241,11 +5241,11 @@
     },
     {
       "path": "tokens/base.css",
-      "sha256": "48f8a87804ebf3f371ae99547f3b6ca6a973c04920e3f1fea620fad643aec462"
+      "sha256": "fdc285422cb9a93c581458a4a7f36117ccb907c436eb5fbbfeccc2cca917150e"
     },
     {
       "path": "tokens/tokens.json",
-      "sha256": "da64e8f831fe8b7e849ff7ebf9afca54b5d8e5328f09f4e4e1cd6f105d4bcdfe"
+      "sha256": "9651fcbd9b10cb8f40921d3d44836fe1b55061b6549ed947bd9e6693702c984b"
     }
   ],
   "note": "Public source snapshot only; no parent repository history, machine receipts or restricted component ports."

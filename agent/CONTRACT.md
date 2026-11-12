@@ -32,7 +32,9 @@ node render.mjs <recipe> <content.json> [out.html]
 | 强调 | `--accent` | `#74a7ff` | `#0071e3` |
 | 状态 | `--ok` `--warn` `--bad` | `#30d158` `#ffd60a` `#ff453a` | 同 |
 
-**只允许一种"贵"**：板 + 1px 顶部高光（`--hair`）+ 一层投影（`--shadow`）。不许玻璃套玻璃、不许渐变文字、不许彩色光晕。
+**默认表面 = Tonal（Material 3 Tonal Surface）**：卡片一律不透明 tonal 填充（板色 + 1px 中性描边/顶部高光 `--hair` + 一层投影 `--shadow`），靠明度阶梯分层。
+**玻璃是 opt-in 材质，不是默认。红线：未收到用户点名玻璃（玻璃卡片 / 液态玻璃 / 毛玻璃），不得使用 `.gary-glass*` / backdrop-filter / 光学边缘。**
+用户点名玻璃时也只许一层，不许玻璃套玻璃、不许渐变文字、不许彩色光晕。
 
 ## 3. 原语（只有这些类）
 
@@ -86,6 +88,10 @@ node render.mjs <recipe> <content.json> [out.html]
 > 未覆盖项不要假装已验：交付说明里按上表如实标注。
 
 ## 5. 配方一览
+
+**默认配方 = 双栏骨架**（`SKILL.md` 默认档第三层）：左 `minmax(340px, 42fr)` 流式叙述 +
+右 `minmax(440px, 58fr)` `.gary-stage-card` 工作台（header / viewport / footer；viewport 可挂
+`data-gary-theme` 做主题沙箱）。新页面无特殊诉求时从这里起步，再按需换下表配方。
 
 | 配方 | 用在哪 | 结构 |
 |---|---|---|
