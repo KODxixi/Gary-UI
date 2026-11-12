@@ -152,7 +152,7 @@ export declare const garyTokens: {
     readonly "--gary-shadow-contact": {
         readonly type: "shadow";
         readonly dark: "0 2px 5px rgba(0, 0, 0, 0.46)";
-        readonly light: "0 2px 5px rgba(0, 0, 0, 0.14)";
+        readonly light: "0 2px 5px rgba(0, 0, 0, 0.14), 0 6px 28px -6px rgba(0, 0, 0, 0.10)";
     };
     readonly "--gary-shadow-environment": {
         readonly type: "shadow";
@@ -485,7 +485,7 @@ export declare const garyTokens: {
     readonly "--gary-card-edge": {
         readonly type: "color";
         readonly dark: "rgba(255,255,255,.14)";
-        readonly light: "rgba(0,0,0,.10)";
+        readonly light: "rgba(0,0,0,.14)";
     };
     readonly "--gary-card-shine": {
         readonly type: "color";
