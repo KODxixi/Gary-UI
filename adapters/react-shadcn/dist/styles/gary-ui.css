@@ -1534,7 +1534,7 @@ textarea::-webkit-scrollbar-track {
   --gary-action-border: oklch(0.26 0 255 / 0.08);
   --gary-text-primary: oklch(0.26 0 255 / 0.94);
   --gary-text-secondary: oklch(0.26 0 255 / 0.70);
-  --gary-text-tertiary: oklch(0.26 0 255 / 0.63);
+  --gary-text-tertiary: oklch(0.24 0 255 / 0.63);
   --gary-on-surface: var(--gary-text-strong);
   --gary-on-surface-variant: var(--gary-text-secondary);
   --gary-on-surface-muted: var(--gary-text-tertiary);
@@ -1588,7 +1588,7 @@ textarea::-webkit-scrollbar-track {
   --gary-text-strong: oklch(0.22 0 0);
   --gary-text-body: oklch(0.3 0 0);
   --gary-text-meta: oklch(0.45 0 0);
-  --gary-text-caption: oklch(0.56 0 0);
+  --gary-text-caption: oklch(0.53 0 0);
   --gary-text-faint: oklch(0.68 0 0);
   --gary-accent-neutral: oklch(0.24 0 0);
   --gary-selected-fill: oklch(0.93 0 0);
