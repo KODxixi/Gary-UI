@@ -70,7 +70,6 @@ body.application-mode {
 ) {
   --gary-glass-frost:
     linear-gradient(132deg, rgba(255, 255, 255, .035), transparent 32%, rgba(255, 255, 255, .018) 68%, transparent);
-  --gary-glass-specular-opacity: .22;
   --gary-glass-sheen-opacity: .15;
 }
 

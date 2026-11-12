@@ -38,7 +38,7 @@ import { useSpringStyle } from "@gary-ui/react-shadcn"
 | **选组件** | [COMPONENTS.md](adapters/react-shadcn/COMPONENTS.md) | 决策树 → 相似对比 → 组件速查 |
 | **写 React 组件** | [react-shadcn/README.md](adapters/react-shadcn/README.md) | Quick Start + Dialog Spring 示例 |
 | **查设计规范** | `components/<slug>.json` | variant / size / state / interaction / a11y |
-| **查 token 值** | [tokens/tokens.json](tokens/tokens.json) | 207 个 `--gary-*` 变量（`tokens/base.css` 生成物里 210 个唯一名，多出的是轴内覆盖） |
+| **查 token 值** | [tokens/tokens.json](tokens/tokens.json) | 214 个 `--gary-*` 变量（`tokens/base.css` 生成物里 216 个唯一名，多出的是轴内覆盖） |
 | **改 token** | `tokens/tokens.json` | 改完跑 `npm run tokens:generate` |
 | **做页面 Demo** | [README.md](README.md) | 六场景 Demo + 五分钟开始 |
 | **做图表** | [CHART_EXPRESSION.md](docs/CHART_EXPRESSION.md) | 17 类选型 + 7 种标注 |
@@ -56,7 +56,7 @@ import { useSpringStyle } from "@gary-ui/react-shadcn"
 - **Spring hook**：`useSpring` · `useGestureValue` · `useSpringStyle`（从 `@gary-ui/react-shadcn` 导出）
 - **Token CSS 桥接**：`adapters/react-shadcn/src/styles/gary-ui.css`
 - **组件契约**：`components/*.json`（64 个，另有 `index.json` 索引）
-- **Token 源**：`tokens/tokens.json`（207 个 `--gary-*` 变量；`base.css` 生成物 210 个唯一名）
+- **Token 源**：`tokens/tokens.json`（214 个 `--gary-*` 变量；`base.css` 生成物 216 个唯一名）
 - **设计约束**：[DESIGN.md](DESIGN.md)
 - **UI 工作流**：[SKILL.md](SKILL.md)
 - **Agent 协作契约**：[调用白皮书](docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md)

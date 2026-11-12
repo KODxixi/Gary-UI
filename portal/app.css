@@ -2927,9 +2927,7 @@ a:focus-visible {
     transparent 100%
   );
   --gary-glass-blur: 20px;
-  --gary-glass-specular-opacity: 0.17;
   --gary-glass-sheen-opacity: 0.09;
-  --gary-glass-edge-width: 1px;
   top: 0;
   width: min(calc(100% - 40px), 1440px);
   min-height: 66px;
@@ -3222,9 +3220,7 @@ summary.top-nav-item::after {
   );
   --gary-glass-fill: var(--portal-active-fill);
   --gary-glass-blur: var(--portal-active-blur);
-  --gary-glass-specular-opacity: 0.18;
   --gary-glass-sheen-opacity: 0.10;
-  --gary-glass-edge-width: 1px;
   border-top-color: color-mix(in srgb, var(--portal-edge) 84%, transparent);
   border-left-color: color-mix(in srgb, var(--portal-edge) 62%, transparent);
   border-right-color: var(--portal-edge-shadow);
@@ -3232,7 +3228,6 @@ summary.top-nav-item::after {
 }
 
 .review-form :where(.gary-field, .gary-button) {
-  --gary-glass-specular-opacity: 0;
   --gary-glass-sheen-opacity: 0;
   background: var(--portal-control);
   box-shadow:
@@ -3244,7 +3239,6 @@ summary.top-nav-item::after {
 
 .review-surface {
   --gary-glass-blur: 30px;
-  --gary-glass-specular-opacity: 0.20;
   --gary-glass-sheen-opacity: 0.11;
 }
 

@@ -145,12 +145,10 @@ REQUIRED_TOKENS = {
 REQUIRED_GLASS_TOKENS = {
     "--gary-glass-frost",
     "--gary-glass-highlight-angle",
-    "--gary-glass-specular-opacity",
     "--gary-glass-sheen-opacity",
     "--gary-glass-brightness",
     "--gary-glass-contrast",
     "--gary-glass-saturate",
-    "--gary-glass-edge-width",
 }
 
 REQUIRED_DENSITY_TOKENS = {
