@@ -293,11 +293,28 @@ node agent/checks/layout.mjs out/viz-charts.html
 ```
 
 - 实测：`check-flow.mjs` 三张图 `edges` 合计 13 条，`非正交=0 无箭头=0`、`node boxes 相交=0`、`FLOW GEOMETRY PASS`；`viz-charts.html` 与 `viz-flow.html` 的 `selfcheck` ALL PASS、`layout` 6 条全 PASS。
-- 颜色：`viz/*.mjs` 里 **0 个 hex**，全部取 `--color-*` token。多系列图表按**实体下标**取 `--color-data-categorical-*`（同一对象跨图同色）；流程图的角色色也绑在同一组 data token 上，所以图与图之间不会各造一套色。要换观感改 `theme/gary.theme.mjs`，不改 `viz/`。
-  **单系列裁决**：`series.length === 1` 不共用一支颜色 —— 按图型分色相（柱→蓝 `categorical-blue`、折线→绿 `categorical-green`、面积→青 `categorical-cyan`、直方→紫 `categorical-purple`，见 `viz/palette.mjs` 的 `SINGLE_HUE`）。六张单系列图共用同一个墨绿会把整页读成单色，那就不是调色板了。多系列仍按实体下标取 `data-1..8`。黄色 `categorical-yellow` 只做填充，不做线条 —— 白底上太浅。
+- 颜色：`viz/*.mjs` 里 **0 个 hex**，全部取 `--color-*` token。多系列图表按**系列数组下标**取 `--color-data-categorical-*` —— 同一 `series` 顺序里第 N 项在各图拿到同一色，顺序一变颜色就跟着变（不按名字绑定，见「已知限制」第 1 条）。流程图的角色色也绑在同一组 data token 上，所以图与图之间不会各造一套色。要换观感改 `theme/gary.theme.mjs`，不改 `viz/`。
+  **单系列裁决**：`series.length === 1` 不共用一支颜色。**柱图按类别位置取色** —— 每根柱是一个独立实体（渠道 / 月份 / 户型），一页七张图共用一支蓝会被读成单色，Gary 说的「颜色太单一」根子在这。折线是一整条线、没法按点取色，固定 `categorical-green`（见 `viz/palette.mjs` 的 `SINGLE_HUE`，只剩这一个键）。黄色 `categorical-yellow` 只做填充、不做线条 —— 白底 1.71，当描边看不见。
 - 每张图必须给 `source`（渲染成卡底一行脚注，本地路径会被剥成文件名）；`status` 字段保留但**不渲染到页面**——它此前渲染成一个 badge 压在卡片里，占掉信息空间，2026-11-17 移除，写它不会有视觉效果。演示数据在页级 `meta.badge` 标 `示意数据`。没有来源的图不接受。
 
 ---
+
+### 7.4 已知限制（2026-11-17 两轮对抗审查登记）
+
+24 条攻击 → 独立裁判判有效 14 条。以下四条**明确不修**，改代码前先看这里：
+
+1. **跨图同色不按名字绑定** —— 取色靠 `series` 数组下标或柱的类别位置，不是实体名。同一个
+   楼盘在柱图排第 2、在环形图排第 5，就是两个颜色。要按名字绑定得在内容层给每个数据点加
+   `entity` 字段，目前没这个需求（Gary 要的是「别太单一」，不是「严格同色」）。
+2. **分类上限 8** —— 第 9 个起 modulo 回落与前面同色，`seriesStyle` 会 `console.warn` 一次
+   但不阻断渲染（静默同色比报错更难查：图例出现两个同色块，读者会以为数据错了）。超过 8
+   类请拆图或合并类别。
+3. **三个浅色豁免 3:1** —— `categorical-yellow` 1.71 / `cyan` 2.74 / `orange` 2.74 对卡片底
+   达不到非文本图形 3:1。`contrast` 闸把它们标成 `WAIVED` 并打印理由，**不标 PASS**。压深到
+   3:1 会离开 Google 色板、回到 Gary 已否决两次的「太深」。这三个只做大面积填充。
+4. **暗色侧色盲可分性** —— `categorical-purple` 与 `cyan` 在 deuteranopia 模拟下 ΔE≈5.5
+   （亮侧 26.5）：暗色页上这两个相邻段对红绿色盲不可分。色板是 Material 200/300，换色相
+   就不是这一套了。靠图例文字兜底。
 
 ## 8. 红线（踩了就是退回）
 

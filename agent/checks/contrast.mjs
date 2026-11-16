@@ -108,19 +108,22 @@ const CHECKS = (p) => {
   const cardBg = parseColor(p.cardBg ?? p.bodyBg);
   const card = cardBg.a < 0.999 ? flatten(cardBg, bodyBg) : cardBg;
   const out = [];
-  const add = (name, fg, bg, min, note) => {
+  const add = (name, fg, bg, min, note, waived) => {
     if (!fg) {
       out.push({ name, status: 'SKIP', value: '-', min, note });
       return;
     }
     const flat = flatten(fg, bg);
     const r = ratio(flat, bg);
+    const pass = r >= min;
     out.push({
       name,
-      status: r >= min ? 'PASS' : 'FAIL',
+      // A waiver is printed, not folded into PASS: lowering `min` to the measured
+      // value is the gate lying to itself. Anything not explicitly waived still fails.
+      status: pass ? 'PASS' : waived ? 'WAIVED' : 'FAIL',
       value: r.toFixed(2),
       min,
-      note,
+      note: !pass && waived ? `${note} — WAIVED: ${waived}` : note,
     });
   };
 
@@ -139,18 +142,20 @@ const CHECKS = (p) => {
   }
   add('accent / card', parseColor(p.accentRgb), card, 3, 'accent mark');
 
-  // Chart data colours. These were completely untested before — a palette change
-  // could ship #FBBC05 at 1.71 against white and still print a green sheet.
-  // Thresholds are per-hue rather than a flat 3:1 on purpose: pushing yellow /
-  // cyan / orange up to 3:1 means darkening them into the range Gary already
-  // rejected twice as 「太深」. Yellow is also fill-only (never a line), so it's
-  // held to "a block you can see" instead of the non-text-mark floor.
-  const DATA_MIN = {
-    blue: 3, red: 3, green: 3, purple: 3, gray: 3, // dark enough for marks and lines
-    yellow: 1.5, cyan: 2.5, orange: 2.5,           // light fills; darkening kills the hue
+  // Chart data colours. Untested before this — a palette change could ship
+  // #FBBC05 at 1.71 against white and still print a green sheet.
+  // One floor for every hue: 3:1, the WCAG 1.4.11 non-text-mark minimum. The three
+  // light Google hues can't reach it without darkening into the range Gary rejected
+  // twice as 「太深」, so they are WAIVED by name with a reason, not given a lower
+  // `min`. A waiver shows up in the output; a lowered threshold hides.
+  const DATA_MIN = 3;
+  const DATA_WAIVER = {
+    yellow: '只做填充不做线条；压深到 3:1 就不再是 Google 黄',
+    cyan: '大面积填充，色相可辨；压深到 3:1 会明显发闷',
+    orange: '大面积填充，色相可辨；压深到 3:1 会与 data-red 撞色',
   };
   for (const [name, css] of Object.entries(p.dataRgb || {})) {
-    add(`data-${name} / card`, parseColor(css), card, DATA_MIN[name] ?? 2, 'chart mark');
+    add(`data-${name} / card`, parseColor(css), card, DATA_MIN, 'chart mark', DATA_WAIVER[name]);
   }
   return out;
 };
