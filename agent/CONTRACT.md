@@ -179,7 +179,7 @@ npx @astryxdesign/cli component Button Badge Text --json
 > Astryx 共 7 个圆角 token（`element` `container` `inner` `full` `none` `page` `chat`，实测 `astryx.css`）。Gary 只覆盖前三个，其余沿用中性默认。
 
 - 语义色（success / warning / error / info）**沿用 Astryx 中性默认**，Gary 不铺平调色板。
-- 数据色在 `theme/gary.theme.mjs` 里另有一组：`--color-data-1…8`（八色分类，明暗各一套）+ `--color-data-primary` / `-secondary` / `-reference` / `-negative`。图表与流程图共用这组，`viz/*.mjs` 不新造色。
+- 数据色：分类八色**复用底座已有的 `--color-data-categorical-*` 族**（blue / red / yellow / green / purple / cyan / orange / gray，值在 `theme/gary.theme.mjs` 覆盖，明暗各一套），另加角色色 `--color-data-primary` / `-secondary` / `-reference` / `-negative`。`--color-data-neutral` 取底座原值、**不再声明**（重复声明会在产物里出现两次并静默覆盖）。图表与流程图共用这组，`viz/*.mjs` 不新造色。
 - **卡片圆角与内距由渲染器按宽度分级**（`agent/recipes/sections.mjs` 的 `CARD_FRAMES`：小卡 14/20 · 中卡 16/24 · 大卡 20/28，px）。`layout.mjs` 按宽度带校验（`<320 → 12–16`、`320–700 → 14–18`、`>700 → 18–24`）。所以**不要给 Card 传 `style` 圆角**，会被闸门判违规。
 - 明暗两种模式都是一等公民：`meta.theme: "dark"` 触发暗色 token 组，无需另写样式。
 
@@ -282,7 +282,7 @@ WROTE C:\AI\UI\gary-ui\out\viz-flow.html bytes=359941 blocks=6 charts=0 flows=3
 
 - `nodes[]`：`{ id, role: input|process|decision|result, kind: capsule|card|decision, title, sub, col?, row? }`
 - `edges[]`：`{ from, to, kind: main|side|dashed, label? }`（`main` 实线 + 深色箭头，`side` 浅色箭头，`dashed` 虚线旁支）
-- 几何不归你：正交折线、90° 拐点、每条边带 `marker-end`、卡片圆角 8。四个角色各占一个色相（`input`=`--color-data-3` · `process`=`--color-data-1` · `decision`=`--color-data-4` · `result`=`--color-data-2`），一张图最多四色，颜色只表示分工、不表示好坏。写错 `flow` 值抛 `viz/flow: 未知流程类型 flow="…"`。
+- 几何不归你：正交折线、90° 拐点、每条边带 `marker-end`、卡片圆角 8。四个角色各占一个色相（`input`=`categorical-gray` · `process`=`categorical-blue` · `decision`=`categorical-purple` · `result`=`categorical-green`）—— **成功出口不许用红**，红是 `negative`，一张图最多四色，颜色只表示分工、不表示好坏。写错 `flow` 值抛 `viz/flow: 未知流程类型 flow="…"`。
 
 ### 7.3 闸门与颜色
 
@@ -293,8 +293,8 @@ node agent/checks/layout.mjs out/viz-charts.html
 ```
 
 - 实测：`check-flow.mjs` 三张图 `edges` 合计 13 条，`非正交=0 无箭头=0`、`node boxes 相交=0`、`FLOW GEOMETRY PASS`；`viz-charts.html` 与 `viz-flow.html` 的 `selfcheck` ALL PASS、`layout` 6 条全 PASS。
-- 颜色：`viz/*.mjs` 里 **0 个 hex**，全部取 `--color-*` token。多系列图表按**实体下标**取 `--color-data-1…8`（同一对象跨图同色）；流程图的角色色也绑在同一组 data token 上，所以图与图之间不会各造一套色。要换观感改 `theme/gary.theme.mjs`，不改 `viz/`。
-  **单系列裁决**：`series.length === 1` 不共用一支颜色 —— 按图型分色相（柱→蓝 `data-1`、折线→绿 `data-4`、面积→青 `data-6`、直方→紫 `data-5`，见 `viz/palette.mjs` 的 `SINGLE_HUE`）。六张单系列图共用同一个墨绿会把整页读成单色，那就不是调色板了。多系列仍按实体下标取 `data-1..8`。黄色 `data-3` 只做填充，不做线条 —— 白底上太浅。
+- 颜色：`viz/*.mjs` 里 **0 个 hex**，全部取 `--color-*` token。多系列图表按**实体下标**取 `--color-data-categorical-*`（同一对象跨图同色）；流程图的角色色也绑在同一组 data token 上，所以图与图之间不会各造一套色。要换观感改 `theme/gary.theme.mjs`，不改 `viz/`。
+  **单系列裁决**：`series.length === 1` 不共用一支颜色 —— 按图型分色相（柱→蓝 `categorical-blue`、折线→绿 `categorical-green`、面积→青 `categorical-cyan`、直方→紫 `categorical-purple`，见 `viz/palette.mjs` 的 `SINGLE_HUE`）。六张单系列图共用同一个墨绿会把整页读成单色，那就不是调色板了。多系列仍按实体下标取 `data-1..8`。黄色 `categorical-yellow` 只做填充，不做线条 —— 白底上太浅。
 - 每张图必须给 `source`（渲染成卡底一行脚注，本地路径会被剥成文件名）；`status` 字段保留但**不渲染到页面**——它此前渲染成一个 badge 压在卡片里，占掉信息空间，2026-11-17 移除，写它不会有视觉效果。演示数据在页级 `meta.badge` 标 `示意数据`。没有来源的图不接受。
 
 ---

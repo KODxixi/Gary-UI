@@ -117,33 +117,29 @@ export const GARY_TOKEN_OVERRIDES = {
   // 5/6/8 取 Material purple/cyan/blue-grey 500；7 取 deep orange 400，因为
   // 500 的 #FF5722 与 data-2 红太近。
   // Dark mode uses Material 200/300 so the same hue stays legible on #262626.
-  '--color-data-1': ['#4285F4', '#8AB4F8'], // Google blue
-  '--color-data-2': ['#EA4335', '#F28B82'], // Google red
-  '--color-data-3': ['#FBBC05', '#FDD663'], // Google yellow
-  '--color-data-4': ['#34A853', '#81C995'], // Google green
-  '--color-data-5': ['#9C27B0', '#CE93D8'], // purple
-  '--color-data-6': ['#00ACC1', '#4DD0E1'], // cyan
-  '--color-data-7': ['#FF7043', '#FFAB91'], // deep orange
-  '--color-data-8': ['#78909C', '#B0BEC5'], // blue grey
+  // 复用 Astryx 底座已声明的分类色 token 名 --color-data-categorical-*，只换值。
+  // 底座给的是 #0171E3/#F5394F/#0B991F 这类深色、且 light-dark 两侧同值（暗页上
+  // 不可用），Gary 明确否决过「太深」。底座没有 yellow / gray 两个 categorical，
+  // 按同一命名规范补齐 —— 自造新的数据色名会和底座各演进一套。
+  '--color-data-categorical-blue': ['#4285F4', '#8AB4F8'], // Google logo blue
+  '--color-data-categorical-red': ['#EA4335', '#F28B82'], // Google logo red
+  '--color-data-categorical-yellow': ['#FBBC05', '#FDD663'], // Google logo yellow（只填充）
+  '--color-data-categorical-green': ['#34A853', '#81C995'], // Google logo green
+  '--color-data-categorical-purple': ['#9C27B0', '#CE93D8'], // Material purple 500
+  '--color-data-categorical-cyan': ['#00ACC1', '#4DD0E1'], // Material cyan 500
+  '--color-data-categorical-orange': ['#FF7043', '#FFAB91'], // Material deep orange 400
+  '--color-data-categorical-gray': ['#78909C', '#B0BEC5'], // Material blue grey 500
 
   // Chart role colours. `primary` is Google blue — the ink green is the UI
   // accent (#24514a) and stays out of the plots, otherwise every single-series
   // chart turns the page monochrome.
+  // `--color-data-neutral` 不在这里声明：底座已有（light-dark(#8494A3,#8C939B)），
+  // 重复声明会静默覆盖底座值，产出里同一 token 出现两次。
   '--color-data-primary': ['#4285F4', '#8AB4F8'],
   '--color-data-secondary': ['#34A853', '#81C995'],
   // 参考线/基线用中性灰，不用高饱和黄：黄色会压过数据系列，读者先看到均值线而不是柱。
   '--color-data-reference': ['#5F6368', '#9AA0A6'],
   '--color-data-negative': ['#EA4335', '#F28B82'],
-  '--color-data-neutral': ['#78909C', '#B0BEC5'],
-
-  // Sequential ramp (heat / intensity), 7 stops, Material blue 50 -> 700.
-  '--color-data-seq-1': ['#E8F0FE', '#0B2A5B'],
-  '--color-data-seq-2': ['#C6DAFC', '#123F82'],
-  '--color-data-seq-3': ['#A1C2FA', '#1A56A8'],
-  '--color-data-seq-4': ['#7BAAF7', '#2166C8'],
-  '--color-data-seq-5': ['#5E97F6', '#5E97F6'],
-  '--color-data-seq-6': ['#4285F4', '#9FC0FA'],
-  '--color-data-seq-7': ['#1A73E8', '#C6DAFC'],
 };
 
 export const garyTheme = defineTheme({
