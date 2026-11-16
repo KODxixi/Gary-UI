@@ -39,39 +39,55 @@ export const PALETTE = {
   surfaceMuted: 'var(--color-background-muted)',
   surfaceSunken: 'var(--color-background-surface)',
 
-  // categorical series — ONE hue, stepped by weight (R7).
-  // Gary's theme authors a single hue (ink green). Multi-series charts used to
-  // borrow Astryx's categorical blue/orange/purple, which read as a foreign
-  // palette next to the ink-green page. Series are now separated by tone, not
-  // hue: the same --color-accent at descending opacity over the card surface.
-  // Opacity (not color-mix) so every renderer draws it, and the card is the
-  // only thing behind a mark, so the blend never picks up the track.
-  //   pair — two-series comparison: 100% vs 55%
-  //   ramp — 3–4 class composition: 100 / 78 / 58 / 38
-  pair: [1, 0.55],
-  ramp: [1, 0.78, 0.58, 0.38],
+  // Categorical series — EIGHT hues, bound to --color-data-1..8 (authored in
+  // theme/gary.theme.mjs, lifted from the legacy Gary-UI chart palette).
+  // R7 collapsed these onto accent opacity and every multi-series chart became
+  // one colour; Gary rejected that. Series colour is now bound by *entity index*,
+  // so the same town / 户型 / 付款方式 keeps the same colour across every chart
+  // on the page.
+  // `mono` stays available for encodings where the value IS the colour
+  // (single-hue progress bars, heat ramps) — never for category separation.
+  series: [
+    'var(--color-data-1)',
+    'var(--color-data-2)',
+    'var(--color-data-3)',
+    'var(--color-data-4)',
+    'var(--color-data-5)',
+    'var(--color-data-6)',
+    'var(--color-data-7)',
+    'var(--color-data-8)',
+  ],
+  mono: [1, 0.78, 0.58, 0.38],
 
-  // flow diagram roles (one role = one hue, max four hues per diagram)
+  // flow diagram roles (one role = one hue, max four hues per diagram).
+  // Bound to the same data palette so a diagram never invents a colour the
+  // charts don't already use.
   role: {
-    input: 'var(--color-data-categorical-orange)',
-    process: 'var(--color-data-categorical-blue)',
-    decision: 'var(--color-data-categorical-purple)',
-    result: 'var(--color-data-categorical-teal)',
+    input: 'var(--color-data-3)',
+    process: 'var(--color-data-1)',
+    decision: 'var(--color-data-4)',
+    result: 'var(--color-data-2)',
   },
 };
 
-function stepsOf(kind) {
-  return PALETTE[kind] || PALETTE.ramp;
-}
-
 /**
- * Paint for a series index. kind='pair' for two series, 'ramp' for 3–4 classes.
- * Past the ladder it degrades to the neutral track, never to a new hue.
+ * Paint for a series index.
+ *   kind='series' (default) — categorical: a distinct hue per index, wrapping
+ *                             after eight. This is what category separation uses.
+ *   kind='mono'             — one hue stepped by opacity, for value-is-colour
+ *                             encodings (progress bars, single-metric ramps).
+ *   kind='pair'             — kept for old callers: first two hues of the series.
  */
-export function seriesStyle(index, kind = 'ramp') {
-  const steps = stepsOf(kind);
-  const op = steps[index];
-  return op === undefined ? { fill: PALETTE.track, fillOpacity: 1 } : { fill: accent, fillOpacity: op };
+export function seriesStyle(index, kind = 'series') {
+  if (kind === 'mono') {
+    const op = PALETTE.mono[index];
+    return op === undefined
+      ? { fill: PALETTE.track, fillOpacity: 1 }
+      : { fill: accent, fillOpacity: op };
+  }
+  const hues = PALETTE.series;
+  const hue = hues[index % hues.length];
+  return { fill: hue === undefined ? PALETTE.track : hue, fillOpacity: 1 };
 }
 
 /** Stroke/fill colour on its own (a line uses stroke + strokeOpacity). */

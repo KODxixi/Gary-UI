@@ -80,6 +80,27 @@ export const GARY_TOKEN_OVERRIDES = {
   '--radius-element': '12px',
   '--radius-container': '12px',
   '--radius-inner': '8px',
+
+  // Categorical data palette (R10). Astryx ships NO data/categorical token
+  // (`--color-data-*` does not exist in theme-neutral), so multi-series charts
+  // had nothing to reach for and R7 collapsed every series onto accent opacity —
+  // which read as one flat colour. These eight are authored here, lifted from the
+  // legacy Gary-UI chart palette (archive/legacy-2026-11/spec/chart-recipes.json)
+  // so the new charts keep the old system's range while staying inside the
+  // ink-green family: terra / ochre / indigo / plum / clay / grey-green.
+  // Series 1 is always the brand accent so the primary series still reads as Gary.
+  // Series order is chosen for CONTRAST between adjacent series, not for hue
+  // family grouping: ink green -> terra -> indigo -> ochre -> teal -> plum ->
+  // clay -> grey-green. Two-series charts (the most common case) therefore get
+  // green vs terra, which separates at a glance.
+  '--color-data-1': ['#24514a', '#5d9c8f'],
+  '--color-data-2': ['#a85548', '#d08a7c'],
+  '--color-data-3': ['#386aa9', '#7ba3d4'],
+  '--color-data-4': ['#d5af59', '#e0c37e'],
+  '--color-data-5': ['#4f918a', '#7fb3a8'],
+  '--color-data-6': ['#795098', '#a98cc0'],
+  '--color-data-7': ['#ba826a', '#d6a48c'],
+  '--color-data-8': ['#6c7a73', '#9aa8a0'],
 };
 
 export const garyTheme = defineTheme({
