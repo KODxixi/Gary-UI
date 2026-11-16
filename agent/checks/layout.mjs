@@ -149,6 +149,12 @@ for (const file of files) {
       if (!text) continue;
       const cs = getComputedStyle(el);
       if (cs.display === 'inline' || cs.display === 'none') continue;
+      // Skip screen-reader-only text: 1x1 clipped nodes (e.g. the Stepper's
+      // per-step "completed" announcement). Their scrollWidth is real but they
+      // are never painted, so they cannot be a visual overflow.
+      const rect = el.getBoundingClientRect();
+      if (rect.width <= 2 || rect.height <= 2) continue;
+      if (cs.clip && cs.clip !== 'auto' && /rect\(0px, 0px, 0px, 0px\)/.test(cs.clip)) continue;
       if (el.clientWidth <= 0) continue;
       const over = +(el.scrollWidth - el.clientWidth).toFixed(1);
       if (over > 1) {

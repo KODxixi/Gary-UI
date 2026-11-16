@@ -54,11 +54,13 @@ function parseArgs(argv) {
   const input = argv[0];
   const oi = argv.indexOf('-o');
   const output = oi >= 0 ? argv[oi + 1] : null;
+  const ti = argv.indexOf('--theme');
+  const theme = ti >= 0 ? argv[ti + 1] : null;
   if (!input || !output) {
-    console.error('用法: node agent/render.mjs <content.json> -o <out.html>');
+    console.error('用法: node agent/render.mjs <content.json> -o <out.html> [--theme light|dark]');
     process.exit(2);
   }
-  return { input, output };
+  return { input, output, theme };
 }
 
 /** contract key is meta.recipe; content.type kept as a one-line compat fallback. */
@@ -81,7 +83,7 @@ function blocksOf(content) {
 }
 
 function main() {
-  const { input, output } = parseArgs(process.argv.slice(2));
+  const { input, output, theme: themeArg } = parseArgs(process.argv.slice(2));
   const content = JSON.parse(fs.readFileSync(input, 'utf8'));
 
   const recipeId = recipeIdOf(content);
@@ -107,7 +109,7 @@ function main() {
   }
 
   const meta = content.meta || {};
-  const mode = meta.theme === 'dark' ? 'dark' : 'light';
+  const mode = themeArg === 'dark' || themeArg === 'light' ? themeArg : meta.theme === 'dark' ? 'dark' : 'light';
   const lang = meta.lang || 'zh-CN';
   const title = meta.title || content.title || 'Gary-UI';
 

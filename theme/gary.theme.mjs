@@ -45,8 +45,36 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-text-accent': ['#24514a', '#5d9c8f'],
   '--color-icon-accent': ['#24514a', '#5d9c8f'],
 
+  // Semantic: info / warning are re-hued onto the ink-green family (R8).
+  // Astryx neutral ships a bright blue info (#0074e2 / muted #b9d7ff) that reads
+  // as a foreign accent next to #24514a, and a glare-yellow warning #ffce2f.
+  // The Banner (callout) paints with `-muted` + `on-*-muted`; Badge paints with
+  // the solid token + `on-*`, so both layers are pinned here.
+  //   info    : #3d6b62  solid | #e8f0ee muted | #2f6157 text
+  //   warning : #7f6118  solid | #fbf3e0 muted | #8a6a1f text (deep amber)
+  '--color-info': ['#3d6b62', '#7fb3a8'],
+  '--color-info-muted': ['#e8f0ee', '#223a33'],
+  '--color-on-info': ['#ffffff', '#0f201c'],
+  '--color-on-info-muted': ['#1f4038', '#cfe6e0'],
+  '--color-text-info': ['#2f6157', '#8fc6bb'],
+
+  '--color-warning': ['#7f6118', '#e0a93b'],
+  '--color-warning-muted': ['#fbf3e0', '#3a2f14'],
+  '--color-on-warning': ['#fff6e0', '#0a1317'],
+  '--color-on-warning-muted': ['#4a3810', '#f3e3b5'],
+  '--color-text-warning': ['#8a6a1f', '#e0a93b'],
+
   '--font-family-body': GARY_FONT_STACK,
   '--font-family-heading': GARY_FONT_STACK,
+
+  // Dark-mode surfaces (R6). Neutral ships `--color-background-card` equal to
+  // `--color-background-body` in dark (#1b1b1b), so cards and the page were the
+  // same colour and the card only survived as a 10%-white hairline. Lifting the
+  // card surface makes a card read as a card again while keeping the page dark.
+  // `--color-border` also backs table row rules and the divider; 10% white is
+  // invisible on #1b1b1b, so the dark value is raised to 18% white.
+  '--color-background-card': ['#ffffff', '#262626'],
+  '--color-border': ['#00000014', '#ffffff2E'],
 
   // Radius hierarchy: element/container 12, inner 8, full stays 9999.
   '--radius-element': '12px',

@@ -24,7 +24,7 @@
  */
 import { createElement as h } from 'react';
 import { Card, Heading, Text, Badge, HStack, VStack } from '@astryxdesign/core';
-import { PALETTE, FONT, seriesColor } from './palette.mjs';
+import { PALETTE, FONT, seriesStyle, seriesColor, seriesOpacity } from './palette.mjs';
 import { CHART } from './spec.mjs';
 
 const W = 1040;
@@ -140,7 +140,7 @@ function UnitLabel({ x, y, unit }) {
 }
 
 /** Right-aligned legend, one row per series, measured so nothing overlaps. */
-function Legend({ series, xRight, y, colors }) {
+function Legend({ series, xRight, y, kind = 'pair' }) {
   if (!series || series.length < 2) return null;
   return h(
     'g',
@@ -159,7 +159,7 @@ function Legend({ series, xRight, y, colors }) {
           width: 10,
           height: 10,
           rx: 2,
-          style: { fill: colors[i] },
+          style: s.color ? { fill: s.color } : seriesStyle(i, kind),
         }),
         h(
           'text',
@@ -204,7 +204,7 @@ export function BarChart({
   const padB = 62;
   const plotW = W - padL - padR;
   const plotH = height - padT - padB;
-  const colors = series.map((s, i) => (s.color ? s.color : seriesColor(i)));
+  const paints = series.map((s, i) => (s.color ? { fill: s.color } : seriesStyle(i, 'pair')));
 
   const all = series.flatMap((s) => s.values.map((v) => (Number.isFinite(v) ? v : 0)));
   const ticks = niceTicks(Math.min(0, ...all), Math.max(0, ...all), CHART.ticks);
@@ -227,7 +227,7 @@ export function BarChart({
     h(Grid, { ticks, sy, x0: padL, x1: W - padR }),
     h(YAxis, { ticks, sy, x0: padL, digits: digits === 1 ? 0 : digits }),
     h(UnitLabel, { x: padL, y: 26, unit }),
-    h(Legend, { series, xRight: W - padR, y: 20, colors }),
+    h(Legend, { series, xRight: W - padR, y: 20, kind: 'pair' }),
     categories.map((cat, ci) => {
       const groupStart = padL + ci * band + groupPad / 2;
       return h(
@@ -261,7 +261,7 @@ export function BarChart({
               width: barW,
               height: hgt,
               rx: 4,
-              style: { fill: colors[si] },
+              style: { ...paints[si] },
             }),
             h(
               'text',
@@ -381,7 +381,7 @@ export function LineChart({
     h(Grid, { ticks, sy, x0: padL, x1: W - padR }),
     h(YAxis, { ticks, sy, x0: padL, digits: digits === 1 ? 0 : digits }),
     h(UnitLabel, { x: padL, y: 24, unit }),
-    h(Legend, { series, xRight: W - padR, y: 18, colors: series.map((s, i) => (s.color || seriesColor(i))) }),
+    h(Legend, { series, xRight: W - padR, y: 18, kind: 'pair' }),
 
     band &&
       (() => {
@@ -451,7 +451,8 @@ export function LineChart({
     ),
 
     series.map((s, si) => {
-      const color = s.color || seriesColor(si);
+      const color = s.color || seriesColor(si, 'pair');
+      const inkOp = s.color ? 1 : seriesOpacity(si, 'pair');
       const pts = s.values.map((v, i) => (Number.isFinite(v) ? [sx(i), sy(v)] : null));
       // one path per unbroken run: a null breaks the line, it never bridges
       const runs = [];
@@ -471,7 +472,7 @@ export function LineChart({
           h('polyline', {
             key: `p${ri}`,
             points: r.map((p) => p.join(',')).join(' '),
-            style: { fill: 'none', stroke: color },
+            style: { fill: 'none', stroke: color, strokeOpacity: inkOp },
             strokeWidth: STROKE.data,
             strokeLinejoin: 'round',
             strokeLinecap: 'round',
@@ -605,14 +606,17 @@ export function StackedBar({
           },
           sum > 0 ? `合计 ${fmt(sum, digits)} ${unit}` : '分母为 0（空状态）'
         ),
-        h('rect', {
-          x: x0,
-          y: y,
-          width: barW,
-          height: barH,
-          rx: 6,
-          style: { fill: PALETTE.track },
-        }),
+        // only an empty state shows the track: a filled row is a full 100% bar,
+        // and translucent steps must blend with the card, not with grey
+        sum === 0 &&
+          h('rect', {
+            x: x0,
+            y: y,
+            width: barW,
+            height: barH,
+            rx: 6,
+            style: { fill: PALETTE.track },
+          }),
         sum > 0 &&
           row.parts.map((p, pi) => {
             const pct = p.value / sum;
@@ -626,7 +630,7 @@ export function StackedBar({
               width: segW,
               height: barH,
               rx: 5,
-              style: { fill: seriesColor(pi) },
+              style: { ...seriesStyle(pi, 'ramp') },
             });
           }),
         h(
@@ -658,7 +662,7 @@ export function StackedBar({
               width: 10,
               height: 10,
               rx: 2,
-              style: { fill: seriesColor(pi) },
+              style: { ...seriesStyle(pi, 'ramp') },
             }),
             h(
               'text',
@@ -722,13 +726,13 @@ export function DonutChart({
         'g',
         { key: `a${i}` },
         d
-          ? h('path', { d, style: { fill: seriesColor(i) } })
+          ? h('path', { d, style: { ...seriesStyle(i, 'ramp') } })
           : h('rect', {
               x: cx - 2,
               y: cy - rOuter,
               width: 4,
               height: rOuter - rInner,
-              style: { fill: seriesColor(i) },
+              style: { ...seriesStyle(i, 'ramp') },
             })
       );
     }),
@@ -765,7 +769,14 @@ export function DonutChart({
       return h(
         'g',
         { key: `lg${i}` },
-        h('rect', { x: legendX, y: rowY - 11, width: 12, height: 12, rx: 3, style: { fill: seriesColor(i) } }),
+        h('rect', {
+          x: legendX,
+          y: rowY - 11,
+          width: 12,
+          height: 12,
+          rx: 3,
+          style: { ...seriesStyle(i, 'ramp') },
+        }),
         h(
           'text',
           { x: legendX + 22, y: rowY, style: { fill: PALETTE.textPrimary, fontSize: FONT.label } },
@@ -879,19 +890,28 @@ export function ProgressBars({
 
 /* ------------------------------------------------------------ sparkline */
 
-export function Sparkline({ categories = [], values = [], unit = '', width = 300, height = 78 }) {
-  const padL = 4;
-  const padR = 8;
-  const padT = 12;
-  const padB = 22;
+export function Sparkline({ categories = [], values = [], unit = '', width = 300, height = 96 }) {
+  /* R7: the trend has to be readable at card width. The plot band is 50px in a
+     96px viewBox (not a CSS height trick — the viewBox itself is taller), the
+     line is 2.4, the area carries an accent wash, and both ends are labelled. */
+  const padL = 12;
+  const padR = 12;
+  const padT = 22;
+  const padB = 26;
+  const plotTop = padT;
+  const plotH = height - padT - padB;
+  const baseY = plotTop + plotH;
   const valid = values.filter(Number.isFinite);
   const min = Math.min(...valid);
   const max = Math.max(...valid);
   const sx = (i) =>
     padL + (categories.length > 1 ? (i * (width - padL - padR)) / (categories.length - 1) : 0);
-  const sy = (v) => padT + ((max - v) / (max - min || 1)) * (height - padT - padB);
+  const sy = (v) => plotTop + ((max - v) / (max - min || 1)) * plotH;
   const pts = values.map((v, i) => (Number.isFinite(v) ? [sx(i), sy(v)] : null));
-  const last = pts.filter(Boolean).slice(-1)[0];
+  const solid = pts.filter(Boolean);
+  const first = solid[0];
+  const last = solid[solid.length - 1];
+  const fmtEnd = (v) => (Number.isFinite(v) ? (Number.isInteger(v) ? String(v) : v.toFixed(1)) : '');
 
   return h(
     'svg',
@@ -901,27 +921,80 @@ export function Sparkline({ categories = [], values = [], unit = '', width = 300
       'aria-label': `${categories.join('→')}：${values.join('、')} ${unit}`,
       style: { width: '100%', height: 'auto', display: 'block', fontFamily: FONT.family },
     },
-    h('polyline', {
-      points: pts.filter(Boolean).map((p) => p.join(',')).join(' '),
-      style: { fill: 'none', stroke: PALETTE.accent },
-      strokeWidth: 2.2,
-      strokeLinejoin: 'round',
+    // accent wash under the line — gives the eye a body, not just a hairline
+    solid.length > 1 &&
+      h('polygon', {
+        points: [
+          ...solid.map((p) => p.join(',')),
+          `${last[0]},${baseY}`,
+          `${first[0]},${baseY}`,
+        ].join(' '),
+        style: { fill: PALETTE.accent },
+        fillOpacity: 0.2,
+      }),
+    // faint baseline: the trend is measured against it, not floating
+    h('line', {
+      x1: padL,
+      x2: width - padR,
+      y1: baseY,
+      y2: baseY,
+      style: { stroke: PALETTE.track },
+      strokeWidth: 1,
     }),
+    h('polyline', {
+      points: solid.map((p) => p.join(',')).join(' '),
+      style: { fill: 'none', stroke: PALETTE.accent },
+      strokeWidth: 2.4,
+      strokeLinejoin: 'round',
+      strokeLinecap: 'round',
+    }),
+    solid.map((p, i) =>
+      h('circle', {
+        key: `p${i}`,
+        cx: p[0],
+        cy: p[1],
+        r: 2.4,
+        style: { fill: PALETTE.accent },
+      })
+    ),
     last &&
       h('circle', {
         cx: last[0],
         cy: last[1],
-        r: 3.6,
+        r: 4,
         style: { fill: PALETTE.accent, stroke: PALETTE.surface },
         strokeWidth: 2,
       }),
+    // start / end read off the line itself, so the trend has numbers at its ends
+    first &&
+      h(
+        'text',
+        {
+          x: first[0],
+          y: first[1] - 10,
+          textAnchor: 'start',
+          style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny, fontVariantNumeric: FONT.numeric },
+        },
+        fmtEnd(values.find(Number.isFinite))
+      ),
+    last &&
+      h(
+        'text',
+        {
+          x: last[0],
+          y: last[1] - 12,
+          textAnchor: 'end',
+          style: { fill: PALETTE.textPrimary, fontSize: FONT.small, fontWeight: 600, fontVariantNumeric: FONT.numeric },
+        },
+        `${fmtEnd(values.filter(Number.isFinite).slice(-1)[0])}${unit ? ' ' + unit : ''}`
+      ),
     categories.map((c, i) =>
       h(
         'text',
         {
           key: `x${i}`,
           x: sx(i),
-          y: height - 6,
+          y: height - 8,
           textAnchor: i === 0 ? 'start' : i === categories.length - 1 ? 'end' : 'middle',
           style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny },
         },
@@ -964,7 +1037,7 @@ function ChartBody(props) {
 export function KpiTile({ label, value, unit, delta, categories, values, note, source }) {
   return h(
     Card,
-    { elevation: 'low', width: '320px', style: { borderRadius: '16px', padding: '24px' } },
+    { elevation: 'low', width: '420px', style: { borderRadius: '16px', padding: '24px' } },
     h(
       VStack,
       { gap: 2 },

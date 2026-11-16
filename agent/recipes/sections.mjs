@@ -6,6 +6,8 @@
  * (cli/core 0.7.16), not guessed.
  */
 import { createElement as h } from 'react';
+import fs from 'node:fs';
+import path from 'node:path';
 import {
   Text,
   Heading,
@@ -19,6 +21,8 @@ import {
   Card,
   Button,
   TextInput,
+  Grid,
+  AspectRatio,
   proportional,
 } from '@astryxdesign/core';
 import { GARY_DISPLAY_SERIF_STACK } from '../../theme/gary.theme.mjs';
@@ -50,6 +54,17 @@ const CARD_FRAMES = {
 
 function cardFrame(tier) {
   return { ...CARD_FRAMES[tier] };
+}
+
+/**
+ * Card tier for a block given where it is rendered. A card nested in a grid
+ * column is narrower than the page column, so it takes the matching frame
+ * instead of the page-level `large` one (that is what layout.mjs asserts).
+ */
+function tierForContext(ctx) {
+  const cols = Number(ctx && ctx.cols) || 0;
+  if (!cols) return 'large';
+  return cols >= 4 ? 'small' : 'medium';
 }
 
 /** Page header: eyebrow / title / badge / sub, optional toolbar. */
@@ -242,7 +257,7 @@ export function BadgeBlock(p) {
 }
 
 /** Conclusion banner: tone / title / body / eyebrow / action{label}. */
-export function Callout(p) {
+export function Callout(p, ctx) {
   const description =
     (p.eyebrow || p.body) &&
     h(
@@ -258,7 +273,7 @@ export function Callout(p) {
   // variables on a wrapper is the only way to give this one block the large
   // container frame without touching the global tokens.
   const frame = {
-    '--_banner-radius': CARD_FRAMES.large.borderRadius,
+    '--_banner-radius': CARD_FRAMES[tierForContext(ctx)].borderRadius,
     // 24px on both axes: the large frame's 28px would distort banner internals.
     '--spacing-3': '24px',
     '--spacing-4': '24px',
@@ -289,11 +304,10 @@ export function DividerBlock(p) {
 }
 
 /** Generic card: title / eyebrow / sub / body[] / badge / tag / note / padding / variant / elevation. */
-export function CardBlock(p) {
+export function CardBlock(p, ctx) {
   const body = Array.isArray(p.body) ? p.body : [];
-  // Frame is tier-driven (large: full-width body card). A caller-supplied
-  // padding step can no longer drop below the tier minimum.
-  const cardProps = { width: '100%', style: cardFrame('large') };
+  // Frame is tier-driven: page-width by default, one step down inside a grid.
+  const cardProps = { width: '100%', style: cardFrame(tierForContext(ctx)) };
   if (p.variant) cardProps.variant = p.variant;
   if (p.elevation) cardProps.elevation = p.elevation;
 
@@ -327,7 +341,7 @@ export function CardBlock(p) {
 }
 
 /** Table: title / note / columns[{label,num}] / rows[][] / foot / density / dividers. */
-export function TableSection(p) {
+export function TableSection(p, ctx) {
   const cols = Array.isArray(p.columns) ? p.columns : [];
   const rows = Array.isArray(p.rows) ? p.rows : [];
 
@@ -375,7 +389,7 @@ export function TableSection(p) {
 
   return h(
     Card,
-    { width: '100%', style: cardFrame('large') },
+    { width: '100%', style: cardFrame(tierForContext(ctx)) },
     h(
       VStack,
       { gap: 4 },
@@ -397,6 +411,354 @@ export function TableSection(p) {
   );
 }
 
+/** tone -> StatusDot variant. Semantic tones stay semantic; accent is the default. */
+const TONE_DOT = { success: 'success', warning: 'warning', error: 'error', info: 'accent' };
+
+/** tone -> token name for the quote rule. Colour always comes from a token. */
+const QUOTE_TONE = {
+  accent: '--color-accent',
+  success: '--color-success',
+  warning: '--color-warning',
+  error: '--color-error',
+  info: '--color-info',
+};
+
+/** matrix cell state -> Badge variant (the only semantic-coloured primitive). */
+const CELL_STATE = { good: 'success', warn: 'warning', bad: 'error' };
+
+const IMAGE_RATIO = { '16:9': 16 / 9, '4:3': 4 / 3, '3:2': 3 / 2, '1:1': 1, '21:9': 21 / 9 };
+
+const IMAGE_MIME = {
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+};
+
+/**
+ * Keep the product a SINGLE self-contained file: a local image path is read and
+ * inlined as a data URI at render time. Remote/data URIs pass through untouched.
+ */
+function embedImage(src) {
+  if (!src) return '';
+  if (/^(data:|https?:)/i.test(src)) return src;
+  const abs = path.resolve(process.cwd(), src);
+  if (!fs.existsSync(abs)) return src;
+  const mime = IMAGE_MIME[path.extname(abs).toLowerCase()] || 'application/octet-stream';
+  return `data:${mime};base64,${fs.readFileSync(abs).toString('base64')}`;
+}
+
+/** Timeline: items[{date, title, text, tone}] / title. Date column + accent nodes. */
+export function TimelineBlock(p, ctx) {
+  const items = Array.isArray(p.items) ? p.items : [];
+  return h(
+    VStack,
+    { gap: 4, width: '100%' },
+    p.title && h(Heading, { level: 2 }, p.title),
+    h(
+      VStack,
+      { gap: 4, width: '100%' },
+      items.map((it, i) =>
+        h(
+          HStack,
+          { key: i, gap: 5, align: 'start', width: '100%' },
+          h(
+            'div',
+            { style: { flex: '0 0 96px' } },
+            h(
+              Text,
+              { type: 'supporting', size: 'sm', hasTabularNumbers: true, display: 'block' },
+              it.date || ''
+            )
+          ),
+          h(
+            VStack,
+            { gap: 1, width: '100%' },
+            h(
+              HStack,
+              { gap: 2, align: 'center' },
+              h(StatusDot, { variant: TONE_DOT[it.tone] || 'accent' }),
+              h(Text, { type: 'body', weight: 'semibold', display: 'block' }, it.title || '')
+            ),
+            it.text && h(Text, { type: 'supporting', display: 'block' }, it.text)
+          )
+        )
+      )
+    )
+  );
+}
+
+/**
+ * Matrix: columns[{key, label, num}] / rows[{label, cells:{key: value | {value, state}}}]
+ * / labelHeader / title / note. Reuses Table; a cell with state renders a Badge
+ * because Text carries no semantic colour.
+ */
+export function MatrixBlock(p, ctx) {
+  const cols = Array.isArray(p.columns) ? p.columns : [];
+  const rows = Array.isArray(p.rows) ? p.rows : [];
+
+  const columns = [
+    {
+      key: 'label',
+      header: h(Text, { display: 'block' }, p.labelHeader || '对比项'),
+      align: 'start',
+      width: proportional(2),
+      renderCell: (row) => h(Text, { weight: 'medium' }, String(row.label ?? '')),
+    },
+    ...cols.map((c, j) => ({
+      key: `k${j}`,
+      header: h(Text, { display: 'block', justify: c.num ? 'end' : 'start' }, c.label),
+      align: c.num ? 'end' : 'start',
+      width: proportional(c.num ? 1 : 2),
+      renderCell: (row) => {
+        const cell = (row.cells || {})[c.key];
+        if (cell && typeof cell === 'object') {
+          if (cell.state && CELL_STATE[cell.state]) {
+            return h(Badge, { variant: CELL_STATE[cell.state], label: String(cell.value ?? '') });
+          }
+          return h(
+            Text,
+            { justify: c.num ? 'end' : 'start' },
+            String(cell.value ?? '')
+          );
+        }
+        return h(Text, { justify: c.num ? 'end' : 'start' }, String(cell ?? ''));
+      },
+    })),
+  ];
+
+  const data = rows.map((r, i) => ({ id: `m${i}`, label: r.label, cells: r.cells || {} }));
+
+  return h(
+    Card,
+    { width: '100%', style: cardFrame(tierForContext(ctx)) },
+    h(
+      VStack,
+      { gap: 4 },
+      (p.title || p.note) &&
+        h(
+          HStack,
+          { justify: 'between', align: 'baseline', gap: 4 },
+          p.title && h(Heading, { level: 2 }, p.title),
+          p.note && h(Text, { type: 'supporting' }, p.note)
+        ),
+      h(Table, {
+        data,
+        columns,
+        density: p.density || 'balanced',
+        dividers: p.dividers || 'rows',
+        hasHover: true,
+      })
+    )
+  );
+}
+
+/** Image: src / alt / caption / ratio (16:9 | 4:3 | 3:2 | 1:1 | 21:9 | auto). */
+export function ImageBlock(p, ctx) {
+  const ratio = IMAGE_RATIO[String(p.ratio || '16:9')];
+  const img = h('img', {
+    src: embedImage(p.src),
+    alt: p.alt || '',
+    style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' },
+  });
+  const media = ratio
+    ? h(AspectRatio, { ratio, fit: 'cover' }, img)
+    : h('div', { style: { width: '100%' } }, img);
+
+  return h(
+    VStack,
+    { gap: 2, width: '100%' },
+    h(
+      'div',
+      {
+        style: {
+          width: '100%',
+          overflow: 'hidden',
+          borderRadius: CARD_FRAMES[tierForContext(ctx)].borderRadius,
+          background: 'var(--color-background-muted)',
+        },
+      },
+      media
+    ),
+    p.caption &&
+      h(
+        HStack,
+        { justify: p.align === 'center' ? 'center' : 'start', width: '100%' },
+        h(Text, { type: 'supporting', size: 'sm' }, p.caption)
+      )
+  );
+}
+
+/**
+ * Steps: items[{title, text}] / active (zero-based, default 1) / title / note.
+ *
+ * R8: Astryx `Stepper` was dropped for this block. Its connector ('astryx-step-
+ * connector') is a StyleX atomic class: 4px tall, `var(--color-border)` = 8%
+ * black, and the indicator is a fixed 16px circle whose fill has no hook to
+ * reweight per state. Gary asked for dots >= 10px with accent fill, a >= 1.5px
+ * connector that is accent for the walked part and neutral ahead, and even
+ * spacing that does not touch the container edge — none of that is reachable
+ * through Stepper's props. The block is therefore composed from `ol/li` + token
+ * colours, with the same DOM semantics the component used.
+ */
+export function StepsBlock(p) {
+  const items = Array.isArray(p.items) ? p.items : [];
+  const n = Math.max(1, items.length);
+  const active = Math.min(Math.max(0, step(p.active, 1)), n - 1);
+  // Dots sit at the centre of each equal-width cell, so the track starts and
+  // ends half a cell in — it never runs to the container edge.
+  const halfCell = (0.5 / n) * 100;
+  const walked = (active / n) * 100;
+
+  const dotStyle = (done) => ({
+    width: '22px',
+    height: '22px',
+    borderRadius: '9999px',
+    display: 'grid',
+    placeItems: 'center',
+    fontSize: '12px',
+    fontWeight: 600,
+    background: done ? 'var(--color-accent)' : 'transparent',
+    color: done ? 'var(--color-on-accent)' : 'var(--color-text-secondary)',
+    border: done ? 'none' : '2px solid var(--color-border-emphasized)',
+    boxSizing: 'border-box',
+  });
+
+  return h(
+    VStack,
+    { gap: 4, width: '100%' },
+    p.title && h(Heading, { level: 2 }, p.title),
+    h(
+      'div',
+      { style: { position: 'relative', width: '100%' } },
+      h('div', {
+        style: {
+          position: 'absolute',
+          top: '10px',
+          height: '2px',
+          left: `${halfCell}%`,
+          right: `${halfCell}%`,
+          background: 'var(--color-border-emphasized)',
+          borderRadius: '2px',
+        },
+      }),
+      h('div', {
+        style: {
+          position: 'absolute',
+          top: '10px',
+          height: '2px',
+          left: `${halfCell}%`,
+          width: `${walked}%`,
+          background: 'var(--color-accent)',
+          borderRadius: '2px',
+        },
+      }),
+      h(
+        'ol',
+        {
+          style: {
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '12px',
+            width: '100%',
+            margin: 0,
+            padding: 0,
+            listStyle: 'none',
+          },
+          'aria-label': p.title || '推进节奏',
+        },
+        items.map((it, i) =>
+          h(
+            'li',
+            {
+              key: i,
+              style: {
+                flex: '1 1 0',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '8px',
+                minWidth: 0,
+              },
+            },
+            h('div', { style: dotStyle(i <= active) }, String(i + 1)),
+            h(
+              'div',
+              { style: { textAlign: 'center', width: '100%' } },
+              h(
+                Text,
+                {
+                  type: 'body',
+                  weight: i === active ? 'semibold' : 'medium',
+                  display: 'block',
+                },
+                it.title || `第 ${i + 1} 步`
+              )
+            ),
+            it.text &&
+              h(
+                'div',
+                { style: { textAlign: 'center', width: '100%' } },
+                h(Text, { type: 'supporting', size: 'sm', display: 'block' }, it.text)
+              )
+          )
+        )
+      )
+    ),
+    p.note && h(Text, { type: 'supporting' }, p.note)
+  );
+}
+
+/**
+ * Quote: text / source / tone (accent | success | warning | error | info).
+ * Blockquote exposes no colour knob, so the rule is drawn here from a token
+ * while the type stays one step above body copy.
+ */
+export function QuoteBlock(p) {
+  const token = QUOTE_TONE[p.tone] || QUOTE_TONE.accent;
+  return h(
+    'div',
+    {
+      style: {
+        width: '100%',
+        borderLeft: `4px solid var(${token})`,
+        paddingLeft: '20px',
+      },
+    },
+    h(
+      VStack,
+      { gap: 2, width: '100%' },
+      h(Text, { type: 'large', display: 'block' }, p.text || ''),
+      (p.source || p.eyebrow) &&
+        h(
+          Text,
+          { type: 'supporting', size: 'sm' },
+          [p.eyebrow, p.source].filter(Boolean).join(' · ')
+        )
+    )
+  );
+}
+
+/**
+ * Grid: cols (2|3|4) / gap / children[block]. The only multi-column container;
+ * children are rendered with the column count so nested cards pick the right
+ * frame tier instead of the page-level one.
+ */
+export function GridBlock(p, ctx) {
+  const cols = Math.max(1, Math.min(4, Number(p.cols) || 2));
+  const children = Array.isArray(p.children) ? p.children : [];
+  return h(
+    Grid,
+    { columns: cols, gap: step(p.gap, 4), width: '100%', align: 'stretch' },
+    children.map((child, i) =>
+      h('div', { key: child.id || `g${i}` }, renderBlock(child, { ...(ctx || {}), cols }))
+    )
+  );
+}
+
 /**
  * block.type -> renderer. Recipes pick from this table.
  * `header` is the legacy name for `heading`; both resolve to the same renderer.
@@ -413,4 +775,21 @@ export const SECTIONS = {
   badge: BadgeBlock,
   callout: Callout,
   divider: DividerBlock,
+  timeline: TimelineBlock,
+  matrix: MatrixBlock,
+  image: ImageBlock,
+  steps: StepsBlock,
+  quote: QuoteBlock,
+  grid: GridBlock,
 };
+
+/** Dispatch one block (used by containers such as grid). */
+export function renderBlock(block, ctx) {
+  const fn = SECTIONS[block.type];
+  if (!fn) {
+    throw new Error(
+      `sections: 未知区块类型 type="${block.type}"（支持: ${Object.keys(SECTIONS).join(', ')}）`
+    );
+  }
+  return fn(block.props || {}, ctx || {});
+}

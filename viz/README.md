@@ -8,7 +8,7 @@
 |---|---|
 | `_src/` | 旧仓三份规范真源（`chart-recipes.json` / `flow-diagram.json` / `diagram-recipes.json` + 三份 docs）的副本，只读。不依赖 `spec/` 是否还在。 |
 | `spec.mjs` | 从 `_src` 读只读几何：图表通道、字号梯度、笔画、间距、标注协议；流程图四色角色 / 圆角 / 箭头路径 / 线型 / dasharray。**不读旧主题的 hex。** |
-| `palette.mjs` | 唯一的色板出口：`PALETTE`（accent / 语义色 / 中性阶梯 / 六色序列 / 流程角色）、`seriesColor(i)`、`FONT`。全部是 CSS 变量字符串。 |
+| `palette.mjs` | 唯一的色板出口：`PALETTE`（accent / 语义色 / 中性阶梯 / accent 深浅档 / 流程角色）、`seriesColor(i, kind)`、`FONT`。全部是 CSS 变量字符串。 |
 | `charts.mjs` | 6 类图表 + `KpiTile` + `ChartBlock`（标题 / 问题句 / 图 / 标注注释 / 来源与状态）。 |
 | `flow.mjs` | 3 类流程图 + `FlowBlock`；正交路由、`marker` 定义、节点形状。 |
 | `render-viz.mjs` | CLI：`content.json` → 单文件 HTML。只接管 `chart` / `flow`，其余区块复用 `agent/recipes/sections.mjs`。 |
@@ -19,8 +19,11 @@
 
 `viz/*.mjs` 里没有任何 `#rrggbb` 字面量。色值全部是 token 引用：
 
-- 数据序列：`--color-accent`、`--color-data-categorical-{blue,orange,purple,brown,teal}`
-- 语义：`--color-{success,warning,error,info}`
+- 数据序列：**只有墨绿一个色相**，按明度分档（R7）
+  - `pair`（两系列对比）：`--color-accent` + accent 与 `--color-background-card` 的 55% 混色
+  - `ramp`（3–4 类构成）：100% / 78% / 58% / 38% 四档，用 `color-mix(in srgb, var(--color-accent) N%, var(--color-background-card))` 得出
+  - 混色对卡片底色而不是叠透明度：深浅两档在 light / dark 下都不透出背后的东西，也不新造色相
+- 语义：`--color-{success,warning,error,info}`（只留给状态，不拿来当系列色）
 - 中性：`--color-{background-card,background-surface,background-muted,track,border,text-primary,text-secondary}`
 - 流程四角色：input→orange、process→blue、decision→purple、result→teal（刻意不用 success/error 表达好坏，角色不代表评价）
 
@@ -52,7 +55,7 @@ SVG 里颜色写在 `style` 而不是表现属性：`var()` 在 presentation att
 | 百分比堆叠 | `stacked` | 一行一条、段间 2px 缝、右侧 100%、图例带套数与占比 |
 | 环形 | `donut` | 中心合计、四色段、右侧图例（名称 / 值 / 占比） |
 | 进度条组 | `progress` | 多行 `value/max`、分母提示、右侧百分比 |
-| KPI 迷你趋势 | `sparkline` | `KpiTile`：指标名、大数、环比、迷你折线、注脚、来源 |
+| KPI 迷你趋势 | `sparkline` | `KpiTile`：指标名、大数、环比、迷你折线（viewBox 96 高 / 折线 2.4px / accent 20% 面积 / 首尾值直标 / 淡基线）、注脚、来源 |
 
 标注协议按 `docs/CHART_EXPRESSION.md` 三身份：`kind: data | derived | assumed`，`basis` 写依据；`ChartBlock` 把每条标注折成「标注 1 · …（身份 · 依据）」一行，读者不用在图里找小字。
 

@@ -24,7 +24,7 @@
 | `date` | string | 否 | 日期 | `YYYY-MM-DD` |
 | `author` | string | 否 | 署名 | ≤ 24 字 |
 | `version` | string | 否 | 版本 / 状态行 | 如 `v1.2 · 评审稿` |
-| `theme` | string | 否 | 明暗 | `light`（默认）· `dark` |
+| `theme` | string | 否 | 明暗 | `light`（默认）· `dark`。渲染器 CLI 的 `--theme light\|dark` 可临时覆盖（不改内容） |
 | `lang` | string | 否 | 文档语言 | `zh-CN`（默认）· `en` |
 
 ### 1.2 `blocks[]`
@@ -35,7 +35,8 @@
 | `type` | string | 是 | 区块类型，取值见 §2 |
 | `props` | object | 是 | 该 type 的字段集，见 §3 |
 
-`blocks` 顺序即页面渲染顺序。数组长度 1–24；单个页面建议 4–10 块。
+`blocks` 顺序即页面渲染顺序。数组长度 1–24；单个页面建议 6–12 块。
+**只有 `grid` 的 `children` 可以嵌套 block**，其余类型的 `props` 内不放 block；嵌套层级最多一层（`grid` 里不能再放 `grid`）。
 
 ---
 
@@ -44,17 +45,23 @@
 | # | `type` | 中文 | 对应旧 section | 状态 |
 |---|---|---|---|---|
 | 1 | `heading` | 页眉 / 小节标题 | `head`（旧渲染器叫 `header`） | 已实现 |
-| 2 | `text` | 正文段落 | `prose.items[].paras` 抽出来 | 待实现 |
-| 3 | `metric` | 指标卡组 | `kpis` | 待实现 |
-| 4 | `card` | 通用卡片 | `canvas` | 待实现 |
+| 2 | `text` | 正文段落 | `prose.items[].paras` 抽出来 | 已实现 |
+| 3 | `metric` | 指标卡组 | `kpis` | 已实现 |
+| 4 | `card` | 通用卡片 | `canvas` | 已实现 |
 | 5 | `table` | 表格 | `table` | 已实现 |
-| 6 | `badge` | 状态徽标行 | `head.badge` 独立成块 | 待实现 |
-| 7 | `callout` | 结论 / 提示框 | 无（新增） | 待实现 |
-| 8 | `divider` | 分隔线 | 无（新增） | 待实现 |
+| 6 | `badge` | 状态徽标行 | `head.badge` 独立成块 | 已实现 |
+| 7 | `callout` | 结论 / 提示框 | 无（新增） | 已实现 |
+| 8 | `divider` | 分隔线 | 无（新增） | 已实现 |
 | 9 | `cover` | 封面 | `cover` | 已实现 |
 | 10 | `prose` | 长文分节 | `prose` | 已实现 |
+| 11 | `timeline` | 时间轴 / 关键节点 | 无（新增） | 已实现 |
+| 12 | `matrix` | 对比矩阵 | 无（新增，复用 `Table`） | 已实现 |
+| 13 | `image` | 图片块 | 无（新增，`AspectRatio` 包 `img`） | 已实现 |
+| 14 | `steps` | 步骤条 / 推进节奏 | 无（新增，`Stepper`） | 已实现 |
+| 15 | `quote` | 引文 / 结论强调 | 无（新增） | 已实现 |
+| 16 | `grid` | 多列容器 | 无（新增，`Grid`） | 已实现 |
 
-> 「已实现」= `agent/recipes/sections.mjs` 的 `SECTIONS` 表里已有对应函数（截至 2026-11-16 为 `header / cover / prose / table`）。
+> 「已实现」= `agent/recipes/sections.mjs` 的 `SECTIONS` 表里已有对应函数（截至 2026-11-16 为全部 16 种，`header` 作为 `heading` 的旧名同时保留）。
 > `heading` 的 props 与现有 `header` 完全一致，只是类型名改成了语义更准的 `heading`；渲染器侧一行映射即可（§4.1）。
 
 **明确不纳入本契约**（旧有、新版暂无承载能力）：
@@ -127,7 +134,7 @@
 | `columns[].label` | string | 是 | 列头文字。**单位写进列头**（`成交额 · 万`、`计容建面 · ㎡`），不另立单位行 |
 | `columns[].num` | boolean | 否 | `true` = 数值列：右对齐 + 等宽数字（`hasTabularNumbers`）。沿用旧字段 |
 | `rows` | string[][] | 是 | 数据行，1–40 行；**每行长度必须等于 `columns` 长度**，单元格只放字符串（数值也写成字符串） |
-| `foot` | string[] | 否 | 合计 / 汇总行，长度 = 列数。首格通常写 `合计`。**当前渲染器未实现，会被忽略**（§4.1） |
+| `foot` | string[] | 否 | 合计 / 汇总行，长度 = 列数。首格通常写 `合计`。渲染器追加为带标记的数据行（半粗，无单独 footer 槽） |
 | `title` | string | 否 | 表标题 |
 | `note` | string | 否 | 表注 / 口径 |
 | `density` | `compact` \| `balanced` \| `spacious` | 否 | 直通 Astryx `Table.density`，默认 `balanced` |
@@ -184,6 +191,138 @@
 | `items[].title` | string | 否 | 节标题，≤ 24 字 |
 | `items[].paras` | string[] | 是 | 该节段落，1–6 段 |
 
+### 3.11 `timeline`
+
+| 字段 | 类型 | 必填 | 说明 / 约束 |
+|---|---|---|---|
+| `items` | object[] | 是 | 节点，2–10 个，按时间正序 |
+| `items[].date` | string | 是 | 日期或阶段，≤ 12 字（`2026-09`、`D+30`）。左列固定 96px，等宽数字 |
+| `items[].title` | string | 是 | 节点标题，≤ 16 字 |
+| `items[].text` | string | 否 | 一句话说明，≤ 60 字 |
+| `items[].tone` | `accent` \| `success` \| `warning` \| `error` \| `info` | 否 | 节点圆点的语义，默认 `accent`（墨绿）。已完成的节点用 `success`，卡住的用 `warning` |
+| `title` | string | 否 | 时间轴标题（`Heading level=2`） |
+
+> 圆点走 `StatusDot`，颜色只来自 token；不写 `#hex`。竖排不需要连线，节点之间靠 `gap 4` 分隔。
+
+**最小可用样例**
+
+```json
+{ "type": "timeline", "props": { "title": "关键节点", "items": [
+  { "date": "2026-09", "title": "总图定案", "text": "5#、6# 加高至 26 层。", "tone": "success" },
+  { "date": "2026-11", "title": "报建预审", "text": "等日照与消防回执。", "tone": "warning" }
+] } }
+```
+
+### 3.12 `matrix`
+
+| 字段 | 类型 | 必填 | 说明 / 约束 |
+|---|---|---|---|
+| `columns` | object[] | 是 | 对比维度，1–6 列（首列固定是行标签列，不在此列） |
+| `columns[].key` | string | 是 | 取值键，与 `rows[].cells` 的键一一对应 |
+| `columns[].label` | string | 是 | 列头文字，单位写进列头（`用地 · 万㎡`） |
+| `columns[].num` | boolean | 否 | `true` = 数值列：右对齐 + 等宽数字 |
+| `rows` | object[] | 是 | 对比行，1–12 行 |
+| `rows[].label` | string | 是 | 行标签（地块 / 方案 / 周期） |
+| `rows[].cells` | object | 是 | `{ "<column.key>": string \| { "value": string, "state"?: ... } }` |
+| `rows[].cells.*.state` | `good` \| `warn` \| `bad` | 否 | 单元格语义：`good`→success 徽标、`warn`→warning、`bad`→error。**不给 state 就是纯文本**，别满格上色 |
+| `labelHeader` | string | 否 | 行标签列的列头，默认 `对比项` |
+| `title` | string | 否 | 表标题 |
+| `note` | string | 否 | 口径 / 说明 |
+| `density` | `compact` \| `balanced` \| `spacious` | 否 | 直通 `Table.density`，默认 `balanced` |
+| `dividers` | `rows` \| `columns` \| `grid` \| `none` | 否 | 直通 `Table.dividers`，默认 `rows` |
+
+> `matrix` 与 `table` 的区别：`table` 是数据明细（数值多、无状态色），`matrix` 是**方案/地块横向对比**（行是对象、列是维度、可带状态徽标）。实现复用 `Table`，因为 `Text` 没有语义色，状态必须走 `Badge`。
+
+**最小可用样例**
+
+```json
+{ "type": "matrix", "props": { "title": "地块对比", "labelHeader": "地块",
+  "columns": [ { "key": "far", "label": "容积率", "num": true }, { "key": "status", "label": "状态" } ],
+  "rows": [ { "label": "01 地块", "cells": { "far": "2.20", "status": { "value": "已摘牌", "state": "good" } } } ] } }
+```
+
+### 3.13 `image`
+
+| 字段 | 类型 | 必填 | 说明 / 约束 |
+|---|---|---|---|
+| `src` | string | 是 | 本地相对路径（如 `examples/assets/xxx.svg`）或 `data:` URI。**渲染器会把本地文件读成 data URI 内嵌**，产物仍是单文件；`http(s)` 外链会被 `selfcheck` 判失败 |
+| `alt` | string | 是 | 替代文本，说明画面内容（无障碍必需） |
+| `caption` | string | 否 | 图注，≤ 60 字。示意图必须写明「示意 / 非交付图」 |
+| `ratio` | `16:9` \| `4:3` \| `3:2` \| `1:1` \| `21:9` \| `auto` | 否 | 画幅，默认 `16:9`；`auto` = 按图片自身高度，不裁切 |
+| `align` | `start` \| `center` | 否 | 图注对齐，默认 `start` |
+
+> 圆角跟随所在容器的卡片档位（页面宽度 = 大档 20px；`grid` 内 = 中档 16px），不单独写死半径。
+
+**最小可用样例**
+
+```json
+{ "type": "image", "props": { "src": "examples/assets/qingpu-siteplan.svg",
+  "alt": "青浦云谷总平关系示意图", "ratio": "16:9",
+  "caption": "总平关系示意图（内部讨论用，非交付图纸）" } }
+```
+
+### 3.14 `steps`
+
+| 字段 | 类型 | 必填 | 说明 / 约束 |
+|---|---|---|---|
+| `items` | object[] | 是 | 步骤，3–5 个（少于 3 个用 `timeline` 更合适） |
+| `items[].title` | string | 是 | 步骤名，≤ 12 字（`报建预审`，不写长句） |
+| `items[].text` | string | 否 | 一句话说明，≤ 24 字 |
+| `active` | number | 否 | 当前步骤的零基下标，默认 `1`；它之前的步骤显示为已完成 |
+| `title` | string | 否 | 区块标题 |
+| `note` | string | 否 | 节奏说明 / 关键路径提示 |
+
+> **R8 起不再用 Astryx `Stepper`**：它的连接线是 4px 的 StyleX 原子类（`var(--color-border)`，8% 黑）、序号圆点固定 16px，没有按状态改粗细/颜色的入口。现在由渲染器用 `ol/li` + token 画：圆点 22px（已走过与当前步 = accent 实心 + `--color-on-accent` 数字，未到 = 2px `--color-border-emphasized` 空心），连线 2px（已走过 `--color-accent`、未到 `--color-border-emphasized`），每步等宽、线首尾各内缩半格，不顶容器边。DOM 语义仍是 `ol` + `li`。
+
+**最小可用样例**
+
+```json
+{ "type": "steps", "props": { "title": "推进节奏", "active": 1, "items": [
+  { "title": "方案深化", "text": "总图与户型同步收口" },
+  { "title": "报建预审", "text": "日照与消防两项回执" },
+  { "title": "施工图", "text": "桩基与围护同步出图" },
+  { "title": "开工", "text": "计划 2027-04 进场" }
+] } }
+```
+
+### 3.15 `quote`
+
+| 字段 | 类型 | 必填 | 说明 / 约束 |
+|---|---|---|---|
+| `text` | string | 是 | 引文 / 结论，≤ 120 字。字号比正文大一档（`Text type="large"`） |
+| `source` | string | 否 | 出处，≤ 40 字（`2026-11-16 方案评审会`） |
+| `eyebrow` | string | 否 | 出处前的眉标（`评审结论`），与 `source` 用 ` · ` 连接 |
+| `tone` | `accent` \| `success` \| `warning` \| `error` \| `info` | 否 | 左竖线颜色，默认 `accent`（墨绿）；情绪强度不改字号 |
+
+> Astryx `Blockquote` 没有 tone/颜色旋钮（dist 里只有 atomic class），所以竖线由渲染器用 `border-left` + 语义 token 画，正文仍用 `Text`。
+
+**最小可用样例**
+
+```json
+{ "type": "quote", "props": { "tone": "accent",
+  "text": "指标已经封顶，这一轮竞争的焦点从「做多」转向「做好」。",
+  "eyebrow": "评审结论", "source": "2026-11-16 方案评审会" } }
+```
+
+### 3.16 `grid`
+
+| 字段 | 类型 | 必填 | 说明 / 约束 |
+|---|---|---|---|
+| `cols` | `2` \| `3` \| `4` | 是 | 列数（数字，不是字符串）。2 列是默认版式；3–4 列只用于短卡片 |
+| `gap` | `2` \| `3` \| `4` \| `5` \| `6` | 否 | 列间距档位，默认 `4`（16px） |
+| `children` | object[] | 是 | 子区块，2–6 个，每项 `{ id?, type, props }`，结构与顶层 `blocks[]` 相同 |
+
+> **`grid` 是最关键的容器**：没有它所有区块只能单列竖排。子区块会拿到「所在列数」上下文，卡片按列宽自动降到中/小档圆角内距（2–3 列 = 中档 16/24，4 列 = 小档 14/20），因此 `layout` 的圆角分级断言在 grid 内同样成立。`grid` 内不要再套 `grid`。
+
+**最小可用样例**
+
+```json
+{ "type": "grid", "props": { "cols": 2, "gap": "4", "children": [
+  { "type": "card", "props": { "title": "总图策略", "body": ["双塔靠东、板楼退南。"] } },
+  { "type": "image", "props": { "src": "examples/assets/qingpu-siteplan.svg", "alt": "总平示意", "ratio": "16:9" } }
+] } }
+```
+
 ---
 
 ## 4. 映射表：block → Astryx
@@ -193,33 +332,34 @@
 | `type` | Astryx 组件 | props 怎么映射 | 状态 |
 |---|---|---|---|
 | `heading` | `VStack` + `HStack` + `Text` + `Badge` + `Heading` + `TextInput` / `Button` | `eyebrow`→`Text(type="supporting")`；`badge`→`Badge(variant="info", label)`；`title`→`Heading(level=level, type="display-2" 仅当 level=1)`；`sub`→`Text(type="large"/"supporting")`；`toolbar.search`→`TextInput(label, placeholder)`；`toolbar.action`→`Button(variant="primary", label)`；布局 `VStack(gap=4)` + `HStack(justify="between", align="end", gap=5, wrap="wrap")` | 已实现（函数名 `Header`） |
-| `text` | `VStack` + `Text` | 每段 `Text(type=size==="large"?"large":"body")`，`VStack(gap=2)`；`note`→`Text(type="supporting", size="sm")` | 待实现 |
-| `metric` | `HStack` + `Card` + `Text`（**无专用指标组件**） | 每项 `Card(padding=4, elevation="low")` 包 `VStack`：`label`→`Text(type="supporting", size="sm")`；`value`→`Text(size="2xl", weight="medium", hasTabularNumbers=true)`；`unit`→`Text(type="supporting")` 同行；`hint`→`Text(type="supporting", size="sm")`；`HStack(gap=4, wrap="wrap")` | 待实现 |
-| `card` | `Card` + `VStack` + `Heading` + `Text` + `Badge` | `padding`/`variant`/`elevation` 直通 `Card`；`eyebrow`→`Text(supporting, sm)`；`title`→`Heading(level=3)`；`sub`/`note`/`tag`→`Text(supporting)`；`body[]`→`Text(body)`；`badge`→`Badge(variant="neutral")` | 待实现 |
-| `table` | `Card` + `VStack` + `HStack` + `Heading` + `Text` + `Table` | `Table({ data, columns, density, dividers:"rows", hasHover:true })`，`columns` 需转成 `{key, header, align, width, renderCell}`：`label`→`header`；`num`→`align:"end"` + 单元格 `Text(hasTabularNumbers, justify:"end")`（`align`/`renderCell` 是 Astryx Table 的列描述形态，见 `sections.mjs`）；`title`→`Heading(level=2)`；`note`→`Text(supporting)` | 已实现（`foot` 未实现） |
-| `badge` | `HStack` + `Badge`（+ `StatusDot`） | `items[].variant`/`label` 直通 `Badge`；`dot=true`→前置 `StatusDot`；`HStack(gap=2)` | 待实现 |
-| `callout` | `Banner` | `tone`→`status`（枚举 `info/success/warning/error` 完全同名）；`title`→`title`；`body`→`description`；`eyebrow`→`description` 前缀或省略；`action`→`endContent=Button(variant="primary")` | 待实现 |
-| `divider` | `Divider`（+ 外层 `VStack(gap=spacing)`） | `label`/`variant` 直通；`spacing` 变成外层 `VStack` 的 gap | 待实现 |
-| `cover` | `VStack` + `HStack` + `Heading` + `Text` + `Badge` | `title`→`Heading(level=1, type="display-2")`；`sub`→`Text(type="large")`；`meta[]`→`HStack(gap=8, wrap)` 内每组 `VStack(k)` + `Text(v)`（也可换 `MetadataList(orientation="horizontal")`，二选一） | 已实现 |
+| `text` | `VStack` + `Text` | 每段 `Text(type=size==="large"?"large":"body")`，`VStack(gap=2)`；`note`→`Text(type="supporting", size="sm")` | 已实现 |
+| `metric` | `HStack` + `Card` + `Text`（**无专用指标组件**） | 每项 `Card(width="232px", style=CARD_FRAMES.small)` 包 `VStack`：`label`→`Text(type="supporting", size="sm")`；`value`→`Text(size="2xl", weight="medium", hasTabularNumbers=true)`；`unit`→`Text(type="supporting")` 同行；`hint`→`Text(type="supporting", size="sm")`；`HStack(gap=4, wrap="wrap")` | 已实现 |
+| `card` | `Card` + `VStack` + `Heading` + `Text` + `Badge` | `padding`/`variant`/`elevation` 直通 `Card`；`eyebrow`→`Text(supporting, sm)`；`title`→`Heading(level=3)`；`sub`/`note`/`tag`→`Text(supporting)`；`body[]`→`Text(body)`；`badge`→`Badge(variant="neutral")`；卡片档位由 `tierForContext` 决定（页面宽度 `large` / grid 内 `medium`·`small`） | 已实现 |
+| `table` | `Card` + `VStack` + `HStack` + `Heading` + `Text` + `Table` | `Table({ data, columns, density, dividers, hasHover:true })`，`columns` 需转成 `{key, header, align, width, renderCell}`：`label`→`header`；`num`→`align:"end"` + 单元格 `Text(hasTabularNumbers, justify:"end")`；`foot`→追加 `__foot` 数据行（半粗）；`title`→`Heading(level=2)`；`note`→`Text(supporting)` | 已实现 |
+| `badge` | `HStack` + `Badge`（+ `StatusDot`） | `items[].variant`/`label` 直通 `Badge`；`dot=true`→前置 `StatusDot`；`HStack(gap=2)` | 已实现 |
+| `callout` | `Banner` | `tone`→`status`；`title`→`title`；`body`→`description`；`eyebrow`→`description` 前缀；`action`→`endContent=Button(variant="primary")` | 已实现 |
+| `divider` | `Divider`（+ 外层 `VStack(paddingBlock=spacing)`） | `label`/`variant` 直通；`spacing` 变成外层留白 | 已实现 |
+| `cover` | `VStack` + `HStack` + `Heading` + `Text` + `Badge` | `title`→`Heading(level=1, type="display-2")` + 衬线字体栈；`sub`→`Text(type="large")`；`meta[]`→`HStack(gap=8, wrap)` 内每组 `VStack(k)` + `Text(v)` | 已实现 |
 | `prose` | `VStack` + `Heading` + `Text` | `n`→`Text(supporting, sm)`；`title`→`Heading(level=2)`；`paras`→`Text(body)` | 已实现 |
+| `timeline` | `VStack` + `HStack` + `Text` + `StatusDot`（**无 Timeline 组件**） | 每行 `HStack(gap=5, align="start")`：日期列 `div(flex:0 0 96px)` + `Text(supporting, sm, tabular)`；`VStack(gap=1)` 内标题行 `HStack(StatusDot, Text(weight="semibold"))` + 说明 `Text(supporting)` | 已实现 |
+| `matrix` | `Card` + `VStack` + `Heading` + `Table` + `Badge` | 列 = 标签列 + `columns[]`；`state`→`Badge(variant=success/warning/error)`，无 state→`Text` | 已实现 |
+| `image` | `AspectRatio` + `img`（**无 Image/Figure 组件**） | `ratio`→`AspectRatio(ratio=number, fit="cover")`，`auto` 时不套 `AspectRatio`；`src` 本地路径→渲染时读成 data URI；外框 `borderRadius` 取 `CARD_FRAMES[tier].borderRadius` | 已实现 |
+| `steps` | `ol` + `li` + `VStack` + `Text`（**R8 起不用 `Stepper`**） | `active`→决定实心/空心与已完成段长度；每项 `li` 内：22px 序号圆点 + 标题 + 说明，连线 2px 由 token 上色 | 已实现 |
+| `quote` | `Text` + `div(border-left)`（`Blockquote` 无 tone 旋钮） | `text`→`Text(type="large")`；`source`/`eyebrow`→`Text(supporting, sm)` 拼接；`tone`→`border-left: 4px solid var(--color-*)` | 已实现 |
+| `grid` | `Grid` + `div` | `cols`→`Grid(columns=n)`；`gap`→`Grid.gap`；每个子 block 经 `renderBlock(child, { cols })` 渲染 | 已实现 |
 
-### 4.1 与当前渲染器的落差（必须知道，否则 JSON 喂不进去）
+### 4.1 与渲染器的对接现状
 
-1. **键名**：契约是 `meta` + `blocks`；当前 `agent/render.mjs` 读的是 `content.type` + `content.sections`。渲染器侧改这一行即可，内容层不需要动：
-
-   ```js
-   const sections = (content.blocks ?? content.sections)
-     .map((b) => ({ id: b.id, type: b.type === 'heading' ? 'header' : b.type, props: b.props }));
-   const recipeId = content.meta?.recipe ?? content.type;
-   ```
-
-2. **类型覆盖**：`SECTIONS` 现有 `header / cover / prose / table` 四个；`metric / text / card / badge / callout / divider` 六个待实现（本文档先定契约，渲染实现归渲染器负责人）。
-3. **`foot`**：Astryx `Table` 没有 footer 槽，合计行需要渲染器决定实现方式（追加带标记的数据行，或自建 footer row）。在此之前 `foot` 会被静默忽略 —— 因此**合计行宁可先写成最后一条 `rows`**，`foot` 只作为语义标记。
+1. **键名已对齐**：`agent/render.mjs` 直接读 `content.meta.recipe` + `content.blocks[]`；`content.type` / `content.sections` 仅作兼容回退。内容层按本文档写即可。
+2. **类型覆盖**：`SECTIONS` 已覆盖全部 16 种（`header` 作为 `heading` 的旧名保留）。未知类型会抛 `未知区块类型 type="…"（支持: …）`，报错带类型名。
+3. **`foot`**：Astryx `Table` 没有 footer 槽，渲染器把 `foot` 追加成一条带 `__foot` 标记的数据行（单元格半粗）。合计行也可以直接写在 `rows` 末尾，两种都合法，但同一页只用一种。
 4. **`heading` vs `header`**：同一个东西，旧函数名保留 `Header`，`type` 用 `heading`。映射见上。
+5. **暗色**：`meta.theme` 是内容层的明暗声明；渲染器 CLI 另支持 `--theme light|dark` 覆盖，用于出对照产物（`node agent/render.mjs <in> -o <out> --theme dark`）。这是 CLI 增补，不改配方/主题管线。
 
 ### 4.2 颜色与数值纪律
 
 - 内容层**不出现任何颜色/尺寸字面量**（`#hex`、`rgb()`、`px`）。语义只到 `tone` / `variant` / `trend` 这一层，具体色值由 Astryx token 决定。
+- 品牌实际色：`accent` 墨绿 `#24514a`（暗 `#5d9c8f`）；`info` 已从 Astryx 默认亮蓝改为墨绿系（实心 `#3d6b62` / 底 `#e8f0ee` / 文字 `#2f6157`，暗 `#7fb3a8` / `#1c2e2a`）；`warning` 改为深琥珀（实心 `#7f6118` + 奶白字 `#fff6e0` / 底 `#fbf3e0` / 文字 `#8a6a1f`），不再用刺眼黄。`success` / `error` 仍为 Astryx 默认。
 - 所有数值走 `string` + `hasTabularNumbers`；不要依赖 `number` 类型丢失千分位。
 - `Text` 组件没有 `success` / `error` 色（枚举只有 `primary/secondary/disabled/placeholder/accent/inherit`），所以涨跌**不能靠文字染色**；要表达涨跌，用 `trend` 选图标，或用 `badge` 的语义 variant。
 
@@ -290,3 +430,5 @@ python -c "import json;d=json.load(open('examples/demo-table.content.json',encod
 | 日期 | 版本 | 变更 |
 |---|---|---|
 | 2026-11-16 | v1 | 首版：10 个 block 类型，映射到 Astryx 0.7.16 实测组件；`blocks` 化收编旧 4 配方 section |
+| 2026-11-16 | v1.1 | 扩到 16 个类型（新增 `timeline` / `matrix` / `image` / `steps` / `quote` / `grid`）；修正滞后状态列（`text`/`metric`/`card`/`badge`/`callout`/`divider` 标为已实现）；`grid` 为唯一嵌套容器并传递列数上下文（卡片档位随列宽）；`image` 本地路径渲染为 data URI；`theme` 支持 CLI 覆盖 |
+| 2026-11-16 | v1.2 | 六个新区块各补「最小可用样例」；`steps` 改为语义列表重绘并写明原因（`Stepper` 原子类无法改圆点/连线）；`info` / `warning` 语义色对齐品牌（墨绿系 + 深琥珀）写入 §4.2 |

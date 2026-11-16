@@ -39,15 +39,17 @@ export const PALETTE = {
   surfaceMuted: 'var(--color-background-muted)',
   surfaceSunken: 'var(--color-background-surface)',
 
-  // categorical series — theme-defined data roles, fixed order
-  series: [
-    accent,
-    'var(--color-data-categorical-blue)',
-    'var(--color-data-categorical-orange)',
-    'var(--color-data-categorical-purple)',
-    'var(--color-data-categorical-brown)',
-    'var(--color-data-categorical-teal)',
-  ],
+  // categorical series — ONE hue, stepped by weight (R7).
+  // Gary's theme authors a single hue (ink green). Multi-series charts used to
+  // borrow Astryx's categorical blue/orange/purple, which read as a foreign
+  // palette next to the ink-green page. Series are now separated by tone, not
+  // hue: the same --color-accent at descending opacity over the card surface.
+  // Opacity (not color-mix) so every renderer draws it, and the card is the
+  // only thing behind a mark, so the blend never picks up the track.
+  //   pair — two-series comparison: 100% vs 55%
+  //   ramp — 3–4 class composition: 100 / 78 / 58 / 38
+  pair: [1, 0.55],
+  ramp: [1, 0.78, 0.58, 0.38],
 
   // flow diagram roles (one role = one hue, max four hues per diagram)
   role: {
@@ -58,10 +60,30 @@ export const PALETTE = {
   },
 };
 
-/** Stable series colour: pass the series index, not the slide of a filter. */
-export function seriesColor(index) {
-  return PALETTE.series[index % PALETTE.series.length];
+function stepsOf(kind) {
+  return PALETTE[kind] || PALETTE.ramp;
 }
+
+/**
+ * Paint for a series index. kind='pair' for two series, 'ramp' for 3–4 classes.
+ * Past the ladder it degrades to the neutral track, never to a new hue.
+ */
+export function seriesStyle(index, kind = 'ramp') {
+  const steps = stepsOf(kind);
+  const op = steps[index];
+  return op === undefined ? { fill: PALETTE.track, fillOpacity: 1 } : { fill: accent, fillOpacity: op };
+}
+
+/** Stroke/fill colour on its own (a line uses stroke + strokeOpacity). */
+export function seriesColor(index, kind = 'ramp') {
+  return seriesStyle(index, kind).fill;
+}
+
+export function seriesOpacity(index, kind = 'ramp') {
+  return seriesStyle(index, kind).fillOpacity;
+}
+
+
 
 /**
  * Type steps are theme fonts, not chart-local numbers. chart-recipes.json asks
