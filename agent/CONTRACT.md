@@ -1,130 +1,241 @@
-﻿# Gary-UI 契约（v1）
+﻿# Gary-UI · Agent 调用契约（Astryx 版 · v2）
 
-> 位置：`agent/`。跑闸门前先装一次依赖：`cd adapters/visual && npm i`（闸门用仓库内的 playwright-core + 本机 Chrome）。校验前置：仓库根起静态服务 `python -m http.server 4173 --directory <gary-ui 根>`。
-> 给 agent 的唯一入口。读完这一份就够开工，不要再去翻其它文档。
-> 一句话：**只能拼，不能发明。** 页面 = 配方（recipe）+ 内容（content），产出经渲染器。
+> 位置 `agent/CONTRACT.md`。给外部 agent 的唯一调用入口：读完这一份就能出页，不用翻别的文档。
+> 一句话：**页面 = content.json；只能拼，不能发明。** 不写 HTML、不写 CSS、不写 JS。
+> 底座：`@astryxdesign/core` 0.7.16（174 个组件）+ React 19 SSR。品牌层：`theme/gary.theme.mjs`。
 
-## 1. 三层结构
+---
 
-| 层 | 文件 | 谁写 |
+## 1. 三层与谁负责什么
+
+| 层 | 文件 | 谁动 |
 |---|---|---|
-| 材质原语 | `primitives.css` | 维护者；agent **只读** |
-| 配方 | `recipes.json` | agent 选一个，可复制改结构 |
-| 内容 | `content/<page>.json` | agent 填 |
-| 渲染 | `render.mjs` | 维护者；agent 只调用 |
+| 内容 | `<page>.content.json` | **agent 写**（只填数据） |
+| 契约 | `agent/content.schema.md` | 维护者；agent 只读 |
+| 配方 | `agent/recipes/report.recipe.mjs` · `table.recipe.mjs` · `sections.mjs` | 维护者；agent 只选 |
+| 渲染 | `agent/render.mjs` | 维护者；agent 只调用 |
+| 品牌 | `theme/gary.theme.mjs` | 维护者；agent 只读、不改 |
+| 闸 | `agent/checks/selfcheck.mjs` · `layout.mjs` | 维护者；agent 交付前必跑 |
+
+---
+
+## 2. 三步装配
+
+```powershell
+cd C:\AI\UI\gary-ui
+# 1. 写内容（照 §3 + agent/content.schema.md）
+#    最小可用： { "meta": { "recipe": "report", "title": "季度复盘" }, "blocks": [ ... ] }
+
+# 2. 渲染
+node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html
+
+# 3. 两条闸都 exit 0 才算交付（见 §6）
+node agent/checks/selfcheck.mjs out/demo-report.html
+node agent/checks/layout.mjs out/demo-report.html
+```
+
+产物是**单文件 HTML**：内联 `reset.css` + `astryx.css` + 主题 CSS，**零 `<script>`、零外链**，双击就能开，可以直接发人。
+
+渲染器成功时的 stdout（实测）：
 
 ```
-node render.mjs <recipe> <content.json> [out.html]
+WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=367637 recipe=report blocks=7 components=181
 ```
 
-## 2. 材质（只用变量，禁写字面量）
+渲染器会拒绝这三类错误（当场 throw，不产出半成品）：
+- `meta.recipe` 缺失或不在 `report` / `table` 里 → `未知配方 recipe="..."，可用: report, table`
+- `blocks` 缺失或为空 → `content.json 缺少 blocks[]，无法渲染`
+- 某个 block 缺 `type` / `type` 不在 `SECTIONS` 表里 → `未知区块类型 type="..."（支持: ...）`
 
-| 用途 | 变量 | 暗 | 亮 |
+---
+
+## 3. content.json 契约索引
+
+**字段级真源**：`agent/content.schema.md`（v1）。本节只给索引和铁律，写字段前先看那份。
+
+### 3.1 顶层
+
+```json
+{ "meta": { "recipe": "report", "title": "…", … }, "blocks": [ { "id": "b0", "type": "heading", "props": { … } } ] }
+```
+
+- `meta.recipe`：`report`（文章壳，块间距 8）· `table`（叠放壳，块间距 6）。**两者可用 block 集合相同**，差别只是竖向节奏。
+- `meta` 其余：`title`（必填，≤40 字）· `sub` · `eyebrow` · `badge` · `date` · `author` · `version` · `theme`（`light` 默认 / `dark`）· `lang`（`zh-CN` 默认 / `en`）。
+- `blocks[]`：顺序即渲染顺序，1–24 块（建议 4–10）。
+
+### 3.2 全部 block type（10 个，均已实现）
+
+| `type` | 是什么 | 关键 props | 对应 Astryx 组件 |
 |---|---|---|---|
-| 页面底 | `--bg` | `#000` | `#fbfbfd` |
-| 板 | `--win` | `#101012` | `#fff` |
-| 抬升 | `--raised` | `#1c1c1f` | `#fff` |
-| 凹槽 | `--sunken` | `#0b0b0d` | `#f0f0f3` |
-| 正文 | `--ink` | `#f5f5f7` | `#1d1d1f` |
-| 次文 | `--muted` | `#a1a1a9` | `#6e6e73` |
-| 三文 | `--dim` | `#8a8a92` | `#6b6b70` |
-| 发丝线 | `--line` `--line2` `--hair` | 白 8/4/12% | 黑 7/3/8% |
-| 强调 | `--accent` | `#74a7ff` | `#0071e3` |
-| 状态 | `--ok` `--warn` `--bad` | `#30d158` `#ffd60a` `#ff453a` | 同 |
+| `heading` | 页眉 / 小节标题 | `title` · `eyebrow` · `badge` · `sub` · `level` · `toolbar{search,action}` | `VStack`+`HStack`+`Heading`+`Text`+`Badge`+`TextInput`+`Button` |
+| `cover` | 封面 | `title` · `eyebrow` · `badge` · `sub` · `meta[{k,v}]` | `Heading(display-2)`+`Text`+`Badge`（唯一用衬线的块） |
+| `prose` | 长文分节 | `items[{n,title,paras[]}]` | `Heading(l2)`+`Text(body)` |
+| `text` | 正文段落 | `paras[]` · `note` · `size`(`body`/`large`) | `Text` |
+| `metric` | 指标卡组 | `items[{label,value,unit,hint,trend}]` · `title` · `note` | `Card`+`Text`（**无专用指标组件**） |
+| `card` | 通用卡片 | `title` · `eyebrow` · `sub` · `body[]` · `badge` · `tag` · `note` · `variant` · `elevation` | `Card`+`VStack`+`Heading(l3)`+`Text`+`Badge` |
+| `table` | 表格 | `columns[{label,num}]` · `rows[][]` · `foot[]` · `density` · `dividers` · `title` · `note` | `Card`+`Table` |
+| `badge` | 状态徽标行 | `items[{label,variant,dot}]` · `align` | `Badge`+`StatusDot` |
+| `callout` | 结论 / 提示框 | `tone`(`info`/`success`/`warning`/`error`) · `title` · `body` · `eyebrow` · `action{label}` | `Banner` |
+| `divider` | 分隔线 | `label` · `variant` · `spacing` | `Divider` |
 
-**默认表面 = Tonal（Material 3 Tonal Surface）**：卡片一律不透明 tonal 填充（板色 + 1px 中性描边/顶部高光 `--hair` + 一层投影 `--shadow`），靠明度阶梯分层。
-**玻璃是 opt-in 材质，不是默认。红线：未收到用户点名玻璃（玻璃卡片 / 液态玻璃 / 毛玻璃），不得使用 `.gary-glass*` / backdrop-filter / 光学边缘。**
-用户点名玻璃时也只许一层，不许玻璃套玻璃、不许渐变文字、不许彩色光晕。
+> `type` 取 `header` 也走 `heading` 的渲染函数（改名兼容，schema 里叫 `heading`）。
+> 实现状态以 `agent/recipes/sections.mjs` 的 `SECTIONS` 表为准：11 个 type 键、10 个 block 类型全部有渲染函数。**实测**：一份同时含这 10 类的 content.json 渲染成功（`bytes=351048 blocks=10 components=95`），`selfcheck` 与 `layout` 均 ALL PASS —— 不是看代码猜的。`content.schema.md` §2 里标的「待实现」是契约先写、实现后补的历史状态，以代码为准。
+> **不进契约**：`chart`（Astryx 无图表组件）· `groups` / `composer`（要运行时交互，单文件零脚本承载不了）· `nav` / `inspector`（外壳职责，归配方）。
 
-## 3. 原语（只有这些类）
+### 3.3 内容铁律（闸门查得出来的和查不出来的）
 
-`.surface` `.surface--flush` `.surface--sunken` · `.eyebrow` `.display` `.display--xl` `.h2` `.h3` `.sub` `.body` `.small` `.mono` `.num` `.metric` · `.btn` `.btn--primary` `.btn--ghost` `.iconbtn` `.seg` `.sw` `.chip` `.dot` `.field` `.send` · `.row` `.row__k` `.row__h` `.item` `.item__dot` `.item__title` `.item__meta` · `.badge` `.hr` `.sk` · `.scrim` `.palette` `.plist` `.pitem`
+1. 数值一律**字符串**（`"94,186"`、`"2.20"`），保千分位与小数位；`table.columns[].num: true` 负责右对齐 + 等宽数字。
+2. 内容层**不出现颜色 / 尺寸字面量**（`#hex`、`rgb()`、`px`）。语义只到 `tone` / `variant` / `trend`。
+3. `table.rows` 每行长度必须等于 `columns` 长度；合计行建议直接写进 `rows` 最后一行（`foot` 会追加成一行加粗，不是表尾槽）。
+4. 结论只写一次：`meta.sub` 与 `heading.sub` 不要写同一句 ≥20 字的话。
+5. 不用内部编码（`SC12`、`SRC-XX-01`）；演示数据页级 `meta.badge` 标 `示意数据`。
+6. 数字自洽（合计 = 明细之和，指标 = 表汇总）——这条闸门查不出，是写内容的人的责任。
 
-## 4. 硬规则（验收会逐条查）
+---
 
-1. **标签对齐**：面板标签（`.eyebrow`）的左边缘 = 该面板内容**文字**的左边缘（不是圆点/图标那一列）。改完跑 `node ../check-label-align.cjs` 必须 Δ=0。
-2. **数字等宽**：所有数值加 `.num`，右对齐。
-3. **对比度**：正文 ≥ 4.5:1，大字 ≥ 3:1；半透明文字按**实际合成底色**算。
-4. **热区**：≥ 44×44（视觉可小，用 `::after` 外扩）。
-5. **动效**：≤300ms；只动 `transform`/`opacity`；`prefers-reduced-motion` 关闭。**唯一例外**：单元素一次性的面板宽度变化可用宽度补间（比瞬切自然）。
-6. **主题**：亮暗都是一等公民，`<html data-theme>` 在首帧前由内联脚本定好，不闪。
-7. **密度**：`<html data-density="compact|roomy">`，紧凑是默认。四页共用 `--pad-row/--pad-item/--gap-sect/--pad-head`。
-8. **滚动条**：无轨道，灰圆头（原语已给，别覆盖）。
-9. **不许**：假数据指标、`transition: all`、emoji 当图标、外部请求、CDN。
+## 4. 可用组件（174 个）
 
-10. **不许折行**：短标签、说明、徽标、表头、按钮一律单行；写不下就**加宽容器或改短文案**，不许让它折成两行。
-    验收：`node checks/no-wrap.cjs` 必须报「折行合计: 0」（桌面 1440/1024 生效；390 允许自然折行）。典型修法——右栏 280→300px、把「预览画板宽度」改「画板宽度」、把说明移进 title 提示。
+`@astryxdesign/core` 共 **174 个组件**（实测 `npx @astryxdesign/cli component --list` 首行即 `Components (174)`）。别猜 props，查：
 
-11. **卡片必须有圆角**：有填充、不贴边、独立成块的表面圆角 ≥8px（默认轴取 `--gary-radius-card`）；
-    页面/场景底、贴边 rail·band·抽屉、表格单元、图表标记、图标、`.gary-*` 组件不算卡片。
-    分不出层级时**宁可不要底**（留白 24/32px、字号、字重），不要方角色块。
-    `border-left` / `border-inline-start` ≥2px 且带色相算违规，状态行改用 `inset 2px 0 0` 且不加底。
-    全文与例外清单见 `DESIGN.md` §7「表面几何」。
-12. **同一结论只渲染一次**：去空白与 `&nbsp;` 后相同、≥20 字且含中文标点即判重复；标题与标签不算。
-    索引区必须显式写 `data-gary-index`，类名不作豁免。
+```powershell
+cd C:\AI\UI\gary-ui
 
+# 列全部（人读）
+npx @astryxdesign/cli component --list
 
-**单页模式（`--page`）覆盖与不覆盖**：覆盖方角卡片 / 内部编码 / 结论重复三条；
-**不覆盖**字号下限、两栏、彩字面量、token chroma、页面底色、契约类、外壳分隔线、企业面板 K 值——
-那八条只在母本根目录跑全量闸。交付页在仓库内时，直接跑全量闸（自动扫 `patterns/**` 与根目录页）。
+# 单个组件的完整文档（agent 用这个）
+npx @astryxdesign/cli component Card --json
 
-## 4.1 闸门覆盖对照（谁真的会查）
+# 只要 props 表（省 token）
+npx @astryxdesign/cli component Card --props --json
 
-| 规则 | 闸门 |
+# 多个一起查
+npx @astryxdesign/cli component Button Badge Text --json
+```
+
+### 4.1 `component <Name> --json` 返回结构
+
+```jsonc
+{
+  "apiVersion": 1,
+  "type": "component.detail",
+  "package": "@astryxdesign/core",
+  "data": {
+    "name": "Card",
+    "displayName": "Card",
+    "group": "Card",
+    "category": "Container",
+    "keywords": ["card", "surface", "panel", …],
+    "usage": { "description": "…", "bestPractices": [ { "guidance": true, "description": "…" } ] },
+    "props": [
+      { "name": "width", "type": "SizeValue", "default": null, "values": null, "description": "…" }
+    ],
+    "examples": [ … ],        // 源码级示例
+    "playground": { … },      // 交互试参
+    "theming": { … },         // 该组件吃哪些 token
+    "import": "@astryxdesign/core/Card",
+    "sourceAvailable": true
+  },
+  "meta": { … }
+}
+```
+
+- `props[]` 每项结构 `{ name, type, default, values, description }`（`type` 是枚举名，如 `SizeValue` / `variant` 联合；`values` 给出合法枚举值）。
+- `--props --json` 时 `type` 变成 `"component.detail.props"`，`data` 直接是 props 数组。
+- 查不到组件时 exit 1 并说明未知 selector——**exit 1 就换名字，别硬编**。
+
+### 4.2 组件选型的两条硬经验（来自 Astryx 文档原文）
+
+- `Card` 不是默认布局工具：先问「这一块能不能被单独移除或重排」，能才是 card；否则用 标题 + 堆叠。
+- `Table` 没有 footer 槽；`Badge` 同一状态不要满页刷。
+
+---
+
+## 5. 主题：样式只改 theme，不写死
+
+真源 `theme/gary.theme.mjs`（`defineTheme` 扩展 `@astryxdesign/theme-neutral/built`）。agent 想要不同观感，**改这里或提需求给维护者**，不要在内容层或渲染里塞字面量。
+
+| token | 亮 | 暗 | 说明 |
+|---|---|---|---|
+| `--color-accent` | `#24514a` 墨绿 | `#5d9c8f` | 品牌强调色 |
+| `--color-accent-muted` | `#dde8e4` | `#22403a` | 同色相柔化底 |
+| `--color-text-accent` | `#24514a` | `#5d9c8f` | 链接 / 强调文字（不自动跟随 accent） |
+| `--color-icon-accent` | `#24514a` | `#5d9c8f` | 强调图标 |
+| `--font-family-body` / `-heading` | Helvetica Neue → Helvetica → Microsoft YaHei → Arial | 同 | 正文与所有标题级 |
+| 展示衬线 | `Georgia, Songti SC, SimSun, Times New Roman` | 同 | **只在 `cover` 的 `display-2` 标题上**，不是全局 token |
+| `--radius-element` / `-container` | `12px` | 同 | 元素 / 容器圆角 |
+| `--radius-inner` | `8px` | 同 | 内嵌件 |
+| `--radius-full` | `9999px` | 同 | 胶囊、圆点（Gary 不覆盖，沿用中性默认） |
+
+> Astryx 共 7 个圆角 token（`element` `container` `inner` `full` `none` `page` `chat`，实测 `astryx.css`）。Gary 只覆盖前三个，其余沿用中性默认。
+
+- 语义色（success / warning / error / info）**沿用 Astryx 中性默认**，Gary 不铺平调色板。
+- **卡片圆角与内距由渲染器按宽度分级**（`agent/recipes/sections.mjs` 的 `CARD_FRAMES`：小卡 14/20 · 中卡 16/24 · 大卡 20/28，px）。`layout.mjs` 按宽度带校验（`<320 → 12–16`、`320–700 → 14–18`、`>700 → 18–24`）。所以**不要给 Card 传 `style` 圆角**，会被闸门判违规。
+- 明暗两种模式都是一等公民：`meta.theme: "dark"` 触发暗色 token 组，无需另写样式。
+
+---
+
+## 6. 验收闸（交付前必跑，两条都 exit 0）
+
+```powershell
+cd C:\AI\UI\gary-ui
+node agent/render.mjs <你的 content.json> -o out/<page>.html
+node agent/checks/selfcheck.mjs out/<page>.html
+node agent/checks/layout.mjs out/<page>.html
+```
+
+### 6.1 `selfcheck.mjs` — 单文件约束（5 项）
+
+| 项 | 判据 | 实测 |
+|---|---|---|
+| 无 `<script>` | 全文不得出现 `<script` | PASS |
+| 无外链 | 不得有 `href/src=https:` 或 `url(http…)` | PASS |
+| 含 `data-astryx-theme="gary"` | 主题确实落在根元素上 | PASS |
+| 内联 `<style>` > 100000 B | 样式真的内联进去了 | 331468 B |
+| ≥ 3 个 `astryx-` 语义类 | 组件确实来自 Astryx | 100 个 |
+
+### 6.2 `layout.mjs` — 真实 DOM 几何（6 条，Playwright 量像素）
+
+| # | 规则 | 实测基准 |
+|---|---|---|
+| 1 | 工具行：输入框壳与按钮 `top` / `height` 差 ≤ 1px | Δ0 / Δ0 |
+| 2 | 每张卡的内边距四边 ≥ 20px | 小卡 20 · 中卡 24 · 大卡 28 |
+| 3 | 圆角随宽度分级（见 §5） | 232px→14 · 1056px→20 |
+| 4 | 卡内首个子元素距上/左 ≥ 20px | 21 / 29 |
+| 5 | 横向不出血（右边界 ≤ 父右边界 +1） | 0 处（表格滚动壳整卡宽属白名单） |
+| 6 | 文字不溢出（`scrollWidth ≤ clientWidth +1`） | 0 处 |
+
+`layout.mjs` 支持多文件与视口宽度：`node agent/checks/layout.mjs out/a.html out/b.html --width 900`。
+
+失败时它打印量到的真实 px 值，按值改**内容**（字太长就改文案或砍列）或提需求改 **theme**，不要绕闸。
+
+---
+
+## 7. 红线（踩了就是退回）
+
+1. **不写死颜色 / 字号 / 圆角**——不出现 `#hex`、`rgb()`、`px`、`rem` 字面量。
+2. **不手写 class**——产物里的类名全部由 Astryx 组件生成，内容层没有 `className` 这个字段。
+3. **不引外部 CSS / JS**——不加 `<link rel=stylesheet>`、不加 CDN、不加 `@import`。
+4. **不加 `<script>`**——包括统计、动画、主题切换脚本；产物必须零脚本。
+5. **不改配方绕过契约**——需要新 page 结构时提需求加配方，不手写 HTML。
+6. **不碰 `theme/` 之外的颜色定义**，也不在 block props 里塞 `style`。
+
+---
+
+## 8. 常见追问
+
+| 问 | 答 |
 |---|---|
-| 11 卡片圆角 | `no_square_card`（全量）与 `--page`（单页）同一实现 `agent/checks/page_scan.py`：按元素类型与边缘角色分「卡片 / 非卡片」，解析 px·rem·em·var 的真实圆角值 |
-| 12 结论唯一 / 内部编码 | `report_text`（强制范围 `patterns/recipes/**`）与 `--page`；导航、代码块、标题、免责声明不计；索引区只豁免编码、不豁免重复 |
-| 1 标签对齐 | `checks/check-label-align.cjs`（Range 量真实文字左缘） |
-| 2 数字等宽 | 静态：`.num` 定义在 primitives，渲染器统一加（无独立闸门） |
-| 3 对比度 | `checks/audit.cjs`：CSS 合成法（半透明前景按合成底算；**祖先 opacity 与渐变底未覆盖**）。`checks/contrast.cjs` 是像素法实验版，**未接入闸门**，已知限制见文件头 |
-| 4 热区 ≥44 | **无闸门**（audit 只打印 smallTargets，不作为失败条件） |
-| 5 动效 | `checks/audit.cjs` 查 `transition: all`；时长/只动 transform 无自动闸门 |
-| 6 首帧主题 | 无自动闸门（渲染器写死 dark，脚本再覆盖） |
-| 7 密度 | 无自动闸门 |
-| 8 滚动条 | 无自动闸门 |
-| 9 禁假数据/CDN/emoji | **无闸门**（假数据、emoji、外部请求都只能靠 review） |
-| 10 不许折行 | `checks/no-wrap.cjs`（Range 数行盒，覆盖下限 20） |
+| 能不能加图表？ | 不能。Astryx 无图表组件，契约明确不收 `chart`。图表工作由独立工作区「重建·图表与图示」承接。 |
+| 页面上要可点的按钮？ | 静态单文件，`Button` 只是视觉件（无 `onClick` 运行时）。要交互请改走应用层，不要塞脚本。 |
+| 旧 `agent/content.json` / `primitives.css` / `recipes.json` 在哪？ | 全在 `archive/legacy-2026-11/agent/`，仅作回滚参考；**新页一律用当前 `agent/render.mjs` + `meta/blocks` 契约**。 |
+| 旧的 65 组件契约 / shadcn 安装法？ | 作废。见 `MIGRATION.md` 与 `archive/legacy-2026-11/`。 |
+| 产物多大？ | 两页实测 363–368 KB（样式内联占 90%）。单文件换零依赖，可接受。 |
 
-> 未覆盖项不要假装已验：交付说明里按上表如实标注。
+---
 
-## 5. 配方一览
+## 9. 变更史
 
-**默认配方 = 双栏骨架**（`SKILL.md` 默认档第三层）：左 `minmax(340px, 42fr)` 流式叙述 +
-右 `minmax(440px, 58fr)` `.gary-stage-card` 工作台（header / viewport / footer；viewport 可挂
-`data-gary-theme` 做主题沙箱）。新页面无特殊诉求时从这里起步，再按需换下表配方。
-
-| 配方 | 用在哪 | 结构 |
+| 日期 | 版本 | 变更 |
 |---|---|---|
-| `workbench` | 任务 / 画布 / 参数 三栏 | rail + stage + inspector，可拖拽分隔条 |
-| `dashboard` | 经营看板 | header + kpis + chart + table |
-| `report` | 长文报告 | cover + toc + prose + table + note，带打印样式 |
-| `settings` | 设置 | nav + 分组 rows（seg/sw）+ 危险区二次确认 |
-
-新页面优先改内容而不是改配方结构；确实需要新结构时，先在 `recipes.json` 加一条，再渲染——不要手写 HTML。
-
-## 6. 自检清单（交付前必跑）
-
-```
-node checks/check-label-align.cjs          # 标签对齐 Δ=0
-node checks/audit.cjs                   # 对比度/溢出/报错
-```
-
-## 7. 交互也是声明出来的
-
-配方里加一行 `"interactions": [...]`，渲染器按声明注入标记与脚本，agent 不写 JS。
-
-| 声明 | 效果 | 依赖 |
-|---|---|---|
-| `theme` | 顶栏出现明暗切换，`data-theme` 落盘 localStorage | 无 |
-| `palette` | ⌘K / Ctrl+K 命令面板，命令由内容自动生成（跳章节/跳分组/切主题/打印） | 章节与分组自动获得 `id` |
-| `gutters` | 侧栏与主面板之间出现可拖拽分隔条（1:1 跟手、键盘 ←/→、夹取范围） | 两栏外壳 |
-| `print` | 打印样式：白底黑字、去浮层、章节不跨页 | 无 |
-
-例：`"workbench": { "shell":"workbench", "interactions":["theme","palette","gutters"], ... }`
-
-改完必须复验：`node checks/verify-interactions.cjs`（⌘K 能开、主题能切、分隔条能拖、零报错）。
-
-
-
-
-
+| 2026-11-16 | v2 | 重写为 Astryx 版：三步装配、`meta`+`blocks` 契约索引、174 组件查询法、theme 真源、两闸验收、五条红线。旧 v1（primitives / recipes.json / 四配方 / 交互声明 / 十二条不变量）随旧体系整体归档 |

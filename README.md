@@ -1,147 +1,107 @@
-<p align="center"><img src="patterns/shared/gary-architecture.svg" alt="Gary-UI" width="72"></p>
+# Gary-UI
 
-<h1 align="center">Gary-UI</h1>
-<p align="center">Agent 自主驱动的 UI 系统：默认 Tonal Surface，液态玻璃为 opt-in 材质。</p>
-<p align="center"><a href="https://kodxixi.github.io/Gary-UI/">打开完整 Demo</a> · <a href="https://kodxixi.github.io/Gary-UI/demo0909.html">图表与材质 Demo</a> · <a href="https://kodxixi.github.io/Gary-UI/portal/">探索设计系统</a> · <a href="#五分钟开始">复制与使用</a> · <a href="docs/ROADMAP.md">一起深化</a></p>
+> **写一份 JSON，得到一个能双击打开的单文件 HTML。** 底座 `@astryxdesign/core` 0.7.16（174 个组件），品牌层只有 Gary 的墨绿、字体与圆角分级。
 
-[![三种材质：实体底纹、磨砂玻璃、超白/全透玻璃](docs/images/materials-demo.png)](https://kodxixi.github.io/Gary-UI/demo0909.html#materials)
+不需要服务器、不需要 CDN、不需要打包；产物零 `<script>`、零外链，发微信、塞邮件、丢进评审库都能直接看。
 
-Gary-UI 把排版、卡片、图标、图表与动效放进真实页面里：先体验它们如何一起工作，再把同一套规则带回自己的项目。默认中性灰 tonal 表面（深色 L0.18 / 浅色 L0.98）、单一点网格、中文阅读尺度；液态玻璃为点名启用的 opt-in 材质。面向人的设计说明与面向 Agent 的契约放在同一份源码中。
+## 五分钟上手
 
-原创代码采用 [MIT](LICENSE)。这是持续演进的设计系统；欢迎 Fork、修改、做成自己的页面，也欢迎把具体场景和改进带回来。
+前提：Node ≥ 22。
 
-## 六个页面，三种节奏
+**① 装依赖**（本机 `node_modules/` 已就绪，可跳过这步）
 
-README 以 [完整 Demo 首页](examples/demos/index.html) 的六种工作情境为讲解顺序。下面的链接是可以操作的完整页面，仓库也包含对应 HTML、共享样式、固定示例数据和制图源文件。
-
-| 情境 | 体验与设计取舍 | 在线体验 · 源码 |
-| --- | --- | --- |
-| **分析 · 交付脉冲** | 区域筛选、趋势、判断和证据相邻；先找到问题，再进入具体事项。 | [打开](https://kodxixi.github.io/Gary-UI/examples/demos/web-analysis/) · [HTML](examples/demos/web-analysis/index.html) |
-| **阅读 · 项目知识库** | 搜索文档、连续阅读、展开提纲；正文稳定，知识地图帮助回看全局。 | [打开](https://kodxixi.github.io/Gary-UI/examples/demos/web-reading/) · [HTML](examples/demos/web-reading/index.html) |
-| **分析 · 项目运行看板** | 把状态、阻断、负责人和下一动作放在一起，减少来回查找。 | [打开](https://kodxixi.github.io/Gary-UI/examples/demos/project-kanban/) · [HTML](examples/demos/project-kanban/index.html) |
-| **展示 · 管理层简报** | 用大字、关键数字和有限动效建立判断顺序；静态也保留完整信息。 | [打开](https://kodxixi.github.io/Gary-UI/examples/demos/executive-board/) · [HTML](examples/demos/executive-board/index.html) |
-| **阅读 · 交付决策报告** | 从摘要到量化依据，再回到来源与执行表；支持长篇阅读与打印。 | [打开](https://kodxixi.github.io/Gary-UI/examples/demos/research-report/) · [HTML](examples/demos/research-report/index.html) · [PDF](examples/demos/research-report/research-report.pdf) |
-| **展示 · 华东交付方案** | 章节叙事、方案对比、交付路径与决策门；可以播放、暂停和重播。 | [打开](https://kodxixi.github.io/Gary-UI/examples/demos/proposal-presentation/) · [HTML](examples/demos/proposal-presentation/index.html) · [PDF](examples/demos/proposal-presentation/proposal-presentation.pdf) |
-
-所有业务数字都是人工编制的演示数据。分析页仍有两项已知的数据一致性问题，详见下文。
-
-## 这套语言如何工作
-
-- **内容决定材质。** 正文、密集表格与指标使用稳定底板；玻璃主要服务导航、独立卡片与展示入口。文字本身不加模糊或折射。
-- **操作有一致的位置。** 工具操作以 44px 圆形图标为主，导航与筛选保留文字。顶栏的 `Background` 只打开背景实验室，旁边圆形按钮独立切换深浅主题。
-- **背景只做一层。** 默认单一点网格，不叠加线网和装饰等高线。背景实验由用户主动开启，本地照片和视频只在浏览器里预览。
-- **鼠标光影默认关闭。** 点阵位移、卡片高光、波面视差需在 `Background` 中手动开启；减弱动态优先。
-- **动效可以停下来。** 展示动效支持暂停、重播，页面不可见时停止渲染，减弱动态偏好下保留静态内容。
-- **`apple-design` 是 Apple 方法入口。** 先用它统一层级、功能玻璃、排版与运动逻辑，再用 Apple 官方 HIG 校验边界；图表、表格与正文保持稳定实体承载，并适配文字缩放、减弱透明度和增强对比度。
-- **规则能追溯到代码。** 58 个 React 组件 + 65 个设计契约、3 类应用模式、4 类页面模式共享 Token、样式、状态和 Agent 契约。
-
-浏览 [Portal](https://kodxixi.github.io/Gary-UI/portal/) 查看排版、材质、组件、模板和制图；
-应用端的三列可折叠工作台变体见 [workbench](patterns/application-modes/workbench/index.html)，
-它把史宝生图的极简动态三列骨架落到 Gary-UI 的 Token、玻璃表面和可访问交互上；详细规则见 [DESIGN.md](DESIGN.md)。
-
-### 图表规范与跨域验证
-
-[图表表达规范](docs/CHART_EXPRESSION.md)提炼 **17 类图表与 7 种标注**的使用前提、尺度、排版和失败条件；[机器规则](spec/chart-recipes.json)是参数与选型真源。它把参考中的标注、对齐和阅读层次变成可迁移规则，业务字段、编号、判断与颜色语义由当前任务决定。
-
-[图表色彩体系](docs/CHART_COLOR.md)说明类别、连续量、偏差与状态如何选色，以及深浅主题和 Apple／Google 设计原则的应用边界；角色与色值统一落在机器规则中。
-
-[在线体验图表与材质 Demo](https://kodxixi.github.io/Gary-UI/demo0909.html) · [查看 HTML 源码](demo0909.html)：用不同领域的人工案例检验换单位、类别数量、尺度与缺测后的表达。[共享 SVG 参考实现](patterns/shared/chart-recipes.js)实际覆盖双轴、瀑布、环图、雷达、玫瑰五种，图表与数值表同源；不是新增适配器引擎，也不表示全部 17 类或 7 种标注已经自动实现。[调用示例与范围](docs/CHART_EXPRESSION.md#55-参考实现的调用边界)说明代码读取的参数及仍需人工审查的约束。
-
-三种材质按场景采用：**实体底纹（Solid）**、**磨砂玻璃（Frosted）**、**超白/全透玻璃（Optical）**。实体外卡与短指标可组合 `data-gary-surface="solid" data-gary-texture="flow"`，呈现静态中性指纹细线；图表绘图区、密集表格和长正文使用干净实底。磨砂玻璃用于摘要与导航，超白/全透玻璃用于短内容与展示。联动光影默认关闭，只有在右上角 `Background` 开启后才响应；主题按钮仍独立。[适用场景、调用代码与规则](docs/VISUAL_EXPRESSION.md)。此前的[视觉研究页](examples/visual-lab/index.html)保留为历史对照。
-
-### 可选交互示例
-
-[打开本地实验页](examples/interaction-lab/index.html)：体验可复用的数值过渡与手动内容轮播，比较媒体轻倾斜、标题分段呈现两个候选。后两项保留实验状态，由使用者判断后再推广；完整 Demo 继续作为视觉基线。
-
-这些配方参考 React Bits 的公开交互说明，由 Gary 独立实现，未引入其组件代码或新增依赖。[筛选依据、许可边界与复制用法](docs/INTERACTION_RECIPES.md)。
-
-## 五分钟开始
-
-预览只需要 **Python 3.10+**，不需要 Node.js、打包器、API Key 或外部 CDN。
-
-```bash
-git clone https://github.com/KODxixi/Gary-UI.git
-cd Gary-UI
-python scripts/preview.py --port 4173
+```powershell
+cd C:\AI\UI\gary-ui
+npm install
 ```
 
-打开 [http://127.0.0.1:4173/](http://127.0.0.1:4173/)，直接进入完整 Demo。设计系统位于 `/portal/`，模板组合位于 `/patterns/starting-points/`。
+**② 写一页内容** —— 新建 `examples/my-page.content.json`：
 
-### 复制一页
-
-1. 选择最接近你任务的完整 Demo，先在克隆的仓库里修改它。
-2. 替换页面内容和 [固定示例数据](examples/demos/data/project-data.js)，复用 `tokens/`、`components/`、`patterns/shared/` 与 `examples/demos/shared/`。
-3. 用 [模板组合器](https://kodxixi.github.io/Gary-UI/patterns/starting-points/) 生成更小的 HTML 起点，或直接沿用完整页的结构。
-4. 交付到其他目录时一起带走所引用的共享资源，并检查相对路径。单独下载一个 HTML **不会**自动包含整个页面的 CSS、脚本、图表和图片。
-
-### React / shadcn 项目
-
-Gary-UI 同时提供 React 19 + Tailwind CSS 4 执行层，59 个 shadcn/ui 组件自动消费 Gary token：
-
-```tsx
-import "@gary-ui/react-shadcn/styles.css"
-import { Button, Card, Dialog, DialogContent } from "@gary-ui/react-shadcn"
+```json
+{
+  "meta": { "recipe": "report", "title": "季度复盘", "date": "2026-11-16" },
+  "blocks": [
+    { "type": "heading", "props": { "eyebrow": "经营 · Q3", "title": "季度复盘", "sub": "口径见页脚。" } },
+    { "type": "metric",  "props": { "items": [
+      { "label": "成交额", "value": "86.4", "unit": "万", "hint": "环比 +1.2%", "trend": "up" },
+      { "label": "去化率", "value": "67.3", "unit": "%",  "hint": "环比 +4.0%", "trend": "up" }
+    ] } },
+    { "type": "table",   "props": {
+      "columns": [{ "label": "渠道" }, { "label": "成交额 · 万", "num": true }],
+      "rows": [["自然搜索", "21.4"], ["老带新", "64.9"]],
+      "foot": ["合计", "86.3"]
+    } },
+    { "type": "callout", "props": { "tone": "info", "title": "结论：老带新是主力渠道", "body": "占比 75%，下周把物料预算向它倾斜。" } }
+  ]
+}
 ```
 
-浮层动效用 Spring 物理（非 CSS transition）：`useSpringStyle(elRef, open, { response: 0.35, damping: 1.0 })`。详见 [adapters/react-shadcn/README.md](adapters/react-shadcn/README.md)。
+**③ 渲染**
 
-```bash
-cd adapters/react-shadcn
-npm install && npm run build
+```powershell
+node agent/render.mjs examples/my-page.content.json -o out/my-page.html
 ```
 
-### 让 Agent 使用
+输出一行确认（`examples/demo-report.content.json` 实测）：
 
-让 Agent 先读取你克隆目录中的 [AGENTS.md](AGENTS.md)（含外部 Agent 快速上手节），再给出真实内容和目标。可以直接复制这段提示词：
-
-```text
-请读取当前 Gary-UI 仓库的 AGENTS.md、DESIGN.md。
-设计系统真源在 tokens/tokens.json，React 执行层在 adapters/react-shadcn/。
-为我的项目制作页面。先明确它属于阅读、分析还是展示情境，复用共享 Token 和组件。
-浮层动效用 useSpringStyle，不要用 CSS transition。
-交付 HTML/React、所需资源和运行说明，实际验证深浅主题、手机布局、键盘操作及主要交互。
+```
+WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=367637 recipe=report blocks=7 components=181
 ```
 
-高级 Session、受管运行投影和外部 Skill 自动发现属于可选集成。普通克隆与预览不依赖维护者的 `C:\AI` 环境。
+**④ 过两道闸**（都 exit 0 才算成）
 
-## 图表与思维导图
-
-| 内容 | 工具与入口 |
-| --- | --- |
-| 架构、流程、时序、数据流和生命周期 | [Archify](adapters/visual/ARCHIFY_SKILL.md)；图示语法按[图示表达规范](docs/DIAGRAM_EXPRESSION.md)与[机器规则](spec/diagram-recipes.json) |
-| 定量分析图表 | 先按 [17 类图表规范](docs/CHART_EXPRESSION.md)选型；既有 ECharts 为常规路径，五种 [SVG 参考配方](patterns/shared/chart-recipes.js)按实际范围选用 |
-| Markdown 层级思维导图 | Markmap |
-| 精选信息图 | [AntV Infographic](adapters/visual/ANTV_SKILLS.md) |
-| 简单流程 | Mermaid |
-| 界面图标（React 组件层）| reicon-react |
-| 图标机制（vanilla 静态层 / morph）| Lucide 几何 |
-
-[打开制图样例](https://kodxixi.github.io/Gary-UI/examples/demos/visuals/outputs/) 可查看实际 HTML、原生源和导出。适配器保留各工具的原生格式，失败不覆盖上一份有效结果。
-
-预览已生成的图形无需安装依赖。修改和重新生成时，需要 **Node.js 22+** 及可用的 Chromium：
-
-```bash
-npm --prefix adapters/visual ci
-python scripts/gary_ui.py visual --help
+```powershell
+node agent/checks/selfcheck.mjs out/my-page.html     # 单文件：零脚本、零外链、主题落地
+node agent/checks/layout.mjs    out/my-page.html     # 版式：内距、圆角分级、不出血、不溢出
 ```
 
-具体命令与依赖边界见 [Visual Adapter](adapters/visual/README.md)。引擎能渲染不代表对应的专项 Skill 已安装；Archify 与 AntV 的安装/发现边界分别在上述文档中说明。
+**⑤ 看一眼图**（可选，用本机 chromium 缓存截图）
 
-## 继续深化
+```powershell
+node agent/checks/shoot.mjs out/my-page.html out/my-page.png
+```
 
-欢迎从一个具体页面或操作开始贡献：附上复现步骤、预期、宽度、主题和可运行示例。共享组件的改进需要回到完整 Demo 复验，避免只修一个局部样例。
+**⑥ 打开** `out/my-page.html` —— 双击即可。
 
-- [贡献说明](CONTRIBUTING.md)：如何提 Issue、改代码和验证。
-- [路线图](docs/ROADMAP.md)：排版、布局、图标、数据与导出、图形和动效的后续方向。
-- [公开版验收](docs/PUBLIC_RELEASE.md)：本次实际检查与能力边界。
-- [维护与发布](docs/PUBLISHING.md)：公开克隆、母本候选与 Pages 发布的边界。
-- [变更记录](CHANGELOG.md)：设计系统的演进。
+## 目录
 
-当前优先关闭的两项问题：分析页切换区域后判断详情仍固定为江苏；静态图表导出不跟随当前区域筛选。它们不影响浏览设计示例，但尚不能作为真实业务数据闭环的完成证明。
+| 路径 | 是什么 |
+|---|---|
+| `agent/render.mjs` | 渲染器：content.json → 单文件 HTML |
+| `agent/content.schema.md` | 内容契约 v1：`meta` + `blocks[]`，10 个 block type 的字段与字数上限 |
+| `agent/CONTRACT.md` | 给外部 agent 的调用契约（三步装配 / 组件查询 / 主题 / 闸门 / 红线） |
+| `agent/recipes/` | 配方：`report`（文章壳）· `table`（叠放壳）· `sections.mjs`（type → 渲染函数） |
+| `theme/gary.theme.mjs` | 品牌层真源：墨绿 `#24514a`（暗 `#5d9c8f`）、Helvetica + 微软雅黑、圆角 12/12/8 |
+| `agent/checks/` | 闸门：`selfcheck.mjs` · `layout.mjs`（+ `shoot.mjs` 截图） |
+| `examples/demo-*.content.json` | 两页真实示例（报表 / 表格） |
+| `out/` | 产物目录（生成物，不手改） |
+| `archive/legacy-2026-11/` | 旧系统全量归档（65 组件 / shadcn / portal / 自造 token），见 `MIGRATION.md` |
 
-## 许可证与来源
+## 组件从哪来
 
-[MIT](LICENSE) 适用于 Gary-UI 原创代码与文档。第三方代码、依赖和品牌标识继续适用各自许可证，见 [第三方声明](THIRD_PARTY_NOTICES.md) 与 [完整许可证目录](licenses/third-party/)。系统字体由设备提供，仓库不打包 Apple 或其他商业字体。
+174 个组件全在 `@astryxdesign/core`，**别猜 props**：
 
-Gary-UI 是独立的 Web 设计系统，与 Apple 无隶属关系。Liquid Glass 是设计参考；这里的 Web 材质实现不等同于原生系统组件。
-质量层以 Emil Kowalski 的 MIT `apple-design` Skill 作为 Apple 设计逻辑的首要 Web 方法入口，并用 Apple 官方 [Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles)、[Motion](https://developer.apple.com/design/human-interface-guidelines/motion)、[Typography](https://developer.apple.com/design/human-interface-guidelines/typography) 与 [Adopting Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/adopting-liquid-glass) 校验边界；仓库不复制 Apple 素材或原生组件。
+```powershell
+npx @astryxdesign/cli component --list                # 组件目录（首行 Components (174)）
+npx @astryxdesign/cli component Card --json           # 单个组件的 props / 用法 / 代码示例
+npx @astryxdesign/cli component Card --props --json   # 只要 props 表
+```
+
+## 只想改样式？
+
+改 `theme/gary.theme.mjs` 里的 token 覆盖（accent / 字体 / 圆角），重跑渲染即可；**不要在页面里写死颜色和 px**——卡片的内距与圆角由渲染器按宽度分档（14/20 · 16/24 · 20/28），闸门按档校验。
+
+## 验收判据（硬）
+
+| 闸 | 查什么 | 现在的结果 |
+|---|---|---|
+| `selfcheck.mjs` | 零 `<script>`、零外链、`data-astryx-theme="gary"`、内联样式 > 100 KB、≥3 个 astryx 语义类 | 5 项全 PASS |
+| `layout.mjs` | 控件对齐 Δ≤1px、卡内距 ≥20px、圆角分级、首元素不贴边、横向不出血、文字不溢出 | 6 条全 PASS |
+
+## 旧的东西去哪了
+
+65 个自造组件、shadcn 适配层、portal、`tokens/tokens.json` 的 214 个 `--gary-*`、旧的 10 个验收脚本，全部移入 `archive/legacy-2026-11/`（逐条去向见 [MIGRATION.md](MIGRATION.md)）。没有删除，可回滚。
+
+## 许可
+
+MIT。公开仓库 `KODxixi/Gary-UI`。

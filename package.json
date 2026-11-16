@@ -1,0 +1,28 @@
+{
+  "name": "gary-ui",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Gary 品牌设计系统 · Astryx 底座",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "render": "node agent/render.mjs",
+    "check": "node agent/checks/selfcheck.mjs",
+    "astryx": "node node_modules/@astryxdesign/cli/clients/cli/bin/astryx.mjs"
+  },
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "@astryxdesign/core": "0.7.16",
+    "@astryxdesign/theme-neutral": "0.7.16",
+    "@stylexjs/stylex": "0.19.2"
+  },
+  "devDependencies": {
+    "@astryxdesign/cli": "0.7.16",
+    "vite": "8.3.8",
+    "@vitejs/plugin-react": "6.3.0",
+    "playwright-core": "1.65.1"
+  }
+}

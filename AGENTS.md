@@ -1,112 +1,88 @@
 # Gary-UI
 
-> **Agent 自主驱动的 UI 系统：默认 Tonal Surface，液态玻璃为 opt-in 材质。**
-
-设计系统真源在 token，React/shadcn 是执行层，60 个组件自动消费 Gary token。
+> **Astryx 底座上的 Gary 品牌层：content.json 进，零脚本单文件 HTML 出。**
+> 设计真源在 `theme/`，执行层是 `@astryxdesign/core` 的 174 个组件，agent 只填数据、不写样式。
 
 ## 你是谁？
 
 | 角色 | 做什么 | 先读 |
 |---|---|---|
-| **消费方**（用 Gary-UI 做页面） | import 组件到自己的项目 | [react-shadcn/README.md](adapters/react-shadcn/README.md) |
-| **贡献方**（改 Gary-UI 本身） | 改组件/token/规范 | 下面所有文件 |
-
-## 消费方快速开始
-
-```bash
-# 方式 1：shadcn CLI 拉组件
-npx shadcn@latest add https://raw.githubusercontent.com/KODxixi/Gary-UI/main/adapters/react-shadcn/registry.json --override
-
-# 方式 2：clone 仓库后 link（npm publish 前的临时方案）
-git clone https://github.com/KODxixi/Gary-UI.git
-cd Gary-UI/adapters/react-shadcn && npm install && npm run build
-# 在你的项目里 npm link ../../Gary-UI/adapters/react-shadcn
-```
-
-然后：
-```tsx
-import "@gary-ui/react-shadcn/styles.css"
-import { Button, Card, Dialog, DialogContent } from "@gary-ui/react-shadcn"
-import { useSpringStyle } from "@gary-ui/react-shadcn"
-```
+| **消费方**（用 Gary-UI 出页面） | 写一份 `content.json` → 跑渲染器 → 拿单文件 HTML | [agent/CONTRACT.md](agent/CONTRACT.md) |
+| **贡献方**（改 Gary-UI 本身） | 改配方 / 主题 / 闸门 | [agent/content.schema.md](agent/content.schema.md) + 下面所有文件 |
 
 ## 外部 Agent 快速路由
 
 | 你要做什么 | 先读 | 然后 |
 |---|---|---|
-| **做页面（首选）** | [agent/CONTRACT.md](agent/CONTRACT.md) | 选配方 → 填 `agent/content.json` → `node agent/render.mjs` |
-| **选组件** | [COMPONENTS.md](adapters/react-shadcn/COMPONENTS.md) | 决策树 → 相似对比 → 组件速查 |
-| **写 React 组件** | [react-shadcn/README.md](adapters/react-shadcn/README.md) | Quick Start + Dialog Spring 示例 |
-| **查设计规范** | `components/<slug>.json` | variant / size / state / interaction / a11y |
-| **查 token 值** | [tokens/tokens.json](tokens/tokens.json) | 214 个 `--gary-*` 变量（`tokens/base.css` 生成物里 216 个唯一名，多出的是轴内覆盖） |
-| **改 token** | `tokens/tokens.json` | 改完跑 `npm run tokens:generate` |
-| **做页面 Demo** | [README.md](README.md) | 六场景 Demo + 五分钟开始 |
-| **做图表** | [CHART_EXPRESSION.md](docs/CHART_EXPRESSION.md) | 17 类选型 + 7 种标注 |
-| **做图示（架构 / 流程 / 时序 / 状态）** | [DIAGRAM_EXPRESSION.md](docs/DIAGRAM_EXPRESSION.md) · **过程图另看 [FLOW_DIAGRAM.md](docs/FLOW_DIAGRAM.md)** | 七层阅读 + 边界命题 → visual manifest；过程图走四色描边 + 正交折线 |
-| **做 Gary-UI 流程图** | [FLOW_DIAGRAM.md](docs/FLOW_DIAGRAM.md) · 真源 [flow-diagram.json](spec/flow-diagram.json) | **触发语「Gary-UI流程图」**；报告页用 `scripts/flow_svg.py --report`；闸 `scripts/check_flow_diagram.py` |
-| **交付前自检（必做）** | 在 `C:\AI\UI\gary-ui` 下跑 `python -B agent/checks/invariants.py` | 十二条不变量 + 两个验收器；母本之外的交付页用绝对路径加 `--page <文件>`（方角卡片 / 内部编码 / 结论重复） |
-| **查版式红线（方角卡片、外壳分隔线、三栏、字号）** | [DESIGN.md](DESIGN.md) §7 | 卡片必须有圆角 ≥8px；贴边块与表格不算卡片；宁可不要底；禁止带色相的 2px 左条 |
-| **改 DSH / ArchOS 外壳** | `C:\\GarchOS\\ArchOS\\AGENTS.md`「外壳规则」 | 侧栏与工作区不加分隔线，坑在 0.5px `--dsw-alias-border-l3` |
-| **看组件长什么样** | Storybook | `cd adapters/react-shadcn && npm run storybook` |
+| **做页面（唯一入口）** | [agent/CONTRACT.md](agent/CONTRACT.md) | 填 `content.json` → `node agent/render.mjs <in> -o out/<page>.html` |
+| **查 block 字段怎么写** | [agent/content.schema.md](agent/content.schema.md) | `meta` + `blocks[]` 的 10 个 type、每个 props 的必填与字数上限 |
+| **查组件有哪些 / props 是什么** | `npx @astryxdesign/cli component --list` | `npx @astryxdesign/cli component <Name> --json`（174 个组件） |
+| **改品牌色 / 字体 / 圆角** | [theme/gary.theme.mjs](theme/gary.theme.mjs) | 改 token 覆盖，**不写死样式**，改完重跑渲染 |
+| **改页面骨架（竖向节奏 / 新页型）** | `agent/recipes/*.recipe.mjs` | `report`（gap 8，文章壳）· `table`（gap 6，叠放壳） |
+| **加/改一个 block 类型** | `agent/recipes/sections.mjs` | `SECTIONS` 表是唯一的 type → 渲染函数映射 |
+| **交付前自检（必做）** | 下面「交付前验证」 | `selfcheck` + `layout` 两条都 exit 0 |
+| **查旧系统怎么了** | [MIGRATION.md](MIGRATION.md) | 旧 65 组件 / shadcn / portal / 自造 token 全在 `archive/legacy-2026-11/` |
+| **看组件长什么样** | `out/specimen/` | `scripts/specimen.mjs` 生成的标本页（A–D 变体 + 圆角 + 字体） |
 
 ## 关键指针
 
-- **组件选择指南**：[adapters/react-shadcn/COMPONENTS.md](adapters/react-shadcn/COMPONENTS.md)
-- **组件源码**：`adapters/react-shadcn/src/components/ui/*.tsx`（60 个）
-- **Spring hook**：`useSpring` · `useGestureValue` · `useSpringStyle`（从 `@gary-ui/react-shadcn` 导出）
-- **Token CSS 桥接**：`adapters/react-shadcn/src/styles/gary-ui.css`
-- **组件契约**：`components/*.json`（64 个，另有 `index.json` 索引）
-- **Token 源**：`tokens/tokens.json`（214 个 `--gary-*` 变量；`base.css` 生成物 216 个唯一名）
-- **设计约束**：[DESIGN.md](DESIGN.md)
-- **UI 工作流**：[SKILL.md](SKILL.md)
-- **Agent 协作契约**：[调用白皮书](docs/GARY_UI_AGENT_COLLABORATION_WHITEPAPER.md)
-- **材质与光影**：[VISUAL_EXPRESSION.md](docs/VISUAL_EXPRESSION.md)
-- **图表色彩**：[CHART_COLOR.md](docs/CHART_COLOR.md)
-- **图示语法**：[DIAGRAM_EXPRESSION.md](docs/DIAGRAM_EXPRESSION.md) · 真源 [diagram-recipes.json](spec/diagram-recipes.json)
-- **Gary-UI流程图规范**（触发语：`Gary-UI流程图`）：[FLOW_DIAGRAM.md](docs/FLOW_DIAGRAM.md) · 真源 [flow-diagram.json](spec/flow-diagram.json) · 闸 `scripts/check_flow_diagram.py` · 生成器 `scripts/flow_svg.py`（报告页 `--report`）
-- **系统及场景权威**：[spec/system.json](spec/system.json) · [spec/scene-recipes.json](spec/scene-recipes.json)
-- **企业面板 token（ArchOS / GarchOS）**：[spec/ARCHOS-ENTERPRISE-TOKENS.md](spec/ARCHOS-ENTERPRISE-TOKENS.md) · 机器可读 [spec/archos-enterprise.tokens.json](spec/archos-enterprise.tokens.json)
+- **调用契约**：[agent/CONTRACT.md](agent/CONTRACT.md) — agent 的唯一入口，读完就能开工
+- **内容契约**：[agent/content.schema.md](agent/content.schema.md) — 字段级 v1
+- **渲染器**：`agent/render.mjs`（React 19 SSR，内联 reset + astryx + 主题 CSS）
+- **配方**：`agent/recipes/report.recipe.mjs` · `table.recipe.mjs` · `sections.mjs`（10 个 block 渲染函数）
+- **主题真源**：`theme/gary.theme.mjs` — 墨绿 `#24514a`（暗 `#5d9c8f`）、圆角 12/12/8、Helvetica + 微软雅黑
+- **闸门**：`agent/checks/selfcheck.mjs`（单文件约束 5 项）· `agent/checks/layout.mjs`（真实 DOM 几何 6 条）
+- **示例内容**：`examples/demo-report.content.json` · `examples/demo-table.content.json`
+- **产物**：`out/`（两页 + specimen + 选型稿），**生成物，不手改**
+- **归档**：`archive/legacy-2026-11/`（旧系统全量，可回滚）· `archive/tokens/`（上一轮 token 备份）
+- **依赖**：`package.json`（`@astryxdesign/core` 0.7.16 · React 19.3.1 · playwright-core 1.65.1）
 
 ## 常见任务命令
 
-- **跑 demo**：`python scripts/preview.py --port 4173`
-- **验证完整性**：`python scripts/validate.py`（输出组件数、模式数 JSON）
-- **生成视觉图**：visual adapter 入口 `node adapters/visual/runtime/runner.cjs`，产物在 `examples/**/outputs/`
-- **Python QA 脚本**：`scripts/*_qa.mjs`，按文件名猜功能（card_material_qa、portal_acceptance_qa 等）
-- **新组件起步**：从 `adapters/react-shadcn/src/components/ui/` 复制现有组件改，登记 `components/index.json`
+```powershell
+cd C:\AI\UI\gary-ui
+
+# 渲染一页
+node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html
+
+# 两条验收闸
+node agent/checks/selfcheck.mjs out/demo-report.html
+node agent/checks/layout.mjs out/demo-report.html out/demo-table.html
+
+# 组件目录与单组件文档
+npx @astryxdesign/cli component --list
+npx @astryxdesign/cli component Card --json
+```
 
 ## 硬规则
 
-1. **浮层入场用 `useSpringStyle`**，不用 CSS transition。Spring 层级表见 [COMPONENTS.md](adapters/react-shadcn/COMPONENTS.md)。
-2. **改 token 先改 `tokens/tokens.json`**，再跑 `npm run tokens:generate`，不直接改 CSS。
-3. **工具操作默认 44px 圆形图标，走 morph-icons 机制**（`patterns/shared/morph-icons.js`，React 组件层图标来源 reicon-react，vanilla 静态层与 morph 仍取 Lucide 几何 + morphicons morph 引擎）；导航和筛选保留文字。
-4. **新组件必须登记 `components/index.json`**。
-5. **`examples/**/outputs/` 是生成产物**，不要直接改。
+1. **只拼不造**：页面 = `meta` + `blocks`；不写 HTML / CSS / JS，不加 `<script>`，不引外链。
+2. **零字面量**：内容层与 props 里不出现颜色 / 字号 / 圆角（`#hex`、`rgb()`、`px`）。要改观感改 `theme/`。
+3. **不手写 class**：类名全部由 Astryx 组件生成。
+4. **卡片圆角/内距归渲染器**：`sections.mjs` 的 `CARD_FRAMES` 按宽度分三档，别给 Card 传 `style` 圆角。
+5. **闸门是硬的**：`selfcheck` 与 `layout` 任一非 0 不得交付；失败按打印的实测 px 值改内容，不绕闸。
+6. **`out/` 与 `examples/*.content.json` 是产物/输入两侧**：`out/` 不手改；示例内容改动要同步过闸。
 
 ## 交付前验证（贡献方）
 
-```bash
-cd adapters/react-shadcn
-npm run typecheck      # tsc --noEmit
-npm run build          # tsc -p tsconfig.build.json
-npm run audit:ui       # 伪元素/token 映射/契约一致性
-npm run audit:contrast # 对比度审计
+```powershell
+cd C:\AI\UI\gary-ui
+node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html   # 渲染
+node agent/checks/selfcheck.mjs out/demo-report.html                             # 单文件约束
+node agent/checks/layout.mjs out/demo-report.html out/demo-table.html            # 版式几何
 ```
 
-四关全过才算完成。缺任何一项标注"未验证"。
-
-## 维护者
-
-Demo 维护、图表规则、材质细节、公开仓库发布流程见 [.agent/maintainer.md](.agent/maintainer.md)。外部 Agent 不需要读这里。
+三条全过才算完成。缺任何一项标注「未验证」。
 
 ## 公开仓库
 
-`KODxixi/Gary-UI` · MIT 许可 · 预览 `python scripts/preview.py --port 4173`
+`KODxixi/Gary-UI` · MIT 许可 · 单文件产物双击即开，无需服务
 
 ## 不要去哪找（已知错误位置）
 
-- ❌ 不要找 Gary-UI 的分叉副本：唯一真相位置是 `C:\AI\UI\gary-ui`；`C:\Users\shiguanyu\Architect\06_ID\skills\gary-ui`、
-  `C:\AI\prototypes\gary-ui-sessions`、`C:\GarchOS\var\release-*` 下的同名目录都已删除或被母本取代。
-- ❌ 不要改 `*.bundle.css` 与 `examples/**/outputs/`：生成物，改源文件重跑生成。
-- ❌ 不要从 `CHANGELOG.md` 抄数值：数值真源是 `tokens/tokens.json` 与 `spec/*.json`，CHANGELOG 只记发生了什么。
-- ❌ 不要用 `scripts/validate.py` 当验收闸：它只打印、不看退出码；闸门是 `agent/checks/invariants.py`。
+- ❌ 不要找 65 个自造组件、shadcn 适配层、`components/*.json`、`primitives.css`、`tokens/tokens.json`——全部退役，见 [MIGRATION.md](MIGRATION.md)，实体在 `archive/legacy-2026-11/`。
+- ❌ 不要跑 `npm run typecheck / build / audit:ui / audit:contrast`（旧 shadcn 四关），已不存在；验收只认 `selfcheck` + `layout`。
+- ❌ 不要用 `python scripts/validate.py` 当闸——脚本已归档，且它只打印不看退出码。
+- ❌ 不要从 `archive/legacy-2026-11/CHANGELOG.md` 抄数值——数值真源是 `theme/gary.theme.mjs` 与 `agent/recipes/sections.mjs`。
+- ❌ 不要改 `out/` 里的 html、也不要改 `*.bundle.css`——生成物，改源文件重跑。
+- ❌ 不要找 Gary-UI 的分叉副本：唯一真相位置是 `C:\AI\UI\gary-ui`。

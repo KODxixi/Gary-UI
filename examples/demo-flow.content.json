@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "recipe": "viz",
+    "title": "Gary-UI · 流程图页（R5）",
+    "theme": "light",
+    "lang": "zh-CN"
+  },
+  "blocks": [
+    {
+      "id": "h",
+      "type": "heading",
+      "props": {
+        "eyebrow": "Gary-UI 重建 · R5",
+        "badge": "流程图",
+        "title": "流程图：正交折线、直角拐点、四色描边",
+        "sub": "几何与线型按 viz/_src/flow-diagram.json：卡片 2px 角色色描边、填充只用中性面、箭头是水滴、连线一律正交折线。"
+      }
+    },
+    {
+      "id": "intro",
+      "type": "text",
+      "props": {
+        "paras": [
+          "这里画的是这套渲染器自己的链路，不是示意图：线性流程交代一次渲染的顺序，分支流程交代注册表命中与未命中的两条出边，泳道流程交代三层各自负责哪一段。",
+          "颜色只承担角色（输入 / 处理 / 判定 / 结果），不表示好坏；线型只承担主路径与旁支。节点尺寸由固定网格决定，不按文字长度撑宽，所以同类节点在三种图里尺寸一致。"
+        ],
+        "note": "每条边都带 marker-end（水滴 13×13，refX 11.2 贴住框边）；每条折线的拐点都是 90°。"
+      }
+    },
+    {
+      "id": "f-linear",
+      "type": "flow",
+      "props": {
+        "flow": "linear",
+        "title": "线性流程：一份 content.json 怎么变成可双击打开的报告页",
+        "question": "渲染的顺序是什么，每一步交出去的是什么？",
+        "nodes": [
+          { "id": "content", "role": "input", "kind": "capsule", "title": "content.json", "sub": "meta + blocks[]" },
+          { "id": "render", "role": "process", "kind": "card", "title": "sections 渲染", "sub": "block.type → 组件" },
+          { "id": "html", "role": "result", "kind": "capsule", "title": "单文件 HTML", "sub": "零脚本 · 零外链" },
+          { "id": "gate", "role": "decision", "kind": "card", "title": "交付闸", "sub": "selfcheck · layout" }
+        ],
+        "edges": [
+          { "from": "content", "to": "render", "kind": "main", "label": "blocks[]" },
+          { "from": "render", "to": "html", "kind": "main", "label": "静态标记" },
+          { "from": "html", "to": "gate", "kind": "main", "label": "读产物" }
+        ],
+        "note": "主路径用实线 + text-primary 箭头；本图没有旁支，所以不出现虚线。",
+        "source": "viz/render-viz.mjs · agent/recipes/sections.mjs",
+        "status": "实现现状 · 2026-11-16"
+      }
+    },
+    {
+      "id": "f-branch",
+      "type": "flow",
+      "props": {
+        "flow": "branch",
+        "title": "分支流程：区块类型命中注册表就渲染，否则抛错",
+        "question": "遇到没登记过的 block.type 时，哪条出边走？",
+        "nodes": [
+          { "id": "read", "role": "input", "kind": "card", "title": "读取 content.json", "sub": "meta + blocks[]", "col": 0, "row": 1 },
+          { "id": "decide", "role": "decision", "kind": "decision", "title": "type 已登记？", "sub": "查注册表", "col": 1, "row": 1 },
+          { "id": "render", "role": "process", "kind": "card", "title": "渲染区块", "sub": "React → 静态标记", "col": 2, "row": 0 },
+          { "id": "fail", "role": "result", "kind": "card", "title": "抛错退出", "sub": "错误里列出可用 type", "col": 2, "row": 2 },
+          { "id": "out", "role": "result", "kind": "card", "title": "写出 HTML", "sub": "单文件 · 无脚本", "col": 3, "row": 1 }
+        ],
+        "edges": [
+          { "from": "read", "to": "decide", "kind": "main" },
+          { "from": "decide", "to": "render", "kind": "main", "label": "已登记" },
+          { "from": "decide", "to": "fail", "kind": "dashed", "label": "未登记" },
+          { "from": "render", "to": "out", "kind": "main" }
+        ],
+        "note": "虚线只给非主路径（未登记 → 抛错），不表示「未成立」；判定节点是菱形，判据写在节点副标题里。",
+        "source": "viz/render-viz.mjs（renderBlock 抛错分支）",
+        "status": "实现现状 · 2026-11-16"
+      }
+    },
+    {
+      "id": "f-swim",
+      "type": "flow",
+      "props": {
+        "flow": "swimlane",
+        "title": "泳道流程：内容层、渲染层、校验层各管一段",
+        "question": "三层的交接点在哪里，谁证明产物没坏？",
+        "lanes": [
+          { "title": "内容层", "sub": "谁定义页面" },
+          { "title": "渲染层", "sub": "谁生成 HTML" },
+          { "title": "校验层", "sub": "谁证明没坏" }
+        ],
+        "nodes": [
+          { "id": "content", "role": "input", "kind": "card", "title": "content.json", "sub": "meta + blocks[]", "col": 0, "row": 0 },
+          { "id": "registry", "role": "input", "kind": "card", "title": "sections · recipes", "sub": "已登记区块类型", "col": 1, "row": 0 },
+          { "id": "render", "role": "process", "kind": "card", "title": "render-viz.mjs", "sub": "blocks → React 树", "col": 0, "row": 1 },
+          { "id": "css", "role": "process", "kind": "card", "title": "内联 CSS + 主题", "sub": "reset / astryx / token", "col": 1, "row": 1 },
+          { "id": "html", "role": "result", "kind": "card", "title": "单文件 HTML", "sub": "零脚本 · 零外链", "col": 2, "row": 1 },
+          { "id": "gates", "role": "decision", "kind": "card", "title": "selfcheck · layout", "sub": "单文件 + 真几何", "col": 2, "row": 2 },
+          { "id": "shot", "role": "result", "kind": "card", "title": "shoot 截图", "sub": "1440×900 视口", "col": 1, "row": 2 }
+        ],
+        "edges": [
+          { "from": "content", "to": "render", "kind": "main" },
+          { "from": "registry", "to": "render", "kind": "side" },
+          { "from": "render", "to": "css", "kind": "main" },
+          { "from": "css", "to": "html", "kind": "main" },
+          { "from": "html", "to": "gates", "kind": "main" },
+          { "from": "gates", "to": "shot", "kind": "main" }
+        ],
+        "note": "跨泳道的线一律绕行：竖直段落只出现在同列交接处，横向段落沿格子间隙走，不斜穿任何框。",
+        "source": "viz/render-viz.mjs · agent/checks/selfcheck.mjs · agent/checks/layout.mjs · agent/checks/shoot.mjs",
+        "status": "实现现状 · 2026-11-16"
+      }
+    },
+    {
+      "id": "close",
+      "type": "callout",
+      "props": {
+        "tone": "info",
+        "title": "三种流程图共用一套几何",
+        "eyebrow": "判断 · 与图同源",
+        "body": "线性、分支、泳道三种图没有各自的样式表：卡片 2px 角色色描边、填充取中性面、圆角 8、字号 14/12/11、箭头水滴、连线正交。换图只换拓扑与文案，样式不重新定义——这也是三张图能并排比较的前提。",
+        "action": { "label": "看图表页" }
+      }
+    }
+  ]
+}

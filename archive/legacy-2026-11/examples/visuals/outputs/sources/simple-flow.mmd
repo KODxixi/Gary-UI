@@ -1,0 +1,7 @@
+flowchart LR
+  A[Markdown 源] --> B{关系是否复杂}
+  B -- 否 --> C[Mermaid 文档内渲染]
+  B -- 是 --> D[显式转换为 Archify IR]
+  D --> E[关系核对]
+  C --> F[保留原始 Mermaid]
+  E --> F

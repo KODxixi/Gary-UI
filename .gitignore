@@ -1,5 +1,6 @@
 node_modules/
 dist/
+*.log
 __pycache__/
 *.pyc
 .pytest_cache/
@@ -46,3 +47,6 @@ examples/visuals/**/output/
 *.orig
 *.rej
 agent/_shot-*.png
+
+# Astryx 渲染产物
+out/
