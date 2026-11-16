@@ -81,26 +81,42 @@ export const GARY_TOKEN_OVERRIDES = {
   '--radius-container': '12px',
   '--radius-inner': '8px',
 
-  // Categorical data palette (R10). Astryx ships NO data/categorical token
-  // (`--color-data-*` does not exist in theme-neutral), so multi-series charts
-  // had nothing to reach for and R7 collapsed every series onto accent opacity —
-  // which read as one flat colour. These eight are authored here, lifted from the
-  // legacy Gary-UI chart palette (archive/legacy-2026-11/spec/chart-recipes.json)
-  // so the new charts keep the old system's range while staying inside the
-  // ink-green family: terra / ochre / indigo / plum / clay / grey-green.
-  // Series 1 is always the brand accent so the primary series still reads as Gary.
-  // Series order is chosen for CONTRAST between adjacent series, not for hue
-  // family grouping: ink green -> terra -> indigo -> ochre -> teal -> plum ->
-  // clay -> grey-green. Two-series charts (the most common case) therefore get
-  // green vs terra, which separates at a glance.
-  '--color-data-1': ['#24514a', '#5d9c8f'],
-  '--color-data-2': ['#a85548', '#d08a7c'],
-  '--color-data-3': ['#386aa9', '#7ba3d4'],
-  '--color-data-4': ['#d5af59', '#e0c37e'],
-  '--color-data-5': ['#4f918a', '#7fb3a8'],
-  '--color-data-6': ['#795098', '#a98cc0'],
-  '--color-data-7': ['#ba826a', '#d6a48c'],
-  '--color-data-8': ['#6c7a73', '#9aa8a0'],
+  // Categorical data palette (R10/R11). Astryx ships NO data/categorical token,
+  // so these are authored here. HUES are the legacy Gary-UI chart categories
+  // verbatim (archive/legacy-2026-11/spec/chart-recipes.json
+  // themes.{light,dark}.category1..8). LIGHTNESS is the midpoint between the
+  // legacy light and dark values, because the legacy light set was tuned to
+  // punch off a #f5f5f7 chart panel and reads too heavy on Gary's white page —
+  // Gary's words: "这些太深". Hue is untouched; only L moves.
+  //   legacy light: #386aa9 #89600a #22765d #795098 #a85548 #367989 #965579 #70665a
+  //   legacy dark : #82acec #d5af59 #78c9ac #be9bda #d58d80 #82b4bf #dda2c4 #aba69e
+  '--color-data-1': ['#558cd3', '#82acec'],
+  '--color-data-2': ['#be8c22', '#d5af59'],
+  '--color-data-3': ['#3fad8d', '#78c9ac'],
+  '--color-data-4': ['#9d71bd', '#be9bda'],
+  '--color-data-5': ['#c06f62', '#d58d80'],
+  '--color-data-6': ['#529cae', '#82b4bf'],
+  '--color-data-7': ['#be779e', '#dda2c4'],
+  '--color-data-8': ['#8f867a', '#aba69e'],
+
+  // Single-series charts (bar / line / area / histogram) take the legacy
+  // system's `primary` role, not category1 — the legacy family mapping sent
+  // every single-mark family to `single`, only grouped/stacked/donut to
+  // categorical. Chart ink stays off the UI accent #24514a by design.
+  '--color-data-primary': ['#529cae', '#82b4bf'],
+  '--color-data-secondary': ['#3fad8d', '#78c9ac'],
+  '--color-data-reference': ['#be8c22', '#d5af59'],
+  '--color-data-negative': ['#c06f62', '#c47b62'],
+  '--color-data-neutral': ['#8f867a', '#9a9ea0'],
+
+  // Sequential ramp (heat / intensity), 7 stops, light -> dark in light mode.
+  '--color-data-seq-1': ['#e1efee', '#203b3d'],
+  '--color-data-seq-2': ['#bddbd7', '#2b5153'],
+  '--color-data-seq-3': ['#98c4be', '#38696a'],
+  '--color-data-seq-4': ['#72aca5', '#498384'],
+  '--color-data-seq-5': ['#4f918a', '#629e9d'],
+  '--color-data-seq-6': ['#32766f', '#82b9b6'],
+  '--color-data-seq-7': ['#155b55', '#a9d6d1'],
 };
 
 export const garyTheme = defineTheme({

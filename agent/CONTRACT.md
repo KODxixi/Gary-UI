@@ -3,6 +3,7 @@
 > 位置 `agent/CONTRACT.md`。给外部 agent 的唯一调用入口：读完这一份就能出页，不用翻别的文档。
 > 一句话：**页面 = content.json；只能拼，不能发明。** 不写 HTML、不写 CSS、不写 JS。
 > 底座：`@astryxdesign/core` 0.7.16（174 个组件）+ React 19 SSR。品牌层：`theme/gary.theme.mjs`。
+> 两个渲染器：`agent/render.mjs`（16 类文本区块）· `viz/render-viz.mjs`（同一套文本区块 + `chart` / `flow`，见 §7）。
 
 ---
 
@@ -13,9 +14,10 @@
 | 内容 | `<page>.content.json` | **agent 写**（只填数据） |
 | 契约 | `agent/content.schema.md` | 维护者；agent 只读 |
 | 配方 | `agent/recipes/report.recipe.mjs` · `table.recipe.mjs` · `sections.mjs` | 维护者；agent 只选 |
-| 渲染 | `agent/render.mjs` | 维护者；agent 只调用 |
+| 图表 | `viz/charts.mjs` · `flow.mjs` · `README.md` | 维护者；agent 只读契约、只填 `chart` / `flow` 的 props |
+| 渲染 | `agent/render.mjs`（文本区块）· `viz/render-viz.mjs`（文本区块 + 图表 / 流程图） | 维护者；agent 只调用 |
 | 品牌 | `theme/gary.theme.mjs` | 维护者；agent 只读、不改 |
-| 闸 | `agent/checks/selfcheck.mjs` · `layout.mjs` | 维护者；agent 交付前必跑 |
+| 闸 | `agent/checks/selfcheck.mjs` · `layout.mjs` · `viz/check-flow.mjs`（仅流程图几何） | 维护者；agent 交付前必跑 |
 
 ---
 
@@ -39,7 +41,7 @@ node agent/checks/layout.mjs out/demo-report.html
 渲染器成功时的 stdout（实测）：
 
 ```
-WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=367637 recipe=report blocks=7 components=181
+WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=399810 recipe=report blocks=11 components=299
 ```
 
 渲染器会拒绝这三类错误（当场 throw，不产出半成品）：
@@ -63,9 +65,9 @@ WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=367637 recipe=report blocks=7 
 - `meta` 其余：`title`（必填，≤40 字）· `sub` · `eyebrow` · `badge` · `date` · `author` · `version` · `theme`（`light` 默认 / `dark`）· `lang`（`zh-CN` 默认 / `en`）。
 - `blocks[]`：顺序即渲染顺序，1–24 块（建议 4–10）。
 
-### 3.2 全部 block type（10 个，均已实现）
+### 3.2 全部 block type（16 个，均已实现）
 
-| `type` | 是什么 | 关键 props | 对应 Astryx 组件 |
+| `type` | 是什么 | 关键与必填 props | 对应 Astryx 组件 |
 |---|---|---|---|
 | `heading` | 页眉 / 小节标题 | `title` · `eyebrow` · `badge` · `sub` · `level` · `toolbar{search,action}` | `VStack`+`HStack`+`Heading`+`Text`+`Badge`+`TextInput`+`Button` |
 | `cover` | 封面 | `title` · `eyebrow` · `badge` · `sub` · `meta[{k,v}]` | `Heading(display-2)`+`Text`+`Badge`（唯一用衬线的块） |
@@ -73,14 +75,21 @@ WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=367637 recipe=report blocks=7 
 | `text` | 正文段落 | `paras[]` · `note` · `size`(`body`/`large`) | `Text` |
 | `metric` | 指标卡组 | `items[{label,value,unit,hint,trend}]` · `title` · `note` | `Card`+`Text`（**无专用指标组件**） |
 | `card` | 通用卡片 | `title` · `eyebrow` · `sub` · `body[]` · `badge` · `tag` · `note` · `variant` · `elevation` | `Card`+`VStack`+`Heading(l3)`+`Text`+`Badge` |
-| `table` | 表格 | `columns[{label,num}]` · `rows[][]` · `foot[]` · `density` · `dividers` · `title` · `note` | `Card`+`Table` |
+| `table` | 表格（数据明细） | `columns[{label,num}]` · `rows[][]` · `foot[]` · `density` · `dividers` · `title` · `note` | `Card`+`Table` |
 | `badge` | 状态徽标行 | `items[{label,variant,dot}]` · `align` | `Badge`+`StatusDot` |
 | `callout` | 结论 / 提示框 | `tone`(`info`/`success`/`warning`/`error`) · `title` · `body` · `eyebrow` · `action{label}` | `Banner` |
 | `divider` | 分隔线 | `label` · `variant` · `spacing` | `Divider` |
+| `timeline` | 时间轴 / 关键节点 | **必填** `items[]`（2–10 条）：每项 `date`（≤12 字）+ `title`（≤16 字）；可选 `items[].text`（≤60 字）· `items[].tone`（`accent`/`success`/`warning`/`error`/`info`）· 区块 `title` | `VStack`+`StatusDot`+`Text` |
+| `matrix` | 方案 / 地块横向对比（可带状态徽标） | **必填** `columns[]`（每项 `key` + `label`，`num?`）与 `rows[]`（每项 `label` + `cells`）；`cells` 形如 `{ "<列key>": 字符串 \| {value, state?} }`，`state` 取 `good`/`warn`/`bad`；可选 `labelHeader` · `title` · `note` · `density` · `dividers` | `Card`+`Table`+`Badge` |
+| `image` | 图片块（本地图内嵌成 data URI） | **必填** `src`（本地相对路径或 `data:` URI，`http(s)` 外链会被闸判失败）+ `alt`；可选 `caption`（≤60 字）· `ratio`（`16:9`/`4:3`/`3:2`/`1:1`/`21:9`/`auto`，默认 `16:9`）· `align` | `AspectRatio`+`img` |
+| `steps` | 步骤条 / 推进节奏 | **必填** `items[]`（3–5 个）：每项 `title`（≤12 字）；可选 `items[].text`（≤24 字）· `active`（零基下标，默认 `1`）· 区块 `title` · `note` | `ol/li` + token 手画（R8 起不再用 `Stepper`，连接线是 StyleX 原子类改不动） |
+| `quote` | 引文 / 结论强调 | **必填** `text`（≤120 字）；可选 `source`（≤40 字）· `eyebrow` · `tone`（`accent`/`success`/`warning`/`error`/`info`） | `Text(large)` + `border-left`（`Blockquote` 无 tone 旋钮） |
+| `grid` | 多列容器（唯一的多列手段） | **必填** `cols`（`2`/`3`/`4`，数字）+ `children[]`（2–6 个 `{id?, type, props}`，结构与顶层 `blocks[]` 相同）；可选 `gap`（默认 `4`） | `Grid` |
 
 > `type` 取 `header` 也走 `heading` 的渲染函数（改名兼容，schema 里叫 `heading`）。
-> 实现状态以 `agent/recipes/sections.mjs` 的 `SECTIONS` 表为准：11 个 type 键、10 个 block 类型全部有渲染函数。**实测**：一份同时含这 10 类的 content.json 渲染成功（`bytes=351048 blocks=10 components=95`），`selfcheck` 与 `layout` 均 ALL PASS —— 不是看代码猜的。`content.schema.md` §2 里标的「待实现」是契约先写、实现后补的历史状态，以代码为准。
-> **不进契约**：`chart`（Astryx 无图表组件）· `groups` / `composer`（要运行时交互，单文件零脚本承载不了）· `nav` / `inspector`（外壳职责，归配方）。
+> 实现状态以 `agent/recipes/sections.mjs` 的 `SECTIONS` 表为准：**17 个 type 键 = 16 个 block 类型 + 1 个 `header` 别名**，全部有渲染函数。**实测**：一份同时含这 16 类的 content.json 渲染成功（`bytes=371528 blocks=16 components=160`），`selfcheck` 与 `layout` 均 ALL PASS —— 不是看代码猜的。
+> 字段级约束（字数上限、枚举、最小样例）在 `agent/content.schema.md` §3.1–3.16，一节一类型，本表与它同源；冲突以 schema 为准。
+> **不在上面这张表里**：`chart` / `flow` 只由 `viz/render-viz.mjs` 接管（§7），`agent/render.mjs` 收到会抛「未知区块类型」。`groups` / `composer`（要运行时交互，单文件零脚本承载不了）· `nav` / `inspector`（外壳职责，归配方）仍不收。
 
 ### 3.3 内容铁律（闸门查得出来的和查不出来的）
 
@@ -184,6 +193,8 @@ node agent/checks/selfcheck.mjs out/<page>.html
 node agent/checks/layout.mjs out/<page>.html
 ```
 
+上面是文本页。**含 viz 产物时闸门不变**：把第一行换成 `node viz/render-viz.mjs <in> -o out/<page>.html`（见 §7），`selfcheck` 与 `layout` 照样各跑一次；流程图页再加 `node viz/check-flow.mjs out/<page>.html`。实测 `out/viz-charts.html`（393464 B）与 `out/viz-flow.html`（359278 B）两闸均 PASS。
+
 ### 6.1 `selfcheck.mjs` — 单文件约束（5 项）
 
 | 项 | 判据 | 实测 |
@@ -191,8 +202,8 @@ node agent/checks/layout.mjs out/<page>.html
 | 无 `<script>` | 全文不得出现 `<script` | PASS |
 | 无外链 | 不得有 `href/src=https:` 或 `url(http…)` | PASS |
 | 含 `data-astryx-theme="gary"` | 主题确实落在根元素上 | PASS |
-| 内联 `<style>` > 100000 B | 样式真的内联进去了 | 331468 B |
-| ≥ 3 个 `astryx-` 语义类 | 组件确实来自 Astryx | 100 个 |
+| 内联 `<style>` > 100000 B | 样式真的内联进去了 | 331906 B |
+| ≥ 3 个 `astryx-` 语义类 | 组件确实来自 Astryx | 104 个（viz 页 100 个） |
 
 ### 6.2 `layout.mjs` — 真实 DOM 几何（6 条，Playwright 量像素）
 
@@ -211,7 +222,80 @@ node agent/checks/layout.mjs out/<page>.html
 
 ---
 
-## 7. 红线（踩了就是退回）
+## 7. 图表与流程图（viz/）
+
+边界先说清，踩了白跑一轮：
+
+- `chart` / `flow` **不在** `agent/render.mjs` 的 `SECTIONS` 表里。把 `type: "chart"` 直接喂给 `agent/render.mjs` 会当场抛 `sections: 未知区块类型`。
+- 图表页统一用 `viz/render-viz.mjs`：它只接管 `chart` / `flow`，其余 16 类文本区块全部复用 `agent/recipes/sections.mjs`。所以一页里可以混排正文、表格、卡片和七张图。
+- 它**不按 `meta.recipe` 分派**（不读这个字段），只按 `blocks[]` 顺序渲染；示例里的 `"recipe": "viz"` 只是标记。
+- 模块地图、颜色契约、字号映射、几何规则的细节在 `viz/README.md`。
+
+```powershell
+cd C:\AI\UI\gary-ui
+node viz/render-viz.mjs examples/demo-viz.content.json -o out/viz-charts.html
+node viz/render-viz.mjs examples/demo-flow.content.json -o out/viz-flow.html
+node viz/check-flow.mjs out/viz-flow.html          # 流程图几何闸（见 7.3）
+node agent/checks/selfcheck.mjs out/viz-charts.html
+node agent/checks/layout.mjs out/viz-charts.html
+```
+
+实测 stdout：
+
+```
+WROTE C:\AI\UI\gary-ui\out\viz-charts.html bytes=393464 blocks=12 charts=7 flows=0
+WROTE C:\AI\UI\gary-ui\out\viz-flow.html bytes=359278 blocks=6 charts=0 flows=3
+```
+
+缺 `-o` 或漏了输入 → 打印 `用法: node viz/render-viz.mjs <content.json> -o <out.html>`，exit 2。
+
+### 7.1 七种图表（`type: "chart"`）
+
+共用必填：`chart`（下表之一）+ `title` + `source` + `status`（数据身份：`实测` / `示例数据` / `推算`）。`question` / `unit` / `digits` / `note` / `height` / `ariaLabel` / `annotations` 可选。
+
+| `chart` 值 | 是什么 | 该型额外必填 / 结构 |
+|---|---|---|
+| `bar` | 柱状图 · 单系列 | `categories[]` + `series[{name, values[]}]` |
+| `grouped-bar` | 柱状图 · 分组 | 同上，`series` 放多条（共同零点、右上图例） |
+| `line` | 折线图 | `categories[]` + `series[{name, values[]}]`；可选 `annotations` 的 `reference` / `band` |
+| `stacked` | 百分比堆叠 | `rows[{label, parts[{name, value}]}]`（**不是** `series`） |
+| `donut` | 环形图 | `items[{name, value}]`；可选 `centerLabel` |
+| `progress` | 进度条组 | `rows[{label, value, max, hint}]` |
+| `sparkline` | KPI 迷你趋势 | `kpi{ label, value, unit?, delta?, categories[], values[], note?, source? }`（走 `KpiTile`，不进 `ChartBody`） |
+
+- `grouped-bar` 含连字符，**别写成 `groupedBar`**。类型值就是上表这 7 个字符串，写错抛 `viz/charts: 未知图表类型 chart="…"`。
+- 标注 `annotations[]`：`{ "type": "anchor" | "reference" | "band", … , "kind": "data" | "derived" | "assumed", "basis": "…" }`。渲染器把每条折成「标注 1 · …（身份 · 依据）」一行，读者不用在图里找小字。
+- 数值按数据原样给（`unit` / `digits` 只管显示），缺测不补零、不连线。
+
+### 7.2 三种流程图（`type: "flow"`）
+
+共用必填：`flow`（下表之一）+ `title` + `source` + `status`；`question` / `note` 可选。
+
+| `flow` 值 | 是什么 | 结构 |
+|---|---|---|
+| `linear` | 线性流程（同一中心线，4 节点） | `nodes[]` + `edges[]` |
+| `branch` | 分支流程（判定菱形两条出边） | `nodes[]`（含 `kind: "decision"` 的判定）+ `edges[]` |
+| `swimlane` | 泳道流程（每道各管一段） | `lanes[{title, sub}]` + `nodes[]`（带 `col` / `row`）+ `edges[]` |
+
+- `nodes[]`：`{ id, role: input|process|decision|result, kind: capsule|card|decision, title, sub, col?, row? }`
+- `edges[]`：`{ from, to, kind: main|side|dashed, label? }`（`main` 实线 + 深色箭头，`side` 浅色箭头，`dashed` 虚线旁支）
+- 几何不归你：正交折线、90° 拐点、每条边带 `marker-end`、卡片圆角 8。四个角色各占一个色相（`input`=`--color-data-3` · `process`=`--color-data-1` · `decision`=`--color-data-4` · `result`=`--color-data-2`），一张图最多四色，颜色只表示分工、不表示好坏。写错 `flow` 值抛 `viz/flow: 未知流程类型 flow="…"`。
+
+### 7.3 闸门与颜色
+
+```powershell
+node viz/check-flow.mjs out/viz-flow.html            # 折线正交 / 每条边有箭头 / 节点框不相交
+node agent/checks/selfcheck.mjs out/viz-charts.html
+node agent/checks/layout.mjs out/viz-charts.html
+```
+
+- 实测：`check-flow.mjs` 三张图 `edges` 合计 13 条，`非正交=0 无箭头=0`、`node boxes 相交=0`、`FLOW GEOMETRY PASS`；`viz-charts.html` 与 `viz-flow.html` 的 `selfcheck` ALL PASS、`layout` 6 条全 PASS。
+- 颜色：`viz/*.mjs` 里 **0 个 hex**，全部取 `--color-*` token。多系列图表按**实体下标**取 `--color-data-1…8`（同一对象跨图同色）；流程图的角色色也绑在同一组 data token 上，所以图与图之间不会各造一套色。要换观感改 `theme/gary.theme.mjs`，不改 `viz/`。
+- 每张图必须给 `source` 与 `status`；演示数据在页级 `meta.badge` 标 `示意数据`。没有来源的图不接受。
+
+---
+
+## 8. 红线（踩了就是退回）
 
 1. **不写死颜色 / 字号 / 圆角**——不出现 `#hex`、`rgb()`、`px`、`rem` 字面量。
 2. **不手写 class**——产物里的类名全部由 Astryx 组件生成，内容层没有 `className` 这个字段。
@@ -222,11 +306,12 @@ node agent/checks/layout.mjs out/<page>.html
 
 ---
 
-## 8. 常见追问
+## 9. 常见追问
 
 | 问 | 答 |
 |---|---|
-| 能不能加图表？ | 不能。Astryx 无图表组件，契约明确不收 `chart`。图表工作由独立工作区「重建·图表与图示」承接。 |
+| 能不能加图表 / 流程图？ | 能——但走 `viz/render-viz.mjs`（§7）：`chart` 7 种、`flow` 3 种。`agent/render.mjs` 仍不收这两类，混用会抛「未知区块类型」。 |
+| 图表配色能改吗？ | 只能改 `theme/gary.theme.mjs` 的 token；`viz/*.mjs` 里没有 hex，改 `viz/` 不是入口。 |
 | 页面上要可点的按钮？ | 静态单文件，`Button` 只是视觉件（无 `onClick` 运行时）。要交互请改走应用层，不要塞脚本。 |
 | 旧 `agent/content.json` / `primitives.css` / `recipes.json` 在哪？ | 全在 `archive/legacy-2026-11/agent/`，仅作回滚参考；**新页一律用当前 `agent/render.mjs` + `meta/blocks` 契约**。 |
 | 旧的 65 组件契约 / shadcn 安装法？ | 作废。见 `MIGRATION.md` 与 `archive/legacy-2026-11/`。 |
@@ -234,8 +319,9 @@ node agent/checks/layout.mjs out/<page>.html
 
 ---
 
-## 9. 变更史
+## 10. 变更史
 
 | 日期 | 版本 | 变更 |
 |---|---|---|
+| 2026-11-16 | v3 | 契约补全：§3.2 从 10 类扩到 **16 类**（新增 `timeline` / `matrix` / `image` / `steps` / `quote` / `grid`，逐条给必填字段）；新增 **§7 图表与流程图**（7 种 `chart` + 3 种 `flow`，命令与边界）；§6 覆盖 viz 产物。红线顺移 §8，常见追问 §9，变更史 §10 |
 | 2026-11-16 | v2 | 重写为 Astryx 版：三步装配、`meta`+`blocks` 契约索引、174 组件查询法、theme 真源、两闸验收、五条红线。旧 v1（primitives / recipes.json / 四配方 / 交互声明 / 十二条不变量）随旧体系整体归档 |

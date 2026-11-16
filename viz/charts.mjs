@@ -313,7 +313,7 @@ export function BarChart({
             x2: leaderX,
             y1: top - 2,
             y2: calloutY + 6,
-            style: { stroke: PALETTE.accent },
+            style: { stroke: PALETTE.primary },
             strokeWidth: 1,
             strokeDasharray: '3 3',
           }),
@@ -322,7 +322,7 @@ export function BarChart({
             {
               x: leaderX + 6,
               y: calloutY + 4,
-              style: { fill: PALETTE.accent, fontSize: FONT.small, fontWeight: 600 },
+              style: { fill: PALETTE.primary, fontSize: FONT.small, fontWeight: 600 },
             },
             anchor.text
           )
@@ -398,7 +398,7 @@ export function LineChart({
             y: padT,
             width: w,
             height: plotH,
-            style: { fill: PALETTE.accent },
+            style: { fill: PALETTE.primary },
             fillOpacity: FILLS.band,
           }),
           h(
@@ -495,7 +495,7 @@ export function LineChart({
                     cx: p[0],
                     cy: p[1],
                     r: 10,
-                    style: { fill: 'none', stroke: PALETTE.accent },
+                    style: { fill: 'none', stroke: PALETTE.primary },
                     strokeWidth: 1.5,
                   }),
                 h(
@@ -861,7 +861,7 @@ export function ProgressBars({
           width: Math.max(2, trackW * pct),
           height: 12,
           rx: 6,
-          style: { fill: r.color || PALETTE.accent },
+          style: { fill: r.color || PALETTE.primary },
         }),
         h(
           'text',
@@ -929,7 +929,7 @@ export function Sparkline({ categories = [], values = [], unit = '', width = 300
           `${last[0]},${baseY}`,
           `${first[0]},${baseY}`,
         ].join(' '),
-        style: { fill: PALETTE.accent },
+        style: { fill: PALETTE.primary },
         fillOpacity: 0.2,
       }),
     // faint baseline: the trend is measured against it, not floating
@@ -943,7 +943,7 @@ export function Sparkline({ categories = [], values = [], unit = '', width = 300
     }),
     h('polyline', {
       points: solid.map((p) => p.join(',')).join(' '),
-      style: { fill: 'none', stroke: PALETTE.accent },
+      style: { fill: 'none', stroke: PALETTE.primary },
       strokeWidth: 2.4,
       strokeLinejoin: 'round',
       strokeLinecap: 'round',
@@ -954,7 +954,7 @@ export function Sparkline({ categories = [], values = [], unit = '', width = 300
         cx: p[0],
         cy: p[1],
         r: 2.4,
-        style: { fill: PALETTE.accent },
+        style: { fill: PALETTE.primary },
       })
     ),
     last &&
@@ -962,7 +962,7 @@ export function Sparkline({ categories = [], values = [], unit = '', width = 300
         cx: last[0],
         cy: last[1],
         r: 4,
-        style: { fill: PALETTE.accent, stroke: PALETTE.surface },
+        style: { fill: PALETTE.primary, stroke: PALETTE.surface },
         strokeWidth: 2,
       }),
     // start / end read off the line itself, so the trend has numbers at its ends

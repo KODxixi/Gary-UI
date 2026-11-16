@@ -19,9 +19,18 @@
 const accent = 'var(--color-accent)';
 
 export const PALETTE = {
-  // brand accent — the only hue Gary authored
+  // brand accent — UI only (borders, links). Chart marks use `primary` below:
+  // the legacy system deliberately kept chart ink off the UI accent.
   accent,
   accentMuted: 'var(--color-accent-muted)',
+
+  // chart roles — legacy Gary-UI chart system, copied verbatim
+  // (archive/legacy-2026-11/spec/chart-recipes.json themes.light/dark)
+  primary: 'var(--color-data-primary)',
+  secondary: 'var(--color-data-secondary)',
+  reference: 'var(--color-data-reference)',
+  negative: 'var(--color-data-negative)',
+  chartNeutral: 'var(--color-data-neutral)',
 
   // semantic roles kept from the neutral theme (Gary deliberately does not flatten them)
   success: 'var(--color-success)',
@@ -71,20 +80,19 @@ export const PALETTE = {
 };
 
 /**
- * Paint for a series index.
- *   kind='series' (default) — categorical: a distinct hue per index, wrapping
- *                             after eight. This is what category separation uses.
- *   kind='mono'             — one hue stepped by opacity, for value-is-colour
- *                             encodings (progress bars, single-metric ramps).
- *   kind='pair'             — kept for old callers: first two hues of the series.
+ * Paint for a series index. Mirrors the legacy family mapping:
+ *   kind='single' (default for bar/line/area/histogram) — one role: chart primary.
+ *   kind='series'/'pair'/'ramp' — categorical: a distinct hue per index (category1..8).
+ *   kind='mono' — primary hue stepped by opacity, for value-is-colour encodings.
  */
-export function seriesStyle(index, kind = 'series') {
+export function seriesStyle(index, kind = 'single') {
   if (kind === 'mono') {
     const op = PALETTE.mono[index];
     return op === undefined
       ? { fill: PALETTE.track, fillOpacity: 1 }
-      : { fill: accent, fillOpacity: op };
+      : { fill: PALETTE.primary, fillOpacity: op };
   }
+  if (kind === 'single') return { fill: PALETTE.primary, fillOpacity: 1 };
   const hues = PALETTE.series;
   const hue = hues[index % hues.length];
   return { fill: hue === undefined ? PALETTE.track : hue, fillOpacity: 1 };
