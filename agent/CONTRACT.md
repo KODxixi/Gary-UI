@@ -41,7 +41,7 @@ node agent/checks/layout.mjs out/demo-report.html
 渲染器成功时的 stdout（实测）：
 
 ```
-WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=399810 recipe=report blocks=11 components=299
+WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=400473 recipe=report blocks=11 components=299
 ```
 
 渲染器会拒绝这三类错误（当场 throw，不产出半成品）：
@@ -179,6 +179,7 @@ npx @astryxdesign/cli component Button Badge Text --json
 > Astryx 共 7 个圆角 token（`element` `container` `inner` `full` `none` `page` `chat`，实测 `astryx.css`）。Gary 只覆盖前三个，其余沿用中性默认。
 
 - 语义色（success / warning / error / info）**沿用 Astryx 中性默认**，Gary 不铺平调色板。
+- 数据色在 `theme/gary.theme.mjs` 里另有一组：`--color-data-1…8`（八色分类，明暗各一套）+ `--color-data-primary` / `-secondary` / `-reference` / `-negative`。图表与流程图共用这组，`viz/*.mjs` 不新造色。
 - **卡片圆角与内距由渲染器按宽度分级**（`agent/recipes/sections.mjs` 的 `CARD_FRAMES`：小卡 14/20 · 中卡 16/24 · 大卡 20/28，px）。`layout.mjs` 按宽度带校验（`<320 → 12–16`、`320–700 → 14–18`、`>700 → 18–24`）。所以**不要给 Card 传 `style` 圆角**，会被闸门判违规。
 - 明暗两种模式都是一等公民：`meta.theme: "dark"` 触发暗色 token 组，无需另写样式。
 
@@ -193,7 +194,7 @@ node agent/checks/selfcheck.mjs out/<page>.html
 node agent/checks/layout.mjs out/<page>.html
 ```
 
-上面是文本页。**含 viz 产物时闸门不变**：把第一行换成 `node viz/render-viz.mjs <in> -o out/<page>.html`（见 §7），`selfcheck` 与 `layout` 照样各跑一次；流程图页再加 `node viz/check-flow.mjs out/<page>.html`。实测 `out/viz-charts.html`（393464 B）与 `out/viz-flow.html`（359278 B）两闸均 PASS。
+上面是文本页。**含 viz 产物时闸门不变**：把第一行换成 `node viz/render-viz.mjs <in> -o out/<page>.html`（见 §7），`selfcheck` 与 `layout` 照样各跑一次；流程图页再加 `node viz/check-flow.mjs out/<page>.html`。实测 `out/viz-charts.html`（394 KB）与 `out/viz-flow.html`（360 KB）两闸均 PASS。
 
 ### 6.1 `selfcheck.mjs` — 单文件约束（5 项）
 
@@ -243,9 +244,11 @@ node agent/checks/layout.mjs out/viz-charts.html
 实测 stdout：
 
 ```
-WROTE C:\AI\UI\gary-ui\out\viz-charts.html bytes=393464 blocks=12 charts=7 flows=0
-WROTE C:\AI\UI\gary-ui\out\viz-flow.html bytes=359278 blocks=6 charts=0 flows=3
+WROTE C:\AI\UI\gary-ui\out\viz-charts.html bytes=394211 blocks=12 charts=7 flows=0
+WROTE C:\AI\UI\gary-ui\out\viz-flow.html bytes=359941 blocks=6 charts=0 flows=3
 ```
+
+字节数会随 `theme` token 微调浮动（同一条命令两次实测 `393464 → 394211 B`），所以核对 `blocks` / `charts` / `flows` 三个计数与闸门结果，别拿字节数当验收值。
 
 缺 `-o` 或漏了输入 → 打印 `用法: node viz/render-viz.mjs <content.json> -o <out.html>`，exit 2。
 
@@ -315,7 +318,7 @@ node agent/checks/layout.mjs out/viz-charts.html
 | 页面上要可点的按钮？ | 静态单文件，`Button` 只是视觉件（无 `onClick` 运行时）。要交互请改走应用层，不要塞脚本。 |
 | 旧 `agent/content.json` / `primitives.css` / `recipes.json` 在哪？ | 全在 `archive/legacy-2026-11/agent/`，仅作回滚参考；**新页一律用当前 `agent/render.mjs` + `meta/blocks` 契约**。 |
 | 旧的 65 组件契约 / shadcn 安装法？ | 作废。见 `MIGRATION.md` 与 `archive/legacy-2026-11/`。 |
-| 产物多大？ | 两页实测 363–368 KB（样式内联占 90%）。单文件换零依赖，可接受。 |
+| 产物多大？ | 三页实测 359–400 KB（`demo-report` 400 KB · `viz-charts` 393 KB · `viz-flow` 359 KB），内联样式固定约 332 KB，占 83–92%。单文件换零依赖，可接受。 |
 
 ---
 

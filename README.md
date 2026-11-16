@@ -45,7 +45,7 @@ node agent/render.mjs examples/my-page.content.json -o out/my-page.html
 输出一行确认（`examples/demo-report.content.json` 实测）：
 
 ```
-WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=399810 recipe=report blocks=11 components=299
+WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=400473 recipe=report blocks=11 components=299
 ```
 
 **④ 过两道闸**（都 exit 0 才算成）
@@ -76,7 +76,7 @@ node agent/checks/shoot.mjs out/my-page.html out/my-page.png
 | `viz/` | 图表与流程图：`render-viz.mjs`（CLI）· `charts.mjs`（7 种图表）· `flow.mjs`（3 种流程图）· `check-flow.mjs`（几何闸）· `README.md` |
 | `theme/gary.theme.mjs` | 品牌层真源：墨绿 `#24514a`（暗 `#5d9c8f`）、Helvetica + 微软雅黑、圆角 12/12/8 |
 | `agent/checks/` | 闸门：`selfcheck.mjs` · `layout.mjs`（+ `shoot.mjs` 截图） |
-| `examples/demo-*.content.json` | 两页真实示例（报表 / 表格） |
+| `examples/demo-*.content.json` | 四份真实示例（报表 / 表格 / 图表 / 流程图） |
 | `out/` | 产物目录（生成物，不手改） |
 | `archive/legacy-2026-11/` | 旧系统全量归档（65 组件 / shadcn / portal / 自造 token），见 `MIGRATION.md` |
 
