@@ -57,12 +57,24 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-on-info': ['#ffffff', '#0f201c'],
   '--color-on-info-muted': ['#1f4038', '#cfe6e0'],
   '--color-text-info': ['#2f6157', '#8fc6bb'],
+  // border / icon are separate tokens in Neutral and were left on the base
+  // values, so the callout outline stayed bright blue while its text went green.
+  '--color-border-info': ['#3d6b6240', '#7fb3a866'],
+  '--color-icon-info': ['#3d6b62', '#7fb3a8'],
 
   '--color-warning': ['#7f6118', '#e0a93b'],
-  '--color-warning-muted': ['#fbf3e0', '#3a2f14'],
+  // #fbf3e0 read as white on the page — Gary's callout looked like a plain
+  // paragraph. Deepened one step so the tint is visible without going orange.
+  '--color-warning-muted': ['#f7e9c8', '#3a2f14'],
   '--color-on-warning': ['#fff6e0', '#0a1317'],
   '--color-on-warning-muted': ['#4a3810', '#f3e3b5'],
   '--color-text-warning': ['#8a6a1f', '#e0a93b'],
+  '--color-border-warning': ['#8a6a1f40', '#e0a93b66'],
+  '--color-icon-warning': ['#8a6a1f', '#e0a93b'],
+  '--color-border-success': ['#22765d40', '#78c9ac66'],
+  '--color-icon-success': ['#22765d', '#78c9ac'],
+  '--color-border-error': ['#a33a2640', '#d58d8066'],
+  '--color-icon-error': ['#a33a26', '#d58d80'],
 
   '--font-family-body': GARY_FONT_STACK,
   '--font-family-heading': GARY_FONT_STACK,

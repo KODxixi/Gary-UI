@@ -37,6 +37,14 @@ function step(v, fallback) {
 /** trend -> arrow glyph. Text has no semantic colors, so direction is a mark. */
 const TREND_ARROW = { up: '↑', down: '↓', flat: '–' };
 
+// KPI delta tones: `good` / `warn` / `bad` / `neutral` → semantic text tokens.
+const DELTA_TONE = {
+  good: 'var(--color-text-success)',
+  warn: 'var(--color-text-warning)',
+  bad: 'var(--color-text-error)',
+  neutral: 'var(--color-text-secondary)',
+};
+
 /**
  * Card radius / padding tiers (width-driven, per Gary's R4 decision).
  *   small  (< 320px)  — KPI tiles            14px / 20px
@@ -209,17 +217,35 @@ export function Metric(p) {
               ),
               it.unit && h(Text, { type: 'supporting' }, it.unit)
             ),
-            it.hint &&
+            (it.delta || it.hint) &&
               h(
-                HStack,
-                { gap: 1, vAlign: 'center' },
+                'div',
+                {
+                  style: {
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    // delta carries its own semantic tone: good→success,
+                    // warn→warning, bad→error, neutral→secondary. The colour
+                    // lives on the wrapper so `Text color="inherit"` picks it up.
+                    color: DELTA_TONE[it.tone] || DELTA_TONE.neutral,
+                  },
+                },
                 it.trend &&
                   h(
                     Text,
-                    { type: 'supporting', size: 'sm', weight: 'medium' },
+                    { type: 'body', weight: 'medium', color: 'inherit' },
                     TREND_ARROW[it.trend] ?? ''
                   ),
-                h(Text, { type: 'supporting', size: 'sm' }, it.hint)
+                h(
+                  'span',
+                  { style: { fontVariantNumeric: 'tabular-nums' } },
+                  h(
+                    Text,
+                    { type: 'body', weight: 'medium', color: 'inherit' },
+                    it.delta ?? it.hint
+                  )
+                )
               )
           )
         )
@@ -256,15 +282,37 @@ export function BadgeBlock(p) {
   );
 }
 
-/** Conclusion banner: tone / title / body / eyebrow / action{label}. */
+/** Conclusion banner: tone / title / body|text / eyebrow / action{label}. */
 export function Callout(p, ctx) {
+  // Contract tones are info|success|warning|error; content in the wild also
+  // sends the short forms (warn / danger / ok) and `neutral`. Banner only
+  // accepts four `status` values and silently drops an unknown one (no
+  // background, no border), so every alias is normalised here instead.
+  const TONE_TO_STATUS = {
+    info: 'info',
+    success: 'success',
+    ok: 'success',
+    good: 'success',
+    warning: 'warning',
+    warn: 'warning',
+    caution: 'warning',
+    error: 'error',
+    danger: 'error',
+    critical: 'error',
+    bad: 'error',
+  };
+  const tone = String(p.tone || 'info').toLowerCase();
+  const status = TONE_TO_STATUS[tone] || 'info';
+  const isNeutral = !TONE_TO_STATUS[tone];
+  const body = p.body ?? p.text;
+
   const description =
-    (p.eyebrow || p.body) &&
+    (p.eyebrow || body) &&
     h(
       VStack,
       { gap: 1 },
       p.eyebrow && h(Text, { type: 'supporting', size: 'sm' }, p.eyebrow),
-      p.body && h(Text, { type: 'body' }, p.body)
+      body && h(Text, { type: 'body' }, body)
     );
 
   // Banner does not accept `style` on its root, and it owns its radius
@@ -279,11 +327,40 @@ export function Callout(p, ctx) {
     '--spacing-4': '24px',
   };
 
+  // Neutral tone has no Banner status of its own: reuse `info` and remap the
+  // info tints to neutral surfaces/text so the block still reads as a
+  // callout instead of an unstyled paragraph. Values stay token-based.
+  // Banner paints only the tinted fill; its root has no border, so the outline
+  // Gary asked for is drawn on the wrapper (1px, same hue as the text).
+  const BORDER_TONE = {
+    info: 'var(--color-on-info-muted)',
+    success: 'var(--color-on-success-muted)',
+    warning: 'var(--color-on-warning-muted)',
+    error: 'var(--color-on-error-muted)',
+  };
+
+  const neutralScope = {
+    '--color-info-muted': 'var(--color-background-muted)',
+    '--color-on-info-muted': 'var(--color-text-primary)',
+    '--color-text-info': 'var(--color-text-secondary)',
+    '--color-icon-info': 'var(--color-text-secondary)',
+    '--color-border-info': 'var(--color-border-emphasized)',
+  };
+
+  const frameStyle = isNeutral ? { ...frame, ...neutralScope } : frame;
+
   return h(
     'div',
-    { style: frame },
+    {
+      style: {
+        ...frameStyle,
+        border: `1px solid ${isNeutral ? 'var(--color-border-emphasized)' : BORDER_TONE[status]}`,
+        borderRadius: frame['--_banner-radius'],
+        overflow: 'hidden',
+      },
+    },
     h(Banner, {
-      status: p.tone || 'info',
+      status,
       title: p.title,
       description,
       endContent:
@@ -620,9 +697,12 @@ export function StepsBlock(p) {
     placeItems: 'center',
     fontSize: '12px',
     fontWeight: 600,
-    background: done ? 'var(--color-accent)' : 'transparent',
-    color: done ? 'var(--color-on-accent)' : 'var(--color-text-secondary)',
-    border: done ? 'none' : '2px solid var(--color-border-emphasized)',
+    // Filled in both states: accent for reached/current, a solid grey for
+    // upcoming. A hollow ring read as "loading failed"; a 4%-black fill was so
+    // close to the card surface that it still looked hollow at page scale.
+    background: done ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+    color: done ? 'var(--color-on-accent)' : 'var(--color-background-card)',
+    border: 'none',
     boxSizing: 'border-box',
   });
 

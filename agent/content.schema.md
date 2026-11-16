@@ -68,7 +68,7 @@
 
 | 旧 section | 为什么不要 |
 |---|---|
-| `chart` | Astryx 无图表组件（组件全集已核，见 §4 注）；折线要自建，等图表规范定稿再进契约 |
+| `chart` | **已进契约**，但只在 `viz/render-viz.mjs` 一侧：`agent/render.mjs` 收到会抛「未知区块类型」。7 种类型与字段见 `CONTRACT.md` §7 与 `viz/README.md`。Astryx 无图表组件，`viz/charts.mjs` 用原生 SVG 自建（零依赖、零 `<script>`），颜色只从 theme 的 `--color-data-*` 取 |
 | `groups` | 设置页的 `seg` / `switch` 控件，需要交互与状态，静态单文件页面承载不了 |
 | `nav` / `inspector` | 外壳结构，属配方职责（`recipe` 决定），不进内容层 |
 | `composer` | 输入框 + 发送，需要运行时；单文件产物零 `<script>`，不承载 |
@@ -405,7 +405,8 @@
 | `prose` | `items[{n,title,paras[]}]` | 原样保留 | 长文报告的主力结构，无改动价值 |
 | `cover` | `eyebrow/title/sub/meta[{k,v}]` | 原样保留（新增 `badge`） | 旧 `report` 页就是用 `cover` 起头；`badge` 是旧 `head` 已有的字段，对齐到封面 |
 | `canvas` | `badge/label/title/sub/tag/note` | 收敛成 `card`（`label`→`eyebrow`，其余同名） | `canvas` 是「预览画板」专用，语义太窄；`card` 才是有复用价值的通用块 |
-| `chart` / `groups` / `nav` / `inspector` / `composer` | 旧有 | **不进契约** | 见 §2 末尾：无图表组件 / 需运行时交互 / 属外壳职责 |
+| `chart` | 旧有 | **进契约，但归 viz 一侧** | 见 §2 末尾：`viz/render-viz.mjs` 接管，`agent/render.mjs` 不认 |
+| `groups` / `nav` / `inspector` / `composer` | 旧有 | **不进契约** | 需运行时交互 / 属外壳职责 |
 | `callout` / `divider` | 无 | 新增 | 旧的「结论」只能藏进段落或表注，没有承载；`Divider` 是 Astryx 现成组件，纳入成本几乎为零 |
 | 字段类型 | 混合（`value` 是字符串已是对的；`sw` 的 `on` 是 boolean） | 统一：数值一律 string，状态一律枚举，布尔只用 `num` / `dot` | 枚举才能校验；旧 `composer`/`groups` 里的隐式布尔随交互块一起不进契约 |
 

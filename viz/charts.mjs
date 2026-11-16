@@ -427,9 +427,18 @@ export function LineChart({
           h(
             'text',
             {
-              x: W - padR + 10,
-              y: y + 4,
-              style: { fill: PALETTE.textSecondary, fontSize: FONT.small },
+              x: W - padR - 4,
+              y: y - 7,
+              textAnchor: 'end',
+              style: {
+                fill: PALETTE.textSecondary,
+                fontSize: FONT.small,
+                // halo so the label survives sitting on top of a data stroke
+                paintOrder: 'stroke',
+                stroke: 'var(--color-background-card)',
+                strokeWidth: 3,
+                strokeLinejoin: 'round',
+              },
             },
             `${ref.text}（${fmt(ref.value, 1)} ${unit}）`
           )
@@ -508,6 +517,12 @@ export function LineChart({
                       fill: PALETTE.textPrimary,
                       fontSize: FONT.small,
                       fontVariantNumeric: FONT.numeric,
+                      // same halo as the reference label — point labels sit
+                      // close enough to the stroke to need it
+                      paintOrder: 'stroke',
+                      stroke: 'var(--color-background-card)',
+                      strokeWidth: 3,
+                      strokeLinejoin: 'round',
                     },
                   },
                   fmt(s.values[i], digits)
