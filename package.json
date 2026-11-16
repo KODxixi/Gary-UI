@@ -9,7 +9,12 @@
   },
   "scripts": {
     "render": "node agent/render.mjs",
+    "viz": "node viz/render-viz.mjs",
+    "build": "node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html && node agent/render.mjs examples/demo-report.content.json -o out/demo-report-dark.html --theme dark && node agent/render.mjs examples/demo-table.content.json -o out/demo-table.html && node viz/render-viz.mjs examples/demo-viz.content.json -o out/viz-charts.html && node viz/render-viz.mjs examples/demo-flow.content.json -o out/viz-flow.html && node viz/render-viz.mjs examples/demo-park.content.json -o out/demo-park.html",
     "check": "node agent/checks/selfcheck.mjs",
+    "layout": "node agent/checks/layout.mjs",
+    "contrast": "node agent/checks/contrast.mjs",
+    "verify": "npm run build && node agent/checks/selfcheck.mjs out/demo-report.html out/demo-table.html out/demo-report-dark.html out/viz-charts.html out/viz-flow.html out/demo-park.html && node agent/checks/layout.mjs out/demo-report.html out/demo-table.html out/demo-report-dark.html out/viz-charts.html out/viz-flow.html out/demo-park.html && node agent/checks/contrast.mjs out/demo-report.html out/demo-table.html out/demo-report-dark.html out/viz-charts.html out/viz-flow.html out/demo-park.html",
     "astryx": "node node_modules/@astryxdesign/cli/clients/cli/bin/astryx.mjs"
   },
   "dependencies": {

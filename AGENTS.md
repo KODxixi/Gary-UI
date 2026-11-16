@@ -44,6 +44,15 @@
 ```powershell
 cd C:\AI\UI\gary-ui
 
+# 全量自证：build 六页产物 + 三条闸全跑（交付前只需这一条）
+npm run verify
+
+# 分步：build 六页 / 单跑某一闸
+npm run build
+npm run check      # selfcheck 单文件约束
+npm run layout     # 版式几何六项
+npm run contrast   # WCAG AA 对比度
+
 # 渲染一页
 node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html
 
