@@ -109,11 +109,14 @@ export const GARY_TOKEN_OVERRIDES = {
   // Gary's words: "这些太深". Hue is untouched; only L moves.
   //   legacy light: #386aa9 #89600a #22765d #795098 #a85548 #367989 #965579 #70665a
   //   legacy dark : #82acec #d5af59 #78c9ac #be9bda #d58d80 #82b4bf #dda2c4 #aba69e
-  // ---- Chart palette: Google Material 500 --------------------------------
+  // ---- Chart palette: Google 品牌四色 + Material 扩展 ---------------------
   // Gary 2026-11-17: 「分析图颜色的搭配用google的那一套 墨绿色不要作为主色」
-  // Order follows Google Charts' default sequence (blue, red, yellow, green),
-  // then Material 500 fills the remaining slots. Dark mode uses Material
-  // 200/300 so the same hue stays legible on the dark page.
+  // 1–4 是 Google 品牌 logo 色（chromium ui/android/.../color_palette.xml 的
+  // google_logo_blue/red/yellow/green），**不是 Material 500** —— Material 500
+  // 是 #2196F3/#F44336/#FFEB3B/#4CAF50，更灰，也不是 Google Charts 那套。
+  // 5/6/8 取 Material purple/cyan/blue-grey 500；7 取 deep orange 400，因为
+  // 500 的 #FF5722 与 data-2 红太近。
+  // Dark mode uses Material 200/300 so the same hue stays legible on #262626.
   '--color-data-1': ['#4285F4', '#8AB4F8'], // Google blue
   '--color-data-2': ['#EA4335', '#F28B82'], // Google red
   '--color-data-3': ['#FBBC05', '#FDD663'], // Google yellow
@@ -128,7 +131,8 @@ export const GARY_TOKEN_OVERRIDES = {
   // chart turns the page monochrome.
   '--color-data-primary': ['#4285F4', '#8AB4F8'],
   '--color-data-secondary': ['#34A853', '#81C995'],
-  '--color-data-reference': ['#FBBC05', '#FDD663'],
+  // 参考线/基线用中性灰，不用高饱和黄：黄色会压过数据系列，读者先看到均值线而不是柱。
+  '--color-data-reference': ['#5F6368', '#9AA0A6'],
   '--color-data-negative': ['#EA4335', '#F28B82'],
   '--color-data-neutral': ['#78909C', '#B0BEC5'],
 
