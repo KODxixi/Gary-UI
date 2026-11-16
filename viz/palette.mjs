@@ -24,13 +24,10 @@ export const PALETTE = {
   accent,
   accentMuted: 'var(--color-accent-muted)',
 
-  // chart roles — legacy Gary-UI chart system, copied verbatim
-  // (archive/legacy-2026-11/spec/chart-recipes.json themes.light/dark)
+  // chart role — single-series fallback when a chart has no categories to key on.
+  // Google blue, not the ink-green UI accent: the accent stays out of the plots or
+  // every single-series chart turns the page monochrome.
   primary: 'var(--color-data-primary)',
-  secondary: 'var(--color-data-secondary)',
-  reference: 'var(--color-data-reference)',
-  negative: 'var(--color-data-negative)',
-  chartNeutral: 'var(--color-data-neutral)',
 
   // semantic roles kept from the neutral theme (Gary deliberately does not flatten them)
   success: 'var(--color-success)',
@@ -81,7 +78,14 @@ export const PALETTE = {
 
 // Yellow (#FBBC05, index 2) is a fill colour, not a line colour — on white it
 // reads as a ghost stroke. Lines take green, histograms purple.
-const SINGLE_HUE = { bar: 0, line: 3, area: 5, histogram: 4 };
+// Only a single-series LINE still needs a type-keyed hue — a line is one stroke and
+// can't take a colour per point. Bars key on the category index instead (see
+// charts.mjs bar), so `bar`/`area`/`histogram` entries would never fire: the
+// renderer has exactly six types (bar / grouped-bar / line / stacked / donut /
+// progress) and none of them is an area or histogram.
+const SINGLE_HUE = { line: 3 };
+
+let warnedOverflow = false;
 
 /**
  * Paint for a series index. Mirrors the legacy family mapping:
@@ -105,6 +109,14 @@ export function seriesStyle(index, kind = 'single') {
     return { fill: PALETTE.series[hue] ?? PALETTE.primary, fillOpacity: 1 };
   }
   const hues = PALETTE.series;
+  // 色板只有 8 档，第 9 个分类起 modulo 回落与前面同色 —— 图例出现两个同色块，
+  // 读者会以为数据错了。静默同色比报错更难查，所以告警一次（渲染不阻断）。
+  if (index >= hues.length && !warnedOverflow) {
+    warnedOverflow = true;
+    console.warn(
+      `viz/palette: 分类数超过 8 色板，第 ${index + 1} 个起与前面同色。合并类别或拆图。`
+    );
+  }
   const hue = hues[index % hues.length];
   return { fill: hue === undefined ? PALETTE.track : hue, fillOpacity: 1 };
 }

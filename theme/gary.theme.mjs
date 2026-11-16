@@ -136,10 +136,8 @@ export const GARY_TOKEN_OVERRIDES = {
   // `--color-data-neutral` 不在这里声明：底座已有（light-dark(#8494A3,#8C939B)），
   // 重复声明会静默覆盖底座值，产出里同一 token 出现两次。
   '--color-data-primary': ['#4285F4', '#8AB4F8'],
-  '--color-data-secondary': ['#34A853', '#81C995'],
-  // 参考线/基线用中性灰，不用高饱和黄：黄色会压过数据系列，读者先看到均值线而不是柱。
-  '--color-data-reference': ['#5F6368', '#9AA0A6'],
-  '--color-data-negative': ['#EA4335', '#F28B82'],
+  // secondary / reference / negative 三个曾在这里声明，全仓 0 消费者（grep PALETTE.*
+  // 只用 primary / track / series），已删 —— 无人读取的 token 只会误导后来改色的人。
 };
 
 export const garyTheme = defineTheme({

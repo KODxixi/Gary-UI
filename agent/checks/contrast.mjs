@@ -138,6 +138,20 @@ const CHECKS = (p) => {
     add(`${key} / card`, parseColor(semantic[key]), card, 1.3, 'semantic fill');
   }
   add('accent / card', parseColor(p.accentRgb), card, 3, 'accent mark');
+
+  // Chart data colours. These were completely untested before — a palette change
+  // could ship #FBBC05 at 1.71 against white and still print a green sheet.
+  // Thresholds are per-hue rather than a flat 3:1 on purpose: pushing yellow /
+  // cyan / orange up to 3:1 means darkening them into the range Gary already
+  // rejected twice as 「太深」. Yellow is also fill-only (never a line), so it's
+  // held to "a block you can see" instead of the non-text-mark floor.
+  const DATA_MIN = {
+    blue: 3, red: 3, green: 3, purple: 3, gray: 3, // dark enough for marks and lines
+    yellow: 1.5, cyan: 2.5, orange: 2.5,           // light fills; darkening kills the hue
+  };
+  for (const [name, css] of Object.entries(p.dataRgb || {})) {
+    add(`data-${name} / card`, parseColor(css), card, DATA_MIN[name] ?? 2, 'chart mark');
+  }
   return out;
 };
 
@@ -155,7 +169,12 @@ async function run(files) {
       const p = await probe(page);
       // Resolve light-dark() token values into real rgb by painting a probe node.
       const rgb = await page.evaluate(() => {
-        const names = ['success', 'warning', 'error', 'info', 'text-accent'];
+        const names = [
+          'success', 'warning', 'error', 'info', 'text-accent',
+          'data-categorical-blue', 'data-categorical-red', 'data-categorical-yellow',
+          'data-categorical-green', 'data-categorical-purple', 'data-categorical-cyan',
+          'data-categorical-orange', 'data-categorical-gray',
+        ];
         const box = document.createElement('div');
         document.body.appendChild(box);
         const out = {};
@@ -173,6 +192,10 @@ async function run(files) {
         info: rgb.info,
       };
       p.accentRgb = rgb['text-accent'];
+      p.dataRgb = {};
+      for (const n of Object.keys(rgb)) {
+        if (n.startsWith('data-categorical-')) p.dataRgb[n.slice(17)] = rgb[n];
+      }
 
       const rows = CHECKS(p);
       console.log(`\n${file}  [theme=${p.theme}]  body=${p.bodyBg} card=${p.cardBg}`);

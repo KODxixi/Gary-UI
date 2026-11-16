@@ -188,9 +188,13 @@ export function BarChart({
   const padB = 62;
   const plotW = W - padL - padR;
   const plotH = height - padT - padB;
-  const paints = series.map((s, i) =>
-    s.color ? { fill: s.color } : seriesStyle(i, series.length > 1 ? 'pair' : 'bar')
-  );
+  // 单系列柱图的每根柱是一个独立实体（渠道 / 月份 / 户型），按**类别下标**取色。
+  // 旧行为是整张图一个蓝：一页七张图里柱、进度条、迷你趋势全同色，Gary 说的
+  // 「颜色太单一」根子在这。多系列仍按系列下标，保证「同一对象跨图同色」。
+  const paintFor = (si, ci) =>
+    series[si].color
+      ? { fill: series[si].color }
+      : seriesStyle(series.length > 1 ? si : ci, 'pair');
 
   const all = series.flatMap((s) => s.values.map((v) => (Number.isFinite(v) ? v : 0)));
   const ticks = niceTicks(Math.min(0, ...all), Math.max(0, ...all), CHART.ticks);
@@ -251,7 +255,7 @@ export function BarChart({
               width: barW,
               height: hgt,
               rx: 4,
-              style: { ...paints[si] },
+              style: { ...paintFor(si, ci) },
             }),
             h(
               'text',
