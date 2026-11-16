@@ -171,18 +171,6 @@ function Legend({ series, xRight, y, kind = 'pair' }) {
   );
 }
 
-/** Caption that keeps every annotation readable; the mechanism stays in data. */
-function AnnotationCaption({ annotations }) {
-  if (!Array.isArray(annotations) || annotations.length === 0) return null;
-  return h(
-    VStack,
-    { gap: 1 },
-    annotations.map((a, i) =>
-      h(Text, { key: i, type: 'supporting', size: 'sm' }, a.text)
-    )
-  );
-}
-
 /* ------------------------------------------------------------------ bar */
 
 export function BarChart({
@@ -215,7 +203,8 @@ export function BarChart({
   const groupPad = band * 0.26;
   const groupW = band - groupPad;
   const slot = groupW / series.length;
-  const barW = Math.min(54, slot * 0.72);
+  // 54px max left a 249px band 78% empty — the bars read as hairlines.
+  const barW = Math.min(72, slot * 0.78);
 
   const anchor = annotations.find((a) => a.type === 'anchor');
 
@@ -539,8 +528,11 @@ export function LineChart({
               )
         ),
         // direct end label: the series is named where it actually ends;
-        // the value is already labeled on the point, so it is not repeated
+        // the value is already labeled on the point, so it is not repeated.
+        // Single-series lines are named by the card title — an end label here
+        // lands on top of the value label attached to the last point.
         (() => {
+          if (series.length < 2) return null;
           const last = pts.filter(Boolean).slice(-1)[0];
           if (!last) return null;
           return h(
@@ -1093,8 +1085,10 @@ export function ChartBlock(props) {
         question && h(Text, { type: 'supporting' }, question)
       ),
       h(ChartBody, props),
-      footer && h(Text, { type: 'supporting', size: 'sm' }, footer),
-      h(AnnotationCaption, { annotations })
+      // Annotations already carry their label inside the plot (anchor text sits
+      // next to the bar, the reference-line label sits on the line). Rendering
+      // AnnotationCaption here printed every label a second time under the card.
+      footer && h(Text, { type: 'supporting', size: 'sm' }, footer)
     )
   );
 }

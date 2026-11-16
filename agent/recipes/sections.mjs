@@ -192,6 +192,27 @@ export function TextBlock(p) {
   );
 }
 
+/** Card head. A short note rides the title's baseline on the right; a long one
+ * drops below at 12px. Letting a 60-char note sit beside a 22px heading makes
+ * an L-shape that reads as misalignment, not as a caption. */
+function CardHead(title, note) {
+  if (!title && !note) return null;
+  if (note && note.length > 24) {
+    return h(
+      VStack,
+      { gap: 2 },
+      title && h(Heading, { level: 2 }, title),
+      h(Text, { type: 'supporting', style: { maxWidth: '720px' } }, note)
+    );
+  }
+  return h(
+    HStack,
+    { justify: 'between', align: 'baseline', gap: 4 },
+    title && h(Heading, { level: 2 }, title),
+    note && h(Text, { type: 'supporting' }, note)
+  );
+}
+
 /** KPI group: items[{label, value, unit, hint, trend}] / title / note. */
 export function Metric(p) {
   const items = Array.isArray(p.items) ? p.items : [];
@@ -479,13 +500,7 @@ export function TableSection(p, ctx) {
     h(
       VStack,
       { gap: 4 },
-      (p.title || p.note) &&
-        h(
-          HStack,
-          { justify: 'between', align: 'baseline', gap: 4 },
-          p.title && h(Heading, { level: 2 }, p.title),
-          p.note && h(Text, { type: 'supporting' }, p.note)
-        ),
+      (p.title || p.note) && CardHead(p.title, p.note),
       h(Table, {
         data,
         columns,
@@ -631,13 +646,7 @@ export function MatrixBlock(p, ctx) {
     h(
       VStack,
       { gap: 4 },
-      (p.title || p.note) &&
-        h(
-          HStack,
-          { justify: 'between', align: 'baseline', gap: 4 },
-          p.title && h(Heading, { level: 2 }, p.title),
-          p.note && h(Text, { type: 'supporting' }, p.note)
-        ),
+      (p.title || p.note) && CardHead(p.title, p.note),
       h(Table, {
         data,
         columns,
