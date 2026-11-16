@@ -151,7 +151,7 @@ const CHECKS = (p) => {
   const DATA_MIN = 3;
   const DATA_WAIVER = {
     yellow: '只做填充不做线条；压深到 3:1 就不再是 Google 黄',
-    cyan: '大面积填充，色相可辨；压深到 3:1 会明显发闷',
+    cyan: '大面积填充，色相可辨；压深到 3:1 就不再是 Material cyan',
     orange: '大面积填充，色相可辨；压深到 3:1 会与 data-red 撞色',
   };
   for (const [name, css] of Object.entries(p.dataRgb || {})) {

@@ -190,7 +190,8 @@ export function BarChart({
   const plotH = height - padT - padB;
   // 单系列柱图的每根柱是一个独立实体（渠道 / 月份 / 户型），按**类别下标**取色。
   // 旧行为是整张图一个蓝：一页七张图里柱、进度条、迷你趋势全同色，Gary 说的
-  // 「颜色太单一」根子在这。多系列仍按系列下标，保证「同一对象跨图同色」。
+  // 「颜色太单一」根子在这。多系列按系列下标。
+  // 下标不是身份：同一个对象换个排序就是另一个颜色，跨图不保证同色（CONTRACT §7.4-1）。
   const paintFor = (si, ci) =>
     series[si].color
       ? { fill: series[si].color }
