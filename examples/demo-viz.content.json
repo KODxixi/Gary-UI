@@ -61,13 +61,13 @@
         "question": "三份产物里，样式与内容各占多少 KB？",
         "unit": "KB",
         "digits": 1,
-        "categories": ["demo-report", "demo-table", "variant-A"],
+        "categories": ["demo-report", "demo-table", "选型页"],
         "series": [
           { "name": "HTML 总体积", "values": [367.6, 363.0, 370.7] },
           { "name": "其中内联 CSS", "values": [331.5, 331.5, 335.5] }
         ],
         "note": "两系列同单位（KB）、共同零点；内联 CSS 含 reset + astryx + 生成的 Gary 主题。",
-        "source": "out/demo-report.html · out/demo-table.html · out/variant-A.html 实测字节（2026-11-16）",
+        "source": "out/demo-report.html · out/demo-table.html · out/picker.html 实测字节（2026-11-16）",
         "status": "仓库实测"
       }
     },

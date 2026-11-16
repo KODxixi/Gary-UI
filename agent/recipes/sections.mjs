@@ -197,7 +197,11 @@ export function TextBlock(p) {
  * an L-shape that reads as misalignment, not as a caption. */
 function CardHead(title, note) {
   if (!title && !note) return null;
-  if (note && note.length > 24) {
+  // 按视觉宽度而不是字符数判长短：24 个汉字约 24em，24 个拉丁字符只有 11–13em，
+  // 中英混排时同一个阈值会把短说明判成长的（对抗审查第 4 条）。CJK 记 1，其余记 0.5。
+  const visualWidth = (s) =>
+    [...s].reduce((w, ch) => w + (/[\u3000-\u9fff\uff00-\uffef]/.test(ch) ? 1 : 0.5), 0);
+  if (note && visualWidth(note) > 24) {
     return h(
       VStack,
       { gap: 2 },
@@ -723,11 +727,12 @@ export function StepsBlock(p) {
     placeItems: 'center',
     fontSize: '12px',
     fontWeight: 600,
-    // Filled in both states: accent for reached/current, a solid grey for
-    // upcoming. A hollow ring read as "loading failed"; a 4%-black fill was so
-    // close to the card surface that it still looked hollow at page scale.
-    background: done ? 'var(--color-accent)' : 'var(--color-text-secondary)',
-    color: done ? 'var(--color-on-accent)' : 'var(--color-background-card)',
+    // Filled in both states: accent for reached/current, a light neutral for
+    // upcoming. A hollow ring read as "loading failed"; a dark solid grey read
+    // as a second completed step, so upcoming gets a light neutral fill with
+    // primary ink — clearly lighter than accent, still fully solid.
+    background: done ? 'var(--color-accent)' : 'var(--color-border-emphasized)',
+    color: done ? 'var(--color-on-accent)' : 'var(--color-text-primary)',
     border: 'none',
     boxSizing: 'border-box',
   });

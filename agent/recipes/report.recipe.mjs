@@ -17,7 +17,12 @@ export function render(content) {
   }
   return h(
     VStack,
-    { gap: 14, width: '100%' },
+    // Astryx VStack only emits a gap class for 0-6, 8 and 10 (verified by
+    // rendering each value: 7/9/11/12/14 produce no class at all, so the flex
+    // gap silently falls back to `normal` = 0). 10 is the widest legal block
+    // rhythm = 40px; `gap: 14` from the aesthetic pass had collapsed all
+    // section spacing to zero.
+    { gap: 10, width: '100%' },
     blocks.map((b, i) => {
       const Section = SECTIONS[b.type];
       if (!Section) {

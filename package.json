@@ -14,7 +14,7 @@
     "check": "node agent/checks/selfcheck.mjs",
     "layout": "node agent/checks/layout.mjs",
     "contrast": "node agent/checks/contrast.mjs",
-    "verify": "npm run build && node agent/checks/selfcheck.mjs out/demo-report.html out/demo-table.html out/demo-report-dark.html out/viz-charts.html out/viz-flow.html out/demo-park.html && node agent/checks/layout.mjs out/demo-report.html out/demo-table.html out/demo-report-dark.html out/viz-charts.html out/viz-flow.html out/demo-park.html && node agent/checks/contrast.mjs out/demo-report.html out/demo-table.html out/demo-report-dark.html out/viz-charts.html out/viz-flow.html out/demo-park.html",
+    "verify": "npm run build && node agent/checks/verify-all.mjs",
     "astryx": "node node_modules/@astryxdesign/cli/clients/cli/bin/astryx.mjs"
   },
   "dependencies": {

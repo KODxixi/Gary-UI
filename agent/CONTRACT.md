@@ -294,7 +294,8 @@ node agent/checks/layout.mjs out/viz-charts.html
 
 - 实测：`check-flow.mjs` 三张图 `edges` 合计 13 条，`非正交=0 无箭头=0`、`node boxes 相交=0`、`FLOW GEOMETRY PASS`；`viz-charts.html` 与 `viz-flow.html` 的 `selfcheck` ALL PASS、`layout` 6 条全 PASS。
 - 颜色：`viz/*.mjs` 里 **0 个 hex**，全部取 `--color-*` token。多系列图表按**实体下标**取 `--color-data-1…8`（同一对象跨图同色）；流程图的角色色也绑在同一组 data token 上，所以图与图之间不会各造一套色。要换观感改 `theme/gary.theme.mjs`，不改 `viz/`。
-- 每张图必须给 `source` 与 `status`；演示数据在页级 `meta.badge` 标 `示意数据`。没有来源的图不接受。
+  **单系列裁决**：`series.length === 1` 走 `--color-data-primary`（墨绿族），不占分类板首色 —— 否则同一张图加第二条数据时会从墨绿跳成蓝+金，读者会以为换了对象。
+- 每张图必须给 `source`（渲染成卡底一行脚注，本地路径会被剥成文件名）；`status` 字段保留但**不渲染到页面**——它此前渲染成一个 badge 压在卡片里，占掉信息空间，2026-11-17 移除，写它不会有视觉效果。演示数据在页级 `meta.badge` 标 `示意数据`。没有来源的图不接受。
 
 ---
 
