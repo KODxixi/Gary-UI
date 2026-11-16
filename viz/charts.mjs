@@ -204,7 +204,10 @@ export function BarChart({
   const groupW = band - groupPad;
   const slot = groupW / series.length;
   // 54px max left a 249px band 78% empty — the bars read as hairlines.
-  const barW = Math.min(72, slot * 0.78);
+  // 110 was 72: four categories left a 249px slot holding a 69px bar, so the
+  // gaps (111px) were wider than the bars themselves. Google Charts keeps the
+  // bar in the 50–65% of slot range; this lands 4 categories at 110px.
+  const barW = Math.min(110, slot * 0.78);
 
   const anchor = annotations.find((a) => a.type === 'anchor');
 
