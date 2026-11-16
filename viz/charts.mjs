@@ -23,7 +23,7 @@
  * Colours come only from viz/palette.mjs (theme tokens).
  */
 import { createElement as h } from 'react';
-import { Card, Heading, Text, Badge, HStack, VStack } from '@astryxdesign/core';
+import { Card, Heading, Text, HStack, VStack } from '@astryxdesign/core';
 import { PALETTE, FONT, seriesStyle, seriesColor, seriesOpacity } from './palette.mjs';
 import { CHART } from './spec.mjs';
 
@@ -171,18 +171,14 @@ function Legend({ series, xRight, y, kind = 'pair' }) {
   );
 }
 
-/** Caption that keeps every annotation checkable: text · kind · basis. */
+/** Caption that keeps every annotation readable; the mechanism stays in data. */
 function AnnotationCaption({ annotations }) {
   if (!Array.isArray(annotations) || annotations.length === 0) return null;
   return h(
     VStack,
     { gap: 1 },
     annotations.map((a, i) =>
-      h(
-        Text,
-        { key: i, type: 'supporting', size: 'sm' },
-        `标注 ${i + 1} · ${a.text}　（${a.kind} · 绑定 ${a.target}${a.basis ? ' · ' + a.basis : ''}）`
-      )
+      h(Text, { key: i, type: 'supporting', size: 'sm' }, a.text)
     )
   );
 }
@@ -204,7 +200,9 @@ export function BarChart({
   const padB = 62;
   const plotW = W - padL - padR;
   const plotH = height - padT - padB;
-  const paints = series.map((s, i) => (s.color ? { fill: s.color } : seriesStyle(i, 'pair')));
+  const paints = series.map((s, i) =>
+    s.color ? { fill: s.color } : seriesStyle(i, series.length > 1 ? 'pair' : 'single')
+  );
 
   const all = series.flatMap((s) => s.values.map((v) => (Number.isFinite(v) ? v : 0)));
   const ticks = niceTicks(Math.min(0, ...all), Math.max(0, ...all), CHART.ticks);
@@ -271,7 +269,7 @@ export function BarChart({
                 textAnchor: 'middle',
                 style: {
                   fill: PALETTE.textPrimary,
-                  fontSize: FONT.small,
+                  fontSize: FONT.label,
                   fontVariantNumeric: FONT.numeric,
                   fontWeight: 500,
                 },
@@ -334,7 +332,7 @@ export function BarChart({
         x: W - padR,
         y: height - 8,
         textAnchor: 'end',
-        style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny },
+        style: { fill: PALETTE.textSecondary, fontSize: FONT.small },
       },
       '基线 0 · 长度即量值'
     )
@@ -403,7 +401,7 @@ export function LineChart({
           }),
           h(
             'text',
-            { x: x + 6, y: padT + 14, style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny } },
+            { x: x + 6, y: padT + 14, style: { fill: PALETTE.textSecondary, fontSize: FONT.small } },
             band.text
           )
         );
@@ -460,8 +458,8 @@ export function LineChart({
     ),
 
     series.map((s, si) => {
-      const color = s.color || seriesColor(si, 'pair');
-      const inkOp = s.color ? 1 : seriesOpacity(si, 'pair');
+      const color = s.color || seriesColor(si, series.length > 1 ? 'pair' : 'single');
+      const inkOp = s.color ? 1 : seriesOpacity(si, series.length > 1 ? 'pair' : 'single');
       const pts = s.values.map((v, i) => (Number.isFinite(v) ? [sx(i), sy(v)] : null));
       // one path per unbroken run: a null breaks the line, it never bridges
       const runs = [];
@@ -515,7 +513,7 @@ export function LineChart({
                     textAnchor: 'middle',
                     style: {
                       fill: PALETTE.textPrimary,
-                      fontSize: FONT.small,
+                      fontSize: FONT.label,
                       fontVariantNumeric: FONT.numeric,
                       // same halo as the reference label — point labels sit
                       // close enough to the stroke to need it
@@ -535,7 +533,7 @@ export function LineChart({
                   x: sx(i),
                   y: padT + plotH - 6,
                   textAnchor: 'middle',
-                  style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny },
+                  style: { fill: PALETTE.textSecondary, fontSize: FONT.small },
                 },
                 '缺测'
               )
@@ -564,7 +562,7 @@ export function LineChart({
         x: W - padR,
         y: height - 8,
         textAnchor: 'end',
-        style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny },
+        style: { fill: PALETTE.textSecondary, fontSize: FONT.small },
       },
       yMin > 0 ? `纵轴 ${fmt(yMin, digits)}–${fmt(yMax, digits)} · 非零基线（范围可见）` : '纵轴自 0 起 · 缺测断线不补'
     )
@@ -689,7 +687,7 @@ export function StackedBar({
       ),
     h(
       'text',
-      { x: W - 20, y: chartH - 6, textAnchor: 'end', style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny } },
+      { x: W - 20, y: chartH - 6, textAnchor: 'end', style: { fill: PALETTE.textSecondary, fontSize: FONT.small } },
       '每条统一表示整体 · 分母见合计'
     )
   );
@@ -822,7 +820,7 @@ export function DonutChart({
 
     h(
       'text',
-      { x: W - 24, y: height - 8, textAnchor: 'end', style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny } },
+      { x: W - 24, y: height - 8, textAnchor: 'end', style: { fill: PALETTE.textSecondary, fontSize: FONT.small } },
       '互斥 · 合计可校验'
     )
   );
@@ -859,7 +857,7 @@ export function ProgressBars({
         r.hint &&
           h(
             'text',
-            { x: 24, y: y + 30, style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny } },
+            { x: 24, y: y + 30, style: { fill: PALETTE.textSecondary, fontSize: FONT.small } },
             r.hint
           ),
         h('rect', {
@@ -897,7 +895,7 @@ export function ProgressBars({
     }),
     h(
       'text',
-      { x: W - 24, y: chartH - 8, textAnchor: 'end', style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny } },
+      { x: W - 24, y: chartH - 8, textAnchor: 'end', style: { fill: PALETTE.textSecondary, fontSize: FONT.small } },
       '完成率 = 分子/分母（分母写在每行提示里）'
     )
   );
@@ -988,7 +986,7 @@ export function Sparkline({ categories = [], values = [], unit = '', width = 300
           x: first[0],
           y: first[1] - 10,
           textAnchor: 'start',
-          style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny, fontVariantNumeric: FONT.numeric },
+          style: { fill: PALETTE.textSecondary, fontSize: FONT.small, fontVariantNumeric: FONT.numeric },
         },
         fmtEnd(values.find(Number.isFinite))
       ),
@@ -1011,7 +1009,7 @@ export function Sparkline({ categories = [], values = [], unit = '', width = 300
           x: sx(i),
           y: height - 8,
           textAnchor: i === 0 ? 'start' : i === categories.length - 1 ? 'end' : 'middle',
-          style: { fill: PALETTE.textSecondary, fontSize: FONT.tiny },
+          style: { fill: PALETTE.textSecondary, fontSize: FONT.small },
         },
         c
       )
@@ -1021,15 +1019,13 @@ export function Sparkline({ categories = [], values = [], unit = '', width = 300
 
 /* ----------------------------------------------------------- block frame */
 
-const CHART_LABEL = {
-  bar: '柱状图 · 单系列',
-  'grouped-bar': '柱状图 · 分组',
-  line: '折线图',
-  stacked: '百分比堆叠',
-  donut: '环形图',
-  progress: '进度条组',
-  sparkline: 'KPI 迷你趋势',
-};
+/** Strip local artefact paths (examples/x.html, out/y.html) from a source line. */
+function sourceName(source) {
+  return String(source)
+    .replace(/(?:[\w.-]+\/)+[\w.-]+\.(?:html?|png|jpe?g|svg|pdf|csv)\s*·?\s*/gi, '')
+    .replace(/^[\s·]+|[\s·]+$/g, '')
+    .trim();
+}
 
 function ChartBody(props) {
   switch (props.chart) {
@@ -1076,11 +1072,13 @@ export function KpiTile({ label, value, unit, delta, categories, values, note, s
  * title → question → plot → annotations → source/status.
  */
 export function ChartBlock(props) {
-  const { title, question, chart, source, status, note, annotations, kpi } = props;
+  const { title, question, chart, source, note, annotations, kpi } = props;
 
   if (chart === 'sparkline') {
     return h(KpiTile, { ...props, ...(kpi || {}) });
   }
+
+  const footer = [note, source && `来源：${sourceName(source)}`].filter(Boolean).join(' · ');
 
   return h(
     Card,
@@ -1089,25 +1087,14 @@ export function ChartBlock(props) {
       VStack,
       { gap: 4 },
       h(
-        HStack,
-        { justify: 'between', align: 'baseline', gap: 4, wrap: 'wrap' },
-        h(
-          VStack,
-          { gap: 1 },
-          h(Heading, { level: 2 }, title),
-          question && h(Text, { type: 'supporting' }, question)
-        ),
-        h(Badge, { variant: 'neutral', label: CHART_LABEL[chart] || chart })
+        VStack,
+        { gap: 1 },
+        h(Heading, { level: 2 }, title),
+        question && h(Text, { type: 'supporting' }, question)
       ),
       h(ChartBody, props),
-      note && h(Text, { type: 'supporting', size: 'sm' }, note),
-      h(AnnotationCaption, { annotations }),
-      h(
-        HStack,
-        { gap: 3, wrap: 'wrap', vAlign: 'center' },
-        h(Text, { type: 'supporting', size: 'sm' }, `来源：${source}`),
-        status && h(Badge, { variant: 'neutral', label: status })
-      )
+      footer && h(Text, { type: 'supporting', size: 'sm' }, footer),
+      h(AnnotationCaption, { annotations })
     )
   );
 }

@@ -17,7 +17,7 @@ export function render(content) {
   }
   return h(
     VStack,
-    { gap: 8, width: '100%' },
+    { gap: 14, width: '100%' },
     blocks.map((b, i) => {
       const Section = SECTIONS[b.type];
       if (!Section) {

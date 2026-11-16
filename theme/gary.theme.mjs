@@ -65,7 +65,7 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-warning': ['#7f6118', '#e0a93b'],
   // #fbf3e0 read as white on the page — Gary's callout looked like a plain
   // paragraph. Deepened one step so the tint is visible without going orange.
-  '--color-warning-muted': ['#f7e9c8', '#3a2f14'],
+  '--color-warning-muted': ['#fbf6ea', '#3a2f14'],
   '--color-on-warning': ['#fff6e0', '#0a1317'],
   '--color-on-warning-muted': ['#4a3810', '#f3e3b5'],
   '--color-text-warning': ['#8a6a1f', '#e0a93b'],
@@ -78,6 +78,13 @@ export const GARY_TOKEN_OVERRIDES = {
 
   '--font-family-body': GARY_FONT_STACK,
   '--font-family-heading': GARY_FONT_STACK,
+
+  // A3 · type ladder: h2 sits above body without catching the page title.
+  '--text-heading-2-size': '1.375rem',
+  '--text-heading-2-leading': '1.3',
+  // A6 · body copy at 15/26 — 14px runs 54 CJK glyphs per line.
+  '--text-body-size': '0.9375rem',
+  '--text-body-leading': '1.7333',
 
   // Dark-mode surfaces (R6). Neutral ships `--color-background-card` equal to
   // `--color-background-body` in dark (#1b1b1b), so cards and the page were the
@@ -115,7 +122,7 @@ export const GARY_TOKEN_OVERRIDES = {
   // system's `primary` role, not category1 — the legacy family mapping sent
   // every single-mark family to `single`, only grouped/stacked/donut to
   // categorical. Chart ink stays off the UI accent #24514a by design.
-  '--color-data-primary': ['#529cae', '#82b4bf'],
+  '--color-data-primary': ['#2f6b60', '#7fb8aa'],
   '--color-data-secondary': ['#3fad8d', '#78c9ac'],
   '--color-data-reference': ['#be8c22', '#d5af59'],
   '--color-data-negative': ['#c06f62', '#c47b62'],

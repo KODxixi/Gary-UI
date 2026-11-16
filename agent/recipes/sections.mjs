@@ -55,7 +55,7 @@ const DELTA_TONE = {
  * beats the StyleX class, which is why this is expressible here.
  */
 const CARD_FRAMES = {
-  small: { borderRadius: '14px', padding: '20px' },
+  small: { borderRadius: '14px', padding: '24px' },
   medium: { borderRadius: '16px', padding: '24px' },
   large: { borderRadius: '20px', padding: '28px' },
 };
@@ -92,7 +92,11 @@ export function Header(p) {
           p.eyebrow && h(Text, { type: 'supporting' }, p.eyebrow),
           p.badge && h(Badge, { variant: 'info', label: p.badge })
         ),
-        h(Heading, { level: 1 }, p.title),
+        h(Heading, {
+          level: 1,
+          type: 'display-3',
+          style: { fontFamily: GARY_DISPLAY_SERIF_STACK },
+        }, p.title),
         p.sub && h(Text, { type: 'supporting' }, p.sub)
       ),
       // Toolbar: the search field carries a label above its shell, so aligning
@@ -135,7 +139,7 @@ export function Cover(p) {
       type: 'display-2',
       style: { fontFamily: GARY_DISPLAY_SERIF_STACK },
     }, p.title),
-    p.sub && h(Text, { type: 'large' }, p.sub),
+    p.sub && h(Text, { type: 'body' }, p.sub),
     Array.isArray(p.meta) &&
       p.meta.length > 0 &&
       h(
@@ -177,9 +181,14 @@ export function TextBlock(p) {
   const type = p.size === 'large' ? 'large' : 'body';
   return h(
     VStack,
-    { gap: 2, width: '100%', maxWidth: '760px' },
+    { gap: 3, width: '100%', maxWidth: '660px' },
     paras.map((para, i) => h(Text, { key: i, type, display: 'block' }, para)),
-    p.note && h(Text, { type: 'supporting', size: 'sm' }, p.note)
+    p.note &&
+      h(
+        'div',
+        { style: { paddingTop: '4px' } },
+        h(Text, { type: 'supporting', size: 'sm' }, p.note)
+      )
   );
 }
 
@@ -197,12 +206,12 @@ export function Metric(p) {
         p.note && h(Text, { type: 'supporting' }, p.note)
       ),
     h(
-      HStack,
-      { gap: 4, wrap: 'wrap', vAlign: 'stretch' },
+      Grid,
+      { columns: items.length, gap: 4, width: '100%' },
       items.map((it, i) =>
         h(
           Card,
-          { key: i, elevation: 'low', width: '232px', style: cardFrame('small') },
+          { key: i, elevation: 'low', width: '100%', style: cardFrame('small') },
           h(
             VStack,
             { gap: 1 },
@@ -212,7 +221,7 @@ export function Metric(p) {
               { gap: 1, vAlign: 'end' },
               h(
                 Text,
-                { size: '2xl', weight: 'medium', hasTabularNumbers: true },
+                { size: '4xl', weight: 'medium', hasTabularNumbers: true },
                 String(it.value ?? '')
               ),
               it.unit && h(Text, { type: 'supporting' }, it.unit)
@@ -234,7 +243,7 @@ export function Metric(p) {
                 it.trend &&
                   h(
                     Text,
-                    { type: 'body', weight: 'medium', color: 'inherit' },
+                    { type: 'supporting', weight: 'medium', color: 'inherit' },
                     TREND_ARROW[it.trend] ?? ''
                   ),
                 h(
@@ -242,7 +251,7 @@ export function Metric(p) {
                   { style: { fontVariantNumeric: 'tabular-nums' } },
                   h(
                     Text,
-                    { type: 'body', weight: 'medium', color: 'inherit' },
+                    { type: 'supporting', weight: 'medium', color: 'inherit' },
                     it.delta ?? it.hint
                   )
                 )
@@ -323,7 +332,7 @@ export function Callout(p, ctx) {
   const frame = {
     '--_banner-radius': CARD_FRAMES[tierForContext(ctx)].borderRadius,
     // 24px on both axes: the large frame's 28px would distort banner internals.
-    '--spacing-3': '24px',
+    '--spacing-3': '20px',
     '--spacing-4': '24px',
   };
 
@@ -333,10 +342,10 @@ export function Callout(p, ctx) {
   // Banner paints only the tinted fill; its root has no border, so the outline
   // Gary asked for is drawn on the wrapper (1px, same hue as the text).
   const BORDER_TONE = {
-    info: 'var(--color-on-info-muted)',
-    success: 'var(--color-on-success-muted)',
-    warning: 'var(--color-on-warning-muted)',
-    error: 'var(--color-on-error-muted)',
+    info: 'var(--color-border-info)',
+    success: 'var(--color-border-success)',
+    warning: 'var(--color-border-warning)',
+    error: 'var(--color-border-error)',
   };
 
   const neutralScope = {
@@ -429,7 +438,7 @@ export function TableSection(p, ctx) {
     // over right-aligned values. Wrap the label to inherit the column alignment.
     header: h(
       Text,
-      { display: 'block', justify: c.num ? 'end' : 'start', hasTabularNumbers: !!c.num },
+      { type: 'supporting', weight: 'medium', display: 'block', justify: c.num ? 'end' : 'start' },
       c.label
     ),
     align: c.num ? 'end' : 'start',
@@ -579,14 +588,22 @@ export function MatrixBlock(p, ctx) {
   const columns = [
     {
       key: 'label',
-      header: h(Text, { display: 'block' }, p.labelHeader || '对比项'),
+      header: h(
+        Text,
+        { type: 'supporting', weight: 'medium', display: 'block', justify: 'start' },
+        p.labelHeader || '对比项'
+      ),
       align: 'start',
       width: proportional(2),
       renderCell: (row) => h(Text, { weight: 'medium' }, String(row.label ?? '')),
     },
     ...cols.map((c, j) => ({
       key: `k${j}`,
-      header: h(Text, { display: 'block', justify: c.num ? 'end' : 'start' }, c.label),
+      header: h(
+        Text,
+        { type: 'supporting', weight: 'medium', display: 'block', justify: c.num ? 'end' : 'start' },
+        c.label
+      ),
       align: c.num ? 'end' : 'start',
       width: proportional(c.num ? 1 : 2),
       renderCell: (row) => {

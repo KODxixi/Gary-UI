@@ -66,14 +66,6 @@
       }
     },
     {
-      "id": "sep-1",
-      "type": "divider",
-      "props": {
-        "variant": "subtle",
-        "spacing": "5"
-      }
-    },
-    {
       "id": "timeline",
       "type": "timeline",
       "props": {
