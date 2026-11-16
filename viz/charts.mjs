@@ -189,7 +189,7 @@ export function BarChart({
   const plotW = W - padL - padR;
   const plotH = height - padT - padB;
   const paints = series.map((s, i) =>
-    s.color ? { fill: s.color } : seriesStyle(i, series.length > 1 ? 'pair' : 'single')
+    s.color ? { fill: s.color } : seriesStyle(i, series.length > 1 ? 'pair' : 'bar')
   );
 
   const all = series.flatMap((s) => s.values.map((v) => (Number.isFinite(v) ? v : 0)));
@@ -447,8 +447,8 @@ export function LineChart({
     ),
 
     series.map((s, si) => {
-      const color = s.color || seriesColor(si, series.length > 1 ? 'pair' : 'single');
-      const inkOp = s.color ? 1 : seriesOpacity(si, series.length > 1 ? 'pair' : 'single');
+      const color = s.color || seriesColor(si, series.length > 1 ? 'pair' : 'line');
+      const inkOp = s.color ? 1 : seriesOpacity(si, series.length > 1 ? 'pair' : 'line');
       const pts = s.values.map((v, i) => (Number.isFinite(v) ? [sx(i), sy(v)] : null));
       // one path per unbroken run: a null breaks the line, it never bridges
       const runs = [];

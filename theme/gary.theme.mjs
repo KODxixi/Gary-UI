@@ -109,33 +109,37 @@ export const GARY_TOKEN_OVERRIDES = {
   // Gary's words: "这些太深". Hue is untouched; only L moves.
   //   legacy light: #386aa9 #89600a #22765d #795098 #a85548 #367989 #965579 #70665a
   //   legacy dark : #82acec #d5af59 #78c9ac #be9bda #d58d80 #82b4bf #dda2c4 #aba69e
-  '--color-data-1': ['#558cd3', '#82acec'],
-  '--color-data-2': ['#be8c22', '#d5af59'],
-  '--color-data-3': ['#3fad8d', '#78c9ac'],
-  '--color-data-4': ['#9d71bd', '#be9bda'],
-  '--color-data-5': ['#c06f62', '#d58d80'],
-  '--color-data-6': ['#529cae', '#82b4bf'],
-  '--color-data-7': ['#be779e', '#dda2c4'],
-  '--color-data-8': ['#8f867a', '#aba69e'],
+  // ---- Chart palette: Google Material 500 --------------------------------
+  // Gary 2026-11-17: 「分析图颜色的搭配用google的那一套 墨绿色不要作为主色」
+  // Order follows Google Charts' default sequence (blue, red, yellow, green),
+  // then Material 500 fills the remaining slots. Dark mode uses Material
+  // 200/300 so the same hue stays legible on the dark page.
+  '--color-data-1': ['#4285F4', '#8AB4F8'], // Google blue
+  '--color-data-2': ['#EA4335', '#F28B82'], // Google red
+  '--color-data-3': ['#FBBC05', '#FDD663'], // Google yellow
+  '--color-data-4': ['#34A853', '#81C995'], // Google green
+  '--color-data-5': ['#9C27B0', '#CE93D8'], // purple
+  '--color-data-6': ['#00ACC1', '#4DD0E1'], // cyan
+  '--color-data-7': ['#FF7043', '#FFAB91'], // deep orange
+  '--color-data-8': ['#78909C', '#B0BEC5'], // blue grey
 
-  // Single-series charts (bar / line / area / histogram) take the legacy
-  // system's `primary` role, not category1 — the legacy family mapping sent
-  // every single-mark family to `single`, only grouped/stacked/donut to
-  // categorical. Chart ink stays off the UI accent #24514a by design.
-  '--color-data-primary': ['#2f6b60', '#7fb8aa'],
-  '--color-data-secondary': ['#3fad8d', '#78c9ac'],
-  '--color-data-reference': ['#be8c22', '#d5af59'],
-  '--color-data-negative': ['#c06f62', '#c47b62'],
-  '--color-data-neutral': ['#8f867a', '#9a9ea0'],
+  // Chart role colours. `primary` is Google blue — the ink green is the UI
+  // accent (#24514a) and stays out of the plots, otherwise every single-series
+  // chart turns the page monochrome.
+  '--color-data-primary': ['#4285F4', '#8AB4F8'],
+  '--color-data-secondary': ['#34A853', '#81C995'],
+  '--color-data-reference': ['#FBBC05', '#FDD663'],
+  '--color-data-negative': ['#EA4335', '#F28B82'],
+  '--color-data-neutral': ['#78909C', '#B0BEC5'],
 
-  // Sequential ramp (heat / intensity), 7 stops, light -> dark in light mode.
-  '--color-data-seq-1': ['#e1efee', '#203b3d'],
-  '--color-data-seq-2': ['#bddbd7', '#2b5153'],
-  '--color-data-seq-3': ['#98c4be', '#38696a'],
-  '--color-data-seq-4': ['#72aca5', '#498384'],
-  '--color-data-seq-5': ['#4f918a', '#629e9d'],
-  '--color-data-seq-6': ['#32766f', '#82b9b6'],
-  '--color-data-seq-7': ['#155b55', '#a9d6d1'],
+  // Sequential ramp (heat / intensity), 7 stops, Material blue 50 -> 700.
+  '--color-data-seq-1': ['#E8F0FE', '#0B2A5B'],
+  '--color-data-seq-2': ['#C6DAFC', '#123F82'],
+  '--color-data-seq-3': ['#A1C2FA', '#1A56A8'],
+  '--color-data-seq-4': ['#7BAAF7', '#2166C8'],
+  '--color-data-seq-5': ['#5E97F6', '#5E97F6'],
+  '--color-data-seq-6': ['#4285F4', '#9FC0FA'],
+  '--color-data-seq-7': ['#1A73E8', '#C6DAFC'],
 };
 
 export const garyTheme = defineTheme({

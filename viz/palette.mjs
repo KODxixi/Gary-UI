@@ -79,9 +79,16 @@ export const PALETTE = {
   },
 };
 
+// Yellow (#FBBC05, index 2) is a fill colour, not a line colour — on white it
+// reads as a ghost stroke. Lines take green, histograms purple.
+const SINGLE_HUE = { bar: 0, line: 3, area: 5, histogram: 4 };
+
 /**
  * Paint for a series index. Mirrors the legacy family mapping:
  *   kind='single' (default for bar/line/area/histogram) — one role: chart primary.
+ *   kind='single','bar','line','area','histogram' — a single series still gets its
+ *     own hue per chart type. Six single-series charts sharing one ink-green reads
+ *     as a monochrome page, not as a palette.
  *   kind='series'/'pair'/'ramp' — categorical: a distinct hue per index (category1..8).
  *   kind='mono' — primary hue stepped by opacity, for value-is-colour encodings.
  */
@@ -92,7 +99,11 @@ export function seriesStyle(index, kind = 'single') {
       ? { fill: PALETTE.track, fillOpacity: 1 }
       : { fill: PALETTE.primary, fillOpacity: op };
   }
-  if (kind === 'single') return { fill: PALETTE.primary, fillOpacity: 1 };
+  if (kind === 'single' || SINGLE_HUE[kind] !== undefined) {
+    const hue = SINGLE_HUE[kind];
+    if (hue === undefined) return { fill: PALETTE.primary, fillOpacity: 1 };
+    return { fill: PALETTE.series[hue] ?? PALETTE.primary, fillOpacity: 1 };
+  }
   const hues = PALETTE.series;
   const hue = hues[index % hues.length];
   return { fill: hue === undefined ? PALETTE.track : hue, fillOpacity: 1 };
