@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "recipe": "dashboard",
+    "title": "青浦云谷 · 经营看板",
+    "sub": "去化、回款、节点三张表放在一屏看",
+    "eyebrow": "青浦云谷 · 经营周报",
+    "badge": "W47",
+    "date": "2026-11-17",
+    "author": "营销组 · 经营",
+    "version": "v1.0",
+    "theme": "light",
+    "lang": "zh-CN"
+  },
+  "blocks": [
+    {
+      "id": "head",
+      "type": "heading",
+      "props": {
+        "eyebrow": "青浦云谷 · 01 地块 · 2026 第 47 周",
+        "title": "经营看板",
+        "badge": "内部",
+        "sub": "本周核心变化：去化率过 60%，回款节奏落后于认购节奏两周。"
+      }
+    },
+    {
+      "id": "kpi",
+      "type": "metric",
+      "props": {
+        "title": "核心指标",
+        "note": "口径：网签口径，截至 11-16",
+        "items": [
+          { "label": "累计去化", "value": "60.1", "unit": "%", "hint": "环比 +4.2 pt", "trend": "up" },
+          { "label": "认购金额", "value": "18.6", "unit": "亿元", "hint": "环比 +1.2 亿", "trend": "up" },
+          { "label": "回款金额", "value": "14.2", "unit": "亿元", "hint": "落后认购 2 周", "trend": "down" },
+          { "label": "周均到访", "value": "212", "unit": "组", "hint": "与上周持平", "trend": "flat" }
+        ]
+      }
+    },
+    {
+      "id": "state",
+      "type": "badge",
+      "props": {
+        "items": [
+          { "label": "1# 楼 已售罄", "variant": "success", "dot": true },
+          { "label": "5# 楼 去化 72%", "variant": "info", "dot": true },
+          { "label": "7# 配套 待定", "variant": "warning", "dot": true }
+        ]
+      }
+    },
+    {
+      "id": "blocks-table",
+      "type": "table",
+      "props": {
+        "title": "分地块去化",
+        "note": "套数口径，含认购未网签",
+        "columns": [
+          { "label": "地块" },
+          { "label": "可售", "num": true },
+          { "label": "已售", "num": true },
+          { "label": "去化率", "num": true },
+          { "label": "套均总价 · 万", "num": true }
+        ],
+        "rows": [
+          ["01 地块", "312", "196", "62.8%", "486"],
+          ["02 地块", "268", "121", "45.1%", "512"],
+          ["03 地块（储备）", "180", "0", "0.0%", "—"]
+        ],
+        "foot": ["合计", "760", "317", "41.7%", "496"],
+        "density": "compact",
+        "dividers": "rows"
+      }
+    },
+    {
+      "id": "score",
+      "type": "scorecard",
+      "props": {
+        "title": "项目健康度",
+        "note": "五项各 0–100，红黄绿对应是否需要本周处理",
+        "density": "normal",
+        "items": [
+          { "label": "去化速度", "score": 82, "max": 100, "state": "good" },
+          { "label": "回款达成", "score": 64, "max": 100, "state": "warn" },
+          { "label": "成本控制", "score": 91, "max": 100, "state": "good" },
+          { "label": "节点履约", "score": 78, "max": 100, "state": "good" },
+          { "label": "客户口碑", "score": 52, "max": 100, "state": "bad" }
+        ]
+      }
+    },
+    {
+      "id": "cards-a",
+      "type": "card",
+      "props": {
+        "eyebrow": "本周动作",
+        "title": "回款专项",
+        "body": ["对 46 套已认购未网签客户逐户回访，目标两周内把 2.1 亿认购转成回款。"],
+        "note": "责任人：营销 · 客服组"
+      }
+    },
+    {
+      "id": "cards-b",
+      "type": "card",
+      "props": {
+        "eyebrow": "风险提示",
+        "title": "口碑分偏低",
+        "body": ["交付样板段与销售说辞存在两处口径差异，已要求本周内统一，避免签约后投诉。"],
+        "note": "责任人：设计 · 营销"
+      }
+    },
+    {
+      "id": "note",
+      "type": "callout",
+      "props": {
+        "tone": "warning",
+        "eyebrow": "结论",
+        "title": "认购与回款之间的两周时滞，是本周唯一需要跨部门处理的缺口",
+        "body": "去化与成本两项已回到健康区间；回款达成 64 分、口碑 52 分，均低于 70 分线，下周复盘只看这两项。"
+      }
+    }
+  ]
+}

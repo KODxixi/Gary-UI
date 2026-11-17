@@ -1,9 +1,9 @@
-﻿# Gary-UI · Agent 调用契约（Astryx 版 · v2）
+# Gary-UI · Agent 调用契约（Astryx 版 · v2）
 
 > 位置 `agent/CONTRACT.md`。给外部 agent 的唯一调用入口：读完这一份就能出页，不用翻别的文档。
 > 一句话：**页面 = content.json；只能拼，不能发明。** 不写 HTML、不写 CSS、不写 JS。
 > 底座：`@astryxdesign/core` 0.7.16（174 个组件）+ React 19 SSR。品牌层：`theme/gary.theme.mjs`。
-> 两个渲染器：`agent/render.mjs`（16 类文本区块）· `viz/render-viz.mjs`（同一套文本区块 + `chart` / `flow`，见 §7）。
+> 两个渲染器：`agent/render.mjs`（18 类文本区块）· `viz/render-viz.mjs`（同一套文本区块 + `chart` / `flow`，见 §7）。
 
 ---
 
@@ -83,7 +83,7 @@ WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=400473 recipe=report blocks=11
 
 **全页 `inverse` 的额度**：`table` / `matrix` / `prose` 这类**整块**反白，一页最多一个——两个大块反白等于没有锚点。`metric` 的主指标反白是**块内构成**（一行高、宽度两倍以内），不占这个额度。
 
-### 3.2 全部 block type（16 个，均已实现）
+### 3.2 全部 block type（18 个，均已实现）
 
 | `type` | 是什么 | 关键与必填 props | 对应 Astryx 组件 |
 |---|---|---|---|
@@ -91,9 +91,9 @@ WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=400473 recipe=report blocks=11
 | `cover` | 封面 | `title` · `eyebrow` · `badge` · `sub` · `meta[{k,v}]` | `Heading(display-2)`+`Text`+`Badge`（唯一用衬线的块） |
 | `prose` | 长文分节 | `items[{n,title,paras[]}]` | `Heading(l2)`+`Text(body)` |
 | `text` | 正文段落 | `paras[]` · `note` · `size`(`body`/`large`) | `Text` |
-| `metric` | 指标卡组 | `items[{label,value,unit,hint,trend}]` · `title` · `note` | `Card`+`Text`（**无专用指标组件**） |
+| `metric` | 指标卡组 | `items[{label,value,unit,hint,trend}]`（1–5 个） · `title` · `note` | `Card`+`Text`（**无专用指标组件**） |
 | `card` | 通用卡片 | `title` · `eyebrow` · `sub` · `body[]` · `badge` · `tag` · `note` · `variant` · `elevation` | `Card`+`VStack`+`Heading(l3)`+`Text`+`Badge` |
-| `table` | 表格（数据明细） | `columns[{label,num}]` · `rows[][]` · `foot[]` · `density` · `dividers` · `title` · `note` | `Card`+`Table` |
+| `table` | 表格（数据明细） | `columns[{label,num}]`（2–7 列） · `rows[][]` · `foot[]` · `density` · `dividers` · `title` · `note` | `Card`+`Table` |
 | `badge` | 状态徽标行 | `items[{label,variant,dot}]` · `align` | `Badge`+`StatusDot` |
 | `callout` | 结论 / 提示框 | `tone`(`info`/`success`/`warning`/`error`) · `title` · `body` · `eyebrow` · `action{label}` | `Banner` |
 | `divider` | 分隔线 | `label` · `variant` · `spacing` | `Divider` |
@@ -103,10 +103,12 @@ WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=400473 recipe=report blocks=11
 | `steps` | 步骤条 / 推进节奏 | **必填** `items[]`（3–5 个）：每项 `title`（≤12 字）；可选 `items[].text`（≤24 字）· `active`（零基下标，默认 `1`）· 区块 `title` · `note` | `ol/li` + token 手画（R8 起不再用 `Stepper`，连接线是 StyleX 原子类改不动） |
 | `quote` | 引文 / 结论强调 | **必填** `text`（≤120 字）；可选 `source`（≤40 字）· `eyebrow` · `tone`（`accent`/`success`/`warning`/`error`/`info`） | `Text(large)` + `border-left`（`Blockquote` 无 tone 旋钮） |
 | `grid` | 多列容器（唯一的多列手段） | **必填** `cols`（`2`/`3`/`4`，数字）+ `children[]`（2–6 个 `{id?, type, props}`，结构与顶层 `blocks[]` 相同）；可选 `gap`（默认 `4`） | `Grid` |
+| `device` | 设备模拟框（手机 / 笔记本，纯 CSS 机身） | **必填** `kind`（`phone`/`laptop`）+ `src`（本地相对路径或 `data:` URI，渲染时内嵌成 data URI；`http(s)` 会被闸判失败）+ `alt`；可选 `caption`（≤60 字）· `align`（`start`/`center`）· `tone` | `div`（机身/屏体）+ `img`（无 iframe、无外链） |
+| `scorecard` | 多维评分卡（横向进度条，不用雷达图） | **必填** `items[]`（2–8 条）：每项 `label`（≤12 字）+ `score`（0–`max`）；可选 `items[].max`（默认 `100`）· `items[].state`（`good`/`warn`/`bad`，缺省 accent）· 区块 `title` · `note` · `density`（`compact`/`normal`） | `Card`+`VStack`+`HStack`+`Text`+`div`（`var(--color-border-subtle)` 轨道 + 语义色填充） |
 
 > `type` 取 `header` 也走 `heading` 的渲染函数（改名兼容，schema 里叫 `heading`）。
-> 实现状态以 `agent/recipes/sections.mjs` 的 `SECTIONS` 表为准：**17 个 type 键 = 16 个 block 类型 + 1 个 `header` 别名**，全部有渲染函数。**实测**：一份同时含这 16 类的 content.json 渲染成功（`bytes=371528 blocks=16 components=160`），`selfcheck` 与 `layout` 均 ALL PASS —— 不是看代码猜的。
-> 字段级约束（字数上限、枚举、最小样例）在 `agent/content.schema.md` §3.1–3.16，一节一类型，本表与它同源；冲突以 schema 为准。
+> 实现状态以 `agent/recipes/sections.mjs` 的 `SECTIONS` 表为准：**19 个 type 键 = 18 个 block 类型 + 1 个 `header` 别名**，全部有渲染函数。**实测**：`examples/demo-dashboard.content.json`（8 blocks / `bytes=365511` / `components=169`，`recipe=dashboard`）与 `examples/demo-landing.content.json`（6 blocks / `bytes=356236` / `components=76`，`recipe=landing`）均渲染成功，`selfcheck` 与 `layout` 均 ALL PASS —— 不是看代码猜的。
+> 字段级约束（字数上限、枚举、最小样例）在 `agent/content.schema.md` §3.1–3.18，一节一类型，本表与它同源；冲突以 schema 为准。
 > **不在上面这张表里**：`chart` / `flow` 只由 `viz/render-viz.mjs` 接管（§7），`agent/render.mjs` 收到会抛「未知区块类型」。`groups` / `composer`（要运行时交互，单文件零脚本承载不了）· `nav` / `inspector`（外壳职责，归配方）仍不收。
 
 ### 3.3 内容铁律（闸门查得出来的和查不出来的）
@@ -247,7 +249,7 @@ node agent/checks/layout.mjs out/<page>.html
 边界先说清，踩了白跑一轮：
 
 - `chart` / `flow` **不在** `agent/render.mjs` 的 `SECTIONS` 表里。把 `type: "chart"` 直接喂给 `agent/render.mjs` 会当场抛 `sections: 未知区块类型`。
-- 图表页统一用 `viz/render-viz.mjs`：它只接管 `chart` / `flow`，其余 16 类文本区块全部复用 `agent/recipes/sections.mjs`。所以一页里可以混排正文、表格、卡片和七张图。
+- 图表页统一用 `viz/render-viz.mjs`：它只接管 `chart` / `flow`，其余 18 类文本区块全部复用 `agent/recipes/sections.mjs`。所以一页里可以混排正文、表格、卡片和七张图。
 - 它**不按 `meta.recipe` 分派**（不读这个字段），只按 `blocks[]` 顺序渲染；示例里的 `"recipe": "viz"` 只是标记。
 - 模块地图、颜色契约、字号映射、几何规则的细节在 `viz/README.md`。
 

@@ -70,7 +70,7 @@ node agent/checks/shoot.mjs out/my-page.html out/my-page.png
 | 路径 | 是什么 |
 |---|---|
 | `agent/render.mjs` | 渲染器：content.json → 单文件 HTML |
-| `agent/content.schema.md` | 内容契约 v1：`meta` + `blocks[]`，16 个 block type 的字段与字数上限 |
+| `agent/content.schema.md` | 内容契约 v1：`meta` + `blocks[]`，18 个 block type 的字段与字数上限 |
 | `agent/CONTRACT.md` | 给外部 agent 的调用契约（三步装配 / 组件查询 / 主题 / 闸门 / 图表 / 红线） |
 | `agent/recipes/` | 配方：`report`（文章壳）· `table`（叠放壳）· `sections.mjs`（type → 渲染函数） |
 | `viz/` | 图表与流程图：`render-viz.mjs`（CLI）· `charts.mjs`（7 种图表）· `flow.mjs`（3 种流程图）· `check-flow.mjs`（几何闸）· `README.md` |

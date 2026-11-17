@@ -79,7 +79,8 @@ const INVERSE_SCOPE = {
   '--color-text-disabled': 'var(--color-surface-inverse-muted)',
   // Text.accent resolves to text-accent (the deep tier). On a dark surface the
   // deep tier is too dark to read as orange (3.93:1), so accent text flips to
-  // the bright tier here (6.67:1 on #181614) — the KPI hero numeral is the case.
+  // the bright tier here (6.67:1 on the warm near-black inverse surface) — the
+  // KPI hero numeral is the case.
   '--color-text-accent': 'var(--color-accent)',
   '--color-border': 'var(--color-border-inverse)',
   '--color-border-emphasized': 'var(--color-border-inverse)',
@@ -659,7 +660,9 @@ function embedImage(src) {
   if (!src) return '';
   if (/^(data:|https?:)/i.test(src)) return src;
   const abs = path.resolve(process.cwd(), src);
-  if (!fs.existsSync(abs)) return src;
+  if (!fs.existsSync(abs)) {
+    throw new Error(`image: src 指向的文件不存在: ${src}（相对路径按当前工作目录解析）`);
+  }
   const mime = IMAGE_MIME[path.extname(abs).toLowerCase()] || 'application/octet-stream';
   return `data:${mime};base64,${fs.readFileSync(abs).toString('base64')}`;
 }
@@ -980,6 +983,140 @@ export function GridBlock(p, ctx) {
 }
 
 /**
+ * Device: kind (phone|laptop) / src / alt / caption.
+ * A CSS-only device shell — no iframe, no external asset, no script. The screen
+ * carries a static image embedded through the same data-URI path as `image`,
+ * so the product stays a single self-contained file.
+ */
+const DEVICE = {
+  phone: { width: '300px', radius: '38px', padding: '10px', screenRadius: '28px', ratio: '0.462' },
+  laptop: { width: '720px', radius: '16px', padding: '10px', screenRadius: '8px', ratio: '1.6' },
+};
+
+export function DeviceBlock(p, ctx) {
+  const kind = String(p.kind || 'phone').toLowerCase() === 'laptop' ? 'laptop' : 'phone';
+  const spec = DEVICE[kind];
+  const tone = surfaceToneOf(p, ctx);
+  const screen = h(
+    'div',
+    {
+      style: {
+        width: '100%',
+        aspectRatio: spec.ratio,
+        borderRadius: spec.screenRadius,
+        overflow: 'hidden',
+        background: 'var(--color-surface-raised)',
+      },
+    },
+    h('img', {
+      src: embedImage(p.src),
+      alt: p.alt || '',
+      style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' },
+    })
+  );
+  const shell = h(
+    'div',
+    {
+      style: {
+        width: '100%',
+        maxWidth: spec.width,
+        margin: '0 auto',
+        padding: spec.padding,
+        borderRadius: spec.radius,
+        background: 'var(--color-surface-inverse)',
+        border: '1px solid var(--color-border-inverse)',
+        boxSizing: 'border-box',
+      },
+    },
+    screen
+  );
+
+  return SurfaceCard(
+    tone,
+    ctx,
+    h(
+      VStack,
+      { gap: 2, width: '100%' },
+      shell,
+      (p.caption || p.alt) &&
+        h(
+          HStack,
+          { justify: p.align === 'start' ? 'start' : 'center', width: '100%' },
+          h(Text, { type: 'supporting', size: 'sm' }, p.caption || p.alt)
+        )
+    ),
+    { elevation: 'low' }
+  );
+}
+
+/** scorecard state -> semantic fill. Unknown / missing falls back to accent. */
+const SCORE_TONE = {
+  good: 'var(--color-success)',
+  warn: 'var(--color-warning)',
+  bad: 'var(--color-error)',
+};
+
+/**
+ * Scorecard: items[{label, score, max, state}] / title / note / density.
+ * Horizontal bars, not a radar: a static single-file page has no tooltip and a
+ * four-to-six axis radar is unreadable at print size.
+ */
+export function ScorecardBlock(p, ctx) {
+  const items = Array.isArray(p.items) ? p.items : [];
+  const tone = surfaceToneOf(p, ctx);
+  const gap = String(p.density || '') === 'compact' ? 2 : 3;
+  const rows = items.map((it, i) => {
+    const max = Number(it.max) || 100;
+    const score = Number(it.score) || 0;
+    const pct = Math.max(0, Math.min(100, max > 0 ? (score / max) * 100 : 0));
+    const fill = SCORE_TONE[String(it.state || '').toLowerCase()] || 'var(--color-accent)';
+    return h(
+      VStack,
+      { key: it.label || i, gap: 1, width: '100%' },
+      h(
+        HStack,
+        { justify: 'between', width: '100%', gap: 2 },
+        h(Text, { size: 'sm' }, it.label),
+        h(Text, { size: 'sm', hasTabularNumbers: true }, `${score} / ${max}`)
+      ),
+      h(
+        'div',
+        {
+          style: {
+            width: '100%',
+            height: '8px',
+            borderRadius: '9999px',
+            overflow: 'hidden',
+            background: 'var(--color-border-subtle)',
+          },
+        },
+        h('div', {
+          style: {
+            width: `${pct}%`,
+            height: '100%',
+            borderRadius: '9999px',
+            background: fill,
+          },
+        })
+      )
+    );
+  });
+
+  return SurfaceCard(
+    tone,
+    ctx,
+    h(
+      VStack,
+      { gap: 3, width: '100%' },
+      p.title && h(Heading, { level: 2 }, p.title),
+      p.note && h(Text, { type: 'supporting', size: 'sm' }, p.note),
+      h(VStack, { gap, width: '100%' }, rows)
+    ),
+    { elevation: 'low' }
+  );
+}
+
+/**
  * block.type -> renderer. Recipes pick from this table.
  * `header` is the legacy name for `heading`; both resolve to the same renderer.
  */
@@ -1001,13 +1138,15 @@ export const SECTIONS = {
   steps: StepsBlock,
   quote: QuoteBlock,
   grid: GridBlock,
+  device: DeviceBlock,
+  scorecard: ScorecardBlock,
 };
 
 /**
  * Blocks that already paint their own card (and therefore read `ctx.surface`).
  * Every other block gets wrapped only when it asks for a non-default tone.
  */
-const CARD_OWNED = new Set(['table', 'matrix', 'card', 'callout']);
+const CARD_OWNED = new Set(['table', 'matrix', 'card', 'callout', 'device', 'scorecard']);
 
 /**
  * Dispatch one block, applying its surface tone.

@@ -15,7 +15,7 @@
 | 你要做什么 | 先读 | 然后 |
 |---|---|---|
 | **做页面（唯一入口）** | [agent/CONTRACT.md](agent/CONTRACT.md) | 填 `content.json` → `node agent/render.mjs <in> -o out/<page>.html` |
-| **查 block 字段怎么写** | [agent/content.schema.md](agent/content.schema.md) | `meta` + `blocks[]` 的 16 个 type（§3.1–3.16 一节一类）、每个 props 的必填与字数上限 |
+| **查 block 字段怎么写** | [agent/content.schema.md](agent/content.schema.md) | `meta` + `blocks[]` 的 18 个 type（§3.1–3.18 一节一类）、每个 props 的必填与字数上限 |
 | **要做图表 / 流程图** | [viz/README.md](viz/README.md) | 填 `type: "chart"`（7 种）或 `type: "flow"`（3 种）→ `node viz/render-viz.mjs <in> -o out/<page>.html`，见 [CONTRACT §7](agent/CONTRACT.md) |
 | **查组件有哪些 / props 是什么** | `npx @astryxdesign/cli component --list` | `npx @astryxdesign/cli component <Name> --json`（174 个组件） |
 | **改品牌色 / 字体 / 圆角** | [theme/gary.theme.mjs](theme/gary.theme.mjs) | 改 token 覆盖，**不写死样式**，改完重跑渲染 |
@@ -28,12 +28,12 @@
 ## 关键指针
 
 - **调用契约**：[agent/CONTRACT.md](agent/CONTRACT.md) — agent 的唯一入口，读完就能开工
-- **内容契约**：[agent/content.schema.md](agent/content.schema.md) — 字段级 v1，16 个 block type 一节一类
+- **内容契约**：[agent/content.schema.md](agent/content.schema.md) — 字段级 v1，18 个 block type 一节一类
 - **渲染器**：`agent/render.mjs`（React 19 SSR，内联 reset + astryx + 主题 CSS）
 - **图表与图示**：`viz/` — [viz/README.md](viz/README.md)（模块地图 / 颜色契约 / 字号映射）· `viz/render-viz.mjs`（CLI，只接管 `chart` / `flow`）· `viz/charts.mjs`（7 种图表）· `viz/flow.mjs`（3 种流程图）
-- **配方**：`agent/recipes/report.recipe.mjs` · `table.recipe.mjs` · `sections.mjs`（16 个 block 渲染函数）
+- **配方**：`agent/recipes/report.recipe.mjs` · `table.recipe.mjs` · `dashboard.recipe.mjs` · `landing.recipe.mjs` · `sections.mjs`（18 个 block 渲染函数）
 - **主题真源**：`theme/gary.theme.mjs` — 亮橙 `#F57C00` 写面 / 深橙 `#B85C00` 写字（暗 `#FFA94D`）、圆角 12/12/8、Helvetica + 微软雅黑
-- **闸门**：`agent/checks/selfcheck.mjs`（单文件约束 5 项）· `agent/checks/layout.mjs`（真实 DOM 几何 6 条）
+- **闸门**：`agent/checks/content.mjs`（内容契约，吃 JSON，0.2s 出字段级错）· `agent/checks/selfcheck.mjs`（单文件约束 5 项）· `agent/checks/layout.mjs`（真实 DOM 几何 6 条）· `agent/checks/contrast.mjs`（WCAG AA，不达标走具名 WAIVED）
 - **示例内容**：`examples/demo-report.content.json` · `examples/demo-table.content.json`
 - **产物**：`out/`（两页 + specimen + 选型稿），**生成物，不手改**
 - **归档**：`archive/legacy-2026-11/`（旧系统全量，可回滚）· `archive/tokens/`（上一轮 token 备份）
@@ -84,6 +84,7 @@ npx @astryxdesign/cli component Card --json
 
 ```powershell
 cd C:\AI\UI\gary-ui
+node agent/checks/content.mjs examples/demo-report.content.json                   # 内容契约（先跑，0.2s）
 node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html   # 渲染
 node agent/checks/selfcheck.mjs out/demo-report.html                             # 单文件约束
 node agent/checks/layout.mjs out/demo-report.html out/demo-table.html            # 版式几何
@@ -108,4 +109,4 @@ node viz/check-flow.mjs out/viz-flow.html                                       
 - ❌ 不要从 `archive/legacy-2026-11/CHANGELOG.md` 抄数值——数值真源是 `theme/gary.theme.mjs` 与 `agent/recipes/sections.mjs`。
 - ❌ 不要改 `out/` 里的 html、也不要改 `*.bundle.css`——生成物，改源文件重跑。
 - ❌ 不要找 Gary-UI 的分叉副本：唯一真相位置是 `C:\AI\UI\gary-ui`。
-- ❌ 不要把 `type: "chart"` / `"flow"` 喂给 `agent/render.mjs`——它只认 `SECTIONS` 的 16 类，图表页必须走 `viz/render-viz.mjs`。
+- ❌ 不要把 `type: "chart"` / `"flow"` 喂给 `agent/render.mjs`——它只认 `SECTIONS` 的 18 类，图表页必须走 `viz/render-viz.mjs`。

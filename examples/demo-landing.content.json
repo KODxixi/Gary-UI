@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "recipe": "landing",
+    "title": "青浦云谷 · 项目主页",
+    "sub": "双塔板楼组合，容积率 2.20，2027 年 4 月开工",
+    "eyebrow": "青浦云谷",
+    "badge": "在售",
+    "date": "2026-11-17",
+    "author": "品牌组",
+    "version": "v1.0",
+    "theme": "light",
+    "lang": "zh-CN"
+  },
+  "blocks": [
+    {
+      "id": "hero",
+      "type": "cover",
+      "props": {
+        "eyebrow": "青浦 · 01 地块 · 建面 94,186 ㎡",
+        "title": "青浦云谷",
+        "badge": "在售",
+        "sub": "897 户的双塔板楼组合，南向日照与消防车道一次落地；样板段已开放，2027 年 4 月进场。",
+        "meta": [
+          { "k": "容积率", "v": "2.20" },
+          { "k": "户数", "v": "897 户" },
+          { "k": "开工", "v": "2027-04" }
+        ]
+      }
+    },
+    {
+      "id": "intro",
+      "type": "text",
+      "props": {
+        "paras": [
+          "总图把两栋高层压在东南角，把日照最长的西侧留给板楼；5#、6# 抬到 26 层，3# 降到 11 层，南侧让出 12 米宽的景观绿带作为消防与日常步行的共用通道。",
+          "三条产品线共用一套 105 ㎡ 的套型骨架，差异只在外廊与阳台的排布，装修标准按三条线分别定价。"
+        ],
+        "note": "口径：2026-11 定案版总图，指标以报建口径为准"
+      }
+    },
+    {
+      "id": "features",
+      "type": "grid",
+      "props": {
+        "cols": 3,
+        "gap": "4",
+        "children": [
+          {
+            "id": "f1",
+            "type": "card",
+            "props": {
+              "eyebrow": "产品",
+              "title": "双塔 + 板楼",
+              "body": ["两栋 26 层高层解决容积率，三栋 11–18 层板楼守住南向面宽。"],
+              "elevation": "low"
+            }
+          },
+          {
+            "id": "f2",
+            "type": "card",
+            "props": {
+              "eyebrow": "景观",
+              "title": "12 米绿带",
+              "body": ["南侧绿带同时承担消防车道与日常步行，不做两套系统。"],
+              "elevation": "low"
+            }
+          },
+          {
+            "id": "f3",
+            "type": "card",
+            "props": {
+              "eyebrow": "配套",
+              "title": "4.3% 配套占比",
+              "body": ["配套集中在 7# 楼，避免切碎住宅栋的可售面宽。"],
+              "elevation": "low"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "phone",
+      "type": "device",
+      "props": {
+        "kind": "phone",
+        "src": "examples/assets/qingpu-siteplan.svg",
+        "alt": "移动端总览页局部截图（示意，非交付图）",
+        "caption": "移动端总览页局部截图（示意图，非交付图）"
+      }
+    },
+    {
+      "id": "score",
+      "type": "scorecard",
+      "props": {
+        "title": "交付准备度",
+        "note": "四项各 0–100，低于 70 分需在开工前补齐",
+        "density": "compact",
+        "items": [
+          { "label": "总图定案", "score": 96, "max": 100, "state": "good" },
+          { "label": "报建预审", "score": 74, "max": 100, "state": "warn" },
+          { "label": "施工图", "score": 68, "max": 100, "state": "warn" },
+          { "label": "样板段", "score": 88, "max": 100, "state": "good" }
+        ]
+      }
+    },
+    {
+      "id": "cta",
+      "type": "callout",
+      "props": {
+        "tone": "info",
+        "eyebrow": "预约",
+        "title": "样板段每周三、周六开放，需提前一天预约",
+        "body": "现场按 01 地块总图 1:1 放线，可直接对照日照与楼间距；每组限 6 人。",
+        "action": { "label": "预约看房" }
+      }
+    }
+  ]
+}

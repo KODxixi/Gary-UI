@@ -12,16 +12,22 @@
  *
  * Any FAIL -> exit 1. Prints measured pixel values for every rule.
  */
+import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { chromium } from 'playwright-core';
 
-const files = process.argv.slice(2).filter((a) => !a.startsWith('--') && !/^\d+$/.test(a));
+let files = process.argv.slice(2).filter((a) => !a.startsWith('--') && !/^\d+$/.test(a));
+if (!files.length) {
+  files = fs.existsSync('out')
+    ? fs.readdirSync('out').filter((f) => f.endsWith('.html')).map((f) => `out/${f}`).sort()
+    : [];
+}
 const widthArg = process.argv.includes('--width')
   ? Number(process.argv[process.argv.indexOf('--width') + 1]) || 1440
   : 1440;
 if (!files.length) {
-  console.error('用法: node agent/checks/layout.mjs <out.html> [more.html ...] [--width 900]');
+  console.error('用法: node agent/checks/layout.mjs [out.html ...] [--width 900]（无参数时扫 out/*.html）');
   process.exit(2);
 }
 
@@ -133,6 +139,7 @@ for (const file of files) {
           bleed.push({
             tag: el.tagName.toLowerCase(),
             cls: (el.className || '').toString().slice(0, 40),
+            text: (el.textContent || '').trim().slice(0, 18),
             over,
             host: host.tagName.toLowerCase() + '.' + (host.className || '').toString().split(' ')[0],
             allowed: false,

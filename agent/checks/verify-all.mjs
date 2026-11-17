@@ -20,6 +20,23 @@ if (!pages.length) {
 const GATES = ['selfcheck', 'layout', 'contrast'];
 let failed = 0;
 
+// 内容契约闸：吃 JSON 不吃 HTML，所以排在页面闸之前——字段写错了不该等到渲染完、
+// 起两次浏览器才发现。它也是唯一能在 0.2s 内说出「哪个 block 的哪个字段错」的一道。
+const contents = readdirSync('examples')
+  .filter((f) => f.endsWith('.content.json'))
+  .map((f) => `examples/${f}`)
+  .sort();
+
+if (contents.length) {
+  const r = spawnSync(process.execPath, ['agent/checks/content.mjs', ...contents], {
+    stdio: 'inherit',
+  });
+  if (r.status !== 0) {
+    console.error(`\nverify-all: content 在 ${contents.length} 份示例内容上有失败`);
+    failed = 1;
+  }
+}
+
 for (const gate of GATES) {
   const r = spawnSync(process.execPath, [`agent/checks/${gate}.mjs`, ...pages], {
     stdio: 'inherit',
@@ -30,5 +47,7 @@ for (const gate of GATES) {
   }
 }
 
-console.log(`\nverify-all: ${pages.length} 页 × ${GATES.length} 道闸 → ${failed ? 'FAIL' : 'ALL PASS'}`);
+console.log(
+  `\nverify-all: ${contents.length} 份内容 × content 闸 + ${pages.length} 页 × ${GATES.length} 道闸 → ${failed ? 'FAIL' : 'ALL PASS'}`
+);
 process.exit(failed);

@@ -18,10 +18,14 @@ import { Theme, generateThemeCSS } from '@astryxdesign/core';
 import { garyTheme } from '../theme/gary.theme.mjs';
 import * as reportRecipe from './recipes/report.recipe.mjs';
 import * as tableRecipe from './recipes/table.recipe.mjs';
+import * as dashboardRecipe from './recipes/dashboard.recipe.mjs';
+import * as landingRecipe from './recipes/landing.recipe.mjs';
 
 const RECIPES = {
   [reportRecipe.id]: reportRecipe,
   [tableRecipe.id]: tableRecipe,
+  [dashboardRecipe.id]: dashboardRecipe,
+  [landingRecipe.id]: landingRecipe,
 };
 
 const LAYER_ORDER = '@layer reset, astryx-base, astryx-theme;';

@@ -60,8 +60,10 @@
 | 14 | `steps` | 步骤条 / 推进节奏 | 无（新增，`Stepper`） | 已实现 |
 | 15 | `quote` | 引文 / 结论强调 | 无（新增） | 已实现 |
 | 16 | `grid` | 多列容器 | 无（新增，`Grid`） | 已实现 |
+| 17 | `device` | 设备模拟框 | 无（新增，`div` 机身 + `img`） | 已实现 |
+| 18 | `scorecard` | 多维评分卡 | 无（新增，`Card` + 进度条） | 已实现 |
 
-> 「已实现」= `agent/recipes/sections.mjs` 的 `SECTIONS` 表里已有对应函数（截至 2026-11-16 为全部 16 种，`header` 作为 `heading` 的旧名同时保留）。
+> 「已实现」= `agent/recipes/sections.mjs` 的 `SECTIONS` 表里已有对应函数（截至 2026-11-17 为全部 18 种，`header` 作为 `heading` 的旧名同时保留）。
 > `heading` 的 props 与现有 `header` 完全一致，只是类型名改成了语义更准的 `heading`；渲染器侧一行映射即可（§4.1）。
 
 **明确不纳入本契约**（旧有、新版暂无承载能力）：
@@ -102,7 +104,7 @@
 
 | 字段 | 类型 | 必填 | 说明 / 约束 |
 |---|---|---|---|
-| `items` | object[] | 是 | 指标项，1–6 个（建议 4）。沿用旧 `kpis.items` |
+| `items` | object[] | 是 | 指标项，1–5 个（建议 4）。沿用旧 `kpis.items` |
 | `items[].label` | string | 是 | 指标名，≤ 8 字，单行 |
 | `items[].value` | string | 是 | 数值，**字符串**，保留千分位与小数位（`"94,186"`、`"2.20"`）；不要写成 number |
 | `items[].unit` | string | 否 | 单位，≤ 4 字（`万㎡`、`户`、`%`）；无量纲指标省略 |
@@ -130,7 +132,7 @@
 
 | 字段 | 类型 | 必填 | 说明 / 约束 |
 |---|---|---|---|
-| `columns` | object[] | 是 | 列定义，2–8 列 |
+| `columns` | object[] | 是 | 列定义，2–7 列 |
 | `columns[].label` | string | 是 | 列头文字。**单位写进列头**（`成交额 · 万`、`计容建面 · ㎡`），不另立单位行 |
 | `columns[].num` | boolean | 否 | `true` = 数值列：右对齐 + 等宽数字（`hasTabularNumbers`）。沿用旧字段 |
 | `rows` | string[][] | 是 | 数据行，1–40 行；**每行长度必须等于 `columns` 长度**，单元格只放字符串（数值也写成字符串） |
@@ -323,6 +325,56 @@
 ] } }
 ```
 
+### 3.17 `device`
+
+| 字段 | 类型 | 必填 | 说明 / 约束 |
+|---|---|---|---|
+| `kind` | `phone` \| `laptop` | 是 | 机身形态：`phone` 300px 宽 / 屏比 0.462；`laptop` 720px 宽 / 屏比 1.6。都居中放在卡片里 |
+| `src` | string | 是 | 屏内静态截图。本地相对路径（如 `examples/assets/xxx.svg`）或 `data:` URI，**渲染器读成 data URI 内嵌**；`http(s)` 外链会被 `selfcheck` 判失败 |
+| `alt` | string | 是 | 截图内容说明（无障碍必需，同时作为缺省图注） |
+| `caption` | string | 否 | 图注，≤ 60 字；缺省回退到 `alt` |
+| `align` | `start` \| `center` | 否 | 图注对齐，默认 `center`（机身本身始终居中） |
+| `tone` | `default` \| `sunken` \| `inverse` | 否 | 卡片材质，同 §3.1「`tone` 通用规则」 |
+
+> 机身与屏体都是渲染器用 token 画的 `div`：机身底 `--color-surface-inverse` + `--color-border-inverse` 描边，屏体圆角按 `kind` 走、`overflow:hidden` 裁切截图，`objectFit:cover`。**没有 iframe、没有外链、没有 `<script>`**；换截图只换 `src`，不动样式。
+
+**最小可用样例**
+
+```json
+{ "type": "device", "props": { "kind": "phone",
+  "src": "examples/assets/qingpu-siteplan.svg",
+  "alt": "移动端总览页静态截图（示意，非交付图）",
+  "caption": "移动端总览页静态截图（示意）" } }
+```
+
+### 3.18 `scorecard`
+
+| 字段 | 类型 | 必填 | 说明 / 约束 |
+|---|---|---|---|
+| `items` | object[] | 是 | 评分项，2–8 条 |
+| `items[].label` | string | 是 | 维度名，≤ 12 字（`去化速度`） |
+| `items[].score` | number | 是 | 得分，0–`max`；缺省按 0 处理 |
+| `items[].max` | number | 否 | 满分，默认 `100`；右侧读数按 `score / max` 显示 |
+| `items[].state` | `good` \| `warn` \| `bad` | 否 | 进度条颜色：`success` / `warning` / `error`；缺省用 `--color-accent` |
+| `title` | string | 否 | 区块标题 |
+| `note` | string | 否 | 口径说明，≤ 40 字 |
+| `density` | `compact` \| `normal` | 否 | 行间距档位，默认 `normal`（`compact` 行距 8px / 常规 12px） |
+| `tone` | `default` \| `sunken` \| `inverse` | 否 | 卡片材质，同 §3.1「`tone` 通用规则」 |
+
+> **不用雷达图**：静态单文件没有 tooltip，4–6 轴的雷达在打印尺寸下不可读。横向进度条一维一读，`max` 不同也能对齐同一轨道宽度（按百分比归一）。轨道用 `--color-border-subtle`，填充只取语义 token，不写 hex。
+
+**最小可用样例**
+
+```json
+{ "type": "scorecard", "props": { "title": "交付准备度", "density": "compact",
+  "note": "四项各 0–100，低于 70 分需在开工前补齐",
+  "items": [
+    { "label": "总图定案", "score": 96, "max": 100, "state": "good" },
+    { "label": "报建预审", "score": 74, "max": 100, "state": "warn" },
+    { "label": "施工图", "score": 68, "max": 100, "state": "warn" }
+] } }
+```
+
 ---
 
 ## 4. 映射表：block → Astryx
@@ -347,11 +399,13 @@
 | `steps` | `ol` + `li` + `VStack` + `Text`（**R8 起不用 `Stepper`**） | `active`→决定实心/空心与已完成段长度；每项 `li` 内：22px 序号圆点 + 标题 + 说明，连线 2px 由 token 上色 | 已实现 |
 | `quote` | `Text` + `div(border-left)`（`Blockquote` 无 tone 旋钮） | `text`→`Text(type="large")`；`source`/`eyebrow`→`Text(supporting, sm)` 拼接；`tone`→`border-left: 4px solid var(--color-*)` | 已实现 |
 | `grid` | `Grid` + `div` | `cols`→`Grid(columns=n)`；`gap`→`Grid.gap`；每个子 block 经 `renderBlock(child, { cols })` 渲染 | 已实现 |
+| `device` | `div`（机身/屏体）+ `img`（**无 DeviceFrame 组件**） | `kind`→机身 `maxWidth` 300/720 + 圆角 38/16 + 屏体 `aspect-ratio` 0.462/1.6；机身 `background:var(--color-surface-inverse)` + `1px solid var(--color-border-inverse)`；`src`→`embedImage`（本地路径读成 data URI）；`caption`/`alt`→`Text(supporting, sm)`；外框走 `SurfaceCard`（`CARD_OWNED`，不叠加 `surfaceFrame`） | 已实现（函数名 `DeviceBlock`） |
+| `scorecard` | `Card` + `VStack` + `HStack` + `Text` + `div` | 每项 `HStack(justify="between")` 放 `label`→`Text(sm)` 与 `score / max`→`Text(sm, hasTabularNumbers)`；轨道 `div(8px, radius 9999, background:var(--color-border-subtle))` 内嵌 `width:pct%` 填充，色按 `state`→`success`/`warning`/`error`，缺省 `var(--color-accent)`；`title`→`Heading(level=2)`；`note`→`Text(supporting, sm)`；`density`→行间距 8/12px | 已实现（函数名 `ScorecardBlock`） |
 
 ### 4.1 与渲染器的对接现状
 
 1. **键名已对齐**：`agent/render.mjs` 直接读 `content.meta.recipe` + `content.blocks[]`；`content.type` / `content.sections` 仅作兼容回退。内容层按本文档写即可。
-2. **类型覆盖**：`SECTIONS` 已覆盖全部 16 种（`header` 作为 `heading` 的旧名保留）。未知类型会抛 `未知区块类型 type="…"（支持: …）`，报错带类型名。
+2. **类型覆盖**：`SECTIONS` 已覆盖全部 18 种（`header` 作为 `heading` 的旧名保留）。未知类型会抛 `未知区块类型 type="…"（支持: …）`，报错带类型名。
 3. **`foot`**：Astryx `Table` 没有 footer 槽，渲染器把 `foot` 追加成一条带 `__foot` 标记的数据行（单元格半粗）。合计行也可以直接写在 `rows` 末尾，两种都合法，但同一页只用一种。
 4. **`heading` vs `header`**：同一个东西，旧函数名保留 `Header`，`type` 用 `heading`。映射见上。
 5. **暗色**：`meta.theme` 是内容层的明暗声明；渲染器 CLI 另支持 `--theme light|dark` 覆盖，用于出对照产物（`node agent/render.mjs <in> -o <out> --theme dark`）。这是 CLI 增补，不改配方/主题管线。
