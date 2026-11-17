@@ -25,7 +25,6 @@ import {
   AspectRatio,
   proportional,
 } from '@astryxdesign/core';
-import { GARY_DISPLAY_SERIF_STACK } from '../../theme/gary.theme.mjs';
 
 /** Coerce a JSON spacing step ("4") to the number Astryx expects. */
 function step(v, fallback) {
@@ -165,7 +164,6 @@ export function Header(p) {
         h(Heading, {
           level: 1,
           type: 'display-3',
-          style: { fontFamily: GARY_DISPLAY_SERIF_STACK },
         }, p.title),
         p.sub && h(Text, { type: 'supporting' }, p.sub)
       ),
@@ -203,11 +201,11 @@ export function Cover(p) {
       p.eyebrow && h(Text, { type: 'supporting' }, p.eyebrow),
       p.badge && h(Badge, { variant: 'info', label: p.badge })
     ),
-    // Display-level cover title is the ONLY serif surface in Gary.
+    // Cover title: same sans stack as every other heading (MWG W1 retired the
+    // display serif).
     h(Heading, {
       level: 1,
       type: 'display-2',
-      style: { fontFamily: GARY_DISPLAY_SERIF_STACK },
     }, p.title),
     p.sub && h(Text, { type: 'body' }, p.sub),
     Array.isArray(p.meta) &&
@@ -307,60 +305,59 @@ function DeltaLine(it, color) {
 /** KPI group: items[{label, value, unit, delta|hint, trend, tone}] / title / note. */
 export function Metric(p) {
   const items = Array.isArray(p.items) ? p.items : [];
+  const siblings = Math.max(1, items.length - 1);
   // Position rule, not a switch: the FIRST item is the decision point. It gets
-  // the inverse surface, a larger numeral ladder (5xl vs 3xl) and up to twice
-  // the width of its siblings (flex 2 vs 1) — never a 4-way equal split.
+  // the inverse surface and a wider column (1.35fr vs 1fr) — never a 4-way
+  // equal split. Row alignment comes from subgrid (see render.mjs global CSS):
+  // every tile is a 3-row grid and shares the parent's tracks, so label /
+  // numeral / delta line up across the row even when one tile has no delta.
   const heroStyle = {
-    // 38% of the row: with three 1-unit siblings and 16px gaps this lands at
-    // ~1.98× a sibling, inside the "no more than twice" bound.
-    flex: '0 0 38%',
+    gridRow: 'span 3',
+    display: 'grid',
+    rowGap: '4px',
     minWidth: 0,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
     background: SURFACE.inverse,
     borderRadius: '16px',
     padding: '24px',
     boxSizing: 'border-box',
     ...INVERSE_SCOPE,
   };
-  const heroTile = (it) =>
+  const heroTile = (it, i) =>
     h(
       'div',
-      { style: heroStyle },
+      { key: `kpi${i}`, 'data-gary': 'kpi-card', style: heroStyle },
+      h(Text, { type: 'supporting', size: 'sm' }, it.label),
       h(
-        VStack,
-        { gap: 1 },
-        h(Text, { type: 'supporting', size: 'sm' }, it.label),
-        h(
-          HStack,
-          { gap: 1, vAlign: 'end' },
-          h(Text, { size: '4xl', weight: 'medium', color: 'accent', hasTabularNumbers: true }, String(it.value ?? '')),
-          it.unit && h(Text, { type: 'supporting' }, it.unit)
-        ),
-        DeltaLine(it, 'var(--color-surface-inverse-text)')
-      )
+        HStack,
+        { gap: 1, vAlign: 'end' },
+        h(Text, { size: '4xl', weight: 'medium', color: 'accent', hasTabularNumbers: true }, String(it.value ?? '')),
+        it.unit && h(Text, { type: 'supporting' }, it.unit)
+      ),
+      DeltaLine(it, 'var(--color-surface-inverse-text)')
     );
-  const plainTile = (it) =>
+  const plainTile = (it, i) =>
     h(
-      'div',
-      { style: { flex: '1 1 0', minWidth: 0, display: 'flex' } },
+      Card,
+      {
+        key: `kpi${i}`,
+        elevation: 'low',
+        width: '100%',
+        'data-gary': 'kpi-card',
+        style: {
+          ...cardFrame('small'),
+          gridRow: 'span 3',
+          display: 'grid',
+          rowGap: '4px',
+        },
+      },
+      h(Text, { type: 'supporting', size: 'sm' }, it.label),
       h(
-        Card,
-        { elevation: 'low', width: '100%', style: cardFrame('small') },
-        h(
-          VStack,
-          { gap: 1 },
-          h(Text, { type: 'supporting', size: 'sm' }, it.label),
-          h(
-            HStack,
-            { gap: 1, vAlign: 'end' },
-            h(Text, { size: '2xl', weight: 'medium', hasTabularNumbers: true }, String(it.value ?? '')),
-            it.unit && h(Text, { type: 'supporting' }, it.unit)
-          ),
-          DeltaLine(it, DELTA_TONE[it.tone] || DELTA_TONE.neutral)
-        )
-      )
+        HStack,
+        { gap: 1, vAlign: 'end' },
+        h(Text, { size: '2xl', weight: 'medium', hasTabularNumbers: true }, String(it.value ?? '')),
+        it.unit && h(Text, { type: 'supporting' }, it.unit)
+      ),
+      DeltaLine(it, DELTA_TONE[it.tone] || DELTA_TONE.neutral)
     );
 
   return h(
@@ -376,9 +373,16 @@ export function Metric(p) {
     h(
       'div',
       {
-        style: { display: 'flex', gap: '16px', alignItems: 'stretch', width: '100%' },
+        'data-gary': 'kpi',
+        style: {
+          display: 'grid',
+          gridTemplateColumns: `1.35fr repeat(${siblings}, 1fr)`,
+          columnGap: '16px',
+          width: '100%',
+          alignItems: 'stretch',
+        },
       },
-      items.map((it, i) => h('div', { key: i, style: { display: 'contents' } }, i === 0 ? heroTile(it) : plainTile(it)))
+      items.map((it, i) => (i === 0 ? heroTile(it, i) : plainTile(it, i)))
     )
   );
 }
@@ -532,32 +536,57 @@ export function DividerBlock(p) {
 /** Generic card: title / eyebrow / sub / body[] / badge / tag / note / padding / variant / elevation. */
 export function CardBlock(p, ctx) {
   const body = Array.isArray(p.body) ? p.body : [];
+  const tone = surfaceToneOf(p, ctx);
+  const inner = [
+    (p.eyebrow || p.badge) &&
+      h(
+        HStack,
+        { gap: 3, align: 'center', justify: 'between' },
+        h(Text, { type: 'supporting', size: 'sm' }, p.eyebrow || ''),
+        p.badge && h(Badge, { variant: 'neutral', label: p.badge })
+      ),
+    h(Heading, { level: 3 }, p.title),
+    p.sub && h(Text, { type: 'supporting' }, p.sub),
+    body.length > 0 &&
+      h(VStack, { gap: 2 }, body.map((para, i) => h(Text, { key: i, type: 'body', display: 'block' }, para))),
+    (p.tag || p.note) &&
+      h(
+        HStack,
+        { gap: 3, wrap: 'wrap', vAlign: 'center' },
+        p.tag && h(Badge, { variant: 'neutral', label: p.tag }),
+        p.note && h(Text, { type: 'supporting', size: 'sm' }, p.note)
+      ),
+  ].filter(Boolean);
+  // Slots are passed as a variadic child list, so each needs its own key.
+  const slots = inner.map((el, i) => h(el.type, { ...el.props, key: `s${i}` }));
+
+  // In a two-card row (see GridBlock) the card IS the grid, so its slots become
+  // direct children sharing the parent's row tracks — that is what makes the
+  // title/body rows of the two cards sit on the same line. Row count is pinned
+  // by GridBlock, hence the fixed span.
+  if (ctx && ctx.duoRows && tone === 'default') {
+    return SurfaceCard(tone, ctx, slots, {
+      variant: p.variant,
+      elevation: p.elevation,
+      'data-gary': 'duo-card',
+      style: {
+        ...cardFrame(tierForContext(ctx)),
+        gridRow: `span ${ctx.duoRows}`,
+        display: 'grid',
+        rowGap: '16px',
+      },
+    });
+  }
+
   // Frame is tier-driven: page-width by default, one step down inside a grid.
   return SurfaceCard(
-    surfaceToneOf(p, ctx),
+    tone,
     ctx,
     h(
       VStack,
       // 16px between inner blocks — never the 12px step.
       { gap: 4 },
-      (p.eyebrow || p.badge) &&
-        h(
-          HStack,
-          { gap: 3, align: 'center', justify: 'between' },
-          h(Text, { type: 'supporting', size: 'sm' }, p.eyebrow || ''),
-          p.badge && h(Badge, { variant: 'neutral', label: p.badge })
-        ),
-      h(Heading, { level: 3 }, p.title),
-      p.sub && h(Text, { type: 'supporting' }, p.sub),
-      body.length > 0 && h(VStack, { gap: 2 }, body.map((para, i) =>
-        h(Text, { key: i, type: 'body', display: 'block' }, para))),
-      (p.tag || p.note) &&
-        h(
-          HStack,
-          { gap: 3, wrap: 'wrap', vAlign: 'center' },
-          p.tag && h(Badge, { variant: 'neutral', label: p.tag }),
-          p.note && h(Text, { type: 'supporting', size: 'sm' }, p.note)
-        )
+      ...slots
     ),
     { variant: p.variant, elevation: p.elevation }
   );
@@ -855,7 +884,7 @@ export function StepsBlock(p) {
     p.title && h(Heading, { level: 2 }, p.title),
     h(
       'div',
-      { style: { position: 'relative', width: '100%' } },
+      { 'data-gary': 'steps', style: { position: 'relative', width: '100%' } },
       h('div', {
         style: {
           position: 'absolute',
@@ -966,6 +995,22 @@ export function QuoteBlock(p) {
 }
 
 /**
+ * How many direct children CardBlock will emit for a given props object.
+ * Mirrors the `inner` array above — subgrid needs an exact row count up front,
+ * and guessing it wrong drops a card's last row into an implicit track.
+ */
+function cardSlotCount(props) {
+  const body = Array.isArray(props.body) ? props.body.length : 0;
+  return (
+    (props.eyebrow || props.badge ? 1 : 0) +
+    1 +
+    (props.sub ? 1 : 0) +
+    (body > 0 ? 1 : 0) +
+    (props.tag || props.note ? 1 : 0)
+  );
+}
+
+/**
  * Grid: cols (2|3|4) / gap / children[block]. The only multi-column container;
  * children are rendered with the column count so nested cards pick the right
  * frame tier instead of the page-level one.
@@ -973,6 +1018,42 @@ export function QuoteBlock(p) {
 export function GridBlock(p, ctx) {
   const cols = Math.max(1, Math.min(4, Number(p.cols) || 2));
   const children = Array.isArray(p.children) ? p.children : [];
+  const gapPx = step(p.gap, 4) * 4;
+
+  // Two cards side by side ("双卡"): share the parent's row tracks through
+  // subgrid, so eyebrow / title / body / foot lines sit on the same line across
+  // both cards instead of drifting apart with different content lengths.
+  // Only when both cards emit the same number of slots and both sit on the
+  // default surface — otherwise fall through to the normal Grid below.
+  if (cols === 2 && children.length === 2 && children.every((c) => c && c.type === 'card')) {
+    const rows = cardSlotCount(children[0].props || {});
+    const twins = rows === cardSlotCount(children[1].props || {});
+    const plainTone = children.every((c) => surfaceToneOf(c.props || {}, ctx) === 'default');
+    if (twins && rows >= 2 && plainTone) {
+      return h(
+        'div',
+        {
+          'data-gary': 'duo',
+          style: {
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            columnGap: `${gapPx}px`,
+            gridTemplateRows: `repeat(${rows}, auto)`,
+            width: '100%',
+            alignItems: 'stretch',
+          },
+        },
+        children.map((child, i) => {
+          const el = renderBlock(child, { ...(ctx || {}), cols, duoRows: rows });
+          // The card must stay a DIRECT child of the row grid (a wrapper div
+          // would break the subgrid link), so the React key is re-attached
+          // onto the rendered element instead of a wrapper.
+          return el ? h(el.type, { ...el.props, key: child.id || `g${i}` }) : null;
+        })
+      );
+    }
+  }
+
   return h(
     Grid,
     { columns: cols, gap: step(p.gap, 4), width: '100%', align: 'stretch' },

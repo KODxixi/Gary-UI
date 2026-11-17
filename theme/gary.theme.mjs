@@ -5,11 +5,17 @@
  * Semantic colors (success / warning / error / info) intentionally keep the
  * Astryx neutral defaults — Gary needs semantic color, not a flattened palette.
  *
- * Decisions locked by Gary (2026-11-16, accent revised 2026-11-17):
+ * Decisions locked by Gary (2026-11-16, accent revised 2026-11-17,
+ * visual language re-based on MWG 2026-11-17):
  *   1. accent = orange, two tiers: bright #F57C00 for surfaces, deep #B85C00
  *      for text (muted #FFF1E0); brand green retired
  *   2. element / button / card radius = 12px
- *   3. body + headings stay Helvetica; only display-level titles use serif
+ *   3. one sans stack everywhere — Helvetica + Microsoft YaHei, headings included.
+ *      The display serif (Georgia) is retired: the MWG reference page reads
+ *      cleaner without it, and a serif page title was the only place it appeared.
+ *   4. no elevation shadows: depth comes from 1px hairlines + three surfaces
+ *      (raised / sunken / inverse), never from a drop shadow.
+ *   5. page is a warm paper white, not a cool grey.
  *
  * Base is the PREBUILT neutral theme (`@astryxdesign/theme-neutral/built`), so
  * extending it does not trigger the runtime source-injection path.
@@ -19,19 +25,11 @@ import { defineTheme, generateThemeCSS } from '@astryxdesign/core/theme';
 import { neutralTheme } from '@astryxdesign/theme-neutral/built';
 
 /**
- * Latin Helvetica family first, CJK Microsoft YaHei. Used for body and for all
- * heading levels except the display-level cover title.
+ * Latin Helvetica family first, CJK Microsoft YaHei. The ONLY stack in the
+ * system: body, headings, display titles all resolve here.
  */
 export const GARY_FONT_STACK =
   '"Helvetica Neue", Helvetica, "Microsoft YaHei", "微软雅黑", Arial, sans-serif';
-
-/**
- * Display-only serif stack. Astryx ships no display font token
- * (`--font-family-body` / `-heading` / `-code` only), so this stack is applied
- * at the Cover block on the display-2 heading, never through a global token.
- */
-export const GARY_DISPLAY_SERIF_STACK =
-  'Georgia, "Songti SC", "SimSun", "Times New Roman", serif';
 
 /** Token overrides authored by Gary. Everything else inherits from neutral. */
 export const GARY_TOKEN_OVERRIDES = {
@@ -92,12 +90,51 @@ export const GARY_TOKEN_OVERRIDES = {
   '--font-family-body': GARY_FONT_STACK,
   '--font-family-heading': GARY_FONT_STACK,
 
-  // A3 · type ladder: h2 sits above body without catching the page title.
-  '--text-heading-2-size': '1.375rem',
-  '--text-heading-2-leading': '1.3',
-  // A6 · body copy at 15/26 — 14px runs 54 CJK glyphs per line.
+  // Type ladder, MWG-calibrated (2026-11-17). Restrained sizes, one sans stack,
+  // looser body leading. `display-2` is the cover title, `display-3` the page
+  // header title — both land at 34px, which is the MWG h1 step. h2 = 20px,
+  // h3 = 16px, body 15px, supporting 13px.
+  '--text-display-2-size': '2.125rem',
+  '--text-display-2-leading': '1.25',
+  '--text-display-2-weight': '700',
+  '--text-display-3-size': '2.125rem',
+  '--text-display-3-leading': '1.25',
+  '--text-display-3-weight': '700',
+  '--text-heading-1-size': '1.75rem',
+  '--text-heading-1-leading': '1.3',
+  '--text-heading-1-weight': '700',
+  '--text-heading-2-size': '1.25rem',
+  '--text-heading-2-leading': '1.4',
+  '--text-heading-2-weight': '700',
+  '--text-heading-3-size': '1rem',
+  '--text-heading-3-leading': '1.45',
+  '--text-heading-3-weight': '700',
+  // body copy at 15/24 — the A6 line length holds, leading drops from 1.73 to
+  // the MWG 1.6 so a paragraph reads as a paragraph, not as a gap.
   '--text-body-size': '0.9375rem',
-  '--text-body-leading': '1.7333',
+  '--text-body-leading': '1.6',
+  '--text-large-size': '1.0625rem',
+  '--text-large-leading': '1.6',
+  '--text-supporting-size': '0.8125rem',
+  '--text-supporting-leading': '1.55',
+
+  // Warm paper page (MWG, 2026-11-17). Astryx neutral ships a cool #F1F1F1;
+  // this is a warm white instead. It cannot be lighter: contrast.mjs requires
+  // card-vs-page ≥ 1.08 and a white card on #FAF9F7 only makes 1.05, so
+  // #F7F5F2 (1.088) is the lightest warm tone that still passes. Dark stays
+  // the existing near-black.
+  '--color-background-body': ['#F7F5F2', '#1B1B1B'],
+
+  // Zero elevation. Astryx paints depth from --shadow-low/med/high (Card's
+  // `elevation` prop sets --_card-elevation to one of them) and composes
+  // `box-shadow: var(--_card-ring), var(--_card-elevation)`. A literal `none`
+  // would make that whole list invalid, so each token resolves to a zero-offset
+  // transparent shadow instead: the declaration stays valid, nothing paints.
+  // Depth now comes from the 1px hairline + the three surfaces.
+  '--shadow-low': '0 0 transparent',
+  '--shadow-med': '0 0 transparent',
+  '--shadow-high': '0 0 transparent',
+  '--color-shadow': 'transparent',
 
   // Dark-mode surfaces (R6). Neutral ships `--color-background-card` equal to
   // `--color-background-body` in dark (#1b1b1b), so cards and the page were the
@@ -120,7 +157,7 @@ export const GARY_TOKEN_OVERRIDES = {
   //             big saturated orange field reads as a food-delivery app, and
   //             a low-lightness high-saturation orange reads as brown.
   '--color-surface-raised': ['#ffffff', '#262626'],
-  '--color-surface-sunken': ['#F4F4F1', '#161616'],
+  '--color-surface-sunken': ['#F1EEE9', '#161616'],
   '--color-surface-inverse': ['#181614', '#131211'],
   '--color-surface-inverse-text': ['#F2F5F4', '#E8EDEB'],
   '--color-surface-inverse-muted': ['#B8B0A8', '#A69E96'],

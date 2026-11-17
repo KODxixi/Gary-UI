@@ -143,8 +143,50 @@ function main() {
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>${escapeHtml(title)}</title>
 <style>
-body { margin: 0; background: var(--color-background-body); color: var(--color-text-primary); }
+/* ---- MWG visual base (2026-11-17) -----------------------------------------
+   Renderer-level rules, never content-level: warm paper page (token), one
+   sans stack (token), zero elevation (token), tabular figures everywhere a
+   number can appear, and modern wrapping. Nothing here overrides a token —
+   colours and type sizes stay in theme/gary.theme.mjs. */
+body {
+  margin: 0;
+  background: var(--color-background-body);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  /* every numeral in the product — KPI, tables, dates, scores — is tabular,
+     so columns of figures line up without per-component overrides. */
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 *, *::before, *::after { box-sizing: border-box; }
+h1, h2, h3, h4 { text-wrap: balance; }
+p, li, figcaption, blockquote { text-wrap: pretty; }
+
+/* ---- Cross-card row alignment (subgrid) ----------------------------------
+   KPI row and two-card rows share the parent's row tracks, so label / value /
+   delta lines sit on one line across the row. The row count is exact (3 for
+   the KPI band, N slots for a card pair), so a subgrid card never drops content
+   into an implicit track.
+   FALLBACK: browsers without subgrid drop this declaration and keep the grid
+   from the renderer, where each card still stacks its own auto rows — the
+   page stays usable, only cross-card alignment is lost. */
+@supports (grid-template-rows: subgrid) {
+  [data-gary="kpi-card"],
+  [data-gary="duo-card"] { grid-template-rows: subgrid; }
+}
+
+/* ---- Width-driven cards (container query, not media query) ---------------
+   A step card has to adapt to the width of the card itself: the same block is
+   ~250px wide at four steps and ~500px at two. A media query can only guess
+   from the viewport; a container query measures the box. Steps never use
+   subgrid, so container-type cannot collide with it (the two are mutually
+   exclusive on one element). */
+[data-gary="steps"] { container-type: inline-size; }
+@container (width < 520px) {
+  [data-gary="steps"] > ol { gap: 8px; }
+  [data-gary="steps"] > ol > li { gap: 6px; }
+}
 ${inlineCss()}
 </style>
 </head>
