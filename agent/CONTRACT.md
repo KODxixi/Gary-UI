@@ -53,7 +53,8 @@ WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=400473 recipe=report blocks=11
 ```
 
 渲染器会拒绝这三类错误（当场 throw，不产出半成品）：
-- `meta.recipe` 缺失或不在 `report` / `table` 里 → `未知配方 recipe="..."，可用: report, table`
+- `meta.recipe` 缺失或不在可用列表里 → `未知配方 recipe="..."，可用: report, table, dashboard, landing`
+  （`viz` 也能写在内容里，但那是 `viz/render-viz.mjs` 的路由标记，`agent/render.mjs` 不认它）
 - `blocks` 缺失或为空 → `content.json 缺少 blocks[]，无法渲染`
 - 某个 block 缺 `type` / `type` 不在 `SECTIONS` 表里 → `未知区块类型 type="..."（支持: ...）`
 
@@ -69,7 +70,7 @@ WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=400473 recipe=report blocks=11
 { "meta": { "recipe": "report", "title": "…", … }, "blocks": [ { "id": "b0", "type": "heading", "props": { … } } ] }
 ```
 
-- `meta.recipe`：`report`（文章壳，块间距 8）· `table`（叠放壳，块间距 6）。**两者可用 block 集合相同**，差别只是竖向节奏。
+- `meta.recipe`：四选一（`agent/render.mjs` 的 `RECIPES` 真源）——`report`（文章壳，块间距 8）· `table`（叠放壳，块间距 6）· `dashboard`（指标盘）· `landing`（落地页）。**block 集合相通**，差别在外壳与竖向节奏。图表页写 `viz`（`viz/render-viz.mjs` 的路由标记）。
 - `meta` 其余：`title`（必填，≤40 字）· `sub` · `eyebrow` · `badge` · `date` · `author` · `version` · `theme`（`light` 默认 / `dark`）· `lang`（`zh-CN` 默认 / `en`）。
 - `blocks[]`：顺序即渲染顺序，1–24 块（建议 4–10）。
 
@@ -107,7 +108,7 @@ WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=400473 recipe=report blocks=11
 | `divider` | 分隔线 | `label` · `variant` · `spacing` | `Divider` |
 | `timeline` | 时间轴 / 关键节点 | **必填** `items[]`（2–10 条）：每项 `date`（≤12 字）+ `title`（≤16 字）；可选 `items[].text`（≤60 字）· `items[].tone`（`accent`/`success`/`warning`/`error`/`info`）· 区块 `title` | `VStack`+`StatusDot`+`Text` |
 | `matrix` | 方案 / 地块横向对比（可带状态徽标） | **必填** `columns[]`（每项 `key` + `label`，`num?`）与 `rows[]`（每项 `label` + `cells`）；`cells` 形如 `{ "<列key>": 字符串 \| {value, state?} }`，`state` 取 `good`/`warn`/`bad`；可选 `labelHeader` · `title` · `note` · `density` · `dividers` | `Card`+`Table`+`Badge` |
-| `image` | 图片块（本地图内嵌成 data URI） | **必填** `src`（本地相对路径或 `data:` URI，`http(s)` 外链会被闸判失败）+ `alt`；可选 `caption`（≤60 字）· `ratio`（`16:9`/`4:3`/`3:2`/`1:1`/`21:9`/`auto`，默认 `16:9`）· `align` | `AspectRatio`+`img` |
+| `image` | 图片块（本地图内嵌成 data URI） | **必填** `src`（本地相对路径或 `data:` URI，`http(s)` 外链会被闸判失败；**仓里现成的图只有 `examples/assets/qingpu-siteplan.svg`，用 `ls examples/assets/` 看全部**）+ `alt`；可选 `caption`（≤60 字）· `ratio`（`16:9`/`4:3`/`3:2`/`1:1`/`21:9`/`auto`，默认 `16:9`）· `align` | `AspectRatio`+`img` |
 | `steps` | 步骤条 / 推进节奏 | **必填** `items[]`（3–5 个）：每项 `title`（≤12 字）；可选 `items[].text`（≤24 字）· `active`（零基下标，默认 `1`）· 区块 `title` · `note` | `ol/li` + token 手画（R8 起不再用 `Stepper`，连接线是 StyleX 原子类改不动） |
 | `quote` | 引文 / 结论强调 | **必填** `text`（≤120 字）；可选 `source`（≤40 字）· `eyebrow` · `tone`（`accent`/`success`/`warning`/`error`/`info`） | `Text(large)` + `border-left`（`Blockquote` 无 tone 旋钮） |
 | `grid` | 多列容器（唯一的多列手段） | **必填** `cols`（`2`/`3`/`4`，数字）+ `children[]`（2–6 个 `{id?, type, props}`，结构与顶层 `blocks[]` 相同）；可选 `gap`（默认 `4`） | `Grid` |
@@ -300,7 +301,10 @@ WROTE C:\AI\UI\gary-ui\out\viz-flow.html bytes=359941 blocks=6 charts=0 flows=3
 
 ### 7.1 七种图表（`type: "chart"`）
 
-共用必填：`chart`（下表之一）+ `title` + `source` + `status`（数据身份：`实测` / `示例数据` / `推算`）。`question` / `unit` / `digits` / `note` / `height` / `ariaLabel` / `annotations` 可选。
+共用必填：`chart`（下表之一）+ `title` + `source` + `status`。`status` 是数据身份，**必须以
+`实测` / `推算` / `示例数据` / `示意数据` / `实现现状` 之一开头**（可加「仓库」前缀，如
+`仓库示例数据 · 非业务系统导出`）——内容闸会拦这一条，因为写错了页面上完全看不出来。
+`question` / `unit` / `digits` / `note` / `height` / `ariaLabel` / `annotations` 可选。
 
 | `chart` 值 | 是什么 | 该型额外必填 / 结构 |
 |---|---|---|
@@ -313,7 +317,12 @@ WROTE C:\AI\UI\gary-ui\out\viz-flow.html bytes=359941 blocks=6 charts=0 flows=3
 | `sparkline` | KPI 迷你趋势 | `kpi{ label, value, unit?, delta?, categories[], values[], note?, source? }`（走 `KpiTile`，不进 `ChartBody`） |
 
 - `grouped-bar` 含连字符，**别写成 `groupedBar`**。类型值就是上表这 7 个字符串，写错抛 `viz/charts: 未知图表类型 chart="…"`。
-- 标注 `annotations[]`：`{ "type": "anchor" | "reference" | "band", … , "kind": "data" | "derived" | "assumed", "basis": "…" }`。渲染器把每条折成「标注 1 · …（身份 · 依据）」一行，读者不用在图里找小字。
+- 标注 `annotations[]`——三种，字段各不相同，渲染器只读下列字段：
+  - `{ "type": "reference", "value": 4.28, "text": "集团均值" }` —— 数值轴上的横向参考线，标签拼成 `text（值 单位）`
+  - `{ "type": "band", "start": "W44", "end": "W46" }` —— 区间底色，`start`/`end` 必须是 `categories` 里的原字符串
+  - `{ "type": "anchor", "target": "W46", "text": "峰值" }` —— 标在某根柱上方，`target` 是 `categories` 里的原字符串
+
+  每型取第一条（`band` 可多条）。标签画在图内紧贴图形，**不再在图下另起一行 caption**。
 - 数值按数据原样给（`unit` / `digits` 只管显示），缺测不补零、不连线。
 
 ### 7.2 三种流程图（`type: "flow"`）
