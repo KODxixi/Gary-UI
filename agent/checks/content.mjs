@@ -156,6 +156,26 @@ const BLOCKS = {
     title: str(),
     tone: SURFACE,
   }),
+  device: obj({
+    kind: en(['phone', 'laptop'], true),
+    src: str(true),
+    alt: str(true),
+    caption: str(),
+    align: en(['start', 'center']),
+    tone: SURFACE,
+  }),
+  scorecard: obj({
+    items: arr(2, 8, obj({
+      label: str(true),
+      score: num(true),
+      max: num(),
+      state: en(['good', 'warn', 'bad']),
+    }), true),
+    title: str(),
+    note: str(),
+    density: en(['compact', 'normal']),
+    tone: SURFACE,
+  }),
   matrix: obj({
     columns: arr(1, 6, obj({ key: str(true), label: str(true), num: bool() }), true),
     rows: arr(1, 12, obj({ label: str(true), cells: obj(null, true) }), true),
@@ -260,7 +280,7 @@ function walkObject(o, fields, at, out, file) {
     }
     checkValue(o[name], spec, `${at}.${name}`, out, file);
   }
-  const legal = Object.keys(fields);
+  const legal = Object.keys(fields || {});
   // 空字段表 = 键是动态的（matrix.cells 按 columns[].key 取值），由专段校验，这里不判未知字段
   if (legal.length > 0) for (const k of Object.keys(o)) {
     if (!(k in fields)) {
@@ -279,9 +299,6 @@ function checkBlock(block, at, out, file) {
   if (!isObj(block)) return err(`必须是 object，给了 ${kind(block)}`);
   if (typeof type !== 'string') return err('缺必填字段 type（string）');
   if (type === 'chart' || type === 'flow') return; // viz-side contract, out of scope
-  // device / scorecard are being added by another line; their fields are not
-  // part of the 16-class §3 contract this gate covers.
-  if (type === 'device' || type === 'scorecard') return;
   const spec = BLOCKS[type];
   if (!spec) return err(`未知 type="${type}"，支持: ${Object.keys(BLOCKS).join(', ')}`);
   if (!('props' in block)) return err('缺必填字段 props（object）');
@@ -318,7 +335,7 @@ function checkBlock(block, at, out, file) {
       }
     });
   }
-  if (type === 'image' && typeof p.src === 'string' && !/^(data:|https?:)/i.test(p.src)) {
+  if ((type === 'image' || type === 'device') && typeof p.src === 'string' && !/^(data:|https?:)/i.test(p.src)) {
     if (!fs.existsSync(path.resolve(process.cwd(), p.src))) {
       local.push(`src 指向的文件不存在: ${p.src}`);
     }
