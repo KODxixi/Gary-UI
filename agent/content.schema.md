@@ -199,7 +199,7 @@
 | `items[].date` | string | 是 | 日期或阶段，≤ 12 字（`2026-09`、`D+30`）。左列固定 96px，等宽数字 |
 | `items[].title` | string | 是 | 节点标题，≤ 16 字 |
 | `items[].text` | string | 否 | 一句话说明，≤ 60 字 |
-| `items[].tone` | `accent` \| `success` \| `warning` \| `error` \| `info` | 否 | 节点圆点的语义，默认 `accent`（墨绿）。已完成的节点用 `success`，卡住的用 `warning` |
+| `items[].tone` | `accent` \| `success` \| `warning` \| `error` \| `info` | 否 | 节点圆点的语义，默认 `accent`（品牌橙）。已完成的节点用 `success`，卡住的用 `warning` |
 | `title` | string | 否 | 时间轴标题（`Heading level=2`） |
 
 > 圆点走 `StatusDot`，颜色只来自 token；不写 `#hex`。竖排不需要连线，节点之间靠 `gap 4` 分隔。
@@ -292,7 +292,7 @@
 | `text` | string | 是 | 引文 / 结论，≤ 120 字。字号比正文大一档（`Text type="large"`） |
 | `source` | string | 否 | 出处，≤ 40 字（`2026-11-16 方案评审会`） |
 | `eyebrow` | string | 否 | 出处前的眉标（`评审结论`），与 `source` 用 ` · ` 连接 |
-| `tone` | `accent` \| `success` \| `warning` \| `error` \| `info` | 否 | 左竖线颜色，默认 `accent`（墨绿）；情绪强度不改字号 |
+| `tone` | `accent` \| `success` \| `warning` \| `error` \| `info` | 否 | 左竖线颜色，默认 `accent`（品牌橙）；情绪强度不改字号 |
 
 > Astryx `Blockquote` 没有 tone/颜色旋钮（dist 里只有 atomic class），所以竖线由渲染器用 `border-left` + 语义 token 画，正文仍用 `Text`。
 
@@ -359,7 +359,7 @@
 ### 4.2 颜色与数值纪律
 
 - 内容层**不出现任何颜色/尺寸字面量**（`#hex`、`rgb()`、`px`）。语义只到 `tone` / `variant` / `trend` 这一层，具体色值由 Astryx token 决定。
-- 品牌实际色：`accent` 墨绿 `#24514a`（暗 `#5d9c8f`）；`info` 已从 Astryx 默认亮蓝改为墨绿系（实心 `#3d6b62` / 底 `#e8f0ee` / 文字 `#2f6157`，暗 `#7fb3a8` / `#1c2e2a`）；`warning` 改为深琥珀（实心 `#7f6118` + 奶白字 `#fff6e0` / 底 `#fbf3e0` / 文字 `#8a6a1f`），不再用刺眼黄。`success` / `error` 仍为 Astryx 默认。
+- 品牌实际色：`accent` 亮橙 `#F57C00`（暗 `#FFA94D`，用于色块 / 按钮 / KPI 数字，配近黑字 `#1A0E00`）；正文链接用深橙 `#B85C00`（白底 4.60）；浅橙底 `#FFF1E0` / `#3A2213`。`info` 从 Astryx 默认亮蓝改为中性灰蓝（实心 `#4A6785` / 底 `#EDF1F6` / 文字 `#3A5670`，暗 `#8FAFC9` / `#1E2A35`）；`warning` 改为深琥珀（实心 `#7f6118` + 奶白字 `#fff6e0` / 底 `#fbf6ea` / 文字 `#8a6a1f`），不再用刺眼黄。`success` / `error` 仍为 Astryx 默认。反白块用暖近黑 `#181614`（暗 `#131211`），不用橙铺底。
 - 所有数值走 `string` + `hasTabularNumbers`；不要依赖 `number` 类型丢失千分位。
 - `Text` 组件没有 `success` / `error` 色（枚举只有 `primary/secondary/disabled/placeholder/accent/inherit`），所以涨跌**不能靠文字染色**；要表达涨跌，用 `trend` 选图标，或用 `badge` 的语义 variant。
 
@@ -432,4 +432,4 @@ python -c "import json;d=json.load(open('examples/demo-table.content.json',encod
 |---|---|---|
 | 2026-11-16 | v1 | 首版：10 个 block 类型，映射到 Astryx 0.7.16 实测组件；`blocks` 化收编旧 4 配方 section |
 | 2026-11-16 | v1.1 | 扩到 16 个类型（新增 `timeline` / `matrix` / `image` / `steps` / `quote` / `grid`）；修正滞后状态列（`text`/`metric`/`card`/`badge`/`callout`/`divider` 标为已实现）；`grid` 为唯一嵌套容器并传递列数上下文（卡片档位随列宽）；`image` 本地路径渲染为 data URI；`theme` 支持 CLI 覆盖 |
-| 2026-11-16 | v1.2 | 六个新区块各补「最小可用样例」；`steps` 改为语义列表重绘并写明原因（`Stepper` 原子类无法改圆点/连线）；`info` / `warning` 语义色对齐品牌（墨绿系 + 深琥珀）写入 §4.2 |
+| 2026-11-16 | v1.2 | 六个新区块各补「最小可用样例」；`steps` 改为语义列表重绘并写明原因（`Stepper` 原子类无法改圆点/连线）；`warning` 深琥珀写入 §4.2 |

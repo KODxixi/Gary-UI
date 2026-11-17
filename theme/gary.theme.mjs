@@ -5,8 +5,9 @@
  * Semantic colors (success / warning / error / info) intentionally keep the
  * Astryx neutral defaults — Gary needs semantic color, not a flattened palette.
  *
- * Decisions locked by Gary (2026-11-16):
- *   1. accent = ink green B  #24514a  (muted #dde8e4)
+ * Decisions locked by Gary (2026-11-16, accent revised 2026-11-17):
+ *   1. accent = orange, two tiers: bright #F57C00 for surfaces, deep #B85C00
+ *      for text (muted #FFF1E0); brand green retired
  *   2. element / button / card radius = 12px
  *   3. body + headings stay Helvetica; only display-level titles use serif
  *
@@ -34,37 +35,49 @@ export const GARY_DISPLAY_SERIF_STACK =
 
 /** Token overrides authored by Gary. Everything else inherits from neutral. */
 export const GARY_TOKEN_OVERRIDES = {
-  // Ink green B. Dark mode lifts the same hue so it still reads on dark surfaces.
-  '--color-accent': ['#24514a', '#5d9c8f'],
+  // Accent is TWO tiers, because one orange cannot be both a surface and text.
+  //   accent       = bright orange, hue 30, value 96% — fills, buttons, marks,
+  //                  the KPI numeral. Reads as orange; at value 60–72% the same
+  //                  hue reads as dark orange / earth = brown.
+  //   text-accent  = deep orange, hue 30, value 72% — body-size text on white,
+  //                  where the bright tier only makes 2.70:1.
+  // Contrast: accent on the inverse near-black #181614 = 6.67 (light) /
+  // 9.48 (dark); text-accent on the white card = 4.60.
+  '--color-accent': ['#F57C00', '#FFA94D'],
 
-  // Coordinated muted tint of the same hue.
-  '--color-accent-muted': ['#dde8e4', '#22403a'],
+  // Neutral pale-orange tint of the same hue. Deep accent text on it = 4.14.
+  '--color-accent-muted': ['#FFF1E0', '#3A2213'],
+
+  // Near-black ink for anything sitting ON the bright orange fill. Neutral's
+  // on-accent is #ffffff, which is only 2.70:1 on #F57C00 — this is 7.02:1.
+  '--color-on-accent': ['#1A0E00', '#111111'],
 
   // Explicit: these do NOT track accent on their own (links and accent icons
   // otherwise keep the base theme's color).
-  '--color-text-accent': ['#24514a', '#5d9c8f'],
-  '--color-icon-accent': ['#24514a', '#5d9c8f'],
+  '--color-text-accent': ['#B85C00', '#FFA94D'],
+  '--color-icon-accent': ['#B85C00', '#FFA94D'],
 
-  // Semantic: info / warning are re-hued onto the ink-green family (R8).
-  // Astryx neutral ships a bright blue info (#0074e2 / muted #b9d7ff) that reads
-  // as a foreign accent next to #24514a, and a glare-yellow warning #ffce2f.
+  // Semantic info returns to a neutral slate blue. History: R8 re-hued info
+  // onto the brand-green family so a green callout would not read as a second
+  // brand colour. With an orange accent that rationale is gone — green has no
+  // brand role left and would become a second accent, so info goes back to a
+  // cool neutral that cannot compete with the orange. The old dark info tone
+  // was also nearly invisible on the #262626 card.
+  // Contrast: 5.88 on white, 6.59 on the dark card; info text on #EDF1F6 = 6.74.
   // The Banner (callout) paints with `-muted` + `on-*-muted`; Badge paints with
   // the solid token + `on-*`, so both layers are pinned here.
-  //   info    : #3d6b62  solid | #e8f0ee muted | #2f6157 text
-  //   warning : #7f6118  solid | #fbf3e0 muted | #8a6a1f text (deep amber)
-  '--color-info': ['#3d6b62', '#7fb3a8'],
-  '--color-info-muted': ['#e8f0ee', '#223a33'],
-  '--color-on-info': ['#ffffff', '#0f201c'],
-  '--color-on-info-muted': ['#1f4038', '#cfe6e0'],
-  '--color-text-info': ['#2f6157', '#8fc6bb'],
-  // border / icon are separate tokens in Neutral and were left on the base
-  // values, so the callout outline stayed bright blue while its text went green.
-  '--color-border-info': ['#3d6b6240', '#7fb3a866'],
-  '--color-icon-info': ['#3d6b62', '#7fb3a8'],
+  '--color-info': ['#4A6785', '#8FAFC9'],
+  '--color-info-muted': ['#EDF1F6', '#1E2A35'],
+  '--color-on-info': ['#ffffff', '#0C1219'],
+  '--color-on-info-muted': ['#2A3D4F', '#CBDCEA'],
+  '--color-text-info': ['#3A5670', '#9CBCD5'],
+  '--color-border-info': ['#4A678540', '#8FAFC966'],
+  '--color-icon-info': ['#4A6785', '#8FAFC9'],
 
   '--color-warning': ['#7f6118', '#e0a93b'],
   // #fbf3e0 read as white on the page — Gary's callout looked like a plain
-  // paragraph. Deepened one step so the tint is visible without going orange.
+  // paragraph. Deepened one step so the tint is visible without competing
+  // with the orange accent.
   '--color-warning-muted': ['#fbf6ea', '#3a2f14'],
   '--color-on-warning': ['#fff6e0', '#0a1317'],
   '--color-on-warning-muted': ['#4a3810', '#f3e3b5'],
@@ -101,16 +114,20 @@ export const GARY_TOKEN_OVERRIDES = {
   // (supporting / skippable), inverse (the one block you must stop for).
   //   raised  = today's card surface, unchanged
   //   sunken  = page-level grey, no border
-  //   inverse = deep ink green, one per page; NOT the chart primary
+  //   inverse = warm near-black (hue 30, sat 17%), the deepest step, one per
+  //             page; NOT the chart primary. Orange stays on the content
+  //             (figures, links, emphasis), never as a large background: a
+  //             big saturated orange field reads as a food-delivery app, and
+  //             a low-lightness high-saturation orange reads as brown.
   '--color-surface-raised': ['#ffffff', '#262626'],
   '--color-surface-sunken': ['#F4F4F1', '#161616'],
-  '--color-surface-inverse': ['#1E3A34', '#0E1C19'],
+  '--color-surface-inverse': ['#181614', '#131211'],
   '--color-surface-inverse-text': ['#F2F5F4', '#E8EDEB'],
-  '--color-surface-inverse-muted': ['#9DB3AD', '#8FA6A0'],
+  '--color-surface-inverse-muted': ['#B8B0A8', '#A69E96'],
   '--color-border-subtle': ['#EAEAE7', '#242424'],
   // Rules inside an inverse block. Inverse is dark in BOTH modes, so this
   // single translucent white works on both (border-subtle's #242424 would
-  // vanish on #1E3A34).
+  // vanish on #181614).
   '--color-border-inverse': ['#FFFFFF2E', '#FFFFFF2E'],
 
   // Radius hierarchy: element/container 12, inner 8, full stays 9999.
@@ -128,7 +145,8 @@ export const GARY_TOKEN_OVERRIDES = {
   //   legacy light: #386aa9 #89600a #22765d #795098 #a85548 #367989 #965579 #70665a
   //   legacy dark : #82acec #d5af59 #78c9ac #be9bda #d58d80 #82b4bf #dda2c4 #aba69e
   // ---- Chart palette: Google 品牌四色 + Material 扩展 ---------------------
-  // Gary 2026-11-17: 「分析图颜色的搭配用google的那一套 墨绿色不要作为主色」
+  // Gary 2026-11-17: chart colours follow Google's set; the brand hue is not
+  // the plot primary (the UI accent stays out of the charts).
   // 1–4 是 Google 品牌 logo 色（chromium ui/android/.../color_palette.xml 的
   // google_logo_blue/red/yellow/green），**不是 Material 500** —— Material 500
   // 是 #2196F3/#F44336/#FFEB3B/#4CAF50，更灰，也不是 Google Charts 那套。
@@ -148,8 +166,8 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-data-categorical-orange': ['#FF7043', '#FFAB91'], // Material deep orange 400
   '--color-data-categorical-gray': ['#78909C', '#B0BEC5'], // Material blue grey 500
 
-  // Chart role colours. `primary` is Google blue — the ink green is the UI
-  // accent (#24514a) and stays out of the plots, otherwise every single-series
+  // Chart role colours. `primary` is Google blue — the UI accent (#B85C00) is
+  // the brand colour and stays out of the plots, otherwise every single-series
   // chart turns the page monochrome.
   // `--color-data-neutral` 不在这里声明：底座已有（light-dark(#8494A3,#8C939B)），
   // 重复声明会静默覆盖底座值，产出里同一 token 出现两次。

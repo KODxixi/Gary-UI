@@ -184,10 +184,11 @@ npx @astryxdesign/cli component Button Badge Text --json
 
 | token | 亮 | 暗 | 说明 |
 |---|---|---|---|
-| `--color-accent` | `#24514a` 墨绿 | `#5d9c8f` | 品牌强调色 |
-| `--color-accent-muted` | `#dde8e4` | `#22403a` | 同色相柔化底 |
-| `--color-text-accent` | `#24514a` | `#5d9c8f` | 链接 / 强调文字（不自动跟随 accent） |
-| `--color-icon-accent` | `#24514a` | `#5d9c8f` | 强调图标 |
+| `--color-accent` | `#F57C00` 亮橙 | `#FFA94D` | 品牌色写面：按钮 / 色块 / 图形 / KPI 数字 |
+| `--color-accent-muted` | `#FFF1E0` | `#3A2213` | 同色相浅橙底 |
+| `--color-on-accent` | `#1A0E00` | `#111111` | 亮橙底上的字（近黑，7.02:1；白字只有 2.70:1） |
+| `--color-text-accent` | `#B85C00` 深橙 | `#FFA94D` | 链接 / 强调文字（白底 4.60） |
+| `--color-icon-accent` | `#B85C00` | `#FFA94D` | 强调图标 |
 | `--font-family-body` / `-heading` | Helvetica Neue → Helvetica → Microsoft YaHei → Arial | 同 | 正文与所有标题级 |
 | 展示衬线 | `Georgia, Songti SC, SimSun, Times New Roman` | 同 | **只在 `cover` 的 `display-2` 标题上**，不是全局 token |
 | `--radius-element` / `-container` | `12px` | 同 | 元素 / 容器圆角 |
@@ -196,7 +197,7 @@ npx @astryxdesign/cli component Button Badge Text --json
 
 > Astryx 共 7 个圆角 token（`element` `container` `inner` `full` `none` `page` `chat`，实测 `astryx.css`）。Gary 只覆盖前三个，其余沿用中性默认。
 
-- 语义色（success / warning / error / info）**沿用 Astryx 中性默认**，Gary 不铺平调色板。
+- 语义色：`success` / `error` 沿用 Astryx 中性默认；`warning` 覆盖为深琥珀（`#7f6118` / `#e0a93b`），`info` 覆盖为中性灰蓝（`#4A6785` / `#8FAFC9`，暗侧为暗底提亮版），实际值只在 `theme/gary.theme.mjs`。
 - 数据色：分类八色**复用底座已有的 `--color-data-categorical-*` 族**（blue / red / yellow / green / purple / cyan / orange / gray，值在 `theme/gary.theme.mjs` 覆盖，明暗各一套），另加角色色 `--color-data-primary` / `-secondary` / `-reference` / `-negative`。`--color-data-neutral` 取底座原值、**不再声明**（重复声明会在产物里出现两次并静默覆盖）。图表与流程图共用这组，`viz/*.mjs` 不新造色。
 - **卡片圆角与内距由渲染器按宽度分级**（`agent/recipes/sections.mjs` 的 `CARD_FRAMES`：小卡 14/20 · 中卡 16/24 · 大卡 20/28，px）。`layout.mjs` 按宽度带校验（`<320 → 12–16`、`320–700 → 14–18`、`>700 → 18–24`）。所以**不要给 Card 传 `style` 圆角**，会被闸门判违规。
 - 明暗两种模式都是一等公民：`meta.theme: "dark"` 触发暗色 token 组，无需另写样式。

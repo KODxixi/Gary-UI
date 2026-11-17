@@ -51,7 +51,7 @@ const DELTA_TONE = {
  * A block may now declare `tone`:
  *   default → raised card, today's look
  *   sunken  → page grey, borderless: supporting text the reader may skip
- *   inverse → deep ink green, at most ONE per page: the block to stop at
+ *   inverse → warm near-black, at most ONE per page: the block to stop at
  * Depth, not decoration: three levels, three reading weights.
  */
 const SURFACE = {
@@ -77,6 +77,10 @@ const INVERSE_SCOPE = {
   '--color-text-primary': 'var(--color-surface-inverse-text)',
   '--color-text-secondary': 'var(--color-surface-inverse-muted)',
   '--color-text-disabled': 'var(--color-surface-inverse-muted)',
+  // Text.accent resolves to text-accent (the deep tier). On a dark surface the
+  // deep tier is too dark to read as orange (3.93:1), so accent text flips to
+  // the bright tier here (6.67:1 on #181614) — the KPI hero numeral is the case.
+  '--color-text-accent': 'var(--color-accent)',
   '--color-border': 'var(--color-border-inverse)',
   '--color-border-emphasized': 'var(--color-border-inverse)',
   '--color-background-muted': 'var(--color-surface-inverse)',
@@ -330,7 +334,7 @@ export function Metric(p) {
         h(
           HStack,
           { gap: 1, vAlign: 'end' },
-          h(Text, { size: '4xl', weight: 'medium', hasTabularNumbers: true }, String(it.value ?? '')),
+          h(Text, { size: '4xl', weight: 'medium', color: 'accent', hasTabularNumbers: true }, String(it.value ?? '')),
           it.unit && h(Text, { type: 'supporting' }, it.unit)
         ),
         DeltaLine(it, 'var(--color-surface-inverse-text)')

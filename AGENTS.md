@@ -32,7 +32,7 @@
 - **渲染器**：`agent/render.mjs`（React 19 SSR，内联 reset + astryx + 主题 CSS）
 - **图表与图示**：`viz/` — [viz/README.md](viz/README.md)（模块地图 / 颜色契约 / 字号映射）· `viz/render-viz.mjs`（CLI，只接管 `chart` / `flow`）· `viz/charts.mjs`（7 种图表）· `viz/flow.mjs`（3 种流程图）
 - **配方**：`agent/recipes/report.recipe.mjs` · `table.recipe.mjs` · `sections.mjs`（16 个 block 渲染函数）
-- **主题真源**：`theme/gary.theme.mjs` — 墨绿 `#24514a`（暗 `#5d9c8f`）、圆角 12/12/8、Helvetica + 微软雅黑
+- **主题真源**：`theme/gary.theme.mjs` — 亮橙 `#F57C00` 写面 / 深橙 `#B85C00` 写字（暗 `#FFA94D`）、圆角 12/12/8、Helvetica + 微软雅黑
 - **闸门**：`agent/checks/selfcheck.mjs`（单文件约束 5 项）· `agent/checks/layout.mjs`（真实 DOM 几何 6 条）
 - **示例内容**：`examples/demo-report.content.json` · `examples/demo-table.content.json`
 - **产物**：`out/`（两页 + specimen + 选型稿），**生成物，不手改**

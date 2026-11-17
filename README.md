@@ -1,6 +1,6 @@
 # Gary-UI
 
-> **写一份 JSON，得到一个能双击打开的单文件 HTML。** 底座 `@astryxdesign/core` 0.7.16（174 个组件），品牌层只有 Gary 的墨绿、字体与圆角分级。
+> **写一份 JSON，得到一个能双击打开的单文件 HTML。** 底座 `@astryxdesign/core` 0.7.16（174 个组件），品牌层只有 Gary 的橙色、字体与圆角分级。
 
 不需要服务器、不需要 CDN、不需要打包；产物零 `<script>`、零外链，发微信、塞邮件、丢进评审库都能直接看。
 
@@ -74,7 +74,7 @@ node agent/checks/shoot.mjs out/my-page.html out/my-page.png
 | `agent/CONTRACT.md` | 给外部 agent 的调用契约（三步装配 / 组件查询 / 主题 / 闸门 / 图表 / 红线） |
 | `agent/recipes/` | 配方：`report`（文章壳）· `table`（叠放壳）· `sections.mjs`（type → 渲染函数） |
 | `viz/` | 图表与流程图：`render-viz.mjs`（CLI）· `charts.mjs`（7 种图表）· `flow.mjs`（3 种流程图）· `check-flow.mjs`（几何闸）· `README.md` |
-| `theme/gary.theme.mjs` | 品牌层真源：墨绿 `#24514a`（暗 `#5d9c8f`）、Helvetica + 微软雅黑、圆角 12/12/8 |
+| `theme/gary.theme.mjs` | 品牌层真源：亮橙 `#F57C00` 写面 / 深橙 `#B85C00` 写字（暗 `#FFA94D`）、Helvetica + 微软雅黑、圆角 12/12/8 |
 | `agent/checks/` | 闸门：`selfcheck.mjs` · `layout.mjs`（+ `shoot.mjs` 截图） |
 | `examples/demo-*.content.json` | 四份真实示例（报表 / 表格 / 图表 / 流程图） |
 | `out/` | 产物目录（生成物，不手改） |
