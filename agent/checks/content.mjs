@@ -400,6 +400,28 @@ function checkViz(p, err) {
       }
     }
   }
+
+  // 标注：三种形状各不相同，写错渲染器静默丢掉整条（charts.mjs 只认下面这些键）
+  if (p.annotations !== undefined) {
+    if (!Array.isArray(p.annotations)) return err('annotations 必须是 array');
+    for (let i = 0; i < p.annotations.length; i++) {
+      const a = p.annotations[i];
+      if (!isObj(a)) return err(`annotations[${i}] 必须是 object`);
+      if (a.type === 'reference') {
+        if (typeof a.value !== 'number' || !Number.isFinite(a.value))
+          return err(`annotations[${i}] type=reference 要 value(number)，给了 ${JSON.stringify(a.value)}`);
+      } else if (a.type === 'band') {
+        for (const k of ['start', 'end']) {
+          if (typeof a[k] !== 'string') return err(`annotations[${i}] type=band 要 ${k}(string)，取 categories 里的原字符串`);
+        }
+      } else if (a.type === 'anchor') {
+        if (typeof a.target !== 'string') return err(`annotations[${i}] type=anchor 要 target(string)，取 categories 里的原字符串`);
+      } else {
+        return err(`annotations[${i}].type=${JSON.stringify(a.type)} 非法，合法值: reference/band/anchor`);
+      }
+      if (a.text !== undefined && typeof a.text !== 'string') return err(`annotations[${i}].text 必须是 string`);
+    }
+  }
 }
 
 function checkBlock(block, at, out, file) {
