@@ -17,24 +17,32 @@
 | 图表 | `viz/charts.mjs` · `flow.mjs` · `README.md` | 维护者；agent 只读契约、只填 `chart` / `flow` 的 props |
 | 渲染 | `agent/render.mjs`（文本区块）· `viz/render-viz.mjs`（文本区块 + 图表 / 流程图） | 维护者；agent 只调用 |
 | 品牌 | `theme/gary.theme.mjs` | 维护者；agent 只读、不改 |
-| 闸 | `agent/checks/selfcheck.mjs` · `layout.mjs` · `viz/check-flow.mjs`（仅流程图几何） | 维护者；agent 交付前必跑 |
+| 闸 | `agent/checks/content.mjs`（内容契约，吃 JSON、0.2s 出字段级错）· `selfcheck.mjs` · `layout.mjs` · `contrast.mjs` · `viz/check-flow.mjs`（仅流程图几何） | 维护者；agent 交付前必跑 |
 
 ---
 
-## 2. 三步装配
+## 2. 四步装配
 
 ```powershell
 cd C:\AI\UI\gary-ui
 # 1. 写内容（照 §3 + agent/content.schema.md）
 #    最小可用： { "meta": { "recipe": "report", "title": "季度复盘" }, "blocks": [ ... ] }
 
-# 2. 渲染
+# 2. 先验字段再渲染——字段写错在这一步 0.2s 就报，不用等起两次浏览器
+node agent/checks/content.mjs <你的>.content.json
+
+# 3. 渲染
 node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html
 
-# 3. 两条闸都 exit 0 才算交付（见 §6）
+# 4. 三道闸都 exit 0 才算交付（见 §6）
 node agent/checks/selfcheck.mjs out/demo-report.html
 node agent/checks/layout.mjs out/demo-report.html
+node agent/checks/contrast.mjs out/demo-report.html
 ```
+
+> **第 2 步不是可选的。** 缺少必填字段、枚举写错、`donut` 用 `series` 而不是 `items` 这类错误，
+> 渲染器全都能"成功"输出一张空图，后三道闸也全绿——历史上 18 份写错的内容里 15 份是这样过去的。
+> `content.mjs` 是唯一会当场说「哪个 block 的哪个字段错了」的一道。
 
 产物是**单文件 HTML**：内联 `reset.css` + `astryx.css` + 主题 CSS，**零 `<script>`、零外链**，双击就能开，可以直接发人。
 
@@ -206,16 +214,33 @@ npx @astryxdesign/cli component Button Badge Text --json
 
 ---
 
-## 6. 验收闸（交付前必跑，两条都 exit 0）
+## 6. 验收闸（交付前必跑，四道都 exit 0）
 
 ```powershell
 cd C:\AI\UI\gary-ui
+node agent/checks/content.mjs <你的 content.json>    # 1. 字段契约（吃 JSON，0.2s）
 node agent/render.mjs <你的 content.json> -o out/<page>.html
-node agent/checks/selfcheck.mjs out/<page>.html
-node agent/checks/layout.mjs out/<page>.html
+node agent/checks/selfcheck.mjs out/<page>.html      # 2. 单文件约束
+node agent/checks/layout.mjs out/<page>.html         # 3. 版式几何
+node agent/checks/contrast.mjs out/<page>.html       # 4. WCAG AA
 ```
 
-上面是文本页。**含 viz 产物时闸门不变**：把第一行换成 `node viz/render-viz.mjs <in> -o out/<page>.html`（见 §7），`selfcheck` 与 `layout` 照样各跑一次；流程图页再加 `node viz/check-flow.mjs out/<page>.html`。实测 `out/viz-charts.html`（394 KB）与 `out/viz-flow.html`（360 KB）两闸均 PASS。
+**含 viz 产物时闸门不变**：把第二行换成 `node viz/render-viz.mjs <in> -o out/<page>.html`（见 §7），后三道照样各跑一次；流程图页再加 `node viz/check-flow.mjs out/<page>.html`。实测 `out/viz-charts.html`（394 KB）与 `out/viz-flow.html`（360 KB）均 PASS。
+
+**只记一条命令**：`npm run verify`——扫 `examples/*.content.json` 跑 content 闸、扫 `out/*.html` 跑后三道，是全仓唯一门禁，exit 0 即全部通过。
+
+### 6.0 `content.mjs` — 字段契约（吃 JSON，不渲染）
+
+| 覆盖 | 判据 |
+|---|---|
+| 18 类 block（含 `device` / `scorecard`） | 必填字段、枚举值域、数组上下限、非法未知字段 |
+| 7 种 chart + 3 种 flow | `chart`/`flow` 子类型合法、形状对（`donut` 用 `items`、`stacked` 用 `rows[].parts`）、`series[].values` 与 `categories` 等长 |
+| `image` / `device` 的 `src` | 指向的文件必须真实存在 |
+| `matrix.rows[].cells` 的键 | 由 `columns[].key` 决定，动态键不判未知字段 |
+| `callout.tone` | 材质（`default`/`sunken`/`inverse`）∪ 语义（`info`/`success`/`warning`/`error`）∪ 别名（`warn`/`danger`/…） |
+
+报错形如 `blocks[3] (type=chart) chart="donut" 缺必填字段 items`——**指到 block 序号、type、字段名**，可直接照着改。
+它挡的是渲染器的默认值兜底：10 种 viz 类型的每个数组参数都有 `= []` 默认值，缺了不抛错、只画空图，后三道闸照样全绿。
 
 ### 6.1 `selfcheck.mjs` — 单文件约束（5 项）
 

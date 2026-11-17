@@ -291,6 +291,90 @@ function walkObject(o, fields, at, out, file) {
   }
 }
 
+// ── chart / flow：10 种类型的每个数组参数在渲染器里都有默认值 `= []`，
+// 缺了不抛错、只画一张空图，四道闸全绿。所以静默绿只能在这一层挡。
+// 只查必填与形状，不查未知字段（unit/digits/note/annotations 等可选字段自由）。
+const CHART_SHAPES = {
+  bar: { req: ['categories', 'series'], kind: 'series' },
+  'grouped-bar': { req: ['categories', 'series'], kind: 'series' },
+  line: { req: ['categories', 'series'], kind: 'series' },
+  stacked: { req: ['rows'], kind: 'stacked' },
+  donut: { req: ['items'], kind: 'donut' },
+  progress: { req: ['rows'], kind: 'progress' },
+  sparkline: { req: ['kpi'], kind: 'kpi' },
+};
+const FLOW_SHAPES = { linear: ['nodes'], branch: ['nodes'], swimlane: ['lanes', 'nodes'] };
+
+function checkViz(p, err) {
+  const isChart = typeof p.chart === 'string';
+  const isFlow = typeof p.flow === 'string';
+  if (isChart === isFlow) return err('props 必须有且只有一个 chart 或 flow 字段（string）');
+  // sparkline 走 KpiTile，签名里没有 title/source/status —— 它的标签在 kpi.label 里
+  if (p.chart !== 'sparkline') {
+    for (const k of ['title', 'source', 'status']) {
+      if (typeof p[k] !== 'string' || !p[k].trim()) return err(`props 缺必填字段 ${k}（string）`);
+    }
+  }
+
+  if (isFlow) {
+    const req = FLOW_SHAPES[p.flow];
+    if (!req) return err(`flow="${p.flow}" 非法，合法值: ${Object.keys(FLOW_SHAPES).join('/')}`);
+    for (const k of [...req, 'edges']) {
+      if (!Array.isArray(p[k]) || !p[k].length) return err(`flow="${p.flow}" 缺必填字段 ${k}（非空 array）`);
+    }
+    return;
+  }
+
+  const shape = CHART_SHAPES[p.chart];
+  if (!shape) return err(`chart="${p.chart}" 非法，合法值: ${Object.keys(CHART_SHAPES).join('/')}`);
+  for (const k of shape.req) if (!(k in p)) return err(`chart="${p.chart}" 缺必填字段 ${k}`);
+
+  if (shape.kind === 'series') {
+    if (!Array.isArray(p.categories) || !p.categories.length) return err('categories 必须是非空 array');
+    if (!Array.isArray(p.series) || !p.series.length) return err('series 必须是非空 array');
+    for (let i = 0; i < p.series.length; i++) {
+      const s = p.series[i];
+      if (!isObj(s)) return err(`series[${i}] 必须是 object`);
+      if (typeof s.name !== 'string') return err(`series[${i}].name 必填（string）`);
+      if (!Array.isArray(s.values)) return err(`series[${i}].values 必填（array）`);
+      if (s.values.length !== p.categories.length) {
+        return err(`series[${i}].values ${s.values.length} 项，categories ${p.categories.length} 项，必须等长`);
+      }
+    }
+  }
+
+  if (shape.kind === 'stacked' || shape.kind === 'progress') {
+    if (!Array.isArray(p.rows) || !p.rows.length) return err('rows 必须是非空 array');
+    for (let i = 0; i < p.rows.length; i++) {
+      const r = p.rows[i];
+      if (!isObj(r)) return err(`rows[${i}] 必须是 object`);
+      if (typeof r.label !== 'string') return err(`rows[${i}].label 必填（string）`);
+      if (shape.kind === 'stacked' && !Array.isArray(r.parts)) {
+        return err(`rows[${i}].parts 必填——stacked 用 rows[].parts，不是 series`);
+      }
+      if (shape.kind === 'progress' && typeof r.value !== 'number') return err(`rows[${i}].value 必填（number）`);
+    }
+  }
+
+  if (shape.kind === 'donut') {
+    if (!Array.isArray(p.items) || !p.items.length) return err('items 必须是非空 array——donut 用 items，不是 series');
+    for (let i = 0; i < p.items.length; i++) {
+      const it = p.items[i];
+      if (!isObj(it)) return err(`items[${i}] 必须是 object`);
+      if (typeof it.name !== 'string') return err(`items[${i}].name 必填（string）`);
+      if (typeof it.value !== 'number') return err(`items[${i}].value 必填（number）`);
+    }
+  }
+
+  if (shape.kind === 'kpi') {
+    if (!isObj(p.kpi)) return err('kpi 必须是 object——sparkline 用 kpi{label,value,categories,values}，不是平铺');
+    for (const k of ['label', 'value']) if (!(k in p.kpi)) return err(`kpi.${k} 必填`);
+    for (const k of ['categories', 'values']) {
+      if (!Array.isArray(p.kpi[k])) return err(`kpi.${k} 必填（array）`);
+    }
+  }
+}
+
 function checkBlock(block, at, out, file) {
   const type = isObj(block) ? block.type : undefined;
   const label = `${at} (type=${type ?? '?'})`.padEnd(30);
@@ -298,7 +382,11 @@ function checkBlock(block, at, out, file) {
 
   if (!isObj(block)) return err(`必须是 object，给了 ${kind(block)}`);
   if (typeof type !== 'string') return err('缺必填字段 type（string）');
-  if (type === 'chart' || type === 'flow') return; // viz-side contract, out of scope
+  if (type === 'chart' || type === 'flow') {
+    if (!('props' in block)) return err('缺必填字段 props（object）');
+    if (!isObj(block.props)) return err('props 必须是 object');
+    return checkViz(block.props, err);
+  }
   const spec = BLOCKS[type];
   if (!spec) return err(`未知 type="${type}"，支持: ${Object.keys(BLOCKS).join(', ')}`);
   if (!('props' in block)) return err('缺必填字段 props（object）');
