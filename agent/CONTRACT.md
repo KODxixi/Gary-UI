@@ -324,6 +324,11 @@ WROTE C:\AI\UI\gary-ui\out\viz-flow.html bytes=359941 blocks=6 charts=0 flows=3
 
   每型取第一条（`band` 可多条）。标签画在图内紧贴图形，**不再在图下另起一行 caption**。
 - 数值按数据原样给（`unit` / `digits` 只管显示），缺测不补零、不连线。
+- **所有图表数值必须是 JSON `number`，不是字符串。** 渲染器用 `Number.isFinite(v) ? v : 0` 取值，
+  写 `"12"` 会被判掉、**静默画成 0**——柱子全零、折线贴底、环形没有扇区，而四道闸照样全绿。
+  内容闸会拦这一条（`series[].values[]` / `parts[].value` / `items[].value` / `rows[].value` / `kpi.values[]`）。
+- 反过来，**文本块里的数字要用字符串**（`metric.items[].value: "1,234"`）：那里渲染器 `String()` 包一层，
+  字符串才能保住千分位和单位。两处口径不同，别串。
 
 ### 7.2 三种流程图（`type: "flow"`）
 

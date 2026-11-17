@@ -349,6 +349,12 @@ function checkViz(p, err) {
       if (s.values.length !== p.categories.length) {
         return err(`series[${i}].values ${s.values.length} 项，categories ${p.categories.length} 项，必须等长`);
       }
+      // 渲染器用 Number.isFinite(v) ? v : 0 —— 字符串 "12" 不通过，静默画成 0，四闸全绿
+      for (let j = 0; j < s.values.length; j++) {
+        if (typeof s.values[j] !== 'number' || !Number.isFinite(s.values[j])) {
+          return err(`series[${i}].values[${j}] 必须是 number（写字符串会被静默画成 0），给了 ${JSON.stringify(s.values[j])}`);
+        }
+      }
     }
   }
 
@@ -358,8 +364,15 @@ function checkViz(p, err) {
       const r = p.rows[i];
       if (!isObj(r)) return err(`rows[${i}] 必须是 object`);
       if (typeof r.label !== 'string') return err(`rows[${i}].label 必填（string）`);
-      if (shape.kind === 'stacked' && !Array.isArray(r.parts)) {
-        return err(`rows[${i}].parts 必填——stacked 用 rows[].parts，不是 series`);
+      if (shape.kind === 'stacked') {
+        if (!Array.isArray(r.parts)) return err(`rows[${i}].parts 必填——stacked 用 rows[].parts，不是 series`);
+        for (let j = 0; j < r.parts.length; j++) {
+          const pt = r.parts[j];
+          if (!isObj(pt)) return err(`rows[${i}].parts[${j}] 必须是 object`);
+          if (typeof pt.value !== 'number' || !Number.isFinite(pt.value)) {
+            return err(`rows[${i}].parts[${j}].value 必须是 number（写字符串会被静默画成 0），给了 ${JSON.stringify(pt.value)}`);
+          }
+        }
       }
       if (shape.kind === 'progress' && typeof r.value !== 'number') return err(`rows[${i}].value 必填（number）`);
     }
@@ -380,6 +393,11 @@ function checkViz(p, err) {
     for (const k of ['label', 'value']) if (!(k in p.kpi)) return err(`kpi.${k} 必填`);
     for (const k of ['categories', 'values']) {
       if (!Array.isArray(p.kpi[k])) return err(`kpi.${k} 必填（array）`);
+    }
+    for (let j = 0; j < p.kpi.values.length; j++) {
+      if (typeof p.kpi.values[j] !== 'number' || !Number.isFinite(p.kpi.values[j])) {
+        return err(`kpi.values[${j}] 必须是 number（写字符串会静默画成 0），给了 ${JSON.stringify(p.kpi.values[j])}`);
+      }
     }
   }
 }
