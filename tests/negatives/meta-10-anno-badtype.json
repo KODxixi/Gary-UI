@@ -1,0 +1,1 @@
+{"meta":{"recipe":"viz"},"blocks":[{"type":"chart","props":{"chart":"bar","title":"t","source":"s","status":"示例数据","categories":["A","B"],"series":[{"name":"x","values":[1,2]}],"annotations":[{"type":"arrow","target":"A"}]}}]}

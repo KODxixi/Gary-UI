@@ -1,0 +1,1 @@
+{"meta":{"recipe":"viz"},"blocks":[{"type":"chart","props":{"chart":"sparkline","kpi":{"label":"L","value":"1,234","categories":["a","b"],"values":["3","5"]}}}]}

@@ -1,0 +1,1 @@
+{"meta":{"recipe":"viz"},"blocks":[{"type":"chart","props":{"chart":"stacked","title":"t","source":"s","status":"示例数据","rows":[{"label":"A","parts":[{"name":"x","value":"14"}]}]}}]}

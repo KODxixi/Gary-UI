@@ -1,0 +1,1 @@
+{"meta":{"recipe":"viz"},"blocks":[{"type":"chart","props":{"chart":"bar","title":"字符串值","source":"s","status":"示例数据","categories":["A","B"],"series":[{"name":"x","values":["12","34"]}]}}]}

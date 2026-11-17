@@ -47,7 +47,24 @@ for (const gate of GATES) {
   }
 }
 
+// 反例闸：tests/negatives/ 里每一份都必须被判红。
+// 没有这一段，闸自己的退化没人发现——2026-11-17 实测踩过一次：往 meta.recipe 的枚举里
+// 加了个合法值（viz 是 render-viz 的路由标记），某条反例悄悄失效却仍是绿的。
+const negatives = readdirSync('tests/negatives')
+  .filter((f) => f.endsWith('.json'))
+  .map((f) => `tests/negatives/${f}`)
+  .sort();
+let slipped = 0;
+for (const nf of negatives) {
+  const r = spawnSync(process.execPath, ['agent/checks/content.mjs', nf], { encoding: 'utf8' });
+  if (r.status === 0) {
+    console.error(`\nverify-all: 反例 ${nf} 竟然通过了 —— 闸退化了`);
+    slipped++;
+  }
+}
+if (slipped) failed = 1;
+
 console.log(
-  `\nverify-all: ${contents.length} 份内容 × content 闸 + ${pages.length} 页 × ${GATES.length} 道闸 → ${failed ? 'FAIL' : 'ALL PASS'}`
+  `\nverify-all: ${contents.length} 份内容 × content 闸 + ${pages.length} 页 × ${GATES.length} 道闸 + ${negatives.length} 份反例（${slipped ? `${slipped} 份漏判` : '全红 ✓'}）→ ${failed ? 'FAIL' : 'ALL PASS'}`
 );
 process.exit(failed);
