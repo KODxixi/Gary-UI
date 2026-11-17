@@ -473,10 +473,22 @@ JSON 必须能被标准解析器读完（无尾逗号、UTF-8、中文不转义�
 ```powershell
 cd C:\AI\UI\gary-ui
 python -c "import json;d=json.load(open('examples/demo-report.content.json',encoding='utf-8'));print('ok',len(d.get('blocks',[])))"
-python -c "import json;d=json.load(open('examples/demo-table.content.json',encoding='utf-8'));print('ok',len(d.get('blocks',[])))"
 ```
 
-契约级自检（字段必填、列宽一致、枚举合法）：由渲染器侧或校验脚本承担，本契约只定义判据，不内置实现。
+**契约级自检有实现，就是 `agent/checks/content.mjs`**（吃 JSON、0.2s、报错指到 block 序号与字段名）：
+
+```powershell
+node agent/checks/content.mjs <你的>.content.json
+```
+
+它覆盖本文件 §3.1–3.18 的必填字段 / 枚举 / 上下限（含 `device` / `scorecard`），外加
+`CONTRACT.md §7.1 / §7.2` 的 7 种 `chart` + 3 种 `flow` 形状，以及 `image` / `device` 的 `src` 文件存在性。
+
+**为什么它不可省**：渲染器对每个数组参数都有 `= []` 默认值，缺字段不抛错、只画空图；
+`selfcheck` / `layout` / `contrast` 三道闸照样全绿。历史实测 18 份写错的内容里 15 份是这样过去的。
+
+`chart` / `flow` 的 props **不在本文件展开**——真源是 `CONTRACT.md §7.1 / §7.2`（各型必填、
+`rows[].parts` 与 `items` 的换用、`annotations` 结构、`status` 数据身份）。同一份事实写两处必然漂移。
 
 ---
 
