@@ -50,3 +50,6 @@ agent/_shot-*.png
 
 # Astryx 渲染产物
 out/
+
+# MWG 安装产生的 agent symlink，不入仓
+.claude/

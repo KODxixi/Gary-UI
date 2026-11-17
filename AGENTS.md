@@ -70,6 +70,25 @@ npx @astryxdesign/cli component --list
 npx @astryxdesign/cli component Card --json
 ```
 
+## 装了 Modern Web Guidance，优先级如下（2026-11-17）
+
+`.agents/skills/modern-web-guidance` 是 Google 的现代 web 编码知识库（17 类 211 篇指南）。
+它的 `SKILL.md` 自称 `MANDATORY: Execute FIRST for all HTML/CSS and clientside JS tasks` ——
+**这个「优先」只对「怎么写代码」成立，不对「用什么组件」成立**。按官方 note inc. 落地口径
+（`developer.chrome.com/blog/mwg-with-internal-component`），本仓固定三条：
+
+1. **Gary-UI 已提供的组件一律用它**。不许因为 MWG 推荐 `<dialog>` / `popover` / 原生 `<input>`，
+   就把 `card` / `callout` / `device` / `table` / `scorecard` 拆成原生元素——那是拆品牌层和四道闸。
+2. **Gary-UI 覆盖不到才查 MWG**：真交互（popover 灯箱、锚点定位）、渐进增强、性能细节、
+   可访问性补充。
+3. **MWG 可抄的只有渲染层 CSS**：`agent/recipes/sections.mjs` 与 `viz/` 里的手写样式可吸收
+   container query / `oklch` / `subgrid` / `text-wrap` / `@supports`，但**不许让 agent 在
+   `content.json` 里写 CSS 或协议**。
+
+它不构成对 `content.json` + 四道闸的替代：211 篇指南里没有任何一条涉及品牌 token /
+内容契约 / 输出校验（2026-11-17 实测核实）。它回答「怎么写现代代码」，本仓回答
+「品牌是什么、内容允许什么、产物过不过闸」——正交。
+
 ## 硬规则
 
 1. **只拼不造**：页面 = `meta` + `blocks`；不写 HTML / CSS / JS，不加 `<script>`，不引外链。

@@ -58,6 +58,19 @@ function parseColor(css) {
 async function probe(page) {
   return page.evaluate(() => {
     const cs = (el) => getComputedStyle(el);
+    // getComputedStyle 原样返回 oklch()/lab()/color() 这类 CSS Color 4 格式，node 侧只认 rgb。
+    // 用 1px canvas 让浏览器自己转，闸才能测现代配色（MWG 推荐的 oklch 就是这种）。
+    const cv = document.createElement('canvas').getContext('2d');
+    const rgb = (c) => {
+      if (!c) return null;
+      cv.fillStyle = '#000';
+      cv.fillStyle = c;
+      if (cv.fillStyle === '#000000' && !/^(#000|black|rgb\(0, 0, 0)/.test(String(c))) return String(c);
+      cv.clearRect(0, 0, 1, 1);
+      cv.fillRect(0, 0, 1, 1);
+      const [r, g, b, a] = cv.getImageData(0, 0, 1, 1).data;
+      return `rgba(${r}, ${g}, ${b}, ${(a / 255).toFixed(3)})`;
+    };
     const opaqueBg = (el) => {
       let e = el;
       while (e) {
@@ -84,19 +97,19 @@ async function probe(page) {
     const root = cs(document.documentElement);
     return {
       theme: document.documentElement.dataset.theme || 'light',
-      bodyBg: cs(document.body).backgroundColor,
-      cardBg: card ? cs(card).backgroundColor : null,
-      cardBorder: card ? cs(card).borderTopColor : null,
-      headingColor: heading ? cs(heading).color : null,
-      secondaryColor: secondary ? cs(secondary).color : null,
-      accentColor: accentEl ? (accentEl.matches('.astryx-button') ? cs(accentEl).backgroundColor : cs(accentEl).color) : null,
-      dividerColor: dividerLine ? cs(dividerLine).backgroundColor : null,
+      bodyBg: rgb(cs(document.body).backgroundColor),
+      cardBg: card ? rgb(cs(card).backgroundColor) : null,
+      cardBorder: card ? rgb(cs(card).borderTopColor) : null,
+      headingColor: heading ? rgb(cs(heading).color) : null,
+      secondaryColor: secondary ? rgb(cs(secondary).color) : null,
+      accentColor: accentEl ? rgb(accentEl.matches('.astryx-button') ? cs(accentEl).backgroundColor : cs(accentEl).color) : null,
+      dividerColor: dividerLine ? rgb(cs(dividerLine).backgroundColor) : null,
       vars: {
-        textAccent: root.getPropertyValue('--color-text-accent').trim(),
-        success: root.getPropertyValue('--color-success').trim(),
-        warning: root.getPropertyValue('--color-warning').trim(),
-        error: root.getPropertyValue('--color-error').trim(),
-        info: root.getPropertyValue('--color-info').trim(),
+        textAccent: rgb(root.getPropertyValue('--color-text-accent').trim()),
+        success: rgb(root.getPropertyValue('--color-success').trim()),
+        warning: rgb(root.getPropertyValue('--color-warning').trim()),
+        error: rgb(root.getPropertyValue('--color-error').trim()),
+        info: rgb(root.getPropertyValue('--color-info').trim()),
       },
       cardBgRaw: root.getPropertyValue('--color-background-card').trim(),
     };
@@ -105,7 +118,19 @@ async function probe(page) {
 
 const CHECKS = (p) => {
   const bodyBg = parseColor(p.bodyBg);
-  const cardBg = parseColor(p.cardBg ?? p.bodyBg);
+  // 崩得含糊等于没闸：页面用了 CSS Color 4 格式又没转成 rgb 时，说清楚是哪一步
+  if (!bodyBg) {
+    return [
+      {
+        name: 'body 背景色',
+        status: 'FAIL',
+        value: '-',
+        min: 1,
+        note: `读不到可解析的背景色（收到 ${JSON.stringify(p.bodyBg)}）；本闸只认 rgb/rgba`,
+      },
+    ];
+  }
+  const cardBg = parseColor(p.cardBg ?? p.bodyBg) ?? bodyBg;
   const card = cardBg.a < 0.999 ? flatten(cardBg, bodyBg) : cardBg;
   const out = [];
   const add = (name, fg, bg, min, note, waived) => {
