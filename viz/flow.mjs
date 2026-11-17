@@ -22,7 +22,7 @@ const EDGE = FLOW.stroke; // edge 2 / edgeDashed 1.5
 const RADIUS = FLOW.corners.card; // 8 (theme --radius-inner)
 const WATERDROP = 'M7.28 3.29 A3.3 3.3 0 1 0 7.28 8.71 L11.2 6 Z';
 
-/** role -> token hue. Anything unknown falls back to the neutral ink green. */
+/** role -> token hue. Anything unknown falls back to the neutral chart primary. */
 function roleColor(role) {
   return PALETTE.role[role] || PALETTE.primary;
 }

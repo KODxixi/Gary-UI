@@ -19,10 +19,11 @@
 
 `viz/*.mjs` 里没有任何 `#rrggbb` 字面量。色值全部是 token 引用：
 
-- 数据序列：**只有墨绿一个色相**，按明度分档（R7）
-  - `pair`（两系列对比）：`--color-accent` + accent 与 `--color-background-card` 的 55% 混色
-  - `ramp`（3–4 类构成）：100% / 78% / 58% / 38% 四档，用 `color-mix(in srgb, var(--color-accent) N%, var(--color-background-card))` 得出
-  - 混色对卡片底色而不是叠透明度：深浅两档在 light / dark 下都不透出背后的东西，也不新造色相
+- 数据序列：**Google Charts 八色**，按系列下标绑定（blue/red/yellow/green/purple/cyan/orange/gray）
+  - `series`：第 N 个系列取第 N 色，顺序沿用 Google Charts 默认（蓝红黄绿在前）
+  - 单系列柱图按**类别**下标取色、不按系列下标——否则每张单系列图都是同一支蓝
+  - 单系列折线固定取第 3 色（绿）；黄只做填充不做描边（白底 1.71，描边发虚）
+  - 品牌 accent 不参与图表——图表用 `--color-data-categorical-*`，两套色互不干扰
 - 语义：`--color-{success,warning,error,info}`（只留给状态，不拿来当系列色）
 - 中性：`--color-{background-card,background-surface,background-muted,track,border,text-primary,text-secondary}`
 - 流程四角色：input→orange、process→blue、decision→purple、result→teal（刻意不用 success/error 表达好坏，角色不代表评价）

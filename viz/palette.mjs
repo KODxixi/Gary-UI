@@ -6,7 +6,7 @@
  * this module, and none is allowed in viz/*.mjs.
  *
  * Token sources actually used:
- *   --color-accent              Gary ink green B (theme/gary.theme.mjs)
+ *   --color-accent              Gary brand orange (theme/gary.theme.mjs)
  *   --color-* / -muted          Astryx semantic roles (success/warning/error/info)
  *   --color-data-categorical-*  Astryx data roles (categorical series)
  *   --color-text-primary/-secondary, --color-border, --color-track,
@@ -25,8 +25,8 @@ export const PALETTE = {
   accentMuted: 'var(--color-accent-muted)',
 
   // chart role — single-series fallback when a chart has no categories to key on.
-  // Google blue, not the ink-green UI accent: the accent stays out of the plots or
-  // every single-series chart turns the page monochrome.
+  // Google blue, not the UI accent: the accent stays out of the plots or every
+  // single-series chart turns the page monochrome.
   primary: 'var(--color-data-primary)',
 
   // semantic roles kept from the neutral theme (Gary deliberately does not flatten them)
@@ -91,8 +91,8 @@ let warnedOverflow = false;
  * Paint for a series index. Mirrors the legacy family mapping:
  *   kind='single' (default for bar/line/area/histogram) — one role: chart primary.
  *   kind='single','bar','line','area','histogram' — a single series still gets its
- *     own hue per chart type. Six single-series charts sharing one ink-green reads
- *     as a monochrome page, not as a palette.
+ *     own hue per chart type. Six single-series charts sharing one hue reads as
+ *     a monochrome page, not as a palette.
  *   kind='series'/'pair'/'ramp' — categorical: a distinct hue per index (category1..8).
  *   kind='mono' — primary hue stepped by opacity, for value-is-colour encodings.
  */
