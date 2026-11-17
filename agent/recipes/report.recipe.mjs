@@ -2,9 +2,9 @@
  * Recipe · report (article shell)
  * Block order comes from content.blocks; type is dispatched via SECTIONS.
  */
-import { createElement as h } from 'react';
+import { createElement as h, Fragment } from 'react';
 import { VStack } from '@astryxdesign/core';
-import { SECTIONS } from './sections.mjs';
+import { SECTIONS, renderSection } from './sections.mjs';
 
 export const id = 'report';
 
@@ -23,15 +23,10 @@ export function render(content) {
     // rhythm = 40px; `gap: 14` from the aesthetic pass had collapsed all
     // section spacing to zero.
     { gap: 10, width: '100%' },
-    blocks.map((b, i) => {
-      const Section = SECTIONS[b.type];
-      if (!Section) {
-        throw new Error(
-          `report: 未知区块类型 type="${b.type}"（支持: ${SUPPORTED.join(', ')}）`
-        );
-      }
-      return h(Section, { key: b.id || `b${i}`, ...(b.props || {}) });
-    })
+    blocks.map((b, i) =>
+      // renderSection applies the block's surface tone (`default|sunken|inverse`).
+      h(Fragment, { key: b.id || `b${i}` }, renderSection(b, {}))
+    )
   );
 }
 

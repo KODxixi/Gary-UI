@@ -108,6 +108,7 @@
       "id": "matrix",
       "type": "matrix",
       "props": {
+        "tone": "inverse",
         "title": "地块对比",
         "note": "01 地块本轮报建，02 地块只做储备测算",
         "labelHeader": "地块",
@@ -231,7 +232,7 @@
       "id": "conclusion",
       "type": "callout",
       "props": {
-        "tone": "info",
+        "tone": "sunken",
         "eyebrow": "结论",
         "title": "容积率已触及上限，后续只能在栋内平衡",
         "body": "计容建面 94,186 ㎡ 与 4.28 万㎡ 用地、2.20 容积率完全对齐；配套占比 4.3%，897 户的分栋结果均落在控制线内，下一轮调整不得再增加计容面积。"

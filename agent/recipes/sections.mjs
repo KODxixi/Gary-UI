@@ -46,6 +46,71 @@ const DELTA_TONE = {
 };
 
 /**
+ * Material surfaces (2026-11-17). Gary's problem was that all seven blocks were
+ * the same white card with the same hairline, so nothing asked the eye to stop.
+ * A block may now declare `tone`:
+ *   default → raised card, today's look
+ *   sunken  → page grey, borderless: supporting text the reader may skip
+ *   inverse → deep ink green, at most ONE per page: the block to stop at
+ * Depth, not decoration: three levels, three reading weights.
+ */
+const SURFACE = {
+  default: 'var(--color-surface-raised)',
+  sunken: 'var(--color-surface-sunken)',
+  inverse: 'var(--color-surface-inverse)',
+};
+const SURFACE_TONES = new Set(Object.keys(SURFACE));
+
+/** Resolve a block's surface tone; a container can pin it via `ctx.surface`. */
+function surfaceToneOf(p, ctx) {
+  const explicit = (ctx && ctx.surface) || (p && p.tone);
+  const tone = String(explicit || '').toLowerCase();
+  return SURFACE_TONES.has(tone) ? tone : 'default';
+}
+
+/**
+ * On an inverse surface every base colour token must be re-pointed, otherwise
+ * Astryx paints near-black ink on deep green. `--color-border` also backs table
+ * rules, so remapping it here fixes headers, row dividers and hairlines at once.
+ */
+const INVERSE_SCOPE = {
+  '--color-text-primary': 'var(--color-surface-inverse-text)',
+  '--color-text-secondary': 'var(--color-surface-inverse-muted)',
+  '--color-text-disabled': 'var(--color-surface-inverse-muted)',
+  '--color-border': 'var(--color-border-inverse)',
+  '--color-border-emphasized': 'var(--color-border-inverse)',
+  '--color-background-muted': 'var(--color-surface-inverse)',
+  '--color-background-card': 'var(--color-surface-inverse)',
+};
+
+/** Surface frame shared by tone-carrying blocks (radius + padding tiers apply). */
+function surfaceFrame(tone, ctx) {
+  return {
+    width: '100%',
+    ...cardFrame(tierForContext(ctx)),
+    background: SURFACE[tone],
+    border: 'none',
+    ...(tone === 'inverse' ? INVERSE_SCOPE : {}),
+  };
+}
+
+/**
+ * Card shell. `default` keeps the real Astryx Card (layout.mjs still sees a
+ * card there); sunken / inverse paint the same frame on a token surface, since
+ * Card always resolves to `--color-background-card`.
+ */
+function SurfaceCard(tone, ctx, children, extra) {
+  if (tone === 'default') {
+    return h(
+      Card,
+      { width: '100%', style: cardFrame(tierForContext(ctx)), ...(extra || {}) },
+      children
+    );
+  }
+  return h('div', { style: surfaceFrame(tone, ctx) }, children);
+}
+
+/**
  * Card radius / padding tiers (width-driven, per Gary's R4 decision).
  *   small  (< 320px)  — KPI tiles            14px / 20px
  *   medium (320–700)  — body cards, callouts 16px / 24px
@@ -217,9 +282,82 @@ function CardHead(title, note) {
   );
 }
 
-/** KPI group: items[{label, value, unit, hint, trend}] / title / note. */
+/** Delta line: trend arrow + tabular value, coloured by the wrapper. */
+function DeltaLine(it, color) {
+  const text = it.delta ?? it.hint;
+  if (!text) return null;
+  return h(
+    'div',
+    { style: { display: 'flex', alignItems: 'center', gap: '4px', color } },
+    it.trend &&
+      h(Text, { type: 'supporting', weight: 'medium', color: 'inherit' }, TREND_ARROW[it.trend] ?? ''),
+    h(
+      'span',
+      { style: { fontVariantNumeric: 'tabular-nums' } },
+      h(Text, { type: 'supporting', weight: 'medium', color: 'inherit' }, text)
+    )
+  );
+}
+
+/** KPI group: items[{label, value, unit, delta|hint, trend, tone}] / title / note. */
 export function Metric(p) {
   const items = Array.isArray(p.items) ? p.items : [];
+  // Position rule, not a switch: the FIRST item is the decision point. It gets
+  // the inverse surface, a larger numeral ladder (5xl vs 3xl) and up to twice
+  // the width of its siblings (flex 2 vs 1) — never a 4-way equal split.
+  const heroStyle = {
+    // 38% of the row: with three 1-unit siblings and 16px gaps this lands at
+    // ~1.98× a sibling, inside the "no more than twice" bound.
+    flex: '0 0 38%',
+    minWidth: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    background: SURFACE.inverse,
+    borderRadius: '16px',
+    padding: '24px',
+    boxSizing: 'border-box',
+    ...INVERSE_SCOPE,
+  };
+  const heroTile = (it) =>
+    h(
+      'div',
+      { style: heroStyle },
+      h(
+        VStack,
+        { gap: 1 },
+        h(Text, { type: 'supporting', size: 'sm' }, it.label),
+        h(
+          HStack,
+          { gap: 1, vAlign: 'end' },
+          h(Text, { size: '4xl', weight: 'medium', hasTabularNumbers: true }, String(it.value ?? '')),
+          it.unit && h(Text, { type: 'supporting' }, it.unit)
+        ),
+        DeltaLine(it, 'var(--color-surface-inverse-text)')
+      )
+    );
+  const plainTile = (it) =>
+    h(
+      'div',
+      { style: { flex: '1 1 0', minWidth: 0, display: 'flex' } },
+      h(
+        Card,
+        { elevation: 'low', width: '100%', style: cardFrame('small') },
+        h(
+          VStack,
+          { gap: 1 },
+          h(Text, { type: 'supporting', size: 'sm' }, it.label),
+          h(
+            HStack,
+            { gap: 1, vAlign: 'end' },
+            h(Text, { size: '2xl', weight: 'medium', hasTabularNumbers: true }, String(it.value ?? '')),
+            it.unit && h(Text, { type: 'supporting' }, it.unit)
+          ),
+          DeltaLine(it, DELTA_TONE[it.tone] || DELTA_TONE.neutral)
+        )
+      )
+    );
+
   return h(
     VStack,
     { gap: 4, width: '100%' },
@@ -231,59 +369,11 @@ export function Metric(p) {
         p.note && h(Text, { type: 'supporting' }, p.note)
       ),
     h(
-      Grid,
-      { columns: items.length, gap: 4, width: '100%' },
-      items.map((it, i) =>
-        h(
-          Card,
-          { key: i, elevation: 'low', width: '100%', style: cardFrame('small') },
-          h(
-            VStack,
-            { gap: 1 },
-            h(Text, { type: 'supporting', size: 'sm' }, it.label),
-            h(
-              HStack,
-              { gap: 1, vAlign: 'end' },
-              h(
-                Text,
-                { size: '4xl', weight: 'medium', hasTabularNumbers: true },
-                String(it.value ?? '')
-              ),
-              it.unit && h(Text, { type: 'supporting' }, it.unit)
-            ),
-            (it.delta || it.hint) &&
-              h(
-                'div',
-                {
-                  style: {
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    // delta carries its own semantic tone: good→success,
-                    // warn→warning, bad→error, neutral→secondary. The colour
-                    // lives on the wrapper so `Text color="inherit"` picks it up.
-                    color: DELTA_TONE[it.tone] || DELTA_TONE.neutral,
-                  },
-                },
-                it.trend &&
-                  h(
-                    Text,
-                    { type: 'supporting', weight: 'medium', color: 'inherit' },
-                    TREND_ARROW[it.trend] ?? ''
-                  ),
-                h(
-                  'span',
-                  { style: { fontVariantNumeric: 'tabular-nums' } },
-                  h(
-                    Text,
-                    { type: 'supporting', weight: 'medium', color: 'inherit' },
-                    it.delta ?? it.hint
-                  )
-                )
-              )
-          )
-        )
-      )
+      'div',
+      {
+        style: { display: 'flex', gap: '16px', alignItems: 'stretch', width: '100%' },
+      },
+      items.map((it, i) => h('div', { key: i, style: { display: 'contents' } }, i === 0 ? heroTile(it) : plainTile(it)))
     )
   );
 }
@@ -339,6 +429,26 @@ export function Callout(p, ctx) {
   const status = TONE_TO_STATUS[tone] || 'info';
   const isNeutral = !TONE_TO_STATUS[tone];
   const body = p.body ?? p.text;
+
+  // Surface tones mean "this block steps back" or "this is the anchor". They
+  // take precedence over the semantic tone: no Banner tint, plain ink on the
+  // tone's own surface, so a conclusion can retire to grey without losing its
+  // text (Gary: 结语 is the least important line on the page, it must not be
+  // the only coloured thing).
+  const surface = surfaceToneOf(p, ctx);
+  if (surface !== 'default') {
+    return SurfaceCard(
+      surface,
+      ctx,
+      h(
+        VStack,
+        { gap: 2 },
+        p.eyebrow && h(Text, { type: 'supporting', size: 'sm' }, p.eyebrow),
+        p.title && h(Heading, { level: 3 }, p.title),
+        body && h(Text, { type: 'body', display: 'block' }, body)
+      )
+    );
+  }
 
   const description =
     (p.eyebrow || body) &&
@@ -418,13 +528,9 @@ export function DividerBlock(p) {
 export function CardBlock(p, ctx) {
   const body = Array.isArray(p.body) ? p.body : [];
   // Frame is tier-driven: page-width by default, one step down inside a grid.
-  const cardProps = { width: '100%', style: cardFrame(tierForContext(ctx)) };
-  if (p.variant) cardProps.variant = p.variant;
-  if (p.elevation) cardProps.elevation = p.elevation;
-
-  return h(
-    Card,
-    cardProps,
+  return SurfaceCard(
+    surfaceToneOf(p, ctx),
+    ctx,
     h(
       VStack,
       // 16px between inner blocks — never the 12px step.
@@ -447,7 +553,8 @@ export function CardBlock(p, ctx) {
           p.tag && h(Badge, { variant: 'neutral', label: p.tag }),
           p.note && h(Text, { type: 'supporting', size: 'sm' }, p.note)
         )
-    )
+    ),
+    { variant: p.variant, elevation: p.elevation }
   );
 }
 
@@ -455,7 +562,6 @@ export function CardBlock(p, ctx) {
 export function TableSection(p, ctx) {
   const cols = Array.isArray(p.columns) ? p.columns : [];
   const rows = Array.isArray(p.rows) ? p.rows : [];
-
   const columns = cols.map((c, j) => ({
     key: `c${j}`,
     // Astryx renders th contents in an inner element that keeps its own start
@@ -498,9 +604,9 @@ export function TableSection(p, ctx) {
     data.push(footRow);
   }
 
-  return h(
-    Card,
-    { width: '100%', style: cardFrame(tierForContext(ctx)) },
+  return SurfaceCard(
+    surfaceToneOf(p, ctx),
+    ctx,
     h(
       VStack,
       { gap: 4 },
@@ -518,7 +624,6 @@ export function TableSection(p, ctx) {
 
 /** tone -> StatusDot variant. Semantic tones stay semantic; accent is the default. */
 const TONE_DOT = { success: 'success', warning: 'warning', error: 'error', info: 'accent' };
-
 /** tone -> token name for the quote rule. Colour always comes from a token. */
 const QUOTE_TONE = {
   accent: '--color-accent',
@@ -644,9 +749,9 @@ export function MatrixBlock(p, ctx) {
 
   const data = rows.map((r, i) => ({ id: `m${i}`, label: r.label, cells: r.cells || {} }));
 
-  return h(
-    Card,
-    { width: '100%', style: cardFrame(tierForContext(ctx)) },
+  return SurfaceCard(
+    surfaceToneOf(p, ctx),
+    ctx,
     h(
       VStack,
       { gap: 4 },
@@ -894,13 +999,34 @@ export const SECTIONS = {
   grid: GridBlock,
 };
 
-/** Dispatch one block (used by containers such as grid). */
-export function renderBlock(block, ctx) {
+/**
+ * Blocks that already paint their own card (and therefore read `ctx.surface`).
+ * Every other block gets wrapped only when it asks for a non-default tone.
+ */
+const CARD_OWNED = new Set(['table', 'matrix', 'card', 'callout']);
+
+/**
+ * Dispatch one block, applying its surface tone.
+ *
+ * `tone` lives on `props.tone`. A container may pin it through `ctx.surface`.
+ * Card-owned blocks consume the tone themselves; bare blocks (timeline, steps,
+ * quote, text, …) get a surface wrapper so `tone` works everywhere.
+ */
+export function renderSection(block, ctx) {
   const fn = SECTIONS[block.type];
   if (!fn) {
     throw new Error(
       `sections: 未知区块类型 type="${block.type}"（支持: ${Object.keys(SECTIONS).join(', ')}）`
     );
   }
-  return fn(block.props || {}, ctx || {});
+  const props = block.props || {};
+  const tone = surfaceToneOf(props, ctx);
+  const node = fn(props, { ...(ctx || {}), surface: tone });
+  if (tone === 'default' || CARD_OWNED.has(block.type)) return node;
+  return h('div', { style: surfaceFrame(tone, ctx) }, node);
+}
+
+/** Dispatch one block (kept for containers such as grid). */
+export function renderBlock(block, ctx) {
+  return renderSection(block, ctx);
 }

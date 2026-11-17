@@ -65,6 +65,24 @@ WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=400473 recipe=report blocks=11
 - `meta` 其余：`title`（必填，≤40 字）· `sub` · `eyebrow` · `badge` · `date` · `author` · `version` · `theme`（`light` 默认 / `dark`）· `lang`（`zh-CN` 默认 / `en`）。
 - `blocks[]`：顺序即渲染顺序，1–24 块（建议 4–10）。
 
+### 3.1b `tone` 出现在三层，值域不重叠（别混）
+
+| 写在哪 | 取值 | 管什么 |
+|---|---|---|
+| **block 级** `blocks[].tone` | `default` / `sunken` / `inverse` | **材质** —— 这一块在页面上是浮起（白）/ 凹陷（灰）/ 反白（深） |
+| `callout.props.tone` | `info` / `success` / `warning` / `error` | **语义** —— 语气 |
+| `metric.items[].tone`、`timeline.items[].tone` | `accent` / `success` / `warning` / `error` / `neutral` | **语义** —— 这一条读数的好坏 |
+
+同名不同层，靠位置区分。渲染时 **block 级优先**（`ctx.surface` 覆盖 `props.tone`），所以「把绿色 callout 降级成灰底」要写在 block 上：
+
+```json
+{ "type": "callout", "tone": "sunken", "props": { "tone": "success", "title": "…" } }
+```
+
+长期看这个字段名是欠自解释的（豆包 2026-11-17 指出），但三层值域不重叠、渲染优先级明确，不构成冲突，暂不改名。
+
+**全页 `inverse` 的额度**：`table` / `matrix` / `prose` 这类**整块**反白，一页最多一个——两个大块反白等于没有锚点。`metric` 的主指标反白是**块内构成**（一行高、宽度两倍以内），不占这个额度。
+
 ### 3.2 全部 block type（16 个，均已实现）
 
 | `type` | 是什么 | 关键与必填 props | 对应 Astryx 组件 |

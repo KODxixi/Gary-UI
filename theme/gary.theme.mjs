@@ -95,6 +95,24 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-background-card': ['#ffffff', '#262626'],
   '--color-border': ['#00000014', '#ffffff2E'],
 
+  // Material ladder (2026-11-17). Gary's diagnosis: every block was the same
+  // white card with the same hairline, so a 7-section page had one rhythm.
+  // Three depths give the eye a hierarchy: raised (read normally), sunken
+  // (supporting / skippable), inverse (the one block you must stop for).
+  //   raised  = today's card surface, unchanged
+  //   sunken  = page-level grey, no border
+  //   inverse = deep ink green, one per page; NOT the chart primary
+  '--color-surface-raised': ['#ffffff', '#262626'],
+  '--color-surface-sunken': ['#F4F4F1', '#161616'],
+  '--color-surface-inverse': ['#1E3A34', '#0E1C19'],
+  '--color-surface-inverse-text': ['#F2F5F4', '#E8EDEB'],
+  '--color-surface-inverse-muted': ['#9DB3AD', '#8FA6A0'],
+  '--color-border-subtle': ['#EAEAE7', '#242424'],
+  // Rules inside an inverse block. Inverse is dark in BOTH modes, so this
+  // single translucent white works on both (border-subtle's #242424 would
+  // vanish on #1E3A34).
+  '--color-border-inverse': ['#FFFFFF2E', '#FFFFFF2E'],
+
   // Radius hierarchy: element/container 12, inner 8, full stays 9999.
   '--radius-element': '12px',
   '--radius-container': '12px',
