@@ -357,8 +357,8 @@
 |---|---|---|---|
 | `items` | object[] | 是 | 评分项，2–8 条 |
 | `items[].label` | string | 是 | 维度名，≤ 12 字（`去化速度`） |
-| `items[].score` | number | 是 | 得分，0–`max`；缺省按 0 处理 |
-| `items[].max` | number | 否 | 满分，默认 `100`；右侧读数按 `score / max` 显示 |
+| `items[].score` | number | 是 | 得分，0–`max`；缺省按 0 处理。**数字字符串也收**（渲染器 `Number(it.score) \|\| 0` 会转）——闸不比渲染器严 |
+| `items[].max` | number | 否 | 满分，默认 `100`；右侧读数按 `score / max` 显示。同样收数字字符串 |
 | `items[].state` | `good` \| `warn` \| `bad` | 否 | 进度条颜色：`success` / `warning` / `error`；缺省用 `--color-accent` |
 | `title` | string | 否 | 区块标题 |
 | `note` | string | 否 | 口径说明，≤ 40 字 |
