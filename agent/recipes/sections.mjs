@@ -116,17 +116,18 @@ function SurfaceCard(tone, ctx, children, extra) {
 
 /**
  * Card radius / padding tiers (width-driven, per Gary's R4 decision).
- *   small  (< 320px)  — KPI tiles            14px / 20px
- *   medium (320–700)  — body cards, callouts 16px / 24px
- *   large  (> 700)    — table shells, page blocks 20px / 28px
+ *   small  (< 320px)  — KPI tiles            12px / 20px
+ *   medium (320–700)  — body cards, callouts 14px / 20px
+ *   large  (> 700)    — table shells, page blocks 18px / 24px
  * Radius and padding rise together, so a bigger radius never gets tighter
- * inner space. Card spreads `style` onto its root div, and an inline value
- * beats the StyleX class, which is why this is expressible here.
+ * inner space. 20px is the measured floor in layout.mjs (rule 2/4) and also the
+ * MWG reference's card inset: a hairline needs air around it or the card reads
+ * as a table cell, not as a surface.
  */
 const CARD_FRAMES = {
-  small: { borderRadius: '14px', padding: '24px' },
-  medium: { borderRadius: '16px', padding: '24px' },
-  large: { borderRadius: '20px', padding: '28px' },
+  small: { borderRadius: '12px', padding: '20px' },
+  medium: { borderRadius: '14px', padding: '20px' },
+  large: { borderRadius: '18px', padding: '24px' },
 };
 
 function cardFrame(tier) {
@@ -317,8 +318,7 @@ export function Metric(p) {
     rowGap: '4px',
     minWidth: 0,
     background: SURFACE.inverse,
-    borderRadius: '16px',
-    padding: '24px',
+    ...cardFrame('small'),
     boxSizing: 'border-box',
     ...INVERSE_SCOPE,
   };
@@ -340,7 +340,7 @@ export function Metric(p) {
       Card,
       {
         key: `kpi${i}`,
-        elevation: 'low',
+        // No elevation: the card is a hairline on paper, never a lifted tile.
         width: '100%',
         'data-gary': 'kpi-card',
         style: {
@@ -567,7 +567,6 @@ export function CardBlock(p, ctx) {
   if (ctx && ctx.duoRows && tone === 'default') {
     return SurfaceCard(tone, ctx, slots, {
       variant: p.variant,
-      elevation: p.elevation,
       'data-gary': 'duo-card',
       style: {
         ...cardFrame(tierForContext(ctx)),
@@ -588,7 +587,7 @@ export function CardBlock(p, ctx) {
       { gap: 4 },
       ...slots
     ),
-    { variant: p.variant, elevation: p.elevation }
+    { variant: p.variant }
   );
 }
 
@@ -1126,7 +1125,7 @@ export function DeviceBlock(p, ctx) {
           h(Text, { type: 'supporting', size: 'sm' }, p.caption || p.alt)
         )
     ),
-    { elevation: 'low' }
+    { /* hairline, no elevation */ }
   );
 }
 
@@ -1193,7 +1192,7 @@ export function ScorecardBlock(p, ctx) {
       p.note && h(Text, { type: 'supporting', size: 'sm' }, p.note),
       h(VStack, { gap, width: '100%' }, rows)
     ),
-    { elevation: 'low' }
+    { /* hairline, no elevation */ }
   );
 }
 
