@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "recipe": "landing",
+    "theme": "dark",
+    "title": "示范区开放日复盘",
+    "eyebrow": "青浦云谷 · 首开前哨",
+    "badge": "示意数据",
+    "sub": "两天接待、四场讲解，把现场动线与客户反馈压成一份可执行的调整清单。",
+    "date": "2026-11-17",
+    "author": "案场复盘组",
+    "version": "v1.0 · 内部复盘"
+  },
+  "blocks": [
+    {
+      "id": "head",
+      "type": "heading",
+      "props": {
+        "eyebrow": "开放日 · 11-14 至 11-15",
+        "title": "示范区开放日复盘",
+        "sub": "以到访 286 组、认购 37 组为口径，复盘现场动线、讲解节奏与客户异议。",
+        "level": 1
+      }
+    },
+    {
+      "type": "metric",
+      "props": {
+        "title": "两日核心读数",
+        "note": "口径：登记到访去重，认购以定金到账为准",
+        "items": [
+          { "label": "到访", "value": "286", "unit": "组", "hint": "首日 171 / 次日 115", "trend": "up" },
+          { "label": "认购", "value": "37", "unit": "组", "hint": "认购率 12.9%", "trend": "up" },
+          { "label": "单客停留", "value": "42", "unit": "分钟", "hint": "较试营业 +6 分钟", "trend": "up" },
+          { "label": "讲解成单", "value": "3.1", "unit": "组/场", "hint": "四场取均值", "trend": "flat" }
+        ]
+      }
+    },
+    {
+      "type": "device",
+      "props": {
+        "kind": "phone",
+        "src": "examples/assets/qingpu-siteplan.svg",
+        "alt": "移动端示范区导览页静态截图（示意，非交付图）",
+        "caption": "移动端导览页静态截图（示意，非交付图）",
+        "align": "center"
+      }
+    },
+    {
+      "type": "scorecard",
+      "props": {
+        "title": "现场健康度（五项）",
+        "density": "compact",
+        "note": "各项 0–100，低于 70 需在首开前补齐",
+        "items": [
+          { "label": "动线清晰度", "score": 88, "max": 100, "state": "good" },
+          { "label": "讲解一致性", "score": 76, "max": 100, "state": "warn" },
+          { "label": "样板间体验", "score": 91, "max": 100, "state": "good" },
+          { "label": "等候区承接", "score": 64, "max": 100, "state": "bad" },
+          { "label": "异议闭环率", "score": 72, "max": 100, "state": "warn" }
+        ]
+      }
+    },
+    {
+      "type": "grid",
+      "props": {
+        "cols": 3,
+        "gap": "4",
+        "children": [
+          {
+            "type": "card",
+            "props": {
+              "eyebrow": "亮点",
+              "title": "沙盘前置拦截",
+              "body": ["入口 8 米处设问询台，客户先看沙盘再进样板间，动线重复率下降。"],
+              "tag": "保留"
+            }
+          },
+          {
+            "type": "card",
+            "props": {
+              "eyebrow": "短板",
+              "title": "等候区座位不足",
+              "body": ["周末峰值同时等候 23 组，座位仅 12 个，出现客户离场。"],
+              "tag": "首开前改"
+            }
+          },
+          {
+            "type": "card",
+            "props": {
+              "eyebrow": "待定",
+              "title": "价格口径不统一",
+              "body": ["三名置业顾问对车位是否含在总价里说法不一，客户当场质疑。"],
+              "tag": "需拍板"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "props": {
+        "title": "分时段到访与认购",
+        "note": "时段为自然两小时段，认购按定金到账时间归属",
+        "columns": [
+          { "label": "时段" },
+          { "label": "到访 · 组", "num": true },
+          { "label": "认购 · 组", "num": true },
+          { "label": "转化率", "num": true }
+        ],
+        "rows": [
+          ["10:00–12:00", "96", "14", "14.6%"],
+          ["13:00–15:00", "108", "15", "13.9%"],
+          ["15:00–17:00", "82", "8", "9.8%"]
+        ],
+        "foot": ["合计", "286", "37", "12.9%"],
+        "density": "compact"
+      }
+    },
+    {
+      "type": "callout",
+      "props": {
+        "tone": "warning",
+        "eyebrow": "下一步",
+        "title": "首开前只改三件：加座位、统一价格口径、补一组讲解话术",
+        "body": "其余项保持现状，避免开放日刚跑顺的动线再次变动。",
+        "action": { "label": "领取调整清单" }
+      }
+    }
+  ]
+}

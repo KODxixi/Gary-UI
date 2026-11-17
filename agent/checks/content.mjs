@@ -18,7 +18,7 @@ if (!files.length) {
 
 // ---- spec primitives -------------------------------------------------------
 const str = (req) => ({ t: 'string', req });
-const num = (req) => ({ t: 'number', req });
+const num = (req, coerce) => ({ t: 'number', req, coerce });
 const bool = () => ({ t: 'boolean' });
 const en = (vals, req) => ({ t: 'enum', vals, req });
 const step = (vals, req) => ({ t: 'enum', vals, req }); // numeric enum; "4" and 4 both pass
@@ -167,8 +167,8 @@ const BLOCKS = {
   scorecard: obj({
     items: arr(2, 8, obj({
       label: str(true),
-      score: num(true),
-      max: num(),
+      score: num(true, true),
+      max: num(true, true),
       state: en(['good', 'warn', 'bad']),
     }), true),
     title: str(),
@@ -227,7 +227,12 @@ function checkValue(value, spec, at, out, file) {
       if (typeof value !== 'string') out.push(`${at} 必须是 string，给了 ${kind(value)}`);
       break;
     case 'number':
-      if (typeof value !== 'number' || !Number.isFinite(value)) out.push(`${at} 必须是 number，给了 ${kind(value)}`);
+      if (typeof value !== 'number' || !Number.isFinite(value)) {
+        // 渲染器对 scorecard.score 用 Number() 兜底，数字字符串能转 —— 闸比渲染器严就是假红
+        if (!(spec.coerce && typeof value === 'string' && value.trim() !== '' && Number.isFinite(Number(value)))) {
+          out.push(`${at} 必须是 number，给了 ${kind(value)}`);
+        }
+      }
       break;
     case 'boolean':
       if (typeof value !== 'boolean') out.push(`${at} 必须是 boolean，给了 ${kind(value)}`);
@@ -313,6 +318,10 @@ function checkViz(p, err) {
   if (p.chart !== 'sparkline') {
     for (const k of ['title', 'source', 'status']) {
       if (typeof p[k] !== 'string' || !p[k].trim()) return err(`props 缺必填字段 ${k}（string）`);
+    }
+    // 数据身份红线：不许把示例/推算当实测。前缀取自 examples 的实际取值全集。
+    if (!/^(仓库)?(示例数据|示意数据|实测|推算|实现现状)/.test(p.status)) {
+      return err(`status="${p.status}" 必须以 实测/推算/示例数据/示意数据/实现现状 之一开头（可加「仓库」前缀）`);
     }
   }
 
@@ -444,6 +453,25 @@ for (const file of files) {
     continue;
   }
   const errors = [];
+  // meta 不校验的代价：recipe 写错要到 render 才炸（0.2s → 2s，且报错在另一个文件）
+  const meta = doc.meta;
+  if (meta !== undefined) {
+    if (!isObj(meta)) {
+      errors.push('顶层 meta 必须是 object');
+    } else {
+      // viz 是 viz/render-viz.mjs 的路由标记（agent/render.mjs 不认，会自己报清楚）
+      if (meta.recipe !== undefined && !['report', 'table', 'dashboard', 'landing', 'viz'].includes(meta.recipe)) {
+        errors.push(`meta.recipe="${meta.recipe}" 非法，合法值: report/table/dashboard/landing/viz`);
+      }
+      // 写 "Dark" 不会报错，只会静默渲染成亮色 —— 这类只有校验能拦
+      if (meta.theme !== undefined && !['light', 'dark'].includes(meta.theme)) {
+        errors.push(`meta.theme=${JSON.stringify(meta.theme)} 非法，合法值: light/dark`);
+      }
+      if (meta.date !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(meta.date)) {
+        errors.push(`meta.date 必须是 YYYY-MM-DD，给了 ${JSON.stringify(meta.date)}`);
+      }
+    }
+  }
   if (!Array.isArray(doc.blocks)) {
     errors.push('顶层 缺必填字段 blocks[]（array）');
   } else if (doc.blocks.length < 1 || doc.blocks.length > 24) {
