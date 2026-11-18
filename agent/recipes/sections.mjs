@@ -20,7 +20,6 @@ import {
   HStack,
   Card,
   Button,
-  TextInput,
   Grid,
   AspectRatio,
   proportional,
@@ -156,7 +155,7 @@ function tierForContext(ctx) {
 const MEASURE_NARRATIVE = 'var(--measure-narrative)';
 const MEASURE_DATA = 'var(--measure-data)';
 
-/** Page header: eyebrow / title / badge / sub, optional toolbar. */
+/** Page header: eyebrow / title / badge / sub. No toolbar — see the note below. */
 export function Header(p) {
   return h(
     VStack,
@@ -187,25 +186,12 @@ export function Header(p) {
         }, p.title),
         p.sub && h(Text, { type: 'supporting' }, p.sub)
       ),
-      // Toolbar: the search field carries a label above its shell, so aligning
-      // the row on the END edge is what actually puts the input shell and the
-      // button on the same top/bottom line. Both controls are pinned to the
-      // same size step ('md') instead of relying on their natural heights.
-      p.toolbar &&
-        h(
-          HStack,
-          { gap: 3, align: 'end', wrap: 'wrap' },
-          p.toolbar.search !== undefined &&
-            h(TextInput, {
-              label: p.toolbar.search,
-              value: '',
-              placeholder: p.toolbar.search,
-              size: 'md',
-              onChange: () => {},
-            }),
-          p.toolbar.action &&
-            h(Button, { variant: 'primary', size: 'md', label: p.toolbar.action })
-        )
+      // No toolbar here on purpose. A zero-script single-file artifact cannot
+      // search or export, so rendering <input>/<button> would ship dead
+      // controls that look operable. `selfcheck` now fails any product that
+      // contains form controls without a <script>. A host app that supplies
+      // behaviour renders its own chrome; this system emits content only.
+
     )
   );
 }

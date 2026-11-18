@@ -35,6 +35,12 @@ for (const file of files) {
 
   const checks = [
     ['无 <script>', !/<script/i.test(html)],
+    // 零脚本产物里出现 input/button = 死控件：看着能点，点不动。
+    // 只对 MWG（交付轨）强制；Astryx 轨是组件库标本页，展示控件本身是它的职责。
+    [
+      '零死控件（MWG 轨不得有表单控件）',
+      !isMwg || !/<(input|button|select|textarea)\b/i.test(html),
+    ],
     ['无外链 href/src/url(http)', !/(href|src)\s*=\s*["']?https?:|url\(\s*['"]?https?:/i.test(html)],
     [
       isMwg ? '含 MWG 引擎与 Gary 主题标识' : '含 data-astryx-theme="gary"',

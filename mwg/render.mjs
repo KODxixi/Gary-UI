@@ -98,12 +98,7 @@ const BLOCK_RENDERERS = {
     const eyebrow = props.eyebrow ? `<div class="g-heading__eyebrow">${esc(props.eyebrow)}</div>` : '';
     const badge = props.badge ? `<span class="g-heading__badge">${esc(props.badge)}</span>` : '';
     const sub = props.sub ? `<p class="g-heading__sub">${esc(props.sub)}</p>` : '';
-    const toolbar = props.toolbar ? `
-      <div class="g-heading__toolbar">
-        ${props.toolbar.search !== undefined ? `<input type="search" class="g-heading__search" placeholder="${esc(typeof props.toolbar.search === 'string' ? props.toolbar.search : props.toolbar.search?.placeholder || '搜索...')}">` : ''}
-        ${props.toolbar.action ? `<button class="g-heading__btn" type="button">${esc(typeof props.toolbar.action === 'string' ? props.toolbar.action : props.toolbar.action?.label || '操作')}</button>` : ''}
-      </div>
-    ` : '';
+    // 无 toolbar：零脚本产物里不能有 input/button，见 selfcheck 的「零死控件」。
 
     return `
       <section class="g-heading" id="${esc(block.id || '')}">
@@ -113,7 +108,6 @@ const BLOCK_RENDERERS = {
           ${badge}
         </div>
         ${sub}
-        ${toolbar}
       </section>
     `;
   },

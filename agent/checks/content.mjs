@@ -44,7 +44,6 @@ const BLOCKS = {
     badge: str(),
     sub: str(),
     level: en([1, 2]),
-    toolbar: obj({ search: str(), action: str() }),
     tone: SURFACE,
   }),
   cover: obj({

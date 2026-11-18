@@ -90,6 +90,59 @@ async function main() {
   });
   assert('[P2 Astryx 表格] td & span tabular-nums', astryxTbl.tdNumeric === 'tabular-nums' && astryxTbl.spanNumeric === 'tabular-nums', JSON.stringify(astryxTbl));
 
+
+  console.log('\n=== 4. 两轨 token 一致性（theme/gary.theme.mjs ↔ mwg/tokens.css） ===');
+  // mwg/tokens.css 是 theme 的手抄副本。抄错、漏改都会让两条轨静默分叉，
+  // 而各自的门只验自己的产物，永远发现不了。这里逐个 token 对账。
+  const { GARY_TOKEN_OVERRIDES } = await import('../theme/gary.theme.mjs');
+  const canon = (v) => {
+    const s = String(v ?? '').trim();
+    let m = /^#([0-9a-f]{6})$/i.exec(s);
+    if (m) {
+      const n = parseInt(m[1], 16);
+      return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
+    }
+    m = /^rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/.exec(s);
+    if (m) return `${m[1]},${m[2]},${m[3]}`;
+    return s.toLowerCase();
+  };
+  const MUST = [
+    '--color-background-body',
+    '--color-background-card',
+    '--color-text-primary',
+    '--color-text-secondary',
+    '--color-accent',
+    '--color-text-accent',
+  ];
+  const names = Object.keys(GARY_TOKEN_OVERRIDES).filter((n) => n.startsWith('--color-'));
+  const reconcile = async (url, idx, label) => {
+    await page.goto(url);
+    const live = await page.evaluate(
+      (ns) =>
+        Object.fromEntries(
+          ns.map((n) => [n, getComputedStyle(document.body).getPropertyValue(n).trim()])
+        ),
+      names
+    );
+    const defined = names.filter((n) => live[n]);
+    const diff = defined
+      .filter((n) => canon(GARY_TOKEN_OVERRIDES[n][idx]) !== canon(live[n]))
+      .map((n) => `${n}: theme ${GARY_TOKEN_OVERRIDES[n][idx]} ≠ mwg ${live[n]}`);
+    const mustMissing = MUST.filter((n) => !live[n]);
+    assert(
+      `[token 对账 ${label}] ${defined.length} 个 --color-* 与 theme 一致`,
+      diff.length === 0,
+      diff.length ? `${diff.length} 处偏差 · ` + diff.slice(0, 5).join(' | ') : '全部一致'
+    );
+    assert(
+      `[token 覆盖 ${label}] 品牌关键 token 必须在 MWG 轨定义`,
+      mustMissing.length === 0,
+      mustMissing.length ? `缺 ${mustMissing.join(' ')}` : `${MUST.length} 个齐全`
+    );
+  };
+  await reconcile(reportUrl, 0, '亮色');
+  await reconcile(darkUrl, 1, '暗色');
+
   await browser.close();
   if (failures) {
     console.error(`\n❌ ${failures} 项校验失败`);

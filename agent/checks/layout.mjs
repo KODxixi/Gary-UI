@@ -54,29 +54,6 @@ for (const file of files) {
     const px = (v) => parseFloat(v) || 0;
     const rect = (el) => el.getBoundingClientRect();
 
-    // 1 — toolbar: an input shell paired with the first button in an ancestor row.
-    const toolbar = [];
-    for (const shell of document.querySelectorAll('.astryx-text-input, .g-heading__search')) {
-      let host = shell.parentElement;
-      for (let i = 0; i < 4 && host; i++) {
-        const btns = host.querySelectorAll('button');
-        if (btns.length) {
-          const s = rect(shell);
-          const b = rect(btns[0]);
-          toolbar.push({
-            inputTop: +s.top.toFixed(1),
-            inputHeight: +s.height.toFixed(1),
-            buttonTop: +b.top.toFixed(1),
-            buttonHeight: +b.height.toFixed(1),
-            topDelta: +Math.abs(s.top - b.top).toFixed(1),
-            heightDelta: +Math.abs(s.height - b.height).toFixed(1),
-          });
-          break;
-        }
-        host = host.parentElement;
-      }
-    }
-
     // 2..4 — cards and banner surfaces (both are containers with a radius).
     const cards = [];
     for (const card of document.querySelectorAll('.astryx-card, .astryx-banner, .g-card, .g-metric__card')) {
@@ -202,17 +179,6 @@ for (const file of files) {
     console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? '  — ' + detail : ''}`);
     if (!ok) failures++;
   };
-
-  // 1
-  if (!data.toolbar.length) {
-    report('1 控件对齐（输入框 vs 按钮）', true, '本页无工具行，跳过（0 组）');
-  } else {
-    const rows = data.toolbar.map(
-      (t) => `top ${t.inputTop}/${t.buttonTop} (Δ${t.topDelta}) · h ${t.inputHeight}/${t.buttonHeight} (Δ${t.heightDelta})`
-    );
-    const ok = data.toolbar.every((t) => t.topDelta <= 1 && t.heightDelta <= 1);
-    report('1 控件对齐（输入框 vs 按钮）', ok, `${data.toolbar.length} 组 · ` + rows.join(' | '));
-  }
 
   // 2
   const padBad = data.cards.filter(

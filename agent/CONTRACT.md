@@ -255,7 +255,7 @@ node agent/checks/contrast.mjs out/<page>.html       # 4. WCAG AA
 | 内联 `<style>` > 100000 B | 样式真的内联进去了 | 331906 B |
 | ≥ 3 个 `astryx-` 语义类 | 组件确实来自 Astryx | 104 个（viz 页 100 个） |
 
-### 6.2 `layout.mjs` — 真实 DOM 几何（6 条，Playwright 量像素）
+### 6.2 `layout.mjs` — 真实 DOM 几何（5 条，Playwright 量像素）
 
 | # | 规则 | 实测基准 |
 |---|---|---|
@@ -354,7 +354,7 @@ node agent/checks/selfcheck.mjs out/viz-charts.html
 node agent/checks/layout.mjs out/viz-charts.html
 ```
 
-- 实测：`check-flow.mjs` 三张图 `edges` 合计 13 条，`非正交=0 无箭头=0`、`node boxes 相交=0`、`FLOW GEOMETRY PASS`；`viz-charts.html` 与 `viz-flow.html` 的 `selfcheck` ALL PASS、`layout` 6 条全 PASS。
+- 实测：`check-flow.mjs` 三张图 `edges` 合计 13 条，`非正交=0 无箭头=0`、`node boxes 相交=0`、`FLOW GEOMETRY PASS`；`viz-charts.html` 与 `viz-flow.html` 的 `selfcheck` ALL PASS、`layout` 5 条全 PASS。
 - 颜色：`viz/*.mjs` 里 **0 个 hex**，全部取 `--color-*` token。多系列图表按**系列数组下标**取 `--color-data-categorical-*` —— 同一 `series` 顺序里第 N 项在各图拿到同一色，顺序一变颜色就跟着变（不按名字绑定，见「已知限制」第 1 条）。流程图的角色色也绑在同一组 data token 上，所以图与图之间不会各造一套色。要换观感改 `theme/gary.theme.mjs`，不改 `viz/`。
   **单系列裁决**：`series.length === 1` 不共用一支颜色。**柱图按类别位置取色** —— 每根柱是一个独立实体（渠道 / 月份 / 户型），一页七张图共用一支蓝会被读成单色，Gary 说的「颜色太单一」根子在这。折线是一整条线、没法按点取色，固定 `categorical-green`（见 `viz/palette.mjs` 的 `SINGLE_HUE`，只剩这一个键）。黄色 `categorical-yellow` 只做填充、不做线条 —— 白底 1.71，当描边看不见。
 - 每张图必须给 `source`（渲染成卡底一行脚注，本地路径会被剥成文件名）；`status` 字段保留但**不渲染到页面**——它此前渲染成一个 badge 压在卡片里，占掉信息空间，2026-11-17 移除，写它不会有视觉效果。演示数据在页级 `meta.badge` 标 `示意数据`。没有来源的图不接受。
