@@ -21,6 +21,12 @@ const __dirname = path.dirname(__filename);
 // HTML 转义
 function esc(s) {
   if (s === undefined || s === null) return '';
+  // 对象进 esc() 会变成 "[object Object]" 写进交付物（D13）。宁可空串 + 告警，
+  // 也不许脏数据出厂；带字段位置的告警由 stringList() 负责，这里是最后一道网。
+  if (typeof s === 'object' || typeof s === 'function') {
+    console.warn(`[mwg] esc() 收到 ${Array.isArray(s) ? 'array' : typeof s}，已输出空串（该字段应为字符串）`);
+    return '';
+  }
   return String(s)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -88,11 +94,67 @@ const CALLOUT_TONE_MAP = {
   bad: 'error',
 };
 
+// 块定位串（报错与告警统一口径）："第 3 块（blocks[2]）"
+const atOf = (ctx) => (ctx && ctx.at) || '区块';
+
+/**
+ * paras / body 只接受非空字符串。对象或 null 经 esc() 会变成 "[object Object]"
+ * 写进交付物（D13）；这里统一过滤 + 报警，告警带块定位与字段下标。
+ */
+function stringList(list, where) {
+  if (!Array.isArray(list)) return [];
+  return list.filter((v, j) => {
+    if (typeof v === 'string' && v.trim() !== '') return true;
+    const kind = v === null ? 'null' : typeof v === 'string' ? '空串' : Array.isArray(v) ? 'array' : typeof v;
+    console.warn(`[mwg] ${where}[${j}] 不是非空字符串（${kind}），已跳过`);
+    return false;
+  });
+}
+
+// badge.variant 白名单，与 agent/checks/content.mjs 一致（6 档）。其余值按 neutral
+// 渲染并报警：以前任意值直出 class，白名单外的一律渲染成没颜色的白块且不报错。
+const BADGE_VARIANTS = new Set(['neutral', 'accent', 'info', 'success', 'warning', 'error']);
+function badgeVariant(v, where) {
+  const raw = String(v || 'neutral').toLowerCase();
+  if (BADGE_VARIANTS.has(raw)) return raw;
+  console.warn(`[mwg] ${where} 非法 variant="${v}"，按 neutral 渲染（可用: ${[...BADGE_VARIANTS].join(', ')}）`);
+  return 'neutral';
+}
+
+/**
+ * trendTone：方向 ≠ 好坏（退货率上涨是坏消息，染绿是报假消息）。trend 只管箭头，
+ * trendTone 管颜色：good → 绿、bad → 红；不给就只按方向出中性色（CSS 里 up/down/flat 已中性）。
+ */
+function trendToneClass(v, where) {
+  const raw = String(v || '').toLowerCase();
+  if (!raw) return '';
+  if (raw === 'good' || raw === 'bad') return ` g-metric__trend--${raw}`;
+  console.warn(`[mwg] ${where} 非法 trendTone="${v}"，只按方向出中性色（可用: good, bad）`);
+  return '';
+}
+
+/**
+ * 缺 type 的块：以前 `if (!block.type) return ''` 让它从页面上蒸发，日志仍打印
+ * blocks=3，用户既看不见日志也看不见缺块（D10）。现在不抛（整页仍可交付），
+ * 但 stderr 报警 + 产物里画一块可见的红色告警，占住它本该在的位置。
+ */
+function blockAlert(at, msg, detail) {
+  return `
+      <aside class="g-callout g-callout--error" data-block-alert="1">
+        <div class="g-callout__title">${esc(at)}${esc(msg)}</div>
+        <div class="g-callout__body">${esc(detail)}</div>
+      </aside>
+    `;
+}
+
 // ═══════════════════════════════════════════════════════════
 // Block 渲染器映射表（18 类文本区块 + chart + flow）
 // ═══════════════════════════════════════════════════════════
 const BLOCK_RENDERERS = {
   heading(props, block) {
+    // heading.level 口径（两轨统一，2026-11-19）：缺省 2，钳到 1–6。
+    // 此前三口径打架：文档默认 1、MWG 默认 2、Astryx 恒 h1。Astryx 侧
+    // agent/recipes/sections.mjs 的 headingLevel() 用同一个表达式，改这里要同步改那里。
     const level = Math.min(Math.max(Number(props.level) || 2, 1), 6);
     const tag = `h${level}`;
     const eyebrow = props.eyebrow ? `<div class="g-heading__eyebrow">${esc(props.eyebrow)}</div>` : '';
@@ -141,9 +203,9 @@ const BLOCK_RENDERERS = {
     `;
   },
 
-  text(props, block) {
+  text(props, block, ctx) {
     const toneAttr = toneAttrOf(props, block);
-    const paras = Array.isArray(props.paras) ? props.paras.map((p) => `<p>${esc(p)}</p>`).join('') : '';
+    const paras = stringList(props.paras, `${atOf(ctx)}.paras`).map((p) => `<p>${esc(p)}</p>`).join('');
     const note = props.note ? `<div class="g-text__note">${esc(props.note)}</div>` : '';
     return `
       <div class="g-card g-text"${toneAttr} id="${esc(block.id || '')}">
@@ -153,12 +215,12 @@ const BLOCK_RENDERERS = {
     `;
   },
 
-  prose(props, block) {
+  prose(props, block, ctx) {
     const toneAttr = toneAttrOf(props, block);
-    const items = Array.isArray(props.items) ? props.items.map((item) => `
+    const items = Array.isArray(props.items) ? props.items.map((item, i) => `
       <section class="g-prose__section">
         ${item.title ? `<h3 class="g-prose__section-title">${esc(item.title)}</h3>` : ''}
-        ${Array.isArray(item.paras) ? item.paras.map((p) => `<p>${esc(p)}</p>`).join('') : ''}
+        ${stringList(item.paras, `${atOf(ctx)}.items[${i}].paras`).map((p) => `<p>${esc(p)}</p>`).join('')}
       </section>
     `).join('') : '';
 
@@ -169,7 +231,7 @@ const BLOCK_RENDERERS = {
     `;
   },
 
-  metric(props, block) {
+  metric(props, block, ctx) {
     const header = (props.title || props.note) ? `
       <div class="g-metric-header">
         ${props.title ? `<h3 class="g-metric-header__title">${esc(props.title)}</h3>` : ''}
@@ -177,9 +239,10 @@ const BLOCK_RENDERERS = {
       </div>
     ` : '';
 
-    const items = Array.isArray(props.items) ? props.items.map((item) => {
+    const items = Array.isArray(props.items) ? props.items.map((item, i) => {
+      const toneClass = trendToneClass(item.trendTone, `${atOf(ctx)}.items[${i}].trendTone`);
       const trend = item.trend && TREND_ICON[item.trend] ? `
-        <span class="g-metric__trend g-metric__trend--${esc(item.trend)}">
+        <span class="g-metric__trend g-metric__trend--${esc(item.trend)}${toneClass}">
           ${TREND_ICON[item.trend]} ${esc(item.hint || '')}
         </span>
       ` : (item.hint ? `<span class="g-metric__hint">${esc(item.hint)}</span>` : '');
@@ -206,13 +269,13 @@ const BLOCK_RENDERERS = {
     `;
   },
 
-  card(props, block) {
+  card(props, block, ctx) {
     const toneAttr = toneAttrOf(props, block);
     const eyebrow = props.eyebrow ? `<div class="g-card-block__eyebrow">${esc(props.eyebrow)}</div>` : '';
     const badge = props.badge ? `<span class="g-badge">${esc(props.badge)}</span>` : '';
     const title = props.title ? `<h3 class="g-card-block__title">${esc(props.title)}</h3>` : '';
     const sub = props.sub ? `<p class="g-card-block__sub">${esc(props.sub)}</p>` : '';
-    const body = Array.isArray(props.body) ? props.body.map((p) => `<p>${esc(p)}</p>`).join('') : '';
+    const body = stringList(props.body, `${atOf(ctx)}.body`).map((p) => `<p>${esc(p)}</p>`).join('');
     const note = props.note ? `<div class="g-text__note">${esc(props.note)}</div>` : '';
 
     return `
@@ -298,9 +361,9 @@ const BLOCK_RENDERERS = {
     return `<hr class="g-divider" id="${esc(block.id || '')}">`;
   },
 
-  badge(props, block) {
-    const items = Array.isArray(props.items) ? props.items.map((b) => `
-      <span class="g-badge g-badge--${esc(b.variant || 'default')}">
+  badge(props, block, ctx) {
+    const items = Array.isArray(props.items) ? props.items.map((b, i) => `
+      <span class="g-badge g-badge--${esc(badgeVariant(b.variant, `${atOf(ctx)}.items[${i}].variant`))}">
         ${b.dot ? `<span class="g-badge__dot"></span>` : ''}
         ${esc(b.label || '')}
       </span>
@@ -454,9 +517,9 @@ const BLOCK_RENDERERS = {
 
   grid(props, block, ctx) {
     const cols = Number(props.cols) || 2;
-    const children = Array.isArray(props.children) ? props.children.map((c) => `
+    const children = Array.isArray(props.children) ? props.children.map((c, i) => `
       <div class="g-grid__cell">
-        ${renderBlock(c, ctx)}
+        ${renderBlock(c, ctx, `${atOf(ctx)}.children[${i}]`)}
       </div>
     `).join('') : '';
 
@@ -507,13 +570,52 @@ const BLOCK_RENDERERS = {
   },
 };
 
-function renderBlock(block, ctx) {
-  if (!block || !block.type) return '';
-  const renderer = BLOCK_RENDERERS[block.type];
-  if (!renderer) {
-    throw new Error(`未知区块类型 type="${block.type}"（可用: ${Object.keys(BLOCK_RENDERERS).join(', ')}）`);
+/**
+ * 文档落款：meta.date / author / version 三个字段。
+ * 此前它们在契约里写了、示例里填了，但两轨都没渲染 —— 填了不显示比不支持更糟。
+ * 副标题/眉标/徽标不做，正文里已有 heading / hero block 承担同一件事。
+ */
+function renderColophon(meta) {
+  const items = [
+    ['日期', meta.date],
+    ['编制', meta.author],
+    ['版本', meta.version],
+  ].filter(([, v]) => typeof v === 'string' && v.trim());
+  if (!items.length) return '';
+  const body = items
+    .map(([k, v]) => `<span class="g-colophon__item"><span class="g-colophon__k">${esc(k)}</span>${esc(v)}</span>`)
+    .join('');
+  return `  <footer class="g-colophon">${body}</footer>`;
+}
+
+function renderBlock(block, ctx, at = '区块', fallbackId = '') {
+  // D11：以前 `{ id: b.id, ...b }` 在 null 上抛裸 TypeError，无下标无字段名。
+  if (!block || typeof block !== 'object' || Array.isArray(block)) {
+    const kind = block === null ? 'null' : Array.isArray(block) ? 'array' : typeof block;
+    throw new Error(`${at}为 ${kind}，请删除该块或补成 {id, type, props} 对象`);
   }
-  return renderer(block.props || {}, block, ctx);
+  const b = { ...block, id: block.id || fallbackId };
+
+  if (!b.type) {
+    const keys = Object.keys(block);
+    const detail = `该块字段: ${keys.length ? keys.join(', ') : '无'}。请补上 type（可用: ${Object.keys(BLOCK_RENDERERS).join(', ')}）。`;
+    console.warn(`[mwg] ${at}缺 type，已跳过。${detail}`);
+    return blockAlert(at, '缺 type，已跳过', detail);
+  }
+  const renderer = BLOCK_RENDERERS[b.type];
+  if (!renderer) {
+    throw new Error(`${at}未知区块类型 type="${b.type}"（id=${b.id || '无'}；可用: ${Object.keys(BLOCK_RENDERERS).join(', ')}）`);
+  }
+  try {
+    return renderer(b.props || {}, b, { ...ctx, at });
+  } catch (err) {
+    // 下游（viz/charts、viz/flow）的报错原本不带块位置（D12）；在这里统一补上，
+    // 原始 message 与 cause 保留，不改各渲染器。
+    if (err && err.located) throw err;
+    const wrapped = new Error(`${at}type=${b.type} id=${b.id || '无'} 渲染失败: ${err.message}`, { cause: err });
+    wrapped.located = true;
+    throw wrapped;
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -549,7 +651,10 @@ export function renderDocument(contentJson, options = {}) {
     basePath: options.basePath || process.cwd(),
   };
 
-  const renderedBlocks = blocks.map((b, i) => renderBlock({ id: b.id || `b${i}`, ...b }, ctx)).join('\n');
+  const renderedBlocks = blocks
+    .map((b, i) => renderBlock(b, ctx, `第 ${i + 1} 块（blocks[${i}]）`, `b${i}`))
+    .join('\n');
+  const colophon = renderColophon(meta);
   const css = bundleCss();
 
   return `<!DOCTYPE html>
@@ -565,6 +670,7 @@ ${css}
 <body class="g-page-body">
   <main class="g-page" data-recipe="${esc(recipe)}">
 ${renderedBlocks}
+${colophon}
   </main>
 </body>
 </html>`;
@@ -612,11 +718,13 @@ function main() {
 
   const bytes = Buffer.byteLength(html, 'utf8');
   const blocks = Array.isArray(content.blocks) ? content.blocks : [];
-  const charts = blocks.filter((b) => b.type === 'chart').length;
-  const flows = blocks.filter((b) => b.type === 'flow').length;
+  const charts = blocks.filter((b) => b?.type === 'chart').length;
+  const flows = blocks.filter((b) => b?.type === 'flow').length;
+  const skipped = blocks.filter((b) => !b?.type).length;
   const recipe = content.meta?.recipe || 'report';
 
-  console.log(`WROTE ${outPath} bytes=${bytes} blocks=${blocks.length} recipe=${recipe} charts=${charts} flows=${flows}`);
+  // skipped 让「少了一块」在日志里可见，不再出现 blocks=3 却只画出 2 块（D10）。
+  console.log(`WROTE ${outPath} bytes=${bytes} blocks=${blocks.length}${skipped ? ` skipped=${skipped}` : ''} recipe=${recipe} charts=${charts} flows=${flows}`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

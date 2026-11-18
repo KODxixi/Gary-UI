@@ -75,6 +75,8 @@ const BLOCKS = {
         hint: str(),
         delta: str(),
         trend: en(['up', 'down', 'flat']),
+        // 方向≠好坏。trendTone 显式声明这个变化是好是坏，不给就只按方向出中性色。
+        trendTone: en(['good', 'bad']),
         tone: ITEM_TONE,
       }),
       true
@@ -112,9 +114,10 @@ const BLOCKS = {
       6,
       obj({
         label: str(true),
+        // 只有这 6 档在 MWG 轨有样式。其余 9 档是 Astryx 组件库枚举，
+        // 渲染出来是没颜色的一片白 —— 与其静默无效，不如在这里挡下。
         variant: en([
-          'neutral', 'info', 'success', 'warning', 'error', 'blue', 'cyan', 'green',
-          'orange', 'pink', 'purple', 'red', 'teal', 'yellow',
+          'neutral', 'accent', 'info', 'success', 'warning', 'error',
         ]),
         dot: bool(),
       }),

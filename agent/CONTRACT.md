@@ -276,9 +276,15 @@ node agent/checks/contrast.mjs out/<page>.html       # 4. WCAG AA
 
 `node agent/checks/narrow.mjs [out.html ...]`（无参数扫全部 `out/*.html`）
 
-判据只有一条：元素自身内容比它宽（`scrollWidth > clientWidth`），而它的
-`overflow-x` 是 `clip` 或 `hidden` —— 这两种值用户和脚本都滑不动，右侧
-内容等于永久丢失。`auto` / `scroll` 是合格的横向滚动容器，放行。
+判据两条：
+
+1. **不可达裁切**：元素自身内容比它宽（`scrollWidth > clientWidth`），而它的
+   `overflow-x` 是 `clip` 或 `hidden` —— 这两种值用户和脚本都滑不动，右侧
+   内容等于永久丢失。`auto` / `scroll` 是合格的横向滚动容器，放行。
+2. **整页横向滚动**：375px 视口下 `documentElement.scrollWidth` 比 `clientWidth`
+   宽出 2px 以上。内容能滑到，但手机上整页横滑本身就是缺陷——常见根因是
+   无空格超长串（URL、长英文词、连续数字）或写死宽度的卡片。渲染层的
+   `overflow-wrap: anywhere` 与相对宽度修掉它，本闸防回归。
 
 它挡的是「靠裁切收缩」：Astryx 的表格滚动容器默认 `overflow-x: clip`，
 窄屏下右侧列全部不可达；KPI 栅格是行内 `1.35fr + repeat(n,1fr)`，行内样式

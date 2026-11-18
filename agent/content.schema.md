@@ -18,12 +18,12 @@
 |---|---|---|---|---|
 | `recipe` | string | 是 | 页型配方，决定外壳与竖向节奏（旧版这里是顶层键名，现在收进 meta） | `report` · `table` · `dashboard` · `landing` 已实现（真源 `agent/render.mjs` 的 `RECIPES`）；图表页写 `viz`（`viz/render-viz.mjs` 的路由标记） |
 | `title` | string | 是 | 文档标题，同时写入 `<title>` | ≤ 40 字，单行 |
-| `sub` | string | 否 | 副标题（旧字段名就是 `sub`） | ≤ 80 字；**不得与 blocks 内的长句重复**（见 §6 结论唯一） |
-| `eyebrow` | string | 否 | 眉标 / 抬头 | ≤ 24 字，单行 |
-| `badge` | string | 否 | 页级状态徽标文字 | ≤ 8 字（如 `示意数据`、`评审稿`）；带语义的状态请用 `badge` block |
-| `date` | string | 否 | 日期 | `YYYY-MM-DD` |
-| `author` | string | 否 | 署名 | ≤ 24 字 |
-| `version` | string | 否 | 版本 / 状态行 | 如 `v1.2 · 评审稿` |
+| ~~`sub`~~ | — | — | **页级 meta 不渲染（2026-11-19 实测）**。副标题写在 `heading` / `hero` block 的 `sub` 里，那里才出字 |
+| ~~`eyebrow`~~ | — | — | **页级 meta 不渲染**。眉标写在 `heading` block 的 `eyebrow` |
+| ~~`badge`~~ | — | — | **页级 meta 不渲染**。状态徽标用 `badge` block 或 `heading.badge` |
+| `date` | string | 否 | 日期，渲染成页脚落款（MWG 轨） | `YYYY-MM-DD` |
+| `author` | string | 否 | 署名，渲染成页脚落款（MWG 轨） | ≤ 24 字 |
+| `version` | string | 否 | 版本 / 状态行，渲染成页脚落款（MWG 轨） | 如 `v1.2 · 评审稿` |
 | `theme` | string | 否 | 明暗 | `light`（默认）· `dark`。渲染器 CLI 的 `--theme light\|dark` 可临时覆盖（不改内容） |
 | `lang` | string | 否 | 文档语言 | `zh-CN`（默认）· `en` |
 
@@ -89,8 +89,8 @@
 | `eyebrow` | string | 否 | 标题上方的眉标，≤ 24 字，单行 |
 | `badge` | string | 否 | 标题旁的徽标文字，≤ 8 字；语义状态改用 `badge` block |
 | `sub` | string | 否 | 一句话说明，≤ 120 字 |
-| `level` | `1` \| `2` | 否 | `1`（默认）= 页面首屏；`2` = 章内小节 |
-| `toolbar` | object | 否 | `{ "search"?: string, "action"?: string }`：`search` 是搜索框 label，`action` 是主按钮文案 |
+| `level` | `1` … `6` | 否 | **缺省 `2`**（章内小节）；`1` = 页面首屏大标题。两轨同值同输出——此前 MWG 缺省 2、Astryx 恒 h1，同一份内容出两种标题层级（2026-11-19 统一） |
+| ~~`toolbar`~~ | — | — | **已移除（2026-11-19）**。零脚本产物里 `<input>`/`<button>` 点不动，渲染它就是骗人；`selfcheck` 第 6 项「零死控件」会红 |
 
 ### 3.2 `text`
 
@@ -112,6 +112,7 @@
 | `items[].delta` | string | 否 | 变化量，≤ 12 字（`+2.4%`、`-180 万`）。与 `trend` 一起用才有箭头 |
 | `items[].tone` | `accent` \| `success` \| `warning` \| `error` \| `info` \| `neutral` | 否 | 该指标的数字与箭头用哪档语义色，默认 `neutral` |
 | `items[].trend` | `up` \| `down` \| `flat` | 否 | 箭头方向，只供渲染层选图标/强调，不带颜色字面量（§4.2）。**只表示方向不表示好坏**（退货率 `up` 是坏消息） |
+| `items[].trendTone` | `good` \| `bad` | 否 | 趋势**颜色**，与方向解耦：`trend` 只选箭头，`trendTone` 才染色（退货率 `up` 给 `bad`）；不给则中性色 |
 | `title` | string | 否 | 指标组标题 |
 | `note` | string | 否 | 口径说明 |
 
@@ -126,9 +127,9 @@
 | `badge` | string | 否 | 卡片角标文字，≤ 8 字 |
 | `tag` | string | 否 | 单行标签（旧 `canvas.tag`，如 `3 层`） |
 | `note` | string | 否 | 卡片底部注 |
-| `padding` | `0` \| `1` \| `2` \| `3` \| `4` \| `5` \| `6` \| `8` | 否 | 直通 Astryx `Card.padding`（spacing 档位），默认取主题卡片内距 |
+| ~~`padding`~~ | — | — | **两轨都不消费（2026-11-19 实测）**。卡片内距由渲染器按宽度分档（`CARD_FRAMES`），内容层不许改 |
 | `variant` | `default` \| `muted` \| `transparent` | 否 | 直通 `Card.variant`，默认 `default` |
-| `elevation` | `none` \| `low` \| `med` \| `high` | 否 | 直通 `Card.elevation`，默认 `none` |
+| ~~`elevation`~~ | — | — | **两轨都不消费（2026-11-19 实测）**。卡片阴影由主题 token 统一给，不由内容指定 |
 
 ### 3.5 `table`
 
@@ -150,7 +151,7 @@
 |---|---|---|---|
 | `items` | object[] | 是 | 1–6 个徽标 |
 | `items[].label` | string | 是 | 文案，≤ 12 字，单行 |
-| `items[].variant` | `neutral` \| `info` \| `success` \| `warning` \| `error` \| `blue` \| `cyan` \| `green` \| `orange` \| `pink` \| `purple` \| `red` \| `teal` \| `yellow` | 否 | 直通 Astryx `Badge.variant`（14 个，取自 `astryx component Badge --json`），默认 `neutral` |
+| `items[].variant` | `neutral` \| `accent` \| `info` \| `success` \| `warning` \| `error` | 否 | 默认 `neutral`。**只有这 6 档有样式**；上列的 14 档是 Astryx 组件库枚举，MWG 轨只实现语义 5 档 + 强调档，给别的值会被 `content.mjs` 挡下 |
 | `items[].dot` | boolean | 否 | `true` = 前面加状态圆点（`StatusDot`） |
 | `align` | `start` \| `center` \| `end` | 否 | 行内对齐，默认 `start` |
 
@@ -387,10 +388,10 @@
 
 | `type` | Astryx 组件 | props 怎么映射 | 状态 |
 |---|---|---|---|
-| `heading` | `VStack` + `HStack` + `Text` + `Badge` + `Heading` + `TextInput` / `Button` | `eyebrow`→`Text(type="supporting")`；`badge`→`Badge(variant="info", label)`；`title`→`Heading(level=level, type="display-2" 仅当 level=1)`；`sub`→`Text(type="large"/"supporting")`；`toolbar.search`→`TextInput(label, placeholder)`；`toolbar.action`→`Button(variant="primary", label)`；布局 `VStack(gap=4)` + `HStack(justify="between", align="end", gap=5, wrap="wrap")` | 已实现（函数名 `Header`） |
+| `heading` | `VStack` + `HStack` + `Text` + `Badge` + `Heading` + `TextInput` / `Button` | `eyebrow`→`Text(type="supporting")`；`badge`→`Badge(variant="info", label)`；`title`→`Heading(level=level, type="display-2" 仅当 level=1)`；`sub`→`Text(type="large"/"supporting")`；~~`toolbar`~~（已移除，见 §3）；布局 `VStack(gap=4)` + `HStack(justify="between", align="end", gap=5, wrap="wrap")` | 已实现（函数名 `Header`） |
 | `text` | `VStack` + `Text` | 每段 `Text(type=size==="large"?"large":"body")`，`VStack(gap=2)`；`note`→`Text(type="supporting", size="sm")` | 已实现 |
 | `metric` | `HStack` + `Card` + `Text`（**无专用指标组件**） | 每项 `Card(width="232px", style=CARD_FRAMES.small)` 包 `VStack`：`label`→`Text(type="supporting", size="sm")`；`value`→`Text(size="2xl", weight="medium", hasTabularNumbers=true)`；`unit`→`Text(type="supporting")` 同行；`hint`→`Text(type="supporting", size="sm")`；`HStack(gap=4, wrap="wrap")` | 已实现 |
-| `card` | `Card` + `VStack` + `Heading` + `Text` + `Badge` | `padding`/`variant`/`elevation` 直通 `Card`；`eyebrow`→`Text(supporting, sm)`；`title`→`Heading(level=3)`；`sub`/`note`/`tag`→`Text(supporting)`；`body[]`→`Text(body)`；`badge`→`Badge(variant="neutral")`；卡片档位由 `tierForContext` 决定（页面宽度 `large` / grid 内 `medium`·`small`） | 已实现 |
+| `card` | `Card` + `VStack` + `Heading` + `Text` + `Badge` | `variant` 直通 `Card`（`padding`/`elevation` 实测无效，已划掉）；`eyebrow`→`Text(supporting, sm)`；`title`→`Heading(level=3)`；`sub`/`note`/`tag`→`Text(supporting)`；`body[]`→`Text(body)`；`badge`→`Badge(variant="neutral")`；卡片档位由 `tierForContext` 决定（页面宽度 `large` / grid 内 `medium`·`small`） | 已实现 |
 | `table` | `Card` + `VStack` + `HStack` + `Heading` + `Text` + `Table` | `Table({ data, columns, density, dividers, hasHover:true })`，`columns` 需转成 `{key, header, align, width, renderCell}`：`label`→`header`；`num`→`align:"end"` + 单元格 `Text(hasTabularNumbers, justify:"end")`；`foot`→追加 `__foot` 数据行（半粗）；`title`→`Heading(level=2)`；`note`→`Text(supporting)` | 已实现 |
 | `badge` | `HStack` + `Badge`（+ `StatusDot`） | `items[].variant`/`label` 直通 `Badge`；`dot=true`→前置 `StatusDot`；`HStack(gap=2)` | 已实现 |
 | `callout` | `Banner` | `tone`→`status`；`title`→`title`；`body`→`description`；`eyebrow`→`description` 前缀；`action`→`endContent=Button(variant="primary")` | 已实现 |

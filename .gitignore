@@ -53,3 +53,6 @@ out/
 
 # MWG 安装产生的 agent symlink，不入仓
 .claude/
+
+# 审计临时产物
+.audit/

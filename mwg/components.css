@@ -338,9 +338,13 @@
     font-size: var(--g-size-support);
     font-weight: var(--g-weight-label);
   }
-  .g-metric__trend--up    { color: var(--g-success-text); }
-  .g-metric__trend--down  { color: var(--g-error-text); }
+  /* 方向 ≠ 好坏：退货率上涨染绿就是在报假消息。方向交给箭头，
+     颜色一律中性；内容确知好坏时由 trendTone 显式着色。 */
+  .g-metric__trend--up,
+  .g-metric__trend--down,
   .g-metric__trend--flat  { color: var(--g-ink-secondary); }
+  .g-metric__trend--good  { color: var(--g-success-text); }
+  .g-metric__trend--bad   { color: var(--g-error-text); }
 
   @container (max-width: 240px) {
     .g-metric__value { font-size: 1.5rem; }
@@ -926,3 +930,18 @@
     font-weight: var(--g-weight-label);
   }
 }
+
+  /* 文档落款（meta.date / author / version）。宽度跟正文行宽走，不另开一栏。 */
+  .g-colophon {
+    /* 与页内卡片同宽：居中的 680px 细线跟上面任何东西都对不齐，看着像孤儿 */
+    margin: 56px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--g-border-subtle);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+    font-size: var(--font-size-sm);
+    color: var(--g-ink-secondary);
+  }
+  .g-colophon__item { display: inline-flex; gap: 6px; align-items: baseline; }
+  .g-colophon__k { color: var(--g-ink-secondary); opacity: 0.75; }

@@ -9,6 +9,20 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPECIMEN_DIR = path.resolve(__dirname, '../out/specimen');
 
+// fullPage 截图偶尔会撞上 CDP 的 "Unable to capture screenshot"（协议层抖动，
+// 可复现失败率 ~1/3）。这不是页面问题，重试一次就好，别让闸因为传输层撒谎变红。
+async function shot(page, file) {
+  for (let i = 0; ; i++) {
+    try {
+      await page.screenshot({ path: file, fullPage: true });
+      return;
+    } catch (e) {
+      if (i >= 1) throw e;
+      await page.waitForTimeout(400);
+    }
+  }
+}
+
 async function main() {
   fs.mkdirSync(SPECIMEN_DIR, { recursive: true });
   const exe = path.join(
@@ -44,7 +58,7 @@ async function main() {
   });
   assert('[P2 KPI] font-variant-numeric', kpiFontVariant === 'tabular-nums', kpiFontVariant);
 
-  await page.screenshot({ path: path.join(SPECIMEN_DIR, 'mwg-demo-report-light.png'), fullPage: true });
+  await shot(page, path.join(SPECIMEN_DIR, 'mwg-demo-report-light.png'));
   console.log('已保存亮色截图: out/specimen/mwg-demo-report-light.png');
 
   console.log('\n=== 2. 验证 mwg-demo-report-dark.html (暗色 Carbon) ===');
@@ -61,7 +75,7 @@ async function main() {
   assert('[Carbon 暗色] body background', darkColors.bodyBg === 'rgb(17, 17, 17)', darkColors.bodyBg);
   assert('[Carbon 暗色] card background', darkColors.cardBg === 'rgb(28, 28, 28)', darkColors.cardBg);
 
-  await page.screenshot({ path: path.join(SPECIMEN_DIR, 'mwg-demo-report-dark.png'), fullPage: true });
+  await shot(page, path.join(SPECIMEN_DIR, 'mwg-demo-report-dark.png'));
   console.log('已保存暗色截图: out/specimen/mwg-demo-report-dark.png');
 
   console.log('\n=== 3. 验证 MWG 与 Astryx 表格 tabular-nums (P2) ===');
@@ -75,7 +89,7 @@ async function main() {
   });
   assert('[P2 MWG 表格] td.num right + tabular-nums', mwgTbl?.textAlign === 'right' && mwgTbl?.fontVariantNumeric === 'tabular-nums', JSON.stringify(mwgTbl));
 
-  await page.screenshot({ path: path.join(SPECIMEN_DIR, 'mwg-demo-table.png'), fullPage: true });
+  await shot(page, path.join(SPECIMEN_DIR, 'mwg-demo-table.png'));
   console.log('已保存表格截图: out/specimen/mwg-demo-table.png');
 
   const astryxTableUrl = 'file:///' + path.resolve(__dirname, '../out/demo-table.html').replace(/\\/g, '/');

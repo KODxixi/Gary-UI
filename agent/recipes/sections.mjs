@@ -32,6 +32,24 @@ function step(v, fallback) {
   return Number.isFinite(n) ? n : fallback;
 }
 
+/**
+ * paras / body 只接受非空字符串。对象或 null 直传 React 会抛
+ * "Objects are not valid as a React child"（D13，无 block id 无字段名）；
+ * 这里统一过滤 + 带定位告警，与 MWG 轨 stringList() 同一口径。
+ */
+function stringList(list, where) {
+  if (!Array.isArray(list)) return [];
+  return list.filter((v, j) => {
+    if (typeof v === 'string' && v.trim() !== '') return true;
+    const kind = v === null ? 'null' : typeof v === 'string' ? '空串' : Array.isArray(v) ? 'array' : typeof v;
+    console.warn(`[sections] ${where}[${j}] 不是非空字符串（${kind}），已跳过`);
+    return false;
+  });
+}
+
+/** 块定位串，由 renderSection 写进 ctx.at（"type=text id=n2"）。 */
+const atOf = (ctx) => (ctx && ctx.at) || '区块';
+
 /** trend -> arrow glyph. Text has no semantic colors, so direction is a mark. */
 const TREND_ARROW = { up: '↑', down: '↓', flat: '–' };
 
@@ -155,6 +173,15 @@ function tierForContext(ctx) {
 const MEASURE_NARRATIVE = 'var(--measure-narrative)';
 const MEASURE_DATA = 'var(--measure-data)';
 
+/**
+ * heading.level 口径（两轨统一，2026-11-19）：缺省 2，钳到 1–6。
+ * 此前三口径打架：content.schema.md 默认 1、MWG 默认 2、本文件恒 level 1（level:2 也出 h1）。
+ * mwg/render.mjs 的 heading() 用同一个表达式，改这里要同步改那里。
+ */
+function headingLevel(p) {
+  return Math.min(Math.max(Number(p && p.level) || 2, 1), 6);
+}
+
 /** Page header: eyebrow / title / badge / sub. No toolbar — see the note below. */
 export function Header(p) {
   return h(
@@ -180,8 +207,9 @@ export function Header(p) {
           p.eyebrow && h(Text, { type: 'supporting' }, p.eyebrow),
           p.badge && h(Badge, { variant: 'info', label: p.badge })
         ),
+        // 视觉恒 display-3（页面主标题），level 只决定 h1–h6 语义标签。
         h(Heading, {
-          level: 1,
+          level: headingLevel(p),
           type: 'display-3',
         }, p.title),
         p.sub && h(Text, { type: 'supporting' }, p.sub)
@@ -237,7 +265,7 @@ export function Cover(p) {
 }
 
 /** Long-form section: items[{n, title, paras[]}]. */
-export function Prose(p) {
+export function Prose(p, ctx) {
   const items = Array.isArray(p.items) ? p.items : [];
   return h(
     VStack,
@@ -248,15 +276,17 @@ export function Prose(p) {
         { key: i, gap: 2, width: '100%', maxWidth: MEASURE_NARRATIVE },
         it.n && h(Text, { type: 'supporting', size: 'sm' }, it.n),
         it.title && h(Heading, { level: 2 }, it.title),
-        ...(it.paras || []).map((para, j) => h(Text, { key: j, type: 'body' }, para))
+        ...stringList(it.paras, `${atOf(ctx)}.items[${i}].paras`).map((para, j) =>
+          h(Text, { key: j, type: 'body' }, para)
+        )
       )
     )
   );
 }
 
 /** Body copy: paras[] / note / size. */
-export function TextBlock(p) {
-  const paras = Array.isArray(p.paras) ? p.paras : [];
+export function TextBlock(p, ctx) {
+  const paras = stringList(p.paras, `${atOf(ctx)}.paras`);
   const type = p.size === 'large' ? 'large' : 'body';
   return h(
     VStack,
@@ -410,8 +440,23 @@ export function Metric(p) {
   );
 }
 
+/**
+ * badge.variant 白名单，与 agent/checks/content.mjs 一致（6 档）。其余值按 neutral
+ * 渲染并报警：Astryx Badge 收到不认识的枚举只会出一片没颜色的白块，不报错。
+ */
+const BADGE_VARIANTS = new Set(['neutral', 'accent', 'info', 'success', 'warning', 'error']);
+// Astryx Badge 没有 accent（枚举只有 neutral/info/success/warning/error + tinted 色组），
+// 契约里的 accent 落到 orange（品牌橙），否则 Badge 收不到枚举就静默出一片白。
+const ASTRYX_BADGE = { accent: 'orange' };
+function badgeVariant(v, where) {
+  const raw = String(v || 'neutral').toLowerCase();
+  if (BADGE_VARIANTS.has(raw)) return ASTRYX_BADGE[raw] || raw;
+  console.warn(`[sections] ${where} 非法 variant="${v}"，按 neutral 渲染（可用: ${[...BADGE_VARIANTS].join(', ')}）`);
+  return 'neutral';
+}
+
 /** Status strip: items[{label, variant, dot}] / align. */
-export function BadgeBlock(p) {
+export function BadgeBlock(p, ctx) {
   const items = Array.isArray(p.items) ? p.items : [];
   const justify = p.align === 'center' ? 'center' : p.align === 'end' ? 'end' : 'start';
   const dotVariant = (variant) =>
@@ -430,7 +475,7 @@ export function BadgeBlock(p) {
         { key: i, gap: 2, vAlign: 'center' },
         it.dot && h(StatusDot, { variant: dotVariant(it.variant), label: it.label }),
         h(Badge, {
-          variant: it.variant || 'neutral',
+          variant: badgeVariant(it.variant, `${atOf(ctx)}.items[${i}].variant`),
           label: it.label,
         })
       )
@@ -1260,15 +1305,26 @@ const CARD_OWNED = new Set(['table', 'matrix', 'card', 'callout', 'device', 'sco
  * quote, text, …) get a surface wrapper so `tone` works everywhere.
  */
 export function renderSection(block, ctx) {
+  // blocks[] 里的 null 以前会变成 `block.type` 上的裸 TypeError（D11），无下标无字段名。
+  if (!block || typeof block !== 'object' || Array.isArray(block)) {
+    const kind = block === null ? 'null' : Array.isArray(block) ? 'array' : typeof block;
+    throw new Error(`sections: 收到 ${kind} 而不是区块对象，请删除该块或补成 {id, type, props}`);
+  }
   const fn = SECTIONS[block.type];
+  const at = `type=${block.type} id=${block.id || '无'}`;
   if (!fn) {
     throw new Error(
-      `sections: 未知区块类型 type="${block.type}"（支持: ${Object.keys(SECTIONS).join(', ')}）`
+      `sections: ${at} 未知区块类型（支持: ${Object.keys(SECTIONS).join(', ')}）`
     );
   }
   const props = block.props || {};
+  // tone 取 props.tone：块级 tone（blocks[].tone）在 Astryx 轨不可达 ——
+  // agent/render.mjs 的 blocksOf() 把块剥成 {id, type, props}，tone 在这一步就丢了。
+  // 所以 Astryx 轨的块级 tone 静默无效（MWG 轨生效）。二选一才能修：
+  // 让 blocksOf 透传 tone（改 agent/render.mjs），或从 content.schema.md 删掉块级 tone。
+  // 本文件不改行为：拿不到 tone 就是 default。
   const tone = surfaceToneOf(props, ctx);
-  const node = fn(props, { ...(ctx || {}), surface: tone });
+  const node = fn(props, { ...(ctx || {}), surface: tone, at });
   if (tone === 'default' || CARD_OWNED.has(block.type)) return node;
   return h('div', { style: surfaceFrame(tone, ctx) }, node);
 }

@@ -106,7 +106,7 @@
     /* 数据图表 8 色（亮色：Google logo 四色 + Material 四色） */
     --g-data-blue:   #4285F4;
     --g-data-red:    #EA4335;
-    --g-data-yellow: #FBBC05; /* 只做大面积填充，禁止描边/文字 */
+    --g-data-yellow: #FBBC05; /* 只做填充；填充边界由 palette 的深描边给（1.53:1 单靠色块看不清） */
     --g-data-green:  #34A853;
     --g-data-purple: #9C27B0;
     --g-data-cyan:   #00ACC1;

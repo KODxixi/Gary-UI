@@ -197,10 +197,13 @@ const CHECKS = (p) => {
   // twice as 「太深」, so they are WAIVED by name with a reason, not given a lower
   // `min`. A waiver shows up in the output; a lowered threshold hides.
   const DATA_MIN = 3;
+  // 2026-11-19：填充仍是 Google 原味，但 viz/palette.mjs 的 painted() 给这三个
+  // 低对比填充加了 1px 深边（同色相 color-mix 压深）—— 形状由边界定形，
+  // 满足 WCAG 1.4.11 的「图形对象边界」。这里量的是填充本身，故仍按名豁免。
   const DATA_WAIVER = {
-    yellow: '只做填充不做线条；压深到 3:1 就不再是 Google 黄',
-    cyan: '大面积填充，色相可辨；压深到 3:1 就不再是 Material cyan',
-    orange: '大面积填充，色相可辨；压深到 3:1 会与 data-red 撞色',
+    yellow: '填充 1.53:1，靠 1px 深边定形（painted()）',
+    cyan: '填充 2.45:1，靠 1px 深边定形（painted()）',
+    orange: '填充 2.46:1，靠 1px 深边定形（painted()）',
   };
   for (const [name, css] of Object.entries(p.dataRgb || {})) {
     add(`data-${name} / card`, parseColor(css), card, DATA_MIN, 'chart mark', DATA_WAIVER[name]);

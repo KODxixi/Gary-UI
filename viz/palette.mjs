@@ -96,17 +96,34 @@ let warnedOverflow = false;
  *   kind='series'/'pair'/'ramp' — categorical: a distinct hue per index (category1..8).
  *   kind='mono' — primary hue stepped by opacity, for value-is-colour encodings.
  */
+// 亮色纸面上 Google 黄 1.53:1、Material cyan 2.45、deep-orange 2.46 —— 光看色块
+// 分不出边界，图例 10×10 小方块尤其糊。这三个色是品牌原味（压深被否过），
+// 所以不改色值，改给填充加 1px 深边：形状由边定，色相仍是原样。
+const EDGE = {
+  'var(--color-data-categorical-yellow)': 'color-mix(in oklab, var(--color-data-categorical-yellow) 52%, #000)',
+  'var(--color-data-categorical-cyan)': 'color-mix(in oklab, var(--color-data-categorical-cyan) 70%, #000)',
+  'var(--color-data-categorical-orange)': 'color-mix(in oklab, var(--color-data-categorical-orange) 70%, #000)',
+};
+
+/** 填充 + 必要的定形边（低对比色才带边，别给已达标色加多余笔画）。 */
+function painted(fill, fillOpacity = 1) {
+  const stroke = EDGE[fill];
+  return stroke
+    ? { fill, fillOpacity, stroke, strokeWidth: 1 }
+    : { fill, fillOpacity };
+}
+
 export function seriesStyle(index, kind = 'single') {
   if (kind === 'mono') {
     const op = PALETTE.mono[index];
     return op === undefined
-      ? { fill: PALETTE.track, fillOpacity: 1 }
-      : { fill: PALETTE.primary, fillOpacity: op };
+      ? painted(PALETTE.track, 1)
+      : painted(PALETTE.primary, op);
   }
   if (kind === 'single' || SINGLE_HUE[kind] !== undefined) {
     const hue = SINGLE_HUE[kind];
-    if (hue === undefined) return { fill: PALETTE.primary, fillOpacity: 1 };
-    return { fill: PALETTE.series[hue] ?? PALETTE.primary, fillOpacity: 1 };
+    if (hue === undefined) return painted(PALETTE.primary, 1);
+    return painted(PALETTE.series[hue] ?? PALETTE.primary, 1);
   }
   const hues = PALETTE.series;
   // 色板只有 8 档，第 9 个分类起 modulo 回落与前面同色 —— 图例出现两个同色块，
@@ -118,7 +135,7 @@ export function seriesStyle(index, kind = 'single') {
     );
   }
   const hue = hues[index % hues.length];
-  return { fill: hue === undefined ? PALETTE.track : hue, fillOpacity: 1 };
+  return painted(hue === undefined ? PALETTE.track : hue, 1);
 }
 
 /** Stroke/fill colour on its own (a line uses stroke + strokeOpacity). */

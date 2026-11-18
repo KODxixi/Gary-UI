@@ -43,6 +43,18 @@ for (const file of files) {
   await page.waitForTimeout(120);
   const bad = await page.evaluate(() => {
     const out = [];
+    // 页面级横向滚动：无空格超长串 / 写死宽度的卡片会把 375px 顶破，
+    // 内容能滑到但整页在手机上不该横向滚动。
+    const de = document.documentElement;
+    if (de.scrollWidth - de.clientWidth > 2) {
+      out.push({
+        el: 'html（整页横向滚动）',
+        overflowX: 'page',
+        clientW: de.clientWidth,
+        scrollW: de.scrollWidth,
+        lost: de.scrollWidth - de.clientWidth,
+      });
+    }
     for (const el of document.querySelectorAll('body *')) {
       const cs = getComputedStyle(el);
       if (cs.overflowX !== 'clip' && cs.overflowX !== 'hidden') continue;

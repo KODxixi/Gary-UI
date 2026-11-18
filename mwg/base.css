@@ -23,6 +23,9 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* 无空格超长串（URL / 英文长词 / 连续数字）会把 375px 页面撑出 404px 横向滚动。
+       anywhere 同时收缩 min-content，栅格项也不会被顶破。 */
+    overflow-wrap: anywhere;
   }
 
   img, svg, video, canvas, audio, iframe, embed, object {

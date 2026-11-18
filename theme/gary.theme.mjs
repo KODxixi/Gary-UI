@@ -208,7 +208,7 @@ export const GARY_TOKEN_OVERRIDES = {
   // Dark mode uses Material 200/300 so the same hue stays legible on the card.
   '--color-data-categorical-blue': ['#4285F4', '#8AB4F8'], // Google logo blue
   '--color-data-categorical-red': ['#EA4335', '#F28B82'], // Google logo red
-  '--color-data-categorical-yellow': ['#FBBC05', '#FDD663'], // Google logo yellow（只填充）
+  '--color-data-categorical-yellow': ['#FBBC05', '#FDD663'], // Google logo yellow：亮色 1.53:1，靠 palette 的 1px 深描边定形（Gary 两次否过压深）
   '--color-data-categorical-green': ['#34A853', '#81C995'], // Google logo green
   '--color-data-categorical-purple': ['#9C27B0', '#CE93D8'], // Material purple 500
   '--color-data-categorical-cyan': ['#00ACC1', '#4DD0E1'], // Material cyan 500

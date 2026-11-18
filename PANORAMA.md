@@ -170,7 +170,7 @@ node viz/render-viz.mjs <in.content.json> -o out/<page>.html
 | `content.mjs` | 内容契约 | 吃 JSON，字段级报错，0.2s。**图表数值必须是 number** |
 | `selfcheck.mjs` | 单文件约束 | 六项：零 `<script>`、零外链、零 CDN、CSS 全内联、无外部资源引用、**零死控件**（MWG 交付轨出现 input/button 即红） |
 | `layout.mjs` | 真实 DOM 几何 | 五条断言，报**实测 px**。改内容改到过闸，不许绕 |
-| `narrow.mjs` | 375px 内容可达性 | 元素内容比自身宽、且 `overflow-x` 为 `clip`/`hidden` 即红——这两种值谁都滑不动，右侧内容等于永久丢失。`auto`/`scroll` 放行 |
+| `narrow.mjs` | 375px 内容可达性 | 两条：①元素内容比自身宽、且 `overflow-x` 为 `clip`/`hidden` 即红——这两种值谁都滑不动，右侧内容等于永久丢失（`auto`/`scroll` 放行）；②`documentElement.scrollWidth - clientWidth > 2` 即红——整页横滑也是缺陷，常见根因是无空格超长串或写死宽度（2026-11-19 补，此前这类全绿放行） |
 | `contrast.mjs` | WCAG AA | 读真实 computed style。**每个文字 token × 每个面（body/card/muted）都按 4.5 测**；语义色只作填充按 1.3；数据八色按 3:1 标记 |
 
 `contrast.mjs` 的这段是 2026-11-18 补的，此前**橙色文字只按 3:1 色块阈值、且只对卡片面测**，导致 4.11:1 的违规全绿放行：
@@ -181,6 +181,23 @@ for (const [tname, tcss] of Object.entries(p.textTokenRgb || {})) { … add(`${t
 ```
 
 **当前闸状态（对现有 out/ 产物实测）**：`selfcheck` exit 0 · `layout` exit 0 · `contrast` exit 0 · `narrow` exit 0。
+
+## 5.1 2026-11-19 一轮全量审计后的机制修补
+
+四条只读审计（契约逐字段 / 极端输入压测 / 色彩对比实测 / 逐页视觉）挖出的 60+ 条里，已修在机制层：
+
+| 层 | 修的是什么 | 落点 |
+|---|---|---|
+| 契约 | 19 个 block type 逐字段对账，删掉「文档承诺、渲染器不读」的静默失效：`toolbar` 整体退役、`card.padding`/`elevation` 标为无效果、badge `variant` 14 档收成真有样式的 6 档（`content.mjs` 挡掉其余 8 档） | `agent/content.schema.md` · `agent/checks/content.mjs` |
+| 两轨 | `heading.level` 三口径（文档 1 / MWG 默认 2 且 h1–h6 / Astryx 恒 h1）统一为缺省 2、钳 1–6；两轨同一表达式 | `mwg/render.mjs` · `agent/recipes/sections.mjs` |
+| 静默 | 缺 `type` 的块不再静默丢弃，改为渲染一块可见的 error callout + stderr 带块序号与合法值；`null` 块从裸 `TypeError` 改为定位到块的 `Error`；`paras:[null,"",{}]` 不再写出 `[object Object]` | `mwg/render.mjs` · `sections.mjs` |
+| 语义 | KPI `trend` 不再按方向染绿/红（方向≠好坏，退货率上涨是坏消息），改为中性；显式 `trendTone: good\|bad` 才着色 | `mwg/components.css` · `mwg/render.mjs` · `content.mjs` |
+| 图表 | 环形 24 扇区图例出框 742→0、线性流程 ≥5 节点重叠 84%→0（蛇形换行）、`nodes: []` 的 `viewBox=-Infinity`、负值扇区算出 200%、KpiTile 写死 420px 撑破 375px、报错不带 block id | `viz/charts.mjs` · `viz/flow.mjs` |
+| 色彩 | Google 黄 1.53:1 / cyan 2.45 / orange 2.46 的填充**不改色相**（压深被否过两次），改由 `painted()` 给 1px 同色相深边定形；`contrast.mjs` 豁免理由同步改写 | `viz/palette.mjs` · `agent/checks/contrast.mjs` |
+| 落款 | `meta.date / author / version` 三个字段契约写了、示例填了、两轨都不渲染 —— 现在渲染成页脚细线落款；`meta.sub/eyebrow/badge` 与 `heading`/`hero` block 重复，明确标为不渲染 | `mwg/render.mjs` · `mwg/components.css` · `content.schema.md` |
+| 闸自身 | `verify:mwg` 的 fullPage 截图约 1/3 概率撞 CDP `Unable to capture screenshot`，让闸随机变红 —— 加一次重试 | `mwg/verify-mwg.mjs` |
+
+`meta.sub/eyebrow/badge` 保留字段但不再渲染，是因为正文里 `heading` / `hero` block 已经承担同一件事，两份都渲染会同一句话出现两次。
 
 ---
 

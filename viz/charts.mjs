@@ -139,6 +139,13 @@ function UnitLabel({ x, y, unit }) {
   );
 }
 
+const LEGEND_ROW = 20;
+/** Legend rows never wrap, so the owning chart must reserve this height itself —
+ *  a fixed 410px box under a 24-series legend pushed 68px past the frame (D3). */
+function legendHeight(series) {
+  return series && series.length > 1 ? series.length * LEGEND_ROW : 0;
+}
+
 /** Right-aligned legend, one row per series, measured so nothing overlaps. */
 function Legend({ series, xRight, y, kind = 'pair' }) {
   if (!series || series.length < 2) return null;
@@ -149,7 +156,7 @@ function Legend({ series, xRight, y, kind = 'pair' }) {
       const name = s.name || `系列${i + 1}`;
       const w = textWidth(name, 12) + 18;
       const x = xRight - w;
-      const rowY = y + i * 20;
+      const rowY = y + i * LEGEND_ROW;
       return h(
         'g',
         { key: `lg${i}` },
@@ -178,10 +185,12 @@ export function BarChart({
   series = [],
   unit = '',
   digits = 0,
-  height = 400,
+  height: heightProp = 400,
   ariaLabel = '柱状图',
   annotations = [],
 }) {
+  // 图例逐行往下排，不换行也不分栏：24 系列会画到框外，所以高度按图例行数兜底（D3）
+  const height = Math.max(heightProp, 20 + legendHeight(series) + 60);
   const padL = 64;
   const padR = 32;
   const padT = 52;
@@ -344,10 +353,12 @@ export function LineChart({
   series = [],
   unit = '',
   digits = 0,
-  height = 410,
+  height: heightProp = 410,
   ariaLabel = '折线图',
   annotations = [],
 }) {
+  // 同上：图例 20px 一行从 y=18 起排，固定 410 高在 24 系列时溢出 68px 并压住脚注（D3）
+  const height = Math.max(heightProp, 18 + legendHeight(series) + 30);
   const padL = 64;
   const padR = 196;
   const padT = 50;
@@ -710,24 +721,32 @@ export function DonutChart({
   items = [],
   unit = '',
   digits = 0,
-  height = 380,
+  height: heightProp = 380,
   centerLabel = '',
   ariaLabel = '环形构成图',
 }) {
   const cx = 300;
-  const cy = height / 2 + 8;
+  const plotH = 380; // 环形本体的占位高，与图例长短无关
+  const rowH = items.length > 12 ? 30 : 46;
+  // 图例按 92 + i*rowH 线性下排：写死 380 高时 24 项画到框外 742px，高度必须按条数算（D2）
+  const height = Math.max(heightProp, 92 + items.length * rowH + 34);
+  const cy = plotH / 2 + 8; // 环心钉在环形区内，不随图例变长下移
   const rOuter = 118;
   const rInner = 72;
-  const sum = items.reduce((a, p) => a + (Number.isFinite(p.value) ? p.value : 0), 0);
+  // 负值不构成占比：sum 只累加正值，否则 100 / (100-50) = 200%、-50 记 -100%（D8）
+  const sum = items.reduce((a, p) => a + (Number.isFinite(p.value) && p.value > 0 ? p.value : 0), 0);
+  const share = (p) =>
+    sum > 0 && Number.isFinite(p.value) && p.value > 0 ? (p.value / sum) * 100 : 0;
   const gapRad = 0.028;
 
   let a = -Math.PI / 2;
   const arcs = items.map((p, i) => {
-    const sweep = sum > 0 ? (p.value / sum) * Math.PI * 2 : 0;
+    const pct = share(p);
+    const sweep = (pct / 100) * Math.PI * 2;
     const mid = a + sweep / 2;
     const d = sweep > gapRad * 2 ? arcPath(cx, cy, rOuter, rInner, a + gapRad, a + sweep - gapRad) : null;
     a += sweep;
-    return { p, i, d, mid, pct: sum > 0 ? (p.value / sum) * 100 : 0 };
+    return { p, i, d, mid, pct };
   });
 
   const legendX = 520;
@@ -778,8 +797,8 @@ export function DonutChart({
     ),
 
     items.map((p, i) => {
-      const pct = sum > 0 ? (p.value / sum) * 100 : 0;
-      const rowY = 92 + i * 46;
+      const pct = share(p);
+      const rowY = 92 + i * rowH;
       return h(
         'g',
         { key: `lg${i}` },
@@ -1028,6 +1047,9 @@ function sourceName(source) {
     .trim();
 }
 
+/** 允许的图表类型；ChartBlock 在取用 props 之前先用它校验。 */
+const CHART_KINDS = ['bar', 'grouped-bar', 'line', 'stacked', 'donut', 'progress', 'sparkline'];
+
 function ChartBody(props) {
   switch (props.chart) {
     case 'bar':
@@ -1042,14 +1064,16 @@ function ChartBody(props) {
     case 'progress':
       return h(ProgressBars, props);
     default:
-      throw new Error(`viz/charts: 未知图表类型 chart="${props.chart}"`);
+      // 兜底：正常路径已在 ChartBlock 里先校验，这里只会被直接调用 ChartBody 时踩到
+      throw new Error(`viz/charts: 未知图表类型 chart="${props.chart}"（block ${props.id || '?'}）`);
   }
 }
 
 export function KpiTile({ label, value, unit, delta, categories, values, note, source }) {
   return h(
     Card,
-    { elevation: 'low', width: '420px', style: { borderRadius: '16px', padding: '24px' } },
+    // 写死 width:'420px' 时 375px 视口整页横向滚 77px；宽度交给容器，420 只当上限（D9）
+    { elevation: 'low', width: '100%', style: { borderRadius: '16px', padding: '24px', maxWidth: '420px' } },
     h(
       VStack,
       { gap: 2 },
@@ -1073,7 +1097,15 @@ export function KpiTile({ label, value, unit, delta, categories, values, note, s
  * title → question → plot → annotations → source/status.
  */
 export function ChartBlock(props) {
-  const { title, question, chart, source, note, annotations, kpi } = props;
+  const { id, title, question, chart, source, note, annotations, kpi } = props;
+
+  // chart 缺失时 switch 的 default 先抛 chart="undefined"：消息里没有 block id，
+  // 且半页已渲染完才炸。校验必须在任何取用之前（D11/D12）
+  if (!CHART_KINDS.includes(chart)) {
+    throw new Error(
+      `viz/charts: block ${id || '?'} 字段 chart ${chart === undefined ? '缺失' : `未知（chart=${JSON.stringify(chart)}）`}；可用: ${CHART_KINDS.join(', ')}`
+    );
+  }
 
   if (chart === 'sparkline') {
     return h(KpiTile, { ...props, ...(kpi || {}) });

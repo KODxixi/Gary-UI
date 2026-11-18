@@ -313,21 +313,30 @@ export function LinearFlow({ nodes = [], edges = [], idPrefix = 'lf', ariaLabel 
   const n = nodes.length;
   const nodeW = 200;
   const nodeH = 96;
-  const gap = n > 1 ? (W - 80 - n * nodeW) / (n - 1) : 0;
+  const rowH = nodeH + 64;
+  /* 一行最多放几个：旧公式 gap=(1040-80-n*200)/(n-1) 在 n=5 就变负，
+     24 节点相邻重叠 161px。改成按可用宽度算列数，超出就换行（D4） */
+  const MIN_GAP = 40;
+  const perRow = Math.max(1, Math.min(n || 1, Math.floor((W - 80 + MIN_GAP) / (nodeW + MIN_GAP))));
+  const gap = perRow > 1 ? (W - 80 - perRow * nodeW) / (perRow - 1) : 0;
   const boxes = nodes.map((node, i) => {
     const hgt = node.kind === 'capsule' ? 56 : nodeH;
+    const r = Math.floor(i / perRow);
+    /* 蛇形换行：偶数行左→右、奇数行右→左，行末到行首是一条竖边，
+       不会横穿整图去够下一行（D4） */
+    const c = r % 2 === 0 ? i % perRow : perRow - 1 - (i % perRow);
     /* every node in the run shares one centre line, so a same-row edge is a
        straight horizontal segment instead of a 20px jog */
-    const cy = 100 + nodeH / 2;
+    const cy = 100 + nodeH / 2 + r * rowH;
     return {
-      x: 40 + i * (nodeW + gap),
+      x: 40 + c * (nodeW + gap),
       y: cy - hgt / 2,
       w: nodeW,
       h: hgt,
       node,
     };
   });
-  const height = 260;
+  const height = 100 + (Math.max(1, Math.ceil(n / perRow)) - 1) * rowH + nodeH + 64;
 
   return h(
     Svg,
@@ -365,7 +374,8 @@ export function BranchFlow({ nodes = [], edges = [], idPrefix = 'bf', ariaLabel 
     decisionH: 96,
   };
   const map = positionsOf(nodes, grid);
-  const rows = Math.max(...nodes.map((nd) => (Number.isFinite(nd.row) ? nd.row : 0)));
+  // nodes:[] 时 Math.max(...[]) = -Infinity，高度跟着变 -Infinity，viewBox 出 "0 0 1040 -Infinity"（D1）
+  const rows = nodes.length ? Math.max(...nodes.map((nd) => (Number.isFinite(nd.row) ? nd.row : 0))) : 0;
   const height = grid.y0 + (rows + 1) * grid.rowH - (grid.rowH - grid.nodeH) + 40;
 
   return h(
@@ -524,9 +534,18 @@ const FLOW_LABEL = {
   swimlane: '泳道流程',
 };
 
+const FLOW_KINDS = Object.keys(FLOW_LABEL);
+
 export function FlowBlock(props) {
   const { flow, title, question, source, status, note, edges = [], nodes = [], lanes = [], id } = props;
   const prefix = `flow-${id || flow}`;
+
+  // 同 charts：flow 缺失时消息里没有 block id、半页已渲染；校验前置并带上 id 与字段名（D11/D12）
+  if (!FLOW_KINDS.includes(flow)) {
+    throw new Error(
+      `viz/flow: block ${id || '?'} 字段 flow ${flow === undefined ? '缺失' : `未知（flow=${JSON.stringify(flow)}）`}；可用: ${FLOW_KINDS.join(', ')}`
+    );
+  }
 
   const body =
     flow === 'linear'
@@ -561,8 +580,8 @@ export function FlowBlock(props) {
       h(
         HStack,
         { gap: 3, wrap: 'wrap', vAlign: 'center' },
-        h(Text, { type: 'supporting', size: 'sm' }, `来源：${source}`),
-        status && h(Badge, { variant: 'neutral', label: status })
+        // status 自 2026-11-17 契约起「保留但不渲染」（chart 轨早已如此），此处删掉徽标只留来源
+        h(Text, { type: 'supporting', size: 'sm' }, `来源：${source}`)
       )
     )
   );
