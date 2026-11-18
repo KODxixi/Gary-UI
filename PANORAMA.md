@@ -2,6 +2,11 @@
 
 > 一份自足的交接书：读完即可对这个仓库做优化、审计、验收，**不需要本会话的前情**。
 > 仓根 `C:/AI/UI/gary-ui`，分支 `master`。生成于 2026-11-18，对应 HEAD `ac122e6`。
+>
+> **风格决策（2026-11-18 Gary 确认）**
+> 浅色：S1 · Paper（暖白纸 #F5F2EC，零阴影，橙色品牌，12px 圆角）
+> 深色：S3 · Carbon（纯中性黑 #111111，零阴影，橙色品牌，12px 圆角）
+> 参考文件：`out/style-pick.html`（10 种风格选型页）
 
 ---
 
@@ -94,16 +99,19 @@ node viz/render-viz.mjs <in.content.json> -o out/<page>.html
 ### 面
 | token | 亮 | 暗 |
 |---|---|---|
-| `background-body` | `#F5F2EC` 暖白纸 | `#171412` 暖黑 |
-| `background-card` / `surface` | `#FFFFFF` | `#241F1B` |
-| `background-muted` / `surface-sunken` | `#EFEAE2` | `#151210` |
-| `background-popover` | `#FFFDF9` | `#252118` |
+| `background-body` | `#F5F2EC` 暖白纸 | `#111111` 纯中性黑 |
+| `background-card` / `surface` | `#FFFFFF` | `#1C1C1C` |
+| `background-muted` / `surface-sunken` | `#EFEAE2` | `#161616` |
+| `background-popover` | `#FFFDF9` | `#222222` |
+
+> **暗色方案 A（2026-11-18 Gary 确认）**：纯中性黑，无色相/棕调。
+> 旧值（暖棕 #171412 / #241F1B）已替换，不再有效。
 
 ### 字
 | token | 亮 | 暗 | 用途 |
 |---|---|---|---|
-| `text-primary` | `#1B1713` | `#F3EEE6` | 15.95:1 |
-| `text-secondary` | `#655C54` | `#A9A096` | 5.85:1 |
+| `text-primary` | `#1B1713` | `#F0F0F0` | 15.95:1 |
+| `text-secondary` | `#655C54` | `#9A9A9A` | 5.85:1 |
 | `text-accent` | `#A35200` | `#FFA94D` | 正文尺寸橙色文字 / 链接 |
 | `text-info` | `#3A5670` | `#9CBCD5` | |
 | `text-warning` | `#7A5C14` | `#e0a93b` | |

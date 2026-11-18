@@ -60,7 +60,7 @@ export const GARY_TOKEN_OVERRIDES = {
 
   // Neutral pale-orange tint of the same hue, for the one or two quiet marks
   // that need an orange field without becoming a colour block.
-  '--color-accent-muted': ['#FFF1E0', '#3A2213'],
+  '--color-accent-muted': ['#FFF1E0', '#2A1A05'],
 
   // Near-black ink for anything sitting ON the bright orange fill. Neutral's
   // on-accent is #ffffff, which is only 2.70:1 on #F57C00 — this is 7.02:1.
@@ -79,14 +79,10 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-text-accent': ['#A35200', '#FFA94D'],
   '--color-icon-accent': ['#A35200', '#FFA94D'],
 
-  // Semantic info returns to a neutral slate blue. History: info was once
-  // re-hued onto the brand-green family so a green callout would not read as a
-  // second brand colour. With an orange accent that rationale is gone — green
-  // has no brand role left and would become a second accent, so info goes back
-  // to a cool neutral that cannot compete with the orange.
+  // Semantic info returns to a neutral slate blue.
   // Contrast: 5.88 on white, 6.59 on the dark card; info text on #EDF1F6 = 6.74.
   '--color-info': ['#4A6785', '#8FAFC9'],
-  '--color-info-muted': ['#EDF1F6', '#1E2A35'],
+  '--color-info-muted': ['#EDF1F6', '#141E28'],
   '--color-on-info': ['#ffffff', '#0C1219'],
   '--color-on-info-muted': ['#2A3D4F', '#CBDCEA'],
   '--color-text-info': ['#3A5670', '#9CBCD5'],
@@ -94,11 +90,8 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-icon-info': ['#4A6785', '#8FAFC9'],
 
   '--color-warning': ['#7f6118', '#e0a93b'],
-  // #fbf3e0 read as white on the page — Gary's callout looked like a plain
-  // paragraph. Deepened one step so the tint is visible without competing
-  // with the orange accent.
-  '--color-warning-muted': ['#fbf6ea', '#3a2f14'],
-  '--color-on-warning': ['#fff6e0', '#0a1317'],
+  '--color-warning-muted': ['#fbf6ea', '#251D08'],
+  '--color-on-warning': ['#fff6e0', '#0a0a0a'],
   '--color-on-warning-muted': ['#4a3810', '#f3e3b5'],
   '--color-text-warning': ['#7A5C14', '#e0a93b'],
   '--color-border-warning': ['#8a6a1f40', '#e0a93b66'],
@@ -109,42 +102,31 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-icon-error': ['#a33a26', '#d58d80'],
 
   // ---- Paper, ink, hairline ------------------------------------------------
-  // Light paper is a warm off-white that still separates from a white card
-  // (measured card-vs-page 1.11, above the 1.08 floor). A colder or lighter
-  // paper would pass "warm" by name and fail separation by measurement.
-  // Dark paper is a warm near-black, not #000 and not the neutral cool grey.
-  '--color-background-body': ['#F5F2EC', '#171412'],
-  '--color-background-surface': ['#FFFFFF', '#241F1B'],
-  '--color-background-card': ['#FFFFFF', '#241F1B'],
-  '--color-background-popover': ['#FFFDF9', '#252118'],
-  '--color-background-muted': ['#EFEAE2', '#151210'],
+  // Light:  warm off-white paper (#F5F2EC) + pure white card. Separation 1.11.
+  // Dark:   PURE NEUTRAL BLACK — no warm/brown hue. Gary decision 2026-11-18.
+  //         #111111 body / #1C1C1C card / #161616 muted. No colour cast.
+  '--color-background-body': ['#F5F2EC', '#111111'],
+  '--color-background-surface': ['#FFFFFF', '#1C1C1C'],
+  '--color-background-card': ['#FFFFFF', '#1C1C1C'],
+  '--color-background-popover': ['#FFFDF9', '#222222'],
+  '--color-background-muted': ['#EFEAE2', '#161616'],
 
-  // Warm ink instead of neutral's pure #000: on paper, pure black reads as
-  // printed ink at 100% coverage and makes every hairline look dirty.
-  '--color-text-primary': ['#1B1713', '#F3EEE6'],
-  '--color-text-secondary': ['#655C54', '#A9A096'],
+  // Light: warm ink (#1B1713). Dark: neutral near-white (#F0F0F0, no hue).
+  '--color-text-primary': ['#1B1713', '#F0F0F0'],
+  '--color-text-secondary': ['#655C54', '#9A9A9A'],
 
-  // Hairlines are warm, low-alpha black in light and low-alpha white in dark.
-  // `--color-border` is measured against the card by the contrast gate (1.19).
-  '--color-border': ['#3A2E241A', '#FFFFFF26'],
-  '--color-border-emphasized': ['#D9D2C7', '#3A342E'],
-  '--color-border-subtle': ['#E6DFD4', '#2A2621'],
+  // Hairlines: warm low-alpha black (light) / neutral low-alpha white (dark).
+  '--color-border': ['#3A2E241A', '#FFFFFF18'],
+  '--color-border-emphasized': ['#D9D2C7', '#333333'],
+  '--color-border-subtle': ['#E6DFD4', '#252525'],
 
-  // Material ladder: raised (read normally) / sunken (supporting, skippable) /
-  // inverse (the one block you must stop for, at most one per page).
-  //   sunken  = paper-level warm grey, borderless
-  //   inverse = warm near-black (hue 30, sat ~12%), the deepest step; NOT the
-  //             chart primary. Orange stays on the content (figures, links,
-  //             emphasis), never as a large background: a big saturated orange
-  //             field reads as a food-delivery app.
-  '--color-surface-raised': ['#FFFFFF', '#241F1B'],
-  '--color-surface-sunken': ['#EFEAE2', '#151210'],
-  '--color-surface-inverse': ['#1C1917', '#0A0907'],
-  '--color-surface-inverse-text': ['#F3EEE6', '#F5F1EA'],
-  '--color-surface-inverse-muted': ['#B7AFA4', '#A79F94'],
-  // Rules inside an inverse block. Inverse is dark in BOTH modes, so this single
-  // translucent white works on both.
-  '--color-border-inverse': ['#FFFFFF2E', '#FFFFFF2E'],
+  // Material ladder.
+  '--color-surface-raised': ['#FFFFFF', '#1C1C1C'],
+  '--color-surface-sunken': ['#EFEAE2', '#161616'],
+  '--color-surface-inverse': ['#1C1917', '#050505'],
+  '--color-surface-inverse-text': ['#F3EEE6', '#EFEFEF'],
+  '--color-surface-inverse-muted': ['#B7AFA4', '#9A9A9A'],
+  '--color-border-inverse': ['#FFFFFF2E', '#FFFFFF26'],
 
   // ---- No elevation --------------------------------------------------------
   // Three tiers of shadow resolve to nothing. Depth is the hairline's job.
