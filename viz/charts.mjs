@@ -341,7 +341,9 @@ export function BarChart({
         textAnchor: 'end',
         style: { fill: PALETTE.textSecondary, fontSize: FONT.small },
       },
-      '基线 0 · 长度即量值'
+      // 编码标签（「基线 0 · 长度即量值」这类）按 opus 终判清空：
+      // 向读者解释图表语法属自我说明，不属于业务页面。
+      ''
     )
   );
 }
@@ -700,7 +702,7 @@ export function StackedBar({
     h(
       'text',
       { x: W - 20, y: chartH - 6, textAnchor: 'end', style: { fill: PALETTE.textSecondary, fontSize: FONT.small } },
-      '每条统一表示整体 · 分母见合计'
+      ''
     )
   );
 }
@@ -841,7 +843,7 @@ export function DonutChart({
     h(
       'text',
       { x: W - 24, y: height - 8, textAnchor: 'end', style: { fill: PALETTE.textSecondary, fontSize: FONT.small } },
-      '互斥 · 合计可校验'
+      ''
     )
   );
 }
@@ -916,7 +918,7 @@ export function ProgressBars({
     h(
       'text',
       { x: W - 24, y: chartH - 8, textAnchor: 'end', style: { fill: PALETTE.textSecondary, fontSize: FONT.small } },
-      '完成率 = 分子/分母（分母写在每行提示里）'
+      ''
     )
   );
 }
