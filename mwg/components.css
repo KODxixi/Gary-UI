@@ -314,7 +314,8 @@
   .g-metric__value {
     font-size: 2rem;
     font-weight: var(--g-weight-bold);
-    color: var(--g-accent);
+    /* 亮橙只做面：拿它当 32px 的字在纸面上 2.7:1，大字号门槛 3:1 也过不去 */
+    color: var(--g-accent-text);
     line-height: 1;
     font-variant-numeric: tabular-nums; /* P2: KPI 等宽数字 */
   }
@@ -799,7 +800,8 @@
     font-size: var(--g-size-large);
     color: var(--g-ink);
     line-height: var(--g-leading-body);
-    font-style: italic;
+    /* 中文没有真斜体，font-style: italic 出来的是几何倾斜（opus 2026-11-19 判硬伤） */
+    font-style: normal;
     max-inline-size: var(--g-measure-narrative);
   }
   .g-quote__source {
