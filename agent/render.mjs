@@ -198,9 +198,11 @@ body {
   background: var(--color-background-body);
   color: var(--color-text-primary);
   line-height: 1.6;
-  /* every numeral in the product — KPI, tables, dates, scores — is tabular,
-     so columns of figures line up without per-component overrides. */
-  font-variant-numeric: tabular-nums;
+  /* tabular-nums is DELIBERATELY not set here. Page-wide tabular figures make
+     narrative numbers ("2024 年增长 11%") look loose: the "1" carries a full
+     digit slot on both sides. Figures are tabular where they must line up —
+     table numeric columns, KPI bands, timeline dates, deltas — and those carry
+     it per cell (hasTabularNumbers in sections.mjs). */
   /* text-wrap is inherited: body-level pretty reaches every Text span/div
      the components emit (they are not <p>), and headings override it with
      balance below. Without this the rule only covered <p>, and Astryx renders

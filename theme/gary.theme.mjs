@@ -42,10 +42,20 @@ export const GARY_TOKEN_OVERRIDES = {
   //   accent       = bright orange, hue 30, value 96% — fills, marks, the KPI
   //                  numeral. Reads as orange; at value 60–72% the same hue
   //                  reads as dark orange / earth = brown.
-  //   text-accent  = deep orange, hue 30, value 72% — body-size text on paper,
-  //                  where the bright tier only makes 2.70:1.
-  // Contrast: accent on the inverse near-black #1C1917 = 6.4 (light) / 9.4 (dark);
-  // text-accent on a white card = 4.60.
+  //   text-accent  = deep orange, hue 30, value 64% — body-size orange text on
+  //                  paper (#A35200). Measured on the warm paper #F5F2EC:
+  //                  6.03:1, and 6.80:1 on a white card.
+  //                  The previous value #B85C00 makes only 4.37:1 on a warm
+  //                  near-white paper (#FAF9F6) and 4.54:1 on ours — a link on
+  //                  paper can fail AA while the same link inside a card passes,
+  //                  which is the silent failure this tier exists to prevent.
+  //                  #B85C00 stays as a LARGE-SIZE-ONLY tier (>=24px, or
+  //                  >=18.66px bold) for headings, never body copy; it is
+  //                  documented here rather than declared as a token because
+  //                  nothing in the current block set uses a large orange
+  //                  headline (the one large orange numeral sits on the inverse
+  //                  surface and needs the bright tier).
+  // Contrast: accent on the inverse near-black #1C1917 = 6.4 (light) / 9.4 (dark).
   '--color-accent': ['#F57C00', '#FFA94D'],
 
   // Neutral pale-orange tint of the same hue, for the one or two quiet marks
@@ -57,9 +67,17 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-on-accent': ['#1A0E00', '#111111'],
 
   // Explicit: these do NOT track accent on their own (links and accent icons
-  // otherwise keep the base theme's colour).
-  '--color-text-accent': ['#B85C00', '#FFA94D'],
-  '--color-icon-accent': ['#B85C00', '#FFA94D'],
+  // otherwise keep the base theme's colour). #A35200, not #B85C00 — see the
+  // accent comment above: the deep tier has to survive on a warm paper page.
+  // ---- Measure (line length) ------------------------------------------------
+  // Two widths, one shared LEFT edge. Narrative copy caps at 680px (~34 CJK
+  // glyphs at 15px); data blocks (tables, KPI bands, charts) run 1080px. The
+  // page column is 1056 today, so the narrative cap is the one doing work: at
+  // full width body copy ran ~60 glyphs and read as a wall.
+  '--measure-narrative': '680px',
+  '--measure-data': '1080px',
+  '--color-text-accent': ['#A35200', '#FFA94D'],
+  '--color-icon-accent': ['#A35200', '#FFA94D'],
 
   // Semantic info returns to a neutral slate blue. History: info was once
   // re-hued onto the brand-green family so a green callout would not read as a
@@ -82,7 +100,7 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-warning-muted': ['#fbf6ea', '#3a2f14'],
   '--color-on-warning': ['#fff6e0', '#0a1317'],
   '--color-on-warning-muted': ['#4a3810', '#f3e3b5'],
-  '--color-text-warning': ['#8a6a1f', '#e0a93b'],
+  '--color-text-warning': ['#7A5C14', '#e0a93b'],
   '--color-border-warning': ['#8a6a1f40', '#e0a93b66'],
   '--color-icon-warning': ['#8a6a1f', '#e0a93b'],
   '--color-border-success': ['#22765d40', '#78c9ac66'],
@@ -141,25 +159,34 @@ export const GARY_TOKEN_OVERRIDES = {
   '--font-family-heading': GARY_FONT_STACK,
 
   // ---- Type ladder ---------------------------------------------------------
-  // 34 / 28 / 20 / 16 / 15 / 13. Display and heading-1 are fluid: clamp keeps
-  // the cover title from turning into a wall of 34px on a narrow page without
-  // introducing a second hard step. Body copy runs 15/24 (1.6) — 14px packed
-  // 54 CJK glyphs per line and read as a wall.
+  // Ladder: cover 34 / page h1 26–30 / h2 20 / h3 16 / body 15 / supporting 13.
+  // display-2 (cover) and display-3 (page header) are deliberately DIFFERENT
+  // steps: same value on both made the two levels visually identical.
+  // Sizes are fluid (clamp) so a narrow page does not jump a hard step.
+  // Body copy runs 15/24 (1.6) — 14px packed 54 CJK glyphs per line and read as
+  // a wall.
+  //
+  // WEIGHTS: 600 / 500 / 400 only. Nothing >= 700. Reason: on Windows,
+  // Microsoft YaHei ships Light/Regular/Bold — 700 is already its heaviest cut,
+  // and anything above is synthesised and smears the strokes. Because 500/600
+  // both render as Bold in YaHei, hierarchy may NOT lean on weight alone: every
+  // level difference here also carries a size step and an ink step
+  // (primary / secondary), which is what actually reads in Chinese.
   '--text-display-2-size': 'clamp(1.875rem, 3.4vw, 2.125rem)',
   '--text-display-2-leading': '1.2',
-  '--text-display-2-weight': '700',
-  '--text-display-3-size': 'clamp(1.875rem, 3.4vw, 2.125rem)',
+  '--text-display-2-weight': '600',
+  '--text-display-3-size': 'clamp(1.625rem, 2.8vw, 1.875rem)',
   '--text-display-3-leading': '1.2',
-  '--text-display-3-weight': '700',
+  '--text-display-3-weight': '600',
   '--text-heading-1-size': 'clamp(1.5rem, 2.6vw, 1.75rem)',
   '--text-heading-1-leading': '1.3',
-  '--text-heading-1-weight': '700',
+  '--text-heading-1-weight': '600',
   '--text-heading-2-size': '1.25rem',
   '--text-heading-2-leading': '1.35',
-  '--text-heading-2-weight': '700',
+  '--text-heading-2-weight': '600',
   '--text-heading-3-size': '1rem',
   '--text-heading-3-leading': '1.4',
-  '--text-heading-3-weight': '700',
+  '--text-heading-3-weight': '600',
   '--text-body-size': '0.9375rem',
   '--text-body-leading': '1.6',
   // Large is quote / lead copy: one step up, same leading, normal weight —
@@ -169,6 +196,11 @@ export const GARY_TOKEN_OVERRIDES = {
   '--text-large-weight': '400',
   '--text-supporting-size': '0.8125rem',
   '--text-supporting-leading': '1.55',
+  // Labels / table headers / numerals use 500; body 400. The base theme's
+  // heading-4..6 and any component that asks for "bold" resolve to 600 here,
+  // so no rule in the inline sheet can emit 700.
+  '--text-label-weight': '500',
+  '--font-weight-bold': '600',
 
   // Radius hierarchy: element/container 12, inner 8, full stays 9999.
   '--radius-element': '12px',

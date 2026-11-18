@@ -145,11 +145,30 @@ function tierForContext(ctx) {
   return cols >= 4 ? 'small' : 'medium';
 }
 
+/**
+ * Measure (line length), from theme tokens so the two widths stay one decision.
+ *   narrative  680px — body / prose / quote / cover sub. ~34 CJK glyphs at 15px.
+ *   data       1080px — tables, KPI bands, charts (the page column is 1056, so
+ *                      the cap only binds on a wider shell).
+ * Both share the LEFT edge: a report is one column with a wider exception, not
+ * a stack of centred islands.
+ */
+const MEASURE_NARRATIVE = 'var(--measure-narrative)';
+const MEASURE_DATA = 'var(--measure-data)';
+
 /** Page header: eyebrow / title / badge / sub, optional toolbar. */
 export function Header(p) {
   return h(
     VStack,
-    { gap: 4 },
+    {
+      gap: 4,
+      // Heading rhythm is asymmetric on purpose: the gap ABOVE a section title
+      // must read as "this title belongs to what follows", not as the tail of
+      // the previous block. Measured against the recipe gaps (report 40px,
+      // table 24px): above = 24+gap -> 64 / 48, below = gap-12 -> 28 / 12.
+      // Equal top/bottom is the single most common default-stylesheet mistake.
+      style: { marginTop: '24px', marginBottom: '-12px' },
+    },
     h(
       HStack,
       { justify: 'between', align: 'center', gap: 5, wrap: 'wrap' },
@@ -208,7 +227,12 @@ export function Cover(p) {
       level: 1,
       type: 'display-2',
     }, p.title),
-    p.sub && h(Text, { type: 'body' }, p.sub),
+    p.sub &&
+      h(
+        Text,
+        { type: 'body', display: 'block', style: { maxWidth: MEASURE_NARRATIVE } },
+        p.sub
+      ),
     Array.isArray(p.meta) &&
       p.meta.length > 0 &&
       h(
@@ -231,11 +255,11 @@ export function Prose(p) {
   const items = Array.isArray(p.items) ? p.items : [];
   return h(
     VStack,
-    { gap: 6 },
+    { gap: 6, width: '100%', maxWidth: MEASURE_NARRATIVE },
     items.map((it, i) =>
       h(
         VStack,
-        { key: i, gap: 2 },
+        { key: i, gap: 2, width: '100%', maxWidth: MEASURE_NARRATIVE },
         it.n && h(Text, { type: 'supporting', size: 'sm' }, it.n),
         it.title && h(Heading, { level: 2 }, it.title),
         ...(it.paras || []).map((para, j) => h(Text, { key: j, type: 'body' }, para))
@@ -250,7 +274,7 @@ export function TextBlock(p) {
   const type = p.size === 'large' ? 'large' : 'body';
   return h(
     VStack,
-    { gap: 3, width: '100%', maxWidth: '660px' },
+    { gap: 3, width: '100%', maxWidth: MEASURE_NARRATIVE },
     paras.map((para, i) => h(Text, { key: i, type, display: 'block' }, para)),
     p.note &&
       h(
@@ -285,6 +309,18 @@ function CardHead(title, note) {
     note && h(Text, { type: 'supporting' }, note)
   );
 }
+
+/**
+ * Section title that sits OUTSIDE a card (metric band, timeline, steps).
+ *
+ * The block rhythm alone gives every section an equal gap above and below, so a
+ * title looks like it is closing the previous block. This pushes it 12px further
+ * down: on the report shell (40px block gap) the gap above reads 52px while the
+ * gap below stays at the 16px inner stack gap — the title unmistakably belongs
+ * to what follows. Titles INSIDE a card (CardHead / scorecard / table) keep the
+ * tuned card gaps and must not use this.
+ */
+const sectionTitle = (text) => h(Heading, { level: 2, style: { marginTop: '12px' } }, text);
 
 /** Delta line: trend arrow + tabular value, coloured by the wrapper. */
 function DeltaLine(it, color) {
@@ -367,7 +403,7 @@ export function Metric(p) {
       h(
         HStack,
         { justify: 'between', align: 'baseline', gap: 4, wrap: 'wrap' },
-        p.title && h(Heading, { level: 2 }, p.title),
+        p.title && sectionTitle(p.title),
         p.note && h(Text, { type: 'supporting' }, p.note)
       ),
     h(
@@ -379,6 +415,7 @@ export function Metric(p) {
           gridTemplateColumns: `1.35fr repeat(${siblings}, 1fr)`,
           columnGap: '16px',
           width: '100%',
+          maxWidth: MEASURE_DATA,
           alignItems: 'stretch',
         },
       },
@@ -701,7 +738,7 @@ export function TimelineBlock(p, ctx) {
   return h(
     VStack,
     { gap: 4, width: '100%' },
-    p.title && h(Heading, { level: 2 }, p.title),
+    p.title && sectionTitle(p.title),
     h(
       VStack,
       { gap: 4, width: '100%' },
@@ -880,7 +917,7 @@ export function StepsBlock(p) {
   return h(
     VStack,
     { gap: 4, width: '100%' },
-    p.title && h(Heading, { level: 2 }, p.title),
+    p.title && sectionTitle(p.title),
     h(
       'div',
       { 'data-gary': 'steps', style: { position: 'relative', width: '100%' } },
@@ -975,6 +1012,7 @@ export function QuoteBlock(p) {
     {
       style: {
         width: '100%',
+        maxWidth: MEASURE_NARRATIVE,
         borderLeft: `4px solid var(${token})`,
         paddingLeft: '20px',
       },

@@ -165,6 +165,23 @@ const CHECKS = (p) => {
   for (const key of ['success', 'warning', 'error', 'info']) {
     add(`${key} / card`, parseColor(semantic[key]), card, 1.3, 'semantic fill');
   }
+  // Text tokens are contracts: every one must be readable on every surface it can
+  // actually land on. `text-accent` used to be checked only at the 3:1 mark floor and
+  // only against the card — so #B85C00 printed PASS at 4.60 while sitting at 4.11 on
+  // the page and 3.84 on muted. The gate was green because it never measured them.
+  // One row per (token, surface) pair, floor = AA body text.
+  const surfaces = [
+    ['body', bodyBg],
+    ['card', card],
+    ['muted', parseColor(p.mutedBg) ?? bodyBg],
+  ];
+  for (const [tname, tcss] of Object.entries(p.textTokenRgb || {})) {
+    const fg = parseColor(tcss);
+    if (!fg) continue;
+    for (const [sname, sbg] of surfaces) {
+      add(`${tname} / ${sname}`, fg, sbg, 4.5, 'body-size text');
+    }
+  }
   add('accent / card', parseColor(p.accentRgb), card, 3, 'accent mark');
 
   // Chart data colours. Untested before this — a palette change could ship
@@ -201,6 +218,8 @@ async function run(files) {
       const rgb = await page.evaluate(() => {
         const names = [
           'success', 'warning', 'error', 'info', 'text-accent',
+          'text-primary', 'text-secondary', 'text-warning', 'text-info',
+          'background-body', 'background-card', 'background-muted',
           'data-categorical-blue', 'data-categorical-red', 'data-categorical-yellow',
           'data-categorical-green', 'data-categorical-purple', 'data-categorical-cyan',
           'data-categorical-orange', 'data-categorical-gray',
@@ -222,6 +241,12 @@ async function run(files) {
         info: rgb.info,
       };
       p.accentRgb = rgb['text-accent'];
+      p.mutedBg = rgb['background-muted'];
+      p.textTokenRgb = {
+        'text-accent': rgb['text-accent'],
+        'text-warning': rgb['text-warning'],
+        'text-info': rgb['text-info'],
+      };
       p.dataRgb = {};
       for (const n of Object.keys(rgb)) {
         if (n.startsWith('data-categorical-')) p.dataRgb[n.slice(17)] = rgb[n];
