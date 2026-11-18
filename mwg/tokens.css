@@ -1,0 +1,172 @@
+/**
+ * Gary-UI MWG Tokens
+ * 来源：theme/gary.theme.mjs + Gary 确认的 Carbon 暗色决策 (2026-11-18)
+ * 纯原生 CSS Custom Properties，无框架依赖。
+ */
+
+@layer gary.tokens {
+  :root {
+    /* ── 字体与字阶 ────────────────────────────────────────── */
+    --g-font-body: "Helvetica Neue", Helvetica, "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    --g-font-heading: "Helvetica Neue", Helvetica, "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+
+    --g-weight-normal: 400;
+    --g-weight-label:  500;
+    --g-weight-bold:   600; /* Windows 微软雅黑 700 笔画发糊，上限 600 */
+
+    --g-size-display2: clamp(1.875rem, 3.4vw, 2.125rem);
+    --g-size-display3: clamp(1.625rem, 2.8vw, 1.875rem);
+    --g-size-h1:       clamp(1.5rem, 2.6vw, 1.75rem);
+    --g-size-h2:       1.25rem;
+    --g-size-h3:       1rem;
+    --g-size-large:    1.0625rem;
+    --g-size-body:     0.9375rem; /* 15px 拍板值 */
+    --g-size-support:  0.8125rem; /* 13px */
+
+    --g-leading-display: 1.2;
+    --g-leading-heading: 1.35;
+    --g-leading-body:    1.6;
+    --g-leading-support: 1.55;
+
+    /* ── 行长（Measure） ──────────────────────────────────── */
+    --g-measure-narrative: 680px;  /* 叙述段落：约 34 个汉字 */
+    --g-measure-data:      1080px; /* 数据块：表格、图表、KPI 组 */
+    --g-measure-shell:     1120px;
+
+    /* ── 页面骨架竖向节奏（Recipe 间距） ──────────────────── */
+    --g-gap: 2rem;
+
+    /* ── 圆角系统 ─────────────────────────────────────────── */
+    --g-radius-element:   12px;
+    --g-radius-container: 12px;
+    --g-radius-inner:     8px;
+    --g-radius-full:      9999px;
+
+    /* ── 阴影（全归零，靠 1px hairline + 面差） ───────────── */
+    --g-shadow-low:  none;
+    --g-shadow-med:  none;
+    --g-shadow-high: none;
+
+    /* ════ 亮色：S1 · Paper（暖白纸面） ══════════════════════ */
+    --g-bg-body:    #F5F2EC; /* 暖白纸面 */
+    --g-bg-surface: #FFFFFF; /* 卡片白面 */
+    --g-bg-card:    #FFFFFF;
+    --g-bg-popover: #FFFDF9;
+    --g-bg-muted:   #EFEAE2; /* 次要凹陷面 */
+
+    /* 文字色 */
+    --g-ink:           #1B1713; /* 暖墨，15.95:1 */
+    --g-ink-secondary: #655C54; /* 辅字，5.85:1 */
+    --g-ink-disabled:  #9E968D;
+
+    /* 品牌橙（双层制） */
+    --g-accent:       #F57C00; /* 亮橙：只做面、色块、图标、KPI 数字 */
+    --g-accent-muted: #FFF1E0; /* 同色相浅橙底 */
+    --g-accent-text:  #A35200; /* 深橙：正文尺寸文字/链接（纸面 4.99:1 / 白底 5.58:1） */
+    --g-on-accent:    #1A0E00; /* 亮橙底上的文字：近黑，7.02:1（白字只有 2.70:1 严禁使用） */
+
+    /* 边框细线（Hairline） */
+    --g-border:            #3A2E241A;
+    --g-border-emphasized: #D9D2C7;
+    --g-border-subtle:     #E6DFD4;
+
+    /* 材质阶梯（Material Ladder） */
+    --g-surface-raised:        #FFFFFF;
+    --g-surface-sunken:        #EFEAE2;
+    --g-surface-inverse:       #1C1917; /* 反白块：一页最多一个 */
+    --g-surface-inverse-ink:   #F3EEE6;
+    --g-surface-inverse-muted: #B7AFA4;
+    --g-border-inverse:        #FFFFFF2E;
+
+    /* 语义色（P1 收拢：每套统一 5 属性） */
+    --g-info:        #4A6785;
+    --g-info-muted:  #EDF1F6;
+    --g-info-text:   #3A5670;
+    --g-info-border: #4A678540;
+
+    --g-warning:        #7A5C14;
+    --g-warning-muted:  #FBF6EA;
+    --g-warning-text:   #7A5C14;
+    --g-warning-border: #7A5C1440;
+
+    --g-success:        #22765D;
+    --g-success-muted:  #F0FAF6;
+    --g-success-text:   #22765D;
+    --g-success-border: #22765D40;
+
+    --g-error:        #A33A26;
+    --g-error-muted:  #FDF2F0;
+    --g-error-text:   #A33A26;
+    --g-error-border: #A33A2640;
+
+    /* 数据图表 8 色（亮色：Google logo 四色 + Material 四色） */
+    --g-data-blue:   #4285F4;
+    --g-data-red:    #EA4335;
+    --g-data-yellow: #FBBC05; /* 只做大面积填充，禁止描边/文字 */
+    --g-data-green:  #34A853;
+    --g-data-purple: #9C27B0;
+    --g-data-cyan:   #00ACC1;
+    --g-data-orange: #FF7043;
+    --g-data-gray:   #78909C;
+  }
+
+  /* ════ 暗色：S3 · Carbon（中性黑 #111111，Gary 2026-11-18 确认） ══ */
+  [data-theme="dark"] {
+    --g-bg-body:    #111111; /* 纯中性黑，绝无暖棕色调 */
+    --g-bg-surface: #1C1C1C;
+    --g-bg-card:    #1C1C1C;
+    --g-bg-popover: #222222;
+    --g-bg-muted:   #161616;
+
+    --g-ink:           #F0F0F0;
+    --g-ink-secondary: #9A9A9A;
+    --g-ink-disabled:  #666666;
+
+    --g-accent:       #FFA94D;
+    --g-accent-muted: #2A1A05;
+    --g-accent-text:  #FFA94D;
+    --g-on-accent:    #111111;
+
+    --g-border:            #FFFFFF18;
+    --g-border-emphasized: #333333;
+    --g-border-subtle:     #252525;
+
+    --g-surface-raised:        #1C1C1C;
+    --g-surface-sunken:        #161616;
+    --g-surface-inverse:       #050505;
+    --g-surface-inverse-ink:   #EFEFEF;
+    --g-surface-inverse-muted: #9A9A9A;
+    --g-border-inverse:        #FFFFFF26;
+
+    /* 语义色暗色 */
+    --g-info:        #8FAFC9;
+    --g-info-muted:  #141E28;
+    --g-info-text:   #9CBCD5;
+    --g-info-border: #8FAFC966;
+
+    --g-warning:        #E0A93B;
+    --g-warning-muted:  #251D08;
+    --g-warning-text:   #E0A93B;
+    --g-warning-border: #E0A93B66;
+
+    --g-success:        #78C9AC;
+    --g-success-muted:  #0A2018;
+    --g-success-text:   #78C9AC;
+    --g-success-border: #78C9AC66;
+
+    --g-error:        #D58D80;
+    --g-error-muted:  #2A1010;
+    --g-error-text:   #D58D80;
+    --g-error-border: #D58D8066;
+
+    /* 数据图表 8 色暗色（Material 200/300） */
+    --g-data-blue:   #8AB4F8;
+    --g-data-red:    #F28B82;
+    --g-data-yellow: #FDD663;
+    --g-data-green:  #81C995;
+    --g-data-purple: #CE93D8;
+    --g-data-cyan:   #4DD0E1;
+    --g-data-orange: #FFAB91;
+    --g-data-gray:   #B0BEC5;
+  }
+}
