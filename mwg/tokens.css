@@ -36,10 +36,14 @@
     /* ── 页面骨架竖向节奏（Recipe 间距） ──────────────────── */
     --g-gap: 2rem;
 
-    /* ── 圆角系统 ─────────────────────────────────────────── */
-    --g-radius-element:   12px;
-    --g-radius-container: 12px;
+    /* ── P4 圆角四档系统 ──────────────────────────────────── */
     --g-radius-inner:     8px;
+    --g-radius-sm:        12px;
+    --g-radius-md:        14px;
+    --g-radius-lg:        18px;
+    --g-radius-xl:        20px;
+    --g-radius-element:   12px;
+    --g-radius-container: 18px;
     --g-radius-full:      9999px;
 
     /* ── 阴影（全归零，靠 1px hairline + 面差） ───────────── */
@@ -63,7 +67,7 @@
     --g-accent:       #F57C00; /* 亮橙：只做面、色块、图标、KPI 数字 */
     --g-accent-muted: #FFF1E0; /* 同色相浅橙底 */
     --g-accent-text:  #A35200; /* 深橙：正文尺寸文字/链接（纸面 4.99:1 / 白底 5.58:1） */
-    --g-on-accent:    #1A0E00; /* 亮橙底上的文字：近黑，7.02:1（白字只有 2.70:1 严禁使用） */
+    --g-on-accent:    #1A0E00; /* 亮橙底上的文字：近黑，7.02:1 */
 
     /* 边框细线（Hairline） */
     --g-border:            #3A2E241A;
@@ -78,7 +82,7 @@
     --g-surface-inverse-muted: #B7AFA4;
     --g-border-inverse:        #FFFFFF2E;
 
-    /* 语义色（P1 收拢：每套统一 5 属性） */
+    /* 语义色（P1 收拢：每套统一基础色 + muted + text + border） */
     --g-info:        #4A6785;
     --g-info-muted:  #EDF1F6;
     --g-info-text:   #3A5670;
@@ -89,15 +93,15 @@
     --g-warning-text:   #7A5C14;
     --g-warning-border: #7A5C1440;
 
-    --g-success:        #22765D;
-    --g-success-muted:  #F0FAF6;
-    --g-success-text:   #22765D;
-    --g-success-border: #22765D40;
+    --g-success:        #1E6B54;
+    --g-success-muted:  #EDF7F3;
+    --g-success-text:   #1E6B54;
+    --g-success-border: #1E6B5440;
 
-    --g-error:        #A33A26;
+    --g-error:        #9E3623;
     --g-error-muted:  #FDF2F0;
-    --g-error-text:   #A33A26;
-    --g-error-border: #A33A2640;
+    --g-error-text:   #9E3623;
+    --g-error-border: #9E362340;
 
     /* 数据图表 8 色（亮色：Google logo 四色 + Material 四色） */
     --g-data-blue:   #4285F4;
@@ -108,6 +112,58 @@
     --g-data-cyan:   #00ACC1;
     --g-data-orange: #FF7043;
     --g-data-gray:   #78909C;
+
+    /* ── 标准别名（与 theme/gary.theme.mjs 及 viz/* 对齐） ────── */
+    --color-background-body:    var(--g-bg-body);
+    --color-background-surface: var(--g-bg-surface);
+    --color-background-card:    var(--g-bg-card);
+    --color-background-popover: var(--g-bg-popover);
+    --color-background-muted:   var(--g-bg-muted);
+
+    --color-surface-raised:        var(--g-surface-raised);
+    --color-surface-sunken:        var(--g-surface-sunken);
+    --color-surface-inverse:       var(--g-surface-inverse);
+    --color-surface-inverse-text:  var(--g-surface-inverse-ink);
+    --color-surface-inverse-muted: var(--g-surface-inverse-muted);
+
+    --color-text-primary:   var(--g-ink);
+    --color-text-secondary: var(--g-ink-secondary);
+    --color-text-accent:    var(--g-accent-text);
+    --color-text-info:      var(--g-info-text);
+    --color-text-warning:   var(--g-warning-text);
+    --color-text-success:   var(--g-success-text);
+    --color-text-error:     var(--g-error-text);
+
+    --color-accent:       var(--g-accent);
+    --color-accent-muted: var(--g-accent-muted);
+    --color-on-accent:    var(--g-on-accent);
+
+    --color-info:     var(--g-info);
+    --color-warning:  var(--g-warning);
+    --color-success:  var(--g-success);
+    --color-error:    var(--g-error);
+
+    --color-border:            var(--g-border);
+    --color-border-emphasized: var(--g-border-emphasized);
+    --color-border-subtle:     var(--g-border-subtle);
+    --color-border-inverse:    var(--g-border-inverse);
+    --color-track:             var(--g-border-subtle);
+
+    --color-data-primary:            var(--g-data-blue);
+    --color-data-categorical-blue:   var(--g-data-blue);
+    --color-data-categorical-red:    var(--g-data-red);
+    --color-data-categorical-yellow: var(--g-data-yellow);
+    --color-data-categorical-green:  var(--g-data-green);
+    --color-data-categorical-purple: var(--g-data-purple);
+    --color-data-categorical-cyan:   var(--g-data-cyan);
+    --color-data-categorical-orange: var(--g-data-orange);
+    --color-data-categorical-gray:   var(--g-data-gray);
+
+    --font-family-body:    var(--g-font-body);
+    --font-family-heading: var(--g-font-heading);
+    --font-size-base:      14px;
+    --font-size-sm:        12px;
+    --font-size-2xl:       24px;
   }
 
   /* ════ 暗色：S3 · Carbon（中性黑 #111111，Gary 2026-11-18 确认） ══ */
@@ -127,9 +183,9 @@
     --g-accent-text:  #FFA94D;
     --g-on-accent:    #111111;
 
-    --g-border:            #FFFFFF18;
-    --g-border-emphasized: #333333;
-    --g-border-subtle:     #252525;
+    --g-border:            #FFFFFF24;
+    --g-border-emphasized: #383838;
+    --g-border-subtle:     #2D2D2D;
 
     --g-surface-raised:        #1C1C1C;
     --g-surface-sunken:        #161616;

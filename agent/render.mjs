@@ -254,6 +254,20 @@ p, li, figcaption, blockquote { text-wrap: pretty; }
   }
 }
 ${inlineCss()}
+/* P2: 表格数字等宽对齐（放在 inlineCss 之后以覆盖 layer 内的 StyleX 原子类） */
+.astryx-table td,
+.astryx-table th,
+.astryx-table td .astryx-text,
+.astryx-table th .astryx-text {
+  font-variant-numeric: tabular-nums;
+}
+/* 375px 窄屏响应式单列折叠 */
+@media (max-width: 520px) {
+  [data-gary="kpi"] { grid-template-columns: 1fr !important; row-gap: 12px; }
+  [data-gary="kpi-card"] { grid-row: auto !important; }
+  .astryx-grid { grid-template-columns: 1fr !important; --x-gridTemplateColumns: 1fr !important; }
+  [data-gary="steps"] > ol { grid-template-columns: 1fr !important; flex-direction: column !important; }
+}
 </style>
 </head>
 <body>

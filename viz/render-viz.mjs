@@ -118,6 +118,12 @@ function main() {
 body { margin: 0; background: var(--color-background-body); color: var(--color-text-primary); }
 *, *::before, *::after { box-sizing: border-box; }
 ${inlineCss()}
+.astryx-table td,
+.astryx-table th,
+.astryx-table td .astryx-text,
+.astryx-table th .astryx-text {
+  font-variant-numeric: tabular-nums;
+}
 </style>
 </head>
 <body>

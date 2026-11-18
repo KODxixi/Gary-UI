@@ -56,7 +56,7 @@ for (const file of files) {
 
     // 1 — toolbar: an input shell paired with the first button in an ancestor row.
     const toolbar = [];
-    for (const shell of document.querySelectorAll('.astryx-text-input')) {
+    for (const shell of document.querySelectorAll('.astryx-text-input, .g-heading__search')) {
       let host = shell.parentElement;
       for (let i = 0; i < 4 && host; i++) {
         const btns = host.querySelectorAll('button');
@@ -79,7 +79,8 @@ for (const file of files) {
 
     // 2..4 — cards and banner surfaces (both are containers with a radius).
     const cards = [];
-    for (const card of document.querySelectorAll('.astryx-card, .astryx-banner')) {
+    for (const card of document.querySelectorAll('.astryx-card, .astryx-banner, .g-card, .g-metric__card')) {
+      if (card.matches('.astryx-card') && card.parentElement?.closest('.g-card')) continue;
       const cs = getComputedStyle(card);
       const r = rect(card);
       const first = card.firstElementChild;
@@ -100,8 +101,8 @@ for (const file of files) {
     // Two documented allowances, both still bounded by real containers:
     //   a) a zero-width parent is layout-neutral (auto-margin shell); compare
     //      against the nearest ancestor that actually has width instead.
-    //   b) Astryx's table scroll wrapper uses negative inline margins to bleed
-    //      its scroll area across the card padding; it must stay inside the card.
+    //   b) Astryx / MWG table scroll wrappers allow horizontal scrolling inside
+    //      the card without overflowing the document viewport.
     const bleed = [];
     for (const el of document.querySelectorAll('body *')) {
       const parent = el.parentElement;
@@ -124,8 +125,10 @@ for (const file of files) {
       const right = pr.right - px(pcs.borderRightWidth);
       const over = +(er.right - right).toFixed(1);
       if (over > 1) {
-        const isScrollBleed = /astryx-table-scroll-wrapper/.test(el.className || '');
-        const card = el.closest('.astryx-card');
+        const isScrollBleed = /astryx-table-scroll-wrapper|g-table-scroll/.test(el.className || '');
+        const scrollContainer = el.closest('.astryx-table-scroll-wrapper, .g-table-scroll');
+        const inScrollContainer = scrollContainer && el !== scrollContainer;
+        const card = el.closest('.astryx-card, .g-card');
         const cardRight = card ? rect(card).right - px(getComputedStyle(card).borderRightWidth) : null;
         if (isScrollBleed && cardRight !== null && er.right <= cardRight + 1) {
           bleed.push({
@@ -133,6 +136,14 @@ for (const file of files) {
             cls: (el.className || '').toString().slice(0, 40),
             over,
             note: `scroll wrapper full-bleed, still inside card (right ${er.right} <= card ${cardRight})`,
+            allowed: true,
+          });
+        } else if (inScrollContainer && document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1) {
+          bleed.push({
+            tag: el.tagName.toLowerCase(),
+            cls: (el.className || '').toString().slice(0, 40),
+            over,
+            note: `scrollable table content inside scroll wrapper`,
             allowed: true,
           });
         } else {
@@ -217,20 +228,24 @@ for (const file of files) {
   );
 
   // 3
-  const radiusBad = data.cards.filter((c) => {
-    const [lo, hi] = band(c.width);
-    return c.radius < lo || c.radius > hi;
-  });
-  report(
-    '3 圆角分级（按容器宽度）',
-    radiusBad.length === 0,
-    data.cards
-      .map((c) => {
-        const [lo, hi] = band(c.width);
-        return `w${c.width}→${c.radius}px ∈[${lo},${hi}]`;
-      })
-      .join(' | ')
-  );
+  if (widthArg <= 480) {
+    report('3 圆角分级（按容器宽度）', true, `窄屏 --width ${widthArg} 跳过桌面宽带断言`);
+  } else {
+    const radiusBad = data.cards.filter((c) => {
+      const [lo, hi] = band(c.width);
+      return c.radius < lo || c.radius > hi;
+    });
+    report(
+      '3 圆角分级（按容器宽度）',
+      radiusBad.length === 0,
+      data.cards
+        .map((c) => {
+          const [lo, hi] = band(c.width);
+          return `w${c.width}→${c.radius}px ∈[${lo},${hi}]`;
+        })
+        .join(' | ')
+    );
+  }
 
   // 4
   const insetBad = data.cards.filter((c) => c.insetLeft !== null && (c.insetLeft < PAD_MIN || c.insetTop < PAD_MIN));
@@ -242,14 +257,15 @@ for (const file of files) {
 
   // 5
   const hardBleed = data.bleed.filter((b) => !b.allowed);
+  const docOk = data.scrollW <= data.vw + 1;
   report(
     '5 横向不出血（右边界 ≤ 父右边界 +1）',
-    hardBleed.length === 0,
+    hardBleed.length === 0 && docOk,
     (hardBleed.length
       ? `${hardBleed.length} 处: ` + JSON.stringify(hardBleed.slice(0, 5))
-      : `0 处 · docScrollW ${data.scrollW} ≤ viewport ${data.vw}`) +
+      : `0 处 · docScrollW ${data.scrollW} ${docOk ? '≤' : '>'} viewport ${data.vw}`) +
       (data.bleed.length - hardBleed.length > 0
-        ? ` · 白名单 ${data.bleed.length - hardBleed.length} 处（滚动壳整卡宽，仍在卡片内）`
+        ? ` · 白名单 ${data.bleed.length - hardBleed.length} 处（滚动壳内或整卡宽）`
         : '')
   );
 

@@ -1,15 +1,19 @@
 /**
- * Gary-UI MWG Renderer · 纯原生 HTML/CSS 编译器
+ * Gary-UI MWG Renderer · 纯原生 HTML/CSS 编译器（零脚本单文件）
  *
- *   node mwg/render.mjs <content.json> -o <out.html>
+ *   node mwg/render.mjs <content.json> -o <out.html> [--theme light|dark]
  *
- * 输入：content.json 契约
- * 输出：零外部依赖、零第三方框架、零 CDN 的单文件原生 HTML（~20KB - 30KB）
+ * 输入：content.json 契约（支持全部 18 类基础区块 + chart 7 类 + flow 3 类）
+ * 输出：零 <script>、零外部链接、零 Astryx CSS 依赖的轻量单文件 HTML
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createElement as h } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { ChartBlock } from '../viz/charts.mjs';
+import { FlowBlock } from '../viz/flow.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,14 +28,28 @@ function esc(s) {
     .replace(/"/g, '&quot;');
 }
 
+// 解析表面材质 tone（sunken / inverse）
+const SURFACE_TONES = new Set(['sunken', 'inverse']);
+function surfaceToneOf(props, block) {
+  const raw = String((block && block.tone) || (props && props.tone) || '').toLowerCase();
+  return SURFACE_TONES.has(raw) ? raw : '';
+}
+function toneAttrOf(props, block) {
+  const t = surfaceToneOf(props, block);
+  return t ? ` data-tone="${t}"` : '';
+}
+
 // 本地图片转 base64 data URI（确保单文件离线可打开）
 function toDataUri(src, basePath) {
   if (!src) return '';
   if (src.startsWith('data:') || src.startsWith('http://') || src.startsWith('https://')) {
     return src;
   }
-  const fullPath = path.isAbsolute(src) ? src : path.resolve(basePath, src);
-  if (!fs.existsSync(fullPath)) {
+  const candidates = path.isAbsolute(src)
+    ? [src]
+    : [path.resolve(process.cwd(), src), path.resolve(basePath, src)];
+  const fullPath = candidates.find((p) => fs.existsSync(p));
+  if (!fullPath) {
     return src;
   }
   const ext = path.extname(fullPath).toLowerCase();
@@ -55,8 +73,23 @@ const TREND_ICON = {
   flat: '–',
 };
 
+// callout 语义别名规范化
+const CALLOUT_TONE_MAP = {
+  info: 'info',
+  success: 'success',
+  ok: 'success',
+  good: 'success',
+  warning: 'warning',
+  warn: 'warning',
+  caution: 'warning',
+  error: 'error',
+  danger: 'error',
+  critical: 'error',
+  bad: 'error',
+};
+
 // ═══════════════════════════════════════════════════════════
-// 18 个 Block 渲染器映射表
+// Block 渲染器映射表（18 类文本区块 + chart + flow）
 // ═══════════════════════════════════════════════════════════
 const BLOCK_RENDERERS = {
   heading(props, block) {
@@ -67,8 +100,8 @@ const BLOCK_RENDERERS = {
     const sub = props.sub ? `<p class="g-heading__sub">${esc(props.sub)}</p>` : '';
     const toolbar = props.toolbar ? `
       <div class="g-heading__toolbar">
-        ${props.toolbar.search ? `<input type="search" class="g-heading__search" placeholder="${esc(props.toolbar.search.placeholder || '搜索...')}">` : ''}
-        ${props.toolbar.action ? `<button class="g-heading__btn" type="button">${esc(props.toolbar.action.label || '操作')}</button>` : ''}
+        ${props.toolbar.search !== undefined ? `<input type="search" class="g-heading__search" placeholder="${esc(typeof props.toolbar.search === 'string' ? props.toolbar.search : props.toolbar.search?.placeholder || '搜索...')}">` : ''}
+        ${props.toolbar.action ? `<button class="g-heading__btn" type="button">${esc(typeof props.toolbar.action === 'string' ? props.toolbar.action : props.toolbar.action?.label || '操作')}</button>` : ''}
       </div>
     ` : '';
 
@@ -91,10 +124,11 @@ const BLOCK_RENDERERS = {
 
   cover(props, block) {
     const eyebrow = props.eyebrow ? `<div class="g-cover__eyebrow">${esc(props.eyebrow)}</div>` : '';
+    const badge = props.badge ? `<span class="g-heading__badge">${esc(props.badge)}</span>` : '';
     const sub = props.sub ? `<p class="g-cover__sub">${esc(props.sub)}</p>` : '';
-    const metaList = Array.isArray(props.meta) ? `
+    const metaList = Array.isArray(props.meta) && props.meta.length ? `
       <div class="g-cover__meta-grid">
-        ${props.meta.map(m => `
+        ${props.meta.map((m) => `
           <div class="g-cover__meta-item">
             <span class="g-cover__meta-k">${esc(m.k)}</span>
             <span class="g-cover__meta-v">${esc(m.v)}</span>
@@ -105,7 +139,7 @@ const BLOCK_RENDERERS = {
 
     return `
       <header class="g-cover" id="${esc(block.id || '')}">
-        ${eyebrow}
+        <div class="g-heading__title-wrap">${eyebrow}${badge}</div>
         <h1 class="g-cover__title">${esc(props.title || '')}</h1>
         ${sub}
         ${metaList}
@@ -114,8 +148,8 @@ const BLOCK_RENDERERS = {
   },
 
   text(props, block) {
-    const toneAttr = block.tone ? ` data-tone="${esc(block.tone)}"` : '';
-    const paras = Array.isArray(props.paras) ? props.paras.map(p => `<p>${esc(p)}</p>`).join('') : '';
+    const toneAttr = toneAttrOf(props, block);
+    const paras = Array.isArray(props.paras) ? props.paras.map((p) => `<p>${esc(p)}</p>`).join('') : '';
     const note = props.note ? `<div class="g-text__note">${esc(props.note)}</div>` : '';
     return `
       <div class="g-card g-text"${toneAttr} id="${esc(block.id || '')}">
@@ -126,11 +160,11 @@ const BLOCK_RENDERERS = {
   },
 
   prose(props, block) {
-    const toneAttr = block.tone ? ` data-tone="${esc(block.tone)}"` : '';
-    const items = Array.isArray(props.items) ? props.items.map(item => `
+    const toneAttr = toneAttrOf(props, block);
+    const items = Array.isArray(props.items) ? props.items.map((item) => `
       <section class="g-prose__section">
         ${item.title ? `<h3 class="g-prose__section-title">${esc(item.title)}</h3>` : ''}
-        ${Array.isArray(item.paras) ? item.paras.map(p => `<p>${esc(p)}</p>`).join('') : ''}
+        ${Array.isArray(item.paras) ? item.paras.map((p) => `<p>${esc(p)}</p>`).join('') : ''}
       </section>
     `).join('') : '';
 
@@ -149,7 +183,7 @@ const BLOCK_RENDERERS = {
       </div>
     ` : '';
 
-    const items = Array.isArray(props.items) ? props.items.map(item => {
+    const items = Array.isArray(props.items) ? props.items.map((item) => {
       const trend = item.trend && TREND_ICON[item.trend] ? `
         <span class="g-metric__trend g-metric__trend--${esc(item.trend)}">
           ${TREND_ICON[item.trend]} ${esc(item.hint || '')}
@@ -179,29 +213,32 @@ const BLOCK_RENDERERS = {
   },
 
   card(props, block) {
-    const toneAttr = block.tone ? ` data-tone="${esc(block.tone)}"` : '';
+    const toneAttr = toneAttrOf(props, block);
     const eyebrow = props.eyebrow ? `<div class="g-card-block__eyebrow">${esc(props.eyebrow)}</div>` : '';
+    const badge = props.badge ? `<span class="g-badge">${esc(props.badge)}</span>` : '';
     const title = props.title ? `<h3 class="g-card-block__title">${esc(props.title)}</h3>` : '';
     const sub = props.sub ? `<p class="g-card-block__sub">${esc(props.sub)}</p>` : '';
-    const body = Array.isArray(props.body) ? props.body.map(p => `<p>${esc(p)}</p>`).join('') : '';
+    const body = Array.isArray(props.body) ? props.body.map((p) => `<p>${esc(p)}</p>`).join('') : '';
+    const note = props.note ? `<div class="g-text__note">${esc(props.note)}</div>` : '';
 
     return `
       <div class="g-card g-card-block"${toneAttr} id="${esc(block.id || '')}">
-        ${eyebrow}
+        ${(eyebrow || badge) ? `<div class="g-heading__title-wrap" style="justify-content:space-between">${eyebrow}${badge}</div>` : ''}
         ${title}
         ${sub}
         ${body}
+        ${note}
       </div>
     `;
   },
 
   table(props, block) {
-    const toneAttr = block.tone ? ` data-tone="${esc(block.tone)}"` : '';
+    const toneAttr = toneAttrOf(props, block);
     const title = props.title ? `<div class="g-table-title">${esc(props.title)}</div>` : '';
     const cols = Array.isArray(props.columns) ? props.columns : [];
 
-    const ths = cols.map(c => `<th class="${c.num ? 'num' : ''}">${esc(c.label)}</th>`).join('');
-    const trs = Array.isArray(props.rows) ? props.rows.map(row => `
+    const ths = cols.map((c) => `<th class="${c.num ? 'num' : ''}">${esc(c.label)}</th>`).join('');
+    const trs = Array.isArray(props.rows) ? props.rows.map((row) => `
       <tr>
         ${row.map((cell, i) => `<td class="${cols[i]?.num ? 'num' : ''}">${esc(cell)}</td>`).join('')}
       </tr>
@@ -220,22 +257,37 @@ const BLOCK_RENDERERS = {
     return `
       <div class="g-card g-table-wrap"${toneAttr} id="${esc(block.id || '')}">
         ${title}
-        <table class="g-table">
-          <thead><tr>${ths}</tr></thead>
-          <tbody>${trs}</tbody>
-          ${tfoot}
-        </table>
+        <div class="g-table-scroll">
+          <table class="g-table">
+            <thead><tr>${ths}</tr></thead>
+            <tbody>${trs}</tbody>
+            ${tfoot}
+          </table>
+        </div>
         ${note}
       </div>
     `;
   },
 
   callout(props, block) {
-    const tone = String(props.tone || 'info').toLowerCase();
+    const surface = surfaceToneOf(props, block);
     const eyebrow = props.eyebrow ? `<div class="g-callout__eyebrow">${esc(props.eyebrow)}</div>` : '';
     const title = props.title ? `<div class="g-callout__title">${esc(props.title)}</div>` : '';
-    const body = props.body ? `<div class="g-callout__body">${esc(props.body)}</div>` : '';
+    const bodyText = props.body ?? props.text;
+    const body = bodyText ? `<div class="g-callout__body">${esc(bodyText)}</div>` : '';
 
+    if (surface) {
+      return `
+        <aside class="g-card g-card-block" data-tone="${surface}" id="${esc(block.id || '')}">
+          ${eyebrow}
+          ${title ? `<h3 class="g-card-block__title">${esc(props.title)}</h3>` : ''}
+          ${bodyText ? `<p>${esc(bodyText)}</p>` : ''}
+        </aside>
+      `;
+    }
+
+    const rawTone = String(props.tone || 'info').toLowerCase();
+    const tone = CALLOUT_TONE_MAP[rawTone] || 'info';
     return `
       <aside class="g-callout g-callout--${esc(tone)}" id="${esc(block.id || '')}">
         ${eyebrow}
@@ -247,13 +299,13 @@ const BLOCK_RENDERERS = {
 
   divider(props, block) {
     if (props.label) {
-      return `<div class="g-divider--label" id="${esc(block.id || '')}">${esc(props.label)}</div>`;
+      return `<div class="g-divider g-divider--label" id="${esc(block.id || '')}">${esc(props.label)}</div>`;
     }
     return `<hr class="g-divider" id="${esc(block.id || '')}">`;
   },
 
   badge(props, block) {
-    const items = Array.isArray(props.items) ? props.items.map(b => `
+    const items = Array.isArray(props.items) ? props.items.map((b) => `
       <span class="g-badge g-badge--${esc(b.variant || 'default')}">
         ${b.dot ? `<span class="g-badge__dot"></span>` : ''}
         ${esc(b.label || '')}
@@ -268,9 +320,9 @@ const BLOCK_RENDERERS = {
   },
 
   timeline(props, block) {
-    const toneAttr = block.tone ? ` data-tone="${esc(block.tone)}"` : '';
+    const toneAttr = toneAttrOf(props, block);
     const title = props.title ? `<h3 class="g-timeline__title">${esc(props.title)}</h3>` : '';
-    const items = Array.isArray(props.items) ? props.items.map(item => `
+    const items = Array.isArray(props.items) ? props.items.map((item) => `
       <div class="g-timeline__item">
         <time class="g-timeline__date">${esc(item.date || '')}</time>
         <div class="g-timeline__axis">
@@ -293,17 +345,17 @@ const BLOCK_RENDERERS = {
   },
 
   matrix(props, block) {
-    const toneAttr = block.tone ? ` data-tone="${esc(block.tone)}"` : '';
+    const toneAttr = toneAttrOf(props, block);
     const title = props.title ? `<div class="g-table-title">${esc(props.title)}</div>` : '';
     const cols = Array.isArray(props.columns) ? props.columns : [];
 
     const ths = [
       `<th>${esc(props.labelHeader || '项目')}</th>`,
-      ...cols.map(c => `<th class="${c.num ? 'num' : ''}">${esc(c.label)}</th>`)
+      ...cols.map((c) => `<th class="${c.num ? 'num' : ''}">${esc(c.label)}</th>`)
     ].join('');
 
-    const trs = Array.isArray(props.rows) ? props.rows.map(row => {
-      const tds = cols.map(c => {
+    const trs = Array.isArray(props.rows) ? props.rows.map((row) => {
+      const tds = cols.map((c) => {
         const cell = row.cells ? row.cells[c.key] : '';
         let val = cell;
         let stateClass = '';
@@ -322,19 +374,21 @@ const BLOCK_RENDERERS = {
     return `
       <div class="g-card g-matrix-wrap"${toneAttr} id="${esc(block.id || '')}">
         ${title}
-        <table class="g-table">
-          <thead><tr>${ths}</tr></thead>
-          <tbody>${trs}</tbody>
-        </table>
+        <div class="g-table-scroll">
+          <table class="g-table">
+            <thead><tr>${ths}</tr></thead>
+            <tbody>${trs}</tbody>
+          </table>
+        </div>
         ${note}
       </div>
     `;
   },
 
   scorecard(props, block) {
-    const toneAttr = block.tone ? ` data-tone="${esc(block.tone)}"` : '';
+    const toneAttr = toneAttrOf(props, block);
     const title = props.title ? `<h3 class="g-scorecard__title">${esc(props.title)}</h3>` : '';
-    const items = Array.isArray(props.items) ? props.items.map(item => {
+    const items = Array.isArray(props.items) ? props.items.map((item) => {
       const max = Number(item.max) || 100;
       const score = Number(item.score) || 0;
       const pct = Math.min(Math.max(Math.round((score / max) * 100), 0), 100);
@@ -350,19 +404,21 @@ const BLOCK_RENDERERS = {
         </div>
       `;
     }).join('') : '';
+    const note = props.note ? `<div class="g-text__note">${esc(props.note)}</div>` : '';
 
     return `
       <div class="g-card g-scorecard"${toneAttr} id="${esc(block.id || '')}">
         ${title}
         ${items}
+        ${note}
       </div>
     `;
   },
 
   steps(props, block) {
-    const toneAttr = block.tone ? ` data-tone="${esc(block.tone)}"` : '';
+    const toneAttr = toneAttrOf(props, block);
     const title = props.title ? `<h3 class="g-steps__title">${esc(props.title)}</h3>` : '';
-    const active = Number(props.active) ?? 1;
+    const active = Number.isFinite(Number(props.active)) ? Number(props.active) : 1;
 
     const items = Array.isArray(props.items) ? props.items.map((item, i) => {
       let statusClass = '';
@@ -377,31 +433,34 @@ const BLOCK_RENDERERS = {
         </li>
       `;
     }).join('') : '';
+    const note = props.note ? `<div class="g-text__note">${esc(props.note)}</div>` : '';
 
     return `
       <div class="g-card g-steps"${toneAttr} id="${esc(block.id || '')}">
         ${title}
         <ol class="g-steps__list">${items}</ol>
+        ${note}
       </div>
     `;
   },
 
   quote(props, block) {
-    const toneAttr = block.tone ? ` data-tone="${esc(block.tone)}"` : '';
-    const text = props.text ? `<blockquote class="g-quote__text">“${esc(props.text)}”</blockquote>` : '';
+    const eyebrow = props.eyebrow ? `<div class="g-callout__eyebrow">${esc(props.eyebrow)}</div>` : '';
+    const text = props.text ? `<p class="g-quote__text">“${esc(props.text)}”</p>` : '';
     const source = props.source ? `<cite class="g-quote__source">— ${esc(props.source)}</cite>` : '';
 
     return `
-      <div class="g-card g-quote"${toneAttr} id="${esc(block.id || '')}">
+      <blockquote class="g-quote" id="${esc(block.id || '')}">
+        ${eyebrow}
         ${text}
         ${source}
-      </div>
+      </blockquote>
     `;
   },
 
   grid(props, block, ctx) {
     const cols = Number(props.cols) || 2;
-    const children = Array.isArray(props.children) ? props.children.map(c => `
+    const children = Array.isArray(props.children) ? props.children.map((c) => `
       <div class="g-grid__cell">
         ${renderBlock(c, ctx)}
       </div>
@@ -415,7 +474,7 @@ const BLOCK_RENDERERS = {
   },
 
   image(props, block, ctx) {
-    const toneAttr = block.tone ? ` data-tone="${esc(block.tone)}"` : '';
+    const toneAttr = toneAttrOf(props, block);
     const src = toDataUri(props.src, ctx.basePath);
     const caption = props.caption ? `<figcaption class="g-image__caption">${esc(props.caption)}</figcaption>` : '';
 
@@ -441,14 +500,24 @@ const BLOCK_RENDERERS = {
       </div>
     `;
   },
+
+  chart(props, block) {
+    const markup = renderToStaticMarkup(h(ChartBlock, { id: block.id, ...props }));
+    const cls = props.chart === 'sparkline' ? 'g-viz-wrap g-viz-wrap--tile' : 'g-viz-wrap';
+    return `<div class="${cls}" id="${esc(block.id || '')}">${markup}</div>`;
+  },
+
+  flow(props, block) {
+    const markup = renderToStaticMarkup(h(FlowBlock, { id: block.id, ...props }));
+    return `<div class="g-viz-wrap" id="${esc(block.id || '')}">${markup}</div>`;
+  },
 };
 
 function renderBlock(block, ctx) {
   if (!block || !block.type) return '';
   const renderer = BLOCK_RENDERERS[block.type];
   if (!renderer) {
-    console.warn(`[MWG Renderer] 未知区块类型: ${block.type}`);
-    return '';
+    throw new Error(`未知区块类型 type="${block.type}"（可用: ${Object.keys(BLOCK_RENDERERS).join(', ')}）`);
   }
   return renderer(block.props || {}, block, ctx);
 }
@@ -462,19 +531,23 @@ function bundleCss() {
     path.join(__dirname, 'base.css'),
     path.join(__dirname, 'components.css'),
   ];
-  const contents = cssFiles.map(f => fs.readFileSync(f, 'utf8'));
-  // 安全转义防破闭合
+  const contents = cssFiles.map((f) => fs.readFileSync(f, 'utf8'));
   return contents.join('\n\n').replace(/<\/style/gi, '<\\/style');
 }
 
 // ═══════════════════════════════════════════════════════════
-// 页面渲染总入口
+// 页面渲染总入口（零 <script>，静态单文件）
 // ═══════════════════════════════════════════════════════════
 export function renderDocument(contentJson, options = {}) {
   const meta = contentJson.meta || {};
   const blocks = Array.isArray(contentJson.blocks) ? contentJson.blocks : [];
+  if (blocks.length === 0) {
+    throw new Error('content.json 缺少 blocks[]，无法渲染');
+  }
   const recipe = meta.recipe || 'report';
-  const theme = meta.theme || 'light';
+  const theme = options.theme === 'dark' || options.theme === 'light'
+    ? options.theme
+    : meta.theme === 'dark' ? 'dark' : 'light';
   const lang = meta.lang || 'zh-CN';
   const title = meta.title || 'Gary Document';
 
@@ -482,11 +555,11 @@ export function renderDocument(contentJson, options = {}) {
     basePath: options.basePath || process.cwd(),
   };
 
-  const renderedBlocks = blocks.map(b => renderBlock(b, ctx)).join('\n');
+  const renderedBlocks = blocks.map((b, i) => renderBlock({ id: b.id || `b${i}`, ...b }, ctx)).join('\n');
   const css = bundleCss();
 
   return `<!DOCTYPE html>
-<html lang="${esc(lang)}" data-theme="${esc(theme)}">
+<html lang="${esc(lang)}" data-gary-engine="mwg" data-astryx-theme="gary" data-theme="${esc(theme)}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -499,22 +572,6 @@ ${css}
   <main class="g-page" data-recipe="${esc(recipe)}">
 ${renderedBlocks}
   </main>
-
-  <button class="g-theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">🌓</button>
-
-  <script>
-    (function() {
-      var btn = document.querySelector('.g-theme-toggle');
-      if (btn) {
-        btn.addEventListener('click', function() {
-          var h = document.documentElement;
-          var cur = h.getAttribute('data-theme') || 'light';
-          var next = cur === 'dark' ? 'light' : 'dark';
-          h.setAttribute('data-theme', next);
-        });
-      }
-    })();
-  </script>
 </body>
 </html>`;
 }
@@ -526,18 +583,21 @@ function main() {
   const args = process.argv.slice(2);
   let inputFile = null;
   let outputFile = null;
+  let themeArg = null;
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '-o') {
       outputFile = args[++i];
+    } else if (args[i] === '--theme') {
+      themeArg = args[++i];
     } else if (!inputFile) {
       inputFile = args[i];
     }
   }
 
   if (!inputFile) {
-    console.error('用法: node mwg/render.mjs <content.json> -o <out.html>');
-    process.exit(1);
+    console.error('用法: node mwg/render.mjs <content.json> -o <out.html> [--theme light|dark]');
+    process.exit(2);
   }
 
   const inPath = path.resolve(process.cwd(), inputFile);
@@ -547,7 +607,7 @@ function main() {
   }
 
   const content = JSON.parse(fs.readFileSync(inPath, 'utf8'));
-  const html = renderDocument(content, { basePath: path.dirname(inPath) });
+  const html = renderDocument(content, { basePath: path.dirname(inPath), theme: themeArg });
 
   const outPath = outputFile
     ? path.resolve(process.cwd(), outputFile)
@@ -557,10 +617,12 @@ function main() {
   fs.writeFileSync(outPath, html, 'utf8');
 
   const bytes = Buffer.byteLength(html, 'utf8');
-  const blocksCount = Array.isArray(content.blocks) ? content.blocks.length : 0;
+  const blocks = Array.isArray(content.blocks) ? content.blocks : [];
+  const charts = blocks.filter((b) => b.type === 'chart').length;
+  const flows = blocks.filter((b) => b.type === 'flow').length;
   const recipe = content.meta?.recipe || 'report';
 
-  console.log(`WROTE ${outPath} bytes=${bytes} blocks=${blocksCount} recipe=${recipe}`);
+  console.log(`WROTE ${outPath} bytes=${bytes} blocks=${blocks.length} recipe=${recipe} charts=${charts} flows=${flows}`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

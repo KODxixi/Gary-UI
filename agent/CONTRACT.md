@@ -1,9 +1,10 @@
-# Gary-UI · Agent 调用契约（Astryx 版 · v2）
+# Gary-UI · Agent 调用契约（MWG 默认底座 + Astryx 可选版 · v4）
 
 > 位置 `agent/CONTRACT.md`。给外部 agent 的唯一调用入口：读完这一份就能出页，不用翻别的文档。
 > 一句话：**页面 = content.json；只能拼，不能发明。** 不写 HTML、不写 CSS、不写 JS。
-> 底座：`@astryxdesign/core` 0.7.16（174 个组件）+ React 19 SSR。品牌层：`theme/gary.theme.mjs`。
-> 两个渲染器：`agent/render.mjs`（18 类文本区块）· `viz/render-viz.mjs`（同一套文本区块 + `chart` / `flow`，见 §7）。
+> 默认底座：**MWG 原生 CSS 引擎**（`mwg/render.mjs`，支持全部 18 类文本区块 + `chart` + `flow`，产出 ~45–80 KB）；
+> 可选组件库：`@astryxdesign/core` 0.7.16（174 个组件）+ React 19 SSR（`agent/render.mjs` + `viz/render-viz.mjs`）。
+> 品牌真源：`theme/gary.theme.mjs` 与 `mwg/tokens.css`。
 
 ---
 
@@ -13,11 +14,11 @@
 |---|---|---|
 | 内容 | `<page>.content.json` | **agent 写**（只填数据） |
 | 契约 | `agent/content.schema.md` | 维护者；agent 只读 |
-| 配方 | `agent/recipes/report.recipe.mjs` · `table.recipe.mjs` · `sections.mjs` | 维护者；agent 只选 |
+| 配方 | `mwg/components.css` · `agent/recipes/*.recipe.mjs` · `sections.mjs` | 维护者；agent 只选 |
 | 图表 | `viz/charts.mjs` · `flow.mjs` · `README.md` | 维护者；agent 只读契约、只填 `chart` / `flow` 的 props |
-| 渲染 | `agent/render.mjs`（文本区块）· `viz/render-viz.mjs`（文本区块 + 图表 / 流程图） | 维护者；agent 只调用 |
-| 品牌 | `theme/gary.theme.mjs` | 维护者；agent 只读、不改 |
-| 闸 | `agent/checks/content.mjs`（内容契约，吃 JSON、0.2s 出字段级错）· `selfcheck.mjs` · `layout.mjs` · `contrast.mjs` · `viz/check-flow.mjs`（仅流程图几何） | 维护者；agent 交付前必跑 |
+| 渲染 | `mwg/render.mjs`（默认全包）· 可选 Astryx：`agent/render.mjs`（文本）/ `viz/render-viz.mjs`（含图表） | 维护者；agent 只调用 |
+| 品牌 | `theme/gary.theme.mjs` · `mwg/tokens.css` | 维护者；agent 只读、不改 |
+| 闸 | `agent/checks/content.mjs` · `selfcheck.mjs` · `layout.mjs` · `contrast.mjs` · `viz/check-flow.mjs` | 维护者；agent 交付前必跑 |
 
 ---
 
@@ -31,25 +32,27 @@ cd C:\AI\UI\gary-ui
 # 2. 先验字段再渲染——字段写错在这一步 0.2s 就报，不用等起两次浏览器
 node agent/checks/content.mjs <你的>.content.json
 
-# 3. 渲染
-node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html
+# 3. 渲染（默认 MWG 原生底座，全包文本 + 图表 + 流程图）
+node mwg/render.mjs examples/demo-report.content.json -o out/mwg-demo-report.html
+#    可选：切到 Astryx 组件库渲染
+# node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html
 
 # 4. 三道闸都 exit 0 才算交付（见 §6）
-node agent/checks/selfcheck.mjs out/demo-report.html
-node agent/checks/layout.mjs out/demo-report.html
-node agent/checks/contrast.mjs out/demo-report.html
+node agent/checks/selfcheck.mjs out/mwg-demo-report.html
+node agent/checks/layout.mjs out/mwg-demo-report.html
+node agent/checks/contrast.mjs out/mwg-demo-report.html
 ```
 
 > **第 2 步不是可选的。** 缺少必填字段、枚举写错、`donut` 用 `series` 而不是 `items` 这类错误，
 > 渲染器全都能"成功"输出一张空图，后三道闸也全绿——历史上 18 份写错的内容里 15 份是这样过去的。
 > `content.mjs` 是唯一会当场说「哪个 block 的哪个字段错了」的一道。
 
-产物是**单文件 HTML**：内联 `reset.css` + `astryx.css` + 主题 CSS，**零 `<script>`、零外链**，双击就能开，可以直接发人。
+产物是**单文件 HTML**：MWG 轨内联 `tokens.css` + `base.css` + `components.css`（约 40 KB），Astryx 轨内联 `reset.css` + `astryx.css` + 主题 CSS（约 335 KB）；均**零 `<script>`、零外链**，双击就能开，可以直接发人。
 
 渲染器成功时的 stdout（实测）：
 
 ```
-WROTE C:\AI\UI\gary-ui\out\demo-report.html bytes=400473 recipe=report blocks=11 components=299
+WROTE C:\AI\UI\gary-ui\out\mwg-demo-report.html bytes=61241 blocks=10 recipe=report charts=0 flows=0
 ```
 
 渲染器会拒绝这三类错误（当场 throw，不产出半成品）：
@@ -196,19 +199,18 @@ npx @astryxdesign/cli component Button Badge Text --json
 | token | 亮 | 暗 | 说明 |
 |---|---|---|---|
 | `--color-accent` | `#F57C00` 亮橙 | `#FFA94D` | 品牌色写面：按钮 / 色块 / 图形 / KPI 数字 |
-| `--color-accent-muted` | `#FFF1E0` | `#3A2213` | 同色相浅橙底 |
+| `--color-accent-muted` | `#FFF1E0` | `#2A1A05` | 同色相浅橙底 |
 | `--color-on-accent` | `#1A0E00` | `#111111` | 亮橙底上的字（近黑，7.02:1；白字只有 2.70:1） |
-| `--color-text-accent` | `#B85C00` 深橙 | `#FFA94D` | 链接 / 强调文字（白底 4.60） |
-| `--color-icon-accent` | `#B85C00` | `#FFA94D` | 强调图标 |
-| `--font-family-body` / `-heading` | Helvetica Neue → Helvetica → Microsoft YaHei → Arial | 同 | 正文与所有标题级 |
-| 展示衬线 | `Georgia, Songti SC, SimSun, Times New Roman` | 同 | **只在 `cover` 的 `display-2` 标题上**，不是全局 token |
-| `--radius-element` / `-container` | `12px` | 同 | 元素 / 容器圆角 |
-| `--radius-inner` | `8px` | 同 | 内嵌件 |
-| `--radius-full` | `9999px` | 同 | 胶囊、圆点（Gary 不覆盖，沿用中性默认） |
+| `--color-text-accent` | `#A35200` 深橙 | `#FFA94D` | 链接 / 强调文字（纸面 4.99 / 白底 5.58） |
+| `--color-icon-accent` | `#A35200` | `#FFA94D` | 强调图标 |
+| `--color-background-body` | `#F5F2EC` 暖白纸 | `#111111` Carbon 纯黑 | 页面底色（暖白纸 vs 纯中性黑） |
+| `--font-family-body` / `-heading` | Helvetica Neue → Helvetica → Microsoft YaHei → Arial | 同 | 正文与所有标题级（全站无衬线） |
+| `--radius-inner / -element / -card-md / -container` | `8px / 12px / 14px / 18px` | 同 | 四档圆角（内嵌件 / 小卡 / 中卡 / 大容器） |
+| `--radius-full` | `9999px` | 同 | 胶囊、圆点 |
 
 > Astryx 共 7 个圆角 token（`element` `container` `inner` `full` `none` `page` `chat`，实测 `astryx.css`）。Gary 只覆盖前三个，其余沿用中性默认。
 
-- 语义色：`success` / `error` 沿用 Astryx 中性默认；`warning` 覆盖为深琥珀（`#7f6118` / `#e0a93b`），`info` 覆盖为中性灰蓝（`#4A6785` / `#8FAFC9`，暗侧为暗底提亮版），实际值只在 `theme/gary.theme.mjs`。
+- 语义色：四语义（`info` / `warning` / `success` / `error`）全部在 `theme/gary.theme.mjs` 与 `mwg/tokens.css` 收拢统一并补齐 `text-*` token，亮暗三面全部过 WCAG AA 4.5:1。
 - 数据色：分类八色**复用底座已有的 `--color-data-categorical-*` 族**（blue / red / yellow / green / purple / cyan / orange / gray，值在 `theme/gary.theme.mjs` 覆盖，明暗各一套），另加角色色 `--color-data-primary` / `-secondary` / `-reference` / `-negative`。`--color-data-neutral` 取底座原值、**不再声明**（重复声明会在产物里出现两次并静默覆盖）。图表与流程图共用这组，`viz/*.mjs` 不新造色。
 - **卡片圆角与内距由渲染器按宽度分级**（`agent/recipes/sections.mjs` 的 `CARD_FRAMES`：小卡 14/20 · 中卡 16/24 · 大卡 20/28，px）。`layout.mjs` 按宽度带校验（`<320 → 12–16`、`320–700 → 14–18`、`>700 → 18–24`）。所以**不要给 Card 传 `style` 圆角**，会被闸门判违规。
 - 明暗两种模式都是一等公民：`meta.theme: "dark"` 触发暗色 token 组，无需另写样式。
@@ -396,7 +398,7 @@ node agent/checks/layout.mjs out/viz-charts.html
 | 页面上要可点的按钮？ | 静态单文件，`Button` 只是视觉件（无 `onClick` 运行时）。要交互请改走应用层，不要塞脚本。 |
 | 旧 `agent/content.json` / `primitives.css` / `recipes.json` 在哪？ | 全在 `archive/legacy-2026-11/agent/`，仅作回滚参考；**新页一律用当前 `agent/render.mjs` + `meta/blocks` 契约**。 |
 | 旧的 65 组件契约 / shadcn 安装法？ | 作废。见 `MIGRATION.md` 与 `archive/legacy-2026-11/`。 |
-| 产物多大？ | 三页实测 359–400 KB（`demo-report` 400 KB · `viz-charts` 393 KB · `viz-flow` 359 KB），内联样式固定约 332 KB，占 83–92%。单文件换零依赖，可接受。 |
+| 产物多大？ | 默认 MWG 轨实测 **44–80 KB**（`mwg-demo-report` 61 KB · `mwg-demo-table` 45 KB · `mwg-viz-charts` 80 KB · `mwg-viz-flow` 64 KB）；可选 Astryx 轨 358–402 KB（内联样式约 335 KB）。单文件零外部依赖，双击即开。 |
 
 ---
 
@@ -404,5 +406,6 @@ node agent/checks/layout.mjs out/viz-charts.html
 
 | 日期 | 版本 | 变更 |
 |---|---|---|
+| 2026-11-18 | v4 | 架构升级为「MWG 原生底座（默认 `mwg/render.mjs`）+ Astryx 可选组件库」双轨：支持全 18 类 block + `chart` + `flow`，单文件缩至 44–80 KB；暗色定案 Carbon 纯中性黑 `#111111`；P1–P6（四语义收拢与 AA、表格 `tabular-nums`、四档圆角、组件级容器查询、总闸并入 `check-flow` 与 375px）全部完成。 |
 | 2026-11-16 | v3 | 契约补全：§3.2 从 10 类扩到 **16 类**（新增 `timeline` / `matrix` / `image` / `steps` / `quote` / `grid`，逐条给必填字段）；新增 **§7 图表与流程图**（7 种 `chart` + 3 种 `flow`，命令与边界）；§6 覆盖 viz 产物。红线顺移 §8，常见追问 §9，变更史 §10 |
 | 2026-11-16 | v2 | 重写为 Astryx 版：三步装配、`meta`+`blocks` 契约索引、174 组件查询法、theme 真源、两闸验收、五条红线。旧 v1（primitives / recipes.json / 四配方 / 交互声明 / 十二条不变量）随旧体系整体归档 |

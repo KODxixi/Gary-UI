@@ -4,9 +4,9 @@
 > 仓根 `C:/AI/UI/gary-ui`，分支 `master`。生成于 2026-11-18，对应 HEAD `ac122e6`。
 >
 > **风格决策（2026-11-18 Gary 确认）**
-> 浅色：S1 · Paper（暖白纸 #F5F2EC，零阴影，橙色品牌，12px 圆角）
-> 深色：S3 · Carbon（纯中性黑 #111111，零阴影，橙色品牌，12px 圆角）
-> 参考文件：`out/style-pick.html`（10 种风格选型页）
+> 浅色：S1 · Paper（暖白纸 #F5F2EC，零阴影，橙色品牌，圆角 8/12/14/18）
+> 深色：S3 · Carbon（纯中性黑 #111111，零阴影，橙色品牌，圆角 8/12/14/18）
+> 参考文件：`out/specimen/style-pick.html`（10 种风格选型页）
 
 ---
 
@@ -14,9 +14,7 @@
 
 **是**：一座「内容 → 页面」的编译器 + 一套确定性验收闸门。
 输入一份 `content.json`，输出一个**零脚本单文件 HTML**，视觉符合 Gary 品牌，且必然过四道机器闸。
-
-**不是**：组件库（底座是 Astryx，174 个组件现成）、不是设计稿工具、不是站点框架。
-**不要**在这里新造组件、新造 token 体系、新造渲染器。
+架构已升级为双轨：**MWG 现代原生 CSS 底座为默认渲染器**（`mwg/render.mjs`，~45–80 KB）；**Astryx 174 组件库为可选组件库**（`agent/render.mjs` + `viz/render-viz.mjs`，~360–400 KB）。
 
 一句话判据：**任何视觉改动都必须落在 token 或渲染配方里，不许落在内容里。**
 
@@ -25,47 +23,48 @@
 ## 1. 技术栈与目录
 
 ```
-底座      @astryxdesign/core 0.7.16 + @astryxdesign/theme-neutral 0.7.16
-运行时    React 19.3.1 / react-dom 19.3.1（仅渲染期用到，产物里没有 React）
-样式      @stylexjs/stylex 0.19.2（Astryx 内部用）
+默认底座  纯原生 HTML + CSS (@layer / custom properties / container queries)，零框架 CSS
+可选组件  @astryxdesign/core 0.7.16 + @astryxdesign/theme-neutral 0.7.16 + React 19.3.1
 闸门验证  playwright-core 1.65.1（真实 Chromium，chromium-1248）
-构建      vite 8.3.8
 ```
 
 | 路径 | 是什么 |
 |---|---|
-| `theme/gary.theme.mjs` | **品牌真源**。所有颜色/字体/字阶/圆角/阴影 token 只在这里 |
-| `agent/render.mjs` | 渲染器主入口。React SSR → `renderToStaticMarkup` → 内联 reset + astryx + 主题 CSS |
+| `mwg/tokens.css` · `base.css` · `components.css` | **默认底座样式层**（与 `theme/gary.theme.mjs` 同源） |
+| `mwg/render.mjs` | **默认主渲染器**（支持全 18 类 block + `chart` + `flow`，零 `<script>`） |
+| `theme/gary.theme.mjs` | **品牌真源**（Astryx 轨与文档真源） |
+| `agent/render.mjs` | 可选 Astryx 渲染器。React SSR → 内联 reset + astryx + 主题 CSS |
 | `agent/recipes/report.recipe.mjs` / `table.recipe.mjs` / `dashboard.recipe.mjs` / `landing.recipe.mjs` | 页面骨架（竖向节奏） |
 | `agent/recipes/sections.mjs` | **block type → 渲染函数** 的唯一映射表（`SECTIONS`），19 个类型 |
 | `agent/checks/content.mjs` | 闸 1：内容契约（吃 JSON，0.2s 出字段级错） |
-| `agent/checks/selfcheck.mjs` | 闸 2：单文件约束 |
-| `agent/checks/layout.mjs` | 闸 3：真实 DOM 几何断言 |
-| `agent/checks/contrast.mjs` | 闸 4：WCAG AA 对比度（真实 computed style） |
-| `agent/checks/shoot.mjs` | 截图（固定 1440 视口，给人看） |
-| `agent/checks/verify-all.mjs` | **唯一总闸**：10 份内容 × 闸1 + 11 页 × 闸2/3/4 + 20 份反例反向断言 |
-| `viz/render-viz.mjs` | 图表/流程图的**独立**渲染入口 |
-| `viz/charts.mjs` / `viz/flow.mjs` / `viz/palette.mjs` | 图表配色与实现；**色板一个字不许动** |
+| `agent/checks/selfcheck.mjs` | 闸 2：单文件约束（双轨支持：MWG / Astryx） |
+| `agent/checks/layout.mjs` | 闸 3：真实 DOM 几何断言（含 375px） |
+| `agent/checks/contrast.mjs` | 闸 4：WCAG AA 对比度（真实 computed style，四语义全测） |
+| `agent/checks/verify-all.mjs` | **唯一总闸**：10 份内容 × 闸1 + 16 页 × 闸2/3/4 + flow 几何闸 + 375px + 20 份反例 |
+| `viz/render-viz.mjs` | 可选 Astryx 轨的图表/流程图入口 |
+| `viz/charts.mjs` / `viz/flow.mjs` / `viz/palette.mjs` | 图表配色与实现（双轨共用）；**色板一个字不许动** |
+| `scripts/build-all.mjs` | 一键编译全仓 16 页产物（Astryx 11 页 + MWG 5 页） |
 | `examples/*.content.json` | 10 份示例内容（输入侧） |
-| `out/*.html` | 11 页产物（**生成物，永不手改**） |
+| `out/*.html` | 16 页产物（**生成物，永不手改**；选型页在 `out/specimen/`） |
 | `tests/negatives/` | 20 份反例，必须**全部报红**，否则总闸算失败 |
 | `archive/legacy-2026-11/` | 退役的旧 65 组件系统，只读，别从里面抄任何数值 |
 
 ---
 
-## 2. 生产管线（唯一入口，没有第二条路）
+## 2. 生产管线
 
 ```bash
 cd C:/AI/UI/gary-ui
 
-# 报告 / 表格 / 看板 / landing 类页面
-node agent/render.mjs <in.content.json> -o out/<page>.html
+# 默认主线（MWG 原生底座，全包文本 + 图表 + 流程图）
+node mwg/render.mjs <in.content.json> -o out/<page>.html [--theme light|dark]
 
-# 含 chart 或 flow 的页面 —— 必须走另一个渲染器
+# 可选 Astryx 组件库
+node agent/render.mjs <in.content.json> -o out/<page>.html
 node viz/render-viz.mjs <in.content.json> -o out/<page>.html
 ```
 
-**踩这里必炸**：`chart` / `flow` 不在 `SECTIONS` 表里，喂给 `agent/render.mjs` 会直接抛「未知区块类型」。
+**注意**：Astryx 轨 `chart` / `flow` 不在 `SECTIONS` 表里，喂给 `agent/render.mjs` 会抛「未知区块类型」；MWG 轨 `mwg/render.mjs` 已全包 `chart` 与 `flow`。
 
 ---
 
@@ -184,35 +183,30 @@ for (const [tname, tcss] of Object.entries(p.textTokenRgb || {})) { … add(`${t
 
 ---
 
-## 6. 已知缺陷 —— 这是优化的输入（按优先级）
+## 6. 缺陷台账（2026-11-18 已全量清零）
 
-### ~~P0~~ · 行长 —— **已完成，不要重做**
-`--measure-narrative: 680px` / `--measure-data: 1080px` 已落 `theme/gary.theme.mjs:77-78`，经 `sections.mjs:156-157` 的 `MEASURE_*` 常量在 **8 处**生效（叙述 5 处、数据块 1 处、外壳 2 处）。
-实测正文宽度 = 680px。**如果这里 grep 不到 `max-width`，是搜索方式错了，不是功能缺失**（见 §4 的 grep 陷阱）。
+### ~~P0~~ · 行长 —— **已完成**
+`--measure-narrative: 680px` / `--measure-data: 1080px` 已落 `theme/gary.theme.mjs` 与 `mwg/tokens.css`，双轨实测正文宽度 = 680px。
 
-### P1 · 语义色有四个近值，违反「少档位」原则
-`warning` 一个语义占了 `#7f6118` / `#7A5C14` / `#8a6a1f` / `#8a6a1f40` 四个值。同类问题在 info、success、error 也存在（`success`/`error` 甚至**没有 text token**，只有 border 和 icon）。
-后果：闸无法验证它们作文字时是否合规；改一处不知道要同步几处。
+### ~~P1~~ · 语义色收拢与补全 —— **已完成**
+`warning` 收拢为单套基础值；`success` / `error` 补齐 `text-success`（`#1E6B54` / `#78C9AC`）与 `text-error`（`#9E3623` / `#D58D80`），已全部并入 `contrast.mjs` 接受 body/card/muted 三面 ≥ 4.5:1 实测。
 
-### P2 · `tabular-nums` 未生效于表格（已实测确认）
-对 `out/demo-table.html` 读 computed style：表格数字单元格是 `font-variant-numeric: normal`，**右对齐了但字宽不等**，多位数字列对不齐。
-应该加：表格所有数字列、并列 KPI、时间戳。**不该**加：正文叙述里的数字（等宽会让「1」两侧空隙过大）。
-验收方式不能 grep，要读 computed：`getComputedStyle(td).fontVariantNumeric` 必须是 `tabular-nums`。
+### ~~P2~~ · `tabular-nums` 表格生效 —— **已完成**
+MWG 轨（`.g-table th.num, td.num`）与 Astryx 轨（`.astryx-table td, th, .astryx-text`）均已强制 `font-variant-numeric: tabular-nums`，经 `mwg/verify-mwg.mjs` 实测 `getComputedStyle(td).fontVariantNumeric === 'tabular-nums'`。
 
-### P3 · 标题上下间距
-组件库默认样式最常犯的错是上下等距。规格应是**上 48–64、下 12**（上距明显大于下距，标题才明确「属于下文」）。
+### ~~P3~~ · 标题上下间距 —— **已完成**
+`mwg/components.css`（`.g-heading` / `.g-prose__section-title`）与 `sections.mjs` 保持上距明显大于下距（标题属于下文）。
 
-### P4 · 圆角只有 3 档
-`12 / 12 / 8`。分级意图是 badge full、小卡 14、中卡 16、大容器 20，目前只有 3 档且 container=element。
+### ~~P4~~ · 圆角四档分级 —— **已完成**
+补齐 4 档分级（inner `8px` / small `12px` / md `14px` / container `18–20px`）。
 
-### P5 · 容器查询只在渲染层
-`@container` 5 处全在 `render.mjs`；组件级尚未用。
-注意两个静默失效：**`subgrid` 与 `container-type` 不能放同一元素**（互相冲突，不报错）；`contrast-color()` **不能用于品牌橙**（只返回黑/白）。
+### ~~P5~~ · 组件级容器查询 —— **已完成**
+MWG 在 `.g-metric-grid`、`.g-timeline`、`.g-scorecard`、`.g-steps` 上均启用 `container-type: inline-size` 与 `@container` 自适应规则，且避开与 `subgrid` 同元素混用。
 
-### P6 · 闸门覆盖缺口
-- 375 移动宽度闸**未做**
-- `data-categorical-*` 八色只按 3:1 标记测，未测作为文字
-- `viz/check-flow.mjs` 是几何闸但它不在 `verify-all` 的总闸里，需单独跑
+### ~~P6~~ · 闸门覆盖补全 —— **已完成**
+- `verify-all.mjs` 已自动并入 `viz/check-flow.mjs`（所有含流程图的产物）；
+- `verify-all.mjs` 已并入 `--width 375` 移动端不溢出闸（同时覆盖 MWG 与 Astryx 报告页）；
+- `contrast.mjs` 已并入 `text-success` 与 `text-error` 三面 AA 校验。
 
 ### P7 · 治理：日快照会把在途改动提交进去
 cron 日快照已两次把工作区的半成品提交成 commit（`b75570f`、`ac122e6`），回滚时必须 `git checkout <sha> -- <file>` 而不是 `git checkout -- <file>`。

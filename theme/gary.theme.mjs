@@ -89,17 +89,25 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-border-info': ['#4A678540', '#8FAFC966'],
   '--color-icon-info': ['#4A6785', '#8FAFC9'],
 
-  '--color-warning': ['#7f6118', '#e0a93b'],
-  '--color-warning-muted': ['#fbf6ea', '#251D08'],
-  '--color-on-warning': ['#fff6e0', '#0a0a0a'],
-  '--color-on-warning-muted': ['#4a3810', '#f3e3b5'],
-  '--color-text-warning': ['#7A5C14', '#e0a93b'],
-  '--color-border-warning': ['#8a6a1f40', '#e0a93b66'],
-  '--color-icon-warning': ['#8a6a1f', '#e0a93b'],
-  '--color-border-success': ['#22765d40', '#78c9ac66'],
-  '--color-icon-success': ['#22765d', '#78c9ac'],
-  '--color-border-error': ['#a33a2640', '#d58d8066'],
-  '--color-icon-error': ['#a33a26', '#d58d80'],
+  '--color-warning': ['#7A5C14', '#E0A93B'],
+  '--color-warning-muted': ['#FBF6EA', '#251D08'],
+  '--color-on-warning': ['#FFF6E0', '#0A0A0A'],
+  '--color-on-warning-muted': ['#4A3810', '#F3E3B5'],
+  '--color-text-warning': ['#7A5C14', '#E0A93B'],
+  '--color-border-warning': ['#7A5C1440', '#E0A93B66'],
+  '--color-icon-warning': ['#7A5C14', '#E0A93B'],
+
+  '--color-success': ['#1E6B54', '#78C9AC'],
+  '--color-success-muted': ['#EDF7F3', '#0A2018'],
+  '--color-text-success': ['#1E6B54', '#78C9AC'],
+  '--color-border-success': ['#1E6B5440', '#78C9AC66'],
+  '--color-icon-success': ['#1E6B54', '#78C9AC'],
+
+  '--color-error': ['#9E3623', '#D58D80'],
+  '--color-error-muted': ['#FDF2F0', '#2A1010'],
+  '--color-text-error': ['#9E3623', '#D58D80'],
+  '--color-border-error': ['#9E362340', '#D58D8066'],
+  '--color-icon-error': ['#9E3623', '#D58D80'],
 
   // ---- Paper, ink, hairline ------------------------------------------------
   // Light:  warm off-white paper (#F5F2EC) + pure white card. Separation 1.11.
@@ -116,9 +124,9 @@ export const GARY_TOKEN_OVERRIDES = {
   '--color-text-secondary': ['#655C54', '#9A9A9A'],
 
   // Hairlines: warm low-alpha black (light) / neutral low-alpha white (dark).
-  '--color-border': ['#3A2E241A', '#FFFFFF18'],
-  '--color-border-emphasized': ['#D9D2C7', '#333333'],
-  '--color-border-subtle': ['#E6DFD4', '#252525'],
+  '--color-border': ['#3A2E241A', '#FFFFFF24'],
+  '--color-border-emphasized': ['#D9D2C7', '#383838'],
+  '--color-border-subtle': ['#E6DFD4', '#2D2D2D'],
 
   // Material ladder.
   '--color-surface-raised': ['#FFFFFF', '#1C1C1C'],
@@ -184,10 +192,11 @@ export const GARY_TOKEN_OVERRIDES = {
   '--text-label-weight': '500',
   '--font-weight-bold': '600',
 
-  // Radius hierarchy: element/container 12, inner 8, full stays 9999.
-  '--radius-element': '12px',
-  '--radius-container': '12px',
+  // Radius hierarchy (4 tiers): inner 8 / element (small card) 12 / card-md 14 / container 18, full stays 9999.
   '--radius-inner': '8px',
+  '--radius-element': '12px',
+  '--radius-card-md': '14px',
+  '--radius-container': '18px',
 
   // ---- Chart palette -------------------------------------------------------
   // Chart colours follow Google's set; the brand hue is not the plot primary,

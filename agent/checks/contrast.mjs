@@ -84,16 +84,22 @@ async function probe(page) {
       }
       return cs(document.body).backgroundColor;
     };
-    const card = document.querySelector('.astryx-card');
+    const card = document.querySelector('.astryx-card, .g-card');
     const heading = document.querySelector('h2') || document.querySelector('h1');
-    const secondary = [...document.querySelectorAll('.astryx-card span, .astryx-card p')].find(
+    const secondary = [...document.querySelectorAll('.astryx-card span, .astryx-card p, .g-card span, .g-card p, .g-heading__sub, .g-cover__sub')].find(
       (e) => e.textContent.trim().length > 3
     );
-    const accentEl = [...document.querySelectorAll('a, .astryx-button')].find(
+    const accentEl = [...document.querySelectorAll('a, .astryx-button, .g-heading__btn')].find(
       (e) => e.textContent.trim().length > 0
     );
-    const divider = document.querySelector('.astryx-divider');
+    const divider = document.querySelector('.astryx-divider, .g-divider');
     const dividerLine = divider ? divider.lastElementChild || divider : null;
+    let dividerColor = null;
+    if (dividerLine) {
+      const dcs = cs(dividerLine);
+      const dbg = rgb(dcs.backgroundColor);
+      dividerColor = dbg && !dbg.endsWith(', 0.000)') ? dbg : rgb(dcs.borderTopColor);
+    }
     const root = cs(document.documentElement);
     return {
       theme: document.documentElement.dataset.theme || 'light',
@@ -102,8 +108,8 @@ async function probe(page) {
       cardBorder: card ? rgb(cs(card).borderTopColor) : null,
       headingColor: heading ? rgb(cs(heading).color) : null,
       secondaryColor: secondary ? rgb(cs(secondary).color) : null,
-      accentColor: accentEl ? rgb(accentEl.matches('.astryx-button') ? cs(accentEl).backgroundColor : cs(accentEl).color) : null,
-      dividerColor: dividerLine ? rgb(cs(dividerLine).backgroundColor) : null,
+      accentColor: accentEl ? rgb(accentEl.matches('.astryx-button, .g-heading__btn') ? cs(accentEl).backgroundColor : cs(accentEl).color) : null,
+      dividerColor,
       vars: {
         textAccent: rgb(root.getPropertyValue('--color-text-accent').trim()),
         success: rgb(root.getPropertyValue('--color-success').trim()),
@@ -219,6 +225,7 @@ async function run(files) {
         const names = [
           'success', 'warning', 'error', 'info', 'text-accent',
           'text-primary', 'text-secondary', 'text-warning', 'text-info',
+          'text-success', 'text-error',
           'background-body', 'background-card', 'background-muted',
           'data-categorical-blue', 'data-categorical-red', 'data-categorical-yellow',
           'data-categorical-green', 'data-categorical-purple', 'data-categorical-cyan',
@@ -246,6 +253,8 @@ async function run(files) {
         'text-accent': rgb['text-accent'],
         'text-warning': rgb['text-warning'],
         'text-info': rgb['text-info'],
+        'text-success': rgb['text-success'],
+        'text-error': rgb['text-error'],
       };
       p.dataRgb = {};
       for (const n of Object.keys(rgb)) {

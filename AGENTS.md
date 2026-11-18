@@ -1,41 +1,43 @@
 # Gary-UI
 
-> **Astryx 底座上的 Gary 品牌层：content.json 进，零脚本单文件 HTML 出。**
-> 设计真源在 `theme/`，执行层是 `@astryxdesign/core` 的 174 个组件，agent 只填数据、不写样式。
+> **MWG 现代原生 CSS 为默认底座，Astryx（`@astryxdesign/core` 174 组件）为可选组件库：content.json 进，零脚本单文件 HTML 出。**
+> 品牌真源在 `theme/gary.theme.mjs` 与 `mwg/tokens.css`（浅色 Paper `#F5F2EC` · 暗色 Carbon `#111111`），agent 只填数据、不写样式。
 
 ## 你是谁？
 
 | 角色 | 做什么 | 先读 |
 |---|---|---|
-| **消费方**（用 Gary-UI 出页面） | 写一份 `content.json` → 跑渲染器 → 拿单文件 HTML | [agent/CONTRACT.md](agent/CONTRACT.md) |
-| **贡献方**（改 Gary-UI 本身） | 改配方 / 主题 / 闸门 | [agent/content.schema.md](agent/content.schema.md) + 下面所有文件 |
+| **消费方**（用 Gary-UI 出页面） | 写一份 `content.json` → 跑渲染器（默认 `mwg/render.mjs`，可选 `agent/render.mjs`）→ 拿单文件 HTML | [agent/CONTRACT.md](agent/CONTRACT.md) |
+| **贡献方**（改 Gary-UI 本身） | 改配方 / 主题 / MWG CSS / 闸门 | [agent/content.schema.md](agent/content.schema.md) + 下面所有文件 |
 
 ## 外部 Agent 快速路由
 
 | 你要做什么 | 先读 | 然后 |
 |---|---|---|
-| **做页面（唯一入口）** | [agent/CONTRACT.md](agent/CONTRACT.md) | 填 `content.json` → `node agent/render.mjs <in> -o out/<page>.html` |
+| **做页面（默认 MWG 原生底座，~45–80KB）** | [agent/CONTRACT.md](agent/CONTRACT.md) | 填 `content.json` → `node mwg/render.mjs <in> -o out/<page>.html`（全包 18 类区块 + `chart` + `flow`） |
+| **做页面（可选 Astryx 组件库，~360–400KB）** | [agent/CONTRACT.md](agent/CONTRACT.md) | 文本区块：`node agent/render.mjs <in> -o out/<page>.html`；含图表：`node viz/render-viz.mjs <in> -o out/<page>.html` |
 | **查 block 字段怎么写** | [agent/content.schema.md](agent/content.schema.md) | `meta` + `blocks[]` 的 18 个 type（§3.1–3.18 一节一类）、每个 props 的必填与字数上限 |
-| **要做图表 / 流程图** | [viz/README.md](viz/README.md) | 填 `type: "chart"`（7 种）或 `type: "flow"`（3 种）→ `node viz/render-viz.mjs <in> -o out/<page>.html`，见 [CONTRACT §7](agent/CONTRACT.md) |
-| **查组件有哪些 / props 是什么** | `npx @astryxdesign/cli component --list` | `npx @astryxdesign/cli component <Name> --json`（174 个组件） |
-| **改品牌色 / 字体 / 圆角** | [theme/gary.theme.mjs](theme/gary.theme.mjs) | 改 token 覆盖，**不写死样式**，改完重跑渲染 |
-| **改页面骨架（竖向节奏 / 新页型）** | `agent/recipes/*.recipe.mjs` | `report`（gap 8，文章壳）· `table`（gap 6，叠放壳） |
-| **加/改一个 block 类型** | `agent/recipes/sections.mjs` | `SECTIONS` 表是唯一的 type → 渲染函数映射 |
-| **交付前自检（必做）** | 下面「交付前验证」 | `selfcheck` + `layout` 两条都 exit 0 |
+| **要做图表 / 流程图** | [viz/README.md](viz/README.md) | 填 `type: "chart"`（7 种）或 `type: "flow"`（3 种）→ 用 `mwg/render.mjs`（默认）或 `viz/render-viz.mjs`（可选 Astryx），见 [CONTRACT §7](agent/CONTRACT.md) |
+| **查 Astryx 可选组件有哪些 / props** | `npx @astryxdesign/cli component --list` | `npx @astryxdesign/cli component <Name> --json`（174 个组件） |
+| **改品牌色 / 字体 / 圆角** | [theme/gary.theme.mjs](theme/gary.theme.mjs) · [mwg/tokens.css](mwg/tokens.css) | 同步更新两处 token，**不写死样式**，改完重跑渲染 |
+| **改页面骨架（竖向节奏 / 新页型）** | `mwg/components.css` · `agent/recipes/*.recipe.mjs` | `report` · `table` · `dashboard` · `landing` |
+| **加/改一个 block 类型** | `mwg/render.mjs` · `agent/recipes/sections.mjs` | `BLOCK_RENDERERS`（MWG）与 `SECTIONS`（Astryx） |
+| **交付前自检（必做）** | 下面「交付前验证」 | `npm run verify`（或 `selfcheck` + `layout` + `contrast`）全 exit 0 |
 | **查旧系统怎么了** | [MIGRATION.md](MIGRATION.md) | 旧 65 组件 / shadcn / portal / 自造 token 全在 `archive/legacy-2026-11/` |
-| **看组件长什么样** | `out/specimen/` | `scripts/specimen.mjs` 生成的标本页（A–D 变体 + 圆角 + 字体） |
+| **看组件与风格选型页** | `out/specimen/` | `token-showcase.html` · `style-pick.html`（10 种风格选型）· 组件标本页 |
 
 ## 关键指针
 
 - **调用契约**：[agent/CONTRACT.md](agent/CONTRACT.md) — agent 的唯一入口，读完就能开工
 - **内容契约**：[agent/content.schema.md](agent/content.schema.md) — 字段级 v1，18 个 block type 一节一类
-- **渲染器**：`agent/render.mjs`（React 19 SSR，内联 reset + astryx + 主题 CSS）
-- **图表与图示**：`viz/` — [viz/README.md](viz/README.md)（模块地图 / 颜色契约 / 字号映射）· `viz/render-viz.mjs`（CLI，只接管 `chart` / `flow`）· `viz/charts.mjs`（7 种图表）· `viz/flow.mjs`（3 种流程图）
+- **默认引擎（MWG 原生底座）**：`mwg/render.mjs` · `mwg/tokens.css` · `mwg/base.css` · `mwg/components.css` · `mwg/verify-mwg.mjs`
+- **可选组件渲染器（Astryx）**：`agent/render.mjs`（React 19 SSR，内联 reset + astryx + 主题 CSS）
+- **图表与图示**：`viz/` — [viz/README.md](viz/README.md)（模块地图 / 颜色契约 / 字号映射）· `viz/render-viz.mjs`（Astryx 轨独立 CLI）· `viz/charts.mjs`（7 种图表）· `viz/flow.mjs`（3 种流程图）；MWG 轨由 `mwg/render.mjs` 直接一并渲染
 - **配方**：`agent/recipes/report.recipe.mjs` · `table.recipe.mjs` · `dashboard.recipe.mjs` · `landing.recipe.mjs` · `sections.mjs`（18 个 block 渲染函数）
-- **主题真源**：`theme/gary.theme.mjs` — 亮橙 `#F57C00` 写面 / 深橙 `#B85C00` 写字（暗 `#FFA94D`）、圆角 12/12/8、Helvetica + 微软雅黑
-- **闸门**：`agent/checks/content.mjs`（内容契约，吃 JSON，0.2s 出字段级错）· `agent/checks/selfcheck.mjs`（单文件约束 5 项）· `agent/checks/layout.mjs`（真实 DOM 几何 6 条）· `agent/checks/contrast.mjs`（WCAG AA，不达标走具名 WAIVED）
+- **主题真源**：`theme/gary.theme.mjs` & `mwg/tokens.css` — 亮色 Paper `#F5F2EC` / 暗色 Carbon `#111111`；亮橙 `#F57C00` 写面 / 深橙 `#A35200` 写字（暗 `#FFA94D`）、圆角四档 8/12/14/18、Helvetica + 微软雅黑
+- **闸门**：`agent/checks/content.mjs`（内容契约，吃 JSON，0.2s 出字段级错）· `agent/checks/selfcheck.mjs`（单文件约束 5 项，双轨支持）· `agent/checks/layout.mjs`（真实 DOM 几何 6 条，含 375px）· `agent/checks/contrast.mjs`（WCAG AA，四语义全测）· `agent/checks/verify-all.mjs`（唯一总闸）
 - **示例内容**：`examples/demo-report.content.json` · `examples/demo-table.content.json`
-- **产物**：`out/`（两页 + specimen + 选型稿），**生成物，不手改**
+- **产物**：`out/`（Astryx 11 页 + MWG 5 页，**生成物，不手改**；选型页在 `out/specimen/`）
 - **归档**：`archive/legacy-2026-11/`（旧系统全量，可回滚）· `archive/tokens/`（上一轮 token 备份）
 - **依赖**：`package.json`（`@astryxdesign/core` 0.7.16 · React 19.3.1 · playwright-core 1.65.1）
 
@@ -44,28 +46,31 @@
 ```powershell
 cd C:\AI\UI\gary-ui
 
-# 全量自证：build 六页产物 + 三条闸全跑（交付前只需这一条）
+# 全量自证：build 16 页产物 + 全部闸门（含 flow 几何 + 375px + 20 反例）
 npm run verify
 
-# 分步：build 六页 / 单跑某一闸
+# 分步：build 16 页 / 单跑某一闸
 npm run build
-npm run check      # selfcheck 单文件约束
-npm run layout     # 版式几何六项
-npm run contrast   # WCAG AA 对比度
+npm run check       # selfcheck 单文件约束
+npm run layout      # 版式几何六项
+npm run contrast    # WCAG AA 对比度
+npm run verify:mwg  # MWG P0/P2/Carbon 专项实测 + 截图
 
-# 渲染一页
+# 渲染一页（默认 MWG 原生底座，支持文本 + 图表 + 流程图）
+node mwg/render.mjs examples/demo-report.content.json -o out/mwg-demo-report.html
+node mwg/render.mjs examples/demo-report.content.json -o out/mwg-demo-report-dark.html --theme dark
+
+# 渲染一页（可选 Astryx 组件库）
 node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html
-
-# 渲染图表 / 流程图页（只这两类走 viz）
 node viz/render-viz.mjs examples/demo-viz.content.json  -o out/viz-charts.html
 node viz/render-viz.mjs examples/demo-flow.content.json -o out/viz-flow.html
 
-# 两条验收闸（图表页同样跑）
-node agent/checks/selfcheck.mjs out/demo-report.html
-node agent/checks/layout.mjs out/demo-report.html out/demo-table.html
-node viz/check-flow.mjs out/viz-flow.html      # 仅流程图：几何闸
+# 验收闸
+node agent/checks/selfcheck.mjs out/mwg-demo-report.html
+node agent/checks/layout.mjs out/mwg-demo-report.html out/mwg-demo-table.html
+node viz/check-flow.mjs out/mwg-viz-flow.html      # 仅流程图：几何闸
 
-# 组件目录与单组件文档
+# 可选 Astryx 组件目录与单组件文档
 npx @astryxdesign/cli component --list
 npx @astryxdesign/cli component Card --json
 ```
