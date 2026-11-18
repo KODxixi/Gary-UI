@@ -1318,11 +1318,8 @@ export function renderSection(block, ctx) {
     );
   }
   const props = block.props || {};
-  // tone 取 props.tone：块级 tone（blocks[].tone）在 Astryx 轨不可达 ——
-  // agent/render.mjs 的 blocksOf() 把块剥成 {id, type, props}，tone 在这一步就丢了。
-  // 所以 Astryx 轨的块级 tone 静默无效（MWG 轨生效）。二选一才能修：
-  // 让 blocksOf 透传 tone（改 agent/render.mjs），或从 content.schema.md 删掉块级 tone。
-  // 本文件不改行为：拿不到 tone 就是 default。
+  // tone 取 props.tone。块级 tone（blocks[].tone）由 agent/render.mjs 的 blocksOf()
+  // 落进 props 一并传下来（2026-11-19 前那一步会把它整块剥掉，两轨出两种材质）。
   const tone = surfaceToneOf(props, ctx);
   const node = fn(props, { ...(ctx || {}), surface: tone, at });
   if (tone === 'default' || CARD_OWNED.has(block.type)) return node;

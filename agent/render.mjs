@@ -137,7 +137,9 @@ function blocksOf(content) {
   return raw.map((b, i) => ({
     id: b.id || `b${i}`,
     type: b.type,
-    props: b.props || {},
+    // 块级 tone 以前在这里被整块丢掉：MWG 轨读 block.tone 生效，Astryx 轨读 props.tone
+    // 永远读不到，同一份内容两轨出两种材质。落进 props，props 里写的再覆盖它。
+    props: { ...(b.tone ? { tone: b.tone } : {}), ...(b.props || {}) },
   }));
 }
 
