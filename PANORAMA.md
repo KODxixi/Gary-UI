@@ -163,13 +163,14 @@ node viz/render-viz.mjs <in.content.json> -o out/<page>.html
 
 ---
 
-## 5. 四道闸：判定口径（**阈值一个字不许动**）
+## 5. 五道闸：判定口径（**阈值一个字不许动**）
 
 | 闸 | 判什么 | 关键口径 |
 |---|---|---|
 | `content.mjs` | 内容契约 | 吃 JSON，字段级报错，0.2s。**图表数值必须是 number** |
-| `selfcheck.mjs` | 单文件约束 | 五项：零 `<script>`、零外链、零 CDN、CSS 全内联、无外部资源引用 |
-| `layout.mjs` | 真实 DOM 几何 | 六条断言，报**实测 px**。改内容改到过闸，不许绕 |
+| `selfcheck.mjs` | 单文件约束 | 六项：零 `<script>`、零外链、零 CDN、CSS 全内联、无外部资源引用、**零死控件**（MWG 交付轨出现 input/button 即红） |
+| `layout.mjs` | 真实 DOM 几何 | 五条断言，报**实测 px**。改内容改到过闸，不许绕 |
+| `narrow.mjs` | 375px 内容可达性 | 元素内容比自身宽、且 `overflow-x` 为 `clip`/`hidden` 即红——这两种值谁都滑不动，右侧内容等于永久丢失。`auto`/`scroll` 放行 |
 | `contrast.mjs` | WCAG AA | 读真实 computed style。**每个文字 token × 每个面（body/card/muted）都按 4.5 测**；语义色只作填充按 1.3；数据八色按 3:1 标记 |
 
 `contrast.mjs` 的这段是 2026-11-18 补的，此前**橙色文字只按 3:1 色块阈值、且只对卡片面测**，导致 4.11:1 的违规全绿放行：
@@ -179,7 +180,7 @@ const surfaces = [['body', bodyBg], ['card', card], ['muted', parseColor(p.muted
 for (const [tname, tcss] of Object.entries(p.textTokenRgb || {})) { … add(`${tname} / ${sname}`, fg, sbg, 4.5, 'body-size text'); }
 ```
 
-**当前闸状态（对现有 out/ 产物实测）**：`selfcheck` exit 0 · `layout` exit 0 · `contrast` exit 0。
+**当前闸状态（对现有 out/ 产物实测）**：`selfcheck` exit 0 · `layout` exit 0 · `contrast` exit 0 · `narrow` exit 0。
 
 ---
 
@@ -210,7 +211,23 @@ MWG 在 `.g-metric-grid`、`.g-timeline`、`.g-scorecard`、`.g-steps` 上均启
 
 ### P7 · 治理：日快照会把在途改动提交进去
 cron 日快照已两次把工作区的半成品提交成 commit（`b75570f`、`ac122e6`），回滚时必须 `git checkout <sha> -- <file>` 而不是 `git checkout -- <file>`。
-当前工作区仍有 4 个未提交改动：`theme/gary.theme.mjs`、`agent/recipes/sections.mjs`、`agent/render.mjs`、`agent/checks/contrast.mjs`。
+2026-11-19 工作区已清空；快照钩子仍是隐患（它按 `git add -A` 提交，不区分在途）。
+
+### ~~P8~~ · 死控件 —— **已完成**（2026-11-19）
+`heading.toolbar`（搜索框 + 导出按钮）在零脚本产物里点不动，看着能用是误导。
+两轨渲染层同时删除该输出，契约字段 `toolbar` 一并移除，`layout` 的控件对齐断言随之退役。
+`selfcheck` 新增第 6 项「零死控件」防回归（Astryx 轨豁免：组件库标本页展示控件是它的职责）。
+
+### ~~P9~~ · token 双真源 —— **已完成**（2026-11-19）
+`mwg/tokens.css` 是 `theme/gary.theme.mjs` 的手抄副本，两轨各验各的产物，抄错会静默分叉。
+`verify:mwg` 新增第 4 段：37 个 `--color-*` 逐项对账（亮/暗各一遍），并断言 6 个品牌关键 token 必须存在。
+负向实测：`--g-accent` 改 #F57C01 → 报 `--color-accent: theme #F57C00 ≠ mwg #F57C01`。
+
+### ~~P10~~ · 窄屏内容不可达 —— **已完成**（2026-11-19）
+两处真缺陷：Astryx 表格容器 `overflow-x: clip`（谁都滑不动，右侧列永久丢失，实测 555/315px）；
+KPI 栅格行内 `1.35fr+repeat(n,1fr)` 写不了媒体查询，375 下每列挤到 60px 并裁字。
+渲染层已修（`agent/render.mjs` 与 `viz/render-viz.mjs` 同步），新增 `narrow.mjs` 闸并入 `verify-all`。
+**附带定案**：单系列柱图一个度量一个颜色——按类别分色等于给不存在的维度上色。
 
 ---
 
@@ -218,7 +235,7 @@ cron 日快照已两次把工作区的半成品提交成 commit（`b75570f`、`a
 
 1. **只拼不造**：页面 = `meta` + `blocks`。不写 HTML/CSS/JS。
 2. **零字面量**：内容层不出现颜色/字号/圆角。
-3. **产物零脚本**：`out/*.html` 里不许有 `<script>`，不许外链。
+3. **产物零脚本**：`out/*.html` 里不许有 `<script>`，不许外链；**零脚本产物不得含表单控件**（点了没反应的控件就是骗人）。
 4. **闸阈值不许动**：过不了就改内容/改 token，不许改判定口径。反例必须继续报红。
 5. **`viz/` 色板八色一个字不许动**；图表不许写死 hex，必须取 theme token。
 6. **`out/` 与 `archive/` 不手改**，改源文件重跑。
@@ -232,7 +249,7 @@ cron 日快照已两次把工作区的半成品提交成 commit（`b75570f`、`a
 ```bash
 cd C:/AI/UI/gary-ui
 
-# 唯一总闸：10 份内容 + 11 页 × 三闸 + 20 份反例必须全红
+# 唯一总闸：10 份内容 + 27 页 × 四闸 + 20 份反例必须全红
 npm run verify
 echo $?    # 必须 0
 

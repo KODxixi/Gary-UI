@@ -188,14 +188,15 @@ export function BarChart({
   const padB = 62;
   const plotW = W - padL - padR;
   const plotH = height - padT - padB;
-  // 单系列柱图的每根柱是一个独立实体（渠道 / 月份 / 户型），按**类别下标**取色。
-  // 旧行为是整张图一个蓝：一页七张图里柱、进度条、迷你趋势全同色，Gary 说的
-  // 「颜色太单一」根子在这。多系列按系列下标。
-  // 下标不是身份：同一个对象换个排序就是另一个颜色，跨图不保证同色（CONTRACT §7.4-1）。
-  const paintFor = (si, ci) =>
+  // 单系列 = 一个度量，一个颜色。按类别取色等于给不存在的维度上色（Gary 2026-11-19 定）。
+  // 多系列才按系列下标取色 —— 那时颜色编码的是系列身份，是真维度。
+  // 需要单图强调时用 series[0].color 显式指定，别回到按柱分色。
+  const paintFor = (si) =>
     series[si].color
       ? { fill: series[si].color }
-      : seriesStyle(series.length > 1 ? si : ci, 'pair');
+      : series.length > 1
+        ? seriesStyle(si, 'pair')
+        : seriesStyle(0, 'single');
 
   const all = series.flatMap((s) => s.values.map((v) => (Number.isFinite(v) ? v : 0)));
   const ticks = niceTicks(Math.min(0, ...all), Math.max(0, ...all), CHART.ticks);
@@ -256,7 +257,7 @@ export function BarChart({
               width: barW,
               height: hgt,
               rx: 4,
-              style: { ...paintFor(si, ci) },
+              style: { ...paintFor(si) },
             }),
             h(
               'text',

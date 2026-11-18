@@ -37,7 +37,7 @@ node mwg/render.mjs examples/demo-report.content.json -o out/mwg-demo-report.htm
 #    可选：切到 Astryx 组件库渲染
 # node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html
 
-# 4. 四道闸都 exit 0 才算交付（见 §6）
+# 4. 五道闸都 exit 0 才算交付（见 §6）
 node agent/checks/selfcheck.mjs out/mwg-demo-report.html
 node agent/checks/layout.mjs out/mwg-demo-report.html
 node agent/checks/contrast.mjs out/mwg-demo-report.html
@@ -341,7 +341,7 @@ WROTE C:\AI\UI\gary-ui\out\viz-flow.html bytes=359941 blocks=6 charts=0 flows=3
   每型取第一条（`band` 可多条）。标签画在图内紧贴图形，**不再在图下另起一行 caption**。
 - 数值按数据原样给（`unit` / `digits` 只管显示），缺测不补零、不连线。
 - **所有图表数值必须是 JSON `number`，不是字符串。** 渲染器用 `Number.isFinite(v) ? v : 0` 取值，
-  写 `"12"` 会被判掉、**静默画成 0**——柱子全零、折线贴底、环形没有扇区，而四道闸照样全绿。
+  写 `"12"` 会被判掉、**静默画成 0**——柱子全零、折线贴底、环形没有扇区，而闸门照样全绿。
   内容闸会拦这一条（`series[].values[]` / `parts[].value` / `items[].value` / `rows[].value` / `kpi.values[]`）。
 - 反过来，**文本块里的数字要用字符串**（`metric.items[].value: "1,234"`）：那里渲染器 `String()` 包一层，
   字符串才能保住千分位和单位。两处口径不同，别串。

@@ -37,7 +37,7 @@
 - **主题真源**：`theme/gary.theme.mjs` & `mwg/tokens.css` — 亮色 Paper `#F5F2EC` / 暗色 Carbon `#111111`；亮橙 `#F57C00` 写面 / 深橙 `#A35200` 写字（暗 `#FFA94D`）、圆角四档 8/12/14/18、Helvetica + 微软雅黑
 - **闸门**：`agent/checks/content.mjs`（内容契约，吃 JSON，0.2s 出字段级错）· `agent/checks/selfcheck.mjs`（单文件约束 6 项，双轨支持）· `agent/checks/layout.mjs`（真实 DOM 几何 5 条，含 375px）· `agent/checks/contrast.mjs`（WCAG AA，四语义全测）· `agent/checks/narrow.mjs`（375px 无被裁且滑不动的内容）· `agent/checks/verify-all.mjs`（唯一总闸）
 - **示例内容**：`examples/demo-report.content.json` · `examples/demo-table.content.json`
-- **产物**：`out/`（Astryx 11 页 + MWG 5 页，**生成物，不手改**；选型页在 `out/specimen/`）
+- **产物**：`out/`（13 亮色页 + 14 暗色双生页 = 27 页，**生成物，不手改**；选型页在 `out/specimen/`）
 - **归档**：`archive/legacy-2026-11/`（旧系统全量，可回滚）· `archive/tokens/`（上一轮 token 备份）
 - **依赖**：`package.json`（`@astryxdesign/core` 0.7.16 · React 19.3.1 · playwright-core 1.65.1）
 
@@ -46,10 +46,10 @@
 ```powershell
 cd C:\AI\UI\gary-ui
 
-# 全量自证：build 16 页产物 + 全部闸门（含 flow 几何 + 375px + 20 反例）
+# 全量自证：build 27 页产物 + 全部闸门（含 flow 几何 + 375px 可达性 + 20 反例）
 npm run verify
 
-# 分步：build 16 页 / 单跑某一闸
+# 分步：build 27 页 / 单跑某一闸
 npm run build
 npm run check       # selfcheck 单文件约束
 npm run layout      # 版式几何五项
@@ -83,14 +83,14 @@ npx @astryxdesign/cli component Card --json
 （`developer.chrome.com/blog/mwg-with-internal-component`），本仓固定三条：
 
 1. **Gary-UI 已提供的组件一律用它**。不许因为 MWG 推荐 `<dialog>` / `popover` / 原生 `<input>`，
-   就把 `card` / `callout` / `device` / `table` / `scorecard` 拆成原生元素——那是拆品牌层和四道闸。
+   就把 `card` / `callout` / `device` / `table` / `scorecard` 拆成原生元素——那是拆品牌层和五道闸。
 2. **Gary-UI 覆盖不到才查 MWG**：真交互（popover 灯箱、锚点定位）、渐进增强、性能细节、
    可访问性补充。
 3. **MWG 可抄的只有渲染层 CSS**：`agent/recipes/sections.mjs` 与 `viz/` 里的手写样式可吸收
    container query / `oklch` / `subgrid` / `text-wrap` / `@supports`，但**不许让 agent 在
    `content.json` 里写 CSS 或协议**。
 
-它不构成对 `content.json` + 四道闸的替代：211 篇指南里没有任何一条涉及品牌 token /
+它不构成对 `content.json` + 五道闸的替代：211 篇指南里没有任何一条涉及品牌 token /
 内容契约 / 输出校验（2026-11-17 实测核实）。它回答「怎么写现代代码」，本仓回答
 「品牌是什么、内容允许什么、产物过不过闸」——正交。
 
