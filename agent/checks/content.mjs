@@ -333,6 +333,16 @@ function checkViz(p, err) {
     for (const k of [...req, 'edges']) {
       if (!Array.isArray(p[k]) || !p[k].length) return err(`flow="${p.flow}" 缺必填字段 ${k}（非空 array）`);
     }
+    // 逐节点校验：缺 title 的节点会渲染成一个没有字的空圆角框，看着像渲染坏了（实测 24 节点全空框）。
+    for (const [i, nd] of p.nodes.entries()) {
+      if (!nd || typeof nd !== 'object') return err(`flow.nodes[${i}] 必须是 object`);
+      if (typeof nd.id !== 'string' || !nd.id) return err(`flow.nodes[${i}].id 必填（edges 靠它连）`);
+      if (typeof nd.title !== 'string' || !nd.title.trim()) return err(`flow.nodes[${i}]（id=${nd.id}）缺 title，会渲染成空框`);
+    }
+    for (const [i, e] of p.edges.entries()) {
+      const ids = new Set(p.nodes.map((nd) => nd && nd.id));
+      if (!ids.has(e.from) || !ids.has(e.to)) return err(`flow.edges[${i}] 指向不存在的节点 ${e.from}→${e.to}`);
+    }
     return;
   }
 
