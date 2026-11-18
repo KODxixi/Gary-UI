@@ -95,7 +95,18 @@ function inlineCss() {
   const astryx = flattenElevation(fs.readFileSync(files[1], 'utf8'));
   // Defensive: break early if the CSS itself contains </style
   const safe = (css) => css.replace(/<\/style/gi, '<\\/style');
-  return [safe(reset), safe(astryx), safe(buildThemeCss())].join('\n');
+  // ponytail: Astryx 给表格滚动容器设的是 overflow-x: clip —— clip 谁都滑不动，
+  // 窄屏下右侧列直接不可达（实测 375px 时 client=285 / 内容=720，永久丢失）。
+  // 换成 auto 即恢复滑动。覆盖一行胜过 fork 整个组件。
+  const overrides = [
+    '.astryx-table-scroll-wrapper{overflow-x:auto}',
+    // KPI 栅格是行内 1.35fr+repeat(n,1fr)，行内样式无法写媒体查询，
+    // 375 下每列被挤到 60px 并裁字。这里用 !important 覆盖成会塌的栅格。
+    '@media (max-width:720px){[data-gary="kpi"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}',
+    '[data-gary="kpi"]>*:first-child{grid-column:1/-1}}',
+    '@media (max-width:480px){[data-gary="kpi"]{grid-template-columns:1fr!important}}',
+  ].join('\n');
+  return [safe(reset), safe(astryx), overrides, safe(buildThemeCss())].join('\n');
 }
 
 function parseArgs(argv) {

@@ -42,7 +42,17 @@ function inlineCss() {
   const reset = fs.readFileSync(files[0], 'utf8');
   const astryx = fs.readFileSync(files[1], 'utf8');
   const safe = (css) => css.replace(/<\/style/gi, '<\\/style');
-  return [safe(reset), safe(astryx), safe(buildThemeCss())].join('\n');
+  // 与 agent/render.mjs 同一条覆盖：Astryx 的 overflow-x: clip 让窄屏右侧列
+  // 永久不可达。由 agent/checks/narrow.mjs 守住，新增渲染器时别忘了抄这一行。
+  const overrides = [
+    '.astryx-table-scroll-wrapper{overflow-x:auto}',
+    // KPI 栅格是行内 1.35fr+repeat(n,1fr)，行内样式无法写媒体查询，
+    // 375 下每列被挤到 60px 并裁字。这里用 !important 覆盖成会塌的栅格。
+    '@media (max-width:720px){[data-gary="kpi"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}',
+    '[data-gary="kpi"]>*:first-child{grid-column:1/-1}}',
+    '@media (max-width:480px){[data-gary="kpi"]{grid-template-columns:1fr!important}}',
+  ].join('\n');
+  return [safe(reset), safe(astryx), overrides, safe(buildThemeCss())].join('\n');
 }
 
 function parseArgs(argv) {

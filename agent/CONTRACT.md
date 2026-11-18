@@ -37,14 +37,14 @@ node mwg/render.mjs examples/demo-report.content.json -o out/mwg-demo-report.htm
 #    可选：切到 Astryx 组件库渲染
 # node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html
 
-# 4. 三道闸都 exit 0 才算交付（见 §6）
+# 4. 四道闸都 exit 0 才算交付（见 §6）
 node agent/checks/selfcheck.mjs out/mwg-demo-report.html
 node agent/checks/layout.mjs out/mwg-demo-report.html
 node agent/checks/contrast.mjs out/mwg-demo-report.html
 ```
 
 > **第 2 步不是可选的。** 缺少必填字段、枚举写错、`donut` 用 `series` 而不是 `items` 这类错误，
-> 渲染器全都能"成功"输出一张空图，后三道闸也全绿——历史上 18 份写错的内容里 15 份是这样过去的。
+> 渲染器全都能"成功"输出一张空图，后面几道闸也全绿——历史上 18 份写错的内容里 15 份是这样过去的。
 > `content.mjs` 是唯一会当场说「哪个 block 的哪个字段错了」的一道。
 
 产物是**单文件 HTML**：MWG 轨内联 `tokens.css` + `base.css` + `components.css`（约 40 KB），Astryx 轨内联 `reset.css` + `astryx.css` + 主题 CSS（约 335 KB）；均**零 `<script>`、零外链**，双击就能开，可以直接发人。
@@ -243,7 +243,7 @@ node agent/checks/contrast.mjs out/<page>.html       # 4. WCAG AA
 | `callout.tone` | 材质（`default`/`sunken`/`inverse`）∪ 语义（`info`/`success`/`warning`/`error`）∪ 别名（`warn`/`danger`/…） |
 
 报错形如 `blocks[3] (type=chart) chart="donut" 缺必填字段 items`——**指到 block 序号、type、字段名**，可直接照着改。
-它挡的是渲染器的默认值兜底：10 种 viz 类型的每个数组参数都有 `= []` 默认值，缺了不抛错、只画空图，后三道闸照样全绿。
+它挡的是渲染器的默认值兜底：10 种 viz 类型的每个数组参数都有 `= []` 默认值，缺了不抛错、只画空图，后面几道闸照样全绿。
 
 ### 6.1 `selfcheck.mjs` — 单文件约束（5 项）
 
@@ -271,6 +271,20 @@ node agent/checks/contrast.mjs out/<page>.html       # 4. WCAG AA
 失败时它打印量到的真实 px 值，按值改**内容**（字太长就改文案或砍列）或提需求改 **theme**，不要绕闸。
 
 ---
+
+### 6.3 `narrow.mjs` — 窄屏内容可达性（375px）
+
+`node agent/checks/narrow.mjs [out.html ...]`（无参数扫全部 `out/*.html`）
+
+判据只有一条：元素自身内容比它宽（`scrollWidth > clientWidth`），而它的
+`overflow-x` 是 `clip` 或 `hidden` —— 这两种值用户和脚本都滑不动，右侧
+内容等于永久丢失。`auto` / `scroll` 是合格的横向滚动容器，放行。
+
+它挡的是「靠裁切收缩」：Astryx 的表格滚动容器默认 `overflow-x: clip`，
+窄屏下右侧列全部不可达；KPI 栅格是行内 `1.35fr + repeat(n,1fr)`，行内样式
+写不了媒体查询，375 下每列被挤到 60px 并裁字。两者都已在渲染层修掉，
+并由本闸防回归。
+
 
 ## 7. 图表与流程图（viz/）
 

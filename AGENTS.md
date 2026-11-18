@@ -35,7 +35,7 @@
 - **图表与图示**：`viz/` — [viz/README.md](viz/README.md)（模块地图 / 颜色契约 / 字号映射）· `viz/render-viz.mjs`（Astryx 轨独立 CLI）· `viz/charts.mjs`（7 种图表）· `viz/flow.mjs`（3 种流程图）；MWG 轨由 `mwg/render.mjs` 直接一并渲染
 - **配方**：`agent/recipes/report.recipe.mjs` · `table.recipe.mjs` · `dashboard.recipe.mjs` · `landing.recipe.mjs` · `sections.mjs`（18 个 block 渲染函数）
 - **主题真源**：`theme/gary.theme.mjs` & `mwg/tokens.css` — 亮色 Paper `#F5F2EC` / 暗色 Carbon `#111111`；亮橙 `#F57C00` 写面 / 深橙 `#A35200` 写字（暗 `#FFA94D`）、圆角四档 8/12/14/18、Helvetica + 微软雅黑
-- **闸门**：`agent/checks/content.mjs`（内容契约，吃 JSON，0.2s 出字段级错）· `agent/checks/selfcheck.mjs`（单文件约束 6 项，双轨支持）· `agent/checks/layout.mjs`（真实 DOM 几何 5 条，含 375px）· `agent/checks/contrast.mjs`（WCAG AA，四语义全测）· `agent/checks/verify-all.mjs`（唯一总闸）
+- **闸门**：`agent/checks/content.mjs`（内容契约，吃 JSON，0.2s 出字段级错）· `agent/checks/selfcheck.mjs`（单文件约束 6 项，双轨支持）· `agent/checks/layout.mjs`（真实 DOM 几何 5 条，含 375px）· `agent/checks/contrast.mjs`（WCAG AA，四语义全测）· `agent/checks/narrow.mjs`（375px 无被裁且滑不动的内容）· `agent/checks/verify-all.mjs`（唯一总闸）
 - **示例内容**：`examples/demo-report.content.json` · `examples/demo-table.content.json`
 - **产物**：`out/`（Astryx 11 页 + MWG 5 页，**生成物，不手改**；选型页在 `out/specimen/`）
 - **归档**：`archive/legacy-2026-11/`（旧系统全量，可回滚）· `archive/tokens/`（上一轮 token 备份）
