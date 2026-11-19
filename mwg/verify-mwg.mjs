@@ -78,7 +78,7 @@ async function main() {
   await shot(page, path.join(SPECIMEN_DIR, 'mwg-demo-report-dark.png'));
   console.log('已保存暗色截图: out/specimen/mwg-demo-report-dark.png');
 
-  console.log('\n=== 3. 验证 MWG 与 Astryx 表格 tabular-nums (P2) ===');
+  console.log('\n=== 3. 验证 MWG 表格 tabular-nums (P2) ===');
   const mwgTableUrl = 'file:///' + path.resolve(__dirname, '../out/mwg-demo-table.html').replace(/\\/g, '/');
   await page.goto(mwgTableUrl);
   const mwgTbl = await page.evaluate(() => {
@@ -91,19 +91,6 @@ async function main() {
 
   await shot(page, path.join(SPECIMEN_DIR, 'mwg-demo-table.png'));
   console.log('已保存表格截图: out/specimen/mwg-demo-table.png');
-
-  const astryxTableUrl = 'file:///' + path.resolve(__dirname, '../out/demo-table.html').replace(/\\/g, '/');
-  await page.goto(astryxTableUrl);
-  const astryxTbl = await page.evaluate(() => {
-    const td = document.querySelector('.astryx-table td:nth-child(2)');
-    const span = td?.querySelector('.astryx-text');
-    return {
-      tdNumeric: td ? window.getComputedStyle(td).fontVariantNumeric : null,
-      spanNumeric: span ? window.getComputedStyle(span).fontVariantNumeric : null,
-    };
-  });
-  assert('[P2 Astryx 表格] td & span tabular-nums', astryxTbl.tdNumeric === 'tabular-nums' && astryxTbl.spanNumeric === 'tabular-nums', JSON.stringify(astryxTbl));
-
 
   console.log('\n=== 4. 两轨 token 一致性（theme/gary.theme.mjs ↔ mwg/tokens.css） ===');
   // mwg/tokens.css 是 theme 的手抄副本。抄错、漏改都会让两条轨静默分叉，

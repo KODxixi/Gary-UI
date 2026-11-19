@@ -75,19 +75,19 @@ SVG 里颜色写在 `style` 而不是表现属性：`var()` 在 presentation att
 1. 在 `charts.mjs` 写组件，只用 `PALETTE.*` + `FONT.*`，不要写死颜色或字号。
 2. 在 `ChartBlock` 的 `BODIES` 映射里登记 `chart` 值，`KINDS` 里写显示名。
 3. `examples/demo-viz.content.json` 里加一个 `type: "chart"` 区块，必须带 `source` 与 `status`（数据身份：实测 / 示例数据 / 推算）。
-4. `node viz/render-viz.mjs examples/demo-viz.content.json -o out/viz-charts.html`，再跑 `agent/checks/selfcheck.mjs` 与 `agent/checks/layout.mjs`。
+4. `node mwg/render.mjs examples/demo-viz.content.json -o out/mwg-viz-charts.html`，再跑 `agent/checks/selfcheck.mjs` 与 `agent/checks/layout.mjs`。
 
 新增流程节点类型同理：`flow.mjs` 的 `Node()` 分派 + `FlowBlock` 的 `KINDS`。
 
 ## 跑法
 
 ```bash
-node viz/render-viz.mjs examples/demo-viz.content.json -o out/viz-charts.html
-node viz/render-viz.mjs examples/demo-flow.content.json  -o out/viz-flow.html
-node viz/check-flow.mjs out/viz-flow.html          # 几何闸
-node agent/checks/selfcheck.mjs out/viz-charts.html
-node agent/checks/layout.mjs out/viz-charts.html
-node agent/checks/shoot.mjs out/viz-charts.html out/viz-charts.png
+node mwg/render.mjs examples/demo-viz.content.json -o out/mwg-viz-charts.html
+node mwg/render.mjs examples/demo-flow.content.json  -o out/mwg-viz-flow.html
+node viz/check-flow.mjs out/mwg-viz-flow.html      # 几何闸
+node agent/checks/selfcheck.mjs out/mwg-viz-charts.html
+node agent/checks/layout.mjs out/mwg-viz-charts.html
+node agent/checks/shoot.mjs out/mwg-viz-charts.html out/mwg-viz-charts.png
 ```
 
 ## 和 `spec/` 的关系

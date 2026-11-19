@@ -121,7 +121,7 @@ node viz/check-flow.mjs out/mwg-viz-flow.html                                   
 | `selfcheck.mjs` | 零 `<script>`、零外链、`data-astryx-theme="gary"`、内联样式 > 100 KB、≥3 个 astryx 语义类 | 5 项全 PASS |
 | `layout.mjs` | 卡内距 ≥20px、圆角分级、首元素不贴边、横向不出血、文字不溢出 | 5 条全 PASS |
 
-图表页同标准：`out/viz-charts.html` 与 `out/viz-flow.html` 的 `selfcheck` ALL PASS、`layout` 5 条全 PASS；流程图另跑 `node viz/check-flow.mjs out/viz-flow.html`（折线正交 / 每条边有箭头 / 节点框不相交，`FLOW GEOMETRY PASS`）。
+图表页同标准：`out/mwg-viz-charts.html` 与 `out/mwg-viz-flow.html` 的 `selfcheck` ALL PASS、`layout` 5 条全 PASS；流程图另跑 `node viz/check-flow.mjs out/mwg-viz-flow.html`（折线正交 / 每条边有箭头 / 节点框不相交，`FLOW GEOMETRY PASS`）。
 
 ## 旧的东西去哪了
 

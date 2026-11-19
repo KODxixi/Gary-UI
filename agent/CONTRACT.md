@@ -227,7 +227,7 @@ node agent/checks/layout.mjs out/<page>.html         # 3. 版式几何
 node agent/checks/contrast.mjs out/<page>.html       # 4. WCAG AA
 ```
 
-**含 viz 产物时闸门不变**：把第二行换成 `node viz/render-viz.mjs <in> -o out/<page>.html`（见 §7），后三道照样各跑一次；流程图页再加 `node viz/check-flow.mjs out/<page>.html`。实测 `out/viz-charts.html`（394 KB）与 `out/viz-flow.html`（360 KB）均 PASS。
+**含 viz 产物时闸门不变**：图表写进同一份 `blocks[]`，仍用 `node mwg/render.mjs <in> -o out/<page>.html`（见 §7），后三道照样各跑一次；流程图页再加 `node viz/check-flow.mjs out/<page>.html`。实测 `out/mwg-viz-charts.html`（79 KB）与 `out/mwg-viz-flow.html`（65 KB）均 PASS。
 
 **只记一条命令**：`npm run verify`——扫 `examples/*.content.json` 跑 content 闸、扫 `out/*.html` 跑后三道，是全仓唯一门禁，exit 0 即全部通过。
 
@@ -296,17 +296,17 @@ node agent/checks/contrast.mjs out/<page>.html       # 4. WCAG AA
 边界先说清，踩了白跑一轮：
 
 - `mwg/render.mjs` 全包 `chart` / `flow`，不需要换渲染器。弃用的 Astryx 轨才分两个入口（图表归 `viz/render-viz.mjs`），把 `type: "chart"` 喂给 `agent/render.mjs` 会当场抛 `sections: 未知区块类型`。
-- 图表页统一用 `viz/render-viz.mjs`：它只接管 `chart` / `flow`，其余 18 类文本区块全部复用 `agent/recipes/sections.mjs`。所以一页里可以混排正文、表格、卡片和七张图。
+- 图表页也写进 `blocks[]`，由 `mwg/render.mjs` 渲染：`chart` / `flow` 与其余 18 类文本区块走同一份内容、同一份主题，所以一页里可以混排正文、表格、卡片和七张图。（旧 Astryx 轨才要 `viz/render-viz.mjs` 另起一个入口，已弃用。）
 - 它**不按 `meta.recipe` 分派**（不读这个字段），只按 `blocks[]` 顺序渲染；示例里的 `"recipe": "viz"` 只是标记。
 - 模块地图、颜色契约、字号映射、几何规则的细节在 `viz/README.md`。
 
 ```powershell
 cd C:\AI\UI\gary-ui
-node viz/render-viz.mjs examples/demo-viz.content.json -o out/viz-charts.html
-node viz/render-viz.mjs examples/demo-flow.content.json -o out/viz-flow.html
-node viz/check-flow.mjs out/viz-flow.html          # 流程图几何闸（见 7.3）
-node agent/checks/selfcheck.mjs out/viz-charts.html
-node agent/checks/layout.mjs out/viz-charts.html
+node mwg/render.mjs examples/demo-viz.content.json -o out/mwg-viz-charts.html
+node mwg/render.mjs examples/demo-flow.content.json -o out/mwg-viz-flow.html
+node viz/check-flow.mjs out/mwg-viz-flow.html      # 流程图几何闸（见 7.3）
+node agent/checks/selfcheck.mjs out/mwg-viz-charts.html
+node agent/checks/layout.mjs out/mwg-viz-charts.html
 ```
 
 实测 stdout：
@@ -368,9 +368,9 @@ WROTE C:\AI\UI\gary-ui\out\viz-flow.html bytes=359941 blocks=6 charts=0 flows=3
 ### 7.3 闸门与颜色
 
 ```powershell
-node viz/check-flow.mjs out/viz-flow.html            # 折线正交 / 每条边有箭头 / 节点框不相交
-node agent/checks/selfcheck.mjs out/viz-charts.html
-node agent/checks/layout.mjs out/viz-charts.html
+node viz/check-flow.mjs out/mwg-viz-flow.html         # 折线正交 / 每条边有箭头 / 节点框不相交
+node agent/checks/selfcheck.mjs out/mwg-viz-charts.html
+node agent/checks/layout.mjs out/mwg-viz-charts.html
 ```
 
 - 实测：`check-flow.mjs` 三张图 `edges` 合计 13 条，`非正交=0 无箭头=0`、`node boxes 相交=0`、`FLOW GEOMETRY PASS`；`viz-charts.html` 与 `viz-flow.html` 的 `selfcheck` ALL PASS、`layout` 5 条全 PASS。

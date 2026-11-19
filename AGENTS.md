@@ -63,7 +63,7 @@ node mwg/render.mjs examples/demo-report.content.json -o out/mwg-demo-report-dar
 # 渲染一页（可选 Astryx 组件库）
 node mwg/render.mjs examples/demo-viz.content.json  -o out/mwg-viz-charts.html
 node mwg/render.mjs examples/demo-flow.content.json -o out/mwg-viz-flow.html
-node viz/render-viz.mjs examples/demo-flow.content.json -o out/viz-flow.html
+# （旧 Astryx 轨的 viz/render-viz.mjs 已弃用，图表由上面那行 mwg 渲染器一并出）
 
 # 验收闸
 node agent/checks/selfcheck.mjs out/mwg-demo-report.html
@@ -109,14 +109,13 @@ npx @astryxdesign/cli component Card --json
 ```powershell
 cd C:\AI\UI\gary-ui
 node agent/checks/content.mjs examples/demo-report.content.json                   # 内容契约（先跑，0.2s）
-node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html   # 渲染
-node agent/checks/selfcheck.mjs out/demo-report.html                             # 单文件约束
-node agent/checks/layout.mjs out/demo-report.html out/demo-table.html            # 版式几何
+node mwg/render.mjs examples/demo-report.content.json -o out/mwg-demo-report.html # 渲染
+node agent/checks/selfcheck.mjs out/mwg-demo-report.html                          # 单文件约束
+node agent/checks/layout.mjs out/mwg-demo-report.html out/mwg-demo-table.html     # 版式几何
 
-# 改过 viz/ 或图表页内容时追加
-node viz/render-viz.mjs examples/demo-viz.content.json -o out/viz-charts.html
-node agent/checks/selfcheck.mjs out/viz-charts.html
-node viz/check-flow.mjs out/viz-flow.html                                         # 流程图几何
+# 图表 / 流程图不用另换渲染器，闸门照跑
+node agent/checks/selfcheck.mjs out/mwg-viz-charts.html
+node viz/check-flow.mjs out/mwg-viz-flow.html                                     # 流程图几何
 ```
 
 三条全过才算完成；动了图表链路时上面 viz 三条同样要过。缺任何一项标注「未验证」。
