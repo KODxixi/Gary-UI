@@ -1,23 +1,16 @@
 /**
- * 全仓产物编译脚本（亮色页 + 派生的暗色双生页）
+ * 全仓产物编译脚本（MWG 单轨 + 派生的暗色双生页）
  * 由 npm run build 调用。
+ *
+ * 2026-11-19：Astryx 轨（agent/render.mjs / viz/render-viz.mjs）已弃用，不再进 build——
+ * 它占原来 19/27 页，闸时间几乎全花在上面。两个渲染器保留可跑，历史对照仍能手动调。
+ * 旧产物由下面的 prune 清理：verify-all 扫的是 out/ 目录，残留页会被当成当前产物一起闸。
  */
 import { spawnSync } from 'node:child_process';
+import { readdirSync, unlinkSync } from 'node:fs';
 
 const JOBS = [
-  // Astryx（可选组件底座，11 页）
-  ['agent/render.mjs', 'examples/demo-report.content.json', '-o', 'out/demo-report.html'],
-  ['agent/render.mjs', 'examples/demo-table.content.json', '-o', 'out/demo-table.html'],
-  ['agent/render.mjs', 'examples/demo-dashboard.content.json', '-o', 'out/demo-dashboard.html'],
-  ['agent/render.mjs', 'examples/demo-landing.content.json', '-o', 'out/demo-landing.html'],
-  ['agent/render.mjs', 'examples/probe-dark.content.json', '-o', 'out/probe-dark.html'],
-  ['agent/render.mjs', 'examples/probe-weekly.content.json', '-o', 'out/probe-weekly.html'],
-  ['viz/render-viz.mjs', 'examples/demo-park.content.json', '-o', 'out/demo-park.html'],
-  ['viz/render-viz.mjs', 'examples/demo-viz.content.json', '-o', 'out/viz-charts.html'],
-  ['viz/render-viz.mjs', 'examples/demo-flow.content.json', '-o', 'out/viz-flow.html'],
-  ['viz/render-viz.mjs', 'examples/probe-viz.content.json', '-o', 'out/probe-viz.html'],
-
-  // MWG（默认原生底座，5 页）
+  // MWG（唯一生产轨：文本 + 图表 + 流程图全包）
   ['mwg/render.mjs', 'examples/demo-report.content.json', '-o', 'out/mwg-demo-report.html'],
   ['mwg/render.mjs', 'examples/demo-report.content.json', '-o', 'out/mwg-demo-report-dark.html', '--theme', 'dark'],
   ['mwg/render.mjs', 'examples/demo-table.content.json', '-o', 'out/mwg-demo-table.html'],
@@ -45,5 +38,18 @@ for (const args of JOBS) {
     process.exit(r.status || 1);
   }
 }
+
+// 清掉上一轮留下的、已不在计划里的页（弃用轨产物 + 改名的页）
+const planned = new Set(JOBS.map((j) => j[j.indexOf('-o') + 1]));
+let pruned = 0;
+for (const f of readdirSync('out')) {
+  if (!f.endsWith('.html')) continue;
+  const rel = `out/${f}`;
+  if (planned.has(rel)) continue;
+  unlinkSync(rel);
+  console.log(`build-all: 清理旧产物 ${rel}`);
+  pruned++;
+}
+if (pruned) console.log(`build-all: 清掉 ${pruned} 个不在计划内的旧产物`);
 
 console.log(`build-all: 全部 ${JOBS.length} 页编译完成`);

@@ -57,8 +57,8 @@ for (const fp of flowPages) {
   }
 }
 
-// P6-2: 375px 移动端宽度不溢出闸（MWG 与 Astryx 报告页代表）
-const mobileTargets = ['out/demo-report.html', 'out/mwg-demo-report.html'].filter((p) => pages.includes(p));
+// P6-2: 375px 移动端宽度不溢出闸（MWG 报告页）
+const mobileTargets = ['out/mwg-demo-report.html'].filter((p) => pages.includes(p));
 if (mobileTargets.length) {
   const r = spawnSync(process.execPath, ['agent/checks/layout.mjs', ...mobileTargets, '--width', '375'], {
     stdio: 'inherit',

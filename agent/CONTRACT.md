@@ -1,9 +1,9 @@
-# Gary-UI · Agent 调用契约（MWG 默认底座 + Astryx 可选版 · v4）
+# Gary-UI · Agent 调用契约（MWG 单底座 · v5）
 
 > 位置 `agent/CONTRACT.md`。给外部 agent 的唯一调用入口：读完这一份就能出页，不用翻别的文档。
 > 一句话：**页面 = content.json；只能拼，不能发明。** 不写 HTML、不写 CSS、不写 JS。
 > 默认底座：**MWG 原生 CSS 引擎**（`mwg/render.mjs`，支持全部 18 类文本区块 + `chart` + `flow`，产出 ~45–80 KB）；
-> 可选组件库：`@astryxdesign/core` 0.7.16（174 个组件）+ React 19 SSR（`agent/render.mjs` + `viz/render-viz.mjs`）。
+> **Astryx 轨已弃用（deprecated, kept runnable）**：`agent/render.mjs`（文本）与 `viz/render-viz.mjs`（图表）保留可跑，但不再是交付路径——产物 5–6 倍大、要 240 MB 依赖、两个入口、两轨同内容会出两种材质。**新页一律 `mwg/render.mjs`**（全包 18 类区块 + `chart` + `flow`）。
 > 品牌真源：`theme/gary.theme.mjs` 与 `mwg/tokens.css`。
 
 ---
@@ -16,7 +16,7 @@
 | 契约 | `agent/content.schema.md` | 维护者；agent 只读 |
 | 配方 | `mwg/components.css` · `agent/recipes/*.recipe.mjs` · `sections.mjs` | 维护者；agent 只选 |
 | 图表 | `viz/charts.mjs` · `flow.mjs` · `README.md` | 维护者；agent 只读契约、只填 `chart` / `flow` 的 props |
-| 渲染 | `mwg/render.mjs`（默认全包）· 可选 Astryx：`agent/render.mjs`（文本）/ `viz/render-viz.mjs`（含图表） | 维护者；agent 只调用 |
+| 渲染 | `mwg/render.mjs`（唯一生产轨，全包）· 弃用轨：`agent/render.mjs` / `viz/render-viz.mjs` | 维护者；agent 只调用 |
 | 品牌 | `theme/gary.theme.mjs` · `mwg/tokens.css` | 维护者；agent 只读、不改 |
 | 闸 | `agent/checks/content.mjs` · `selfcheck.mjs` · `layout.mjs` · `contrast.mjs` · `viz/check-flow.mjs` | 维护者；agent 交付前必跑 |
 
@@ -34,8 +34,7 @@ node agent/checks/content.mjs <你的>.content.json
 
 # 3. 渲染（默认 MWG 原生底座，全包文本 + 图表 + 流程图）
 node mwg/render.mjs examples/demo-report.content.json -o out/mwg-demo-report.html
-#    可选：切到 Astryx 组件库渲染
-# node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html
+#    （旧 Astryx 轨已弃用：node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html）
 
 # 4. 五道闸都 exit 0 才算交付（见 §6）
 node agent/checks/selfcheck.mjs out/mwg-demo-report.html
@@ -57,7 +56,7 @@ WROTE C:\AI\UI\gary-ui\out\mwg-demo-report.html bytes=61241 blocks=10 recipe=rep
 
 渲染器会拒绝这三类错误（当场 throw，不产出半成品）：
 - `meta.recipe` 缺失或不在可用列表里 → `未知配方 recipe="..."，可用: report, table, dashboard, landing`
-  （`viz` 也能写在内容里，但那是 `viz/render-viz.mjs` 的路由标记，`agent/render.mjs` 不认它）
+  （`viz` 也能写在内容里；MWG 轨本来就把图表一并渲染，不需要为它换渲染器）
 - `blocks` 缺失或为空 → `content.json 缺少 blocks[]，无法渲染`
 - 某个 block 缺 `type` / `type` 不在 `SECTIONS` 表里 → `未知区块类型 type="..."（支持: ...）`
 
@@ -222,7 +221,7 @@ npx @astryxdesign/cli component Button Badge Text --json
 ```powershell
 cd C:\AI\UI\gary-ui
 node agent/checks/content.mjs <你的 content.json>    # 1. 字段契约（吃 JSON，0.2s）
-node agent/render.mjs <你的 content.json> -o out/<page>.html
+node mwg/render.mjs <你的 content.json> -o out/<page>.html
 node agent/checks/selfcheck.mjs out/<page>.html      # 2. 单文件约束
 node agent/checks/layout.mjs out/<page>.html         # 3. 版式几何
 node agent/checks/contrast.mjs out/<page>.html       # 4. WCAG AA
@@ -296,7 +295,7 @@ node agent/checks/contrast.mjs out/<page>.html       # 4. WCAG AA
 
 边界先说清，踩了白跑一轮：
 
-- `chart` / `flow` **不在** `agent/render.mjs` 的 `SECTIONS` 表里。把 `type: "chart"` 直接喂给 `agent/render.mjs` 会当场抛 `sections: 未知区块类型`。
+- `mwg/render.mjs` 全包 `chart` / `flow`，不需要换渲染器。弃用的 Astryx 轨才分两个入口（图表归 `viz/render-viz.mjs`），把 `type: "chart"` 喂给 `agent/render.mjs` 会当场抛 `sections: 未知区块类型`。
 - 图表页统一用 `viz/render-viz.mjs`：它只接管 `chart` / `flow`，其余 18 类文本区块全部复用 `agent/recipes/sections.mjs`。所以一页里可以混排正文、表格、卡片和七张图。
 - 它**不按 `meta.recipe` 分派**（不读这个字段），只按 `blocks[]` 顺序渲染；示例里的 `"recipe": "viz"` 只是标记。
 - 模块地图、颜色契约、字号映射、几何规则的细节在 `viz/README.md`。
@@ -413,7 +412,7 @@ node agent/checks/layout.mjs out/viz-charts.html
 
 | 问 | 答 |
 |---|---|
-| 能不能加图表 / 流程图？ | 能——但走 `viz/render-viz.mjs`（§7）：`chart` 7 种、`flow` 3 种。`agent/render.mjs` 仍不收这两类，混用会抛「未知区块类型」。 |
+| 能不能加图表 / 流程图？ | 能——`chart` 7 种、`flow` 3 种，直接写进 `blocks[]`，`mwg/render.mjs` 一并渲染（§7）。 |
 | 图表配色能改吗？ | 只能改 `theme/gary.theme.mjs` 的 token；`viz/*.mjs` 里没有 hex，改 `viz/` 不是入口。 |
 | 页面上要可点的按钮？ | 静态单文件，`Button` 只是视觉件（无 `onClick` 运行时）。要交互请改走应用层，不要塞脚本。 |
 | 旧 `agent/content.json` / `primitives.css` / `recipes.json` 在哪？ | 全在 `archive/legacy-2026-11/agent/`，仅作回滚参考；**新页一律用当前 `agent/render.mjs` + `meta/blocks` 契约**。 |

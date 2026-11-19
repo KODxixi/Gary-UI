@@ -1,13 +1,13 @@
 # Gary-UI
 
-> **MWG 现代原生 CSS 为默认底座，Astryx（`@astryxdesign/core` 174 组件）为可选组件库：content.json 进，零脚本单文件 HTML 出。**
+> **MWG 现代原生 CSS 是唯一生产底座（Astryx 174 组件轨已弃用，kept runnable）：content.json 进，零脚本单文件 HTML 出。**
 > 品牌真源在 `theme/gary.theme.mjs` 与 `mwg/tokens.css`（浅色 Paper `#F5F2EC` · 暗色 Carbon `#111111`），agent 只填数据、不写样式。
 
 ## 你是谁？
 
 | 角色 | 做什么 | 先读 |
 |---|---|---|
-| **消费方**（用 Gary-UI 出页面） | 写一份 `content.json` → 跑渲染器（默认 `mwg/render.mjs`，可选 `agent/render.mjs`）→ 拿单文件 HTML | [agent/CONTRACT.md](agent/CONTRACT.md) |
+| **消费方**（用 Gary-UI 出页面） | 写一份 `content.json` → 跑渲染器 `mwg/render.mjs` → 拿单文件 HTML | [agent/CONTRACT.md](agent/CONTRACT.md) |
 | **贡献方**（改 Gary-UI 本身） | 改配方 / 主题 / MWG CSS / 闸门 | [agent/content.schema.md](agent/content.schema.md) + 下面所有文件 |
 
 ## 外部 Agent 快速路由
@@ -15,7 +15,7 @@
 | 你要做什么 | 先读 | 然后 |
 |---|---|---|
 | **做页面（默认 MWG 原生底座，~45–80KB）** | [agent/CONTRACT.md](agent/CONTRACT.md) | 填 `content.json` → `node mwg/render.mjs <in> -o out/<page>.html`（全包 18 类区块 + `chart` + `flow`） |
-| **做页面（可选 Astryx 组件库，~360–400KB）** | [agent/CONTRACT.md](agent/CONTRACT.md) | 文本区块：`node agent/render.mjs <in> -o out/<page>.html`；含图表：`node viz/render-viz.mjs <in> -o out/<page>.html` |
+| **做页面（已弃用 Astryx 轨，~360–400KB）** | [agent/CONTRACT.md](agent/CONTRACT.md) | **别用**。仅历史对照：`node agent/render.mjs <in> -o out/<page>.html` |
 | **查 block 字段怎么写** | [agent/content.schema.md](agent/content.schema.md) | `meta` + `blocks[]` 的 18 个 type（§3.1–3.18 一节一类）、每个 props 的必填与字数上限 |
 | **要做图表 / 流程图** | [viz/README.md](viz/README.md) | 填 `type: "chart"`（7 种）或 `type: "flow"`（3 种）→ 用 `mwg/render.mjs`（默认）或 `viz/render-viz.mjs`（可选 Astryx），见 [CONTRACT §7](agent/CONTRACT.md) |
 | **查 Astryx 可选组件有哪些 / props** | `npx @astryxdesign/cli component --list` | `npx @astryxdesign/cli component <Name> --json`（174 个组件） |
@@ -31,13 +31,13 @@
 - **调用契约**：[agent/CONTRACT.md](agent/CONTRACT.md) — agent 的唯一入口，读完就能开工
 - **内容契约**：[agent/content.schema.md](agent/content.schema.md) — 字段级 v1，18 个 block type 一节一类
 - **默认引擎（MWG 原生底座）**：`mwg/render.mjs` · `mwg/tokens.css` · `mwg/base.css` · `mwg/components.css` · `mwg/verify-mwg.mjs`
-- **可选组件渲染器（Astryx）**：`agent/render.mjs`（React 19 SSR，内联 reset + astryx + 主题 CSS）
+- **弃用渲染器（Astryx）**：`agent/render.mjs`（React 19 SSR，内联 reset + astryx + 主题 CSS）——保留可跑，不进 build、不进闸
 - **图表与图示**：`viz/` — [viz/README.md](viz/README.md)（模块地图 / 颜色契约 / 字号映射）· `viz/render-viz.mjs`（Astryx 轨独立 CLI）· `viz/charts.mjs`（7 种图表）· `viz/flow.mjs`（3 种流程图）；MWG 轨由 `mwg/render.mjs` 直接一并渲染
 - **配方**：`agent/recipes/report.recipe.mjs` · `table.recipe.mjs` · `dashboard.recipe.mjs` · `landing.recipe.mjs` · `sections.mjs`（18 个 block 渲染函数）
 - **主题真源**：`theme/gary.theme.mjs` & `mwg/tokens.css` — 亮色 Paper `#F5F2EC` / 暗色 Carbon `#111111`；亮橙 `#F57C00` 写面 / 深橙 `#A35200` 写字（暗 `#FFA94D`）、圆角四档 8/12/14/18、Helvetica + 微软雅黑
 - **闸门**：`agent/checks/content.mjs`（内容契约，吃 JSON，0.2s 出字段级错）· `agent/checks/selfcheck.mjs`（单文件约束 6 项，双轨支持）· `agent/checks/layout.mjs`（真实 DOM 几何 5 条，含 375px）· `agent/checks/contrast.mjs`（WCAG AA，四语义全测）· `agent/checks/narrow.mjs`（375px 无被裁且滑不动的内容）· `agent/checks/verify-all.mjs`（唯一总闸）
 - **示例内容**：`examples/demo-report.content.json` · `examples/demo-table.content.json`
-- **产物**：`out/`（13 亮色页 + 14 暗色双生页 = 27 页，**生成物，不手改**；选型页在 `out/specimen/`）
+- **产物**：`out/`（4 页 + 4 暗色双生页 = 8 页，**生成物，不手改**；选型页在 `out/specimen/`）
 - **归档**：`archive/legacy-2026-11/`（旧系统全量，可回滚）· `archive/tokens/`（上一轮 token 备份）
 - **依赖**：`package.json`（`@astryxdesign/core` 0.7.16 · React 19.3.1 · playwright-core 1.65.1）
 
@@ -46,10 +46,10 @@
 ```powershell
 cd C:\AI\UI\gary-ui
 
-# 全量自证：build 27 页产物 + 全部闸门（含 flow 几何 + 375px 可达性 + 20 反例）
+# 全量自证：build 8 页产物 + 全部闸门（含 flow 几何 + 375px 可达性 + 20 反例）
 npm run verify
 
-# 分步：build 27 页 / 单跑某一闸
+# 分步：build 8 页 / 单跑某一闸
 npm run build
 npm run check       # selfcheck 单文件约束
 npm run layout      # 版式几何五项
@@ -61,8 +61,8 @@ node mwg/render.mjs examples/demo-report.content.json -o out/mwg-demo-report.htm
 node mwg/render.mjs examples/demo-report.content.json -o out/mwg-demo-report-dark.html --theme dark
 
 # 渲染一页（可选 Astryx 组件库）
-node agent/render.mjs examples/demo-report.content.json -o out/demo-report.html
-node viz/render-viz.mjs examples/demo-viz.content.json  -o out/viz-charts.html
+node mwg/render.mjs examples/demo-viz.content.json  -o out/mwg-viz-charts.html
+node mwg/render.mjs examples/demo-flow.content.json -o out/mwg-viz-flow.html
 node viz/render-viz.mjs examples/demo-flow.content.json -o out/viz-flow.html
 
 # 验收闸
@@ -102,7 +102,7 @@ npx @astryxdesign/cli component Card --json
 4. **卡片圆角/内距归渲染器**：`sections.mjs` 的 `CARD_FRAMES` 按宽度分三档，别给 Card 传 `style` 圆角。
 5. **闸门是硬的**：`selfcheck` 与 `layout` 任一非 0 不得交付；失败按打印的实测 px 值改内容，不绕闸。
 6. **`out/` 与 `examples/*.content.json` 是产物/输入两侧**：`out/` 不手改；示例内容改动要同步过闸。
-7. **图表与流程图只走 `viz/render-viz.mjs`**：`chart` / `flow` 不在 `agent/render.mjs` 的 `SECTIONS` 表里，喂错渲染器直接抛「未知区块类型」。
+7. **图表与流程图写进 `blocks[]` 就行**：`mwg/render.mjs` 全包 `chart` / `flow`。（弃用的 Astryx 轨才要另起 `viz/render-viz.mjs`。）
 
 ## 交付前验证（贡献方）
 
@@ -133,4 +133,4 @@ node viz/check-flow.mjs out/viz-flow.html                                       
 - ❌ 不要从 `archive/legacy-2026-11/CHANGELOG.md` 抄数值——数值真源是 `theme/gary.theme.mjs` 与 `agent/recipes/sections.mjs`。
 - ❌ 不要改 `out/` 里的 html、也不要改 `*.bundle.css`——生成物，改源文件重跑。
 - ❌ 不要找 Gary-UI 的分叉副本：唯一真相位置是 `C:\AI\UI\gary-ui`。
-- ❌ 不要把 `type: "chart"` / `"flow"` 喂给 `agent/render.mjs`——它只认 `SECTIONS` 的 18 类，图表页必须走 `viz/render-viz.mjs`。
+- ❌ 不要用 `agent/render.mjs` 出页——该轨已弃用（图表还会直接抛「未知区块类型」）。出页一律 `mwg/render.mjs`。
