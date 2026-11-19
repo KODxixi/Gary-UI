@@ -1,6 +1,8 @@
 # viz/ — 图表与图示（R5）
 
-原生 SVG，不引图表库。产物是单文件 HTML：零 `<script>`、零外链，颜色全部走 Astryx token。
+原生 SVG，不引图表库。产物是单文件 HTML：零 `<script>`、零外链，颜色全部走 token。
+
+> `viz/render-viz.mjs` 已弃用；图表由 `mwg/render.mjs` 渲染。本目录的 `charts.mjs` / `flow.mjs` / `palette.mjs` 仍是 MWG 轨的渲染源与颜色契约真源。
 
 ## 模块地图
 

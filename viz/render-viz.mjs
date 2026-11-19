@@ -19,6 +19,7 @@ import { garyTheme } from '../theme/gary.theme.mjs';
 import { SECTIONS } from '../agent/recipes/sections.mjs';
 import { ChartBlock } from './charts.mjs';
 import { FlowBlock } from './flow.mjs';
+console.warn('[deprecated] viz/render-viz.mjs 已弃用：图表写进 blocks[] 由 node mwg/render.mjs 一并渲染（见 agent/CONTRACT.md §7）。');
 
 const LAYER_ORDER = '@layer reset, astryx-base, astryx-theme;';
 

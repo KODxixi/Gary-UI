@@ -4,13 +4,26 @@
 // 绿灯只覆盖旧页面（2026-11-17 对抗审查第 8 条）。这里改成扫描产物目录，
 // 新增页自动纳入。npm 在 Windows 走 cmd，通配符不展开，所以 glob 放脚本里。
 
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
-const pages = readdirSync('out')
-  .filter((f) => f.endsWith('.html'))
-  .map((f) => `out/${f}`)
-  .sort();
+// 页面清单的真相是 build 计划（scripts/build-all.mjs 写 out/.pages.json），不是目录扫描：
+// 目录扫描会把上一轮的残留当当前产物一起闸（2026-11-19 减轨踩到），也会把「漏 build 一页」闸成绿灯。
+const MANIFEST = 'out/.pages.json';
+let pages;
+if (existsSync(MANIFEST)) {
+  const planned = JSON.parse(readFileSync(MANIFEST, 'utf8'));
+  const missing = planned.filter((p) => !existsSync(p));
+  if (missing.length) {
+    console.error(`verify-all: build 计划里有 ${missing.length} 页但磁盘上没有，先跑 npm run build\n  ${missing.join('\n  ')}`);
+    process.exit(1);
+  }
+  const stale = readdirSync('out').filter((f) => f.endsWith('.html')).map((f) => `out/${f}`).filter((p) => !planned.includes(p));
+  if (stale.length) console.warn(`verify-all: 忽略 ${stale.length} 个不在 build 计划内的残留页（npm run build 会清掉）`);
+  pages = planned;
+} else {
+  pages = readdirSync('out').filter((f) => f.endsWith('.html')).map((f) => `out/${f}`).sort();
+}
 
 if (!pages.length) {
   console.error('verify-all: out/ 里没有 .html，先跑 npm run build');

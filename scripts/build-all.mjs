@@ -7,7 +7,7 @@
  * 旧产物由下面的 prune 清理：verify-all 扫的是 out/ 目录，残留页会被当成当前产物一起闸。
  */
 import { spawnSync } from 'node:child_process';
-import { readdirSync, unlinkSync } from 'node:fs';
+import { readdirSync, unlinkSync, writeFileSync } from 'node:fs';
 
 const JOBS = [
   // MWG（唯一生产轨：文本 + 图表 + 流程图全包）
@@ -41,6 +41,8 @@ for (const args of JOBS) {
 
 // 清掉上一轮留下的、已不在计划里的页（弃用轨产物 + 改名的页）
 const planned = new Set(JOBS.map((j) => j[j.indexOf('-o') + 1]));
+// 闸读这份清单，不读目录：目录里只要有残留页就会被当成当前产物
+writeFileSync('out/.pages.json', JSON.stringify([...planned].sort(), null, 1));
 let pruned = 0;
 for (const f of readdirSync('out')) {
   if (!f.endsWith('.html')) continue;

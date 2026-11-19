@@ -133,61 +133,11 @@ WROTE C:\AI\UI\gary-ui\out\mwg-demo-report.html bytes=61241 blocks=10 recipe=rep
 
 ---
 
-## 4. 可用组件（174 个）
+## 4. 可用组件
 
-`@astryxdesign/core` 共 **174 个组件**（实测 `npx @astryxdesign/cli component --list` 首行即 `Components (174)`）。别猜 props，查：
+**MWG 轨没有组件目录**：组件就是 `mwg/components.css` 里的原生 CSS，agent 只填 `blocks[]`——19 类 block 与字段见 [content.schema.md](content.schema.md)，渲染函数在 `mwg/render.mjs` 与 `agent/recipes/sections.mjs`。
 
-```powershell
-cd C:\AI\UI\gary-ui
-
-# 列全部（人读）
-npx @astryxdesign/cli component --list
-
-# 单个组件的完整文档（agent 用这个）
-npx @astryxdesign/cli component Card --json
-
-# 只要 props 表（省 token）
-npx @astryxdesign/cli component Card --props --json
-
-# 多个一起查
-npx @astryxdesign/cli component Button Badge Text --json
-```
-
-### 4.1 `component <Name> --json` 返回结构
-
-```jsonc
-{
-  "apiVersion": 1,
-  "type": "component.detail",
-  "package": "@astryxdesign/core",
-  "data": {
-    "name": "Card",
-    "displayName": "Card",
-    "group": "Card",
-    "category": "Container",
-    "keywords": ["card", "surface", "panel", …],
-    "usage": { "description": "…", "bestPractices": [ { "guidance": true, "description": "…" } ] },
-    "props": [
-      { "name": "width", "type": "SizeValue", "default": null, "values": null, "description": "…" }
-    ],
-    "examples": [ … ],        // 源码级示例
-    "playground": { … },      // 交互试参
-    "theming": { … },         // 该组件吃哪些 token
-    "import": "@astryxdesign/core/Card",
-    "sourceAvailable": true
-  },
-  "meta": { … }
-}
-```
-
-- `props[]` 每项结构 `{ name, type, default, values, description }`（`type` 是枚举名，如 `SizeValue` / `variant` 联合；`values` 给出合法枚举值）。
-- `--props --json` 时 `type` 变成 `"component.detail.props"`，`data` 直接是 props 数组。
-- 查不到组件时 exit 1 并说明未知 selector——**exit 1 就换名字，别硬编**。
-
-### 4.2 组件选型的两条硬经验（来自 Astryx 文档原文）
-
-- `Card` 不是默认布局工具：先问「这一块能不能被单独移除或重排」，能才是 card；否则用 标题 + 堆叠。
-- `Table` 没有 footer 槽；`Badge` 同一状态不要满页刷。
+已弃用轨（`agent/render.mjs`）底下是 `@astryxdesign/core` 的 174 个组件，只在查历史用法时才需要：`npx @astryxdesign/cli component --list`、`npx @astryxdesign/cli component Card --json`（`--props --json` 只出 props 表）。
 
 ---
 

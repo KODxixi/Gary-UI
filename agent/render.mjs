@@ -20,6 +20,7 @@ import * as reportRecipe from './recipes/report.recipe.mjs';
 import * as tableRecipe from './recipes/table.recipe.mjs';
 import * as dashboardRecipe from './recipes/dashboard.recipe.mjs';
 import * as landingRecipe from './recipes/landing.recipe.mjs';
+console.warn('[deprecated] agent/render.mjs 已弃用：产物 5–6 倍大、不进 build 不进闸。出新页用 node mwg/render.mjs（见 agent/CONTRACT.md）。');
 
 const RECIPES = {
   [reportRecipe.id]: reportRecipe,
